@@ -14,233 +14,480 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
-    /* index.html — page-specific only; shared rules in shared.css */
-    body { min-height: unset; display: block; }
+    /* index.html — page-specific only; shared rebrand atoms/hero/nav/footer live in shared.css */
 
-    .hero {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 80px 0;
-      position: relative; overflow: hidden;
-      background-color: var(--hero-bg);
-    }
-    .hero-headline {
+    /* ─── CRISIS ────────────────────────────── */
+    .crisis { background: #fff; }
+    .crisis-statement {
+      background: var(--ink); color: #fff;
+      padding: 84px max(28px,7vw);
       font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(82px, 13vw, 140px);
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-      margin-bottom: 22px; text-align: center;
-      color: var(--on-dark);
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.45s;
+      font-size: clamp(2.3rem,4.5vw,4.8rem);
+      line-height: 1.06; letter-spacing: -0.04em;
+      position: relative; overflow: hidden;
     }
-    .hero-headline .accent { color: var(--accent); }
-    .hero-body {
-      font-size: var(--sz-lead); line-height: 1.72;
-      color: rgba(255,255,255,0.82);
-      max-width: 700px; font-weight: 400; text-align: center; margin-left: auto; margin-right: auto;
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.65s;
+    .crisis-statement > *:not(.fun-layer) { position: relative; z-index: 2; }
+    .crisis-statement em { color: var(--red-dark); font-style: normal; }
+    .crisis-statement .label { display: block; width: max-content; margin-bottom: 28px; }
+    .crisis-line { max-width: 18ch; font-weight: 800; text-transform: uppercase; }
+    .crisis-statement .stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      margin: 68px calc(-1 * max(28px,7vw)) -84px;
+      border-top: 2px solid rgba(255,255,255,.35);
     }
-    #hero-signup {
-      opacity: 0;
-      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.85s; display: flex; justify-content: center;
+    .crisis-statement .stat {
+      min-height: 225px; padding: 36px 34px;
+      border-right: 2px solid var(--ink);
+      display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;
+      color: #fff; font-family: var(--font-body); position: relative;
     }
-    .hero-events-link {
-      display: block; text-align: center; margin-top: 18px;
-      font-family: var(--font-body); font-size: var(--sz-label);
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: rgba(255,255,255,0.5); text-decoration: none;
-      opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 1.05s;
-      transition: color .2s;
-    }
-    .hero-events-link:hover { color: rgba(255,255,255,0.85); }
-
-    /* ─── STATS ─────────────────────────────── */
-    .stats-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--border);
-      border-radius: 0; overflow: hidden;
-      margin-bottom: 40px;
-    }
-    .stat { padding: 32px 26px 28px; border-right: 1px solid var(--border); text-align: center; }
-    .stat:last-child { border-right: none; }
-    .stat-val {
+    .crisis-statement .stat:last-child { border-right: 0; }
+    .crisis-statement .stat:nth-child(1) { background: var(--red); color: var(--ink); }
+    .crisis-statement .stat:nth-child(2) { background: var(--blue); color: var(--ink); }
+    .crisis-statement .stat:nth-child(3) { background: var(--green); }
+    .crisis-statement .stat span { color: #fff; }
+    .crisis-statement .stat:nth-child(1) span,
+    .crisis-statement .stat:nth-child(2) span { color: var(--ink); }
+    .crisis-statement .stat strong {
       font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(58px, 7vw, 82px); line-height: 1;
-      letter-spacing: -0.02em; color: var(--accent);
-      margin-bottom: 10px;
+      font-size: clamp(4.2rem,7vw,7.2rem); line-height: 0.82; letter-spacing: -0.07em;
+      position: relative; width: max-content;
     }
-    .stat-label {
-      font-family: var(--font-body); font-size: var(--sz-label);
-      letter-spacing: 0.1em; line-height: 1.6;
+    .crisis-statement .stat:nth-child(1) strong:after,
+    .crisis-statement .stat:nth-child(2) strong:after,
+    .crisis-statement .stat:nth-child(3) strong:after {
+      content: ""; position: absolute; left: 4%; right: 0; bottom: -8px; height: 7px;
+      border-radius: 999px; transform: rotate(-1deg); background: var(--ink); opacity: 0.72;
+    }
+    .crisis-statement .stat span { max-width: 17ch; font-size: 1.05rem; line-height: 1.35; font-weight: 800; }
+
+    /* ─── VISION ────────────────────────────── */
+    .vision { background: var(--paper); padding: 105px 0; position: relative; overflow: hidden; }
+    .vision > .container { position: relative; z-index: 2; }
+    .vision-copy .deck { margin: 34px 0 0; max-width: 30ch; }
+
+    /* ─── PRIORITY CAMPAIGNS ────────────────── */
+    .campaigns { margin-top: 76px; }
+    .campaigns-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+    .campaigns-head h3 {
+      margin: 0; font-family: var(--font-display);
+      font-size: clamp(2.1rem,4vw,4rem); font-weight: 700; line-height: 0.95; letter-spacing: -0.02em;
       text-transform: uppercase;
     }
+    .campaign-controls { display: flex; gap: 8px; }
+    .campaign-arrow {
+      width: 48px; height: 48px; border: 2px solid var(--ink);
+      background: var(--paper); color: var(--ink);
+      font-size: 1.35rem; font-weight: 800; cursor: pointer;
+    }
+    .campaign-arrow:hover { background: var(--yellow); }
+    .campaign-viewport {
+      overflow-x: auto; padding: 8px 14vw 24px; margin: 0 calc(50% - 50vw);
+      scrollbar-width: none; scroll-snap-type: x proximity; scroll-behavior: smooth;
+    }
+    .campaign-viewport::-webkit-scrollbar { display: none; }
+    .campaign-track { display: flex; gap: 22px; width: max-content; }
+    .campaign-card {
+      position: relative; flex: 0 0 min(68vw,760px); min-height: 440px;
+      overflow: hidden; border: 2px solid var(--ink); scroll-snap-align: center; isolation: isolate;
+    }
+    .campaign-card:after {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(180deg,transparent 20%,rgba(0,0,0,.88) 100%);
+    }
+    .campaign-art { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+    .campaign-art:before, .campaign-art:after { content: ""; position: absolute; }
+    .campaign-card.freeze .campaign-art { background: var(--blue); }
+    .campaign-card.freeze .campaign-art:before { width: 58%; aspect-ratio: 1; border: 34px solid rgba(255,255,255,.7); border-radius: 50%; left: 21%; top: -10%; box-shadow: 0 0 0 25px rgba(255,255,255,.15); }
+    .campaign-card.freeze .campaign-art:after { width: 130%; height: 18px; background: var(--ink); left: -15%; top: 44%; transform: rotate(-8deg); }
+    .campaign-card.surveillance .campaign-art { background: var(--red); }
+    .campaign-card.surveillance .campaign-art:before { width: 70%; height: 42%; border: 26px solid var(--ink); border-radius: 50%; left: 15%; top: 17%; }
+    .campaign-card.surveillance .campaign-art:after { width: 110px; height: 110px; background: var(--yellow); border: 18px solid var(--ink); border-radius: 50%; left: calc(50% - 55px); top: calc(38% - 55px); }
+    .campaign-card.robots .campaign-art { background: var(--green); }
+    .campaign-card.robots .campaign-art:before { width: 250px; height: 300px; background: var(--ink); left: calc(50% - 125px); top: 6%; clip-path: polygon(20% 0,80% 0,100% 20%,85% 100%,15% 100%,0 20%); }
+    .campaign-card.robots .campaign-art:after { width: 38px; height: 38px; background: var(--pink); border-radius: 50%; left: calc(50% - 19px); top: 26%; box-shadow: -68px 0 0 var(--pink),68px 0 0 var(--pink); }
+    .campaign-copy { position: absolute; left: 34px; right: 34px; bottom: 30px; color: #fff; }
+    .campaign-copy h4 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(3.2rem,6vw,6.2rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.018em; text-transform: uppercase; }
+    .campaign-copy p { max-width: 40ch; margin: 0; font-size: clamp(1rem,1.5vw,1.25rem); font-weight: 600; line-height: 1.35; }
+    .campaigns-link {
+      display: block; width: max-content; margin: 22px auto 0; padding-bottom: 3px;
+      border-bottom: 2px solid var(--ink);
+      font-family: var(--font-body); font-size: 13px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .campaigns-link:hover { color: var(--red); border-color: var(--red); }
 
-    .strategy-section { overflow: hidden; }
-    .us-map-bg {
-      position: absolute;
-      top: 50%; left: 80%;
-      transform: translate(-50%, -50%);
-      width: 60%; max-width: none; height: auto;
-      pointer-events: none; z-index: 0;
-      opacity: 0.028;
-      filter: invert(1) sepia(1) saturate(0.6) hue-rotate(190deg) brightness(1.4);
+    /* ─── STRATEGY ──────────────────────────── */
+    .strategy { background: #fff; padding: 105px 0 0; }
+    .strategy-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; }
+    .strategy .deck { margin-top: 34px; max-width: 26ch; }
+    .strategy h2 { font-weight: 700; letter-spacing: -0.035em; }
+    .process {
+      margin-top: 70px; display: grid; grid-template-columns: repeat(3,1fr);
+      border-top: 2px solid var(--ink); position: relative; isolation: isolate;
+      background: url("assets/homepage-process-texture.png") center 48% / cover no-repeat;
     }
-    /* ─── CTA SECTION ───────────────────────── */
-    .cta-section { padding: 70px 0 60px; text-align: center; }
-    .cta-headline {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(56px, 9vw, 100px);
-      line-height: 0.9; text-transform: uppercase;
-      letter-spacing: -0.025em; margin-bottom: 32px;
+    .process:before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(90deg,rgba(246,223,211,.91),rgba(248,243,235,.84),rgba(255,255,255,.68));
     }
-    .cta-sub {
-      font-size: var(--sz-copy); color: var(--text); font-style: italic;
-      max-width: 380px; margin: 36px auto 0;
-      line-height: 1.75;
+    .process:after {
+      content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.14;
+      background-image: radial-gradient(var(--ink) .8px,transparent .8px); background-size: 5px 5px;
     }
-    #cta-signup { display: inline-block; }
+    .step { min-height: 260px; padding: 28px; border-right: 2px solid var(--ink); background: transparent !important; backdrop-filter: saturate(.78); }
+    .step:last-child { border-right: 0; }
+    .step small {
+      display: block; margin-bottom: 58px;
+      font-family: var(--font-display);
+      font-size: clamp(2.7rem,4.5vw,5rem); line-height: 0.8; font-weight: 800; letter-spacing: -0.06em;
+      text-transform: uppercase; color: var(--red-dark);
+    }
+    .step h3 {
+      margin: 0; position: relative; display: inline-block;
+      font-family: var(--font-display);
+      font-size: clamp(2rem,3vw,3.3rem); line-height: 0.95; letter-spacing: -0.045em;
+      text-transform: uppercase; font-weight: 800;
+    }
+    .step:nth-child(1) h3:after, .step:nth-child(2) h3:after, .step:nth-child(3) h3:after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -8px; height: 5px; border-radius: 999px;
+    }
+    .step:nth-child(1) h3:after { background: var(--red); }
+    .step:nth-child(2) h3:after { background: var(--blue); }
+    .step:nth-child(3) h3:after { background: var(--green); }
+    .strategy-banner {
+      background: var(--red); color: var(--ink);
+      padding: 34px max(28px,7vw);
+      font-size: clamp(1.6rem,2.7vw,2.7rem); font-weight: 900; line-height: 1.05;
+      text-transform: uppercase; letter-spacing: -0.03em;
+      position: relative; overflow: hidden;
+    }
+    .strategy-banner:after {
+      content: ""; position: absolute; right: 6%; top: 50%; width: 90px; height: 90px;
+      border-radius: 50%; border: 12px solid rgba(255,255,255,.28); transform: translateY(-50%);
+    }
 
-    /* ─── RESPONSIVE ────────────────────────── */
-    @media (max-width: 768px) {
-      .hero { padding: 100px 0 60px; }
-      .hero-body { font-size: var(--sz-body); }
+    /* ─── INVOLVED ──────────────────────────── */
+    .involved { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); }
+    .involved-copy { padding: 105px max(28px,7vw); position: relative; overflow: hidden; }
+    .involved-copy .label, .involved-copy h2, .involved-copy .deck, .involved-copy .signup-row { position: relative; z-index: 2; }
+    .involved-copy .deck { margin: 35px 0 30px; max-width: 27ch; }
+    .involved-copy h2 { line-height: 0.98; letter-spacing: -0.018em; }
+    .quote {
+      position: relative; min-height: 540px; background: var(--ink); color: #fff;
+      padding: 72px 54px; display: flex; flex-direction: column; justify-content: flex-end;
+      overflow: hidden; border-left: 2px solid var(--ink);
+      background: linear-gradient(180deg,rgba(17,17,17,.08) 15%,rgba(17,17,17,.9) 100%),
+                  url("assets/homepage-quote-texture.png") 48% center / cover no-repeat;
+    }
+    .quote:before {
+      content: "\201C"; position: absolute; top: -90px; left: 25px;
+      font-family: Georgia,"Times New Roman",serif; font-size: 26rem; line-height: 1;
+      color: rgba(244,0,0,.92); text-shadow: 0 2px 0 var(--ink);
+    }
+    .quote:after {
+      content: ""; position: absolute; width: 100px; height: 10px; background: var(--yellow);
+      right: 34px; bottom: 38px; transform: rotate(-3deg); border-radius: 999px;
+    }
+    .quote blockquote {
+      margin: 0; position: relative; z-index: 2;
+      font-family: Georgia,"Times New Roman",serif;
+      font-size: clamp(2rem,3.6vw,3.6rem); line-height: 1.08;
+      text-shadow: 0 2px 18px rgba(0,0,0,.75);
+      padding: 24px 26px; background: rgba(17,17,17,.76);
+      border-left: 8px solid var(--red); box-shadow: 14px 14px 0 rgba(244,0,0,.24);
+    }
+    .quote cite {
+      display: block; margin-top: 24px;
+      font-family: var(--font-body); font-style: normal;
+      font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #fff;
+    }
+
+    /* ─── PHOTO SYSTEM (hero-art uses a real photo instead of decorative shapes) ── */
+    .hero-art { background: #f40000; }
+    .hero-photo {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: 55% 68%;
+      filter: brightness(1.08) contrast(.93) saturate(1.08);
+    }
+    .hero-art:after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg,rgba(255,255,255,.18),transparent 38%),
+                  linear-gradient(0deg,rgba(244,0,0,.18),transparent 48%);
+      mix-blend-mode: screen; pointer-events: none;
+    }
+    .hero-art .sun, .hero-art .burst, .hero-art .face, .hero-art .poster { display: none; }
+    .hero-art .scribble, .hero-art .confetti { z-index: 2; }
+
+    @media (max-width: 900px) {
+      .crisis-head, .vision-grid, .strategy-grid { grid-template-columns: 1fr; }
+      .involved { grid-template-columns: 1fr; }
+      .stats, .process { grid-template-columns: 1fr; }
+      .step { border-right: 0; border-bottom: 2px solid var(--ink); }
+      .step:last-child { border-bottom: 0; }
+      .quote { border-left: 0; border-top: 2px solid var(--ink); }
+    }
+    @media (max-width: 760px) and (min-width: 601px) {
+      .crisis-head, .vision-grid, .strategy-grid { gap: 48px; }
+      .quote { min-height: 470px; }
     }
     @media (max-width: 600px) {
-      .hero-headline br { display: none; }
-      .hero-headline { font-size: clamp(72px, 18vw, 100px); }
-      .hero-body { font-size: 20px; }
-      .stats-grid { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); text-align: center; }
-      .stat:last-child { border-bottom: none; }
-      .cta-headline { font-size: clamp(44px, 12vw, 64px); }
-      .cta-sub { font-size: 14px; }
-      #cta-signup { display: block; width: 100%; }
-      #hero-signup .sf input { font-size: 16px; padding: 13px 16px; }
-      #hero-signup .sf button { font-size: 12.5px; padding: 13px 20px; }
+      .hero-photo { object-position: 54% 72%; }
+      .process { background-position: 50% center; margin-top: 0; }
+      .process:before { background: linear-gradient(180deg,rgba(246,223,211,.9),rgba(248,243,235,.82),rgba(255,255,255,.7)); }
+      .crisis-statement { padding: 46px 20px; font-size: clamp(1.95rem,9vw,2.8rem); }
+      .crisis-statement .stats { margin: 34px -20px -46px; }
+      .crisis-statement .stat { min-height: 0; padding: 26px 22px; flex-direction: column; gap: 12px; align-items: flex-start; }
+      .crisis-statement .stat strong { font-size: clamp(2.6rem,15vw,3.6rem); }
+      .crisis-statement .stat span { max-width: none; font-size: 1.05rem; line-height: 1.4; text-align: left; }
+      .vision { padding: 54px 0; }
+      .vision-grid { gap: 30px; }
+      .vision-copy .deck { margin-top: 22px; }
+      .campaigns { margin-top: 48px; }
+      .campaigns-head { align-items: center; margin-bottom: 18px; }
+      .campaigns-head h3 { font-size: 2rem; max-width: 8ch; }
+      .campaign-arrow { width: 42px; height: 42px; }
+      .campaign-viewport { padding: 6px 8vw 18px; background-position: 50% center; }
+      .campaign-track { gap: 12px; }
+      .campaign-card { flex-basis: 84vw; min-height: 360px; }
+      .campaign-copy { left: 22px; right: 22px; bottom: 22px; }
+      .campaign-copy h4 { font-size: 3.5rem; }
+      .campaign-copy p { font-size: .96rem; }
+      .strategy { padding-top: 54px; }
+      .strategy-grid { gap: 20px; padding-bottom: 30px; }
+      .process { margin-top: 0; }
+      .step { min-height: 140px; padding: 20px; }
+      .step small { margin-bottom: 24px; }
+      .step h3 { font-size: 1.75rem; }
+      .strategy-banner { padding: 20px; font-size: 1.25rem; }
+      .strategy-banner:after { width: 58px; height: 58px; border-width: 8px; right: 3%; }
+      .involved-copy { padding: 54px 20px 46px; }
+      .involved-copy .deck { margin: 22px 0 22px; }
+      .quote { min-height: 300px; padding: 42px 22px; background-position: 51% center; }
+      .quote:before { font-size: 15rem; top: -48px; left: 12px; }
+      .quote:after { width: 72px; height: 7px; right: 20px; bottom: 24px; }
+      .quote blockquote { font-size: clamp(1.75rem,8vw,2.5rem); padding: 18px 18px; border-left-width: 6px; box-shadow: 9px 9px 0 rgba(244,0,0,.24); }
     }
-
-    /* ─── HERO SIGNUP — larger form ────────────── */
-    #hero-signup .sf { max-width: 552px; }
-    #hero-signup .sf input {
-      font-size: 19.2px; padding: 15.6px 19.2px;
-    }
-    #hero-signup .sf button {
-      font-size: 14.4px; padding: 15.6px 26.4px;
-    }
-
   </style>
 </head>
 <body>
 
-  <div class="progress-bar"></div>
+<header class="site-header"></header>
 
-  <nav class="site-nav"></nav>
-
-  <!-- ═══════════ HERO ═══════════ -->
+<main>
+  <!-- ═══════════ HERO ═══════════
+       PLACEHOLDER PHOTO — assets/homepage-hero-photo.jpg, extracted from the
+       rebrand mockup. Licensing/rights unverified (looks like a stock/news
+       photo of an identifiable crowd) — replace before this page goes live. -->
   <section class="hero">
-    <div class="ember-field" aria-hidden="true"></div>
-    <div class="container">
-      <h1 class="hero-headline">
-        <span> Revolt for </span class="accent"><br>
-        <span><span>  our </span></span>
-        <span><span class="accent">  future. </span></span><br>
-      </h1>
-      <p class="hero-body">
-        AI is threatening humanity. <br>
-        Find your voice and <span class="accent"> fight back.</span>
-      </p>
-      <div id="hero-signup"></div>
+    <div class="hero-copy">
+      <div class="hero-fun" aria-hidden="true"><i class="star-one"></i><i class="ring-one"></i><i class="spark-one"></i><i class="spark-two"></i><i class="dots-one"></i></div>
+      <h1>Revolt for <span class="marker">our future.</span></h1>
+      <p>We defend humanity from the threats of superintelligence.</p>
+      <form class="signup-row" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Join →</button>
+      </form>
+      <a class="hero-read-more" href="#crisis">Read more →</a>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <img class="hero-photo" src="assets/homepage-hero-photo.jpg" alt="">
+      <div class="sun"></div>
+      <div class="burst"></div>
+      <div class="face"></div>
+      <div class="scribble"></div><div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
+      <i style="position:absolute;left:12%;top:14%;z-index:2;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="position:absolute;left:22%;top:22%;z-index:2;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
     </div>
   </section>
 
-  <div class="divider"></div>
-
-  <!-- ═══════════ THE CRISIS ═══════════ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-label reveal"><span class="title">Crisis</span></div>
-      <div class="stats-grid reveal">
+  <!-- ═══════════ CRISIS ═══════════ -->
+  <section class="crisis" id="crisis">
+    <div class="crisis-statement">
+      <div class="fun-layer" aria-hidden="true">
+        <i style="right:9%;top:14%;width:52px;color:var(--paper)">
+          <svg class="moon" viewBox="0 0 40 40" width="52" height="52"><mask id="crisis-moon-mask"><rect width="40" height="40" fill="#fff"/><circle cx="27" cy="13" r="14" fill="#000"/></mask><circle cx="20" cy="20" r="16" fill="currentColor" mask="url(#crisis-moon-mask)"/></svg>
+        </i>
+        <i style="right:22%;top:10%;width:16px;color:var(--yellow);transform:rotate(12deg)"><svg class="star" viewBox="0 0 24 24" width="16" height="16"><rect width="24" height="24" fill="currentColor"/></svg></i>
+        <i style="right:5%;top:38%;width:10px;color:var(--yellow);transform:rotate(-8deg)"><svg class="star" viewBox="0 0 24 24" width="10" height="10"><rect width="24" height="24" fill="currentColor"/></svg></i>
+        <i style="left:6%;bottom:10%;width:70px;color:var(--red)"><svg class="pow" viewBox="0 0 24 24" width="70" height="70"><rect width="24" height="24" fill="currentColor"/></svg></i>
+      </div>
+      <div class="label section-label-primary">Crisis</div>
+      <div class="crisis-line">Artificial intelligence is threatening the future of <em><span class="jolt">humanity.</span></em></div>
+      <div class="stats">
         <div class="stat">
-          <div class="stat-val" data-val="300M">300M</div>
-          <div class="stat-label">Jobs exposed to<br>AI automation</div>
+          <strong>300M</strong>
+          <span>Jobs exposed to AI automation</span>
         </div>
         <div class="stat">
-          <div class="stat-val" data-val="73%">73%</div>
-          <div class="stat-label">Of Americans favor<br>stronger AI oversight</div>
+          <strong>73%</strong>
+          <span>Of Americans favor stronger AI oversight</span>
         </div>
         <div class="stat">
-          <div class="stat-val" data-val="$100M">$100M</div>
-          <div class="stat-label">Raised by industry<br>lobbyists in 2026</div>
+          <strong>$100M</strong>
+          <span>Raised by industry lobbyists in 2026</span>
         </div>
       </div>
-      <p class="body-large reveal">
-        Artificial intelligence is threatening the <strong> future of humanity.</strong>
-      </p>
     </div>
   </section>
-
-  <div class="divider"></div>
 
   <!-- ═══════════ VISION ═══════════ -->
-  <section class="section">
+  <section class="vision" id="vision">
+    <div class="fun-layer" aria-hidden="true">
+      <i style="right:6%;top:6%;transform:rotate(-8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="right:13%;top:14%;transform:rotate(6deg) scale(.7);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="right:9%;top:26%;width:20px;color:var(--yellow);transform:rotate(10deg)"><svg class="star" viewBox="0 0 24 24" width="20" height="20"><rect width="24" height="24" fill="currentColor"/></svg></i>
+    </div>
     <div class="container">
-      <div class="section-label reveal"><span class="title">Vision</span></div>
-      <p class="body-large reveal">
-        We imagine <strong> a world where AI serves the common good.</strong> We believe in technology that uplifts all people, not just a rich few.
-      </p>
-      <p class="body-large reveal">
-        We fight for <strong>democracy, prosperity, and security</strong> in the age of AI.
-      </p>
-      <a href="/about#vision" class="text-link text-link--block reveal">Our focus areas →</a>
+      <div class="vision-copy">
+        <div class="label alt-yellow section-label-primary">Vision</div>
+        <h2 style="margin-top:18px">Technology for the <span class="underline blue">common good.</span></h2>
+        <p class="deck">We imagine a world where technology serves the people, not just a rich few.</p>
+        <div class="dot-row" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      </div>
+
+      <div class="campaigns">
+        <div class="campaigns-head">
+          <h3>Our demands</h3>
+          <div class="campaign-controls" aria-label="Campaign carousel controls">
+            <button class="campaign-arrow campaign-prev" type="button" aria-label="Previous campaign">←</button>
+            <button class="campaign-arrow campaign-next" type="button" aria-label="Next campaign">→</button>
+          </div>
+        </div>
+        <div class="campaign-viewport" tabindex="0">
+          <div class="campaign-track">
+            <article class="campaign-card freeze">
+              <div class="campaign-art" aria-hidden="true"></div>
+              <div class="campaign-copy"><h4>Freeze AI.</h4><p>Call on the US to slow the development of frontier intelligence.</p></div>
+            </article>
+            <article class="campaign-card surveillance">
+              <div class="campaign-art" aria-hidden="true"></div>
+              <div class="campaign-copy"><h4>Stop 1984.</h4><p>End AI-enabled mass surveillance.</p></div>
+            </article>
+            <article class="campaign-card robots">
+              <div class="campaign-art" aria-hidden="true"></div>
+              <div class="campaign-copy"><h4>No Killer Robots.</h4><p>Regulate deadly, autonomous weapons.</p></div>
+            </article>
+          </div>
+        </div>
+        <a class="campaigns-link" href="/campaigns">See all campaigns →</a>
+      </div>
     </div>
   </section>
-
-  <div class="divider"></div>
 
   <!-- ═══════════ STRATEGY ═══════════ -->
-  <section class="section strategy-section">
-    <img class="us-map-bg" src="assets/us.svg" aria-hidden="true" alt="">
-    <div class="container">
-      <div class="section-label reveal"><span class="title">  Strategy</span></div>
-      <p class="body-large reveal">
-        We build movement power through <strong>civic engagement.</strong>
-      </p>
-      <div class="strategy-cycle reveal">
-        <div data-flywheel-mount></div>
+  <section class="strategy" id="strategy">
+    <div class="container strategy-grid">
+      <div>
+        <div class="label section-label-primary">Strategy</div>
+        <h2 style="margin-top:18px">We build <span class="underline green">movement power.</span></h2>
       </div>
-      <a href="/about/#roadmap" class="text-link text-link--block reveal">Learn more →</a>
+      <div>
+        <p class="deck">We fight for revolutionary political change around technology. We start in our cities and schools, building towards state and federal action.</p>
+      </div>
+    </div>
+
+    <div class="process">
+      <div class="step"><small>01</small><h3>Seed cities</h3></div>
+      <div class="step"><small>02</small><h3>State campaigns</h3></div>
+      <div class="step"><small>03</small><h3>Federal action</h3></div>
+    </div>
+
+    <div class="strategy-banner">
+      <div class="fun-layer" aria-hidden="true">
+        <i style="left:5%;top:20%;width:34px;color:var(--ink);transform:rotate(-6deg)"><svg class="zap" viewBox="0 0 24 40" width="34" height="34"><path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"/></svg></i>
+        <i style="left:14%;bottom:16%;width:14px;color:var(--yellow);transform:rotate(14deg)"><svg class="star" viewBox="0 0 24 24" width="14" height="14"><rect width="24" height="24" fill="currentColor"/></svg></i>
+      </div>
+      <span style="position:relative;z-index:2">Find your voice, find some friends, and fight like hell.</span>
     </div>
   </section>
 
-  <div class="divider"></div>
+  <!-- ═══════════ INVOLVED ═══════════
+       PLACEHOLDER PHOTO — assets/homepage-quote-texture.png, extracted from
+       the rebrand mockup. Licensing/rights unverified — replace before this
+       page goes live. -->
+  <section class="involved" id="involved">
+    <div class="involved-copy">
+      <div class="fun-layer" aria-hidden="true">
+        <i style="left:4%;top:8%;transform:rotate(-8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+        <i style="left:16%;top:18%;transform:rotate(4deg) scale(.7);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+        <i style="right:8%;top:12%;transform:rotate(-4deg) scale(.55);color:var(--red)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+        <i style="right:6%;top:38%;transform:rotate(6deg);color:var(--red)"><svg class="swirl-arrow" viewBox="0 0 60 40"><path d="M4 4C24 0 42 8 38 22C35 32 22 35 13 29"/><path d="M6 21L13 29L21 20"/></svg></i>
+        <i class="spark" style="left:9%;bottom:20%;position:absolute"></i>
+      </div>
+      <div class="label alt-green">Get involved</div>
+      <h2 style="margin-top:18px">Dare to fight for a <span class="marker">brighter future.</span></h2>
+      <p class="deck"><strong>Connect to your chapter today.</strong></p>
+      <form class="signup-row" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Join →</button>
+      </form>
+    </div>
 
-  <!-- ═══════════ CTA ═══════════ -->
-  <section class="cta-section">
-    <div class="container">
-      <div class="cta-headline reveal">Get <br> Involved</div>
-      <div id="cta-signup" class="reveal"></div>
-      <p class="cta-sub reveal">"It always seems impossible until it is done." <br> - Nelson Mandela</p>
+    <div class="quote">
+      <blockquote>
+        “It always seems impossible until it is done.”
+        <cite>Nelson Mandela</cite>
+      </blockquote>
     </div>
   </section>
+</main>
 
-  <footer class="footer"></footer>
+<footer class="site-footer"></footer>
 
-  <script src="signup.js"></script>
-  <script src="flywheel.js"></script>
-  <script>
-    document.getElementById('hero-signup').appendChild(createSignupForm({ theme: 'dark' }));
-    document.getElementById('cta-signup').appendChild(createSignupForm({ theme: 'light' }));
+<script src="signup.js"></script>
+<script>
+  document.querySelectorAll('.signup-row').forEach(function (form) {
+    wireSignupForm(form, { interest: '' });
+  });
 
-    initEmberField();
-  </script>
-  <script src="reveal.js"></script>
-  <script src="nav.js"></script>
-  <script src="footer.js"></script>
-  <script src="nav-circle.js"></script>
+  (function () {
+    var viewport = document.querySelector('.campaign-viewport');
+    var track = document.querySelector('.campaign-track');
+    var originals = [].slice.call(track.querySelectorAll('.campaign-card'));
+    var count = originals.length;
+    originals.forEach(function (card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
+    originals.slice().reverse().forEach(function (card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.insertBefore(clone, track.firstChild);
+    });
+    var cards = [].slice.call(track.querySelectorAll('.campaign-card'));
+    var current = count;
+    var resetTimer;
+    function centerCard(index, instant) {
+      var card = cards[index];
+      var left = card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2;
+      if (instant) {
+        viewport.scrollLeft = left;
+      } else {
+        viewport.scrollTo({ left: left, behavior: 'smooth' });
+      }
+    }
+    function normalize() {
+      while (current >= count * 2) current -= count;
+      while (current < count) current += count;
+      centerCard(current, true);
+    }
+    function show(direction) {
+      current += direction;
+      while (current >= cards.length) current -= count;
+      while (current < 0) current += count;
+      centerCard(current);
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(normalize, 600);
+    }
+    document.querySelector('.campaign-prev').addEventListener('click', function () { show(-1); });
+    document.querySelector('.campaign-next').addEventListener('click', function () { show(1); });
+    window.addEventListener('load', function () { centerCard(current, true); });
+    window.addEventListener('resize', function () { centerCard(current, true); });
+  })();
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
 </body>
 </html>

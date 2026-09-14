@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start a Circle — Sapiens First</title>
+  <meta name="description" content="Start a Circle — organize a small group of people in your city taking action with Sapiens First.">
+  <meta property="og:title" content="Start a Circle — Sapiens First">
+  <meta property="og:description" content="Organize a small group of people in your city taking action with Sapiens First.">
+  <meta property="og:url" content="https://sapiensfirst.org/start-a-circle">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    /* start-a-circle.html — page-specific only; shared rebrand atoms/hero/
+       nav/footer live in shared.css. Same inner-page type-scale overrides as
+       about/fellowship — see about.html for why shared.css's bare
+       h1/h2/.deck/.btn/etc. need overriding here. */
+    h1 { max-width: 9ch; font-size: clamp(4rem, 8.4vw, 8.4rem); }
+    h2 { font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: .98; }
+    .deck { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500; }
+    .hero-copy p {
+      max-width: 34ch; margin: 30px 0 26px;
+      font-size: clamp(1.1rem,1.6vw,1.4rem); line-height: 1.45; font-weight: 600;
+    }
+    .actions { position: relative; z-index: 2; }
+    .btn { padding: 16px 22px; font-size: 14px; }
+    .poster { font-size: clamp(.95rem,1.7vw,1.4rem); }
+    .poster.alt { bottom: 32%; }
+    .underline:after { height: 6px; bottom: -6px; }
+    .hero-copy:after { content: none; }
+    .hero-note {
+      margin-top: 16px; font-size: 13px; font-weight: 600; font-style: italic;
+      color: var(--ink); position: relative; z-index: 2;
+    }
+    .fact-pills { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 30px; position: relative; z-index: 2; }
+    .fact-pill {
+      padding: 9px 13px; border: 2px solid var(--ink); background: var(--white);
+      font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+    }
+
+    /* ─── ABOUT YOU / focus rows ── */
+    .about-you { background: var(--paper); padding: 100px 0; position: relative; overflow: hidden; }
+    .about-you > .container { position: relative; z-index: 2; }
+    .you-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+    .focus { border-top: 2px solid var(--ink); }
+    .focus-row {
+      display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: start;
+      padding: 26px 0; border-bottom: 1px solid var(--line);
+    }
+    .focus-row .n { font-size: 11px; font-weight: 900; }
+    .focus-row:nth-child(1) .n { color: var(--red); }
+    .focus-row:nth-child(2) .n { color: var(--blue); }
+    .focus-row:nth-child(3) .n { color: var(--green); }
+    .focus-row .name { font-size: 1.2rem; font-weight: 800; line-height: 1.4; }
+    .you-note { margin-top: 26px; font-style: italic; font-weight: 600; color: var(--ink); }
+
+    /* ─── LADDER teaser ── */
+    .ladder { background: #fff; padding: 70px 0; }
+    .ladder .label { margin-bottom: 20px; }
+    .ladder .fact-pills { margin: 0; }
+    .ladder .fact-pill { font-size: 14px; padding: 12px 16px; }
+
+    /* ─── APPLY / closing ── */
+    .apply { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); }
+    .apply-copy { padding: 100px max(28px,7vw); }
+    .apply-copy .deck { margin: 24px 0 30px; max-width: 36ch; }
+    .apply-note { margin-top: 16px; font-style: italic; font-weight: 600; color: var(--ink); font-size: .95rem; }
+    .apply-panel {
+      position: relative; min-height: 480px;
+      background: var(--ink); color: #fff;
+      padding: 60px 50px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-left: 2px solid var(--ink); overflow: hidden;
+    }
+    .apply-panel .label { margin-bottom: 24px; position: relative; z-index: 2; }
+    .apply-panel .apply-deadline, .apply-panel p, .apply-panel .signup-row { position: relative; z-index: 2; }
+    .apply-deadline {
+      font-family: var(--font-display); font-size: clamp(4rem,9vw,7.5rem);
+      font-weight: 800; line-height: .9; text-transform: uppercase; color: var(--red);
+    }
+    .apply-panel p { margin: 18px 0 0; max-width: 30ch; font-size: 1.05rem; font-weight: 600; line-height: 1.5; color: #fff; }
+    .apply-panel .signup-row { margin-top: 22px; }
+    .apply-panel:after {
+      content: ""; position: absolute; width: 100px; height: 10px;
+      background: var(--yellow); right: 34px; bottom: 38px;
+      transform: rotate(-3deg); border-radius: 999px;
+    }
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-art { min-height: 420px; }
+      .apply { grid-template-columns: 1fr; }
+      .you-grid { grid-template-columns: 1fr; }
+      .apply-panel { border-left: 0; border-top: 2px solid var(--ink); min-height: 340px; }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
+      h2 { font-size: clamp(2.1rem,11vw,3.2rem); }
+      .hero-copy p { font-size: 1.02rem; max-width: none; }
+      .hero-art { min-height: 320px; }
+      .sun { width: 230px; height: 230px; top: 40px; right: -70px; }
+      .face { width: 180px; height: 280px; left: 10%; bottom: -56px; }
+      .burst { width: 120px; height: 120px; left: 8%; top: 11%; }
+      .poster { font-size: .85rem; padding: 9px 11px; bottom: 12%; right: 6%; }
+      .about-you, .ladder { padding: 56px 0; }
+      .apply-copy { padding: 54px 20px 48px; }
+      .apply-panel { padding: 44px 24px; min-height: 340px; }
+      .apply-deadline { font-size: clamp(3.2rem,18vw,5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header"></header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Start a Circle · Your City</div>
+      <h1>Start a <span class="marker">Circle.</span></h1>
+      <p>A Circle is a small group — fewer than 10 people — who organize locally, take action together, and give your area a place to belong.</p>
+      <div class="actions">
+        <a class="btn primary" href="/join">Express interest →</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="burst"></div>
+      <div class="face"></div>
+      <div class="poster">Start a<br>circle</div>
+      <div class="poster alt">Find your<br>people</div>
+      <div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
+      <i style="position:absolute;left:10%;top:8%;z-index:2;color:var(--ink);transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="position:absolute;left:20%;top:16%;z-index:2;color:var(--ink);transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+    </div>
+  </section>
+
+  <section class="about-you" id="why">
+    <div class="fun-layer" aria-hidden="true">
+      <i style="left:5%;top:8%;transform:rotate(-8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="left:13%;top:16%;transform:rotate(6deg) scale(.7);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+    </div>
+    <div class="container you-grid">
+      <div>
+        <div class="label alt-yellow">Why</div>
+        <h2 style="margin-top:18px">Why start a <span class="underline yellow">Circle?</span></h2>
+        <p class="you-note">Small groups move fast.</p>
+      </div>
+      <div class="focus">
+        <div class="focus-row">
+          <span class="n">01</span>
+          <span class="name">Take action on a campaign that matters to you — AI Freeze, Stop 1984, No Killer Robots</span>
+        </div>
+        <div class="focus-row">
+          <span class="n">02</span>
+          <span class="name">Give people in your area a place to connect and organize together</span>
+        </div>
+        <div class="focus-row">
+          <span class="n">03</span>
+          <span class="name">Grow something bigger — Circles link up into Hubs, Chapters, and an Alliance</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ladder" id="ladder">
+    <div class="container">
+      <div class="label alt-blue">How big can this get?</div>
+      <div class="fact-pills">
+        <span class="fact-pill">Circle (&lt;10)</span>
+        <span class="fact-pill">Hub (&lt;50)</span>
+        <span class="fact-pill">Chapter (&lt;150)</span>
+        <span class="fact-pill">Alliance (&lt;500)</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="apply" id="apply">
+    <div class="apply-copy">
+      <div class="label alt-green">Start</div>
+      <h2 style="margin-top:18px">Ready to <span class="marker">found one?</span></h2>
+      <p class="deck">You'll need to be a member first — then you can found a Circle in your Hub.</p>
+      <a class="btn primary" href="/join">Express interest →</a>
+      <p class="apply-note">Questions? Email rohan@sapiensfirst.org</p>
+    </div>
+    <div class="apply-panel">
+      <div class="fun-layer" aria-hidden="true">
+        <i style="left:8%;top:10%;transform:rotate(-6deg);color:#fff"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+        <i style="left:20%;top:20%;transform:rotate(6deg) scale(.65);color:#fff"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      </div>
+      <div class="label">Circle</div>
+      <div class="apply-deadline">&lt;10</div>
+      <p>Small enough to move fast, close enough to trust each other. Not ready to join yet? Leave your email and we'll help you find or start one nearby.</p>
+      <form class="signup-row" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Count me in →</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"></footer>
+
+<script src="signup.js"></script>
+<script>
+  document.querySelectorAll('.signup-row').forEach(function (form) {
+    wireSignupForm(form, { interest: 'Start a Circle' });
+  });
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>

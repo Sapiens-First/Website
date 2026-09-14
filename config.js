@@ -4,7 +4,7 @@ const SITE_CONFIG = {
   JOIN_URL: 'https://sapiensfirst.org/join',
   GUIDE_DOC_ID: '1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs',
   EVENTS_SHEET_ID: '1mkPKC7MmmKhW8PS2K-7lqmjreQOln6zz9t5C-lSDqOU',
-  EMBER_COLORS: ['#f97316','#fb923c','#fbbf24','#ef4444','#f59e0b','#fdba74'],
+  EMBER_COLORS: ['#ff5252','#ff8080','#ffbe0b','#c80000','#ff6b6b','#ffd60a'],
   EMBER_COUNT: 174,
 };
 
@@ -29,17 +29,20 @@ SITE_CONFIG.pageLink = function (page) {
 //           omitted/false -> not in the footer.
 //   external/href: for entries that aren't a local page (e.g. Donate).
 SITE_CONFIG.PAGES = {
-  about:      { label: 'About',        nav: true,   footer: 'About' },
-  privacy:    { label: 'Privacy',      footer: 'About' },
-  donate:     { label: 'Donate', href: SITE_CONFIG.DONATION_URL, external: true, footer: 'About' },
-  strategy:   { label: 'Strategy',                                              footer: 'About' },
-  fellowship: { label: 'Fellowship',   nav: true,   footer: 'Get Involved' },
-  join:       { label: 'Join',         nav: true,   footer: 'Get Involved' },
-  membership: { label: 'Membership' },
-  events:     { label: 'Events' },
-  learn:      { label: 'Learn',        footer: 'Resources' },
-  policy:     { label: 'Policy',       footer: 'Resources' },
-  campaigns:  { label: 'Campaigns',    footer: 'Resources' },
+  about:           { label: 'About',          nav: true,   footer: 'About' },
+  strategy:        { label: 'Strategy',                    footer: 'About' },
+  privacy:         { label: 'Privacy',                      footer: 'About' },
+  donate:          { label: 'Donate',                        footer: 'About' },
+  fellowship:      { label: 'Fellowship',     nav: true,   footer: 'Get Involved' },
+  'start-a-circle': { label: 'Start a Circle', nav: true,  footer: 'Get Involved' },
+  join:            { label: 'Join',           nav: true,   footer: 'Get Involved' },
+  membership:      { label: 'Membership' },
+  events:          { label: 'Events' },
+  learn:           { label: 'Learn',                          footer: 'Resources' },
+  policy:          { label: 'Policy',                         footer: 'Resources' },
+  campaigns:       { label: 'Campaigns',                      footer: 'Resources' },
+  // Unlinked: reachable by direct URL only, not wired into nav or footer.
+  'human-charter':  { label: 'The Human Charter' },
 };
 
 // Builds the root nav list (with nested `children` for dropdown items) from

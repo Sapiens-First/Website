@@ -4,11 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fellowship — Sapiens First</title>
-  <meta name="description" content="Join the Sapiens First Fellowship — a 12-week volunteer program building the movement's early community, systems, and marketing infrastructure.">
-  <meta property="og:title" content="Fellowship — Sapiens First">
-  <meta property="og:description" content="A 12-week volunteer program building the movement's early community, systems, and marketing infrastructure.">
-  <meta property="og:url" content="https://sapiensfirst.org/fellowship">
-  <meta property="og:type" content="website">
+  <meta name="description" content="Become a Sapiens First Fellow — hands-on experience, mentorship, and a key role in our movement to build political power over AI.">
   <!-- BUILD:HEAD-COMMON:START -->
   <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,346 +15,499 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
-    .section { padding: 48px 0; }
-    .section-compact { padding: 32px 0; }
-    @media (max-width: 768px) { .section { padding: 40px 0; } .section-compact { padding: 28px 0; } }
+    /* fellowship.html — page-specific only; shared rebrand atoms/hero/nav/footer live in shared.css */
 
-    /* ─── QUICK FACTS ────────────────────────── */
-    .fact-pills {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
-      margin: 24px auto 0; max-width: 720px;
+    /* shared.css's bare h1/h2/.deck/.btn/etc. are tuned to the homepage
+       mockup's own type scale — about/fellowship/start-a-circle share a
+       different (but identical-to-each-other) scale, so each overrides
+       locally rather than changing the shared rule other pages (incl. the
+       signed-off homepage) depend on. */
+    h1 { max-width: 9ch; font-size: clamp(4rem, 8.4vw, 8.4rem); }
+    h2 { font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: .98; }
+    .deck { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500; }
+    .hero-copy p {
+      max-width: 34ch; margin: 30px 0 26px;
+      font-size: clamp(1.1rem,1.6vw,1.4rem); line-height: 1.45; font-weight: 600;
     }
+    .actions { position: relative; z-index: 2; }
+    .btn { padding: 16px 22px; font-size: 14px; }
+    .poster { font-size: clamp(.95rem,1.7vw,1.4rem); }
+    .poster.alt { bottom: 32%; }
+    .underline:after { height: 6px; bottom: -6px; }
+    /* This mockup has no yellow underline squiggle below the hero paragraph
+       (that decorative :after is homepage-only) — suppress shared.css's copy. */
+    .hero-copy:after { content: none; }
+
+    .hero-note {
+      margin-top: 16px; font-size: 13px; font-weight: 600; font-style: italic;
+      color: var(--ink); position: relative; z-index: 2;
+    }
+    .fact-pills { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 30px; position: relative; z-index: 2; }
     .fact-pill {
-      font-family: var(--font-body); font-size: calc(var(--sz-label) * 1.3);
-      letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-dark);
-      border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px;
+      padding: 9px 13px; border: 2px solid var(--ink); background: var(--white);
+      font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
     }
 
-    /* ─── ROLE CARDS (accordion) ───────────────
-       Expand/collapse mechanics + open-state treatment live in
-       shared.css under .accordion-* / .accordion--card. This block
-       only adds role-specific content decoration. ─── */
-    .role-card { margin-top: 18px; padding: 0; cursor: default; }
-    .role-card:hover { transform: none; }
-    .role-card:first-of-type { margin-top: 30px; }
-    .role-header {
+    /* ─── TEXT LINK (this page's own — see shared.css's .text-link for the
+       old design system's accent-based version used by unconverted pages) ── */
+    .text-link {
+      display: inline-block; margin-top: 18px; padding-bottom: 3px;
+      border-bottom: 2px solid var(--ink); color: var(--ink);
+      font-family: var(--font-body); font-size: 13px; font-weight: 900;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .text-link:hover { color: var(--red); border-color: var(--red); }
+
+    /* ─── QUICK FACTS BAR ── */
+    .factbar { background: var(--ink); padding: 0; }
+    .factbar .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .factbar .stat {
+      min-height: 190px; padding: 30px 26px;
+      border-right: 2px solid rgba(255,255,255,.18);
+      display: flex; flex-direction: column; justify-content: space-between;
+      color: #fff;
+    }
+    .factbar .stat:last-child { border-right: 0; }
+    .factbar .stat strong {
+      font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.7rem);
+      font-weight: 800; text-transform: uppercase; line-height: 1;
+    }
+    .factbar .stat span { font-size: 1rem; font-weight: 700; letter-spacing: .03em; color: #fff; text-transform: uppercase; }
+    .factbar .stat:nth-child(1) strong { color: var(--red); }
+    .factbar .stat:nth-child(2) strong { color: var(--yellow); }
+    .factbar .stat:nth-child(3) strong { color: var(--blue); }
+    .factbar .stat:nth-child(4) strong { color: var(--green); }
+
+    /* ─── ABOUT (two-col) ── */
+    .about { background: #fff; padding: 100px 0; }
+    .about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 70px; align-items: start; }
+    .about-copy p { max-width: 38ch; }
+    .about-copy .deck { margin: 26px 0 0; }
+    .about-art {
+      position: relative; min-height: 400px;
+      background: var(--paper); border: 2px solid var(--ink); overflow: hidden;
+    }
+    .about-art .circle {
+      position: absolute; width: 220px; height: 220px; border-radius: 50%;
+      background: var(--red); left: 50%; top: 50%; transform: translate(-50%,-50%);
+      box-shadow: 14px -12px 0 var(--yellow), -14px 14px 0 var(--blue);
+    }
+    .about-art .tag {
+      position: absolute; background: #fff; border: 2px solid var(--ink);
+      padding: 10px 13px; font-size: 12px; font-weight: 900; text-transform: uppercase;
+    }
+    .about-art .t1 { left: 6%; top: 10%; transform: rotate(-3deg); }
+    .about-art .t2 { right: 6%; top: 20%; transform: rotate(3deg); }
+    .about-art .t3 { left: 10%; bottom: 12%; transform: rotate(2deg); }
+
+    /* ─── ABOUT YOU / focus rows ── */
+    .about-you { background: var(--paper); padding: 100px 0; position: relative; overflow: hidden; }
+    .about-you > .container { position: relative; z-index: 2; }
+    .you-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+    .focus { border-top: 2px solid var(--ink); }
+    .focus-row {
+      display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: start;
+      padding: 26px 0; border-bottom: 1px solid var(--line);
+    }
+    .focus-row .n { font-size: 11px; font-weight: 900; }
+    .focus-row:nth-child(1) .n { color: var(--red); }
+    .focus-row:nth-child(2) .n { color: var(--blue); }
+    .focus-row:nth-child(3) .n { color: var(--green); }
+    .focus-row .name { font-size: 1.2rem; font-weight: 800; line-height: 1.4; }
+    .you-note { margin-top: 26px; font-style: italic; font-weight: 600; color: var(--ink); }
+
+    /* ─── ROLES accordion ── */
+    .roles { background: #fff; padding: 100px 0; }
+    .roles-head .deck { margin-top: 26px; max-width: 44ch; }
+    .role-acc { margin-top: 44px; border-top: 2px solid var(--ink); }
+    .role { border-bottom: 2px solid var(--ink); position: relative; }
+    .role summary {
+      list-style: none; cursor: pointer;
+      padding: 26px 46px 26px 22px;
       display: flex; align-items: baseline; justify-content: space-between;
-      gap: 12px 16px; flex-wrap: wrap; flex: 1; min-width: 0;
+      gap: 16px 24px; flex-wrap: wrap; position: relative;
     }
-    .role-card .card-title { color: var(--text); margin-bottom: 0; }
+    .role summary::-webkit-details-marker { display: none; }
+    .role summary:before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; }
+    .role:nth-of-type(1) summary:before { background: var(--red); }
+    .role:nth-of-type(2) summary:before { background: var(--blue); }
+    .role:nth-of-type(3) summary:before { background: var(--green); }
+    .role:nth-of-type(4) summary:before { background: var(--pink); }
+    .role-title {
+      font-family: var(--font-display); font-size: clamp(1.6rem,2.6vw,2.4rem);
+      font-weight: 800; text-transform: uppercase; letter-spacing: -.01em;
+      padding-left: 14px;
+    }
     .role-tag {
-      font-family: var(--font-body); font-size: 11px; letter-spacing: 0.07em;
-      color: var(--text); padding: 3px 9px; border: 1px solid var(--border);
-      text-transform: uppercase; white-space: nowrap;
+      font-size: 11px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+      padding: 5px 9px; border: 2px solid var(--ink); white-space: nowrap;
     }
-    .role-desc { margin: 16px 0; }
-    .role-activities-label { display: block; margin-bottom: 8px; }
-    .role-list {
-      list-style: none; padding: 0; margin: 0;
-      display: flex; flex-direction: column; gap: 6px;
+    .role-chevron {
+      position: absolute; right: 22px; top: 28px;
+      width: 22px; height: 22px; border: 2px solid var(--ink);
+      display: grid; place-items: center; font-size: 14px; font-weight: 900;
     }
-    .role-list li {
-      font-size: var(--sz-copy); line-height: 1.5; color: var(--text);
-      font-weight: 500; padding-left: 16px; position: relative;
+    .role-chevron:after { content: "+"; }
+    .role[open] .role-chevron:after { content: "–"; }
+    .role-body { padding: 0 22px 34px 44px; }
+    .role-body p { max-width: 60ch; font-size: 1.02rem; line-height: 1.55; font-weight: 500; }
+    .role-activities-label {
+      display: block; margin: 20px 0 10px;
+      font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--red-dark);
     }
-    .role-list li::before { content: '–'; position: absolute; left: 0; color: var(--accent); opacity: 0.6; }
-    .role-note { font-style: italic; margin-top: 14px; margin-bottom: 0; }
+    .role-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .role-list li { padding-left: 18px; position: relative; font-size: 1rem; line-height: 1.5; font-weight: 600; }
+    .role-list li:before { content: "–"; position: absolute; left: 0; color: var(--ink); opacity: .5; }
+    .role-note { margin-top: 18px; font-style: italic; font-weight: 600; color: var(--ink); max-width: 60ch; }
 
-    /* ─── FIT CHECKLIST ──────────────────────── */
-    .fit-list {
-      margin-top: 24px; max-width: 720px; margin-left: auto; margin-right: auto;
-      padding-left: 1.25em; display: flex; flex-direction: column; gap: 12px;
-      list-style: disc;
+    /* ─── COMMITMENT banner ── */
+    .commitment { background: var(--red); padding: 60px 0; position: relative; overflow: hidden; }
+    .commitment > .container { position: relative; z-index: 2; }
+    .commitment-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .commitment p {
+      margin: 0; max-width: 34ch;
+      font-family: var(--font-display); font-size: clamp(1.6rem,2.6vw,2.5rem);
+      font-weight: 800; text-transform: uppercase; line-height: 1.08;
     }
-    .fit-list li::marker { color: var(--accent); }
-    .fit-list li { font-size: var(--sz-lead); line-height: 1.58; color: var(--text); font-weight: 400; }
-
-    .apply-cta { text-align: center; margin-top: 30px; }
-    .apply-note, .hero-note { font-style: italic; margin-top: 14px; }
-    .hero-note { color: var(--on-dark); opacity: 0.85; }
-    .hero-cta { margin-top: 26px; }
-    .btn--apply-big { font-size: var(--sz-title); letter-spacing: 0.06em; padding: 24px 56px; }
-    @media (max-width: 600px) { .btn--apply-big { font-size: 22px; padding: 20px 32px; } }
-
-    /* ─── FAQ (thin-rule accordion) ──────────── */
-    .faq-item { border-top: 1px solid var(--border); }
-    .faq-item:last-child { border-bottom: 1px solid var(--border); }
-    .faq-question {
-      font-family: var(--font-body); font-weight: 700;
-      font-size: clamp(18px, 2.2vw, 21px); line-height: 1.35; color: var(--text);
+    .commitment-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .commitment-pills span {
+      background: var(--ink); color: #fff;
+      padding: 10px 14px; font-size: 12px; font-weight: 900;
+      letter-spacing: .05em; text-transform: uppercase;
     }
-    .faq-answer { font-size: var(--sz-copy); line-height: 1.65; color: var(--text); font-weight: 500; }
-    .faq-answer :is(p, ul, ol, .faq-table-wrap) { margin: 0 0 14px; }
-    .faq-answer :last-child { margin-bottom: 0; }
-    .faq-answer ul, .faq-answer ol { padding-left: 1.15em; }
-    .faq-answer li { margin-bottom: 6px; }
-    .faq-table-wrap { overflow-x: auto; }
-    .faq-table { width: 100%; border-collapse: collapse; font-size: inherit; }
-    .faq-table th, .faq-table td { text-align: left; padding: 8px 14px 8px 0; border-bottom: 1px solid var(--border); vertical-align: top; }
-    .faq-table th { font-family: var(--font-body); font-size: var(--sz-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
 
-    @media (max-width: 768px) {
-      .fit-list li { font-size: var(--sz-body); }
+    /* ─── BENEFITS ── */
+    .benefits { background: var(--paper); padding: 90px 0; position: relative; overflow: hidden; }
+    .benefits > .container { position: relative; z-index: 2; }
+    .benefits-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; align-items: start; }
+    .benefits .deck { margin: 26px 0 0; max-width: 48ch; }
+
+    /* ─── FAQ ── */
+    .faq { background: #fff; padding: 100px 0; }
+    .faq-acc { margin-top: 44px; border-top: 2px solid var(--ink); }
+    .faq-item { border-bottom: 2px solid var(--ink); }
+    .faq-item summary {
+      list-style: none; cursor: pointer;
+      padding: 24px 46px 24px 0;
+      display: flex; align-items: baseline; gap: 18px; position: relative;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-n { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; min-width: 2.2ch; }
+    .faq-item:nth-of-type(1) .faq-n { color: var(--red); }
+    .faq-item:nth-of-type(2) .faq-n { color: var(--blue); }
+    .faq-item:nth-of-type(3) .faq-n { color: var(--green); }
+    .faq-item:nth-of-type(4) .faq-n { color: var(--pink); }
+    .faq-q {
+      font-family: var(--font-display); font-size: clamp(1.2rem,2vw,1.7rem);
+      font-weight: 700; text-transform: uppercase; letter-spacing: -.01em;
+    }
+    .faq-chevron {
+      position: absolute; right: 0; top: 24px;
+      width: 22px; height: 22px; border: 2px solid var(--ink);
+      display: grid; place-items: center; font-size: 14px; font-weight: 900;
+    }
+    .faq-chevron:after { content: "+"; }
+    .faq-item[open] .faq-chevron:after { content: "–"; }
+    .faq-body { padding: 0 46px 30px 2.2ch; }
+    .faq-body p, .faq-body ul, .faq-body ol { margin: 0 0 14px; max-width: 62ch; font-size: 1rem; line-height: 1.6; font-weight: 500; }
+    .faq-body :last-child { margin-bottom: 0; }
+    .faq-body ul, .faq-body ol { padding-left: 1.2em; }
+    .faq-body li { margin-bottom: 6px; }
+    .faq-table-wrap { overflow-x: auto; margin-bottom: 14px; }
+    .faq-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    .faq-table th, .faq-table td { text-align: left; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .faq-table th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--red-dark); font-weight: 900; }
+
+    /* ─── APPLY ── */
+    .apply { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); }
+    .apply-copy { padding: 100px max(28px,7vw); }
+    .apply-copy .deck { margin: 24px 0 30px; max-width: 36ch; }
+    .apply-note { margin-top: 16px; font-style: italic; font-weight: 600; color: var(--ink); font-size: .95rem; }
+    .apply-panel {
+      position: relative; min-height: 480px;
+      background: var(--ink); color: #fff;
+      padding: 60px 50px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-left: 2px solid var(--ink); overflow: hidden;
+    }
+    .apply-panel .label { margin-bottom: 24px; position: relative; z-index: 2; }
+    .apply-panel .apply-deadline, .apply-panel p, .apply-panel .signup-row { position: relative; z-index: 2; }
+    .apply-deadline {
+      font-family: var(--font-display); font-size: clamp(3.2rem,7vw,5.6rem);
+      font-weight: 800; line-height: .95; text-transform: uppercase; color: var(--red);
+    }
+    .apply-panel p { margin: 18px 0 22px; max-width: 30ch; font-size: 1.05rem; font-weight: 600; line-height: 1.5; color: #fff; }
+    .apply-panel:after {
+      content: ""; position: absolute; width: 100px; height: 10px;
+      background: var(--yellow); right: 34px; bottom: 38px;
+      transform: rotate(-3deg); border-radius: 999px;
+    }
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-art { min-height: 420px; }
+      .apply { grid-template-columns: 1fr; }
+      .about-grid, .you-grid, .benefits-grid { grid-template-columns: 1fr; }
+      .about-art { min-height: 320px; }
+      .factbar .stats { grid-template-columns: repeat(2,1fr); }
+      .factbar .stat:nth-child(2) { border-right: 0; }
+      .factbar .stat:nth-child(1), .factbar .stat:nth-child(2) { border-bottom: 2px solid rgba(255,255,255,.18); }
+      .apply-panel { border-left: 0; border-top: 2px solid var(--ink); min-height: 340px; }
     }
     @media (max-width: 600px) {
-      .container { padding: 0 20px; }
-      .fit-list { padding-left: 1.15em; }
-      .fit-list li { font-size: 18px; line-height: 1.62; }
-      .role-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+      h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
+      h2 { font-size: clamp(2.1rem,11vw,3.2rem); }
+      .hero-copy p { font-size: 1.02rem; max-width: none; }
+      .hero-art { min-height: 320px; }
+      .sun { width: 230px; height: 230px; top: 40px; right: -70px; }
+      .face { width: 180px; height: 280px; left: 10%; bottom: -56px; }
+      .burst { width: 120px; height: 120px; left: 8%; top: 11%; }
+      .poster { font-size: .85rem; padding: 9px 11px; bottom: 12%; right: 6%; }
+      .factbar .stats { grid-template-columns: 1fr; }
+      .factbar .stat { min-height: 0; padding: 24px 20px; border-right: 0 !important; border-bottom: 2px solid rgba(255,255,255,.18); }
+      .factbar .stat:last-child { border-bottom: 0; }
+      .factbar .stat strong { font-size: 2.2rem; }
+      .factbar .stat span { font-size: 1rem; }
+      .about, .about-you, .roles, .benefits, .faq { padding: 56px 0; }
+      .role summary { padding: 20px 40px 20px 18px; }
+      .role-title { font-size: 1.35rem; padding-left: 10px; }
+      .role-body { padding: 0 18px 26px 32px; }
+      .role-chevron { right: 18px; top: 22px; }
+      .faq-item summary { padding: 20px 40px 20px 0; }
+      .faq-body { padding: 0 40px 24px 1.6ch; }
+      .commitment-inner { flex-direction: column; align-items: flex-start; }
+      .apply-copy { padding: 54px 20px 48px; }
+      .apply-panel { padding: 44px 24px; min-height: 340px; }
+      .apply-deadline { font-size: clamp(2.4rem,11vw,3.4rem); }
     }
-
-    /* ─── EXPERIMENT: left-justify everything (delete this block to undo) ─── */
-    .page-title,
-    .section-label,
-    .body-large,
-    .apply-cta { text-align: left; }
-    .body-large,
-    .fit-list { max-width: none; margin-left: 0; margin-right: 0; }
-    .fact-pills { justify-content: flex-start; }
-    .role-header { justify-content: flex-start; }
   </style>
 </head>
 <body>
 
-  <div class="progress-bar"></div>
+<header class="site-header"></header>
 
-  <nav class="site-nav"></nav>
-
-  <!-- ═══════════ PAGE HERO ═══════════ -->
-  <div class="page-hero">
-    <div class="ember-field" aria-hidden="true"></div>
-    <div class="container">
-      <h1 class="page-title">Become a<br><span class="title-accent">Fellow.</span></h1>
-      <div class="fact-pills reveal">
-        <span class="fact-pill">Sept 1 – Dec 4</span>
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Fellowship · Rolling Cohorts</div>
+      <h1>Become a <span class="marker">Fellow.</span></h1>
+      <p>As a Fellow, you'll get hands-on experience, mentorship, and play a key role in our movement.</p>
+      <div class="fact-pills">
+        <span class="fact-pill">Rolling admissions</span>
         <span class="fact-pill">12 weeks</span>
-        <span class="fact-pill">5–10 hrs / week</span>
+        <span class="fact-pill">3–5 hrs / week</span>
         <span class="fact-pill">Volunteer</span>
       </div>
-      <div class="hero-cta reveal">
-        <a href="/fellowship-app" class="btn btn--solid btn--apply-big" target="_blank" rel="noopener noreferrer">Apply by Aug 23rd →</a>
+      <div class="actions">
+        <a class="btn primary" href="/fellowship-app" target="_blank" rel="noopener noreferrer">Apply Now →</a>
+      </div>
+      <p class="hero-note">You'll work directly with the founder and a growing team of Fellows from across the country.</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="burst"></div>
+      <div class="face"></div>
+      <div class="poster">Join the<br>fellowship</div>
+      <div class="poster alt">Be the<br>change</div>
+      <div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
+      <i style="position:absolute;left:10%;top:8%;z-index:2;color:var(--ink);transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="position:absolute;left:20%;top:16%;z-index:2;color:var(--ink);transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+    </div>
+  </section>
+
+  <section class="factbar">
+    <div class="stats">
+      <div class="stat"><strong>Rolling</strong><span>Program dates</span></div>
+      <div class="stat"><strong>12 weeks</strong><span>Program length</span></div>
+      <div class="stat"><strong>3–5 hrs</strong><span>Time per week</span></div>
+      <div class="stat"><strong>Ongoing</strong><span>Applications</span></div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <div class="label">About</div>
+        <h2 style="margin-top:18px">We imagine tech for the <span class="underline blue">common good.</span></h2>
+        <p class="deck">Our mission is to achieve revolutionary political change for technology before the arrival of superintelligence.</p>
+        <a class="text-link" href="/learn">Learn more →</a>
+      </div>
+      <div class="about-art">
+        <div class="circle"></div>
+        <div class="tag t1">Political change</div>
+        <div class="tag t2">AI safety</div>
+        <div class="tag t3">Democracy</div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <main>
-
-    <!-- ═══════════ INTRO ═══════════ -->
-    <section class="section section-compact">
-      <div class="container">
-        <p class="body-large reveal">
-          We're creating a volunteer team to build the foundations of Sapiens First.
-        </p>
-        <p class="body-large reveal">
-          You'll
-          work with the <a href="https://www.rohanprasad.org" class="text-link" target="_blank" rel="noopener noreferrer" style="text-transform:none;letter-spacing:normal;font-size:inherit;">founder</a> and a team of Fellows
-          to pilot our initial activities in California.
-        </p>
-        <p class="body-large reveal">
-          Fellows get <strong>mentorship</strong>, <strong>hands-on experience</strong>, and will be part of a fast and growing movement.
-        </p>
+  <section class="about-you" id="about-you">
+    <div class="fun-layer" aria-hidden="true">
+      <i style="left:5%;top:8%;transform:rotate(-8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="left:13%;top:16%;transform:rotate(6deg) scale(.7);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="right:6%;bottom:12%;width:56px;color:var(--yellow)">
+        <svg class="moon" viewBox="0 0 40 40" width="56" height="56"><mask id="aboutyou-moon-mask"><rect width="40" height="40" fill="#fff"/><circle cx="27" cy="27" r="14" fill="#000"/></mask><circle cx="20" cy="20" r="16" fill="currentColor" mask="url(#aboutyou-moon-mask)"/></svg>
+      </i>
+    </div>
+    <div class="container you-grid">
+      <div>
+        <div class="label alt-yellow">About you</div>
+        <h2 style="margin-top:18px">We're looking for people who <span class="underline yellow">care deeply.</span></h2>
+        <p class="you-note">We look for enthusiasm, dedication, and a desire to grow.</p>
       </div>
-    </section>
-
-    <!-- ═══════════ ABOUT SAPIENS FIRST ═══════════ -->
-    <section class="section section-compact">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">About Sapiens First</span></div>
-        <p class="body-large reveal">
-          We imagine <strong>a world where AI serves the common good.</strong> We fight for democracy, prosperity, and security in the age of AI.
-        </p>
-        <p class="body-large reveal">
-          Our current objective is to mobilize 3.5% of Americans to create dramatic political change before the arrival of superintelligence.
-        </p>
-        <a href="/learn" class="text-link text-link--block reveal">Learn more →</a>
+      <div class="focus">
+        <div class="focus-row">
+          <span class="n">01</span>
+          <span class="name">Care deeply about technology and society</span>
+        </div>
+        <div class="focus-row">
+          <span class="n">02</span>
+          <span class="name">Are inspired by activism as a tool for social change</span>
+        </div>
+        <div class="focus-row">
+          <span class="n">03</span>
+          <span class="name">Can work consistently for 3-5 hours a week</span>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════ WHO WE'RE LOOKING FOR ═══════════ -->
-    <section class="section section-compact">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">About You</span></div>
-        <p class="body-large reveal">We're looking for people who:</p>
-        <ul class="fit-list">
-          <li class="reveal"><strong>Care deeply</strong> about how AI &amp; technology will affect humanity</li>
-          <li class="reveal">Are <strong>inspired by activism </strong> and movement-building</li>
-          <li class="reveal">Welcome direct feedback and reflection</li>
-        </ul>
-        <p class="body-large reveal" style="margin-top:26px;">
-          <strong> Formal experience is not required </strong> — just enthusiasm and a desire to grow.
-        </p>
+  <section class="roles" id="roles">
+    <div class="container">
+      <div class="roles-head">
+        <div class="label">Roles</div>
+        <h2 style="margin-top:18px">Four <span class="underline green">workstreams,</span> one movement.</h2>
+        <p class="deck">We are currently looking for people to work on four primary workstreams.</p>
       </div>
-    </section>
 
-    <!-- ═══════════ THE ROLE ═══════════ -->
-    <section class="section" id="the-role">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">Roles</span></div>
-        <p class="body-large reveal">
-          We are currently looking for people to work on <strong>four primary workstreams</strong>.
-        </p>
-
-        <div class="role-card accordion--card card reveal" id="role-community">
-          <button class="role-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="role-community-body">
-            <span class="role-header">
-              <span class="card-title">Community Organizing</span>
-              <span class="role-tag">In-person · SF Bay</span>
-            </span>
-            <span class="role-chevron accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="role-panel accordion-panel">
-          <div class="role-panel-inner accordion-panel-inner">
-          <div class="role-body accordion-body" id="role-community-body">
-            <p class="role-desc card-text">
-              You enjoy talking to new people, are a <strong>great listener</strong>, and care deeply about
-              community. You're great at making people feel empowered, with the goal of them
-              joining the movement.
-            </p>
-            <span class="eyebrow eyebrow--accent role-activities-label">Example activities</span>
+      <div class="role-acc">
+        <details class="role" open>
+          <summary>
+            <span class="role-title">Community Organizing</span>
+            <span class="role-tag">Remote-friendly</span>
+            <span class="role-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="role-body">
+            <p>You enjoy talking to new people, are a great listener, and care deeply about community. You're great at making people feel empowered, with the goal of them joining the movement.</p>
+            <span class="role-activities-label">Example activities</span>
             <ul class="role-list">
               <li>Designing events for people</li>
               <li>Door-to-door conversations with people</li>
               <li>Creating curriculum and documentation for volunteers to train up</li>
             </ul>
-            <p class="role-note card-text">Community Fellows should be able to commute to SF, Berkeley, or Oakland about twice a week to help with in-person community building.</p>
+            <p class="role-note">Community Fellows help grow and support Circles forming across the country.</p>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
 
-        <div class="role-card accordion--card card reveal reveal-d1" id="role-systems">
-          <button class="role-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="role-systems-body">
-            <span class="role-header">
-              <span class="card-title">Campaign Automations</span>
-              <span class="role-tag">Remote-friendly</span>
-            </span>
-            <span class="role-chevron accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="role-panel accordion-panel">
-          <div class="role-panel-inner accordion-panel-inner">
-          <div class="role-body accordion-body" id="role-systems-body">
-            <p class="role-desc card-text">
-              You enjoy building <strong>scalable systems and automations</strong> to empower communities.
-              You're a fast learner and excellent at incorporating AI to assist you in the
-              process, with the goal of streamlining our supporter and membership onboarding
-              and retention processes.
-            </p>
-            <span class="eyebrow eyebrow--accent role-activities-label">Example activities</span>
+        <details class="role">
+          <summary>
+            <span class="role-title">Campaign Automations</span>
+            <span class="role-tag">Remote-friendly</span>
+            <span class="role-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="role-body">
+            <p>You enjoy building scalable systems and automations to empower communities. You're a fast learner and excellent at incorporating AI to assist you in the process, with the goal of streamlining our supporter and membership onboarding and retention processes.</p>
+            <span class="role-activities-label">Example activities</span>
             <ul class="role-list">
               <li>Rigging up an open-source CRM to our membership sign-up page</li>
               <li>Creating an email automation protocol for sign-ups, event attendees, and supporters</li>
               <li>Automating member onboarding on Discord</li>
             </ul>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
 
-        <div class="role-card accordion--card card reveal reveal-d2" id="role-marketing">
-          <button class="role-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="role-marketing-body">
-            <span class="role-header">
-              <span class="card-title">Digital Marketing</span>
-              <span class="role-tag">Remote-friendly</span>
-            </span>
-            <span class="role-chevron accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="role-panel accordion-panel">
-          <div class="role-panel-inner accordion-panel-inner">
-          <div class="role-body accordion-body" id="role-marketing-body">
-            <p class="role-desc card-text">
-              You enjoy <strong>communicating big ideas clearly</strong> and learning what inspires people to
-              take action. You will test messaging and branding, with the goal of expanding
-              our digital reach.
-            </p>
-            <span class="eyebrow eyebrow--accent role-activities-label">Example activities</span>
+        <details class="role">
+          <summary>
+            <span class="role-title">Digital Marketing</span>
+            <span class="role-tag">Remote-friendly</span>
+            <span class="role-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="role-body">
+            <p>You enjoy communicating big ideas clearly and learning what inspires people to take action. You will test messaging and branding, with the goal of expanding our digital reach.</p>
+            <span class="role-activities-label">Example activities</span>
             <ul class="role-list">
               <li>Refining our brand marketing strategy</li>
               <li>Designing and executing our digital marketing strategy</li>
               <li>Designing materials like business cards, banners, and lawn signs</li>
             </ul>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
 
-        <div class="role-card accordion--card card reveal reveal-d3" id="role-policy">
-          <button class="role-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="role-policy-body">
-            <span class="role-header">
-              <span class="card-title">Policy &amp; Coalitions</span>
-              <span class="role-tag">CA-based</span>
-            </span>
-            <span class="role-chevron accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="role-panel accordion-panel">
-          <div class="role-panel-inner accordion-panel-inner">
-          <div class="role-body accordion-body" id="role-policy-body">
-            <p class="role-desc card-text">
-              You enjoy <strong>diving deep into policy and AI safety</strong>. You're good at putting
-              yourself in other people's shoes. You enjoy building relationships, with the goal
-              of building coalitional support for Sapiens First's campaigns in California.
-            </p>
-            <span class="eyebrow eyebrow--accent role-activities-label">Example activities</span>
+        <details class="role">
+          <summary>
+            <span class="role-title">Policy &amp; Coalitions</span>
+            <span class="role-tag">Remote-friendly</span>
+            <span class="role-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="role-body">
+            <p>You enjoy diving deep into policy and AI safety. You're good at putting yourself in other people's shoes. You enjoy building relationships, with the goal of building coalitional support for Sapiens First's campaigns nationally.</p>
+            <span class="role-activities-label">Example activities</span>
             <ul class="role-list">
               <li>Crafting achievable campaign objectives</li>
               <li>Collaborating with other movements like YDSA and the Sunrise Movement</li>
               <li>Reaching out and building relationships with mainstream orgs like the ACLU</li>
             </ul>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════ WHAT FELLOWS RECEIVE ═══════════ -->
-    <section class="section section-compact">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">Benefits</span></div>
-        <p class="body-large reveal">
-          This is a
-          volunteer program, but we provide support (travel, meals) for in-person activities, and will reimburse organizational expenses. Strong fellows may be invited to extend after the initial term.
-        </p>
+  <section class="commitment">
+    <div class="fun-layer" aria-hidden="true">
+      <i style="left:4%;top:22%;width:30px;color:var(--ink);transform:rotate(-6deg)"><svg class="zap" viewBox="0 0 24 40" width="30" height="30"><path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"/></svg></i>
+      <i style="right:8%;bottom:18%;width:60px;color:var(--ink)"><svg class="pow" viewBox="0 0 24 24" width="60" height="60"><rect width="24" height="24" fill="currentColor"/></svg></i>
+    </div>
+    <div class="container commitment-inner">
+      <p>Find your voice, find some friends, and fight like hell.</p>
+      <div class="commitment-pills">
+        <span>Rolling cohorts</span>
+        <span>12 weeks</span>
+        <span>3–5 hrs / week</span>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════ COMMITMENT ═══════════ -->
-    <section class="section section-compact">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">Commitment</span></div>
-        <p class="body-large reveal">
-          The fellowship runs <strong>Sept 1 to Dec 4</strong>, lasts <strong>12 weeks</strong>, and requires about
-          <strong>5–10 hours per week</strong>.
-        </p>
+  <section class="benefits" id="benefits">
+    <div class="fun-layer" aria-hidden="true">
+      <i style="right:10%;top:20%;transform:rotate(8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="right:4%;bottom:16%;width:14px;color:var(--red);transform:rotate(-10deg)"><svg class="star" viewBox="0 0 24 24" width="14" height="14"><rect width="24" height="24" fill="currentColor"/></svg></i>
+    </div>
+    <div class="container benefits-grid">
+      <div>
+        <div class="label">Benefits</div>
+        <h2 style="margin-top:18px">What you <span class="underline blue">receive.</span></h2>
       </div>
-    </section>
+      <div>
+        <p class="deck">This is a volunteer program, but we provide support (travel, meals) for in-person activities, and will reimburse organizational expenses. Strong fellows may be invited to extend after the initial term.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- ═══════════ FAQ ═══════════ -->
-    <section class="section" id="faq">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">FAQ</span></div>
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="label">FAQ</div>
+      <h2 style="margin-top:18px">Questions, <span class="underline green">answered.</span></h2>
 
-        <div class="faq-item accordion--rule reveal" id="faq-what">
-          <button class="faq-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="faq-what-body">
-            <span class="faq-question">What is the Fellowship?</span>
-            <span class="accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-          <div class="accordion-panel-inner">
-          <div class="accordion-body faq-answer" id="faq-what-body">
+      <div class="faq-acc">
+        <details class="faq-item" open>
+          <summary>
+            <span class="faq-n">01</span>
+            <span class="faq-q">What is the Fellowship?</span>
+            <span class="faq-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-body">
             <p>Each Fellow will own a priority project, and sync with a team working on a similar project. There'll also be programming to connect, learn about social change, politics, and hang out.</p>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
 
-        <div class="faq-item accordion--rule reveal" id="faq-why">
-          <button class="faq-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="faq-why-body">
-            <span class="faq-question">Why join the Fellowship?</span>
-            <span class="accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-          <div class="accordion-panel-inner">
-          <div class="accordion-body faq-answer" id="faq-why-body">
+        <details class="faq-item">
+          <summary>
+            <span class="faq-n">02</span>
+            <span class="faq-q">Why join the Fellowship?</span>
+            <span class="faq-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-body">
             <ul>
               <li>Be a founding member of the movement to save the future of humanity</li>
               <li>Build skills like strategic analysis, project planning, and leadership</li>
@@ -366,37 +515,31 @@
               <li>Have fun!</li>
             </ul>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
 
-        <div class="faq-item accordion--rule reveal" id="faq-process">
-          <button class="faq-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="faq-process-body">
-            <span class="faq-question">What does the process look like?</span>
-            <span class="accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-          <div class="accordion-panel-inner">
-          <div class="accordion-body faq-answer" id="faq-process-body">
+        <details class="faq-item">
+          <summary>
+            <span class="faq-n">03</span>
+            <span class="faq-q">What does the process look like?</span>
+            <span class="faq-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-body">
             <ol>
-              <li>Apply at <a href="/fellowship-app" class="text-link" target="_blank" rel="noopener noreferrer" style="text-transform:none;letter-spacing:normal;font-size:inherit;">sapiensfirst.org/fellowship</a></li>
+              <li>Apply at <a class="text-link" style="margin-top:0" href="/fellowship-app" target="_blank" rel="noopener noreferrer">sapiensfirst.org/fellowship</a></li>
               <li>Meet with the Executive Director to discuss your interests</li>
               <li>Receive an initial priority project. Accept by signing the Fellowship agreement.</li>
-              <li>Join the Discord and start on September 1st!</li>
+              <li>Join the Discord and get started!</li>
             </ol>
           </div>
-          </div>
-          </div>
-        </div>
+        </details>
 
-        <div class="faq-item accordion--rule reveal" id="faq-schedule">
-          <button class="faq-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="faq-schedule-body">
-            <span class="faq-question">What does the program look like week by week, month by month?</span>
-            <span class="accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-          <div class="accordion-panel-inner">
-          <div class="accordion-body faq-answer" id="faq-schedule-body">
+        <details class="faq-item">
+          <summary>
+            <span class="faq-n">04</span>
+            <span class="faq-q">What does the program look like week by week, month by month?</span>
+            <span class="faq-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="faq-body">
             <div class="faq-table-wrap">
               <table class="faq-table">
                 <thead>
@@ -418,53 +561,44 @@
               <li><strong>Weeks 10–12:</strong> Document and present</li>
             </ul>
           </div>
-          </div>
-          </div>
-        </div>
-
-        <div class="faq-item accordion--rule reveal" id="faq-deadline">
-          <button class="faq-toggle accordion-toggle" type="button" aria-expanded="false" aria-controls="faq-deadline-body">
-            <span class="faq-question">Is there an application deadline?</span>
-            <span class="accordion-chevron" aria-hidden="true"></span>
-          </button>
-          <div class="accordion-panel">
-          <div class="accordion-panel-inner">
-          <div class="accordion-body faq-answer" id="faq-deadline-body">
-            <p>Applications are due August 23rd for a September 1st start date.</p>
-          </div>
-          </div>
-          </div>
-        </div>
-
+        </details>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════ HOW TO APPLY ═══════════ -->
-    <section class="section section-compact">
-      <div class="container">
-        <div class="section-label reveal"><span class="title">Apply</span></div>
-        <p class="body-large reveal">
-          <strong>We're excited to hear from you!</strong> Applications submitted by August 23rd will be prioritized for the September 1st start date. Please email questions to rohan@sapiensfirst.org.
-        </p>
-        <div class="apply-cta reveal">
-          <a href="/fellowship-app" class="btn btn--solid btn--apply-big" target="_blank" rel="noopener noreferrer">Apply by Aug 23rd →</a>
-        </div>
+  <section class="apply" id="apply">
+    <div class="apply-copy">
+      <div class="label alt-green">Apply</div>
+      <h2 style="margin-top:18px">We're excited to <span class="marker">hear from you.</span></h2>
+      <p class="deck">We review applications on a rolling basis — there's no fixed deadline, so apply whenever you're ready.</p>
+      <a class="btn primary" href="/fellowship-app" target="_blank" rel="noopener noreferrer">Apply Now →</a>
+      <p class="apply-note">Questions? Email rohan@sapiensfirst.org</p>
+    </div>
+    <div class="apply-panel">
+      <div class="fun-layer" aria-hidden="true">
+        <i style="left:8%;top:10%;transform:rotate(-6deg);color:#fff"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+        <i style="left:20%;top:20%;transform:rotate(6deg) scale(.65);color:#fff"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
       </div>
-    </section>
+      <div class="label">Rolling Cohorts</div>
+      <div class="apply-deadline">Always<br>Open</div>
+      <p>Not ready to apply yet? Leave your email and we'll notify you about the next cohort.</p>
+      <form class="signup-row" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Notify me →</button>
+      </form>
+    </div>
+  </section>
+</main>
 
-  </main>
+<footer class="site-footer"></footer>
 
-  <footer class="footer"></footer>
-
-  <script src="accordion.js"></script>
-  <script>
-    createAccordion('.role-toggle');
-    createAccordion('.faq-toggle');
-    initEmberField();
-  </script>
-  <script src="reveal.js"></script>
-  <script src="nav.js"></script>
-  <script src="footer.js"></script>
-  <script src="nav-circle.js"></script>
+<script src="signup.js"></script>
+<script>
+  document.querySelectorAll('.signup-row').forEach(function (form) {
+    wireSignupForm(form, { interest: 'fellowship' });
+  });
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
 </body>
 </html>

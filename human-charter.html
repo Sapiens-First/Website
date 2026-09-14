@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Human Charter — Sapiens First</title>
+  <meta name="description" content="The Human Charter — eight principles for a brighter future, organized around Life, Liberty, and the pursuit of Happiness in the age of AI.">
+  <meta property="og:title" content="The Human Charter — Sapiens First">
+  <meta property="og:description" content="Eight principles for a brighter future, organized around Life, Liberty, and the pursuit of Happiness in the age of AI.">
+  <meta property="og:url" content="https://sapiensfirst.org/human-charter">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    /* human-charter.html — page-specific only; shared rebrand atoms/nav/footer
+       live in shared.css. This mockup's hero is a plain centered block (no
+       split hero-art image side), so it uses its own .charter-hero class
+       rather than shared.css's .hero grid component — reusing "hero" here
+       would pull in that two-column layout and wreck this page. Its h1/h2/
+       .btn/.underline also use their own numbers (different from about/
+       fellowship/start-a-circle's shared inner-page overrides), so those are
+       overridden fresh per this mockup's actual values instead of reused. */
+    h1 {
+      margin: 0 auto; max-width: 17ch;
+      font-size: clamp(3.4rem,9vw,7.6rem); line-height: .9; text-align: center;
+    }
+    h2 { font-size: clamp(2.9rem,5.4vw,5.6rem); line-height: .96; }
+    .btn { padding: 14px 22px; letter-spacing: 0.03em; }
+    .underline:after { bottom: -5px; }
+
+    .charter-hero {
+      background: var(--paper);
+      padding: clamp(80px,10vw,140px) 0 clamp(70px,8vw,100px);
+      text-align: center;
+    }
+    .charter-hero .kicker { margin: 0 auto 26px; }
+    .charter-hero .deck { max-width: 34ch; margin: 30px auto 0; font-weight: 700; }
+    .charter-hero .lede { max-width: 56ch; margin: 22px auto 0; font-size: 1.08rem; line-height: 1.55; color: #3a352c; }
+    .charter-hero .actions { justify-content: center; margin-top: 38px; }
+
+    /* ─── STAKES (dark crisis statement + stat trio) ── */
+    .stakes { background: var(--ink); }
+    .crisis-statement {
+      color: #fff; padding: 84px max(28px,7vw);
+      font-family: var(--font-display);
+      font-size: clamp(2.1rem,4vw,4.2rem); line-height: 1.08; letter-spacing: -.035em;
+    }
+    .crisis-statement em { color: var(--red); font-style: normal; }
+    .crisis-statement .label { display: block; width: max-content; margin-bottom: 28px; }
+    .crisis-line { max-width: 26ch; font-weight: 800; text-transform: uppercase; }
+    .crisis-statement .stats {
+      margin: 64px calc(-1 * max(28px,7vw)) -84px;
+      border-top: 2px solid rgba(255,255,255,.35);
+      display: grid; grid-template-columns: repeat(3,1fr);
+    }
+    .crisis-statement .stat {
+      min-height: 200px; padding: 32px 30px; border-right: 2px solid var(--ink);
+      position: relative; display: flex; flex-direction: column; justify-content: flex-start; gap: 16px;
+      font-family: var(--font-body); color: #fff;
+    }
+    .crisis-statement .stat:last-child { border-right: 0; }
+    .crisis-statement .stat:nth-child(1) { background: var(--red); }
+    .crisis-statement .stat:nth-child(2) { background: var(--blue); }
+    .crisis-statement .stat:nth-child(3) { background: var(--green); }
+    .crisis-statement .stat:nth-child(1), .crisis-statement .stat:nth-child(2) { color: var(--ink); }
+    .crisis-statement .stat strong {
+      font-family: var(--font-display); font-size: clamp(2.6rem,5vw,4.4rem);
+      line-height: .82; letter-spacing: -.03em; font-weight: 800;
+    }
+    .crisis-statement .stat span { max-width: 20ch; font-size: 1rem; line-height: 1.35; font-weight: 700; }
+
+    /* ─── PILLARS ── */
+    .pillar { padding: clamp(70px,9vw,110px) 0; }
+    .pillar.white { background: #fff; }
+    .pillar.paper { background: var(--paper); }
+    .pillar-head { max-width: 52ch; }
+    .pillar-head h2 { margin-top: 18px; }
+    .pillar-head .deck { margin: 24px 0 0; max-width: 46ch; font-weight: 600; }
+    .principles { margin-top: 56px; border-top: 2px solid var(--ink); display: grid; }
+    .principles-2 { grid-template-columns: repeat(2,1fr); }
+    .principles-3 { grid-template-columns: repeat(3,1fr); }
+    .principle {
+      min-height: 280px; padding: 32px 30px; border-right: 2px solid var(--ink);
+      display: flex; flex-direction: column;
+    }
+    .principle:last-child { border-right: 0; }
+    .principle .num {
+      font-family: var(--font-display); font-size: clamp(2.2rem,3.6vw,3.4rem);
+      font-weight: 800; letter-spacing: -.03em; color: var(--red-dark); line-height: .8; margin-bottom: 26px;
+    }
+    .principle h3 {
+      margin: 0 0 12px; font-size: clamp(1.5rem,2.2vw,2.05rem); line-height: 1.02;
+      letter-spacing: -.02em; text-transform: uppercase;
+      font-family: var(--font-display); font-weight: 800;
+    }
+    .principle p { margin: 0; max-width: 32ch; font-size: 1rem; line-height: 1.48; color: #3a352c; }
+    .pillar.white .principle:nth-child(odd) { background: var(--paper); }
+    .pillar.paper .principle:nth-child(odd) { background: #fff; }
+
+    /* ─── CLOSING / SIGN ── */
+    .closing { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); }
+    .closing-copy { padding: clamp(70px,9vw,105px) max(28px,7vw); position: relative; }
+    .closing-copy .deck { margin: 26px 0 30px; max-width: 28ch; }
+    .quote {
+      position: relative; min-height: 420px; background: var(--ink); color: #fff;
+      padding: 72px 54px; display: flex; flex-direction: column; justify-content: flex-end;
+      overflow: hidden; border-left: 2px solid var(--ink);
+    }
+    .quote:before {
+      content: "\201C"; position: absolute; top: -90px; left: 25px;
+      font-family: Georgia,"Times New Roman",serif; font-size: 22rem; line-height: 1; color: var(--red);
+    }
+    .quote blockquote {
+      margin: 0; position: relative; z-index: 2;
+      font-family: Georgia,"Times New Roman",serif; font-size: clamp(1.7rem,3vw,2.9rem); line-height: 1.1;
+    }
+    .quote cite {
+      display: block; margin-top: 22px; font-family: var(--font-body); font-size: 14px;
+      font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--yellow);
+      font-style: normal; position: relative; z-index: 2;
+    }
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .crisis-statement .stats { grid-template-columns: 1fr; }
+      .crisis-statement .stat { border-right: 0; border-bottom: 2px solid var(--ink); }
+      .crisis-statement .stat:last-child { border-bottom: 0; }
+      .principles-2, .principles-3 { grid-template-columns: 1fr; }
+      .principle { border-right: 0; border-bottom: 2px solid var(--ink); }
+      .principle:last-child { border-bottom: 0; }
+      .closing { grid-template-columns: 1fr; }
+      .quote { border-left: 0; border-top: 2px solid var(--ink); }
+    }
+    @media (max-width: 600px) {
+      .charter-hero { padding: 56px 0 48px; }
+      h1 { max-width: 11ch; font-size: clamp(2.5rem,13vw,4rem); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header"></header>
+
+<main>
+  <section class="charter-hero">
+    <div class="container">
+      <div class="kicker">The Human Charter · V0.1</div>
+      <h1>The Human Charter</h1>
+      <p class="deck">Eight Principles for the Future of Humanity.</p>
+      <p class="lede">Artificial intelligence holds great promise, but also poses grave threats to our future. As we confront this historic challenge, we offer the Human Charter — eight principles for a brighter future.</p>
+      <div class="actions">
+        <a class="btn primary" href="/join">Add Your Name →</a>
+        <a class="btn secondary" href="#principles">Read the Principles ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stakes">
+    <div class="crisis-statement">
+      <div class="label alt-yellow">The Stakes</div>
+      <div class="crisis-line">A brighter future is not guaranteed. It has to be <em>fought for.</em></div>
+      <div class="stats">
+        <div class="stat">
+          <strong>III</strong>
+          <span>Founding pillars — Life, Liberty, and the pursuit of Happiness</span>
+        </div>
+        <div class="stat">
+          <strong>VIII</strong>
+          <span>Principles for a populist AI movement</span>
+        </div>
+        <div class="stat">
+          <strong>V0.1</strong>
+          <span>A living charter, open for the movement to shape</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillar white" id="principles">
+    <div class="container pillar-head">
+      <div class="label alt-yellow">I</div>
+      <h2>Protect Humanity <span class="underline yellow">(Life)</span></h2>
+      <p class="deck">Before anything else, humanity has to survive what it is building.</p>
+    </div>
+    <div class="container">
+      <div class="principles principles-2">
+        <div class="principle">
+          <span class="num">01</span>
+          <h3>A Coordinated Slowdown</h3>
+          <p>An international agreement that paces the development of frontier intelligence.</p>
+        </div>
+        <div class="principle">
+          <span class="num">02</span>
+          <h3>A Global Initiative for Superalignment</h3>
+          <p>Let the great powers of the world work together to accelerate the alignment of AI to the collective interests of humanity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillar paper">
+    <div class="container pillar-head">
+      <div class="label alt-blue">II</div>
+      <h2>Strengthen Democracy <span class="underline blue">(Liberty)</span></h2>
+      <p class="deck">Power built by superintelligence has to answer to the people it is built on.</p>
+    </div>
+    <div class="container">
+      <div class="principles principles-3">
+        <div class="principle">
+          <span class="num">03</span>
+          <h3>A Human-First Government</h3>
+          <p>End corporate capture to put human interests first in our government.</p>
+        </div>
+        <div class="principle">
+          <span class="num">04</span>
+          <h3>Renewed Checks and Balances</h3>
+          <p>Transparency and accountability on the concentration of power from superintelligence and autonomous machines.</p>
+        </div>
+        <div class="principle">
+          <span class="num">05</span>
+          <h3>Enhance Civic Input</h3>
+          <p>Use information technology to facilitate civic communication and democracy, rather than political polarization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillar white">
+    <div class="container pillar-head">
+      <div class="label alt-green">III</div>
+      <h2>Build a Shared Future <span class="underline green">(the pursuit of Happiness)</span></h2>
+      <p class="deck">Abundant intelligence should raise everyone up, not just the few who own it.</p>
+    </div>
+    <div class="container">
+      <div class="principles principles-3">
+        <div class="principle">
+          <span class="num">06</span>
+          <h3>Institutional Reform</h3>
+          <p>Radical transformation of our institutions to eradicate bureaucracy and enhance the functioning of the public sector.</p>
+        </div>
+        <div class="principle">
+          <span class="num">07</span>
+          <h3>The Citizen's Dividend</h3>
+          <p>Distribute the economic power generated by abundant intelligence to the world's people.</p>
+        </div>
+        <div class="principle">
+          <span class="num">08</span>
+          <h3>Uplift All Sentient Beings</h3>
+          <p>Unleash the powers of technology to protect — not harm — non-human animals and other sentient beings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing" id="sign">
+    <div class="closing-copy">
+      <div class="label alt-yellow">Sign the Charter</div>
+      <h2 style="margin-top:18px">Add your name to the <span class="underline">North Star.</span></h2>
+      <p class="deck"><strong>Join the movement fighting for these principles.</strong></p>
+      <form class="signup-row" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Join →</button>
+      </form>
+    </div>
+    <div class="quote">
+      <blockquote>
+        We offer these as a North Star — a vision that empowers us to fight for our Rights for the decades ahead.
+      </blockquote>
+      <cite>The Human Charter, v0.1</cite>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"></footer>
+
+<script src="signup.js"></script>
+<script>
+  document.querySelectorAll('.signup-row').forEach(function (form) {
+    wireSignupForm(form, { interest: '' });
+  });
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>

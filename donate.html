@@ -2,9 +2,173 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Donate — Sapiens First</title>
+  <meta name="description" content="Support Sapiens First — fund the organizing, training, and advocacy work building political power for AI accountability.">
+  <meta property="og:title" content="Donate to Sapiens First">
+  <meta property="og:description" content="Your support funds the organizing, training, and policy work building the movement for AI accountability.">
+  <meta property="og:url" content="https://sapiensfirst.org/donate">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
   <script src="config.js"></script>
-  <script>window.location.replace(SITE_CONFIG.DONATION_URL);</script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    /* donate.html — no dedicated mockup; restyled to match the visual
+       language established by about.html/fellowship.html (kicker/hero/label/
+       underline/btn/section rhythm). Same inner-page type-scale overrides —
+       see about.html for why shared.css's bare h1/h2/.deck/.btn/etc. need
+       overriding here. */
+    h1 { max-width: 9ch; font-size: clamp(4rem, 8.4vw, 8.4rem); }
+    h2 { font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: .98; }
+    .deck { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500; }
+    .hero-copy p {
+      max-width: 40ch; margin: 30px 0 26px;
+      font-size: clamp(1.1rem,1.6vw,1.4rem); line-height: 1.45; font-weight: 600;
+    }
+    .actions { position: relative; z-index: 2; }
+    .btn { padding: 16px 22px; font-size: 14px; }
+    .poster { font-size: clamp(.95rem,1.7vw,1.4rem); }
+    .poster.alt { bottom: 32%; }
+    .underline:after { height: 6px; bottom: -6px; }
+    .hero-copy:after { content: none; }
+    .hero-note {
+      margin-top: 16px; font-size: 13px; font-weight: 600; font-style: italic;
+      color: var(--ink); position: relative; z-index: 2;
+    }
+
+    section { border-bottom: 2px solid var(--ink); }
+    .section { padding: 100px 0; }
+    .section-compact { padding: 60px 0; }
+
+    /* ─── TEXT LINK ── */
+    .text-link {
+      display: inline-block; margin-top: 18px; padding-bottom: 3px;
+      border-bottom: 2px solid var(--ink); color: var(--ink);
+      font-family: var(--font-body); font-size: 13px; font-weight: 900;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .text-link:hover { color: var(--red); border-color: var(--red); }
+
+    /* ─── WHERE-IT-GOES CARD GRID (synthesized — no mockup for this page;
+       matches the brutalist border/accent-strip language used elsewhere) ── */
+    .donate-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 40px; }
+    .donate-card { border: 2px solid var(--ink); background: #fff; padding: 28px 26px; }
+    .donate-card-title {
+      font-family: var(--font-display); font-weight: 800; font-size: 1.6rem;
+      text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 12px;
+      padding-bottom: 12px; border-bottom: 2px solid var(--ink);
+    }
+    .donate-grid .donate-card:nth-child(1) .donate-card-title { color: var(--red); }
+    .donate-grid .donate-card:nth-child(2) .donate-card-title { color: var(--blue); }
+    .donate-grid .donate-card:nth-child(3) .donate-card-title { color: var(--green); }
+    .donate-card-text { font-size: 1rem; line-height: 1.6; font-weight: 500; color: var(--ink); }
+
+    /* ─── FINAL CTA ── */
+    .donate-final { text-align: center; }
+    .donate-final .deck { max-width: 50ch; margin: 18px auto 0; }
+    .donate-cta-block { display: flex; flex-direction: column; align-items: center; margin-top: 30px; }
+    .donate-note {
+      font-family: var(--font-body); font-size: 12px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--ink); opacity: 0.65; margin-top: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-art { min-height: 420px; }
+      .donate-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 56px 0; }
+      .section-compact { padding: 40px 0; }
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
+      h2 { font-size: clamp(2.1rem,11vw,3.2rem); }
+      .hero-copy p { font-size: 1.02rem; max-width: none; }
+      .hero-art { min-height: 320px; }
+      .sun { width: 230px; height: 230px; top: 40px; right: -70px; }
+      .face { width: 180px; height: 280px; left: 10%; bottom: -56px; }
+      .burst { width: 120px; height: 120px; left: 8%; top: 11%; }
+      .poster { font-size: .85rem; padding: 9px 11px; bottom: 12%; right: 6%; }
+    }
+  </style>
 </head>
-<body></body>
+<body>
+
+<header class="site-header"></header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Support the Movement</div>
+      <h1>Fund the <span class="marker">fight.</span></h1>
+      <p>Sapiens First is a volunteer-powered, non-profit movement building the political power to make sure AI strengthens democracy, prosperity, and human security — not the other way around. We're supported by private donors, foundations, and people like you.</p>
+      <div class="actions">
+        <a class="btn primary" id="donate-cta" href="#" target="_blank" rel="noopener">Donate via Zeffy →</a>
+      </div>
+      <p class="hero-note">Secure checkout hosted by Zeffy · One-time or monthly</p>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="burst"></div>
+      <div class="face"></div>
+      <div class="poster">Fund the<br>fight</div>
+      <div class="poster alt">Give monthly</div>
+      <div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
+      <i style="position:absolute;left:10%;top:8%;z-index:2;color:var(--ink);transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <i style="position:absolute;left:20%;top:16%;z-index:2;color:var(--ink);transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="label">Where It Goes</div>
+      <h2 style="margin-top:18px">Every dollar has a <span class="underline blue">job.</span></h2>
+      <p class="deck" style="margin-top:26px;max-width:56ch">Every gift funds the machinery of the movement — the organizers, the trainings, and the campaigns pushing for real accountability.</p>
+
+      <div class="donate-grid">
+        <div class="donate-card">
+          <div class="donate-card-title">Organizing</div>
+          <div class="donate-card-text">Funds Circles, events, and the day-to-day work of recruiting and supporting organizers in cities across the country.</div>
+        </div>
+        <div class="donate-card">
+          <div class="donate-card-title">Training</div>
+          <div class="donate-card-text">Covers travel, meals, and materials for our Fellowship program — turning volunteers into skilled organizers and leaders.</div>
+        </div>
+        <div class="donate-card">
+          <div class="donate-card-title">Advocacy</div>
+          <div class="donate-card-text">Supports the research and coalition-building behind our policy recommendations for accountable AI governance.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-compact">
+    <div class="container donate-final">
+      <div class="label alt-yellow">Ready?</div>
+      <h2 style="margin-top:18px">Keep this fight <span class="underline yellow">funded —</span> and independent.</h2>
+      <p class="deck">Whatever you can give goes straight back into the movement.</p>
+      <div class="donate-cta-block">
+        <a class="btn primary" id="donate-cta-2" href="#" target="_blank" rel="noopener">Donate via Zeffy →</a>
+        <span class="donate-note">Secure checkout hosted by Zeffy</span>
+      </div>
+      <a href="/join" class="text-link">Not ready to give? Join our email list instead →</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"></footer>
+
+<script>
+  document.getElementById('donate-cta').href = SITE_CONFIG.DONATION_URL;
+  document.getElementById('donate-cta-2').href = SITE_CONFIG.DONATION_URL;
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
 </html>

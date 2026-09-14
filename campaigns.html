@@ -20,6 +20,12 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
+    /* shared.css's bare h1 rule caps hero headlines at max-width:8.2ch for
+       the homepage's stacked-headline template — every other converted
+       page (about/join/donate/human-charter/start-a-circle) overrides it
+       locally to fit its own headline; this page needs the same. */
+    h1 { margin: 0; max-width: 16ch; }
+
     .section { padding: 48px 0; }
     .section-compact { padding: 32px 0; }
     @media (max-width: 768px) { .section { padding: 40px 0; } .section-compact { padding: 28px 0; } }

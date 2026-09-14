@@ -1,6 +1,7 @@
 (function () {
   const header = document.querySelector('header.site-header');
   if (!header) return;
+  const brandLogoSrc = new URL('favicons/android-chrome-192x192.png', document.currentScript.src).href;
 
   const path = window.location.pathname.replace(/\/$/, '') || '/';
   const file = path.split('/').pop().replace(/\.html$/, '');
@@ -33,7 +34,10 @@
   header.innerHTML = `
     <div class="wrap">
       <nav>
-        <a class="brand" href="/">SAPIENS FIRST</a>
+        <a class="brand" href="/">
+          <img class="brand-logo" src="${brandLogoSrc}" alt="" width="30" height="30">
+          <span class="brand-name">Sapiens First</span>
+        </a>
         <div class="nav-actions">
           ${navLinksHtml}
           <a class="nav-cta${isActive('donate') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('donate')}">Donate</a>

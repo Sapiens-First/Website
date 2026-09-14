@@ -21,6 +21,11 @@
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
     /* index.html — page-specific only; shared rebrand atoms/hero/nav/footer live in shared.css */
+    main .deck { line-height: 1.5; }
+    main .btn { font-size: 16px; line-height: 1.25; }
+    .hero-read-more { font-size: 15px; }
+    .foot-col a { font-size: 15px; line-height: 1.5; }
+    .foot-col-title, .foot-bottom { font-size: 14px; }
 
     /* ─── CRISIS ────────────────────────────── */
     .crisis { background: #fff; }
@@ -33,30 +38,36 @@
       position: relative; overflow: hidden;
     }
     .crisis-statement > *:not(.fun-layer) { position: relative; z-index: 2; }
-    .crisis-statement em { color: var(--red-dark); font-style: normal; }
+    .crisis-statement > .crisis-earth {
+      position: absolute; z-index: 0; width: clamp(300px, 39vw, 560px); height: auto;
+      right: 5%; top: 100px; color: var(--blue); opacity: .42;
+      transform: rotate(-12deg); pointer-events: none;
+    }
+    .crisis-statement em { color: #ff7777; font-style: normal; }
     .crisis-statement .label { display: block; width: max-content; margin-bottom: 28px; }
     .crisis-line { max-width: 18ch; font-weight: 800; text-transform: uppercase; }
     .crisis-statement .stats {
-      display: grid; grid-template-columns: repeat(3,1fr);
+      display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+      font-size: 1rem; letter-spacing: normal;
       margin: 68px calc(-1 * max(28px,7vw)) -84px;
       border-top: 2px solid rgba(255,255,255,.35);
     }
     .crisis-statement .stat {
       min-height: 225px; padding: 36px 34px;
       border-right: 2px solid var(--ink);
-      display: flex; flex-direction: column; justify-content: flex-start; gap: 18px;
+      display: flex; flex-direction: column; justify-content: flex-start; gap: 22px;
       color: #fff; font-family: var(--font-body); position: relative;
     }
     .crisis-statement .stat:last-child { border-right: 0; }
     .crisis-statement .stat:nth-child(1) { background: var(--red); color: var(--ink); }
-    .crisis-statement .stat:nth-child(2) { background: var(--blue); color: var(--ink); }
+    .crisis-statement .stat:nth-child(2) { background: #bcd8ff; color: var(--ink); }
     .crisis-statement .stat:nth-child(3) { background: var(--green); }
     .crisis-statement .stat span { color: #fff; }
     .crisis-statement .stat:nth-child(1) span,
     .crisis-statement .stat:nth-child(2) span { color: var(--ink); }
     .crisis-statement .stat strong {
       font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(4.2rem,7vw,7.2rem); line-height: 0.82; letter-spacing: -0.07em;
+      font-size: clamp(4.2rem,7vw,7.2rem); line-height: 0.82; letter-spacing: -0.02em;
       position: relative; width: max-content;
     }
     .crisis-statement .stat:nth-child(1) strong:after,
@@ -65,7 +76,7 @@
       content: ""; position: absolute; left: 4%; right: 0; bottom: -8px; height: 7px;
       border-radius: 999px; transform: rotate(-1deg); background: var(--ink); opacity: 0.72;
     }
-    .crisis-statement .stat span { max-width: 17ch; font-size: 1.05rem; line-height: 1.35; font-weight: 800; }
+    .crisis-statement .stat span { max-width: 24ch; font-size: clamp(1.25rem,1.7vw,1.5rem); line-height: 1.5; font-weight: 500; letter-spacing: normal; }
 
     /* ─── VISION ────────────────────────────── */
     .vision { background: var(--paper); padding: 105px 0; position: relative; overflow: hidden; }
@@ -99,7 +110,7 @@
     }
     .campaign-card:after {
       content: ""; position: absolute; inset: 0; z-index: -1;
-      background: linear-gradient(180deg,transparent 20%,rgba(0,0,0,.88) 100%);
+      background: linear-gradient(180deg,transparent 10%,rgba(0,0,0,.78) 55%,rgba(0,0,0,.95) 100%);
     }
     .campaign-art { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
     .campaign-art:before, .campaign-art:after { content: ""; position: absolute; }
@@ -114,21 +125,21 @@
     .campaign-card.robots .campaign-art:after { width: 38px; height: 38px; background: var(--pink); border-radius: 50%; left: calc(50% - 19px); top: 26%; box-shadow: -68px 0 0 var(--pink),68px 0 0 var(--pink); }
     .campaign-copy { position: absolute; left: 34px; right: 34px; bottom: 30px; color: #fff; }
     .campaign-copy h4 { margin: 0 0 10px; font-family: var(--font-display); font-size: clamp(3.2rem,6vw,6.2rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.018em; text-transform: uppercase; }
-    .campaign-copy p { max-width: 40ch; margin: 0; font-size: clamp(1rem,1.5vw,1.25rem); font-weight: 600; line-height: 1.35; }
+    .campaign-copy p { max-width: 40ch; margin: 0; font-size: clamp(1.125rem,1.5vw,1.375rem); font-weight: 500; line-height: 1.5; }
     .campaigns-link {
       display: block; width: max-content; margin: 22px auto 0; padding-bottom: 3px;
       border-bottom: 2px solid var(--ink);
-      font-family: var(--font-body); font-size: 13px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: var(--font-body); font-size: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
     }
     .campaigns-link:hover { color: var(--red); border-color: var(--red); }
 
     /* ─── STRATEGY ──────────────────────────── */
-    .strategy { background: #fff; padding: 105px 0 0; }
-    .strategy-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; }
-    .strategy .deck { margin-top: 34px; max-width: 26ch; }
+    .strategy { background: #fff; padding: 83px 0 0; position: relative; overflow: hidden; border-bottom: 2px solid var(--ink); }
+    .strategy-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 52px; align-items: center; }
+    .strategy .deck { margin: 0; max-width: 34ch; }
     .strategy h2 { font-weight: 700; letter-spacing: -0.035em; }
     .process {
-      margin-top: 70px; display: grid; grid-template-columns: repeat(3,1fr);
+      margin-top: 47px; display: grid; grid-template-columns: repeat(3,1fr);
       border-top: 2px solid var(--ink); position: relative; isolation: isolate;
       background: url("assets/homepage-process-texture.png") center 48% / cover no-repeat;
     }
@@ -140,10 +151,10 @@
       content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.14;
       background-image: radial-gradient(var(--ink) .8px,transparent .8px); background-size: 5px 5px;
     }
-    .step { min-height: 260px; padding: 28px; border-right: 2px solid var(--ink); background: transparent !important; backdrop-filter: saturate(.78); }
+    .step { padding: 44px 36px 50px; border-right: 2px solid var(--ink); background: transparent !important; backdrop-filter: saturate(.78); }
     .step:last-child { border-right: 0; }
     .step small {
-      display: block; margin-bottom: 58px;
+      display: block; margin-bottom: 30px;
       font-family: var(--font-display);
       font-size: clamp(2.7rem,4.5vw,5rem); line-height: 0.8; font-weight: 800; letter-spacing: -0.06em;
       text-transform: uppercase; color: var(--red-dark);
@@ -160,17 +171,6 @@
     .step:nth-child(1) h3:after { background: var(--red); }
     .step:nth-child(2) h3:after { background: var(--blue); }
     .step:nth-child(3) h3:after { background: var(--green); }
-    .strategy-banner {
-      background: var(--red); color: var(--ink);
-      padding: 34px max(28px,7vw);
-      font-size: clamp(1.6rem,2.7vw,2.7rem); font-weight: 900; line-height: 1.05;
-      text-transform: uppercase; letter-spacing: -0.03em;
-      position: relative; overflow: hidden;
-    }
-    .strategy-banner:after {
-      content: ""; position: absolute; right: 6%; top: 50%; width: 90px; height: 90px;
-      border-radius: 50%; border: 12px solid rgba(255,255,255,.28); transform: translateY(-50%);
-    }
 
     /* ─── INVOLVED ──────────────────────────── */
     .involved { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); }
@@ -205,11 +205,12 @@
     .quote cite {
       display: block; margin-top: 24px;
       font-family: var(--font-body); font-style: normal;
-      font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; color: #fff;
+      font-size: 16px; line-height: 1.5; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #fff;
     }
 
     /* ─── PHOTO SYSTEM (hero-art uses a real photo instead of decorative shapes) ── */
     .hero-art { background: #f40000; }
+    .hero-art:before { content: none; }
     .hero-photo {
       position: absolute; inset: 0; width: 100%; height: 100%;
       object-fit: cover; object-position: 55% 68%;
@@ -222,29 +223,95 @@
       mix-blend-mode: screen; pointer-events: none;
     }
     .hero-art .sun, .hero-art .burst, .hero-art .face, .hero-art .poster { display: none; }
-    .hero-art .scribble, .hero-art .confetti { z-index: 2; }
+    /* Keep accents in compact corner groups, clear of copy and photo subjects. */
+    /* A faded halftone map, like ink printed into the poster paper. */
+    .hero-copy:before {
+      content: ""; position: absolute; z-index: 0;
+      width: 112%; height: auto; aspect-ratio: 1000 / 589;
+      right: -20%; top: 16%; border: 0; border-radius: 0; opacity: 1;
+      background: radial-gradient(circle, rgba(244,0,0,.25) 1px, transparent 1.3px) 0 0 / 5px 5px,
+                  rgba(244,0,0,.055);
+      -webkit-mask: url("assets/us.svg") center / contain no-repeat;
+      mask: url("assets/us.svg") center / contain no-repeat;
+      transform: rotate(-9deg); pointer-events: none;
+    }
+    .hero-fun { inset: 24px 28px auto auto; width: 100px; height: 60px; }
+    .hero-fun .star-one { width: 46px; height: 46px; right: 0; top: 4px; }
+    .hero-fun .spark-one { width: 9px; height: 26px; right: 68px; top: 8px; }
+    .hero-fun .zap { position: absolute; width: 26px; height: 42px; right: 42px; top: 32px; color: var(--red); transform: rotate(12deg); }
+    .action-strokes { display: block; width: 76px; height: 30px; margin-top: 28px; color: var(--red); }
+    .action-strokes path { fill: none; stroke: currentColor; stroke-width: 5; stroke-linecap: square; }
+    /* Poster-style emphasis: a brush stroke, a printed block, and a penned box. */
+    .word-brush, .word-block, .word-outline { position: relative; display: inline-block; }
+    h1 .jolt { color: var(--ink); line-height: .98; }
+    .word-brush:after {
+      content: ""; position: absolute; left: 0; right: -.02em; bottom: -.07em;
+      height: .12em; background: var(--red); transform: rotate(-2deg);
+      clip-path: polygon(0 25%,96% 0,100% 65%,4% 100%);
+    }
+    .word-block {
+      padding: .02em .09em .04em; background: #1647a8; color: #fff;
+      line-height: .98; transform: rotate(-2deg);
+      box-shadow: .045em .045em 0 var(--ink);
+    }
+    .word-outline { padding: .02em .09em; line-height: .98; }
+    .word-outline:after {
+      content: ""; position: absolute; inset: 0 -.015em;
+      border: 3px solid var(--red); border-radius: 9% 3% 7% 2%;
+      transform: rotate(-3deg); pointer-events: none;
+    }
+    .accent-flock {
+      position: absolute; width: 144px; height: 72px;
+      color: var(--ink); pointer-events: none; z-index: 2;
+    }
+    .accent-flock .bird { position: absolute; width: 36px; left: 12px; top: 30px; transform: rotate(-8deg); }
+    .accent-flock .bird + .bird { width: 26px; left: 64px; top: 12px; transform: rotate(4deg); }
+    .accent-flock .confetti { width: 6px; height: 16px; left: 110px; top: 34px; background: var(--yellow); }
+    .accent-flock .confetti + .confetti { left: 94px; top: 58px; height: 10px; background: var(--blue); transform: rotate(-24deg); }
+    .hero-art .accent-flock { left: 7%; top: 8%; color: #fff; filter: drop-shadow(0 1px 2px rgba(0,0,0,.35)); }
+    .vision > .accent-flock, .involved-copy > .accent-flock, .strategy > .accent-flock { right: max(28px,7vw); top: 24px; }
+    .crisis-statement > .fun-layer { inset: 44px max(28px,7vw) auto auto; width: 144px; height: 100px; }
+    .crisis-statement .accent-moon { right: 18px; top: 22px; color: var(--paper); }
+    .crisis-statement .accent-star { left: 18px; top: 14px; color: var(--yellow); transform: rotate(12deg); }
+    .crisis-statement .accent-star-small { right: 4px; top: 80px; color: var(--yellow); transform: rotate(-8deg); }
+
+    @media (max-width: 600px) {
+      .hero-copy:before { width: 120%; right: -26%; top: 13%; }
+      .hero-fun { top: 14px; right: 20px; transform: scale(.65); transform-origin: top right; }
+      .vision > .accent-flock, .involved-copy > .accent-flock, .strategy > .accent-flock {
+        right: 16px; top: 12px; transform: scale(.65); transform-origin: top right;
+      }
+      .crisis-statement > .fun-layer { top: 16px; right: 20px; transform: scale(.6); transform-origin: top right; }
+      .crisis-statement > .crisis-earth { width: 320px; right: -110px; top: 68px; opacity: .18; }
+    }
 
     @media (max-width: 900px) {
       .crisis-head, .vision-grid, .strategy-grid { grid-template-columns: 1fr; }
       .involved { grid-template-columns: 1fr; }
-      .stats, .process { grid-template-columns: 1fr; }
-      .step { border-right: 0; border-bottom: 2px solid var(--ink); }
+      .crisis-statement .stats, .process { grid-template-columns: 1fr; }
+      .crisis-statement .stat { min-height: 0; border-right: 0; border-bottom: 2px solid var(--ink); }
+      .crisis-statement .stat:last-child { border-bottom: 0; }
+      .strategy-grid { gap: 31px; }
+      .step { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 26px; padding: 38px 36px 44px; border-right: 0; border-bottom: 2px solid var(--ink); }
+      .step small { margin-bottom: 0; }
+      .step h3 { justify-self: start; }
       .step:last-child { border-bottom: 0; }
       .quote { border-left: 0; border-top: 2px solid var(--ink); }
     }
     @media (max-width: 760px) and (min-width: 601px) {
-      .crisis-head, .vision-grid, .strategy-grid { gap: 48px; }
+      .crisis-head, .vision-grid { gap: 48px; }
       .quote { min-height: 470px; }
     }
     @media (max-width: 600px) {
       .hero-photo { object-position: 54% 72%; }
+      .hero-copy p { font-size: 1.125rem; line-height: 1.5; }
       .process { background-position: 50% center; margin-top: 0; }
       .process:before { background: linear-gradient(180deg,rgba(246,223,211,.9),rgba(248,243,235,.82),rgba(255,255,255,.7)); }
       .crisis-statement { padding: 46px 20px; font-size: clamp(1.95rem,9vw,2.8rem); }
       .crisis-statement .stats { margin: 34px -20px -46px; }
-      .crisis-statement .stat { min-height: 0; padding: 26px 22px; flex-direction: column; gap: 12px; align-items: flex-start; }
+      .crisis-statement .stat { min-height: 0; padding: 28px 22px; flex-direction: column; gap: 24px; align-items: flex-start; }
       .crisis-statement .stat strong { font-size: clamp(2.6rem,15vw,3.6rem); }
-      .crisis-statement .stat span { max-width: none; font-size: 1.05rem; line-height: 1.4; text-align: left; }
+      .crisis-statement .stat span { max-width: 26ch; text-align: left; }
       .vision { padding: 54px 0; }
       .vision-grid { gap: 30px; }
       .vision-copy .deck { margin-top: 22px; }
@@ -257,15 +324,12 @@
       .campaign-card { flex-basis: 84vw; min-height: 360px; }
       .campaign-copy { left: 22px; right: 22px; bottom: 22px; }
       .campaign-copy h4 { font-size: 3.5rem; }
-      .campaign-copy p { font-size: .96rem; }
-      .strategy { padding-top: 54px; }
-      .strategy-grid { gap: 20px; padding-bottom: 30px; }
+      .campaign-copy p { font-size: 1.125rem; }
+      .strategy { padding-top: 52px; }
+      .strategy-grid { gap: 21px; padding-bottom: 31px; }
       .process { margin-top: 0; }
-      .step { min-height: 140px; padding: 20px; }
-      .step small { margin-bottom: 24px; }
+      .step { grid-template-columns: 42px 1fr; gap: 21px; padding: 32px 26px 36px; }
       .step h3 { font-size: 1.75rem; }
-      .strategy-banner { padding: 20px; font-size: 1.25rem; }
-      .strategy-banner:after { width: 58px; height: 58px; border-width: 8px; right: 3%; }
       .involved-copy { padding: 54px 20px 46px; }
       .involved-copy .deck { margin: 22px 0 22px; }
       .quote { min-height: 300px; padding: 42px 22px; background-position: 51% center; }
@@ -286,9 +350,12 @@
        photo of an identifiable crowd) — replace before this page goes live. -->
   <section class="hero">
     <div class="hero-copy">
-      <div class="hero-fun" aria-hidden="true"><i class="star-one"></i><i class="ring-one"></i><i class="spark-one"></i><i class="spark-two"></i><i class="dots-one"></i></div>
-      <h1>Revolt for <span class="marker">our future.</span></h1>
-      <p>We defend humanity from the threats of superintelligence.</p>
+      <div class="hero-fun" aria-hidden="true">
+        <i class="star-one"></i><i class="spark-one"></i>
+        <svg class="zap" viewBox="0 0 24 40"><path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"/></svg>
+      </div>
+      <h1>Revolt for our <span class="jolt">future.</span></h1>
+      <p>Defend humanity from the threats of artificial intelligence.</p>
       <form class="signup-row" action="#" method="post">
         <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
         <button class="btn primary" type="submit">Join →</button>
@@ -298,28 +365,46 @@
 
     <div class="hero-art" aria-hidden="true">
       <img class="hero-photo" src="assets/homepage-hero-photo.jpg" alt="">
-      <div class="sun"></div>
-      <div class="burst"></div>
-      <div class="face"></div>
-      <div class="scribble"></div><div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
-      <i style="position:absolute;left:12%;top:14%;z-index:2;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-      <i style="position:absolute;left:22%;top:22%;z-index:2;color:#fff;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      <div class="accent-flock">
+        <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+        <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+        <i class="confetti"></i><i class="confetti"></i>
+      </div>
     </div>
   </section>
 
   <!-- ═══════════ CRISIS ═══════════ -->
   <section class="crisis" id="crisis">
     <div class="crisis-statement">
+      <svg class="crisis-earth" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+        <defs><clipPath id="crisis-earth-disc"><circle cx="200" cy="200" r="170"/></clipPath></defs>
+        <circle cx="200" cy="200" r="170" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <g clip-path="url(#crisis-earth-disc)">
+          <g fill="none" stroke="currentColor" stroke-width="1" opacity=".4">
+            <ellipse cx="200" cy="200" rx="86" ry="170"/>
+            <ellipse cx="200" cy="200" rx="170" ry="62"/>
+            <path d="M200 30V370M30 200H370M58 108Q200 163 342 108M58 292Q200 237 342 292"/>
+          </g>
+          <!-- Simplified continental silhouettes, drawn as a printed globe. -->
+          <g fill="currentColor" fill-opacity=".22" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+            <path d="M35 113L65 82L106 64L142 72L157 94L145 110L160 126L141 146L124 148L114 169L99 177L112 194L128 201L137 220L125 226L110 207L94 199L82 174L64 165L51 145L31 141Z"/>
+            <path d="M136 220L159 215L183 231L197 253L181 279L176 305L160 325L150 350L139 337L140 308L129 282L116 261L118 237Z"/>
+            <path d="M173 43L204 39L217 54L205 78L188 91L173 76Z"/>
+            <path d="M237 103L250 80L266 69L273 92L288 94L304 81L339 89L372 118L383 158L356 172L336 159L321 173L305 149L287 154L275 139L254 144L245 128L227 130L224 115Z"/>
+            <path d="M240 154L272 151L287 170L302 185L286 213L281 244L264 265L249 253L242 226L225 211L217 189L223 167Z"/>
+            <path d="M302 256L311 274L305 292L298 280ZM334 280L360 270L381 291L366 315L339 310L324 296Z"/>
+          </g>
+        </g>
+      </svg>
       <div class="fun-layer" aria-hidden="true">
-        <i style="right:9%;top:14%;width:52px;color:var(--paper)">
+        <i class="accent-moon">
           <svg class="moon" viewBox="0 0 40 40" width="52" height="52"><mask id="crisis-moon-mask"><rect width="40" height="40" fill="#fff"/><circle cx="27" cy="13" r="14" fill="#000"/></mask><circle cx="20" cy="20" r="16" fill="currentColor" mask="url(#crisis-moon-mask)"/></svg>
         </i>
-        <i style="right:22%;top:10%;width:16px;color:var(--yellow);transform:rotate(12deg)"><svg class="star" viewBox="0 0 24 24" width="16" height="16"><rect width="24" height="24" fill="currentColor"/></svg></i>
-        <i style="right:5%;top:38%;width:10px;color:var(--yellow);transform:rotate(-8deg)"><svg class="star" viewBox="0 0 24 24" width="10" height="10"><rect width="24" height="24" fill="currentColor"/></svg></i>
-        <i style="left:6%;bottom:10%;width:70px;color:var(--red)"><svg class="pow" viewBox="0 0 24 24" width="70" height="70"><rect width="24" height="24" fill="currentColor"/></svg></i>
+        <i class="accent-star"><svg class="star" viewBox="0 0 24 24" width="16" height="16"><rect width="24" height="24" fill="currentColor"/></svg></i>
+        <i class="accent-star-small"><svg class="star" viewBox="0 0 24 24" width="10" height="10"><rect width="24" height="24" fill="currentColor"/></svg></i>
       </div>
       <div class="label section-label-primary">Crisis</div>
-      <div class="crisis-line">Artificial intelligence is threatening the future of <em><span class="jolt">humanity.</span></em></div>
+      <div class="crisis-line">Artificial intelligence is threatening the future of <em><span class="word-brush">humanity.</span></em></div>
       <div class="stats">
         <div class="stat">
           <strong>300M</strong>
@@ -339,17 +424,17 @@
 
   <!-- ═══════════ VISION ═══════════ -->
   <section class="vision" id="vision">
-    <div class="fun-layer" aria-hidden="true">
-      <i style="right:6%;top:6%;transform:rotate(-8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-      <i style="right:13%;top:14%;transform:rotate(6deg) scale(.7);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-      <i style="right:9%;top:26%;width:20px;color:var(--yellow);transform:rotate(10deg)"><svg class="star" viewBox="0 0 24 24" width="20" height="20"><rect width="24" height="24" fill="currentColor"/></svg></i>
+    <div class="accent-flock" aria-hidden="true">
+      <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+      <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+      <i class="confetti"></i><i class="confetti"></i>
     </div>
     <div class="container">
       <div class="vision-copy">
         <div class="label alt-yellow section-label-primary">Vision</div>
         <h2 style="margin-top:18px">Technology for the <span class="underline blue">common good.</span></h2>
         <p class="deck">We imagine a world where technology serves the people, not just a rich few.</p>
-        <div class="dot-row" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <svg class="action-strokes" viewBox="0 0 76 30" aria-hidden="true"><path d="M4 25L19 7M28 25L43 7M52 25L67 7"/></svg>
       </div>
 
       <div class="campaigns">
@@ -383,10 +468,15 @@
 
   <!-- ═══════════ STRATEGY ═══════════ -->
   <section class="strategy" id="strategy">
+    <div class="accent-flock" aria-hidden="true">
+      <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+      <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+      <i class="confetti"></i><i class="confetti"></i>
+    </div>
     <div class="container strategy-grid">
       <div>
         <div class="label section-label-primary">Strategy</div>
-        <h2 style="margin-top:18px">We build <span class="underline green">movement power.</span></h2>
+        <h2 style="margin-top:18px">We build movement <span class="word-block">power.</span></h2>
       </div>
       <div>
         <p class="deck">We fight for revolutionary political change around technology. We start in our cities and schools, building towards state and federal action.</p>
@@ -399,13 +489,6 @@
       <div class="step"><small>03</small><h3>Federal action</h3></div>
     </div>
 
-    <div class="strategy-banner">
-      <div class="fun-layer" aria-hidden="true">
-        <i style="left:5%;top:20%;width:34px;color:var(--ink);transform:rotate(-6deg)"><svg class="zap" viewBox="0 0 24 40" width="34" height="34"><path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"/></svg></i>
-        <i style="left:14%;bottom:16%;width:14px;color:var(--yellow);transform:rotate(14deg)"><svg class="star" viewBox="0 0 24 24" width="14" height="14"><rect width="24" height="24" fill="currentColor"/></svg></i>
-      </div>
-      <span style="position:relative;z-index:2">Find your voice, find some friends, and fight like hell.</span>
-    </div>
   </section>
 
   <!-- ═══════════ INVOLVED ═══════════
@@ -414,15 +497,13 @@
        page goes live. -->
   <section class="involved" id="involved">
     <div class="involved-copy">
-      <div class="fun-layer" aria-hidden="true">
-        <i style="left:4%;top:8%;transform:rotate(-8deg);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-        <i style="left:16%;top:18%;transform:rotate(4deg) scale(.7);color:var(--ink)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-        <i style="right:8%;top:12%;transform:rotate(-4deg) scale(.55);color:var(--red)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-        <i style="right:6%;top:38%;transform:rotate(6deg);color:var(--red)"><svg class="swirl-arrow" viewBox="0 0 60 40"><path d="M4 4C24 0 42 8 38 22C35 32 22 35 13 29"/><path d="M6 21L13 29L21 20"/></svg></i>
-        <i class="spark" style="left:9%;bottom:20%;position:absolute"></i>
+      <div class="accent-flock" aria-hidden="true">
+        <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+        <svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg>
+        <i class="confetti"></i><i class="confetti"></i>
       </div>
       <div class="label alt-green">Get involved</div>
-      <h2 style="margin-top:18px">Dare to fight for a <span class="marker">brighter future.</span></h2>
+      <h2 style="margin-top:18px"> <span class="word-outline">Dare</span>  to fight for a brighter future.</h2>
       <p class="deck"><strong>Connect to your chapter today.</strong></p>
       <form class="signup-row" action="#" method="post">
         <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>

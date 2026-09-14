@@ -47,6 +47,15 @@
       font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
     }
 
+    .circle-rally {
+      display: flex; align-items: center; gap: 22px; margin: 0;
+      padding: 30px max(28px,7vw); background: var(--red); color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      font-family: var(--font-display); font-size: clamp(1.6rem,2.7vw,2.7rem);
+      font-weight: 800; line-height: 1.1; text-transform: uppercase;
+    }
+    .circle-rally .zap { width: 26px; height: 40px; flex-shrink: 0; }
+
     /* ─── ABOUT YOU / focus rows ── */
     .about-you { background: var(--paper); padding: 100px 0; position: relative; overflow: hidden; }
     .about-you > .container { position: relative; z-index: 2; }
@@ -103,6 +112,7 @@
       .apply-panel { border-left: 0; border-top: 2px solid var(--ink); min-height: 340px; }
     }
     @media (max-width: 600px) {
+      .circle-rally { padding: 24px 20px; gap: 16px; }
       h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
       h2 { font-size: clamp(2.1rem,11vw,3.2rem); }
       .hero-copy p { font-size: 1.02rem; max-width: none; }
@@ -143,6 +153,11 @@
       <i style="position:absolute;left:20%;top:16%;z-index:2;color:var(--ink);transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
     </div>
   </section>
+
+  <p class="circle-rally">
+    <svg class="zap" viewBox="0 0 24 40" aria-hidden="true"><path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"/></svg>
+    <span>Find your voice, find some friends, and fight like hell.</span>
+  </p>
 
   <section class="about-you" id="why">
     <div class="fun-layer" aria-hidden="true">

@@ -16,7 +16,7 @@
   --accent: #ff5252;
   --accent-dark: #c80000;
   --blue: #3a86ff;
-  --yellow: #ffbe0b;
+  --yellow: #ffd60a;
   --green: #8338ec;
   --pink: #ff006e;
   --success: #22c55e;
@@ -94,7 +94,7 @@ header.site-header nav {
   background: var(--red); color: var(--ink); padding: 10px 14px; width: max-content;
   border: 2px solid var(--ink);
   font-family: 'DM Sans Brand', var(--font-body);
-  font-size: 21px; font-weight: 900; line-height: 1;
+  font-size: 25.2px; font-weight: 900; line-height: 1;
   letter-spacing: -.04em; text-transform: uppercase; white-space: nowrap;
 }
 .brand-logo { display: block; width: .82em; height: .82em; flex-shrink: 0; filter: brightness(0); transform: translateY(-.035em); }
@@ -105,24 +105,32 @@ header.site-header nav {
   display: flex; align-items: center;
   padding: 12px 10px;
   font-family: var(--font-body);
-  font-size: 15px; font-weight: 700;
+  font-size: 18px; font-weight: 700;
   letter-spacing: 0.04em; text-transform: uppercase;
   color: var(--ink);
 }
-.nav-fellowship:hover { color: var(--red); }
-.nav-fellowship.current { color: var(--red); }
+.nav-fellowship:hover { color: var(--ink); background: var(--yellow); transform: rotate(-2deg); }
+.nav-fellowship.current { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
 .nav-cta {
-  background: var(--paper); color: var(--ink);
+  background: var(--yellow); color: var(--ink);
   padding: 12px 18px;
   border: 2px solid var(--ink);
   font-family: var(--font-body);
-  font-size: 15px; font-weight: 900;
+  font-size: 24px; line-height: 1.1; font-weight: 800;
   text-transform: uppercase;
 }
-.nav-cta.join { background: var(--ink); color: #fff; }
-.nav-cta:hover { background: var(--yellow); color: var(--ink); }
+.nav-cta { font-family: var(--font-display); box-shadow: 4px 4px 0 var(--ink); transform: rotate(-2deg); text-align: center; transition: transform .15s ease, box-shadow .15s ease; }
+.nav-cta.join { background: #bcd8ff; color: var(--ink); transform: rotate(2deg); }
+.nav-cta:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 var(--ink); }
+.nav-cta:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.nav-actions a:focus-visible { outline: 3px solid var(--ink); outline-offset: 6px; }
+.brand { box-shadow: 3px 3px 0 var(--ink); transform: rotate(-1deg); }
+@media (prefers-reduced-motion: reduce) {
+  .nav-cta { transition: none; }
+  .nav-cta:hover, .nav-cta:active, .nav-fellowship:hover { transform: none; }
+}
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   header.site-header nav {
     grid-template-columns: 1fr; padding: 10px 0 11px; gap: 8px;
     min-height: 68px;
@@ -131,10 +139,12 @@ header.site-header nav {
 }
 @media (max-width: 600px) {
   header.site-header { position: relative; }
-  .brand { font-size: 18px; padding: 9px 11px; gap: 8px; }
+  .brand { font-size: 21.6px; padding: 9px 11px; gap: 8px; }
   .brand-logo { width: .82em; height: .82em; }
-  .nav-cta { font-size: 11px; padding: 9px 11px; white-space: nowrap; }
-  .nav-fellowship { font-size: 11px; padding: 9px 4px; }
+  .nav-actions { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px 8px; padding: 4px 4px 5px; }
+  .nav-fellowship { grid-column: span 2; justify-content: center; text-align: center; }
+  .nav-cta { grid-column: span 3; font-size: 22px; padding: 10px 11px; white-space: nowrap; }
+  .nav-fellowship { font-size: 13.2px; padding: 9px 4px; }
 }
 
 /* ─── FOOTER (rebrand 09-12) ─────────────── */
@@ -919,3 +929,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   .footer-col { align-items: center; }
   .share-buttons { flex-direction: column; }
 }
+
+/* Donation actions retain their yellow identity across pages and states. */
+.btn[href="/donate"], .btn[href="donate.html"], .btn[href*="zeffy.com/"],
+#donate-cta, #donate-cta-2 { background: var(--yellow); color: var(--ink); border-color: var(--ink); }

@@ -41,8 +41,8 @@
         </a>
         <div class="nav-actions">
           ${navLinksHtml}
-          <a class="nav-cta${isActive('donate') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('donate')}">Donate</a>
-          <a class="nav-cta join${isActive('join') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('join')}">Join</a>
+          <a class="nav-cta donate${isActive('donate') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('donate')}">Donate</a>
+          <a class="nav-cta join${isActive('join') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('join')}">Membership</a>
         </div>
       </nav>
     </div>

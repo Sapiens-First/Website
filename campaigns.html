@@ -20,24 +20,48 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
-    /* shared.css's bare h1 rule caps hero headlines at max-width:8.2ch for
-       the homepage's stacked-headline template — every other converted
-       page (about/join/donate/human-charter/start-a-circle) overrides it
-       locally to fit its own headline; this page needs the same. */
-    h1 { margin: 0; max-width: 16ch; }
+    /* Use the same display type, paper background, and labels as About. */
+    .page-hero { padding: 88px 0 80px; background: var(--paper); }
+    .page-hero .label { margin-bottom: 26px; }
+    .page-title {
+      margin: 0; max-width: 17ch; text-align: left;
+      font-size: clamp(3.5rem, 8.4vw, 8.4rem);
+      line-height: .9; letter-spacing: -.025em;
+      opacity: 1; animation: none;
+    }
+    .page-title .underline { white-space: normal; }
+    @media (max-width: 600px) {
+      .page-hero { padding: 54px 0 48px; }
+    }
 
-    .section { padding: 48px 0; }
-    .section-compact { padding: 32px 0; }
-    @media (max-width: 768px) { .section { padding: 40px 0; } .section-compact { padding: 28px 0; } }
+    .section { padding: 80px 0; background: #fff; }
+    .section-compact { padding: 64px 0; }
+    #campaigns { background: var(--paper); padding: 80px 0; }
+    .section-label {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 4.6vw, 4.6rem);
+      line-height: .98; letter-spacing: -.025em; -webkit-text-stroke: 0;
+      text-align: left;
+    }
+    .section-label .title { color: var(--ink); }
+    .body-large {
+      font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500;
+      text-align: left; max-width: 70ch; margin: 0 0 22px;
+    }
+    .body-large:last-child { margin-bottom: 0; }
+    .text-link { color: var(--ink); border-bottom: 2px solid var(--ink); }
+    .text-link:hover { color: var(--red-dark); border-color: var(--red-dark); }
+    @media (max-width: 768px) {
+      .section, .section-compact, #campaigns { padding: 48px 0; }
+    }
 
     /* ─── CAMPAIGNS (horizontal expandable, matching about>focus-areas) ───
        Tab-style expandable — a variant of the shared .accordion-* mechanics
        in shared.css (chevron rotation, focus outline, panel grow/fade).
        This block only adds the tab-row layout and content decoration. ─── */
     .campaign-grid {
-      --campaign-panel-bg: color-mix(in srgb, var(--surface) 42%, transparent);
+      --campaign-panel-bg: #fff;
       margin: 30px auto 0;
-      max-width: 960px;
+      max-width: none;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       column-gap: 10px;
@@ -45,9 +69,9 @@
     }
     .campaign-tab {
       grid-row: 1;
-      border: 1px solid var(--border);
-      border-top: 3px solid var(--accent);
-      background: color-mix(in srgb, var(--surface) 42%, transparent);
+      border: 2px solid var(--ink);
+      border-top: 8px solid var(--campaign-color);
+      background: #fff;
       width: 100%;
       cursor: pointer;
       padding: 22px 24px;
@@ -56,12 +80,13 @@
       justify-content: center;
       gap: 14px;
       color: inherit;
-      text-align: center;
+      text-align: left;
       transition: background .22s ease, border-color .22s ease;
     }
-    .campaign-tab:nth-of-type(1) { grid-column: 1; }
-    .campaign-tab:nth-of-type(2) { grid-column: 2; }
-    .campaign-tab:nth-of-type(3) { grid-column: 3; }
+    .campaign-tab:nth-of-type(1) { grid-column: 1; --campaign-color: var(--red); }
+    .campaign-tab:nth-of-type(2) { grid-column: 2; --campaign-color: var(--green); }
+    .campaign-tab:nth-of-type(3) { grid-column: 3; --campaign-color: var(--blue); }
+    .campaign-tab:hover { background: var(--paper); }
     .campaign-tab.is-active {
       background: var(--campaign-panel-bg);
       border-bottom-color: var(--campaign-panel-bg);
@@ -69,17 +94,22 @@
     .campaign-header {
       display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;
     }
-    .campaign-tab .card-title { color: var(--text); margin-bottom: 0; }
+    .campaign-tab .card-title {
+      color: var(--ink); margin-bottom: 8px; font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 800;
+      text-transform: uppercase; line-height: 1; letter-spacing: -.01em;
+    }
     .campaign-objective { font-family: var(--font-body); font-size: var(--sz-copy); font-weight: 500; color: var(--text); }
     .campaign-chevron {
       --accordion-chevron-size: 11px;
       --accordion-chevron-weight: 2px;
-      --accordion-chevron-opacity: 0.84;
+      --accordion-chevron-opacity: 1;
+      border-color: var(--ink);
     }
     .campaign-panel {
       grid-column: 1 / -1;
       grid-row: 2;
-      border: 1px solid var(--border);
+      border: 2px solid var(--ink);
       border-top: none;
       background: var(--campaign-panel-bg);
     }
@@ -110,18 +140,9 @@
     }
     @media (max-width: 700px) {
       .campaign-grid { display: flex; flex-direction: column; gap: 10px; }
-      .campaign-tab.is-active { border-bottom-color: var(--border); }
-      .campaign-panel { border-top: 3px solid var(--accent); }
+      .campaign-tab.is-active { border-bottom-color: var(--ink); }
+      .campaign-panel { border-top: 2px solid var(--ink); }
     }
-    @media (max-width: 600px) {
-      .container { padding: 0 20px; }
-    }
-
-    /* ─── EXPERIMENT: left-justify everything (delete this block to undo) ─── */
-    .page-title,
-    .section-label,
-    .body-large { text-align: left; }
-    .body-large { max-width: none; margin-left: 0; margin-right: 0; }
   </style>
 </head>
 <body>
@@ -132,9 +153,9 @@
 
   <!-- ═══════════ PAGE HERO ═══════════ -->
   <div class="page-hero">
-    <div class="ember-field" aria-hidden="true"></div>
     <div class="container">
-      <h1 class="page-title">Our <span class="title-accent">Campaigns.</span></h1>
+      <span class="label">Take action</span>
+      <h1 class="page-title">Our <span class="underline blue">Campaigns.</span></h1>
     </div>
   </div>
 
@@ -266,8 +287,6 @@
         });
       });
     }
-
-    initEmberField();
   </script>
   <script src="reveal.js"></script>
   <script src="nav.js"></script>

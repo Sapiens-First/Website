@@ -20,32 +20,30 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
-    /* shared.css's bare h1 rule caps hero headlines at max-width:8.2ch for
-       the homepage's stacked-headline template — every other converted
-       page (about/join/donate/human-charter/start-a-circle) overrides it
-       locally to fit its own headline; this page needs the same. */
-    h1 { margin: 0 auto; max-width: 20ch; }
-
-    /* ─── MASTHEAD (hero eyebrow + metadata line) ───────────── */
-    .policy-eyebrow {
-      display: block; margin-bottom: 20px; text-align: center;
-      font-family: 'Special Elite', var(--font-body); font-size: 13px;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
-      opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.15s;
+    /* Use the same display type, paper background, and labels as About. */
+    .page-hero { padding: 88px 0 80px; background: var(--paper); }
+    .page-hero .label { margin-bottom: 26px; }
+    .page-title {
+      margin: 0; max-width: 17ch; text-align: left;
+      font-size: clamp(3.5rem, 8.4vw, 8.4rem);
+      line-height: .9; letter-spacing: -.025em;
+      opacity: 1; animation: none;
     }
+    .page-title .underline { white-space: normal; }
+    @media (max-width: 600px) {
+      .page-hero { padding: 54px 0 48px; }
+    }
+
     .policy-meta {
-      margin: 26px 0 0; text-align: center;
-      font-family: var(--font-body); font-size: var(--sz-label);
-      letter-spacing: 0.08em; text-transform: uppercase;
-      color: color-mix(in srgb, var(--ink) 62%, transparent);
-      opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.75s;
+      margin: 30px 0 0; font-size: 13px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
     }
 
     /* Document-style prose — left-aligned, measured width, not centered
        marketing copy — since this content sits beside a sidebar TOC. */
     .guide-main .body-large {
       text-align: left; max-width: none; margin: 0 0 18px;
-      font-size: 19px; line-height: 1.7; font-weight: 400;
+      font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500;
     }
     .guide-main .body-large:last-child { margin-bottom: 0; }
 
@@ -54,12 +52,12 @@
       display: flex; flex-direction: column; gap: 8px;
     }
     .guide-main .overview-list li {
-      font-family: var(--font-body); font-size: 19px; line-height: 1.7; color: var(--text);
+      font-family: var(--font-body); font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; color: var(--text);
     }
     .guide-main .overview-list li::marker { color: var(--accent); }
 
     /* ─── GUIDE-STYLE LAYOUT (sidebar TOC + content) ───────────── */
-    .guide-section { padding: 24px 0 120px; }
+    .guide-section { padding: 80px 0 100px; background: #fff; }
     .guide-layout { display: flex; gap: 56px; align-items: start; }
     .guide-sidebar {
       width: 240px; flex-shrink: 0; position: sticky; top: 96px;
@@ -102,7 +100,9 @@
     }
 
     /* ─── PILLARS + POLICY ACCORDION CARDS ───────────── */
-    .policy-pillar { margin: 0 0 64px; }
+    .policy-pillar { margin: 0 0 72px; border-bottom: 0; --pillar-color: var(--red); }
+    #common-prosperity { --pillar-color: var(--blue); }
+    #a-secure-future { --pillar-color: var(--green); }
     .policy-pillar:last-of-type { margin-bottom: 0; }
 
     /* Document-style section heading — left-aligned with a rule, like a
@@ -110,9 +110,9 @@
     .guide-main .section-label {
       text-align: left; margin: 0 0 14px;
       font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(28px, 4vw, 40px); line-height: 1.1;
+      font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: .98;
       letter-spacing: -0.01em; -webkit-text-stroke: 0;
-      padding-bottom: 12px; border-bottom: 2px solid var(--accent);
+      padding-bottom: 18px; border-bottom: 6px solid var(--pillar-color);
     }
     .guide-main .section-label .title { color: var(--text); }
 
@@ -120,30 +120,33 @@
       margin: 18px 0 32px;
     }
 
-    /* Numbered dossier entries — thin rules, not boxed cards.
-       Expand/collapse mechanics + open-state treatment live in
-       shared.css under .accordion-* / .accordion--rule. This block
-       only adds policy-specific content decoration (numbering, typography). */
+    /* Numbered entries use the shared accordion motion, with the bold
+       rules and colored accents used by the About page. */
     #policy-content { counter-reset: policy-num; }
     .policy-card {
       counter-increment: policy-num;
-      border-top: 1px solid var(--border);
+      border-top: 2px solid var(--ink);
       margin-top: 0;
     }
-    .policy-pillar .policy-card:last-child { border-bottom: 1px solid var(--border); }
+    .policy-pillar .policy-card:last-child { border-bottom: 2px solid var(--ink); }
+    .policy-card:has(.accordion-panel.is-open) { background: var(--paper); }
+    .policy-card .accordion-chevron { border-color: var(--ink); }
+    .policy-card .accordion-toggle { border-left: 6px solid var(--pillar-color); }
+    .toc-label { color: var(--ink); font-weight: 800; }
+    .toc-item-link.toc-active { color: var(--ink); background: var(--yellow); }
     .policy-card-title {
-      font-family: var(--font-body); font-weight: 700;
-      font-size: clamp(17px, 2vw, 20px); line-height: 1.35;
+      font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+      font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.15;
       letter-spacing: 0; color: var(--text);
     }
     .policy-card-title::before {
       content: counter(policy-num, decimal-leading-zero); margin-right: 12px;
-      color: var(--accent); opacity: 0.6; font-weight: 700; letter-spacing: 0.02em;
+      color: var(--ink); font-weight: 700; letter-spacing: 0.02em;
     }
 
     .policy-card-body h4 {
       font-family: var(--font-body); font-weight: 600; font-size: 14px;
-      letter-spacing: 0.09em; text-transform: uppercase; color: var(--accent);
+      letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink);
       margin: 26px 0 10px;
     }
     .policy-card-body h4:first-child { margin-top: 22px; }
@@ -172,7 +175,7 @@
       opacity: 0.6; transition: opacity .18s ease, background .18s ease;
     }
     .howits-tab:hover { opacity: 0.85; }
-    .howits-tab.is-active { opacity: 1; background: var(--bg); }
+    .howits-tab.is-active { opacity: 1; background: var(--yellow); }
     .howits-tab:focus-visible { outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: -2px; }
     .howits-panel { border: 1px solid var(--border); background: var(--bg); padding: 16px 18px 2px; }
     .howits-content { opacity: 0; transition: opacity .2s ease; }
@@ -193,7 +196,7 @@
       letter-spacing: 0.06em; color: var(--text); opacity: 0.6;
     }
 
-    @media (max-width: 600px) { .container { padding: 0 20px; } }
+    @media (max-width: 600px) { .guide-section { padding: 48px 0 64px; } }
   </style>
 </head>
 <body>
@@ -204,10 +207,9 @@
 
   <!-- ═══════════ PAGE HERO ═══════════ -->
   <div class="page-hero">
-    <div class="ember-field" aria-hidden="true"></div>
     <div class="container">
-      <span class="policy-eyebrow">Policy Brief — Sapiens First</span>
-      <h1 class="page-title">A People's Agenda<br>for the <span class="title-accent">Age of AI.</span></h1>
+      <span class="label">Policy Brief — Sapiens First</span>
+      <h1 class="page-title">A People's Agenda<br>for the <span class="underline blue">Age of AI.</span></h1>
       <p class="policy-meta">3 Pillars · 12 Policies · Updated July 2026</p>
     </div>
   </div>
@@ -1044,8 +1046,6 @@
     setupHowits();
     setupTOCInteraction();
     setupScrollSpy();
-
-    initEmberField();
   </script>
   <script src="reveal.js"></script>
   <script src="nav.js"></script>

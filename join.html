@@ -32,6 +32,8 @@
       max-width: 34ch; margin: 30px 0 26px;
       font-size: clamp(1.1rem,1.6vw,1.4rem); line-height: 1.45; font-weight: 600;
     }
+    .hero-copy { padding-top: 40px; padding-bottom: 40px; }
+    .hero-copy h1 { font-size: clamp(3rem, 6vw, 5rem); }
     .actions { position: relative; z-index: 2; }
     .btn { padding: 16px 22px; font-size: 14px; }
     .poster { font-size: clamp(.95rem,1.7vw,1.4rem); }
@@ -42,14 +44,6 @@
     section { border-bottom: 2px solid var(--ink); }
     .section { padding: 100px 0; }
     .section-compact { padding: 60px 0; }
-
-    /* ─── SIGNUP BOX ── */
-    .signup-box {
-      border: 2px solid var(--ink); background: #fff;
-      padding: 44px max(28px,5vw); margin-top: 34px;
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-    }
-    .signup-box .sf { width: 100%; max-width: 460px; }
 
     /* ─── SPREAD THE WORD ── */
     .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
@@ -68,7 +62,6 @@
       .face { width: 180px; height: 280px; left: 10%; bottom: -56px; }
       .burst { width: 120px; height: 120px; left: 8%; top: 11%; }
       .poster { font-size: .85rem; padding: 9px 11px; bottom: 12%; right: 6%; }
-      .signup-box { padding: 30px 20px; }
       .share-buttons { flex-direction: column; }
       .share-url-row { flex-direction: column; align-items: stretch; }
     }
@@ -83,10 +76,11 @@
     <div class="hero-copy">
       <div class="kicker">Get Involved</div>
       <h1>Join the <span class="marker">revolution.</span></h1>
-      <p>Become a Sapiens First organizer — get our emails, show up to events and actions, and help build political power over AI.</p>
-      <div class="actions">
-        <a class="btn primary" href="#signup">Sign Up →</a>
-      </div>
+      <p>Interested in becoming a member? Leave your email and we'll be in touch about getting involved.</p>
+      <form class="signup-row" id="signup" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Keep me posted →</button>
+      </form>
     </div>
     <div class="hero-art" aria-hidden="true">
       <div class="sun"></div>
@@ -100,17 +94,6 @@
     </div>
   </section>
 
-  <section class="section" id="signup">
-    <div class="container">
-      <div class="label">Get Involved</div>
-      <h2 style="margin-top:18px">Join our <span class="underline blue">email list.</span></h2>
-      <p class="deck" style="margin-top:26px;max-width:44ch">Hear about upcoming events, actions, and ways to get involved in your city.</p>
-
-      <div class="signup-box">
-        <div id="act-signup"></div>
-      </div>
-    </div>
-  </section>
 
   <!-- ═══════════ ONION LEVELS ═══════════
   <section class="section">
@@ -218,7 +201,7 @@
 
 <script src="signup.js"></script>
 <script>
-  document.getElementById('act-signup').appendChild(createSignupForm({ theme: 'light', buttonText: 'Sign me up →', interest: 'membership' }));
+  wireSignupForm(document.querySelector('#signup'), { interest: 'membership' });
 
   const ORG_URL = SITE_CONFIG.JOIN_URL;
   document.getElementById('share-url-display').textContent = ORG_URL.replace(/^https?:\/\//, '');

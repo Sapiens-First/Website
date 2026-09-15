@@ -94,7 +94,9 @@
     .about-art .t1 { left: 6%; top: 10%; transform: rotate(-3deg); }
     .about-art .t2 { right: 6%; top: 20%; transform: rotate(3deg); }
     .about-art .t3 { left: 10%; bottom: 12%; transform: rotate(2deg); }
-    #founder .about-art { min-height: 0; aspect-ratio: 4/5; }
+    #founder .about-art { width: min(100%, 320px); min-height: 0; aspect-ratio: 4/5; justify-self: center; }
+    #founder .underline:after { width: min(100%, 3.5em); }
+    .strategy .text-link { display: block; width: max-content; margin: 32px 0 0 auto; }
     .founder-socials { display: flex; gap: 10px; margin-top: 24px; }
     .social-icon {
       display: inline-flex; align-items: center; justify-content: center;
@@ -169,7 +171,7 @@
       position: absolute; left: 50%; top: 62%; transform: translate(-50%,-50%) rotate(-2deg);
       background: #fff; border: 2px solid var(--ink); box-shadow: 5px 5px 0 var(--ink);
       padding: 10px 16px;
-      font-family: var(--font-display); font-size: 13px; font-weight: 800;
+      font-family: var(--font-display); font-size: 16.9px; font-weight: 800;
       letter-spacing: .06em; text-transform: uppercase;
       text-align: center; line-height: 1.25; white-space: nowrap; z-index: 2;
     }
@@ -178,7 +180,7 @@
       border: 3px solid var(--ink);
       display: flex; align-items: center; justify-content: center;
       padding: 6%; box-sizing: border-box; cursor: pointer;
-      font-family: var(--font-display); font-size: clamp(1.05rem,2.6vw,1.5rem);
+      font-family: var(--font-display); font-size: clamp(1.235rem,2.34vw,1.56rem);
       font-weight: 800; text-transform: uppercase; color: var(--ink);
       transition: transform .16s ease; z-index: 2;
     }
@@ -242,8 +244,8 @@
       .roadmap-band { padding: 64px 0; }
       .roadmap-step { padding: 24px 20px; }
       .cycle { max-width: 320px; margin: 40px auto 8px; }
-      .cycle-hub { font-size: 11px; padding: 8px 12px; }
-      .cycle-node { font-size: 1rem; }
+      .cycle-hub { font-size: 14.3px; padding: 8px 12px; }
+      .cycle-node { font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -405,7 +407,6 @@
     <div class="container about-grid">
       <div class="about-art">
         <img src="assets/rohan-prasad.jpg" alt="Rohan Prasad, founder of Sapiens First" loading="lazy">
-        <div class="tag t1">Founder</div>
       </div>
       <div class="about-copy">
         <div class="label alt-yellow">Founder</div>

@@ -138,9 +138,10 @@
       <div class="kicker">Start a Circle · Your City</div>
       <h1>Start a <span class="marker">Circle.</span></h1>
       <p>A Circle is a local group that takes action together. By starting a circle, you give people in your community a place to belong.</p>
-      <div class="actions">
-        <a class="btn primary" href="/join">Start →</a>
-      </div>
+      <form class="signup-row" id="signup" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">Keep me posted →</button>
+      </form>
     </div>
     <div class="hero-art" aria-hidden="true">
       <div class="sun"></div>
@@ -203,8 +204,8 @@
     <div class="apply-copy">
       <div class="label alt-green">Start</div>
       <h2 style="margin-top:18px">Ready to <span class="marker">found one?</span></h2>
-      <p class="deck">You'll need to be a member first — then you can found a Circle in your Hub.</p>
-      <a class="btn primary" href="/join">Express interest →</a>
+      <p class="deck">Interested in starting a Circle? Leave your email and we'll help you take the next step.</p>
+      <a class="btn primary" href="#signup">Express interest →</a>
       <p class="apply-note">Questions? Email rohan@sapiensfirst.org</p>
     </div>
     <div class="apply-panel">
@@ -214,7 +215,7 @@
       </div>
       <div class="label">Circle</div>
       <div class="apply-deadline">&lt;10</div>
-      <p>Small enough to move fast, close enough to trust each other. Not ready to join yet? Leave your email and we'll help you find or start one nearby.</p>
+      <p>Leave your email and we'll be in touch about starting a Circle in your community.</p>
       <form class="signup-row" action="#" method="post">
         <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
         <button class="btn primary" type="submit">Count me in →</button>
@@ -228,7 +229,7 @@
 <script src="signup.js"></script>
 <script>
   document.querySelectorAll('.signup-row').forEach(function (form) {
-    wireSignupForm(form, { interest: 'Start a Circle' });
+    wireSignupForm(form, { interest: 'start-a-circle' });
   });
 </script>
 <script src="nav.js"></script>

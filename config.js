@@ -30,7 +30,7 @@ SITE_CONFIG.pageLink = function (page) {
 //   external/href: for entries that aren't a local page (e.g. Donate).
 SITE_CONFIG.PAGES = {
   about:           { label: 'About',          nav: true,   footer: 'About' },
-  strategy:        { label: 'Strategy',                    footer: 'About' },
+  strategy:        { label: 'Strategy' },
   privacy:         { label: 'Privacy',                      footer: 'About' },
   donate:          { label: 'Donate',                        footer: 'About' },
   fellowship:      { label: 'Fellowship',     nav: true,   footer: 'Get Involved' },

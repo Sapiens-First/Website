@@ -88,9 +88,8 @@
     .approach-cycle { margin-top: 32px; }
     .approach-cycle figcaption { margin-top: 28px; }
     .approach-cycle .takeaway { margin: 0; text-align: center; }
-    .approach-copy { display: flex; flex-direction: column; align-self: stretch; }
     .approach-research { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--ink); }
-    .case-link-row { margin-top: auto; padding-top: 28px; text-align: right; }
+    .case-link-row { margin-top: 28px; text-align: right; }
     .case-link-row a { display: inline-block; padding: 10px 0; font-weight: 700; text-wrap: balance; }
     @media (max-width: 850px) {
       .donate-evidence .approach-layout { grid-template-columns: 1fr; gap: 32px; }
@@ -102,7 +101,7 @@
     .progress-item p { font-size: 22px; line-height: 1.6; }
     .progress-item:nth-child(2) { border-color: var(--blue); }
     .progress-item:nth-child(3) { border-color: var(--red); }
-    .chapter-target { margin: 28px auto 0; width: 160px; }
+    .chapter-target { margin: 28px auto 0; width: 240px; }
     /* A faded halftone map, like ink printed into the poster paper. Same treatment as the home page's US map. */
     .ca-map {
       display: block; width: 100%; height: auto; aspect-ratio: 85.42 / 143.5;
@@ -122,7 +121,7 @@
     .donate-giving { background: #ffe4dc; }
     .story-next { padding: 40px; background: var(--yellow); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
     .story-next .donate-row { column-gap: 40px; align-items: center; }
-    #funding-heading { font: 800 clamp(2rem, 3.2vw, 2.8rem)/1.15 var(--font-display); text-transform: uppercase; letter-spacing: .01em; margin-bottom: 8px; }
+    #funding-heading { font: 800 clamp(2rem, 3.2vw, 2.8rem)/1.15 var(--font-display); text-transform: uppercase; letter-spacing: .01em; margin-bottom: 28px; }
     .donate-cta-row { justify-content: center; margin-top: 30px; }
     .story-next #donate-cta-2 {
       min-width: 220px; padding: 20px 40px;
@@ -134,6 +133,11 @@
     .story-next #donate-cta-2:hover { transform: rotate(1deg) translateY(-3px); box-shadow: 8px 8px 0 var(--ink); }
     .story-next #donate-cta-2:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
     .story-next .checkout-note { text-align: center; margin-top: 16px; }
+    .gift-tiers { display: grid; gap: 18px; margin-top: 24px; }
+    .gift-tier { padding-top: 16px; border-top: 1px solid rgba(17, 17, 17, .25); }
+    .gift-tier:first-child { padding-top: 0; border-top: none; }
+    .gift-tier dt { margin: 0; font: 800 clamp(2.1rem, 3.2vw, 2.6rem)/1 var(--font-display); }
+    .gift-tier dd { margin: 4px 0 0; font-size: 22px; line-height: 1.45; }
     .movement-cycle { position: relative; width: 100%; max-width: 420px; aspect-ratio: 380 / 330; margin: 12px auto; }
     .movement-arrows { position: absolute; inset: 0; width: 100%; height: 100%; }
     .movement-node { position: absolute; width: 34%; aspect-ratio: 1; border: 3px solid var(--ink); border-radius: 50%; display: grid; place-items: center; box-shadow: 4px 4px 0 var(--ink); font: 800 clamp(22px, 2.6vw, 30px)/1 var(--font-display); text-transform: uppercase; }
@@ -177,7 +181,7 @@
       .progress-grid { grid-template-columns: 1fr; gap: 28px; }
       .progress-number { font-size: 56px; margin-bottom: 10px; }
       .takeaway { font-size: 22px; }
-      .chapter-target { width: 130px; }
+      .chapter-target { width: 190px; }
     }
 
   </style>
@@ -212,7 +216,6 @@
       <div class="actions">
         <a class="btn primary" id="donate-cta" href="https://www.zeffy.com/en-US/donation-form/support-sapiens-first" target="_blank" rel="noopener">Donate →</a>
       </div>
-      <p class="checkout-note">Give once or monthly via Zeffy.</p>
       </div>
     </div>
   </section>
@@ -236,18 +239,14 @@
           <span class="movement-node movement-train">Train</span>
         </div>
           <figcaption class="donate-copy">
-          <p class="takeaway">Act. Bring people in. Train them to lead the next action.</p>
+          <p class="takeaway">How We Build Movement Power.</p>
           </figcaption>
         </figure>
       </div>
       <div class="donate-copy approach-copy">
         <p class="takeaway">We turn public concern into political change.</p>
         <p>Throughout history, movements that are sustained, organized, and strategic have created real change.</p>
-        <p>Sapiens First is building a movement to fight for AI safety and democracy. We recruit, train, and activate ordinary citizens to take action on AI.</p>
-        <p>Our focus is winning policy in California, a state with outsized impact on AI policy.</p>
-        <div class="approach-research">
-          <p><a href="https://wagingnonviolence.org/2024/05/overcoming-despair-apathy-win-democracy-otpor-serbia-ivan-marovic/">Otpor's campaign for democracy in Serbia</a> is one example this model draws on.</p>
-        </div>
+        <p>Sapiens First is building a year-round movement to fight for AI safety and democracy.</p>
         <div class="case-link-row">
           <a id="case-statement-link" href="https://docs.google.com/document/d/1sBlALbzX4fwvEJcFtc4OSpAnceozyV3_chMaFNUIhJg/edit?usp=sharing">Read our case statement <span aria-hidden="true">→</span></a>
         </div>
@@ -260,9 +259,8 @@
       <h2 id="what-heading"><span class="section-index">02 / PLAN</span>A Path to Victory</h2>
       <div class="donate-copy">
         <p class="takeaway">City by city, state by state.</p>
-        <p>We train local organizers to turn concern about AI into demands politicians must answer.</p>
-          <p>Our model draws on past social movements, including <a href="https://www.brennancenter.org/our-work/analysis-opinion/improbable-victory-marriage-equality">marriage equality</a> and the <a href="https://www.nelp.org/insights-research/10-year-legacy-fight-for-15-union-movement/">Fight for $15</a>.</p>
-          <p><a href="https://www.ericachenoweth.com/research/wcrw">Civil resistance research</a> identifies broad participation as a strength of nonviolent movements.</p>
+        <p>Our focus is winning policy in California. We start by winning in City Councils across the state.</p>
+        <p>Our model draws on <a href="https://www.ericachenoweth.com/research/wcrw">social science research</a>, and builds off movements for <a href="https://www.brennancenter.org/our-work/analysis-opinion/improbable-victory-marriage-equality">Marriage Equality</a> and the <a href="https://www.nelp.org/insights-research/10-year-legacy-fight-for-15-union-movement/">Fight for $15</a>.</p>
       </div>
       <figure class="donate-wide">
         <ol class="strategy-path">
@@ -286,23 +284,32 @@
   <section class="donate-section donate-story" aria-labelledby="progress-heading">
     <div class="container donate-row">
       <h2 id="progress-heading"><span class="section-index">03 / OUR STORY</span>Building a Statewide Movement.</h2>
-      <div class="donate-copy"><p>Since our April 2026 launch:</p></div>
       <div class="progress-grid donate-wide donate-copy">
         <div class="progress-item"><strong class="progress-number">300–400</strong><p>People at the <a href="https://sfstandard.com/2026/07/11/anti-ai-protest-openai-anthropic-google-san-francisco/">San Francisco AI protest</a> we co-organized and fiscally sponsored.</p></div>
         <div class="progress-item"><strong class="progress-number">50+</strong><p>In-depth voter interviews to shape our first campaign.</p></div>
         <div class="progress-item"><strong class="progress-number">8</strong><p>Volunteer Fellows, with an <a href="/learn">organizer guide</a> for new chapter leaders.</p></div>
       </div>
       <div class="story-next donate-wide">
+      <h3 id="funding-heading">Support our seed cities.</h3>
       <div class="donate-row">
-      <div>
-        <h3 id="funding-heading">Give to support<br> our seed cities.</h3>
-        <figure class="chapter-target">
-          <span class="ca-map" role="img" aria-label="Map of California, where we're building our seed chapters."></span>
-        </figure>
-      </div>
+      <figure class="chapter-target">
+        <span class="ca-map" role="img" aria-label="Map of California, where we're building our seed chapters."></span>
+      </figure>
       <div class="donate-copy">
-        <p><strong>Our goal: $750,000 for 15 active California chapters.</strong></p>
-        <p>Your gift funds our core team, making the movement possible.</p>
+        <dl class="gift-tiers">
+          <div class="gift-tier">
+            <dt>$1,000</dt>
+            <dd>Funds one chapter event.</dd>
+          </div>
+          <div class="gift-tier">
+            <dt>$5,000</dt>
+            <dd>Recruits and trains a chapter's founding team.</dd>
+          </div>
+          <div class="gift-tier">
+            <dt>$10,000</dt>
+            <dd>Powers a chapter's first campaign.</dd>
+          </div>
+        </dl>
         <div class="actions donate-cta-row">
           <a class="btn primary" id="donate-cta-2" href="https://www.zeffy.com/en-US/donation-form/support-sapiens-first" target="_blank" rel="noopener">Donate →</a>
         </div>
@@ -318,10 +325,9 @@
     <div class="container donate-row">
       <h2 id="giving-heading">Be a founding patron.</h2>
       <div class="donate-copy">
-        <p class="takeaway">Right now, $10,000 doesn't pad our budget. It sets our direction.</p>
-        <p>We're hiring our core team and building our first chapters. The choices we make this year become the model every chapter after follows. Founding Patrons are the small circle of donors giving $10,000 or more who back that first year.</p>
-        <p>Want the details? Ask, and our Executive Director will walk you through our strategy and budget directly.</p>
-        <p>Email <a href="mailto:rohan@sapiensfirst.org">rohan@sapiensfirst.org</a> to become a Founding Patron, or ask about other ways to give.</p>
+        <p>Founding Patrons are the small circle of donors giving $10,000 or more who back that first year.</p>
+        <p>We'd be happy to walk through our strategy and budget directly.</p>
+        <p>Email <a href="mailto:rohan@sapiensfirst.org">rohan@sapiensfirst.org</a> to start a conversation.</p>
         <!-- Add alternative payment instructions only once confirmed by the organization. -->
         <div class="donate-legal">Sapiens First / Guardrail Project, Inc.<br>U.S. 501(c)(3) nonprofit · EIN 41-4917212.</div>
       </div>

@@ -100,7 +100,7 @@ header.site-header nav {
 .brand-logo { display: block; width: .82em; height: .82em; flex-shrink: 0; filter: brightness(0); transform: translateY(-.035em); }
 .brand-name { display: block; }
 .brand:focus-visible { outline: 3px solid var(--ink); outline-offset: 5px; }
-.nav-actions { display: flex; gap: 8px; justify-self: end; align-items: center; }
+.nav-actions { display: flex; gap: 16px; justify-self: end; align-items: center; }
 .nav-fellowship {
   display: flex; align-items: center;
   padding: 12px 10px;

@@ -18,6 +18,8 @@ SITE_CONFIG.pageLink = function (page) {
 // Single source of truth for where each page appears in site chrome. To add,
 // move, or hide a page, edit its entry here only — NAV_LINKS and
 // FOOTER_GROUPS below are both derived from this registry.
+// Page text and SEO metadata live in each HTML file. Search-discovery URLs
+// are maintained separately in sitemap.xml; this registry does not update it.
 //
 //   label:  display text.
 //   nav:    true       -> root-level nav item, in declared order.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Propagates partials/head-common.html into every page's marked head region.
+"""Propagates partials/head-common.html into root pages' marked head regions.
 
 The <head> of each page has a fixed set of tags (favicon, font links, the
 shared.css link, config.js) that used to be copy-pasted into every file by
@@ -13,6 +13,10 @@ Run this script after editing the partial (or after editing a page's markers)
 to regenerate every page in place:
 
     python3 build.py
+
+Page-specific SEO metadata stays outside the markers and is edited in each
+HTML file. Nested pages such as about/careers.html maintain their own heads
+and relative asset paths; this script does not update them.
 """
 import re
 from pathlib import Path

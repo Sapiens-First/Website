@@ -1,5 +1,15 @@
 RewriteEngine On
 
+# Careers has a top-level URL; retain old bookmarks.
+RewriteRule ^about/careers(?:\.html)?/?$ /careers [R=301,L]
+RewriteRule ^careers/$ /careers [R=301,L]
+# Match before directory handling: careers/ also contains job pages.
+RewriteRule ^careers$ careers.html [L]
+
+# Start a Circle now lives at /circle — send old links there.
+RewriteRule ^start-a-circle/?$ /circle [R=301,L]
+RewriteRule ^start-a-circle\.html$ /circle [R=301,L]
+
 # Serve clean URLs: /act → act.html, /learn → learn.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f

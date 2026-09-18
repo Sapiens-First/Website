@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <link rel="canonical" href="https://sapiensfirst.org/learn">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> Guide &mdash; Sapiens First</title>
+  <title>Guide &mdash; Sapiens First</title>
   <meta name="description" content="The Sapiens First guide to AI, people power, and how to make change.">
   <meta property="og:url" content="https://sapiensfirst.org/learn">
   <meta property="og:type" content="website">
@@ -20,166 +20,73 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
+    .page-hero { padding: 64px 0 56px; background: var(--paper); }
+    .page-hero .container, .guide-section > .container { max-width: 1120px; }
+    .page-title { max-width: none; font-size: clamp(3rem, 6.5vw, 6rem); line-height: .98; text-align: left; opacity: 1; animation: none; }
+    .guide-intro { max-width: 52ch; margin-top: 28px; font-size: clamp(1.125rem, 1.7vw, 1.375rem); line-height: 1.55; }
+    .guide-section { padding: 56px 0 96px; }
+    .guide-layout { display: grid; grid-template-columns: 248px minmax(0, 1fr); gap: 64px; align-items: start; }
+    .guide-sidebar { position: sticky; top: 108px; max-height: calc(100dvh - 132px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; padding-right: 16px; }
+    .guide-main { min-width: 0; }
+    .contents-toggle { cursor: pointer; padding: 0 0 16px; border-bottom: 2px solid var(--ink); font: 800 24px/1.2 var(--font-display); text-transform: uppercase; }
+    .toc { padding: 4px 0; }
+    .toc-group-header { margin: 20px 0 6px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .toc-group-header:first-child { margin-top: 12px; padding-top: 0; border-top: 0; }
+    .toc a { color: var(--ink); text-decoration: none; border: 0; overflow-wrap: anywhere; }
+    .toc-group-header a { display: block; padding: 8px; font: 800 20px/1.2 var(--font-display); text-transform: uppercase; }
+    .toc-h2-row { display: flex; align-items: center; }
+    .toc-h2-link { flex: 1; min-width: 0; padding: 10px 8px 10px 32px; font-size: 16px; line-height: 1.4; }
+    .toc-chevron + .toc-h2-link { padding-left: 0; }
+    .toc-chevron { flex-shrink: 0; width: 32px; height: 44px; display: grid; place-items: center; background: none; border: 0; cursor: pointer; color: var(--ink); font-size: 24px; }
+    .toc-chevron.open { transform: rotate(90deg); }
+    .toc-h3-list { list-style: none; padding: 0 0 8px 32px; margin: 0; display: none; }
+    .toc-h3-list.open { display: block; }
+    .toc-h3-list a { display: block; padding: 9px 8px; font-size: 15px; line-height: 1.45; }
+    .toc a:hover, .toc a.toc-active { background: var(--yellow); color: var(--ink); }
+    .toc a.toc-active { font-weight: 700; }
+    main a:focus-visible, .contents-toggle:focus-visible, .toc-chevron:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 
-    /* GUIDE LAYOUT */
-    .guide-section { padding: 72px 0 120px; }
-
-    .guide-layout {
-      display: flex;
-      gap: 56px;
-      align-items: start;
-    }
-    .guide-sidebar {
-      width: 232px;
-      flex-shrink: 0;
-      position: sticky;
-      top: 96px;
-      max-height: calc(100vh - 116px);
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: var(--border) transparent;
-    }
-    .guide-main { flex: 1; min-width: 0; }
-
-    @media (max-width: 900px) {
-      .guide-layout { flex-direction: column; gap: 36px; }
-      .guide-sidebar { width: 100%; position: static; max-height: none; overflow-y: visible; }
-    }
-
-    /* DOCUMENT TYPOGRAPHY */
-    .doc-body { line-height: 1.68; }
-
-    .doc-body h1 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(32px, 5vw, 52px); line-height: 1.05;
-      letter-spacing: -0.02em; text-transform: uppercase;
-      color: var(--text); margin: 100px 0 28px;
-      padding-top: 48px; border-top: 4px solid var(--accent);
-    }
-    .doc-body h1:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-    .doc-body h2 {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: clamp(26px, 4vw, 38px); line-height: 1.1;
-      letter-spacing: -0.01em; text-transform: uppercase;
-      color: var(--text); margin: 56px 0 16px;
-      padding-bottom: 10px; border-bottom: 2px solid var(--accent);
-    }
-    .doc-body h3 {
-      font-family: var(--font-display); font-weight: 700;
-      font-size: clamp(20px, 3vw, 26px); line-height: 1.15;
-      letter-spacing: 0.02em; text-transform: uppercase;
-      color: var(--text); margin: 40px 0 12px;
-    }
-    .doc-body h4 {
-      font-family: var(--font-body); font-weight: 600;
-      font-size: 17px; letter-spacing: 0.05em; text-transform: uppercase;
-      color: var(--text); margin: 28px 0 8px;
-    }
-
-    .doc-body p {
-      font-family: var(--font-body); font-size: var(--sz-copy);
-      color: var(--text); margin: 0 0 18px; line-height: 1.68;
-    }
+    .doc-body { font: 400 clamp(1.125rem, 1.45vw, 1.25rem)/1.75 var(--font-body); color: var(--ink); overflow-wrap: anywhere; }
+    .doc-body h1, .doc-body h2, .doc-body h3, .doc-body h4 { max-width: none; color: var(--ink); text-wrap: balance; scroll-margin-top: 112px; }
+    .doc-body h1 { font: 800 clamp(2.5rem, 4vw, 3.5rem)/1.05 var(--font-display); letter-spacing: -.02em; text-transform: uppercase; margin: 80px 0 28px; padding-top: 40px; border-top: 3px solid var(--ink); }
+    .doc-body h1:first-of-type { margin-top: 0; padding-top: 0; border-top: 0; }
+    .doc-body h2 { font: 800 clamp(2rem, 3vw, 2.5rem)/1.1 var(--font-display); letter-spacing: -.01em; text-transform: uppercase; margin: 48px 0 24px; }
+    .doc-body h3 { font: 700 clamp(1.5rem, 2.3vw, 1.875rem)/1.2 var(--font-display); text-transform: uppercase; margin: 36px 0 18px; }
+    .doc-body h4 { font: 700 1.125rem/1.4 var(--font-body); margin: 28px 0 14px; }
+    .doc-body p { font: inherit; color: inherit; margin: 0 0 24px; }
     .doc-body p:empty { display: none; }
-
-    .doc-body ul, .doc-body ol {
-      font-family: var(--font-body); font-size: var(--sz-copy);
-      color: var(--text); line-height: 1.68;
-      padding-left: 28px; margin: 0 0 20px;
-    }
+    .doc-body ul, .doc-body ol { font: inherit; color: inherit; padding-left: 1.4em; margin: 0 0 24px; }
     .doc-body ul { list-style: disc; }
     .doc-body ol { list-style: decimal; }
-    .doc-body li { margin-bottom: 8px; }
+    .doc-body li { margin-bottom: 12px; }
     .doc-body li:last-child { margin-bottom: 0; }
-    .doc-body ul ul, .doc-body ol ol,
-    .doc-body ul ol, .doc-body ol ul { margin: 8px 0 0; padding-left: 24px; }
-
-    .doc-body a {
-      color: var(--accent); text-decoration: none;
-      border-bottom: 1px solid rgba(205,85,29,0.35);
-      transition: border-color .2s;
-    }
-    .doc-body a:hover { border-color: var(--accent); }
+    .doc-body li > p { margin-bottom: 12px; }
+    .doc-body ul ul, .doc-body ol ol, .doc-body ul ol, .doc-body ol ul { margin: 12px 0 0; }
+    .doc-body a { color: inherit; text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 4px; text-decoration-thickness: 2px; }
+    .doc-body a:hover { text-decoration-color: var(--ink); }
     .doc-body strong { font-weight: 700; }
     .doc-body em { font-style: italic; }
-
-    /* TABLE */
-    .doc-body table { width: 100%; border-collapse: collapse; margin: 0 0 24px; overflow-x: auto; display: block; }
-    .doc-body td, .doc-body th {
-      border: 1px solid var(--border);
-      padding: 10px 14px; vertical-align: top;
-      font-family: var(--font-body); font-size: 16px; line-height: 1.6;
-    }
-    .doc-body tr:first-child td { background: var(--surface); font-weight: 600; }
-
-    /* TABLE OF CONTENTS — sidebar */
-    .toc-label {
-      display: block;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border); margin-bottom: 4px;
-    }
-
-    /* H1 group headers in the TOC */
-    .toc-group-header {
-      margin: 14px 0 2px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-    .toc-group-header:first-of-type { margin-top: 6px; padding-top: 0; border-top: none; }
-    .toc-group-header a {
-      font-family: var(--font-display); font-weight: 700;
-      font-size: var(--sz-label); letter-spacing: 0.08em; text-transform: uppercase;
-      color: var(--text); text-decoration: none; border-bottom: none;
-      display: block; padding: 2px 8px; transition: color .15s;
-    }
-    .toc-group-header a:hover { color: var(--accent); border-bottom: none; }
-
-    /* h2 rows */
-    .toc-h2-row { display: flex; align-items: center; }
-    .toc-h2-link {
-      flex: 1; padding: 5px 2px 5px 21px;
-      font-family: var(--font-body); font-size: 15px; font-weight: 500;
-      color: var(--text); text-decoration: none; border-bottom: none;
-      transition: color .15s; line-height: 1.3;
-    }
-    /* chevron is 18px wide + 3px gap = 21px, matching the no-chevron indent */
-    .toc-chevron + .toc-h2-link { padding-left: 3px; }
-    .toc-h2-link:hover, .toc-h2-link.toc-active { color: var(--accent); border-bottom: none; }
-    .toc-h2-link.toc-active { font-weight: 600; }
-
-    .toc-chevron {
-      flex-shrink: 0; width: 18px; height: 26px;
-      display: flex; align-items: center; justify-content: center;
-      background: none; border: none; cursor: pointer;
-      color: var(--text); font-size: 11px;
-      transition: transform .2s ease, color .15s;
-    }
-    .toc-chevron.open { transform: rotate(90deg); }
-    .toc-chevron:hover { color: var(--accent); }
-
-    /* h3 sub-list */
-    .toc-h3-list { list-style: none; padding: 0 0 4px 36px; margin: 0; display: none; }
-    .toc-h3-list.open { display: block; }
-    .toc-h3-list a {
-      display: block; padding: 3px 2px;
-      font-family: var(--font-body); font-size: var(--sz-label);
-      color: var(--text); text-decoration: none; border-bottom: none;
-      transition: color .15s;
-    }
-    .toc-h3-list a:hover, .toc-h3-list a.toc-active { color: var(--accent); border-bottom: none; }
-    .toc-h3-list a.toc-active { font-weight: 500; }
+    .doc-body img { max-width: 100%; height: auto; }
+    .doc-body table { display: block; max-width: 100%; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 28px 0; }
+    .doc-body td, .doc-body th { border: 1px solid var(--border); padding: 14px 16px; vertical-align: top; font-size: 17px; line-height: 1.6; }
+    .doc-body tr:first-child td, .doc-body th { background: #e5efff; font-weight: 700; }
+    .loading-state, .empty-state { padding: 32px; border: 2px solid var(--ink); font-size: 18px; line-height: 1.6; text-align: left; letter-spacing: normal; text-transform: none; }
 
     @media (max-width: 900px) {
-      .toc { border: 1px solid var(--border); padding: 16px 20px 12px; margin-bottom: 40px; }
-      .toc-label { margin-bottom: 8px; }
-      .toc-h2-link { font-size: 16px; padding: 7px 4px 7px 21px; }
-      .toc-h3-list a { font-size: 14px; }
-      .toc-h3-list { padding-left: 36px; }
+      .guide-layout { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+      .guide-sidebar { position: static; max-height: none; padding: 0; overflow: visible; }
+      .guide-contents { border: 2px solid var(--ink); background: #fff; padding: 18px 20px; }
+      .contents-toggle { padding: 0; border: 0; font-size: 22px; }
+      .guide-contents[open] .contents-toggle { padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+      .guide-contents .toc { max-height: 55dvh; overflow-y: auto; margin-top: 12px; }
     }
-
-    @media (max-width: 768px) { .doc-body p, .doc-body li { font-size: 17px; line-height: 1.65; } }
-    @media (max-width: 600px) { .container { padding: 0 20px; } }
-
+    @media (max-width: 600px) {
+      .page-hero { padding: 40px 0; }
+      .page-title { font-size: clamp(2.8rem, 12vw, 4rem); }
+      .guide-intro { margin-top: 24px; }
+      .guide-section { padding: 28px 0 64px; }
+      .doc-body h1 { margin-top: 56px; padding-top: 32px; }
+    }
   </style>
 </head>
 <body>
@@ -187,9 +94,10 @@
   <header class="site-header"></header>
 
   <div class="page-hero">
-    <div class="ember-field" aria-hidden="true"></div>
     <div class="container">
+      <div class="kicker">Learn · Organize · Act</div>
       <h1 class="page-title">Sapiens' Guide to<br><span class="title-accent">Revolution</span></h1>
+      <p class="guide-intro">A practical guide to AI, people power, and organizing for change.</p>
     </div>
   </div>
 
@@ -198,7 +106,10 @@
       <div class="container">
         <div class="guide-layout">
           <aside class="guide-sidebar">
-            <div id="toc-container"></div>
+            <details class="guide-contents" open>
+              <summary class="contents-toggle">Contents</summary>
+              <div id="toc-container"></div>
+            </details>
           </aside>
           <div class="guide-main">
             <div id="doc-content">
@@ -213,6 +124,12 @@
   <footer class="site-footer"></footer>
 
   <script>
+    const contents = document.querySelector('.guide-contents');
+    const mobileGuide = window.matchMedia('(max-width: 900px)');
+    function syncContents() { contents.open = !mobileGuide.matches; }
+    syncContents();
+    mobileGuide.addEventListener('change', syncContents);
+
     const DOC_ID = SITE_CONFIG.GUIDE_DOC_ID;
     const EXPORT_URL = 'https://docs.google.com/document/d/' + DOC_ID + '/export?format=html';
 
@@ -412,7 +329,7 @@
           var hasKids = sec.children.length > 0;
           html += '<div class="toc-h2-item"><div class="toc-h2-row">';
           if (hasKids) {
-            html += '<button class="toc-chevron" aria-expanded="false" data-target="' + uid + '">›</button>';
+            html += '<button class="toc-chevron" aria-label="Toggle subsections" aria-expanded="false" aria-controls="' + uid + '" data-target="' + uid + '">›</button>';
           }
           html += '<a class="toc-h2-link" href="#' + sec.heading.id + '">' + sec.heading.text + '</a>';
           html += '</div>';
@@ -427,7 +344,7 @@
         });
       });
 
-      tocContainer.innerHTML = '<nav class="toc"><span class="toc-label eyebrow">Contents</span>' + html + '</nav>';
+      tocContainer.innerHTML = '<nav class="toc" aria-label="Guide contents">' + html + '</nav>';
 
       // Chevron expand/collapse
       tocContainer.querySelectorAll('.toc-chevron').forEach(function(btn) {
@@ -445,7 +362,12 @@
         a.addEventListener('click', function(e) {
           e.preventDefault();
           var el = document.getElementById(a.getAttribute('href').slice(1));
-          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+          if (el) {
+            if (mobileGuide.matches) contents.open = false;
+            var header = document.querySelector('.site-header');
+            var offset = getComputedStyle(header).position === 'sticky' ? header.getBoundingClientRect().height + 24 : 24;
+            window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - offset, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+          }
         });
       });
     }
@@ -518,7 +440,6 @@
 
     loadGuide();
 
-    initEmberField();
   </script>
   <script src="nav.js"></script>
   <script src="footer.js"></script>

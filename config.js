@@ -11,8 +11,9 @@ const SITE_CONFIG = {
 // Resolve a page name to a link, working both in production (clean, extensionless
 // URLs served via .htaccess rewrites) and when the site is opened directly from
 // disk via file:// (no rewrite support, so the real .html file must be targeted).
+const siteRoot = new URL('.', document.currentScript.src);
 SITE_CONFIG.pageLink = function (page) {
-  return window.location.protocol === 'file:' ? `${page}.html` : `/${page}`;
+  return window.location.protocol === 'file:' ? new URL(`${page}.html`, siteRoot).href : `/${page}`;
 };
 
 // Single source of truth for where each page appears in site chrome. To add,
@@ -32,11 +33,12 @@ SITE_CONFIG.pageLink = function (page) {
 //   external/href: for entries that aren't a local page (e.g. Donate).
 SITE_CONFIG.PAGES = {
   about:           { label: 'About',          nav: true,   footer: 'About' },
+  careers:         { label: 'Careers',        nav: 'about', footer: 'About' },
   strategy:        { label: 'Strategy' },
   privacy:         { label: 'Privacy',                      footer: 'About' },
   donate:          { label: 'Donate',                        footer: 'About' },
   fellowship:      { label: 'Fellowship',     nav: true,   footer: 'Get Involved' },
-  'start-a-circle': { label: 'Start a Circle', nav: true,  footer: 'Get Involved' },
+  circle:          { label: 'Start a Circle', nav: true,  footer: 'Get Involved' },
   join:            { label: 'Join',           nav: true,   footer: 'Get Involved' },
   membership:      { label: 'Membership' },
   events:          { label: 'Events' },

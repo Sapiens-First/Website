@@ -22,8 +22,8 @@ document.querySelector('footer.site-footer').innerHTML = `
   </div>
   <div class="wrap">
     <div class="foot-top">
-      <a class="foot-brand" href="${local ? 'index.html' : '/'}">
-        <img src="favicons/android-chrome-192x192.png" alt="">
+      <a class="foot-brand" href="${local ? SITE_CONFIG.pageLink('index') : '/'}">
+        <img src="${new URL('favicons/android-chrome-192x192.png', siteRoot).href}" alt="">
         <span>Sapiens First</span>
       </a>
       <div class="foot-cols">${footerColsHtml}

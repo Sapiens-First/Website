@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://sapiensfirst.org/circle">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start a Circle — Sapiens First</title>
+  <meta name="description" content="Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.">
+  <meta property="og:title" content="Start a Circle — Sapiens First">
+  <meta property="og:description" content="Create a local home for action on Big Tech and democracy, with support from Sapiens First.">
+  <meta property="og:url" content="https://sapiensfirst.org/circle">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    /* circle.html — page-specific only; shared rebrand atoms/hero/
+       nav/footer live in shared.css. Same inner-page type-scale overrides as
+       about/fellowship — see about.html for why shared.css's bare
+       h1/h2/.deck/.btn/etc. need overriding here. */
+    h1 { max-width: 9ch; font-size: clamp(4rem, 8.4vw, 8.4rem); }
+    h2 { font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: .98; }
+    .deck { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500; }
+    .hero-copy p {
+      max-width: 34ch; margin: 30px 0 26px;
+      font-size: clamp(1.1rem,1.6vw,1.4rem); line-height: 1.45; font-weight: 600;
+    }
+    .btn { padding: 16px 22px; font-size: 14px; }
+    .circle-hero-art { display: grid; place-items: center; padding: 28px 12px; }
+    .circle-hero-art:before { content: none; }
+    .circle-gathering { display: block; width: 100%; max-width: 650px; height: auto; }
+    .circle-gathering .art-title { font-family: var(--font-display); font-size: 31px; font-weight: 800; letter-spacing: -.5px; }
+    .circle-gathering .art-note { font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 2px; }
+    .underline:after { height: 6px; bottom: -6px; }
+    .hero-copy:after { content: none; }
+    .hero-note {
+      margin-top: 16px; font-size: 13px; font-weight: 600; font-style: italic;
+      color: var(--ink); position: relative; z-index: 2;
+    }
+    .fact-pills { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 30px; position: relative; z-index: 2; }
+    .fact-pill {
+      padding: 9px 13px; border: 2px solid var(--ink); background: var(--white);
+      font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+    }
+
+    .circle-rally {
+      display: flex; align-items: center; gap: 22px; margin: 0;
+      padding: 30px max(28px,7vw); background: var(--red); color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      font-family: var(--font-display); font-size: clamp(1.6rem,2.7vw,2.7rem);
+      font-weight: 800; line-height: 1.1; text-transform: uppercase;
+    }
+    .circle-rally .zap { width: 26px; height: 40px; flex-shrink: 0; }
+
+    /* ─── ABOUT YOU / focus rows ── */
+    .about-you { background: var(--paper); padding: 100px 0; position: relative; overflow: hidden; }
+    .about-you > .container { position: relative; z-index: 2; }
+    .you-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+    .focus { border-top: 2px solid var(--ink); }
+    .focus-row {
+      display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: start;
+      padding: 26px 0; border-bottom: 1px solid var(--line);
+    }
+    .focus-row .n { font-size: 11px; font-weight: 900; }
+    .focus-row:nth-child(1) .n { color: var(--red); }
+    .focus-row:nth-child(2) .n { color: var(--blue); }
+    .focus-row:nth-child(3) .n { color: var(--green); }
+    .focus-row .name { font-size: 1.2rem; font-weight: 800; line-height: 1.4; }
+
+    .focus-row p { margin: 8px 0 0; font-size: 1rem; line-height: 1.6; }
+    .focus-row h3 { margin: 0; }
+    .section-intro { max-width: 48ch; margin: 26px 0 0; }
+    .getting-started { background: #fff; padding: 90px 0; }
+    .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; list-style: none; padding: 0; margin: 44px 0 0; }
+    .step { border-top: 3px solid var(--ink); padding-top: 24px; }
+    .step-number { font-family: var(--font-display); font-size: 3rem; font-weight: 800; line-height: 1; }
+    .step:nth-child(1) .step-number { color: var(--red-dark); }
+    .step:nth-child(2) .step-number { color: var(--blue); }
+    .step:nth-child(3) .step-number { color: var(--green); }
+    .step h3 { font-size: 1.25rem; margin: 18px 0 12px; }
+    .step p { font-size: 1rem; line-height: 1.6; margin: 0; }
+    .step a, .faq-body a { text-decoration: underline; text-underline-offset: 3px; }
+    .shared-leadership { background: var(--ink); color: #fff; padding: 80px 0; }
+    .shared-leadership .deck { margin: 26px 0 0; max-width: 40ch; color: #fff; }
+    .role-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid #777; }
+    .role-list li { padding: 22px 0; border-bottom: 1px solid #777; }
+    .role-list strong { display: block; color: var(--yellow); margin-bottom: 6px; font-size: 1.15rem; }
+    .role-list span { font-size: 1rem; line-height: 1.6; }
+    .faq { background: #fff; padding: 100px 0; }
+    .faq-acc { margin-top: 44px; border-top: 2px solid var(--ink); }
+    .faq-item { border-bottom: 2px solid var(--ink); }
+    .faq-item summary {
+      list-style: none; cursor: pointer;
+      padding: 24px 46px 24px 0;
+      display: flex; align-items: baseline; gap: 18px; position: relative;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-n { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; min-width: 2.2ch; }
+    .faq-item:nth-of-type(1) .faq-n { color: var(--red); }
+    .faq-item:nth-of-type(2) .faq-n { color: var(--blue); }
+    .faq-item:nth-of-type(3) .faq-n { color: var(--green); }
+    .faq-item:nth-of-type(4) .faq-n { color: var(--pink); }
+    .faq-q {
+      font-family: var(--font-display); font-size: clamp(1.2rem,2vw,1.7rem);
+      font-weight: 700; text-transform: uppercase; letter-spacing: -.01em;
+    }
+    .faq-chevron {
+      position: absolute; right: 0; top: 24px;
+      width: 22px; height: 22px; border: 2px solid var(--ink);
+      display: grid; place-items: center; font-size: 14px; font-weight: 900;
+    }
+    .faq-chevron:after { content: "+"; }
+    .faq-item[open] .faq-chevron:after { content: "–"; }
+    .faq-body { padding: 0 46px 30px 2.2ch; }
+    .faq-body p, .faq-body ul, .faq-body ol { margin: 0 0 14px; max-width: 62ch; font-size: 1rem; line-height: 1.6; font-weight: 500; }
+    .faq-body :last-child { margin-bottom: 0; }
+    .faq-body ul, .faq-body ol { padding-left: 1.2em; }
+    .faq-body li { margin-bottom: 6px; }
+    /* ─── APPLY / closing ── */
+    .apply { display: grid; grid-template-columns: 1fr 1fr; background: var(--paper); }
+    .apply-copy { padding: 100px max(28px,7vw); }
+    .apply-copy .deck { margin: 24px 0 30px; max-width: 36ch; }
+    .apply-note { margin-top: 16px; font-style: italic; font-weight: 600; color: var(--ink); font-size: .95rem; }
+    .apply-panel {
+      position: relative; min-height: 480px;
+      background: var(--ink); color: #fff;
+      padding: 60px 50px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-left: 2px solid var(--ink); overflow: hidden;
+    }
+    .apply-panel .label { margin-bottom: 24px; position: relative; z-index: 2; }
+    .apply-panel .apply-deadline, .apply-panel p, .apply-panel .signup-row { position: relative; z-index: 2; }
+    .apply-deadline {
+      font-family: var(--font-display); font-size: clamp(3rem,5vw,5rem);
+      font-weight: 800; line-height: .9; text-transform: uppercase; color: var(--red);
+    }
+    .apply-panel p { margin: 18px 0 0; max-width: 30ch; font-size: 1.05rem; font-weight: 600; line-height: 1.5; color: #fff; }
+    .apply-panel .signup-row { margin-top: 22px; }
+    .apply-panel:after {
+      content: ""; position: absolute; width: 100px; height: 10px;
+      background: var(--yellow); right: 34px; bottom: 38px;
+      transform: rotate(-3deg); border-radius: 999px;
+    }
+
+    summary:focus-visible, a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+    .hero-copy .hero-note { font-size: .85rem; font-weight: 500; margin: 14px 0 0; max-width: 44ch; }
+
+    /* ─── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-art { min-height: 420px; }
+      .apply { grid-template-columns: 1fr; }
+      .you-grid { grid-template-columns: 1fr; }
+      .apply-panel { border-left: 0; border-top: 2px solid var(--ink); min-height: 340px; }
+    }
+    @media (max-width: 600px) {
+      .circle-rally { padding: 24px 20px; gap: 16px; }
+      h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
+      h2 { font-size: clamp(2.1rem,11vw,3.2rem); }
+      .hero-copy p { font-size: 1.02rem; max-width: none; }
+      .hero-art { min-height: 320px; }
+      .about-you, .getting-started, .shared-leadership, .faq { padding: 56px 0; }
+      .steps { grid-template-columns: 1fr; gap: 28px; }
+      .you-grid { gap: 36px; }
+      .focus-row { grid-template-columns: 28px 1fr; gap: 12px; }
+      .faq-item summary { gap: 12px; }
+      .faq-body { padding: 0 0 24px; }
+      .apply-copy { padding: 54px 20px 48px; }
+      .apply-panel { padding: 44px 24px; min-height: 340px; }
+      .apply-deadline { font-size: clamp(3.2rem,18vw,5rem); }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header"></header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <div class="kicker">Local people. Shared purpose.</div>
+      <h1>Start a <span class="marker">Circle.</span></h1>
+      <p>Create a home for action on Big Tech and democracy.</p>
+      <div class="fact-pills" aria-label="Time commitment">
+        <span class="fact-pill">3–5 hours a week</span>
+        <span class="fact-pill">try for 3 months</span>
+      </div>
+      <form class="signup-row" id="signup" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">I’m interested →</button>
+      </form>
+      <p class="hero-note">Start with a conversation. Expressing interest doesn’t commit you to running a Circle.</p>
+    </div>
+    <div class="hero-art circle-hero-art" aria-hidden="true">
+      <svg class="circle-gathering" viewBox="0 0 600 640" xmlns="http://www.w3.org/2000/svg" focusable="false">
+        <!-- A shared table: everyone has a place, no head of the room. -->
+        <circle cx="300" cy="332" r="239" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 11" opacity=".35"/>
+        <path d="M50 190l9-21 9 21 22 9-22 9-9 21-9-21-22-9Z" fill="var(--yellow)"/>
+        <path d="M520 440l7-17 7 17 17 7-17 7-7 17-7-17-17-7Z" fill="var(--paper)"/>
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <g transform="translate(300 332) rotate(-15)">
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--ink)" transform="translate(5 6)"/>
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--blue)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-29-136L-38-110L-25-92M29-136L38-110L25-92" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+            <circle cy="-182" r="26" fill="#efb98e" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z" fill="var(--ink)"/>
+          </g>
+          <g transform="translate(300 332) rotate(45)">
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--ink)" transform="translate(5 6)"/>
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-29-136L-38-110L-25-92M29-136L38-110L25-92" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+            <circle cy="-182" r="26" fill="#794b38" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z" fill="var(--ink)"/>
+          </g>
+          <g transform="translate(300 332) rotate(105)">
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--ink)" transform="translate(5 6)"/>
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--green)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-29-136L-38-110L-25-92M29-136L38-110L25-92" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+            <circle cy="-182" r="26" fill="#d89266" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z" fill="var(--ink)"/>
+          </g>
+          <g transform="translate(300 332) rotate(165)">
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--ink)" transform="translate(5 6)"/>
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--pink)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-29-136L-38-110L-25-92M29-136L38-110L25-92" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+            <circle cy="-182" r="26" fill="#efb98e" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z" fill="var(--ink)"/>
+          </g>
+          <g transform="translate(300 332) rotate(225)">
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--ink)" transform="translate(5 6)"/>
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-29-136L-38-110L-25-92M29-136L38-110L25-92" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+            <circle cy="-182" r="26" fill="#ad7050" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z" fill="var(--ink)"/>
+          </g>
+          <g transform="translate(300 332) rotate(285)">
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--ink)" transform="translate(5 6)"/>
+            <rect x="-43" y="-168" width="86" height="94" rx="32" fill="var(--blue)" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-29-136L-38-110L-25-92M29-136L38-110L25-92" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+            <circle cy="-182" r="26" fill="#794b38" stroke="var(--ink)" stroke-width="3"/>
+            <path d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z" fill="var(--ink)"/>
+          </g>
+          <circle cx="305" cy="340" r="116" fill="var(--ink)"/>
+          <circle cx="300" cy="332" r="116" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3"/>
+          <circle cx="300" cy="332" r="101" fill="none" stroke="var(--ink)" stroke-width="1.5" opacity=".25"/>
+          <g transform="translate(266 306) rotate(-12)">
+            <rect x="4" y="5" width="58" height="76" fill="var(--ink)"/>
+            <rect width="58" height="76" fill="var(--paper)" stroke="var(--ink)" stroke-width="2"/>
+            <path d="M12 19h31M12 28h24M12 37h28" stroke="var(--ink)" stroke-width="2"/>
+            <path d="M13 55l6 6 13-15" fill="none" stroke="var(--red-dark)" stroke-width="4"/>
+          </g>
+          <g transform="translate(340 306) rotate(16)">
+            <rect width="36" height="44" fill="var(--pink)" stroke="var(--ink)" stroke-width="2"/>
+            <path d="M8 13h20M8 21h15" stroke="var(--ink)" stroke-width="2"/>
+          </g>
+          <g fill="var(--paper)" stroke="var(--ink)" stroke-width="2.5">
+            <path d="M237 300c-19-13-26 13-7 16" fill="none"/>
+            <circle cx="242" cy="313" r="14"/>
+            <path d="M345 380c19 13 26-13 7-16" fill="none"/>
+            <circle cx="340" cy="367" r="14"/>
+          </g>
+          <g fill="var(--ink)"><circle cx="242" cy="313" r="8"/><circle cx="340" cy="367" r="8"/></g>
+          <path d="M277 405l43-8" stroke="var(--blue)" stroke-width="7"/>
+          <path d="M320 397l7-2" stroke="var(--ink)" stroke-width="4"/>
+        </g>
+        <g transform="translate(57 43) rotate(-5)">
+          <path d="M7 7H249V94H7Z" fill="var(--ink)"/>
+          <path d="M0 0H242V87H0Z" fill="var(--paper)" stroke="var(--ink)" stroke-width="3"/>
+          <text class="art-title" x="16" y="36" fill="var(--ink)">FIND YOUR PEOPLE.</text>
+          <text class="art-title" x="16" y="71" fill="var(--ink)">BUILD SOMETHING.</text>
+          <path d="M88-8h64v17H88Z" fill="var(--yellow)" opacity=".85"/>
+        </g>
+        <g transform="translate(342 536) rotate(6)">
+          <rect width="202" height="58" fill="var(--ink)"/>
+          <text class="art-title" x="16" y="40" fill="var(--paper)">ROOM FOR YOU.</text>
+        </g>
+        <path d="M70 527q-23 42 47 50M103 565l16 12-17 9" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <text class="art-note" x="135" y="586" fill="var(--ink)">IT STARTS WITH US.</text>
+      </svg>
+    </div>
+  </section>
+
+  <p class="circle-rally">
+    <svg class="zap" viewBox="0 0 24 40" aria-hidden="true"><path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"/></svg>
+    <span>Find your voice, find some friends, and fight like hell.</span>
+  </p>
+
+  <section class="about-you" id="why">
+    <div class="container you-grid">
+      <div>
+        <div class="label alt-yellow">What you get</div>
+        <h2 style="margin-top:18px">Find your people.<br><span class="underline yellow">Make a difference.</span></h2>
+        <p class="deck section-intro">A Circle is a small local group with a shared purpose. It’s a place to turn concern about technology into connection, learning, and action.</p>
+      </div>
+      <div class="focus">
+        <div class="focus-row">
+          <span class="n">01</span>
+          <div><h3 class="name">A voice in the future of tech</h3><p>Bring your community’s concerns into a wider movement. Help shape campaigns and build public pressure for technology that serves people.</p></div>
+        </div>
+        <div class="focus-row">
+          <span class="n">02</span>
+          <div><h3 class="name">Mentorship and guidance</h3><p>Get support from the Sapiens First Global team and advice from other people starting Circles. You don’t have to figure it all out alone.</p></div>
+        </div>
+        <div class="focus-row">
+          <span class="n">03</span>
+          <div><h3 class="name">Leadership skills, built by doing</h3><p>Learn to bring people together, facilitate a good conversation, and turn an idea into a plan. Help others take on responsibility as you go.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="getting-started" id="getting-started">
+    <div class="container">
+      <div class="label alt-blue">Getting started</div>
+      <h2 style="margin-top:18px">Start small.<br><span class="underline blue">Build together.</span></h2>
+      <ol class="steps">
+        <li class="step"><span class="step-number" aria-hidden="true">01</span><h3>Join Sapiens First</h3><p><a href="#signup">Tell us you’re interested</a> in starting a Circle. We’ll help you take the next step toward membership and connect you with support from the Global team.</p></li>
+        <li class="step"><span class="step-number" aria-hidden="true">02</span><h3>Invite two friends</h3><p>Start with people who care about the issue and can share the work. Two friends is a good starting point, not a requirement. You can find your people along the way.</p></li>
+        <li class="step"><span class="step-number" aria-hidden="true">03</span><h3>Plan your first gathering</h3><p>Pick a time and a welcoming place: a library, park, classroom, or someone’s home. Make space to connect, then choose one thing you’d like to do together.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="shared-leadership" id="shared-leadership">
+    <div class="container you-grid">
+      <div>
+        <div class="label alt-yellow">Room for everyone to lead</div>
+        <h2 style="margin-top:18px">Start a Circle.<br>Grow more leaders.</h2>
+        <p class="deck">We’re building a movement with abundant leadership. Starting a Circle means helping others find their confidence, bring their ideas, and take the lead alongside you.</p>
+      </div>
+      <ul class="role-list">
+        <li><strong>Help someone take their first step</strong><span>Invite a member to host a gathering, welcome someone new, or try an idea they care about. Give them encouragement and room to make it their own.</span></li>
+        <li><strong>Build it together</strong><span>Share the work as people find their feet. A Circle gets stronger when more people feel able to contribute and lead.</span></li>
+        <li><strong>Pass it on</strong><span>You can get a Circle going, help someone else grow into leading it, then hand it over. The community you helped build can keep going when you step back.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="label alt-green">FAQ</div>
+      <h2 style="margin-top:18px">Before you <span class="underline yellow">begin.</span></h2>
+      <div class="faq-acc">
+        <details class="faq-item" open>
+          <summary><span class="faq-n">01</span><span class="faq-q">How much time am I committing?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Starting a Circle takes about <strong>3–5 hours a week</strong>, with an initial commitment of <strong>three months</strong>. After that, you decide whether to continue every six months.</p><p>Keep the first few months manageable: bring people together, share the work, and find a rhythm that fits your life.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-n">02</span><span class="faq-q">Do I need experience or a group already?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>No. You can learn as you go, with mentorship and guidance from Sapiens First Global and other Circle organizers. Bringing two reliable friends is recommended, but you can start without them.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-n">03</span><span class="faq-q">Does my Circle have to organize protests or advocacy?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>No. You can host a space for thoughtful conversation about technology and democracy. Building trust and connection is a worthwhile place to begin.</p><p>Choose a format that fits your community. You can explore advocacy together when it feels right.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-n">04</span><span class="faq-q">What might a Circle do week to week?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>For a Circle focused on advocacy, we suggest three simple habits:</p><ul><li><strong>Meet regularly.</strong> Make gatherings welcoming, meaningful, and easy to participate in.</li><li><strong>Invite new people.</strong> Choose one repeatable way to reach them, such as personal invitations, local outreach, or door-knocking.</li><li><strong>Work toward a shared goal.</strong> You might invite people to sign a campaign’s open letter, then join your next meeting.</li></ul><p>Start with what your group can sustain. You can add activities as more people take on roles.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-n">05</span><span class="faq-q">Can we propose our own campaign?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Yes. You can join a <a href="/campaigns">priority campaign</a> or propose a different campaign that falls within <a href="/about">Sapiens First’s focus areas</a>. Bring your idea to the Global team so you can explore how it fits and what support would help.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-n">06</span><span class="faq-q">Can I start a Circle and hand it over later?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Yes. You can start a Circle, help others gain confidence, and hand it over when someone is ready to take the lead. You might stay involved as a member or step back.</p><p>Share opportunities to lead from the beginning. When you’re ready to move on, talk with your Circle and the Global team about a handover. Helping someone else become a leader is a lasting contribution to the movement.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary><span class="faq-n">07</span><span class="faq-q">Can a Circle grow into something bigger?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+          <div class="faq-body"><p>Yes. As membership grows, a Circle can develop into a Hub, Chapter, or Alliance:</p><ul><li><strong>Circle:</strong> up to 10 members</li><li><strong>Hub:</strong> up to 50 members</li><li><strong>Chapter:</strong> up to 150 members</li><li><strong>Alliance:</strong> up to 500 members</li></ul><p>As more people grow into leadership, your group can take on more together. Staying small is fine, too: growth should serve your community and the work you want to do together.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="apply" id="apply">
+    <div class="apply-copy">
+      <div class="label alt-green">Start</div>
+      <h2 style="margin-top:18px">Make room for <span class="marker">your people.</span></h2>
+      <p class="deck">You don’t need a full team or a perfect plan. Bring your interest, and we’ll help you take the first step.</p>
+      <a class="btn primary" href="#signup">Express interest →</a>
+      <p class="apply-note">Questions? <a href="mailto:rohan@sapiensfirst.org">Email Rohan</a>.</p>
+    </div>
+    <div class="apply-panel">
+      <div class="fun-layer" aria-hidden="true">
+        <i style="left:8%;top:10%;transform:rotate(-6deg);color:#fff"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+        <i style="left:20%;top:20%;transform:rotate(6deg) scale(.65);color:#fff"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
+      </div>
+      <div class="label">Start a Circle</div>
+      <div class="apply-deadline">Small start.<br>Shared purpose.</div>
+      <p>Leave your email and we'll be in touch about starting a Circle in your community.</p>
+      <form class="signup-row" action="#" method="post">
+        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
+        <button class="btn primary" type="submit">I’m interested →</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"></footer>
+
+<script src="accordion.js"></script>
+<script src="signup.js"></script>
+<script>
+  document.querySelectorAll('.signup-row').forEach(function (form) {
+    wireSignupForm(form, { interest: 'circle' });
+  });
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>

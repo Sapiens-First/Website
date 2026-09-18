@@ -54,26 +54,6 @@
     }
     .text-link:hover { color: var(--red); border-color: var(--red); }
 
-    /* ─── QUICK FACTS BAR ── */
-    .factbar { background: var(--ink); padding: 0; }
-    .factbar .stats { display: grid; grid-template-columns: repeat(4, 1fr); }
-    .factbar .stat {
-      min-height: 190px; padding: 30px 26px;
-      border-right: 2px solid rgba(255,255,255,.18);
-      display: flex; flex-direction: column; justify-content: space-between;
-      color: #fff;
-    }
-    .factbar .stat:last-child { border-right: 0; }
-    .factbar .stat strong {
-      font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.7rem);
-      font-weight: 800; text-transform: uppercase; line-height: 1;
-    }
-    .factbar .stat span { font-size: 1rem; font-weight: 700; letter-spacing: .03em; color: #fff; text-transform: uppercase; }
-    .factbar .stat:nth-child(1) strong { color: var(--red); }
-    .factbar .stat:nth-child(2) strong { color: var(--yellow); }
-    .factbar .stat:nth-child(3) strong { color: var(--blue); }
-    .factbar .stat:nth-child(4) strong { color: var(--green); }
-
     /* ─── ABOUT (two-col, reused for Vision + Founder) ── */
     .about { background: #fff; padding: 100px 0; }
     .about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 70px; align-items: start; }
@@ -109,63 +89,39 @@
     .social-icon:hover { background: var(--red); color: #fff; transform: translateY(-2px); }
     .social-icon svg { width: 18px; height: 18px; display: block; }
 
-    /* ─── FOCUS AREAS accordion (native <details>) ── */
-    .roles { background: #fff; padding: 100px 0; }
-    .roles-head .deck { margin-top: 26px; max-width: 44ch; }
-    .role-acc { margin-top: 44px; border-top: 2px solid var(--ink); }
-    .role { border-bottom: 2px solid var(--ink); position: relative; }
-    .role summary {
-      list-style: none; cursor: pointer;
-      padding: 26px 46px 26px 22px;
-      display: flex; align-items: baseline; justify-content: space-between;
-      gap: 16px 24px; flex-wrap: wrap; position: relative;
-    }
-    .role summary::-webkit-details-marker { display: none; }
-    .role summary:before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px; }
-    .role:nth-of-type(1) summary:before { background: var(--red); }
-    .role:nth-of-type(2) summary:before { background: var(--blue); }
-    .role:nth-of-type(3) summary:before { background: var(--green); }
-    .role-title {
-      font-family: var(--font-display); font-size: clamp(1.6rem,2.6vw,2.4rem);
-      font-weight: 800; text-transform: uppercase; letter-spacing: -.01em;
-      padding-left: 14px;
-    }
-    .role-tag {
-      font-size: 11px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
-      padding: 5px 9px; border: 2px solid var(--ink); white-space: nowrap;
-    }
-    .role-chevron {
-      position: absolute; right: 22px; top: 28px;
-      width: 22px; height: 22px; border: 2px solid var(--ink);
-      display: grid; place-items: center; font-size: 14px; font-weight: 900;
-    }
-    .role-chevron:after { content: "+"; }
-    .role[open] .role-chevron:after { content: "–"; }
-    .role-body { padding: 0 22px 34px 44px; }
-    .role-body p { max-width: 70ch; font-size: 1.02rem; line-height: 1.55; font-weight: 500; }
+    /* Focus areas expand within Vision. */
+    .focus-dropdown { margin-top: 44px; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+    .focus-dropdown > summary { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 24px 0; cursor: pointer; list-style: none; font: 800 clamp(1.4rem, 2.6vw, 2rem)/1.2 var(--font-display); text-transform: uppercase; }
+    .focus-dropdown > summary::-webkit-details-marker { display: none; }
+    .focus-dropdown > summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 5px; }
+    .focus-toggle::after { content: '+'; }
+    .focus-dropdown[open] .focus-toggle::after { content: '−'; }
+    .focus-area { margin: 0 0 28px; padding: 0 0 0 22px; border-left: 6px solid var(--red); }
+    .focus-area:nth-of-type(2) { border-color: var(--blue); }
+    .focus-area:nth-of-type(3) { border-color: var(--green); }
+    .focus-area h3 { font: 800 clamp(1.4rem, 2.6vw, 2rem)/1.2 var(--font-display); text-transform: uppercase; margin-bottom: 14px; }
+    .focus-area p { max-width: 75ch; font-size: 1.02rem; line-height: 1.55; }
 
-    /* ─── ROADMAP band ── */
-    .roadmap-band { background: var(--ink); padding: 100px 0; color: #fff; }
-    .roadmap-band h2 { color: #fff; margin-top: 18px; }
-    .roadmap-band .deck { color: #fff; opacity: .82; margin-top: 18px; max-width: 56ch; }
-    .roadmap-steps { display: flex; margin-top: 48px; border: 2px solid #fff; }
-    .roadmap-step { flex: 1; padding: 34px 28px; border-right: 2px solid #fff; position: relative; }
-    .roadmap-step:last-child { border-right: 0; }
-    .roadmap-step .num { font-family: var(--font-display); font-size: 2.6rem; font-weight: 800; color: var(--red); }
-    .roadmap-step .title {
-      margin-top: 10px; font-family: var(--font-display);
-      font-size: 1.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em;
-    }
-    .roadmap-step.current { background: var(--red); }
-    .roadmap-step.current .num { color: var(--ink); }
-    .roadmap-step .tag-current {
-      display: inline-block; margin-top: 14px; padding: 5px 9px;
-      background: var(--ink); color: #fff;
-      font-size: 10px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
+    /* Local chapters grow into a statewide movement. */
+    .roadmap-band { background: #e5efff; padding: 100px 0; }
+    .roadmap-band h2 { margin-top: 18px; }
+    .roadmap-band .deck { margin-top: 24px; max-width: 56ch; }
+    .strategy-path { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; padding: 0; margin-top: 56px; }
+    .strategy-path li { position: relative; text-align: center; }
+    .strategy-path li + li::before { content: '→'; position: absolute; top: 34px; left: -40px; font-size: 32px; line-height: 1; }
+    .step-icon { width: 100px; height: 100px; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); box-shadow: 3px 3px 0 var(--ink); margin: 0 auto 24px; }
+    .strategy-path li:nth-child(2) .step-icon { background: #bcd8ff; }
+    .strategy-path li:nth-child(3) .step-icon { background: var(--red); }
+    .step-icon svg { width: 54px; height: 54px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .strategy-path h3 { font: 800 clamp(1.75rem, 2.4vw, 2.1rem)/1.15 var(--font-display); text-transform: uppercase; margin: 0; text-wrap: balance; }
+    @media (max-width: 700px) {
+      .strategy-path { grid-template-columns: 1fr; gap: 60px; }
+      .strategy-path li + li::before { content: '↓'; top: -43px; left: 50%; transform: translateX(-50%); }
     }
 
     /* ─── STRATEGY / cycle ── */
     .strategy { background: #fff; padding: 100px 0; }
+    .strategy .deck { margin-top: 32px; max-width: 56ch; }
     .cycle { position: relative; width: 100%; max-width: 460px; aspect-ratio: 380/330; margin: 52px auto 12px; }
     .cycle-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
     .cycle-lines path { stroke: var(--ink); stroke-width: 3; fill: none; }
@@ -216,12 +172,6 @@
       .about-grid { grid-template-columns: 1fr; }
       .about-art { min-height: 320px; }
       .hero-art { min-height: 420px; }
-      .factbar .stats { grid-template-columns: repeat(2,1fr); }
-      .factbar .stat:nth-child(2) { border-right: 0; }
-      .factbar .stat:nth-child(1), .factbar .stat:nth-child(2) { border-bottom: 2px solid rgba(255,255,255,.18); }
-      .roadmap-steps { flex-direction: column; }
-      .roadmap-step { border-right: 0; border-bottom: 2px solid #fff; }
-      .roadmap-step:last-child { border-bottom: 0; }
     }
     @media (max-width: 600px) {
       h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
@@ -232,19 +182,9 @@
       .face { width: 180px; height: 280px; left: 10%; bottom: -56px; }
       .burst { width: 120px; height: 120px; left: 8%; top: 11%; }
       .poster { font-size: .85rem; padding: 9px 11px; bottom: 12%; right: 6%; }
-      .factbar .stats { grid-template-columns: 1fr; }
-      .factbar .stat { min-height: 0; padding: 24px 20px; border-right: 0 !important; border-bottom: 2px solid rgba(255,255,255,.18); }
-      .factbar .stat:last-child { border-bottom: 0; }
-      .factbar .stat strong { font-size: 2.2rem; }
-      .factbar .stat span { font-size: 1rem; }
-      .about, .roles { padding: 56px 0; }
+      .about { padding: 56px 0; }
       #founder .about-art { aspect-ratio: 1/1; }
-      .role summary { padding: 20px 40px 20px 18px; }
-      .role-title { font-size: 1.35rem; padding-left: 10px; }
-      .role-body { padding: 0 18px 26px 32px; }
-      .role-chevron { right: 18px; top: 22px; }
-      .roadmap-band { padding: 64px 0; }
-      .roadmap-step { padding: 24px 20px; }
+      .roadmap-band, .strategy { padding: 64px 0; }
       .cycle { max-width: 320px; margin: 40px auto 8px; }
       .cycle-hub { font-size: 14.3px; padding: 8px 12px; }
       .cycle-node { font-size: 1.3rem; }
@@ -268,20 +208,9 @@
       <div class="sun"></div>
       <div class="burst"></div>
       <div class="face"></div>
-      <div class="poster">Democracy<br>first</div>
-      <div class="poster alt">AI safety</div>
       <div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
       <i style="position:absolute;left:10%;top:8%;z-index:2;color:var(--ink);transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
       <i style="position:absolute;left:20%;top:16%;z-index:2;color:var(--ink);transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-    </div>
-  </section>
-
-  <section class="factbar">
-    <div class="stats">
-      <div class="stat"><strong>2026</strong><span>Year founded</span></div>
-      <div class="stat"><strong>3</strong><span>Focus areas</span></div>
-      <div class="stat"><strong>2030</strong><span>Target for political change</span></div>
-      <div class="stat"><strong>Seed Cities</strong><span>Current roadmap phase</span></div>
     </div>
   </section>
 
@@ -300,72 +229,44 @@
         <div class="tag t3">A Secure Future</div>
       </div>
     </div>
-  </section>
-
-  <section class="roles" id="focus-areas">
     <div class="container">
-      <div class="roles-head">
-        <div class="label">Focus Areas</div>
-        <h2 style="margin-top:18px">Three <span class="underline red">focus areas,</span> one mission.</h2>
-        <p class="deck">Our campaigns fight for change under three core focus areas.</p>
-      </div>
-
-      <div class="role-acc">
-        <details class="role" open>
-          <summary>
-            <span class="role-title">Democratic Renewal</span>
-            <span class="role-tag">Focus 01</span>
-            <span class="role-chevron" aria-hidden="true"></span>
-          </summary>
-          <div class="role-body">
-            <p>AI will have profound impacts on our democratic institutions. Done wrong, AI could empower authoritarians to violate our civil liberties; corrupt politicians through rampant wealth inequality; sully public discourse with deepfakes, addictive technology, and sensationalist media. We believe that instead, AI should enhance democratic institutions, and empower ordinary citizens to have greater participation in public life.</p>
-          </div>
-        </details>
-
-        <details class="role">
-          <summary>
-            <span class="role-title">Common Prosperity</span>
-            <span class="role-tag">Focus 02</span>
-            <span class="role-chevron" aria-hidden="true"></span>
-          </summary>
-          <div class="role-body">
-            <p>The gains from AI will be vast, and must be shared broadly across society. Currently, wealth gains from AI have concentrated in the hands of the rich few. We believe that it should be instead used to uplift all people in society through redistribution and a reinvestment in public institutions. We also believe that AI should reduce dysfunction in government, and should be used to accelerate advances in science and technology.</p>
-          </div>
-        </details>
-
-        <details class="role">
-          <summary>
-            <span class="role-title">A Secure Future</span>
-            <span class="role-tag">Focus 03</span>
-            <span class="role-chevron" aria-hidden="true"></span>
-          </summary>
-          <div class="role-body">
-            <p>Cutting-edge artificial intelligence has the potential to cause mass devastation if left unchecked. To combat this, major powers must cooperate to lead the development of safe superintelligence. Frontier AI must be developed transparently, and we should have the best scientists working to ensure AI remains under human control. Additionally, we must have civil society input on AI governance, so that the power of superintelligence benefits all of humanity.</p>
-          </div>
-        </details>
-      </div>
+      <details class="focus-dropdown" id="focus-areas">
+        <summary>Our focus areas <span aria-hidden="true" class="focus-toggle"></span></summary>
+        <article class="focus-area">
+          <h3>Democratic Renewal</h3>
+          <p>AI will have profound impacts on our democratic institutions. Done wrong, AI could empower authoritarians to violate our civil liberties; corrupt politicians through rampant wealth inequality; sully public discourse with deepfakes, addictive technology, and sensationalist media. We believe that instead, AI should enhance democratic institutions, and empower ordinary citizens to have greater participation in public life.</p>
+        </article>
+        <article class="focus-area">
+          <h3>Common Prosperity</h3>
+          <p>The gains from AI will be vast, and must be shared broadly across society. Currently, wealth gains from AI have concentrated in the hands of the rich few. We believe that it should be instead used to uplift all people in society through redistribution and a reinvestment in public institutions. We also believe that AI should reduce dysfunction in government, and should be used to accelerate advances in science and technology.</p>
+        </article>
+        <article class="focus-area">
+          <h3>A Secure Future</h3>
+          <p>Cutting-edge artificial intelligence has the potential to cause mass devastation if left unchecked. To combat this, major powers must cooperate to lead the development of safe superintelligence. Frontier AI must be developed transparently, and we should have the best scientists working to ensure AI remains under human control. Additionally, we must have civil society input on AI governance, so that the power of superintelligence benefits all of humanity.</p>
+        </article>
+      </details>
     </div>
   </section>
 
   <section class="roadmap-band" id="roadmap">
     <div class="container">
-      <div class="label alt-blue">Roadmap</div>
-      <h2>We aim to create <span class="underline blue">dramatic political change</span> by 2030.</h2>
-      <div class="roadmap-steps">
-        <div class="roadmap-step current">
-          <div class="num">1</div>
-          <div class="title">Seed Cities</div>
-          <span class="tag-current">Current phase</span>
-        </div>
-        <div class="roadmap-step">
-          <div class="num">2</div>
-          <div class="title">State-wide Campaigns</div>
-        </div>
-        <div class="roadmap-step">
-          <div class="num">3</div>
-          <div class="title">National Push</div>
-        </div>
-      </div>
+      <div class="label alt-blue">Our Plan</div>
+      <h2>City by city, <span class="underline blue">state by state.</span></h2>
+      <p class="deck">We build local chapters, press city councils to act on AI, and bring that momentum together to win policy in California.</p>
+        <ol class="strategy-path">
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="18" cy="9" r="4"/><path d="M10 26v-7c0-7 16-7 16 0v7M5 14v12M31 14v12M14 26v6M22 26v6"/></svg></span>
+            <h3>Local chapters</h3>
+          </li>
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 14h8L29 7v22l-16-7H5zM11 22l3 10h6l-3-9M32 15h2M32 21h2"/></svg></span>
+            <h3>City campaigns</h3>
+          </li>
+          <li>
+            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M3 13L18 4l15 9zM7 16v13M14 16v13M22 16v13M29 16v13M3 32h30"/></svg></span>
+            <h3>Statewide movement</h3>
+          </li>
+        </ol>
     </div>
   </section>
 
@@ -413,7 +314,7 @@
       <div class="about-copy">
         <div class="label alt-yellow">Founder</div>
         <h2 style="margin-top:18px">Rohan Prasad <span class="underline yellow">Executive Director.</span></h2>
-        <p class="deck">Rohan founded Sapiens First in 2026. Rohan is a former AI safety researcher, school teacher, and concerned citizen. He likes to <a href="https://www.rohanprasad.org" target="_blank" rel="noopener" style="text-decoration:underline">blog</a>, play guitar, and run barefoot.</p>
+        <p class="deck">Rohan founded Sapiens First because he realized no one was doing anything about the AI Crisis. Previously, Rohan worked as an AI safety researcher at Constellation Institute, was an English teacher in Taiwan, and was a community organizer for animal rights. He likes to <a href="https://www.rohanprasad.org" target="_blank" rel="noopener" style="text-decoration:underline">blog</a>, play guitar, and run barefoot.</p>
         <div class="founder-socials">
           <a class="social-icon" href="https://x.com/rohantohab" target="_blank" rel="noopener" aria-label="X / Twitter">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>

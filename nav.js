@@ -3,6 +3,9 @@
   if (!header) return;
   const brandLogoSrc = new URL('favicons/android-chrome-192x192.png', document.currentScript.src).href;
   const signupScriptSrc = new URL('signup.js', document.currentScript.src).href;
+  document.querySelectorAll('[data-page-link]').forEach(link => {
+    link.href = SITE_CONFIG.pageLink(link.dataset.pageLink);
+  });
 
   const path = window.location.pathname.replace(/\/$/, '') || '/';
   const file = path.split('/').pop().replace(/\.html$/, '');
@@ -11,18 +14,26 @@
   // (extensionless production paths, raw .html files, path prefixes, etc.)
   // so this can't be derived purely from the flat NAV_LINKS data.
   const activeMatchers = {
-    about: () => path === '/about' || path.startsWith('/about/') || file === 'about',
+    about: () => path === '/about' || path.startsWith('/about/') || file === 'about' || file === 'careers' || path.includes('/careers/'),
     fellowship: () => path === '/fellowship' || file === 'fellowship',
-    'start-a-circle': () => path === '/start-a-circle' || file === 'start-a-circle',
+    circle: () => path === '/circle' || file === 'circle',
     join: () => path === '/join' || file === 'join' || file === 'membership',
     donate: () => path === '/donate' || file === 'donate',
   };
 
   const isActive = page => (activeMatchers[page] && activeMatchers[page]());
 
-  const navLink = ({ page, label }) => {
+  const navLink = ({ page, label, children }) => {
     const current = isActive(page) ? ' current' : '';
-    return `<a class="nav-fellowship${current}" href="${SITE_CONFIG.pageLink(page)}">${label}</a>`;
+    const link = `<a class="nav-fellowship${current}" href="${SITE_CONFIG.pageLink(page)}">${label}</a>`;
+    if (!children || !children.length) return link;
+    return `<div class="nav-dropdown">
+      ${link}
+      <button class="nav-dropdown-toggle" type="button" aria-label="${label} submenu" aria-expanded="false" aria-controls="nav-${page}-children">▾</button>
+      <div class="nav-dropdown-links" id="nav-${page}-children" hidden>
+        ${children.map(child => `<a href="${SITE_CONFIG.pageLink(child.page)}">${child.label}</a>`).join('')}
+      </div>
+    </div>`;
   };
 
   // Join and Donate render as the dedicated .nav-cta buttons below, not as
@@ -47,6 +58,28 @@
       </nav>
     </div>
   `;
+
+  header.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+    const toggle = dropdown.querySelector('button');
+    const links = dropdown.querySelector('.nav-dropdown-links');
+    const setOpen = open => {
+      toggle.setAttribute('aria-expanded', String(open));
+      links.hidden = !open;
+    };
+    toggle.addEventListener('click', () => setOpen(links.hidden));
+    dropdown.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !links.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    dropdown.addEventListener('focusout', event => {
+      if (!dropdown.contains(event.relatedTarget)) setOpen(false);
+    });
+    document.addEventListener('click', event => {
+      if (!dropdown.contains(event.target)) setOpen(false);
+    });
+  });
 
   // Keep Join one click away from email entry on every page.
   let signupReady;

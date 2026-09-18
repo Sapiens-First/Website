@@ -72,29 +72,7 @@
     .intro-sketch svg { display: block; width: 100%; height: auto; }
     .section-index { display: block; margin-bottom: 16px; font: 700 22px/1.5 var(--font-body); letter-spacing: .08em; text-wrap: balance; }
     .section-index::before { content: ''; display: inline-block; width: 22px; height: 8px; background: var(--red); margin-right: 10px; transform: rotate(-7deg); }
-    .takeaway { font-size: 22px; line-height: 1.45; text-wrap: balance; font-weight: 700; margin-bottom: 20px; }
     .donate-wide { grid-column: 1 / -1; }
-    .strategy-path { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; padding: 0; }
-    .strategy-path li { position: relative; padding-top: 6px; text-align: center; }
-    .strategy-path li + li::before { content: '→'; position: absolute; top: 34px; left: -33px; font-size: 32px; line-height: 1; }
-    .step-icon { width: 100px; height: 100px; display: grid; place-items: center; border: 2px solid var(--ink); border-radius: 50%; background: var(--yellow); box-shadow: 3px 3px 0 var(--ink); margin: 0 auto 24px; }
-    .strategy-path li:nth-child(2) .step-icon { background: #bcd8ff; }
-    .strategy-path li:nth-child(3) .step-icon { background: var(--red); }
-    .step-icon svg { width: 54px; height: 54px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .strategy-path h3 { font-family: var(--font-display); font-size: 26px; text-transform: uppercase; line-height: 1.15; margin-bottom: 12px; }
-    .strategy-path p { max-width: 27ch; margin: 0 auto; font-size: 22px; line-height: 1.55; text-wrap: pretty; }
-    .approach-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 56px; align-items: start; }
-    .approach-visual { min-width: 0; }
-    .approach-cycle { margin-top: 32px; }
-    .approach-cycle figcaption { margin-top: 28px; }
-    .approach-cycle .takeaway { margin: 0; text-align: center; }
-    .approach-research { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--ink); }
-    .case-link-row { margin-top: 28px; text-align: right; }
-    .case-link-row a { display: inline-block; padding: 10px 0; font-weight: 700; text-wrap: balance; }
-    @media (max-width: 850px) {
-      .donate-evidence .approach-layout { grid-template-columns: 1fr; gap: 32px; }
-      .approach-cycle { max-width: 400px; margin: 28px auto 0; }
-    }
     .progress-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
     .progress-item { border-top: 3px solid var(--ink); padding-top: 22px; }
     .progress-number { display: block; font: 800 clamp(3.25rem, 5.5vw, 4.5rem)/1 var(--font-display); white-space: nowrap; margin-bottom: 16px; }
@@ -115,8 +93,6 @@
       .donate-intro .container { gap: 32px; }
       .donate-intro .deck { max-width: 38ch; }
     }
-    .donate-plan { background: #e5efff; }
-    .donate-evidence { background: #eee5fa; }
     .donate-story { background: var(--paper); }
     .donate-giving { background: #ffe4dc; }
     .story-next { padding: 40px; background: var(--yellow); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
@@ -138,15 +114,8 @@
     .gift-tier:first-child { padding-top: 0; border-top: none; }
     .gift-tier dt { margin: 0; font: 800 clamp(2.1rem, 3.2vw, 2.6rem)/1 var(--font-display); }
     .gift-tier dd { margin: 4px 0 0; font-size: 22px; line-height: 1.45; }
-    .movement-cycle { position: relative; width: 100%; max-width: 420px; aspect-ratio: 380 / 330; margin: 12px auto; }
-    .movement-arrows { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .movement-node { position: absolute; width: 34%; aspect-ratio: 1; border: 3px solid var(--ink); border-radius: 50%; display: grid; place-items: center; box-shadow: 4px 4px 0 var(--ink); font: 800 clamp(22px, 2.6vw, 30px)/1 var(--font-display); text-transform: uppercase; }
-    .movement-act { top: 0; left: 33%; background: var(--red); }
-    .movement-recruit { bottom: 0; right: 0; background: var(--yellow); }
-    .movement-train { bottom: 0; left: 0; background: #bcd8ff; }
     @media (max-width: 700px) {
       .story-next { padding: 28px 18px; }
-      .movement-cycle { max-width: 360px; width: calc(100% - 12px); }
     }
     .donate-legal { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 22px; line-height: 1.6; }
     .donate-copy a[href^="mailto:"] { overflow-wrap: anywhere; }
@@ -154,10 +123,6 @@
       .donate-row { grid-template-columns: 1fr; row-gap: 28px; }
       .donate-row h2 { max-width: 22ch; }
       .donate-copy { max-width: 65ch; }
-      .strategy-path { gap: 24px; }
-      .strategy-path li + li::before { left: -24px; }
-      .strategy-path h3 { font-size: 24px; min-height: 2.3em; }
-      .strategy-path p { font-size: 22px; }
       .progress-grid { max-width: none; }
     }
     @media (max-width: 700px) {
@@ -171,16 +136,8 @@
       .donate-copy { font-size: 22px; }
       .intro-sketch { display: none; }
       .donate-intro .deck { max-width: none; }
-      .strategy-path { grid-template-columns: 1fr; gap: 56px; }
-      .strategy-path li { padding-top: 0; }
-      .step-icon { width: 88px; height: 88px; margin-bottom: 20px; }
-      .step-icon svg { width: 48px; height: 48px; }
-      .strategy-path h3 { min-height: 0; font-size: 26px; }
-      .strategy-path p { max-width: 29ch; font-size: 22px; }
-      .strategy-path li + li::before { top: -43px; left: 50%; transform: translateX(-50%); content: '↓'; font-size: 28px; }
       .progress-grid { grid-template-columns: 1fr; gap: 28px; }
       .progress-number { font-size: 56px; margin-bottom: 10px; }
-      .takeaway { font-size: 22px; }
       .chapter-target { width: 190px; }
     }
 
@@ -194,7 +151,7 @@
   <section class="donate-intro" aria-labelledby="donate-heading">
     <div class="container">
       <div class="intro-copy">
-      <h1 id="donate-heading">Build political power for <span class="marker">AI safety.</span></h1>
+      <h1 id="donate-heading">Help build the <span class="marker">human</span> movement.</h1>
       <p class="deck">We bring people together to act on AI. Help us build local chapters, train organizers, and win change.</p>
       </div>
       <div class="intro-giving">
@@ -220,77 +177,10 @@
     </div>
   </section>
 
-  <section class="donate-section donate-evidence" aria-labelledby="why-heading">
-    <div class="container donate-row approach-layout">
-      <div class="approach-visual">
-      <h2 id="why-heading"><span class="section-index">01 / OUR APPROACH</span>From Awareness to Action</h2>
-        <figure class="approach-cycle">
-        <div class="movement-cycle" role="img" aria-label="Act, recruit, train, then act again: public action brings in people who learn to lead the next action.">
-          <svg class="movement-arrows" viewBox="0 0 380 330" aria-hidden="true">
-            <defs><marker id="donate-cycle-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="currentColor"/></marker></defs>
-            <g fill="none" stroke="currentColor" stroke-width="3" marker-end="url(#donate-cycle-arrow)">
-              <path d="M230 118C258 142 282 174 294 210"/>
-              <path d="M246 262C210 282 168 282 132 262"/>
-              <path d="M88 210C100 174 124 142 152 118"/>
-            </g>
-          </svg>
-          <span class="movement-node movement-act">Act</span>
-          <span class="movement-node movement-recruit">Recruit</span>
-          <span class="movement-node movement-train">Train</span>
-        </div>
-          <figcaption class="donate-copy">
-          <p class="takeaway">How We Build Movement Power.</p>
-          </figcaption>
-        </figure>
-      </div>
-      <div class="donate-copy approach-copy">
-        <p class="takeaway">We turn public concern into political change.</p>
-        <p>Throughout history, movements that are sustained, organized, and strategic have created real change.</p>
-        <p>Sapiens First is building a year-round movement to fight for AI safety and democracy.</p>
-        <div class="case-link-row">
-          <a id="case-statement-link" href="https://docs.google.com/document/d/1sBlALbzX4fwvEJcFtc4OSpAnceozyV3_chMaFNUIhJg/edit?usp=sharing">Read our case statement <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="donate-section donate-plan" aria-labelledby="what-heading">
-    <div class="container donate-row">
-      <h2 id="what-heading"><span class="section-index">02 / PLAN</span>A Path to Victory</h2>
-      <div class="donate-copy">
-        <p class="takeaway">City by city, state by state.</p>
-        <p>Our focus is winning policy in California. We start by winning in City Councils across the state.</p>
-        <p>Our model draws on <a href="https://www.ericachenoweth.com/research/wcrw">social science research</a>, and builds off movements for <a href="https://www.brennancenter.org/our-work/analysis-opinion/improbable-victory-marriage-equality">Marriage Equality</a> and the <a href="https://www.nelp.org/insights-research/10-year-legacy-fight-for-15-union-movement/">Fight for $15</a>.</p>
-      </div>
-      <figure class="donate-wide">
-        <ol class="strategy-path">
-          <li>
-            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 36 36"><circle cx="18" cy="9" r="4"/><path d="M10 26v-7c0-7 16-7 16 0v7M5 14v12M31 14v12M14 26v6M22 26v6"/></svg></span>
-            <h3>1. Build chapters</h3><p>Meet locally. Learn to organize.</p>
-          </li>
-          <li>
-            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M5 14h8L29 7v22l-16-7H5zM11 22l3 10h6l-3-9M32 15h2M32 21h2"/></svg></span>
-            <h3>2. Win local demands</h3><p>Press city councils to act on AI.</p>
-          </li>
-          <li>
-            <span class="step-icon" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M3 13L18 4l15 9zM7 16v13M14 16v13M22 16v13M29 16v13M3 32h30"/></svg></span>
-            <h3>3. Push for state law</h3><p>Bring local pressure to Sacramento.</p>
-          </li>
-        </ol>
-      </figure>
-    </div>
-  </section>
-
-  <section class="donate-section donate-story" aria-labelledby="progress-heading">
-    <div class="container donate-row">
-      <h2 id="progress-heading"><span class="section-index">03 / OUR STORY</span>Building a Statewide Movement.</h2>
-      <div class="progress-grid donate-wide donate-copy">
-        <div class="progress-item"><strong class="progress-number">300–400</strong><p>People at the <a href="https://sfstandard.com/2026/07/11/anti-ai-protest-openai-anthropic-google-san-francisco/">San Francisco AI protest</a> we co-organized and fiscally sponsored.</p></div>
-        <div class="progress-item"><strong class="progress-number">50+</strong><p>In-depth voter interviews to shape our first campaign.</p></div>
-        <div class="progress-item"><strong class="progress-number">8</strong><p>Volunteer Fellows, with an <a href="/learn">organizer guide</a> for new chapter leaders.</p></div>
-      </div>
-      <div class="story-next donate-wide">
-      <h3 id="funding-heading">Support our seed cities.</h3>
+  <section class="donate-section donate-seeds" aria-labelledby="funding-heading">
+    <div class="container">
+      <div class="story-next">
+      <h2 id="funding-heading">Support our seed cities.</h2>
       <div class="donate-row">
       <figure class="chapter-target">
         <span class="ca-map" role="img" aria-label="Map of California, where we're building our seed chapters."></span>
@@ -319,6 +209,18 @@
       </div>
     </div>
   </section>
+
+  <section class="donate-section donate-story" aria-labelledby="progress-heading">
+    <div class="container donate-row">
+      <h2 id="progress-heading"><span class="section-index">OUR STORY</span>Building a Statewide Movement.</h2>
+      <div class="progress-grid donate-wide donate-copy">
+        <div class="progress-item"><strong class="progress-number">300–400</strong><p>People at the <a href="https://sfstandard.com/2026/07/11/anti-ai-protest-openai-anthropic-google-san-francisco/">San Francisco AI protest</a> we co-organized and fiscally sponsored.</p></div>
+        <div class="progress-item"><strong class="progress-number">50+</strong><p>In-depth voter interviews to shape our first campaign.</p></div>
+        <div class="progress-item"><strong class="progress-number">8</strong><p>Volunteer Fellows, with an <a href="/learn">organizer guide</a> for new chapter leaders.</p></div>
+      </div>
+
+    </div>
+  </section>
   
 
   <section class="donate-section donate-giving" aria-labelledby="giving-heading">
@@ -338,7 +240,6 @@
 <footer class="site-footer"></footer>
 
 <script>
-  document.getElementById('case-statement-link').href = SITE_CONFIG.STRATEGY_DOC_URL;
   document.getElementById('donate-cta').href = SITE_CONFIG.DONATION_URL;
   document.getElementById('donate-cta-2').href = SITE_CONFIG.DONATION_URL;
 </script>

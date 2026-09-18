@@ -2,60 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="canonical" href="https://sapiensfirst.org/about/careers">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Careers — Sapiens First</title>
-  <meta name="description" content="Volunteer with Sapiens First — roles are opening soon.">
-  <!-- Nested page: build.py does not update this head. Keep shared assets in
-       sync with partials/head-common.html, preserving the ../ asset paths. -->
-  <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
-  <link rel="stylesheet" href="../shared.css">
-  <script src="../config.js"></script>
+  <link rel="canonical" href="https://sapiensfirst.org/careers">
+  <meta http-equiv="refresh" content="0; url=../careers.html">
 </head>
-<body>
-
-  <div class="progress-bar"></div>
-
-  <nav class="site-nav"></nav>
-
-  <!-- ═══════════ PAGE HERO ═══════════ -->
-  <div class="page-hero">
-    <div class="ember-field" aria-hidden="true"></div>
-    <div class="container">
-      <h1 class="page-title">Careers</h1>
-    </div>
-  </div>
-
-  <main>
-    <section class="section section-compact">
-      <div class="container">
-        <p class="body-large">We're not hiring yet, but we'll be opening volunteer roles soon. Check back here, or <a href="/join" style="color:var(--accent);">join the movement</a> to hear first.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer"></footer>
-
-  <script>
-    const progressBar = document.querySelector('.progress-bar');
-    window.addEventListener('scroll', () => {
-      const s = window.scrollY, m = document.documentElement.scrollHeight - window.innerHeight;
-      progressBar.style.transform = `scaleX(${m > 0 ? s / m : 0})`;
-    }, { passive: true });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    initEmberField();
-  </script>
-  <script src="../nav.js"></script>
-  <script src="../footer.js"></script>
-  <script src="../nav-circle.js"></script>
-</body>
+<body><p><a href="../careers.html">View careers at Sapiens First</a></p></body>
 </html>

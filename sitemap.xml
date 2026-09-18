@@ -6,7 +6,7 @@
   <url><loc>https://sapiensfirst.org/</loc></url>
   <url><loc>https://sapiensfirst.org/about</loc></url>
   <url><loc>https://sapiensfirst.org/fellowship</loc></url>
-  <url><loc>https://sapiensfirst.org/start-a-circle</loc></url>
+  <url><loc>https://sapiensfirst.org/circle</loc></url>
   <url><loc>https://sapiensfirst.org/campaigns</loc></url>
   <url><loc>https://sapiensfirst.org/join</loc></url>
   <url><loc>https://sapiensfirst.org/donate</loc></url>
@@ -16,5 +16,6 @@
   <url><loc>https://sapiensfirst.org/human-charter</loc></url>
   <url><loc>https://sapiensfirst.org/privacy</loc></url>
   <url><loc>https://sapiensfirst.org/membership</loc></url>
-  <url><loc>https://sapiensfirst.org/about/careers</loc></url>
+  <url><loc>https://sapiensfirst.org/careers</loc></url>
+  <url><loc>https://sapiensfirst.org/careers/builder</loc></url>
 </urlset>

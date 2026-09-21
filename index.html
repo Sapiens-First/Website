@@ -85,6 +85,17 @@
     .vision { background: var(--paper); padding: 105px 0; position: relative; overflow: hidden; }
     .vision > .container { position: relative; z-index: 2; }
     .vision-copy .deck { margin: 34px 0 0; max-width: 30ch; }
+    .fight-highlight {
+      position: relative; display: inline-block; isolation: isolate;
+      color: var(--ink); font-style: normal;
+    }
+    .fight-highlight::before {
+      content: ''; position: absolute; z-index: -1; pointer-events: none;
+      inset: -5% -.1em -7%;
+      background: color-mix(in srgb, var(--red) 75%, var(--paper));
+      transform: rotate(-3deg);
+      clip-path: polygon(0 12%, 16% 5%, 37% 9%, 63% 0, 84% 6%, 100% 2%, 97% 35%, 100% 69%, 97% 91%, 76% 96%, 53% 90%, 28% 100%, 3% 92%, 5% 60%);
+    }
 
     /* ─── PRIORITY CAMPAIGNS ────────────────── */
     .campaigns { margin-top: 76px; }
@@ -367,6 +378,23 @@
       .quote:after { width: 72px; height: 7px; right: 20px; bottom: 24px; }
       .quote blockquote { font-size: clamp(1.75rem,8vw,2.5rem); padding: 18px 18px; border-left-width: 6px; box-shadow: 9px 9px 0 rgba(244,0,0,.24); }
     }
+    /* Oversized architectural contours fade into the section edges. */
+    .strategy {
+      background-image: url('assets/homepage-strategy-contours.svg');
+      background-size: 1000px 600px;
+      background-position: right -100px top -160px;
+      background-repeat: no-repeat;
+    }
+    .involved-copy {
+      background-image: url('assets/homepage-involved-arcs.svg');
+      background-size: 900px 900px;
+      background-position: right -460px bottom -470px;
+      background-repeat: no-repeat;
+    }
+    @media (max-width: 600px) {
+      .strategy { background-position: right -360px top -120px; }
+      .involved-copy { background-position: right -520px bottom -510px; }
+    }
   </style>
 </head>
 <body>
@@ -534,7 +562,7 @@
     <div class="involved-copy">
       <svg class="section-mark" viewBox="0 0 88 56" aria-hidden="true" focusable="false"><circle cx="44" cy="12" r="6"/><circle cx="22" cy="25" r="6"/><circle cx="66" cy="25" r="6"/><path d="M33 32v-3a11 11 0 0 1 22 0v3M10 48v-4a12 12 0 0 1 24 0v4M54 48v-4a12 12 0 0 1 24 0v4M34 48h20"/></svg>
       <div class="label alt-green">Get involved</div>
-      <h2 style="margin-top:18px"> <span class="word-outline">Dare</span>  to fight for a brighter future.</h2>
+      <h2 style="margin-top:18px">Dare to <em class="fight-highlight">fight</em> for a brighter future.</h2>
       <p class="deck"><strong>Connect to your chapter today.</strong></p>
       <form class="signup-row" action="#" method="post">
         <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>

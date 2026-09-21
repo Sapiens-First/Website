@@ -5,9 +5,9 @@
   <link rel="canonical" href="https://sapiensfirst.org/join">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join — Sapiens First</title>
-  <meta name="description" content="Become a Sapiens First organizer — attend an intro workshop, join our community, and host events in your city.">
+  <meta name="description" content="We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.">
   <meta property="og:title" content="Join Sapiens First">
-  <meta property="og:description" content="Attend an intro workshop, join our community, and host events in your city.">
+  <meta property="og:description" content="We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.">
   <meta property="og:url" content="https://sapiensfirst.org/join">
   <meta property="og:type" content="website">
   <!-- BUILD:HEAD-COMMON:START -->
@@ -22,50 +22,35 @@
   <script src="config.js"></script>
   <!-- BUILD:HEAD-COMMON:END -->
   <style>
-    /* join.html — no dedicated mockup; restyled to match the visual language
-       established by about.html/fellowship.html (kicker/hero/label/underline/
-       btn/section rhythm) so it reads as a natural sibling page. Same
-       inner-page type-scale overrides as about/fellowship — see those files
-       for why shared.css's bare h1/h2/.deck/.btn/etc. need overriding here. */
-    h1 { max-width: 9ch; font-size: clamp(4rem, 8.4vw, 8.4rem); }
-    h2 { font-size: clamp(2.5rem, 4.6vw, 4.6rem); line-height: .98; }
-    .deck { font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500; }
-    .hero-copy p {
-      max-width: 34ch; margin: 30px 0 26px;
-      font-size: clamp(1.1rem,1.6vw,1.4rem); line-height: 1.45; font-weight: 600;
-    }
-    .hero-copy { padding-top: 40px; padding-bottom: 40px; }
-    .hero-copy h1 { font-size: clamp(3rem, 6vw, 5rem); }
-    .actions { position: relative; z-index: 2; }
-    .btn { padding: 16px 22px; font-size: 14px; }
-    .poster { font-size: clamp(.95rem,1.7vw,1.4rem); }
-    .poster.alt { bottom: 32%; }
-    .underline:after { height: 6px; bottom: -6px; }
-    .hero-copy:after { content: none; }
-
-    section { border-bottom: 2px solid var(--ink); }
-    .section { padding: 100px 0; }
-    .section-compact { padding: 60px 0; }
-
-    /* ─── SPREAD THE WORD ── */
-    .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .join-hero { padding: 64px 0; border-bottom: 1px solid var(--line); }
+    .join-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+    .join-copy h1 { max-width: 12ch; margin: 20px 0 24px; font-size: clamp(3.5rem, 6vw, 5.8rem); line-height: .98; }
+    .join-copy p { font-size: 20px; line-height: 1.6; max-width: 45ch; }
+    .join-signup { margin-top: 32px; }
+    .join-signup label { display: block; margin-bottom: 10px; font-size: 16px; font-weight: 700; }
+    .join-signup .signup-row { margin: 0; flex-wrap: wrap; }
+    .join-signup input { min-width: 0; flex: 1 1 200px; }
+    .join-signup .btn { font-size: 14px; padding: 16px 20px; }
+    .join-copy .join-note { margin-top: 14px; font-size: 16px; line-height: 1.5; }
+    .join-note a { text-decoration: underline; text-underline-offset: 3px; }
+    .join-photo { margin: 0; }
+    .join-photo img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center; border: 2px solid var(--ink); }
+    .join-share h2 { font-family: var(--font-body); font-size: 26px; line-height: 1.3; letter-spacing: -.02em; text-transform: none; }
+    .join-share { padding: 40px 0 56px; }
+    .share-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
     .share-url-row { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
-
-    @media (max-width: 768px) {
-      .section { padding: 56px 0; }
-      .section-compact { padding: 40px 0; }
+    @media (max-width: 900px) {
+      .join-grid { gap: 32px; }
     }
     @media (max-width: 600px) {
-      h1 { font-size: clamp(3rem,15vw,4.6rem); max-width: 9ch; }
-      h2 { font-size: clamp(2.1rem,11vw,3.2rem); }
-      .hero-copy p { font-size: 1.02rem; max-width: none; }
-      .hero-art { min-height: 320px; }
-      .sun { width: 230px; height: 230px; top: 40px; right: -70px; }
-      .face { width: 180px; height: 280px; left: 10%; bottom: -56px; }
-      .burst { width: 120px; height: 120px; left: 8%; top: 11%; }
-      .poster { font-size: .85rem; padding: 9px 11px; bottom: 12%; right: 6%; }
-      .share-buttons { flex-direction: column; }
-      .share-url-row { flex-direction: column; align-items: stretch; }
+      .join-hero { padding: 36px 0; }
+      .join-grid { grid-template-columns: 1fr; gap: 28px; }
+      .join-copy h1 { font-size: clamp(3.2rem, 14vw, 4.5rem); }
+      .join-copy p { font-size: 18px; }
+      .join-signup .signup-row { flex-direction: column; }
+      .join-signup input { flex: auto; width: 100%; }
+      .join-photo img { aspect-ratio: 3 / 2; }
+      .share-url-row { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -74,107 +59,31 @@
 <header class="site-header"></header>
 
 <main>
-  <section class="hero">
-    <div class="hero-copy">
-      <div class="kicker">Get Involved</div>
-      <h1>Join the <span class="marker">revolution.</span></h1>
-      <p>Interested in becoming a member? Leave your email and we'll be in touch about getting involved.</p>
-      <form class="signup-row" id="signup" action="#" method="post">
-        <input type="email" name="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required>
-        <button class="btn primary" type="submit">Keep me posted →</button>
-      </form>
-    </div>
-    <div class="hero-art" aria-hidden="true">
-      <div class="sun"></div>
-      <div class="burst"></div>
-      <div class="face"></div>
-      <div class="poster">People<br>power</div>
-      <div class="poster alt">Show up</div>
-      <div class="confetti c1"></div><div class="confetti c2"></div><div class="confetti c3"></div><div class="confetti c4"></div>
-      <i style="position:absolute;left:10%;top:8%;z-index:2;color:var(--ink);transform:rotate(-6deg)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-      <i style="position:absolute;left:20%;top:16%;z-index:2;color:var(--ink);transform:rotate(4deg) scale(.7)"><svg class="bird" viewBox="0 0 24 12"><path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"/></svg></i>
-    </div>
-  </section>
-
-
-  <!-- ═══════════ ONION LEVELS ═══════════
-  <section class="section">
-    <div class="container">
-
-      <p class="body-large reveal"> We're building out our infrastructure. If you sign up for emails, we'll let you know when we launch our upcoming programs.</p>
-
-
-      <div class="tier-cards">
-
-        <div class="flip-card reveal">
-          <div class="flip-card-inner">
-            <div class="flip-card-face flip-card-face-front">
-              <div class="flip-card-title">Supporter</div>
-              <div class="flip-card-hrs">0–1 hrs / week</div>
-            </div>
-            <div class="flip-card-face flip-card-face-back">
-              <ul class="flip-card-list">
-                <li>Get our emails and stay informed</li>
-                <li>Show up to events and actions when you can</li>
-              </ul>
-            </div>
-          </div>
+  <section class="join-hero" aria-labelledby="join-heading">
+    <div class="container join-grid">
+      <div class="join-copy">
+        <div class="kicker">Join Sapiens First</div>
+        <h1 id="join-heading">Build power.<br>Put people <span class="underline yellow">first.</span></h1>
+        <p id="join-note">We’ll be in touch to help you find a local community group and get involved.</p>
+        <div class="join-signup">
+          <label for="join-email">Your email</label>
+          <form class="signup-row" id="signup" action="#" method="post">
+            <input id="join-email" type="email" name="email" autocomplete="email" placeholder="Email address" aria-describedby="join-note" required>
+            <button class="btn primary" type="submit">Keep me posted →</button>
+          </form>
+          <p class="join-note"><a href="/privacy" data-page-link="privacy">Privacy policy</a></p>
+          <noscript><p class="join-note">Please enable JavaScript to send this form.</p></noscript>
         </div>
-
-        <div class="flip-card reveal reveal-d1">
-          <div class="flip-card-inner">
-            <div class="flip-card-face flip-card-face-front">
-              <div class="flip-card-title">Member</div>
-              <div class="flip-card-hrs">1–2 hrs / week</div>
-            </div>
-            <div class="flip-card-face flip-card-face-back">
-              <ul class="flip-card-list">
-                <li>Support the movement through membership dues (dues waivers available)</li>
-                <li>Connect with fellow activists, vote on leadership and campaigns</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="flip-card reveal reveal-d1">
-          <div class="flip-card-inner">
-            <div class="flip-card-face flip-card-face-front">
-              <div class="flip-card-title">Organizer</div>
-              <div class="flip-card-hrs">1–3 hrs / week</div>
-            </div>
-            <div class="flip-card-face flip-card-face-back">
-              <ul class="flip-card-list">
-                <li>Run events and campaigns, with support from our team</li>
-                <li>Participate in working groups to advance our mission</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="flip-card reveal reveal-d2">
-          <div class="flip-card-inner">
-            <div class="flip-card-face flip-card-face-front">
-              <div class="flip-card-title">Leader</div>
-              <div class="flip-card-hrs">3+ hrs / week</div>
-            </div>
-            <div class="flip-card-face flip-card-face-back">
-              <ul class="flip-card-list">
-                <li>Empower others through mentorship and trainings</li>
-                <li>Lead large-scale actions and campaigns</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
       </div>
+      <figure class="join-photo">
+        <img src="assets/image.png" alt="People raising clasped hands together at a demonstration" width="1024" height="683" fetchpriority="high">
+      </figure>
     </div>
   </section>
-  -->
 
-  <section class="section section-compact">
+  <section class="join-share" aria-labelledby="share-heading">
     <div class="container">
-      <div class="label alt-blue">Spread the Word</div>
-      <h2 style="margin-top:18px">Tell a <span class="underline blue">friend.</span></h2>
+      <h2 id="share-heading">Bring a friend.</h2>
       <div class="share-buttons">
         <a class="btn" id="share-x" href="#" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -207,7 +116,7 @@
 
   const ORG_URL = SITE_CONFIG.JOIN_URL;
   document.getElementById('share-url-display').textContent = ORG_URL.replace(/^https?:\/\//, '');
-  const SHARE_TEXT = 'Want to fight for AI accountability? Become a Sapiens First organizer: ';
+  const SHARE_TEXT = 'Help build political power so technology serves the common good. Get involved with Sapiens First: ';
   document.getElementById('share-x').href  = 'https://x.com/intent/tweet?text=' + encodeURIComponent(SHARE_TEXT) + '&url=' + encodeURIComponent(ORG_URL);
   document.getElementById('share-fb').href = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(ORG_URL);
   document.getElementById('share-wa').href = 'https://wa.me/?text=' + encodeURIComponent(SHARE_TEXT + ' ' + ORG_URL);

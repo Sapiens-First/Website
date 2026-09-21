@@ -45,7 +45,7 @@
       cursor: pointer; transition: background .15s, color .15s, border-color .15s;
     }
     .city-btn:hover { border-color: var(--text); color: var(--text); }
-    .city-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .city-btn.active { background: var(--accent); border-color: var(--accent-text); color: #fff; }
 
     /* ─── EVENT LIST ────────────────────────── */
     .events-list { display: flex; flex-direction: column; border: 1px solid var(--border); }
@@ -110,7 +110,7 @@
       font-family: var(--font-body); font-size: 16px;
       color: var(--border); transition: color .15s, transform .15s;
     }
-    .event-card:hover .event-card-arrow { color: var(--accent); transform: translateX(3px); }
+    .event-card:hover .event-card-arrow { color: var(--accent-text); transform: translateX(3px); }
 
     /* ─── PAST LABEL ────────────────────────── */
     .past-label { margin: 48px 0 16px; }
@@ -132,7 +132,7 @@
     }
     .event-modal.open .event-modal-inner { transform: translateX(0); }
     .modal-date-row { display: flex; align-items: center; gap: 10px; }
-    .modal-date { font-family: var(--font-body); font-size: var(--sz-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+    .modal-date { font-family: var(--font-body); font-size: var(--sz-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); }
     .modal-time { font-family: var(--font-body); font-size: var(--sz-label); color: var(--text); }
     .modal-dot { width: 3px; height: 3px; background: var(--border); border-radius: 50%; flex-shrink: 0; }
     .modal-title {
@@ -144,7 +144,7 @@
     .modal-details { display: flex; flex-direction: column; gap: 14px; border-top: 1px solid var(--border); padding-top: 20px; }
     .detail-row { display: flex; flex-direction: column; gap: 4px; }
     .detail-value { font-family: var(--font-body); font-size: 15px; color: var(--text); line-height: 1.5; }
-    .detail-value a { color: var(--accent); text-decoration: none; }
+    .detail-value a { color: var(--accent-text); text-decoration: none; }
     .detail-value a:hover { text-decoration: underline; }
     .modal-close-hint { font-family: var(--font-body); font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); text-align: center; padding-top: 8px; margin-top: auto; }
     .modal-share-row { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--border); padding-top: 20px; }

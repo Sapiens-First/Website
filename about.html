@@ -35,9 +35,9 @@
     /* This mockup has no yellow underline squiggle below the hero paragraph
        (that decorative :after is homepage-only) — suppress shared.css's copy. */
     .hero-copy:after { content: none; }
+    .hero-copy h1 .underline { white-space: nowrap; }
     .poster { font-size: clamp(.95rem,1.7vw,1.4rem); }
     .poster.alt { bottom: 32%; }
-    .underline:after { height: 6px; bottom: -6px; }
 
     .hero-note {
       margin-top: 16px; font-size: 13px; font-weight: 600; font-style: italic;
@@ -52,7 +52,7 @@
       font-family: var(--font-body); font-size: 13px; font-weight: 900;
       letter-spacing: 0.06em; text-transform: uppercase;
     }
-    .text-link:hover { color: var(--red); border-color: var(--red); }
+    .text-link:hover { color: var(--accent-text); border-color: var(--accent-text); }
 
     /* ─── ABOUT (two-col, reused for Vision + Founder) ── */
     .about { background: #fff; padding: 100px 0; }
@@ -199,7 +199,7 @@
   <section class="hero">
     <div class="hero-copy">
       <div class="kicker">About Sapiens First</div>
-      <h1>We are the <span class="marker">human movement.</span></h1>
+      <h1>We are the human <span class="underline yellow">movement.</span></h1>
       <p>We build political power to make sure artificial intelligence benefits the common good.</p>
       <a class="hero-read-more" href="#vision">Read more →</a>
       <p class="hero-note">Non-profit · Founded 2026 · Volunteer-powered</p>

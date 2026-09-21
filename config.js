@@ -1,7 +1,6 @@
 const SITE_CONFIG = {
   DONATION_URL: 'https://www.zeffy.com/en-US/donation-form/support-sapiens-first',
   STRATEGY_DOC_URL: 'https://docs.google.com/document/d/1sBlALbzX4fwvEJcFtc4OSpAnceozyV3_chMaFNUIhJg/edit?usp=sharing',
-  JOIN_URL: 'https://sapiensfirst.org/join',
   GUIDE_DOC_ID: '1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs',
   EVENTS_SHEET_ID: '1mkPKC7MmmKhW8PS2K-7lqmjreQOln6zz9t5C-lSDqOU',
   EMBER_COLORS: ['#ff5252','#ff8080','#ffbe0b','#c80000','#ff6b6b','#ffd60a'],
@@ -15,6 +14,7 @@ const siteRoot = new URL('.', document.currentScript.src);
 SITE_CONFIG.pageLink = function (page) {
   return window.location.protocol === 'file:' ? new URL(`${page}.html`, siteRoot).href : `/${page}`;
 };
+SITE_CONFIG.JOIN_URL = new URL(SITE_CONFIG.pageLink('join'), window.location.href).href;
 
 // Single source of truth for where each page appears in site chrome. To add,
 // move, or hide a page, edit its entry here only — NAV_LINKS and

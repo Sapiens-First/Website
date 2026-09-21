@@ -29,9 +29,9 @@
     if (!children || !children.length) return link;
     return `<div class="nav-dropdown">
       ${link}
-      <button class="nav-dropdown-toggle" type="button" aria-label="${label} submenu" aria-expanded="false" aria-controls="nav-${page}-children">▾</button>
+      <button class="nav-dropdown-toggle" type="button" aria-label="${label} submenu" aria-expanded="false" aria-controls="nav-${page}-children"><span class="nav-dropdown-chevron" aria-hidden="true"></span></button>
       <div class="nav-dropdown-links" id="nav-${page}-children" hidden>
-        ${children.map(child => `<a href="${SITE_CONFIG.pageLink(child.page)}">${child.label}</a>`).join('')}
+        ${children.map(child => `<a href="${SITE_CONFIG.pageLink(child.page)}"><span class="nav-dropdown-label">${child.label}</span><span class="nav-dropdown-arrow" aria-hidden="true">↗</span></a>`).join('')}
       </div>
     </div>`;
   };
@@ -53,7 +53,7 @@
         <div class="nav-actions">
           ${navLinksHtml}
           <a class="nav-cta donate${isActive('donate') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('donate')}">Donate</a>
-          <a class="nav-cta join${isActive('join') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('join')}">Membership</a>
+          <a class="nav-cta join${isActive('join') ? ' current' : ''}" href="${SITE_CONFIG.pageLink('join')}">Join</a>
         </div>
       </nav>
     </div>
@@ -81,12 +81,12 @@
     });
   });
 
-  // Keep Join one click away from email entry on every page.
+  // Inline Join links open email signup; the navigation goes to the Join page.
   let signupReady;
   let dialog;
   document.addEventListener('click', async event => {
     const link = event.target.closest('a[href]');
-    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (!link || link.matches('.nav-cta.join') || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     const url = new URL(link.href);
     const isJoin = url.origin === location.origin && /\/(join|join\.html)$/.test(url.pathname);
     if (!isJoin || link.target === '_blank' || link.hasAttribute('download')) return;

@@ -56,7 +56,7 @@
     .guide-main .overview-list li {
       font-family: var(--font-body); font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; color: var(--text);
     }
-    .guide-main .overview-list li::marker { color: var(--accent); }
+    .guide-main .overview-list li::marker { color: var(--accent-text); }
 
     /* ─── GUIDE-STYLE LAYOUT (sidebar TOC + content) ───────────── */
     .guide-section { padding: 80px 0 100px; background: #fff; }
@@ -85,14 +85,14 @@
       color: var(--text); text-decoration: none; border-bottom: none;
       display: block; padding: 2px 8px; transition: color .15s;
     }
-    .toc-group-header a:hover { color: var(--accent); }
+    .toc-group-header a:hover { color: var(--accent-text); }
     .toc-item-link {
       display: block; padding: 6px 8px; margin: 1px 0;
       font-family: var(--font-body); font-size: 15px; font-weight: 500;
       color: var(--text); text-decoration: none; border-bottom: none;
       line-height: 1.32; transition: color .15s;
     }
-    .toc-item-link:hover, .toc-item-link.toc-active { color: var(--accent); border-bottom: none; }
+    .toc-item-link:hover, .toc-item-link.toc-active { color: var(--accent-text); border-bottom: none; }
     .toc-item-link.toc-active { font-weight: 600; }
 
     @media (max-width: 900px) {
@@ -163,7 +163,7 @@
     }
     .policy-card-body li { margin-bottom: 6px; }
     .policy-card-body li:last-child { margin-bottom: 0; }
-    .policy-card-body li::marker { color: var(--accent); }
+    .policy-card-body li::marker { color: var(--accent-text); }
     .policy-card-body strong { font-weight: 700; }
 
     /* How it's done — Cities vs. State tabs */

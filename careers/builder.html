@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <link rel="canonical" href="https://sapiensfirst.org/careers/builder">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI-Native Builder Contractor — Careers — Sapiens First</title>
-  <meta name="description" content="Sapiens First is hiring an AI-native builder contractor to turn messy organizational problems into useful software, automations, and systems. Remote, India preferred.">
+  <title>AI-Native Builder (Contract) — Careers — Sapiens First</title>
+  <meta name="description" content="Sapiens First is hiring an AI-native builder on a paid contract to turn messy organizational problems into useful software, automations, and systems. Remote, India preferred.">
   <!-- Nested page: build.py does not update this head. Keep shared assets in
        sync with partials/head-common.html, preserving the ../ asset paths. -->
   <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
@@ -17,19 +17,23 @@
   <script src="../config.js"></script>
   <style>
     .job-page { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 48px 0 88px; }
-    .job-back { display: inline-block; margin-bottom: 32px; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+    .job-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; font-size: 18px; line-height: 1.5; }
+    .job-back-label { text-decoration: underline; text-underline-offset: 4px; }
     .job-header { padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
     .job-page h1 { max-width: none; font-family: var(--font-body); font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.15; letter-spacing: -.035em; text-transform: none; font-weight: 700; }
-    .job-page h2 { margin: 48px 0 18px; font-family: var(--font-body); font-size: 26px; line-height: 1.35; letter-spacing: -.02em; text-transform: none; font-weight: 700; text-wrap: balance; }
+    .job-page h2 { margin: 40px 0 16px; font-family: var(--font-body); font-size: 26px; line-height: 1.35; letter-spacing: -.02em; text-transform: none; font-weight: 700; text-wrap: balance; }
     .job-page h3 { margin: 24px 0 10px; font-size: 20px; line-height: 1.6; }
-    .job-page p, .job-page li { font-size: 19px; line-height: 1.8; }
-    .job-page p { margin: 0 0 22px; }
-    .job-page .job-meta { margin: 18px 0 24px; color: var(--ink); font-size: 19px; }
+    .job-page p, .job-page li { font-size: 18px; line-height: 1.7; }
+    .job-page p { margin: 0 0 18px; }
+    .job-page .job-meta { margin: 18px 0 24px; color: var(--ink); font-size: 18px; }
     .job-meta strong { font-weight: 500; }
-    .job-page ul { padding-left: 24px; margin: 0 0 20px; }
+    .job-page ul, .job-page ol { padding-left: 24px; margin: 0 0 20px; }
     .job-page li { padding-left: 3px; margin-bottom: 12px; }
-    .job-page li p { margin: 0; }
-    .job-page li ul { margin: 8px 0 0; }
+    .job-page .job-lead { font-size: 20px; line-height: 1.65; }
+    .job-questions li::marker { color: var(--red-dark); font-weight: 700; }
+    .job-process { padding: 18px 20px; margin: 24px 0 18px; background: var(--soft); border-left: 3px solid var(--red-dark); }
+    .job-process h3 { margin: 0 0 8px; font-family: var(--font-body); font-size: 16px; line-height: 1.4; text-transform: none; letter-spacing: 0; }
+    .job-process p { margin: 0; font-weight: 500; }
     .job-description a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
     .job-page a:hover { color: var(--red-dark); }
     .job-description h2 { scroll-margin-top: 115px; }
@@ -38,20 +42,21 @@
 
     .job-header { max-width: 760px; margin-left: 280px; }
     .job-layout { display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 48px; align-items: start; }
-    .job-content { min-width: 0; max-width: 70ch; font-size: 19px; color: var(--ink); }
+    .job-content { min-width: 0; max-width: 70ch; font-size: 18px; color: var(--ink); }
     .job-sidebar { position: sticky; top: 110px; max-height: calc(100vh - 134px); overflow-y: auto; }
     .job-toc summary { font-size: 16px; font-weight: 700; cursor: pointer; padding: 12px 0; }
     .job-toc ul { list-style: none; margin: 8px 0 20px; padding: 0; }
-    .job-toc li { margin: 0; padding: 0; font-size: 15px; line-height: 1.5; }
+    .job-toc li { margin: 0; padding: 0; font-size: 16px; line-height: 1.5; }
     .job-toc li a { display: block; padding: 9px 12px; border-left: 2px solid var(--line); font-weight: 600; color: var(--ink); transition: background-color 200ms ease, border-color 200ms ease; }
     .job-toc li a:hover { background: var(--soft); }
     .job-toc li a[aria-current="location"] { border-left-color: var(--red-dark); background: var(--soft); }
     .job-toc a:focus-visible, .job-toc summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-    .job-toc-apply { margin: 0 0 8px 12px; }
-    .job-facts { width: 100%; border-collapse: collapse; margin: 0 0 28px; font-size: 19px; line-height: 1.8; }
-    .job-facts th, .job-facts td { padding: 18px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .job-facts { width: 100%; border-collapse: collapse; margin: 0 0 28px; font-size: 18px; line-height: 1.7; }
+    .job-facts th, .job-facts td { padding: 14px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
     .job-facts th { width: 155px; padding-right: 20px; }
-    .job-facts td ul { margin: 0; }
+    .job-facts td ul { list-style: none; padding: 0; margin: 0; }
+    .job-facts td li { padding: 0; margin: 0 0 8px; }
+    .job-facts td li:last-child { margin-bottom: 0; }
     @supports (interpolate-size: allow-keywords) {
       .job-toc { interpolate-size: allow-keywords; }
       .job-toc::details-content { height: 0; overflow: clip; transition: height 240ms ease, content-visibility 240ms allow-discrete; }
@@ -89,10 +94,10 @@
 <body>
 <header class="site-header"></header>
 <main class="job-page">
-  <a class="job-back" href="/careers" data-page-link="careers">← All careers</a>
+  <a class="job-back" href="/careers" data-page-link="careers"><span aria-hidden="true">←</span><span class="job-back-label">All careers</span></a>
   <article>
     <header class="job-header">
-<h1>AI-Native Builder Contractor</h1>
+<h1>AI-Native Builder (Contract)</h1>
 <p class="job-meta"><strong>Remote · India preferred · 20 or 40 hours/week · 3 months</strong></p>
 <p><strong>₹50–70k/month for full-time</strong></p>
       <a class="btn primary" href="#apply">Apply for this role →</a>
@@ -104,127 +109,73 @@
           <nav aria-label="Job description sections">
             <ul>
           <li><a href="#about-sapiens-first">About Sapiens First</a></li>
-          <li><a href="#how-we-work">How we work</a></li>
-          <li><a href="#why-this-role-exists">Why this role exists</a></li>
-          <li><a href="#what-you-might-build">What you might build</a></li>
-          <li><a href="#what-excellent-looks-like">What excellent looks like</a></li>
-          <li><a href="#who-we-re-looking-for">Who we’re looking for</a></li>
-          <li><a href="#learn-and-grow-with-us">Learn and grow with us</a></li>
-          <li><a href="#practical-details">Practical details</a></li>
-          <li><a href="#apply">How to apply</a></li>
-          <li><a href="#hiring-process">Hiring process</a></li>
+          <li><a href="#the-role">About the Role</a></li>
+          <li><a href="#about-you">About You</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#apply">Apply</a></li>
             </ul>
-            <a class="btn primary job-toc-apply" href="#apply">How to apply →</a>
           </nav>
         </details>
       </aside>
       <div class="job-content">
     <div class="job-description">
 
-<p>We’re looking for an <strong>AI-native builder who can turn messy organizational problems into useful software, automations, and systems.</strong></p>
-<p>This is a paid contract with substantial ownership. You’ll work directly with the founder of Sapiens First to identify problems, prototype solutions, and ship tools that help a growing political movement operate at scale.</p>
+<p class="job-lead">Turn messy organizational problems into <strong>useful software, automations, and systems</strong>. You’ll work directly with the Executive Director to identify priorities, prototype solutions, and ship tools that help a growing political movement scale.</p>
+
 <h2 id="about-sapiens-first">About Sapiens First</h2>
-<p>Sapiens First is building political power to ensure technology serves the common good.</p>
-<p>We operate somewhere between a <strong>political campaign and a startup</strong>: small team, high ownership, fast iteration, direct communication, and a strong bias toward shipping.</p>
-<p>We organize people, train leaders, run campaigns, build media, and develop the infrastructure needed to scale a political movement.</p>
-<p>Experience with startups, political campaigns, advocacy, or social movements is a plus.</p>
-<h2 id="how-we-work">How we work</h2>
-<p>We want Sapiens First to be an unusually high-autonomy place to work.</p>
-<p>Our management system draws from <strong><a href="https://www.holacracy.org/">Holacracy</a></strong>: clear roles, distributed authority, and the expectation that people take ownership within their areas rather than waiting for permission.</p>
-<p>Our culture also draws from the <strong><a href="https://jobs.netflix.com/culture">Netflix culture memo</a></strong>. We aim for:</p>
+<p>We’re building political power to ensure technology serves the common good. We organize people, train leaders, run campaigns, and build media and movement infrastructure.</p>
+<p>We work like a political campaign and a startup: a small team, fast iteration, and direct communication. Our approach draws from <a href="https://www.holacracy.org/">Holacracy</a> and the <a href="https://jobs.netflix.com/culture">Netflix culture memo</a>: clear roles, distributed authority, freedom with responsibility, candor, and continuous improvement.</p>
+<p>You’ll get context and ownership, with the expectation that you make decisions, surface problems early, and learn quickly. This suits people who are self-directed and comfortable with ambiguity.</p>
+
+<h2 id="the-role">About the Role</h2>
+<p>You’ll research, build, and improve solutions across organizing, campaigns, fundraising, media, and internal coordination. We take an AI-first approach (see <a href="https://block.xyz/inside/from-hierarchy-to-intelligence">“From Hierarchy to Intelligence”</a>) to reduce manual operations.</p>
 <ul>
-<li>
-<p><strong>Freedom and responsibility:</strong> substantial autonomy paired with strong ownership.</p>
-</li>
-<li>
-<p><strong>Context, not control:</strong> understand the goal and make good decisions rather than waiting for instructions.</p>
-</li>
-<li>
-<p><strong>Candor:</strong> communicate directly, give useful feedback, and surface problems early.</p>
-</li>
-<li>
-<p><strong>Continuous improvement:</strong> experiment, learn quickly, and make the organization better.</p>
-</li>
+  <li><strong>Movement infrastructure:</strong> Volunteer onboarding, training, events, local groups, and organizer workflows.</li>
+  <li><strong>AI and automation:</strong> Connect documents, CRM data, workflows, and AI agents; automate repetitive work.</li>
+  <li><strong>Campaigns and fundraising:</strong> Outreach, volunteer coordination, donor research, and follow-up.</li>
+  <li><strong>Media tools:</strong> Editing, repurposing, publishing, scheduling, and analytics.</li>
 </ul>
-<p>This environment works best for people who are curious, self-directed, comfortable with ambiguity, and excited to take responsibility early.</p>
-<p>For a related perspective on AI and organizational design, read Block’s <a href="https://block.xyz/inside/from-hierarchy-to-intelligence">“From Hierarchy to Intelligence.”</a></p>
-<h2 id="why-this-role-exists">Why this role exists</h2>
-<p>Sapiens First needs to scale volunteer recruitment, organizing, campaigns, fundraising, media, and internal coordination.</p>
-<p>We want to solve these problems AI-first rather than by adding layers of manual operations.</p>
-<p>You’ll work with the founder to identify priorities, then take substantial ownership over researching, building, and improving solutions. Over time, we hope you to notice important problems yourself and propose ways to solve them.</p>
-<h2 id="what-you-might-build">What you might build</h2>
+<p>Priorities will evolve. Part of the job is noticing problems and deciding <strong>what’s worth building</strong>.</p>
+
+<h2 id="about-you">About You</h2>
 <ul>
-<li>
-<p><strong>Movement infrastructure:</strong> Tools for volunteer onboarding, training, events, local groups, and organizer workflows.</p>
-</li>
-<li>
-<p><strong>AI and automation systems:</strong> Connect documents, CRM data, workflows, and AI agents; automate repetitive work.</p>
-</li>
-<li>
-<p><strong>Campaign and fundraising tools:</strong> Systems for outreach, volunteer coordination, donor research, and follow-up.</p>
-</li>
-<li>
-<p><strong>Media systems:</strong> Tools for editing, repurposing, publishing, scheduling, and analytics.</p>
-</li>
+  <li><strong>Engineering ability:</strong> Build web products and work comfortably with APIs and databases.</li>
+  <li><strong>AI fluency:</strong> Use AI heavily, research tools independently, and choose when to build custom software or use an existing product.</li>
+  <li><strong>Product and design judgment:</strong> Clarify vague goals, narrow the scope, and ship useful, well-designed tools quickly.</li>
+  <li><strong>Initiative and mission alignment:</strong> Notice problems, make sound decisions, and care about the work Sapiens First is doing.</li>
 </ul>
-<p>You will not just receive engineering tickets. Part of the role is figuring out <strong>what should be built</strong>.</p>
-<h2 id="what-excellent-looks-like">What excellent looks like</h2>
-<p>You can take a vague goal, clarify what matters, reduce the scope, and ship something useful quickly.</p>
-<p>You use AI heavily in your workflow. You can independently research tools, compare approaches, make sensible technical decisions, and know when to build something custom versus use an existing product.</p>
-<p>You care about product quality and interface design. Most importantly, you have high agency: you notice problems and try to solve them without waiting for detailed instructions.</p>
-<h2 id="who-we-re-looking-for">Who we’re looking for</h2>
-<p>We care most about:</p>
-<ul>
-<li>
-<p>Strong engineering ability</p>
-</li>
-<li>
-<p>Strong AI fluency</p>
-</li>
-<li>
-<p>Product and design judgment</p>
-</li>
-<li>
-<p>High agency and good judgment</p>
-</li>
-<li>
-<p>Mission alignment</p>
-</li>
-</ul>
-<p>You should be comfortable building web products, working with APIs and databases, and using modern AI and automation tools.</p>
-<p>We care much more about <strong>what you can build</strong> than degrees, credentials, years of experience, or specific frameworks. Students and early-career applicants are welcome.</p>
-<h2 id="learn-and-grow-with-us">Learn and grow with us</h2>
-<p>Sapiens First is a young and growing organization. That means the contract may be less structured than one at a large company—but you’ll also have far more opportunity to take ownership, work directly on important problems, and shape how the organization operates.</p>
-<p>You’ll get exposure to engineering, product, AI, operations, and movement-building. As the organization grows, the scope of the role can grow with it.</p>
-<p><strong>If the contract goes well, there is a real path to a full-time role.</strong> We hope to find someone who can eventually become a core member of the team and take ownership of increasingly important technical and product work.</p>
-<h2 id="practical-details">Practical details</h2>
-<table class="job-facts" aria-labelledby="practical-details">
+<p>We value <strong>what you can build</strong> over degrees, credentials, years of experience, or specific frameworks. Students and early-career applicants are welcome.</p>
+
+<h2 id="benefits">Benefits</h2>
+<table class="job-facts" aria-labelledby="benefits">
 <tbody>
-  <tr><th scope="row">Commitment:</th>
-    <td>Choose either <strong>20 hours/week or 40 hours/week</strong> for an initial 3-month contract.</td></tr>
-  <tr><th scope="row">Compensation:</th>
+  <tr><th scope="row">Contract</th>
+    <td>Initial <strong>3 months</strong>, at 20 or 40 hours/week.</td></tr>
+  <tr><th scope="row">Monthly pay</th>
     <td><ul>
-  <li><strong>20 hours/week:</strong> ₹25,000–₹35,000/month (approximately $260–$365 USD).</li>
-  <li><strong>40 hours/week:</strong> ₹50,000–₹70,000/month (approximately $520–$730 USD).</li>
-</ul></td></tr>
-  <tr><th scope="row">Location:</th>
-    <td>Remote, with a preference for candidates based in India.</td></tr>
-  <tr><th scope="row">Schedule:</th>
-    <td>Mostly flexible and asynchronous, with up to <strong>3 hours/week of meetings overlapping with normal California business hours</strong>.</td></tr>
-  <tr><th scope="row">Future:</th>
-    <td>Strong performers may be offered a longer-term or full-time role.</td></tr>
+      <li><strong>20 hours/week:</strong> ₹25,000–₹35,000 (approx. $260–$365 USD).</li>
+      <li><strong>40 hours/week:</strong> ₹50,000–₹70,000 (approx. $520–$730 USD).</li>
+    </ul></td></tr>
+  <tr><th scope="row">Location</th>
+    <td>Remote; India preferred.</td></tr>
+  <tr><th scope="row">Schedule</th>
+    <td>Mostly flexible and asynchronous. Regular meetings (up to 3 hours/week) with staff in California.</td></tr>
 </tbody>
 </table>
-<h2 id="apply">How to apply</h2>
-<p>Email <strong><a href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder">rohan@sapiensfirst.org</a></strong> with <strong>“AI-Native Builder”</strong> as the subject line.</p>
-<p>Please answer four questions:</p>
-<h3>1. What are 2–3 things you’ve built?</h3>
-<p>Show us what you’re proud of. Links, demos, GitHub repositories, screenshots, or short explanations are welcome. Briefly explain what you personally did.</p>
-<h3>2. What about Sapiens First’s mission appeals to you? (<100 words) </h3>
-<h3>3. What do you hope to get out of this experience? (<100 words) </h3>
-<h3>4. Are you applying for 20 hours/week or 40 hours/week?</h3>
-<h2 id="hiring-process">Hiring process</h2>
-<p><strong>Application → 15-minute interview → 1-hour practical exercise → offer</strong></p>
+<p>This is a young organization with less structure and room to shape how we work. You’ll gain experience across engineering, product, AI, operations, and movement-building. <strong>A successful contract can lead to a full-time role</strong> with growing technical and product ownership.</p>
+
+<h2 id="apply">Apply</h2>
+<p>Email <a href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder"><strong>rohan@sapiensfirst.org</strong></a> with the subject <strong>“AI-Native Builder”</strong> and answers to these four questions:</p>
+<ol class="job-questions">
+  <li><strong>What are 2–3 things you’ve built?</strong> Include links, demos, GitHub repositories, screenshots, or short explanations, and say what you personally did.</li>
+  <li><strong>What about our mission appeals to you?</strong> Under 100 words.</li>
+  <li><strong>What do you hope to get out of this experience?</strong> Under 100 words.</li>
+  <li><strong>Are you applying for 20 or 40 hours/week?</strong></li>
+</ol>
+<div class="job-process">
+  <h3>Hiring process</h3>
+  <p>Application → 15-minute interview → 1-hour practical exercise → offer</p>
+</div>
 <p>We may not be able to reply to every application.</p>
     </div>
     <a class="btn primary job-bottom" href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder">Email your application →</a>

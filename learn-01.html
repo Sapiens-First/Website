@@ -96,11 +96,11 @@
     .doc-body ul ol, .doc-body ol ul { margin: 8px 0 0; padding-left: 24px; }
 
     .doc-body a {
-      color: var(--accent); text-decoration: none;
+      color: var(--accent-text); text-decoration: none;
       border-bottom: 1px solid rgba(205,85,29,0.35);
       transition: border-color .2s;
     }
-    .doc-body a:hover { border-color: var(--accent); }
+    .doc-body a:hover { border-color: var(--accent-text); }
     .doc-body strong { font-weight: 700; }
     .doc-body em { font-style: italic; }
 
@@ -133,7 +133,7 @@
       color: var(--text); text-decoration: none; border-bottom: none;
       display: block; padding: 2px 8px; transition: color .15s;
     }
-    .toc-group-header a:hover { color: var(--accent); border-bottom: none; }
+    .toc-group-header a:hover { color: var(--accent-text); border-bottom: none; }
 
     /* h2 rows */
     .toc-h2-row { display: flex; align-items: center; }
@@ -145,7 +145,7 @@
     }
     /* chevron is 18px wide + 3px gap = 21px, matching the no-chevron indent */
     .toc-chevron + .toc-h2-link { padding-left: 3px; }
-    .toc-h2-link:hover, .toc-h2-link.toc-active { color: var(--accent); border-bottom: none; }
+    .toc-h2-link:hover, .toc-h2-link.toc-active { color: var(--accent-text); border-bottom: none; }
     .toc-h2-link.toc-active { font-weight: 600; }
 
     .toc-chevron {
@@ -156,7 +156,7 @@
       transition: transform .2s ease, color .15s;
     }
     .toc-chevron.open { transform: rotate(90deg); }
-    .toc-chevron:hover { color: var(--accent); }
+    .toc-chevron:hover { color: var(--accent-text); }
 
     /* h3 sub-list */
     .toc-h3-list { list-style: none; padding: 0 0 4px 36px; margin: 0; display: none; }
@@ -167,7 +167,7 @@
       color: var(--text); text-decoration: none; border-bottom: none;
       transition: color .15s;
     }
-    .toc-h3-list a:hover, .toc-h3-list a.toc-active { color: var(--accent); border-bottom: none; }
+    .toc-h3-list a:hover, .toc-h3-list a.toc-active { color: var(--accent-text); border-bottom: none; }
     .toc-h3-list a.toc-active { font-weight: 500; }
 
     @media (max-width: 900px) {

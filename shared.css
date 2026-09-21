@@ -13,8 +13,11 @@
   --border-strong: var(--ink);
   --ink: #111111;
   --text: #111111;
-  --accent: #ff5252;
-  --accent-dark: #c80000;
+  /* Coral fills pair with ink; deep red text pairs with paper or white. */
+  --coral: #ff7870;
+  --accent: var(--coral);
+  --accent-dark: #b53236;
+  --accent-text: var(--accent-dark);
   --blue: #3a86ff;
   --yellow: #ffd60a;
   --green: #8338ec;
@@ -369,7 +372,7 @@ section { border-bottom: 2px solid var(--ink); }
   font-family: var(--font-body);
   font-size: 14px; font-weight: 900;
   letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--red);
+  color: var(--accent-text);
 }
 
 .hero-art { position: relative; overflow: hidden; background: var(--red); border-left: 2px solid var(--ink); }
@@ -428,9 +431,14 @@ section { border-bottom: 2px solid var(--ink); }
 h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
 .underline { position: relative; display: inline-block; }
 .underline:after {
-  content: ""; position: absolute; left: 0; width: 100%; height: 7px; bottom: -7px;
-  background: var(--red); transform: rotate(-1.2deg); border-radius: 999px;
+  content: ""; position: absolute; left: 0; width: 100%;
+  top: calc(100% + .1em + 4px); height: clamp(8px, .14em, 16px);
+  background: var(--red); pointer-events: none;
+  transform: skewY(-1deg);
+  clip-path: polygon(0 24%, 8% 12%, 26% 19%, 48% 3%, 72% 12%, 100% 0,
+    98% 66%, 91% 83%, 73% 74%, 51% 100%, 28% 83%, 9% 94%, 1% 73%);
 }
+.underline.yellow:after { background: var(--yellow); }
 .underline.blue:after { background: var(--blue); }
 .underline.green:after { background: var(--green); }
 .spark {
@@ -541,7 +549,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   background-color: var(--hero-bg);
   border-bottom: 2px solid var(--border-strong);
 }
-.title-accent { color: var(--accent); }
+.title-accent { color: var(--accent-text); }
 .page-title {
   font-family: var(--font-display); font-weight: 800;
   font-size: clamp(64px, 9vw, 110px);
@@ -580,7 +588,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   margin-bottom: 18px;
   text-align: center;
 }
-.section-label .title { color: var(--accent); }
+.section-label .title { color: var(--accent-text); }
 .body-large {
   font-size: var(--sz-lead); line-height: 1.58;
   font-weight: 400; color: var(--text); margin-bottom: 22px;
@@ -637,7 +645,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   font-weight: 500; padding-left: 16px; position: relative; text-align: left;
 }
 .flip-card-list li::before {
-  content: '–'; position: absolute; left: 0; color: var(--accent); opacity: 0.6;
+  content: '–'; position: absolute; left: 0; color: var(--accent-text); opacity: 0.6;
 }
 
 /* ─── FLYWHEEL (Act / Recruit / Train strategy graphic) ── */
@@ -671,7 +679,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   border: 2.5px solid var(--accent); background: color-mix(in srgb, var(--surface) 60%, transparent);
   display: flex; align-items: center; justify-content: center;
   padding: 6%; box-sizing: border-box;
-  color: var(--accent); cursor: pointer;
+  color: var(--accent-text); cursor: pointer;
   transition: background .2s, box-shadow .2s, transform .2s;
 }
 .flywheel-node:hover,
@@ -743,7 +751,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
 .card-title {
   font-family: var(--font-display); font-weight: 700;
   font-size: var(--sz-title); letter-spacing: 0.02em;
-  text-transform: uppercase; color: var(--accent);
+  text-transform: uppercase; color: var(--accent-text);
   margin-bottom: 10px;
 }
 .card-text { font-size: var(--sz-copy); line-height: 1.65; color: var(--text); font-weight: 500; }
@@ -813,17 +821,17 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   font-family: var(--font-body); font-size: var(--sz-label);
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--text);
 }
-.eyebrow--accent { color: var(--accent); }
+.eyebrow--accent { color: var(--accent-text); }
 
 /* ─── TEXT LINK (underlined accent link) ── */
 .text-link {
   font-family: var(--font-body); font-size: var(--sz-label);
   letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--accent); text-decoration: none;
+  color: var(--accent-text); text-decoration: none;
   border-bottom: 1px solid var(--accent); padding-bottom: 2px;
-  opacity: 0.75; transition: opacity .2s;
+  opacity: 1; transition: border-color .2s;
 }
-.text-link:hover { opacity: 1; }
+.text-link:hover { border-bottom-color: currentColor; }
 /* stand-alone, right-aligned on its own line (e.g. under a paragraph) */
 .text-link--block {
   display: block; margin-top: 28px; margin-left: auto;
@@ -843,7 +851,12 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
 }
 .btn:hover { transform: translateY(-1px); }
 .btn.primary, .btn--solid {
-  background: var(--red); color: var(--ink); border-color: var(--red);
+  background: var(--coral); color: var(--ink); border-color: var(--ink);
+}
+
+.btn.primary:where(:not([href="/donate"], [href="donate.html"], [href*="zeffy.com/"])):hover, .btn--solid:where(:not([href="/donate"], [href="donate.html"], [href*="zeffy.com/"])):hover { background: var(--accent-dark); color: var(--white); }
+.btn.primary:focus-visible, .btn--solid:focus-visible, .sf button:focus-visible {
+  outline: 3px solid var(--ink); outline-offset: 4px;
 }
 
 /* ─── SIGNUP FORM (createSignupForm in signup.js) ── */
@@ -855,22 +868,22 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   transition: border-color .2s, background .2s;
 }
 .sf--dark input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); color: #fff; }
-.sf--dark input::placeholder { color: rgba(255,255,255,0.38); }
+.sf--dark input::placeholder { color: rgba(255,255,255,0.75); }
 .sf--dark input:focus { border-color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.14); }
 .sf--light input { background: rgba(20,18,14,0.04); border: 1px solid rgba(20,18,14,0.15); color: #141210; }
-.sf--light input::placeholder { color: rgba(20,18,14,0.35); }
-.sf--light input:focus { border-color: var(--accent); background: rgba(205,85,29,0.04); }
+.sf--light input::placeholder { color: #655c55; }
+.sf--light input:focus { border-color: var(--accent-text); background: color-mix(in srgb, var(--coral) 6%, var(--paper)); }
 .sf input.sf-err { border-color: #b91c1c !important; }
 .sf button {
   font-family: var(--font-body); font-size: 13px; font-weight: 600;
   letter-spacing: 0.10em; text-transform: uppercase;
   padding: 13px 22px;
-  background: var(--accent); color: #fff;
-  border: none; border-radius: 5px; cursor: pointer;
+  background: var(--coral); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 5px; cursor: pointer;
   white-space: nowrap; flex-shrink: 0;
-  transition: opacity .2s;
+  transition: background-color .2s, color .2s;
 }
-.sf button:hover:not(:disabled) { opacity: 0.84; }
+.sf button:hover:not(:disabled) { background: var(--accent-dark); color: var(--white); }
 .sf button:disabled { opacity: 0.5; cursor: default; }
 .sf-done {
   font-family: var(--font-body); font-size: 14px; font-weight: 500;
@@ -878,7 +891,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   padding: 14px 0; display: block;
 }
 .sf--dark .sf-done { color: rgba(255,255,255,0.85); }
-.sf--light .sf-done { color: var(--accent); }
+.sf--light .sf-done { color: var(--accent-text); }
 @media (max-width: 600px) {
   .sf { flex-direction: column; }
   .sf button { width: 100%; }
@@ -895,7 +908,7 @@ h1 .marker:after, h2 .marker:after { height: 0.13em; bottom: 0.03em; }
   font-family: var(--font-body); font-size: var(--sz-body);
   color: var(--text); line-height: 1.6;
 }
-.empty-state a { color: var(--accent); }
+.empty-state a { color: var(--accent-text); }
 
 /* ─── PROGRESS BAR ──────────────────────── */
 .progress-bar {

@@ -30,9 +30,12 @@
     const item = index.get(id);
     if (!item) return el('span', `Unresolved reference: ${id}`, 'atlas-unresolved');
     const anchor = el('a', item.row.Name);
-    anchor.href = item.group === 'governance' && format === 'circles' ? `#governance/circles/${id}`
-      : item.group === 'domains' && format === 'tree' ? `#domains/tree/${id}`
-      : `#${item.group}/${id}`;
+    // Tree/Circles are the default graphical view for their group; Table is
+    // the explicit opt-out. A link follows the format you're currently
+    // browsing in (stay in Table if you're in Table), not the target's own
+    // default, so cross-group links (e.g. a Domain's owner) don't unexpectedly
+    // jump you into a graphical view while you're deep in table browsing.
+    anchor.href = format === 'table' ? `#${item.group}/table/${id}` : `#${item.group}/${id}`;
     return anchor;
   }
   function linkedList(ids) {
@@ -93,7 +96,7 @@
     const item = index.get(selected);
     const heading = el('h2', item?.row.Name || 'Record not found'); heading.id = 'record-title'; heading.tabIndex = -1;
     const closeLabel = format === 'circles' ? '← All circles' : format === 'tree' ? '← Full tree' : '← Back to list';
-    const closeHref = format === 'circles' ? '#governance/circles' : format === 'tree' ? '#domains/tree' : `#${current}`;
+    const closeHref = format === 'table' ? `#${current}/table` : `#${current}`;
     const close = el('a', closeLabel); close.href = closeHref;
     panel.append(close, heading);
     if (!item) { panel.append(el('p', `No record exists for ${selected}.`)); return; }
@@ -213,10 +216,13 @@
     lastHash = location.hash;
     const parts = location.hash.slice(1).split('/');
     current = parts[0] === 'governance' ? 'governance' : 'domains';
-    format = current === 'governance' && parts[1] === 'circles' ? 'circles'
-      : current === 'domains' && parts[1] === 'tree' ? 'tree'
-      : 'table';
-    selected = parts[format === 'circles' || format === 'tree' ? 2 : 1] || '';
+    // Tree (Domains) and Circles (Governance) are the default graphical view;
+    // Table is reached via an explicit /table/ segment. /circles/ and /tree/
+    // segments are still accepted for old links/bookmarks, but redundant with
+    // the default — either way, an explicit marker moves the ID one slot over.
+    const marker = ['table', 'circles', 'tree'].includes(parts[1]) ? parts[1] : null;
+    format = marker || (current === 'governance' ? 'circles' : 'tree');
+    selected = (marker ? parts[2] : parts[1]) || '';
     if (index.has(selected)) current = index.get(selected).group;
     search.value = '';
     render();
@@ -230,9 +236,10 @@
   }));
   document.querySelectorAll('[data-format]').forEach(button => button.addEventListener('click', () => {
     const suffix = selected ? `/${selected}` : '';
-    location.hash = button.dataset.format === 'circles' ? `#governance/circles${suffix}`
-      : button.dataset.format === 'tree' ? `#domains/tree${suffix}`
-      : `#${current}${suffix}`;
+    // Always emit an explicit marker (even for tree/circles, now the default
+    // and so redundant) so the click always lands on the format actually
+    // pressed, regardless of what's currently default.
+    location.hash = `#${current}/${button.dataset.format}${suffix}`;
     navigate(true);
   }));
   window.addEventListener('hashchange', () => navigate(true));

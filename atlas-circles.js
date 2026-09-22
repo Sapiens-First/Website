@@ -176,6 +176,19 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     }
     svg.append(draw(focus, 0, 0, 0));
 
+    // Clicking the empty background (outside every drawn circle, including
+    // the margin around the outer ring) zooms out to the parent circle —
+    // same destination as the breadcrumb's previous link, just a bigger,
+    // more discoverable target. A no-op at the root, where there's nothing
+    // to zoom out to.
+    const parentId = focus.row['Parent Circle ID'];
+    if (parentId && nodes.get(parentId)) {
+      svg.classList.add('atlas-circle-zoomable');
+      svg.addEventListener('click', event => {
+        if (event.target === svg) location.hash = url(parentId);
+      });
+    }
+
     // Smoother drill-in/out: scale+fade the newly drawn level in from a
     // slightly smaller (drilling in) or larger (drilling out) starting
     // point instead of the level just appearing, so it reads as zooming.

@@ -19,6 +19,11 @@ async def main():
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.on('request', lambda request: sheets_requests.append(request.url) if 'docs.google.com' in request.url else None)
             await page.goto('http://localhost:8000/atlas')
+            # Tree/Circles are now the default graphical view for their group —
+            # Domains lands on Tree, not the table, until Table is pressed.
+            await expect(page.locator('#atlas-tree')).to_be_visible()
+            await expect(page.locator('#atlas-results')).to_be_hidden()
+            await page.locator('[data-format="table"]').click()
             rows = page.locator('#atlas-table tbody tr')
             # Counts are derived from the loaded data, not hardcoded, since domains
             # and governance are expected to change constantly (a core Holacracy
@@ -31,18 +36,25 @@ async def main():
             await expect(rows).to_have_count(1)
             await page.locator('#atlas-table summary').click()
             await expect(page.locator('#atlas-table details[open]')).to_have_count(1)
-            await page.locator('#atlas-table a[href="#domains/D-013"]').click()
+            # Links generated while browsing in Table mode carry an explicit
+            # /table/ marker so they stay in Table rather than falling back to
+            # the new Tree/Circles default.
+            await page.locator('#atlas-table a[href="#domains/table/D-013"]').click()
             await expect(page.locator('#record-title')).to_have_text('Website')
             await expect(page.locator('#atlas-record')).to_contain_text('Marketing & Communications')
-            await page.locator('#atlas-record a[href="#governance/G-006"]').first.click()
+            await page.locator('#atlas-record a[href="#governance/table/G-006"]').first.click()
             await expect(page.locator('#record-title')).to_have_text('Website Owner')
             await expect(page.locator('#atlas-record')).to_contain_text('Publishing updates')
-            await page.locator('#atlas-record a[href="#domains/D-013"]').first.click()
+            await page.locator('#atlas-record a[href="#domains/table/D-013"]').first.click()
             await expect(page.locator('#record-title')).to_have_text('Website')
             await page.go_back()
             await expect(page.locator('#record-title')).to_have_text('Website Owner')
             await page.locator('[data-view="governance"]').focus()
             await page.keyboard.press('Enter')
+            # Switching the top-level tab returns to that view's own graphical
+            # default (Circles), even though we were just in Table.
+            await expect(page.locator('#atlas-circles')).to_be_visible()
+            await page.locator('[data-format="table"]').click()
             await expect(rows).to_have_count(len(DATA['governance']))
             await expect(page.locator('#atlas-record')).to_be_hidden()
             await page.locator('#atlas-search').fill('rohan')

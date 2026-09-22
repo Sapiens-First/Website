@@ -93,6 +93,7 @@
 .atlas-circle-svg.atlas-circle-enter-out { opacity: 0; transform: scale(1.14); }
 @media (prefers-reduced-motion: reduce) { .atlas-circle-svg { transition: none; } }
 .atlas-circle-svg a { cursor: pointer; }
+.atlas-circle-svg.atlas-circle-zoomable { cursor: zoom-out; }
 .atlas-circle-svg text { fill: var(--ink); font-family: var(--font-body); }
 .atlas-circle-svg a:hover > circle, .atlas-circle-svg a:focus-visible > circle { stroke: var(--accent-dark); stroke-width: 4; }
 /* Roles are dashed to read as individual leaves rather than containers;

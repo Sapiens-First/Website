@@ -6,9 +6,11 @@ const footerColsHtml = SITE_CONFIG.FOOTER_GROUPS.map((group) => {
     return `<a href="${href}"${attrs}>${link.label}</a>`;
   }).join('\n          ');
   return `
-        <div class="foot-col">
+        <div class="foot-col${group.title === 'About' ? ' foot-col-split' : ''}">
           <span class="foot-col-title">${group.title}</span>
+          <div class="foot-col-links">
           ${linksHtml}
+          </div>
         </div>`;
 }).join('\n');
 

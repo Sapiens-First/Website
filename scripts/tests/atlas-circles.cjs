@@ -7,7 +7,7 @@ vm.runInNewContext(fs.readFileSync('atlas-data.js', 'utf8'), context);
 const records = JSON.parse(JSON.stringify(context.window.ATLAS_DATA.governance));
 const { roots, unplaced, nodes } = atlasCircleLayout(records);
 assert.equal(roots.length, 1);
-assert.equal(roots[0].row.Name, 'General Company Circle');
+assert.equal(roots[0].row.Name, 'General Company');
 // Governance data changes constantly (a core Holacracy principle), so this checks
 // specific known-ambiguous/known-resolved records rather than a total that would
 // need updating on every reorg. See data/atlas/governance.csv Definition notes.

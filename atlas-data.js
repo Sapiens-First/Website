@@ -575,7 +575,7 @@ window.ATLAS_DATA = {
   "governance": [
     {
       "ID": "G-001",
-      "Name": "General Company Circle",
+      "Name": "General Company",
       "Type": "Circle",
       "Parent Circle ID": "",
       "Purpose": "A world where AI serves the common good",
@@ -601,7 +601,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-003",
-      "Name": "Vision & Strategy Circle",
+      "Name": "Vision & Strategy",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Cross-pillar strategic planning",
@@ -614,7 +614,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-004",
-      "Name": "Media Circle",
+      "Name": "Media",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Own how Sapiens First is seen and heard externally",
@@ -653,7 +653,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-007",
-      "Name": "Advocacy Circle",
+      "Name": "Advocacy",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Win policy that restricts AI-enabled harm",
@@ -666,7 +666,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-008",
-      "Name": "Stop 1984! Circle",
+      "Name": "Stop 1984!",
       "Type": "Circle",
       "Parent Circle ID": "G-007",
       "Purpose": "Ban AI-enabled mass surveillance, starting in California",
@@ -692,7 +692,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-010",
-      "Name": "Community Circle",
+      "Name": "Community",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Build a nationwide network of local chapters",
@@ -705,7 +705,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-011",
-      "Name": "Chapter Network Circle",
+      "Name": "Chapter Network",
       "Type": "Circle",
       "Parent Circle ID": "G-010",
       "Purpose": "Make starting/running a chapter easy and safe",
@@ -718,7 +718,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-012",
-      "Name": "Digital Presence Circle",
+      "Name": "Digital Presence",
       "Type": "Circle",
       "Parent Circle ID": "G-010",
       "Purpose": "Grow reach across social channels",
@@ -731,7 +731,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-013",
-      "Name": "Empowerment Circle",
+      "Name": "Empowerment",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Train and onboard leaders/activists at scale",
@@ -744,7 +744,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-014",
-      "Name": "Fellowship Program Circle",
+      "Name": "Fellowship Program",
       "Type": "Circle",
       "Parent Circle ID": "G-013",
       "Purpose": "Run the Fellowship end-to-end",
@@ -757,7 +757,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-015",
-      "Name": "Knowledge Base Circle",
+      "Name": "Knowledge Base",
       "Type": "Circle",
       "Parent Circle ID": "G-036",
       "Purpose": "Centralize organizational knowledge",
@@ -770,7 +770,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-016",
-      "Name": "Newspaper Circle",
+      "Name": "Newspaper",
       "Type": "Circle",
       "Parent Circle ID": "G-013",
       "Purpose": "Publish the Sapiens First Newspaper",
@@ -783,7 +783,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-017",
-      "Name": "Biz Ops Circle",
+      "Name": "Biz Ops",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Systems that let a lean team run at scale",
@@ -796,7 +796,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-018",
-      "Name": "Membership Systems Circle",
+      "Name": "Membership Systems",
       "Type": "Circle",
       "Parent Circle ID": "G-017",
       "Purpose": "Automate the member lifecycle",
@@ -809,7 +809,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-019",
-      "Name": "Fundraising Circle",
+      "Name": "Fundraising",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Fund the org's runway",
@@ -1030,7 +1030,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-036",
-      "Name": "Tech Circle",
+      "Name": "Tech",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "",

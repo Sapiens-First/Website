@@ -666,79 +666,79 @@ window.ATLAS_DATA = {
       "ID": "G-021",
       "Name": "Advocacy Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-007",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Advocacy Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Advocacy Circle Lead. Parent circle set to Advocacy Circle (G-007): exact name match."
     },
     {
       "ID": "G-022",
       "Name": "Community Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-010",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Community Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Community Circle Lead. Parent circle set to Community Circle (G-010): exact name match."
     },
     {
       "ID": "G-023",
       "Name": "Empowerment Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-013",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Empowerment Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Empowerment Circle Lead. Parent circle set to Empowerment Circle (G-013): exact name match."
     },
     {
       "ID": "G-024",
       "Name": "Stop 1984! Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-008",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Stop 1984! Circle Lead (Alex)"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Stop 1984! Circle Lead (Alex). Parent circle set to Stop 1984! Circle (G-008): exact name match."
     },
     {
       "ID": "G-025",
       "Name": "Chapter Network Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-011",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Chapter Network Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Chapter Network Circle Lead. Parent circle set to Chapter Network Circle (G-011): exact name match."
     },
     {
       "ID": "G-026",
       "Name": "Fellowship Program Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-014",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fellowship Program Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fellowship Program Lead. Parent circle set to Fellowship Program Circle (G-014): matching name."
     },
     {
       "ID": "G-027",
@@ -751,59 +751,59 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Marketing & Communications Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Marketing & Communications Circle Lead. No governance circle named \"Marketing & Communications\" exists (closest is Communications & Narrative Circle, G-004); left unassigned pending explicit reconciliation, per the Website/Marketing & Communications naming mismatch already noted for D-013."
     },
     {
       "ID": "G-028",
       "Name": "Fundraising & Development Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-019",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead. Parent circle set to Fundraising & Development Circle (G-019): exact name match."
     },
     {
       "ID": "G-029",
       "Name": "Operations & Infrastructure Circle Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-017",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match."
     },
     {
       "ID": "G-030",
       "Name": "Knowledge Base Steward",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-015",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Damian)"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Damian). Parent circle set to Knowledge Base Circle (G-015): matching name, corroborated by Damian also being its recorded Lead Link."
     },
     {
       "ID": "G-031",
       "Name": "Membership Systems Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-018",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Membership Systems Lead (Baisayan)"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Membership Systems Lead (Baisayan). Parent circle set to Membership Systems Circle (G-018): matching name, corroborated by Baisayan also being its recorded Lead Link."
     },
     {
       "ID": "G-032",
@@ -816,20 +816,20 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: House Party Program Lead (Peter)"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: House Party Program Lead (Peter). Possible duplicate of House Party Program (G-020, Role under G-019, Lead Link Peter); left unassigned pending explicit reconciliation rather than merged."
     },
     {
       "ID": "G-033",
       "Name": "Digital Presence Lead",
       "Type": "Role",
-      "Parent Circle ID": "",
+      "Parent Circle ID": "G-012",
       "Purpose": "",
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Digital Presence Lead"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Digital Presence Lead. Parent circle set to Digital Presence Circle (G-012): matching name."
     },
     {
       "ID": "G-034",
@@ -842,7 +842,7 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Editor-in-Chief (Victoria)"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Editor-in-Chief (Victoria). Likely belongs under Newspaper Circle (G-016, Lead Link Victoria), but the name itself doesn't reference a circle; left unassigned pending explicit reconciliation."
     },
     {
       "ID": "G-035",
@@ -855,7 +855,7 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Needs definition",
       "Lead Link": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary"
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary. No corresponding circle name or owner correlation found; left unassigned pending explicit reconciliation."
     }
   ],
   "relationships": [

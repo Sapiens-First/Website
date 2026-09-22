@@ -8,7 +8,7 @@ const records = JSON.parse(JSON.stringify(context.window.ATLAS_DATA.governance))
 const { roots, unplaced, nodes } = atlasCircleLayout(records);
 assert.equal(roots.length, 1);
 assert.equal(roots[0].row.Name, 'General Company Circle');
-assert.equal(unplaced.length, 15);
+assert.equal(unplaced.length, 4);
 assert.equal(nodes.get('G-004').children.find(node => node.row.ID === 'G-006').row.Name, 'Website Owner');
 let count = 0;
 function validate(node) {
@@ -25,7 +25,7 @@ function validate(node) {
   }
 }
 validate(roots[0]);
-assert.equal(count, 20);
+assert.equal(count, 31);
 assert.equal(count + unplaced.length, records.length);
 assert.equal(atlasCircleLayout([]).roots.length, 0);
 assert.equal(atlasCircleLayout([{ ID: 'G-001', Type: 'Circle', 'Parent Circle ID': '' }]).roots[0].children.length, 0);

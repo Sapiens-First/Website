@@ -82,6 +82,13 @@ def validate(data):
                 circle = index.get(row['Circle ID'])
                 if not circle or circle[0] != 'governance' or circle[1]['Type'] != 'Circle':
                     raise ValueError(f'{identifier}: Circle ID must reference a governance Circle')
+            if group == 'governance' and row.get('Person ID') and not re.fullmatch(r'P-\d+', row['Person ID']):
+                # Optional forward-looking field: format-checked only. No people.csv exists yet
+                # to resolve against, so this does not (and cannot) verify the ID refers to a
+                # real person record. See data/atlas/README.md "People and assignees" for the
+                # intended convention. Blank is always valid; the free-text Lead Link field
+                # remains the current source of truth for who holds a role.
+                raise ValueError(f'{identifier}: Person ID must look like P-123')
             if parent:
                 if parent not in index or index[parent][0] != group:
                     raise ValueError(f'{identifier}: unresolved parent {parent}')

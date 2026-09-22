@@ -3,7 +3,7 @@
 Edit these files to maintain the organization. No Google Drive connection or spreadsheet is used.
 
 - `domains.csv`: mission, pillars, programs, domains/products, objectives, and projects. Each row has a stable `D-...` ID, Name, Type, Purpose, Parent ID, and Status. Extra columns appear in record details.
-- `governance.csv`: roles and circles, identified by `G-...`, with their purpose, parent circle, accountabilities, privileges, scope, and current Lead Link label.
+- `governance.csv`: roles and circles, identified by `G-...`, with their purpose, parent circle, accountabilities, privileges, scope, and current Lead Link label. An optional `Person ID` column is also present for future person-record linking; see "People and assignees" below.
 - `relationships.csv`: ownership, strategic contributions, and succession. Each fact is stored once, with a stable `R-...` ID, From ID, Relationship, To ID, Valid from, Valid until, and Notes.
 
 Use an editor with CSV support or a spreadsheet program to edit the CSVs. Quote cells containing commas or newlines. Save UTF-8 and retain the required headers. Do not use names or row numbers as foreign keys.
@@ -71,3 +71,20 @@ Test the default resolver with `node scripts/tests/atlas-ownership.cjs`.
 ## Governance visualization
 
 Switch Governance to Circles to explore the hierarchy visually. Parent Circle ID controls containment in both the diagram and record details. A circle can contain roles or other circles; records missing a parent are listed separately. Select a circle to drill down, use breadcrumbs to go back, and select a role for its responsibilities. The table remains available.
+
+## Privileges
+
+`Privileges` on `governance.csv` is part of the required schema (`python3 build.py` fails if the header is missing) but every row ships blank today: no role's actual system permissions have been documented, and the site must never imply otherwise. Populating it is manual future work, not something to automate or infer — never derive a privilege grant from a role's Purpose, Scope, or Accountabilities text.
+
+When a real privilege grant is eventually documented, record it as short, semicolon-separated statements in the same style already used for `Accountabilities`, for example: `Publish/edit live site content; Manage DNS and hosting credentials`. No schema or code change is needed to display it: the record-detail panel already renders any non-blank column generically (`fieldsList()` in `atlas.js`), the same path used for `Accountabilities` and `Scope` today. A blank cell continues to render as "Not documented."
+
+## People and assignees
+
+Today every role or circle's incumbent is recorded only as free text in `Lead Link` — a name, `Unassigned`, or blank for "not recorded." That field is unchanged by this section and remains the source of truth.
+
+`governance.csv` also carries an optional `Person ID` column, blank on every row. It exists as forward-looking plumbing for a future `people.csv` (not yet created) that would hold stable `P-...` person records — the same pattern `D-...` and `G-...` IDs already use — kept distinct from any single role, so one person could eventually be linked from several roles/circles without repeating their name as text in each one. This is additive and optional:
+
+- `Person ID`, when present, is format-checked as `P-123` by `python3 build.py`. It is not yet resolved against a `people.csv`, because that file does not exist; no referential-integrity check is possible until it does.
+- Leave `Person ID` blank until stable IDs and a reviewed person mapping are actually adopted (see `plan.md`, "Future work": stable IDs, reviewed domain-to-role mappings, and assignees are all still open).
+- `Lead Link` keeps working exactly as it does today for every row, whether or not `Person ID` is populated. Nothing about existing data needs to change or migrate.
+- Do not create `people.csv` or assign real people's `Person ID` values without an explicit decision to formalize that data; this convention documents the extension point, it does not populate it.

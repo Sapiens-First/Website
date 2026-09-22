@@ -47,6 +47,16 @@ invalid(lambda d: d['relationships'].extend([
     {'ID': 'R-900', 'From ID': 'D-001', 'Relationship': 'succeeds', 'To ID': 'D-002', 'Valid from': '', 'Valid until': ''},
     {'ID': 'R-901', 'From ID': 'D-002', 'Relationship': 'succeeds', 'To ID': 'D-001', 'Valid from': '', 'Valid until': ''},
 ]))
+# Person ID is optional forward-looking plumbing for a future people.csv (not yet
+# created): format-checked when present, but a blank value — today's state for every
+# real row — must keep validating exactly as before.
+assert all(row.get('Person ID', '') == '' for row in data['governance']), 'no real row should carry a Person ID yet'
+module.validate(copy.deepcopy(data))  # blank Person ID on every row: still valid
+invalid(lambda d: d['governance'][0].update({'Person ID': 'not-a-valid-id'}))
+invalid(lambda d: d['governance'][0].update({'Person ID': 'G-001'}))
+sample = copy.deepcopy(data)
+sample['governance'][0]['Person ID'] = 'P-1'
+module.validate(sample)  # correctly formatted Person ID is accepted once present
 # Adjacent ownership periods and a renamed entity retain stable references.
 sample = copy.deepcopy(data)
 sample['domains'][0]['Name'] = 'Renamed mission'
@@ -73,4 +83,4 @@ with tempfile.TemporaryDirectory() as directory:
     path = root / 'quoted.csv'
     path.write_text('ID,Name,Notes\nD-001,"A, B","line one\nline two"\n')
     assert module.read_csv(path, {'ID', 'Name'})[0]['Notes'] == 'line one\nline two'
-print('PASS generated parity, IDs, dates, references, cycles, overlap, rename, CSV parsing, failed-build preservation')
+print('PASS generated parity, IDs, dates, references, cycles, overlap, rename, Person ID format, CSV parsing, failed-build preservation')

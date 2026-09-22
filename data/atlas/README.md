@@ -18,6 +18,8 @@ This validates the records and regenerates `atlas-data.js`, the browser artifact
 
 The compiler checks required/duplicate headers, row widths, stable unique IDs, required names, entity types, statuses, parent references and cycles, relationship directions, dates, overlapping ownership, and succession cycles. A failed validation leaves the existing generated data intact. Optional columns can be added or reordered; required relationship headers must retain their names.
 
+`python3 build.py` also runs a conservative public/private data guardrail (`scripts/atlas_privacy_check.py`) over the CSVs before compiling. It flags high-confidence personal-data patterns — email addresses, phone numbers, physical street addresses, obvious API keys/tokens/secrets, and any new CSV column whose header name looks inherently personal (SSN, DOB, home address, etc.) — and raises with the offending file/row/column, leaving `atlas-data.js` untouched. It deliberately does not flag bare first names (e.g. existing Lead Link values like "Rohan", "Alex", "Damian" are tentatively-permitted public data, not a leak) since that would be far too noisy. See `scripts/atlas_privacy_check.py` for exact patterns, and `scripts/tests/atlas-privacy-check.py` for its test suite.
+
 ## Relationships and history
 
 Supported directions:

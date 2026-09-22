@@ -2,10 +2,23 @@
 import csv
 import json
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# atlas_privacy_check lives alongside this file but is not a package (there's
+# no scripts/__init__.py), so it must be importable both when this module is
+# loaded normally (`from scripts.atlas_build import build`) and when a test
+# loads it directly by file path (see scripts/tests/atlas-data.py). Adding
+# this file's own directory to sys.path makes a plain top-level import work
+# either way.
+_HERE = Path(__file__).resolve().parent
+if str(_HERE) not in sys.path:
+    sys.path.insert(0, str(_HERE))
+from atlas_privacy_check import check as check_atlas_privacy
+
 REQUIRED = {
     'domains': {'ID', 'Name', 'Type', 'Purpose', 'Parent ID', 'Status'},
     'governance': {'ID', 'Name', 'Type', 'Purpose', 'Parent Circle ID', 'Accountabilities', 'Privileges', 'Status'},
@@ -120,6 +133,11 @@ def validate(data):
 
 
 def load_data(source):
+    # Runs before any parsing so a privacy violation is reported without
+    # depending on the rest of the CSVs also being structurally valid, and
+    # so a failure here leaves atlas-data.js untouched exactly like every
+    # other validation failure below.
+    check_atlas_privacy(source)
     data = {name: read_csv(source / f'{name}.csv', fields) for name, fields in REQUIRED.items()}
     validate(data)
     return data

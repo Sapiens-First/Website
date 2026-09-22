@@ -13,9 +13,13 @@ spec.loader.exec_module(module)
 data = module.load_data(ROOT / 'data/atlas')
 text = (ROOT / 'atlas-data.js').read_text()
 assert json.loads(text[text.index('=') + 1:].strip().rstrip(';')) == data
-assert len(data['domains']) == 21
-assert len(data['governance']) == 35
-assert len(data['relationships']) == 20
+# Row counts are derived from the CSVs themselves, not hardcoded, since governance
+# data is expected to change constantly (a core Holacracy principle) — this only
+# catches parsing bugs (dropped/duplicated rows), not legitimate content growth.
+for group, rows in data.items():
+    with (ROOT / 'data/atlas' / f'{group}.csv').open(newline='', encoding='utf-8-sig') as source:
+        raw = [row for row in csv.DictReader(source) if any(value.strip() for value in row.values())]
+    assert len(rows) == len(raw), f'{group}: parsed {len(rows)} rows, CSV has {len(raw)}'
 
 
 def invalid(change):

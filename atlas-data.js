@@ -399,6 +399,177 @@ window.ATLAS_DATA = {
       "SOP URL": "",
       "SOP Notes": "Missing",
       "Ownership note": "Needs clarification: Vision Steward / relevant Circle Lead"
+    },
+    {
+      "ID": "D-022",
+      "Name": "Freeze AI Campaign",
+      "Type": "Program",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-002",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified."
+    },
+    {
+      "ID": "D-023",
+      "Name": "No Killer Robots Campaign",
+      "Type": "Program",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-002",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified."
+    },
+    {
+      "ID": "D-024",
+      "Name": "Stop 1984! Background Research",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-005",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037)."
+    },
+    {
+      "ID": "D-025",
+      "Name": "Freeze AI Background Research",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-022",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037)."
+    },
+    {
+      "ID": "D-026",
+      "Name": "Stop 1984! Asks",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-005",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038)."
+    },
+    {
+      "ID": "D-027",
+      "Name": "Freeze AI Asks",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-022",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038)."
+    },
+    {
+      "ID": "D-028",
+      "Name": "No Killer Robots Policy",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-023",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by No Killer Robots Owner (G-039)."
+    },
+    {
+      "ID": "D-029",
+      "Name": "Campaign Strategy",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-002",
+      "Circle ID": "",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Campaign Strategist (G-040)."
+    },
+    {
+      "ID": "D-030",
+      "Name": "Stop 1984! Campaign Design",
+      "Type": "Project",
+      "Program category": "",
+      "Purpose": "",
+      "Parent ID": "D-005",
+      "Circle ID": "G-004",
+      "Status": "Needs definition",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": "Added 2026-09-22 per governance restructuring; held undelegated by Media Circle (G-004), no specific role named."
     }
   ],
   "governance": [
@@ -419,18 +590,18 @@ window.ATLAS_DATA = {
       "ID": "G-002",
       "Name": "Vision Steward",
       "Type": "Role",
-      "Parent Circle ID": "G-001",
+      "Parent Circle ID": "G-003",
       "Purpose": "Keep the org anchored to Purpose over time",
       "Accountabilities": "Reviewing major strategic decisions against Purpose; resolving Purpose-level tensions",
       "Scope": "Final call on Purpose/Vision statements",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
-      "Definition note": ""
+      "Definition note": "Parent circle changed from General Company Circle (G-001) to Vision & Strategy Circle (G-003) per 2026-09-22 governance restructuring."
     },
     {
       "ID": "G-003",
-      "Name": "Strategy Circle",
+      "Name": "Vision & Strategy Circle",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Cross-pillar strategic planning",
@@ -439,11 +610,11 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
-      "Definition note": ""
+      "Definition note": "Renamed from Strategy Circle on 2026-09-22."
     },
     {
       "ID": "G-004",
-      "Name": "Communications & Narrative Circle",
+      "Name": "Media Circle",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Own how Sapiens First is seen and heard externally",
@@ -452,7 +623,7 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Unassigned",
-      "Definition note": ""
+      "Definition note": "Renamed from Communications & Narrative Circle on 2026-09-22."
     },
     {
       "ID": "G-005",
@@ -588,14 +759,14 @@ window.ATLAS_DATA = {
       "ID": "G-015",
       "Name": "Knowledge Base Circle",
       "Type": "Circle",
-      "Parent Circle ID": "G-013",
+      "Parent Circle ID": "G-036",
       "Purpose": "Centralize organizational knowledge",
       "Accountabilities": "Content ownership rules; permissions; keeping content current",
       "Scope": "Wiki.js, information architecture",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Damian",
-      "Definition note": ""
+      "Definition note": "Parent circle changed from Empowerment Circle (G-013) to Tech Circle (G-036) per 2026-09-22 governance restructuring: Tech owns knowledge management."
     },
     {
       "ID": "G-016",
@@ -612,7 +783,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-017",
-      "Name": "Operations & Infrastructure Circle",
+      "Name": "Biz Ops Circle",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Systems that let a lean team run at scale",
@@ -621,7 +792,7 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Unassigned",
-      "Definition note": ""
+      "Definition note": "Renamed from Operations & Infrastructure Circle on 2026-09-22."
     },
     {
       "ID": "G-018",
@@ -638,7 +809,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-019",
-      "Name": "Fundraising & Development Circle",
+      "Name": "Fundraising Circle",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
       "Purpose": "Fund the org's runway",
@@ -647,7 +818,7 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Unassigned",
-      "Definition note": ""
+      "Definition note": "Renamed from Fundraising & Development Circle on 2026-09-22."
     },
     {
       "ID": "G-020",
@@ -856,6 +1027,71 @@ window.ATLAS_DATA = {
       "Status": "Needs definition",
       "Lead Link": "",
       "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary. No corresponding circle name or owner correlation found; left unassigned pending explicit reconciliation."
+    },
+    {
+      "ID": "G-036",
+      "Name": "Tech Circle",
+      "Type": "Circle",
+      "Parent Circle ID": "G-001",
+      "Purpose": "",
+      "Accountabilities": "",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Unassigned",
+      "Definition note": "Added 2026-09-22 as a new top-level circle; takes over Knowledge Base Circle (G-015) from Empowerment. Purpose/Accountabilities/Scope not yet documented."
+    },
+    {
+      "ID": "G-037",
+      "Name": "Background Researcher",
+      "Type": "Role",
+      "Parent Circle ID": "G-007",
+      "Purpose": "",
+      "Accountabilities": "",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Unassigned",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+    },
+    {
+      "ID": "G-038",
+      "Name": "Policy Ask Creator",
+      "Type": "Role",
+      "Parent Circle ID": "G-007",
+      "Purpose": "",
+      "Accountabilities": "",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Unassigned",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+    },
+    {
+      "ID": "G-039",
+      "Name": "No Killer Robots Owner",
+      "Type": "Role",
+      "Parent Circle ID": "G-007",
+      "Purpose": "",
+      "Accountabilities": "",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Unassigned",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+    },
+    {
+      "ID": "G-040",
+      "Name": "Campaign Strategist",
+      "Type": "Role",
+      "Parent Circle ID": "G-007",
+      "Purpose": "",
+      "Accountabilities": "",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Unassigned",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
     }
   ],
   "relationships": [
@@ -1038,6 +1274,60 @@ window.ATLAS_DATA = {
       "Valid from": "",
       "Valid until": "",
       "Notes": "Imported ownership; start date not recorded."
+    },
+    {
+      "ID": "R-021",
+      "From ID": "G-037",
+      "Relationship": "owns",
+      "To ID": "D-024",
+      "Valid from": "",
+      "Valid until": "",
+      "Notes": "Added 2026-09-22 per governance restructuring."
+    },
+    {
+      "ID": "R-022",
+      "From ID": "G-037",
+      "Relationship": "owns",
+      "To ID": "D-025",
+      "Valid from": "",
+      "Valid until": "",
+      "Notes": "Added 2026-09-22 per governance restructuring."
+    },
+    {
+      "ID": "R-023",
+      "From ID": "G-038",
+      "Relationship": "owns",
+      "To ID": "D-026",
+      "Valid from": "",
+      "Valid until": "",
+      "Notes": "Added 2026-09-22 per governance restructuring."
+    },
+    {
+      "ID": "R-024",
+      "From ID": "G-038",
+      "Relationship": "owns",
+      "To ID": "D-027",
+      "Valid from": "",
+      "Valid until": "",
+      "Notes": "Added 2026-09-22 per governance restructuring."
+    },
+    {
+      "ID": "R-025",
+      "From ID": "G-039",
+      "Relationship": "owns",
+      "To ID": "D-028",
+      "Valid from": "",
+      "Valid until": "",
+      "Notes": "Added 2026-09-22 per governance restructuring."
+    },
+    {
+      "ID": "R-026",
+      "From ID": "G-040",
+      "Relationship": "owns",
+      "To ID": "D-029",
+      "Valid from": "",
+      "Valid until": "",
+      "Notes": "Added 2026-09-22 per governance restructuring."
     }
   ]
 };

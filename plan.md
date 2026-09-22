@@ -23,6 +23,36 @@ User request: build a basic interactive circle visualization in Atlas, using the
 
 Scope excludes editing roles, drag-and-drop reorganization, physics layouts, and changing organizational assignments. A polished general-purpose graph system is unnecessary for this MVP.
 
+## Next: circle visualization polish (requested 2026-09-22)
+
+The circle view is functional and tested but visually plain and not maximally easy to navigate. Concrete candidates, scoped to `atlas-circles.js` and `atlas.css` only (no data/schema changes, no new dependency):
+
+- Smoother drill-in/out: an actual transition (scale/fade) between focus levels instead of an instant re-render, so the hierarchy reads as zooming rather than a page swap.
+- Clearer circle-vs-role affordance: stronger visual distinction at a glance (current palette is derived from `ID.slice(2) % palette.length`, which is arbitrary rather than meaningful — consider a palette keyed to top-level circle so a role's color always traces back to its lineage).
+- Better label legibility at small radii (deeply nested/small circles currently suppress labels below `depth <= 1`); consider a hover/focus tooltip fallback for anything too small to label inline.
+- Friendlier "Circle not assigned" treatment: it's a collapsed `<details>` today; consider surfacing the count more prominently and grouping the unplaced records by likely circle (from their name) as a hint, without auto-assigning them.
+- Larger/clearer touch targets and hover states on mobile widths, and a visible focus ring that matches the rest of the site's `shared.css` focus styling rather than the browser default.
+- Breadcrumb styling to match site typography more closely; it currently reads as a plain link list.
+
+This is exactly the scope of "Track A" from the parallel-work split — self-contained, no data dependency, safe to hand to an agent independently.
+
+## Next: master project list (requested 2026-09-22, scoped but not built)
+
+**What it is:** a flat, filterable list of every concrete unit of work (Type = `Project` or `Product/Service` — i.e. the leaves of the domains hierarchy, not Missions/Pillars/Programs themselves), each row showing its full ancestry breadcrumb rather than just its immediate parent, plus current owner and status. The existing Domains table already lists all types together with only the immediate parent link — this is a distinct, narrower view: "everything we're actually doing right now," not the strategic tree.
+
+**What it would look like:**
+
+| Project | Path (Mission › Pillar › Program) | Owner | Status | Stage |
+|---|---|---|---|---|
+| Website | Advocacy › Marketing & Communications | Website Owner | Active | In Progress |
+| Chapter Starter Kit | Community › Chapter Network | Chapter Network Circle Lead | Planned | Proposed |
+
+- A new third view alongside Domains/Governance (`#projects`), or a filter toggle on the existing Domains view restricted to `Type in {Project, Product/Service}` — reuse `views` config and `render()` in `atlas.js` rather than a parallel renderer.
+- The "Path" column is a new computed breadcrumb (walk `Parent ID` to the root, same ancestry-walk logic `renderRecord()` already uses for the record panel's "Part of" section — factor it out rather than duplicating it).
+- Sortable by Path, Owner, or Status; the existing search/filter/status-badge patterns from the Domains table carry over unchanged.
+- Explicitly out of scope for this feature: inventing missing Purpose/Stage data for existing "Needs definition" records, and any notion of task-level tracking (subtasks, due dates, assignees below the role level) — this stays a read-only rollup of what's already in `domains.csv`.
+- This is data-shape-neutral (no CSV schema change needed) and rendering-only, so it can be built independently of the circle-visualization polish above — a second, separate parallelizable track.
+
 ---
 
 # Atlas implementation plan
@@ -199,5 +229,6 @@ MVP completion means a locally viewable, populated, tested page with both views�
 - Holacracy-inspired hierarchy navigation with role/circle details, domains, accountabilities, privileges, and assignees.
 - Stable IDs and reviewed mappings connecting domain ownership to governance roles.
 - An editing/sync workflow with deliberate public/private data boundaries.
+- A delegation "job board": let a record's current holder flag that they want it delegated/outsourced while remaining the owner of record until it's actually reassigned. Distinct from ordinary Unassigned — the role/domain is filled, but the current holder is soliciting a replacement. Named 2026-09-22 as wanted for Website (design) and a Social Media Manager function, with Rohan as current owner of both in the interim. Needs a schema field distinguishing "current owner" from "open to delegate" plus a public-facing listing of open-to-delegate roles. Do not silently map "Social Media Manager" onto an existing record (e.g. Digital Presence Lead) without explicit confirmation — no such role is currently defined.
 
 Do not populate these future capabilities with invented organizational facts. The first release should remain useful on its own.

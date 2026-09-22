@@ -20,6 +20,7 @@ and relative asset paths; this script does not update them.
 """
 import re
 from pathlib import Path
+from scripts.atlas_build import build as build_atlas
 
 ROOT = Path(__file__).parent
 PARTIAL = ROOT / "partials" / "head-common.html"
@@ -28,6 +29,7 @@ END = "<!-- BUILD:HEAD-COMMON:END -->"
 
 
 def main():
+    build_atlas()
     partial = PARTIAL.read_text().strip("\n")
     block = re.compile(re.escape(START) + r".*?" + re.escape(END), re.DOTALL)
     replacement = f"{START}\n{partial}\n  {END}"

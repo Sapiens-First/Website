@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas — Sapiens First</title>
+  <meta name="description" content="Explore Sapiens First’s domains of work, purpose, roles, and responsibilities.">
+  <link rel="canonical" href="https://sapiensfirst.org/atlas">
+  <meta property="og:title" content="Atlas — Sapiens First">
+  <meta property="og:description" content="A shared map of our work and the people responsible for it.">
+  <meta property="og:url" content="https://sapiensfirst.org/atlas">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <link rel="stylesheet" href="atlas.css">
+  <script src="atlas-data.js" defer></script>
+  <script src="atlas-ownership.js" defer></script>
+  <script src="atlas-circles.js" defer></script>
+  <script src="atlas.js" defer></script>
+</head>
+<body>
+  <header class="site-header"></header>
+  <main class="atlas">
+    <section class="atlas-hero container" aria-labelledby="atlas-title">
+      <div>
+        <div class="kicker">Sapiens First / Our organization</div>
+        <h1 id="atlas-title">The <span>Atlas.</span></h1>
+        <p class="atlas-intro">A shared map of our work.<br>And who makes it happen.</p>
+      </div>
+      <aside class="atlas-mission" aria-labelledby="mission-label" hidden>
+        <div class="kicker" id="mission-label">Our shared purpose</div>
+        <p id="mission-text"></p>
+        <span class="atlas-mission-note">The purpose that connects our work.</span>
+      </aside>
+    </section>
+    <section class="atlas-explorer container" aria-labelledby="view-title">
+      <div class="atlas-toolbar">
+        <div class="atlas-switch" role="group" aria-label="Atlas view">
+          <button type="button" data-view="domains" aria-pressed="true">01 <span>Domains</span></button>
+          <button type="button" data-view="governance" aria-pressed="false">02 <span>Governance</span></button>
+        </div>
+        <a class="atlas-source" href="data/atlas/domains.csv" download>Download domains CSV ↓</a>
+      </div>
+      <div class="atlas-view-heading">
+        <div><h2 id="view-title">Domains of work</h2><p id="view-description">Explore the areas of work that make up Sapiens First.</p></div>
+        <div class="atlas-controls">
+          <label id="atlas-filter-label">Show<select id="atlas-filter"><option value="active">Active work</option><option value="all">All statuses</option></select></label>
+          <label>Search this view<input type="search" id="atlas-search" placeholder="Search domains…" disabled></label>
+        </div>
+      </div>
+      <div id="atlas-format" class="atlas-format" role="group" aria-label="Governance display" hidden>
+        <button type="button" data-format="table" aria-pressed="true">Table</button>
+        <button type="button" data-format="circles" aria-pressed="false">Circles</button>
+      </div>
+      <section id="atlas-record" class="atlas-record" aria-labelledby="record-title" hidden></section>
+      <p id="atlas-status" role="status" aria-live="polite">Loading Atlas…</p>
+      <div id="atlas-error" hidden><h3>Atlas data is unavailable.</h3><p>Please reload the page or download the source CSV above.</p></div>
+      <div class="atlas-table-wrap" id="atlas-results" tabindex="0" role="region" aria-label="Domains table" hidden>
+        <table id="atlas-table"><caption class="atlas-sr-only">Domains of work</caption><thead></thead><tbody></tbody></table>
+      </div>
+      <div id="atlas-circles" class="atlas-circles-layout" hidden>
+        <div id="atlas-circle-chart"></div>
+        <div id="atlas-circle-detail"></div>
+      </div>
+      <noscript><p>Enable JavaScript to explore Atlas, or download the source CSV above.</p></noscript>
+      <div class="atlas-notes"><p>Maintained by Sapiens First.</p><p>Explore governance as a table or circle map. A fuller project history will come later.</p></div>
+    </section>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+ID,From ID,Relationship,To ID,Valid from,Valid until,Notes
+R-001,G-002,owns,D-001,,,Imported ownership; start date not recorded.
+R-002,G-021,owns,D-002,,,Imported ownership; start date not recorded.
+R-003,G-022,owns,D-003,,,Imported ownership; start date not recorded.
+R-004,G-023,owns,D-004,,,Imported ownership; start date not recorded.
+R-005,G-024,owns,D-005,,,Imported ownership; start date not recorded.
+R-006,G-025,owns,D-006,,,Imported ownership; start date not recorded.
+R-007,G-026,owns,D-007,,,Imported ownership; start date not recorded.
+R-008,G-023,owns,D-008,,,Imported ownership; start date not recorded.
+R-009,G-027,owns,D-009,,,Imported ownership; start date not recorded.
+R-010,G-028,owns,D-010,,,Imported ownership; start date not recorded.
+R-011,G-029,owns,D-011,,,Imported ownership; start date not recorded.
+R-012,G-005,owns,D-012,,,Imported ownership; start date not recorded.
+R-013,G-006,owns,D-013,,,Imported ownership; start date not recorded.
+R-014,G-030,owns,D-014,,,Imported ownership; start date not recorded.
+R-015,G-031,owns,D-015,,,Imported ownership; start date not recorded.
+R-016,G-032,owns,D-016,,,Imported ownership; start date not recorded.
+R-017,G-033,owns,D-017,,,Imported ownership; start date not recorded.
+R-018,G-034,owns,D-018,,,Imported ownership; start date not recorded.
+R-019,G-025,owns,D-019,,,Imported ownership; start date not recorded.
+R-020,G-035,owns,D-020,,,Imported ownership; start date not recorded.

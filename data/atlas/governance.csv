@@ -1,0 +1,36 @@
+ID,Name,Type,Parent Circle ID,Purpose,Accountabilities,Scope,Privileges,Status,Lead Link,Definition note
+G-001,General Company Circle,Circle,,A world where AI serves the common good,,,,Active,Rohan,
+G-002,Vision Steward,Role,G-001,Keep the org anchored to Purpose over time,Reviewing major strategic decisions against Purpose; resolving Purpose-level tensions,Final call on Purpose/Vision statements,,Active,Rohan,
+G-003,Strategy Circle,Circle,G-001,Cross-pillar strategic planning,Setting/tracking OKRs; surfacing what's slipping; sequencing priority-city rankings,"Org-wide OKRs, quarterly priorities",,Active,Rohan,
+G-004,Communications & Narrative Circle,Circle,G-001,Own how Sapiens First is seen and heard externally,Maintaining visual identity; approving public statements; managing press,"Brand, external messaging, website content",,Active,Unassigned,
+G-005,Spokesperson,Role,G-004,Represent Sapiens First publicly with a consistent voice,Media training; interview prep; approving quotes attributed to the org,"Public statements, media interviews",,Active,Unassigned,
+G-006,Website Owner,Role,G-004,Keep sapiensfirst.org accurate and converting,Publishing updates; maintaining donate/strategy/campaign pages,"Site content, structure, hosting",,Active,Unassigned,
+G-007,Advocacy Circle,Circle,G-001,Win policy that restricts AI-enabled harm,Choosing campaigns; setting policy platform; coalition strategy,"Campaign selection, policy asks",,Active,Unassigned,
+G-008,Stop 1984! Circle,Circle,G-007,"Ban AI-enabled mass surveillance, starting in California",Research library; policy platform; city-by-city strategic plan; media resources,"Campaign research, asks, media, strategic plan",,Active,Alex,
+G-009,California Strategy,Role,G-008,Sequence the CA campaign for winnable early victories,Ranking target cities; mapping stakeholders; drafting city playbooks,"Priority-city rankings, coalition map",,Active,Alex,
+G-010,Community Circle,Circle,G-001,Build a nationwide network of local chapters,Chapter lifecycle; member onboarding/offboarding; digital presence,"Chapter model, member engagement, social content",,Active,Unassigned,
+G-011,Chapter Network Circle,Circle,G-010,Make starting/running a chapter easy and safe,Starter kit; leader vetting; dispute handling; chapter lifecycle management,"Chapter constitution, Discord architecture",,Active,Unassigned,
+G-012,Digital Presence Circle,Circle,G-010,Grow reach across social channels,Content production workflow; approval process; channel metrics,"Content calendar, scheduling automations",,Active,Unassigned,
+G-013,Empowerment Circle,Circle,G-001,Train and onboard leaders/activists at scale,Cohort management; curriculum; leadership academy,"Fellowship program, leadership curriculum",,Active,Unassigned,
+G-014,Fellowship Program Circle,Circle,G-013,Run the Fellowship end-to-end,Applicant funnel; project matching; check-ins; offboarding,"Recruitment, matching, cohort management",,Active,Unassigned,
+G-015,Knowledge Base Circle,Circle,G-013,Centralize organizational knowledge,Content ownership rules; permissions; keeping content current,"Wiki.js, information architecture",,Active,Damian,
+G-016,Newspaper Circle,Circle,G-013,Publish the Sapiens First Newspaper,Submissions process; editorial standards; production cadence,"Editorial voice, sections, production",,Active,Victoria,
+G-017,Operations & Infrastructure Circle,Circle,G-001,Systems that let a lean team run at scale,Campaign automations; data integrity; 501(c)(3)/(c)(4) compliance; budget tracking,"CRM, automations, legal/compliance, finance",,Active,Unassigned,
+G-018,Membership Systems Circle,Circle,G-017,Automate the member lifecycle,Onboarding/offboarding triggers; failure handling; privacy/backups,"Stripe, CRM, Discord integration",,Active,Baisayan,
+G-019,Fundraising & Development Circle,Circle,G-001,Fund the org's runway,Prospect pipeline; grant reporting; Founder's Council program; House Party kit,"Major gifts, foundations, dues, events",,Active,Unassigned,
+G-020,House Party Program,Role,G-019,Turn supporters into fundraising hosts,Host recruitment; kit iteration; donation tracking,"Host kit, event follow-up automation",,Active,Peter,
+G-021,Advocacy Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Advocacy Circle Lead
+G-022,Community Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Community Circle Lead
+G-023,Empowerment Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Empowerment Circle Lead
+G-024,Stop 1984! Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Stop 1984! Circle Lead (Alex)
+G-025,Chapter Network Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Chapter Network Circle Lead
+G-026,Fellowship Program Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Fellowship Program Lead
+G-027,Marketing & Communications Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Marketing & Communications Circle Lead
+G-028,Fundraising & Development Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead
+G-029,Operations & Infrastructure Circle Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead
+G-030,Knowledge Base Steward,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Damian)
+G-031,Membership Systems Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Membership Systems Lead (Baisayan)
+G-032,House Party Program Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: House Party Program Lead (Peter)
+G-033,Digital Presence Lead,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Digital Presence Lead
+G-034,Editor-in-Chief,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Editor-in-Chief (Victoria)
+G-035,Secretary,Role,,,,,,Needs definition,,Named as an owner in the original work register; no matching governance definition. Original label: Secretary

@@ -56,7 +56,12 @@ async def main():
             assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')
             await page.locator('#atlas-circle-chart').screenshot(path=f'/tmp/atlas-circles-final-{width}.png')
             await page.locator('[data-view="domains"]').click()
-            await expect(page.locator('#atlas-format')).to_be_hidden()
+            # Domains now has its own Table/Tree toggle (see atlas-tree.js),
+            # so #atlas-format stays visible switching views — but the
+            # governance-only Circles button must not leak into Domains.
+            await expect(page.locator('#atlas-format')).to_be_visible()
+            await expect(page.locator('[data-format="circles"]')).to_be_hidden()
+            await expect(page.locator('[data-format="tree"]')).to_be_visible()
             await expect(page.locator('#atlas-results')).to_be_visible()
             assert not errors, errors
             await page.close()

@@ -25,6 +25,7 @@
   <script src="atlas-data.js" defer></script>
   <script src="atlas-ownership.js" defer></script>
   <script src="atlas-circles.js" defer></script>
+  <script src="atlas-tree.js" defer></script>
   <script src="atlas.js" defer></script>
 </head>
 <body>
@@ -57,9 +58,10 @@
           <label>Search this view<input type="search" id="atlas-search" placeholder="Search domains…" disabled></label>
         </div>
       </div>
-      <div id="atlas-format" class="atlas-format" role="group" aria-label="Governance display" hidden>
+      <div id="atlas-format" class="atlas-format" role="group" aria-label="Display" hidden>
         <button type="button" data-format="table" aria-pressed="true">Table</button>
-        <button type="button" data-format="circles" aria-pressed="false">Circles</button>
+        <button type="button" data-format="circles" data-view-format="governance" aria-pressed="false">Circles</button>
+        <button type="button" data-format="tree" data-view-format="domains" aria-pressed="false">Tree</button>
       </div>
       <section id="atlas-record" class="atlas-record" aria-labelledby="record-title" hidden></section>
       <p id="atlas-status" role="status" aria-live="polite">Loading Atlas…</p>
@@ -70,6 +72,10 @@
       <div id="atlas-circles" class="atlas-circles-layout" hidden>
         <div id="atlas-circle-chart"></div>
         <div id="atlas-circle-detail"></div>
+      </div>
+      <div id="atlas-tree" class="atlas-tree-layout" hidden>
+        <div id="atlas-tree-chart"></div>
+        <div id="atlas-tree-detail"></div>
       </div>
       <noscript><p>Enable JavaScript to explore Atlas, or download the source CSV above.</p></noscript>
       <div class="atlas-notes"><p>Maintained by Sapiens First.</p><p>Explore governance as a table or circle map. A fuller project history will come later.</p></div>

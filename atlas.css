@@ -148,3 +148,45 @@
   .atlas-circle-svg .atlas-circle-match > circle, .atlas-circle-svg .atlas-circle-selected > circle { stroke-width: 5; }
 }
 .atlas-circle-svg text.atlas-circle-label { fill: #fffaf2; }
+
+/* Domains tree (Horizons of Focus) — vertical position is Horizon Level, a
+   fixed structural property (Mission→Pillar→Program→Product/Service→Project
+   depth), not a free layout choice. Box size reflects label length only. */
+.atlas-tree-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.atlas-tree-layout.has-selection { grid-template-columns: minmax(0, 1fr) 320px; }
+#atlas-tree-chart { min-width: 0; padding: 20px; background: #f1eadd; border: 1px solid var(--line); }
+.atlas-tree-scroll { overflow-x: auto; margin: 8px 0; }
+.atlas-tree-svg { display: block; max-width: none; }
+.atlas-tree-svg a { cursor: pointer; }
+.atlas-tree-svg text { font-family: var(--font-body); }
+.atlas-tree-svg a:hover > rect, .atlas-tree-svg a:focus-visible > rect { stroke: var(--accent-dark); stroke-width: 3.5; }
+.atlas-tree-svg a:focus { outline: none; }
+.atlas-tree-svg a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.atlas-tree-svg .atlas-tree-match > rect, .atlas-tree-svg .atlas-tree-selected > rect { stroke: var(--accent-dark); stroke-width: 3.5; }
+.atlas-tree-edge { fill: none; stroke: #8a8272; stroke-width: 1.5; }
+.atlas-tree-band { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; fill: #8a8272; }
+.atlas-tree-breadcrumbs {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700; line-height: 2;
+  letter-spacing: .01em; text-transform: uppercase; overflow-wrap: anywhere;
+}
+.atlas-tree-breadcrumbs a { text-decoration: underline; text-underline-offset: 3px; }
+.atlas-tree-breadcrumbs a:hover { color: var(--accent-dark); }
+.atlas-tree-crumb-sep { margin: 0 8px; color: var(--line); font-weight: 400; }
+.atlas-tree-crumb-current { color: var(--ink); font-weight: 900; }
+.atlas-tree-hint { font-size: 13px; line-height: 1.6; margin: 12px 0 20px; }
+.atlas-tree-search { margin-top: 16px; padding: 16px; background: var(--paper); }
+.atlas-tree-search ul { padding-left: 20px; }
+.atlas-tree-search li { margin-top: 10px; font-size: 14px; }
+#atlas-tree-detail { min-width: 0; }
+#atlas-tree-detail .atlas-record { padding: 20px; max-height: 850px; overflow-y: auto; }
+#atlas-tree-detail .atlas-record h2 { font-size: 30px; }
+#atlas-tree-detail .atlas-record dl { grid-template-columns: 1fr; gap: 8px; }
+#atlas-tree-detail .atlas-record dd { margin-bottom: 12px; }
+@media (max-width: 850px) {
+  .atlas-tree-layout.has-selection { grid-template-columns: minmax(0, 1fr); }
+  #atlas-tree-detail .atlas-record { max-height: none; }
+  #atlas-tree-chart { padding: 12px; }
+  .atlas-tree-breadcrumbs a, .atlas-tree-search a { display: inline-block; padding: 8px 2px; }
+  .atlas-tree-svg a:hover > rect, .atlas-tree-svg a:focus-visible > rect,
+  .atlas-tree-svg .atlas-tree-match > rect, .atlas-tree-svg .atlas-tree-selected > rect { stroke-width: 4.5; }
+}

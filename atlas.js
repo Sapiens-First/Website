@@ -30,7 +30,9 @@
     const item = index.get(id);
     if (!item) return el('span', `Unresolved reference: ${id}`, 'atlas-unresolved');
     const anchor = el('a', item.row.Name);
-    anchor.href = item.group === 'governance' && format === 'circles' ? `#governance/circles/${id}` : `#${item.group}/${id}`;
+    anchor.href = item.group === 'governance' && format === 'circles' ? `#governance/circles/${id}`
+      : item.group === 'domains' && format === 'tree' ? `#domains/tree/${id}`
+      : `#${item.group}/${id}`;
     return anchor;
   }
   function linkedList(ids) {
@@ -90,7 +92,9 @@
     if (!selected) return;
     const item = index.get(selected);
     const heading = el('h2', item?.row.Name || 'Record not found'); heading.id = 'record-title'; heading.tabIndex = -1;
-    const close = el('a', format === 'circles' ? '← All circles' : '← Back to list'); close.href = format === 'circles' ? '#governance/circles' : `#${current}`;
+    const closeLabel = format === 'circles' ? '← All circles' : format === 'tree' ? '← Full tree' : '← Back to list';
+    const closeHref = format === 'circles' ? '#governance/circles' : format === 'tree' ? '#domains/tree' : `#${current}`;
+    const close = el('a', closeLabel); close.href = closeHref;
     panel.append(close, heading);
     if (!item) { panel.append(el('p', `No record exists for ${selected}.`)); return; }
     const { row, group } = item;
@@ -136,17 +140,23 @@
     const view = views[current];
     const valid = Array.isArray(data?.[current]);
     const circleMode = current === 'governance' && format === 'circles';
-    document.querySelector('#atlas-format').hidden = current !== 'governance';
-    document.querySelectorAll('[data-format]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.format === format)));
+    const treeMode = current === 'domains' && format === 'tree';
+    document.querySelector('#atlas-format').hidden = !(current === 'governance' || current === 'domains');
+    document.querySelectorAll('[data-format]').forEach(button => {
+      button.hidden = Boolean(button.dataset.viewFormat) && button.dataset.viewFormat !== current;
+      button.setAttribute('aria-pressed', String(button.dataset.format === format));
+    });
     document.querySelector('#atlas-circles').hidden = !circleMode || !valid;
+    document.querySelector('#atlas-tree').hidden = !treeMode || !valid;
     if (circleMode) document.querySelector('#atlas-circle-detail').append(panel);
+    else if (treeMode) document.querySelector('#atlas-tree-detail').append(panel);
     else status.before(panel);
     document.querySelector('#atlas-error').hidden = valid;
     search.disabled = filter.disabled = !valid;
     document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === current)));
     document.querySelector('#view-title').textContent = view.title;
     document.querySelector('#view-description').textContent = view.description;
-    document.querySelector('#atlas-filter-label').hidden = current !== 'domains';
+    document.querySelector('#atlas-filter-label').hidden = current !== 'domains' || treeMode;
     search.placeholder = current === 'domains' ? 'Search domains…' : 'Search roles, people…';
     const source = document.querySelector('.atlas-source'); source.href = `data/atlas/${current}.csv`; source.textContent = `Download ${current} CSV ↓`;
     if (!valid) { status.textContent = 'Atlas data unavailable.'; results.hidden = true; return; }
@@ -178,13 +188,23 @@
       });
       body.append(tr);
     });
-    table.tBodies[0].replaceChildren(body); results.hidden = !rows.length || circleMode;
+    table.tBodies[0].replaceChildren(body); results.hidden = !rows.length || circleMode || treeMode;
     status.textContent = rows.length ? `${rows.length} of ${scoped.length} ${current === 'domains' ? 'areas of work' : 'roles and circles'}. Select a name to explore its connections.` : 'No matches. Try another search or choose All statuses.';
     renderRecord();
     if (circleMode) {
       renderAtlasCircles(document.querySelector('#atlas-circle-chart'), data.governance, selected, rows, query);
       status.textContent = query ? `${rows.length} matching governance records.` : 'Governance circle map. Follow the nested circles to explore the organization.';
       document.querySelector('#atlas-circles').classList.toggle('has-selection', Boolean(selected));
+    }
+    if (treeMode) {
+      // The tree always shows the whole hierarchy regardless of the
+      // Active/All-statuses filter (a Pillar with no active children would
+      // otherwise vanish from its own tree), so matches are computed against
+      // every domain record rather than the filtered `scoped`/`rows` set.
+      const treeMatches = data.domains.filter(row => [...Object.values(row), ...owners(row, 'domains').map(id => index.get(id)?.row.Name || id)].some(value => String(value).toLocaleLowerCase().includes(query)));
+      renderAtlasTree(document.querySelector('#atlas-tree-chart'), data.domains, selected, treeMatches, query);
+      status.textContent = query ? `${treeMatches.length} matching domain records.` : 'Domains tree. Follow the branches to see how work ladders up to the mission.';
+      document.querySelector('#atlas-tree').classList.toggle('has-selection', Boolean(selected));
     }
   }
   let lastHash = null;
@@ -193,8 +213,10 @@
     lastHash = location.hash;
     const parts = location.hash.slice(1).split('/');
     current = parts[0] === 'governance' ? 'governance' : 'domains';
-    format = current === 'governance' && parts[1] === 'circles' ? 'circles' : 'table';
-    selected = parts[format === 'circles' ? 2 : 1] || '';
+    format = current === 'governance' && parts[1] === 'circles' ? 'circles'
+      : current === 'domains' && parts[1] === 'tree' ? 'tree'
+      : 'table';
+    selected = parts[format === 'circles' || format === 'tree' ? 2 : 1] || '';
     if (index.has(selected)) current = index.get(selected).group;
     search.value = '';
     render();
@@ -208,7 +230,9 @@
   }));
   document.querySelectorAll('[data-format]').forEach(button => button.addEventListener('click', () => {
     const suffix = selected ? `/${selected}` : '';
-    location.hash = button.dataset.format === 'circles' ? `#governance/circles${suffix}` : `#governance${suffix}`;
+    location.hash = button.dataset.format === 'circles' ? `#governance/circles${suffix}`
+      : button.dataset.format === 'tree' ? `#domains/tree${suffix}`
+      : `#${current}${suffix}`;
     navigate(true);
   }));
   window.addEventListener('hashchange', () => navigate(true));

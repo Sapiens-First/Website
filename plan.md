@@ -53,6 +53,20 @@ This is exactly the scope of "Track A" from the parallel-work split — self-con
 - Explicitly out of scope for this feature: inventing missing Purpose/Stage data for existing "Needs definition" records, and any notion of task-level tracking (subtasks, due dates, assignees below the role level) — this stays a read-only rollup of what's already in `domains.csv`.
 - This is data-shape-neutral (no CSV schema change needed) and rendering-only, so it can be built independently of the circle-visualization polish above — a second, separate parallelizable track.
 
+## Next: Horizons-of-Focus tree view for Domains (requested 2026-09-22, scoped but not built)
+
+**What it is:** a graphical tree rendering of the Domains hierarchy, in the spirit of GTD's "Horizons of Focus" — Purpose at the top as a single root, branching downward through Pillar → Program → Domain/Product → Project, widening as it goes down (an "upside-down tree": trunk/root at the top, canopy at the bottom), the same visual idea as "Horizons of Purpose." This is the Domains-side counterpart to the governance Circles view — Governance already gets a graphical hierarchy (nested circles); Domains currently only has the flat table and the flat "master project list" scoped above. The underlying concept already exists in the data: the original spreadsheet's `Horizon Level` column (H5 Purpose → H4 Pillar → H3 Program → H2 Domain/Product → H1 Project, see "Domains schema observed" below) is exactly this altitude model, currently flattened into `domains.csv`'s `Type` + `Parent ID` columns with no tree rendering on top of it.
+
+**What it would look like:** a single root node (the Mission/Purpose record) at the top, with branches fanning downward level by level (Pillar, then Program, then Domain/Product, then Project), each level visually distinguishable (e.g. by size, weight, or vertical band) so the altitude reads at a glance — the horizon level *is* the depth in the tree, unlike the governance circle view where nesting depth is containment, not altitude.
+
+**How it would be rendered:**
+
+- New module analogous to `atlas-circles.js` (e.g. `atlas-tree.js`), reusing its proven patterns: deterministic layout (no physics/drag), SVG output, `<a href="#domains/tree/D-ID">` node links into the existing record panel, keyboard-operable nodes, breadcrumbs, and a Table/Tree toggle mirroring the existing Table/Circles toggle — same `views`/`format` state machine already in `atlas.js`, extended with a third format.
+- Layout is vertical (root-to-leaves top-to-bottom) rather than the circle view's radial nesting, since altitude is the organizing dimension here, not containment scale — a node's vertical position is its Horizon Level, not a free layout choice.
+- Domains with no resolvable `Parent ID` chain to the Mission record need the same honest treatment as governance's "Circle not assigned" — a separate, clearly labeled list, never silently attached to the root.
+- Explicitly out of scope: inventing missing Parent ID links to force a record into the tree, node sizing implying importance/progress (same invariant as the circle view — size is structural only), and any drag/reorg interaction.
+- Independent of both the circle-visualization polish and the master-project-list tracks above (different file, different view) — a third, separate parallelizable track once someone picks it up.
+
 ---
 
 # Atlas implementation plan
@@ -230,5 +244,6 @@ MVP completion means a locally viewable, populated, tested page with both views�
 - Stable IDs and reviewed mappings connecting domain ownership to governance roles.
 - An editing/sync workflow with deliberate public/private data boundaries.
 - A delegation "job board": let a record's current holder flag that they want it delegated/outsourced while remaining the owner of record until it's actually reassigned. Distinct from ordinary Unassigned — the role/domain is filled, but the current holder is soliciting a replacement. Named 2026-09-22 as wanted for Website (design) and a Social Media Manager function, with Rohan as current owner of both in the interim. Needs a schema field distinguishing "current owner" from "open to delegate" plus a public-facing listing of open-to-delegate roles. Do not silently map "Social Media Manager" onto an existing record (e.g. Digital Presence Lead) without explicit confirmation — no such role is currently defined.
+- An "Operational Services" top-level circle that declares which external tool/vendor is used for each operational function — e.g. movement communication = Discord, website hosting = GitHub, and other tools not yet enumerated. Named 2026-09-22. This is a distinct concept from a Domain (a tool isn't a project/deliverable) and distinct from a governance Role's Scope text (which describes authority, not vendor choice) — likely needs its own small record type or a structured field (Function, Tool/Vendor, Owning role) rather than being forced into the existing domains.csv or governance.csv shape. Get the actual current list of tools/functions from Rohan before populating; do not guess at tools in use beyond the two named here.
 
 Do not populate these future capabilities with invented organizational facts. The first release should remain useful on its own.

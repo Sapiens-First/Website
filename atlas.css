@@ -81,17 +81,53 @@
 .atlas-circles-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
 .atlas-circles-layout.has-selection { grid-template-columns: minmax(0, 1fr) 320px; }
 #atlas-circle-chart { min-width: 0; padding: 20px; background: #f1eadd; border: 1px solid var(--line); }
-.atlas-circle-svg { display: block; width: 100%; max-height: 820px; margin: 8px auto; overflow: visible; }
+.atlas-circle-svg {
+  display: block; width: 100%; max-height: 820px; margin: 8px auto; overflow: visible;
+  transition: opacity .26s ease, transform .26s ease; transform-origin: 50% 50%;
+}
+/* Drill-in/out: the incoming level scales+fades from slightly smaller (going
+   deeper) or slightly larger (going back up) instead of just appearing, so
+   the hierarchy reads as zooming. Toggled in atlas-circles.js only when the
+   focused circle actually changes, so search/selection updates stay instant. */
+.atlas-circle-svg.atlas-circle-enter-in { opacity: 0; transform: scale(.88); }
+.atlas-circle-svg.atlas-circle-enter-out { opacity: 0; transform: scale(1.14); }
+@media (prefers-reduced-motion: reduce) { .atlas-circle-svg { transition: none; } }
 .atlas-circle-svg a { cursor: pointer; }
 .atlas-circle-svg text { fill: var(--ink); font-family: var(--font-body); }
-.atlas-circle-svg a:hover > circle, .atlas-circle-svg a:focus > circle { stroke: var(--accent-dark); stroke-width: 4; }
+.atlas-circle-svg a:hover > circle, .atlas-circle-svg a:focus-visible > circle { stroke: var(--accent-dark); stroke-width: 4; }
+/* Roles are dashed to read as individual leaves rather than containers;
+   interaction solidifies the dash to reinforce the hover/focus state. */
+.atlas-circle-svg a.atlas-node-role:hover > circle,
+.atlas-circle-svg a.atlas-node-role:focus-visible > circle { stroke-dasharray: none; }
 .atlas-circle-svg a:focus { outline: none; }
+.atlas-circle-svg a:focus-visible {
+  outline: 3px solid var(--ink); outline-offset: 3px;
+}
 .atlas-circle-svg .atlas-circle-match > circle, .atlas-circle-svg .atlas-circle-selected > circle { stroke: var(--accent-dark); stroke-width: 4; }
-.atlas-circle-breadcrumbs { font-size: 13px; line-height: 1.8; overflow-wrap: anywhere; }
+/* Hover/focus tooltip fallback for nodes too small to label inline (depth > 1). */
+.atlas-circle-svg .atlas-circle-tip {
+  opacity: 0; fill: var(--ink); font-weight: 600; font-family: var(--font-body);
+  paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round;
+  transition: opacity .12s ease;
+}
+.atlas-circle-svg a:hover ~ .atlas-circle-tip, .atlas-circle-svg a:focus-visible ~ .atlas-circle-tip { opacity: 1; }
+.atlas-circle-breadcrumbs {
+  font-family: var(--font-body); font-size: 13px; font-weight: 700; line-height: 2;
+  letter-spacing: .01em; text-transform: uppercase; overflow-wrap: anywhere;
+}
+.atlas-circle-breadcrumbs a { text-decoration: underline; text-underline-offset: 3px; }
+.atlas-circle-breadcrumbs a:hover { color: var(--accent-dark); }
+.atlas-circle-crumb-sep { margin: 0 8px; color: var(--line); font-weight: 400; }
+.atlas-circle-crumb-current { color: var(--ink); font-weight: 900; }
 .atlas-circle-hint { font-size: 13px; line-height: 1.6; margin: 12px 0 20px; }
 .atlas-circle-children, .atlas-unplaced { padding: 16px 0; border-top: 1px solid var(--line); }
 .atlas-circle-children ul, .atlas-unplaced ul, .atlas-circle-search ul { padding-left: 20px; }
 .atlas-circle-children li, .atlas-unplaced li, .atlas-circle-search li { margin-top: 10px; font-size: 14px; }
+.atlas-unplaced summary { display: flex; align-items: center; text-decoration: none; }
+.atlas-unplaced summary > span:first-child { text-decoration: underline; text-underline-offset: 3px; }
+.atlas-unplaced-count { font-weight: 800; background: var(--yellow); border-color: var(--ink); }
+.atlas-unplaced-group { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; font-weight: 700; color: #575149; margin-top: 16px; }
+.atlas-unplaced-group:first-of-type { margin-top: 14px; }
 .atlas-unplaced p { font-size: 13px; line-height: 1.6; margin-top: 12px; }
 .atlas-circle-search { margin-top: 16px; padding: 16px; background: var(--paper); }
 #atlas-circle-detail { min-width: 0; }
@@ -103,6 +139,12 @@
   .atlas-circles-layout.has-selection { grid-template-columns: minmax(0, 1fr); }
   #atlas-circle-detail .atlas-record { max-height: none; }
   #atlas-circle-chart { padding: 12px; }
-  .atlas-circle-children summary, .atlas-unplaced summary { min-height: 32px; }
+  .atlas-circle-children summary, .atlas-unplaced summary { min-height: 44px; align-items: center; }
+  /* Larger touch targets for the text-link fallbacks around the chart. */
+  .atlas-circle-breadcrumbs a, .atlas-circle-children a, .atlas-unplaced a, .atlas-circle-search a {
+    display: inline-block; padding: 8px 2px;
+  }
+  .atlas-circle-svg a:hover > circle, .atlas-circle-svg a:focus-visible > circle,
+  .atlas-circle-svg .atlas-circle-match > circle, .atlas-circle-svg .atlas-circle-selected > circle { stroke-width: 5; }
 }
 .atlas-circle-svg text.atlas-circle-label { fill: #fffaf2; }

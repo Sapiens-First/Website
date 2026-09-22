@@ -49,17 +49,37 @@ function renderAtlasCircles(host, records, selected, matches, query) {
   const { nodes, roots, unplaced } = atlasCircleLayout(records);
   const picked = nodes.get(selected);
   const focus = picked?.row.Type === 'Circle' ? picked : nodes.get(picked?.row['Parent Circle ID']) || roots[0];
-  const html = (tag, text) => { const node = document.createElement(tag); if (text !== undefined) node.textContent = text; return node; };
+  const html = (tag, text, className) => {
+    const node = document.createElement(tag);
+    if (text !== undefined) node.textContent = text;
+    if (className) node.className = className;
+    return node;
+  };
   const url = id => `#governance/circles/${id}`;
   const recordLink = row => { const a = html('a', row.Name); a.href = url(row.ID); return a; };
+
+  // Breadcrumbs: ancestors are links, the current focus is plain text (it's
+  // where you already are), separated by a small caret to read as a trail
+  // rather than a flat list of slash-joined links.
   const nav = html('nav'); nav.className = 'atlas-circle-breadcrumbs'; nav.setAttribute('aria-label', 'Circle hierarchy');
   const reset = html('a', 'All circles'); reset.href = '#governance/circles'; nav.append(reset);
+  let chain = [];
   if (focus) {
-    const chain = []; let node = focus; const seen = new Set();
+    chain = []; let node = focus; const seen = new Set();
     while (node && !seen.has(node.row.ID)) { seen.add(node.row.ID); chain.unshift(node); node = nodes.get(node.row['Parent Circle ID']); }
-    chain.forEach(item => { nav.append(html('span', ' / '), recordLink(item.row)); });
+    chain.forEach((item, i) => {
+      nav.append(html('span', '›', 'atlas-circle-crumb-sep'));
+      if (i === chain.length - 1) {
+        const current = html('span', item.row.Name, 'atlas-circle-crumb-current');
+        current.setAttribute('aria-current', 'page');
+        nav.append(current);
+      } else {
+        nav.append(recordLink(item.row));
+      }
+    });
   }
   host.append(nav);
+
   if (query) {
     const found = html('div'); found.className = 'atlas-circle-search';
     found.append(html('p', `${matches.length} search ${matches.length === 1 ? 'result' : 'results'}`));
@@ -67,6 +87,7 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     matches.forEach(row => { const li = html('li'); li.append(recordLink(row)); list.append(li); });
     found.append(list); host.append(found);
   }
+
   if (focus) {
     const ns = 'http://www.w3.org/2000/svg';
     const svgEl = (tag, attrs = {}) => {
@@ -75,19 +96,53 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     };
     const svg = svgEl('svg', { viewBox: '-470 -470 940 940', role: 'group', 'aria-label': `${focus.row.Name}: nested governance circles` });
     svg.classList.add('atlas-circle-svg');
-    const palette = ['#efe5d4', '#f4c9ad', '#d5e1bd', '#d4dff0', '#e5cde2', '#f4df9a'];
+
+    // Palette is keyed to each node's top-level circle (the direct child of
+    // the root it descends from), assigned in a fixed order derived from the
+    // root's own children — not from the currently focused subtree — so a
+    // circle's hue is stable no matter which level you're viewing, and a
+    // role's color always traces back to the same lineage. Nested subcircles
+    // lighten progressively so depth within a lineage still reads visually.
+    const palette = ['#efe5d4', '#f4c9ad', '#d5e1bd', '#d4dff0', '#e5cde2', '#f4df9a', '#bfe3d8', '#e8c2c6'];
+    const rootFill = '#f7f2e8';
+    const topLevelOrder = (roots[0]?.children || []).map(child => child.row.ID);
+    const colorFor = topId => palette[Math.max(0, topLevelOrder.indexOf(topId)) % palette.length];
+    const lighten = (hex, amount) => {
+      const n = parseInt(hex.slice(1), 16);
+      const mix = c => Math.round(c + (255 - c) * amount);
+      return `rgb(${mix((n >> 16) & 255)}, ${mix((n >> 8) & 255)}, ${mix(n & 255)})`;
+    };
+    const lineageCache = new Map();
+    function lineageOf(node) {
+      if (lineageCache.has(node.row.ID)) return lineageCache.get(node.row.ID);
+      const path = []; let current = node; const seen = new Set();
+      while (current && !seen.has(current.row.ID)) { seen.add(current.row.ID); path.push(current); current = nodes.get(current.row['Parent Circle ID']); }
+      const result = path.length <= 1 ? { topId: null, depth: 0 } : { topId: path[path.length - 2].row.ID, depth: path.length - 2 };
+      lineageCache.set(node.row.ID, result);
+      return result;
+    }
+
     const scale = 440 / focus.r;
     const matched = new Set(matches.map(row => row.ID));
     function draw(node, x, y, depth) {
       const r = node.r * scale;
       const group = svgEl('g', { 'data-node-id': node.row.ID, 'data-parent-id': node.row['Parent Circle ID'] || '' });
-      const anchor = svgEl('a', { href: url(node.row.ID), tabindex: depth <= 1 ? '0' : '-1', 'aria-label': `${node.row.Type}: ${node.row.Name}${node.row.Type === 'Circle' ? ', explore circle' : ', view responsibilities'}` });
+      // Every node stays keyboard-reachable (not just the two outer rings),
+      // so a hover/focus tooltip can stand in for labels that are too small
+      // to set inline at deep nesting.
+      const anchor = svgEl('a', { href: url(node.row.ID), tabindex: '0', 'aria-label': `${node.row.Type}: ${node.row.Name}${node.row.Type === 'Circle' ? ', explore circle' : ', view responsibilities'}` });
+      anchor.classList.add(node.row.Type === 'Role' ? 'atlas-node-role' : 'atlas-node-circle');
       const title = svgEl('title'); title.textContent = node.row.Name; anchor.append(title);
-      const fill = node.row.Type === 'Role' ? '#fffaf2' : palette[Number(node.row.ID.slice(2)) % palette.length];
-      anchor.append(svgEl('circle', { cx: x, cy: y, r, fill, 'stroke-width': depth === 0 ? 2 : 1.5, stroke: '#29241f' }));
+      const { topId, depth: lineageDepth } = lineageOf(node);
+      const isRole = node.row.Type === 'Role';
+      const fill = isRole ? '#fffaf2' : (topId ? lighten(colorFor(topId), Math.min(0.5, lineageDepth * 0.16)) : rootFill);
+      const stroke = isRole ? (topId ? colorFor(topId) : '#8a8272') : '#29241f';
+      const circleAttrs = { cx: x, cy: y, r, fill, 'stroke-width': depth === 0 ? 2 : 1.5, stroke };
+      if (isRole) circleAttrs['stroke-dasharray'] = '5 4';
+      anchor.append(svgEl('circle', circleAttrs));
       if (query && matched.has(node.row.ID)) anchor.classList.add('atlas-circle-match');
       if (selected === node.row.ID) anchor.classList.add('atlas-circle-selected');
-      let label = null;
+      let label = null, tip = null;
       if (depth <= 1) {
         const fontSize = depth === 0 ? 19 : Math.max(11, Math.min(17, r / 4.4));
         const limit = Math.max(10, Math.floor(r * 1.55 / (fontSize * .58)));
@@ -107,13 +162,39 @@ function renderAtlasCircles(host, records, selected, matches, query) {
           text.classList.add('atlas-circle-label');
         }
         label.append(text);
+      } else {
+        // Too small to label inline: a hover/focus tooltip stands in instead.
+        tip = svgEl('text', { x, y: y - r - 6, 'text-anchor': 'middle', 'font-size': 11, 'pointer-events': 'none' });
+        tip.classList.add('atlas-circle-tip');
+        tip.textContent = node.row.Name;
       }
       group.append(anchor);
       node.children.forEach(child => group.append(draw(child, x + child.x * scale, y + child.y * scale, depth + 1)));
       if (label) group.append(label);
+      if (tip) group.append(tip);
       return group;
     }
-    svg.append(draw(focus, 0, 0, 0)); host.append(svg);
+    svg.append(draw(focus, 0, 0, 0));
+
+    // Smoother drill-in/out: scale+fade the newly drawn level in from a
+    // slightly smaller (drilling in) or larger (drilling out) starting
+    // point instead of the level just appearing, so it reads as zooming.
+    // Skipped on first paint and on renders that don't change focus level
+    // (e.g. typing in search) so it never fires more often than needed.
+    const prevFocusId = host.dataset.atlasFocusId || '';
+    const prevChainLen = Number(host.dataset.atlasChainLen || 0);
+    if (prevFocusId && prevFocusId !== focus.row.ID) {
+      svg.classList.add(chain.length < prevChainLen ? 'atlas-circle-enter-out' : 'atlas-circle-enter-in');
+    }
+    host.append(svg);
+    if (svg.classList.contains('atlas-circle-enter-in') || svg.classList.contains('atlas-circle-enter-out')) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        svg.classList.remove('atlas-circle-enter-in', 'atlas-circle-enter-out');
+      }));
+    }
+    host.dataset.atlasFocusId = focus.row.ID;
+    host.dataset.atlasChainLen = String(chain.length);
+
     const note = html('p', focus.children.length ? 'Select a circle to explore it, or a role to read its responsibilities. Sizes show containment, not importance.' : 'No roles or subcircles are recorded inside this circle yet.');
     note.className = 'atlas-circle-hint'; host.append(note);
     // Full-size text links keep every immediate child usable on small screens.
@@ -129,10 +210,40 @@ function renderAtlasCircles(host, records, selected, matches, query) {
   }
   if (unplaced.length) {
     const section = html('details'); section.className = 'atlas-unplaced';
-    section.append(html('summary', `Circle not assigned (${unplaced.length})`));
-    section.append(html('p', 'These records have no recorded containing circle. They have not been placed inside the organization chart.'));
-    const list = html('ul'); unplaced.forEach(node => { const li = html('li'); li.append(recordLink(node.row)); list.append(li); });
-    section.append(list); host.append(section);
+    const summary = html('summary');
+    summary.append(html('span', 'Circle not assigned'), ' ', html('span', String(unplaced.length), 'atlas-badge atlas-unplaced-count'));
+    section.append(summary);
+    section.append(html('p', 'These records have no recorded containing circle. They have not been placed inside the organization chart — grouped below by likely area as a hint only; nothing here has been auto-assigned.'));
+    // Group by crude name-word overlap with existing circle names, purely as
+    // a navigational hint. This never changes any record's actual parent.
+    const circleNodes = [...nodes.values()].filter(n => n.row.Type === 'Circle');
+    const stopwords = new Set(['and', 'the', 'of', 'for', 'circle', 'a', 'an', 'to', 'in', 'program']);
+    const wordsOf = name => (name || '').toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 2 && !stopwords.has(w));
+    const guess = row => {
+      const rowWords = wordsOf(row.Name);
+      let best = null, bestScore = 0;
+      circleNodes.forEach(candidate => {
+        const overlap = wordsOf(candidate.row.Name).filter(w => rowWords.includes(w)).length;
+        if (overlap > bestScore) { bestScore = overlap; best = candidate; }
+      });
+      return best;
+    };
+    const groups = new Map();
+    unplaced.forEach(node => {
+      const match = guess(node.row);
+      const key = match ? match.row.ID : '';
+      if (!groups.has(key)) groups.set(key, { label: match ? match.row.Name : 'No likely match', items: [] });
+      groups.get(key).items.push(node);
+    });
+    [...groups.values()]
+      .sort((a, b) => (a.label === 'No likely match') - (b.label === 'No likely match') || a.label.localeCompare(b.label))
+      .forEach(group => {
+        section.append(html('h4', group.label === 'No likely match' ? group.label : `Possibly related to ${group.label}`, 'atlas-unplaced-group'));
+        const list = html('ul');
+        group.items.forEach(node => { const li = html('li'); li.append(recordLink(node.row), html('span', ` · ${node.row.Type}`)); list.append(li); });
+        section.append(list);
+      });
+    host.append(section);
   }
 }
 if (typeof module !== 'undefined') module.exports = { atlasCircleLayout };

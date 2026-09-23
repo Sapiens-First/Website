@@ -87,7 +87,7 @@
   document.addEventListener('click', async event => {
     const link = event.target.closest('a[href]');
     if (!link || link.matches('.nav-cta.join') || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const url = new URL(link.href);
+    const url = new URL(link.getAttribute('href'), document.baseURI);
     const isJoin = url.origin === location.origin && /\/(join|join\.html)$/.test(url.pathname);
     if (!isJoin || link.target === '_blank' || link.hasAttribute('download')) return;
     event.preventDefault();

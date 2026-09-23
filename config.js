@@ -35,6 +35,7 @@ SITE_CONFIG.PAGES = {
   about:           { label: 'About',          nav: true,   footer: 'About' },
   careers:         { label: 'Careers',        nav: 'about', footer: 'About' },
   strategy:        { label: 'Strategy' },
+  atlas:           { label: 'Atlas',          nav: 'about', footer: 'About' },
   privacy:         { label: 'Privacy',                      footer: 'About' },
   donate:          { label: 'Donate',                        footer: 'About' },
   fellowship:      { label: 'Fellowship',     nav: true,   footer: 'Get Involved' },

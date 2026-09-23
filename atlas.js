@@ -1,8 +1,8 @@
 (() => {
   const data = window.ATLAS_DATA;
   const views = {
-    domains: { title: 'Domains of work', description: 'Explore our work, its purpose, and how it connects to the mission.', parent: 'Parent ID', columns: ['Name', 'Purpose', 'Parent', 'Status', 'Owner'] },
-    governance: { title: 'Roles & circles', description: 'Explore responsibilities and linked domains. Roles marked “Needs definition” were named as owners but have not yet been fully documented.', parent: 'Parent Circle ID', columns: ['Name', 'Purpose', 'Parent circle', 'Status', 'Owned domains'] },
+    domains: { title: 'Our work', description: 'Explore our work, its purpose, and how it connects to the mission.', parent: 'Parent ID', columns: ['Name', 'Purpose', 'Parent', 'Status', 'Responsible role or circle'] },
+    governance: { title: 'Roles & circles', description: 'Explore responsibilities and linked work. Roles marked “Needs definition” were named as owners but have not yet been fully documented.', parent: 'Parent Circle ID', columns: ['Name', 'Purpose', 'Parent circle', 'Status', 'Linked work'] },
   };
   const search = document.querySelector('#atlas-search');
   const filter = document.querySelector('#atlas-filter');
@@ -56,7 +56,7 @@
     block.append(linkedList(result.ids));
     const descriptions = {
       undelegated: 'Held by this circle; not delegated to a role.',
-      unfilled: 'The role retains this domain. Circle Lead coverage applies while the role is unfilled.',
+      unfilled: 'The role retains responsibility for this work. Circle Lead coverage applies while the role is unfilled.',
       unknown: 'Containing circle not recorded; default responsibility cannot be resolved.',
     };
     if (descriptions[result.kind]) block.append(el('p', descriptions[result.kind], 'atlas-coverage'));
@@ -205,9 +205,9 @@
       // otherwise vanish from its own tree), so matches are computed against
       // every domain record rather than the filtered `scoped`/`rows` set.
       const treeMatches = data.domains.filter(row => [...Object.values(row), ...owners(row, 'domains').map(id => index.get(id)?.row.Name || id)].some(value => String(value).toLocaleLowerCase().includes(query)));
+      document.querySelector('#atlas-tree').classList.toggle('has-selection', Boolean(selected));
       renderAtlasTree(document.querySelector('#atlas-tree-chart'), data.domains, selected, treeMatches, query);
       status.textContent = query ? `${treeMatches.length} matching domain records.` : 'Domains tree. Follow the branches to see how work ladders up to the mission.';
-      document.querySelector('#atlas-tree').classList.toggle('has-selection', Boolean(selected));
     }
   }
   let lastHash = null;

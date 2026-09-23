@@ -1,32 +1,10 @@
-/* Deterministic layered tree layout for the Domains hierarchy (Horizons of
-   Focus). A node's vertical position is its structural depth — the number of
-   Parent ID hops back to the single Mission record — never a free layout
-   choice and never a workload/progress signal. Horizontal position and box
-   size exist only to keep labels legible and readable left-to-right; they
-   never communicate importance either.
-
-   Depth is derived from Parent ID chains, not from Type strings, because
-   Type alone is ambiguous: some "Enabling" Programs (e.g. Marketing &
-   Communications) attach directly to the Mission, landing at the same depth
-   as Pillars, and some Products/Projects attach directly to a Pillar or the
-   Mission, skipping the Program/Product tier entirely. Type still supplies
-   the human-readable Horizon Level band label for a row. */
-
+/* A work hierarchy: vertical position is the number of parent links back
+   to the mission, not a GTD horizon or a measure of importance. */
 const ATLAS_TREE_LEVEL_GAP = 90;
 const ATLAS_TREE_SIBLING_GAP = 26;
-const ATLAS_TREE_HORIZON_LABEL = {
-  Mission: 'H5 · Purpose', Pillar: 'H4 · Pillar', Program: 'H3 · Program',
-  'Product/Service': 'H2 · Product/Service', Project: 'H1 · Project',
-};
-const ATLAS_TREE_HORIZON_ORDER = ['Mission', 'Pillar', 'Program', 'Product/Service', 'Project'];
 
 function atlasTreeBandLabel(row) {
-  const present = [...new Set(row.map(node => node.row.Type))];
-  present.sort((a, b) => {
-    const ai = ATLAS_TREE_HORIZON_ORDER.indexOf(a), bi = ATLAS_TREE_HORIZON_ORDER.indexOf(b);
-    return (ai < 0 ? 999 : ai) - (bi < 0 ? 999 : bi) || a.localeCompare(b);
-  });
-  return present.map(type => ATLAS_TREE_HORIZON_LABEL[type] || type).join(' / ');
+  return row[0].depth === 0 ? 'Mission' : `Connection level ${row[0].depth}`;
 }
 
 function atlasTreeWrapLabel(name, maxChars) {
@@ -49,7 +27,7 @@ function atlasTreeSizeNode(node, isRoot) {
   const textWidth = Math.max(...lines.map(line => line.length)) * charWidth;
   const w = Math.min(isRoot ? 520 : 200, Math.max(isRoot ? 260 : 108, textWidth + 30));
   const lineHeight = fontSize * 1.15;
-  const h = lines.length * lineHeight + (isRoot ? 30 : 26);
+  const h = lines.length * lineHeight + (isRoot ? 46 : 42);
   return { lines, w, h, fontSize, lineHeight };
 }
 
@@ -143,8 +121,7 @@ function atlasTreeLayout(records) {
 
   const placed = levels.flat();
   const margin = 44;
-  // Reserve extra left space sized to the widest band label so a row's
-  // "H3 · Program / H2 · Product/Service" text never sits under a node box.
+  // Reserve space so band labels never sit under a node box.
   const leftGutter = levels.length ? Math.max(...levels.map(row => atlasTreeBandLabel(row).length)) * 6.4 + margin : margin;
   let width = 0, height = 0;
   if (placed.length) {
@@ -159,8 +136,13 @@ function atlasTreeLayout(records) {
 }
 
 function renderAtlasTree(host, records, selected, matches, query) {
+  // ATLAS_DATA arrays are immutable for the lifetime of this static page.
+  const previous = host._atlasTree;
+  const reusable = previous?.records === records;
+  const scrollLeft = reusable ? previous.scroller.scrollLeft : 0;
+  const layout = reusable ? previous.layout : atlasTreeLayout(records);
+  const { nodes, root, levels, unplaced, width, height } = layout;
   host.replaceChildren();
-  const { nodes, root, levels, unplaced, width, height } = atlasTreeLayout(records);
   const html = (tag, text, className) => {
     const node = document.createElement(tag);
     if (text !== undefined) node.textContent = text;
@@ -173,7 +155,7 @@ function renderAtlasTree(host, records, selected, matches, query) {
   // Breadcrumbs are a navigation aid pointing at the current selection's
   // ancestry — unlike the circle view, selecting a node never re-roots or
   // re-lays-out the tree, since vertical position is a fixed property
-  // (Horizon Level), not something drilling should change.
+  // (containment depth), not something drilling should change.
   const nav = html('nav'); nav.className = 'atlas-tree-breadcrumbs'; nav.setAttribute('aria-label', 'Domain hierarchy');
   const reset = html('a', 'Full tree'); reset.href = '#domains/tree'; nav.append(reset);
   const selectedNode = nodes.get(selected);
@@ -209,74 +191,114 @@ function renderAtlasTree(host, records, selected, matches, query) {
     // roughly-square circle view) so labels stay legible on a wide, short
     // tree; #atlas-tree-chart scrolls horizontally instead, the same way
     // the plain domains table already scrolls at narrow widths.
-    const svg = svgEl('svg', { viewBox: `0 0 ${width} ${height}`, width, height, role: 'group', 'aria-label': 'Domains tree: Mission at the top, branching down to active work' });
-    svg.classList.add('atlas-tree-svg');
+    let svg = reusable ? previous.svg : null;
+    if (!svg) {
+      svg = svgEl('svg', { viewBox: `0 0 ${width} ${height}`, width, height, role: 'group', 'aria-label': 'Work tree: mission and connected work, all statuses' });
+      svg.classList.add('atlas-tree-svg');
 
-    // Palette darkens toward the root purely to distinguish altitude bands.
-    const palette = ['#29241f', '#5a5346', '#8a8272', '#b9ab84', '#e6d9ad', '#f1e9d3'];
-    const textColorFor = depth => depth <= 1 ? '#fffaf2' : '#29241f';
-    const matched = new Set(matches.map(row => row.ID));
+      // Palette distinguishes connection depth without assigning GTD horizons.
+      const palette = ['#29241f', '#5a5346', '#d5c9ad', '#e6d9ad', '#f1e9d3', '#f7f2e8'];
+      const textColorFor = depth => depth <= 1 ? '#fffaf2' : '#29241f';
 
-    // Connectors first, so node boxes paint on top of the lines.
-    const connectors = svgEl('g', { class: 'atlas-tree-connectors' });
-    levels.forEach(row => row.forEach(node => {
-      node.children.forEach(child => {
-        const startY = node.y + node.h / 2, endY = child.y - child.h / 2;
-        const midY = (startY + endY) / 2;
-        const path = svgEl('path', { d: `M ${node.x} ${startY} C ${node.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`, class: 'atlas-tree-edge' });
-        connectors.append(path);
+      // Build connectors separately so they paint above bands and below nodes.
+      const connectors = svgEl('g', { class: 'atlas-tree-connectors' });
+      levels.forEach(row => row.forEach(node => {
+        node.children.forEach(child => {
+          const startY = node.y + node.h / 2, endY = child.y - child.h / 2;
+          const midY = (startY + endY) / 2;
+          const path = svgEl('path', { d: `M ${node.x} ${startY} C ${node.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`, class: 'atlas-tree-edge' });
+          connectors.append(path);
+        });
+      }));
+
+      // Bands describe containment depth, never a GTD horizon.
+      levels.forEach(row => {
+        const bandHeight = Math.max(...row.map(node => node.h)) + 36;
+        svg.append(svgEl('rect', { x: 0, y: row[0].y - bandHeight / 2, width, height: bandHeight, rx: 8, fill: row[0].depth % 2 ? '#e9e0ce' : '#f7f2e8', 'pointer-events': 'none' }));
+        const tag = svgEl('text', { x: 6, y: row[0].y, 'dominant-baseline': 'middle', class: 'atlas-tree-band' });
+        tag.textContent = atlasTreeBandLabel(row);
+        svg.append(tag);
       });
-    }));
-    svg.append(connectors);
 
-    // Horizon-level band labels down the left edge. A band can list more
-    // than one Type (see file header) — that is shown honestly rather than
-    // picking one label and hiding the mix.
-    levels.forEach(row => {
-      const tag = svgEl('text', { x: 6, y: row[0].y, 'dominant-baseline': 'middle', class: 'atlas-tree-band' });
-      tag.textContent = atlasTreeBandLabel(row);
-      svg.append(tag);
+      svg.append(connectors);
+      levels.forEach(row => row.forEach(node => {
+        const isRoot = node === root;
+        const group = svgEl('g', { 'data-node-id': node.row.ID, 'data-parent-id': node.row['Parent ID'] || '' });
+        const anchor = svgEl('a', { href: url(node.row.ID), tabindex: '0', 'aria-label': `${node.row.Type}: ${node.row.Name}, view record` });
+        anchor.classList.add(isRoot ? 'atlas-tree-root' : 'atlas-tree-node');
+        const title = svgEl('title'); title.textContent = node.row.Name; anchor.append(title);
+        const fill = palette[Math.min(node.depth, palette.length - 1)];
+        const rectAttrs = { x: node.x - node.w / 2, y: node.y - node.h / 2, width: node.w, height: node.h, rx: 10, fill, stroke: '#29241f', 'stroke-width': isRoot ? 2.5 : 1.5 };
+        anchor.append(svgEl('rect', rectAttrs));
+        const startY = node.y - (node.lines.length - 1) * node.lineHeight / 2;
+        const text = svgEl('text', { x: node.x, y: startY, 'text-anchor': 'middle', 'font-size': node.fontSize, fill: textColorFor(node.depth), 'pointer-events': 'none', 'font-weight': isRoot ? 700 : 500 });
+        node.lines.forEach((line, i) => { const tspan = svgEl('tspan', { x: node.x, dy: i ? node.lineHeight : 0 }); tspan.textContent = line; text.append(tspan); });
+        const typeLabel = svgEl('text', { x: node.x, y: node.y - node.h / 2 + 17, 'text-anchor': 'middle', 'font-size': 10, fill: textColorFor(node.depth), 'pointer-events': 'none', opacity: .85 });
+        typeLabel.textContent = node.row.Type;
+        text.setAttribute('transform', 'translate(0 8)');
+        anchor.append(typeLabel, text);
+        group.append(anchor);
+        svg.append(group);
+      }));
+
+    }
+    // Keep the actual canvas alive across search and record selection.
+    // Replacing it loses zoom, scroll position, and browser focus state.
+    const scroller = reusable ? previous.scroller : html('div', undefined, 'atlas-tree-scroll');
+    scroller.tabIndex = 0;
+    scroller.setAttribute('role', 'region');
+    scroller.setAttribute('aria-label', 'Work tree. Scroll horizontally to explore branches.');
+    if (!reusable) scroller.append(svg);
+    const state = { records, layout, svg, scroller, selected, zoom: reusable ? previous.zoom : 1 };
+    host._atlasTree = state;
+    const controls = html('div', undefined, 'atlas-tree-zoom');
+    controls.setAttribute('role', 'group');
+    controls.setAttribute('aria-label', 'Tree zoom');
+    const output = html('output');
+    output.setAttribute('aria-label', 'Zoom level');
+    const resize = zoom => {
+      const center = (scroller.scrollLeft + scroller.clientWidth / 2) / state.zoom;
+      state.zoom = Math.max(0.05, Math.min(2, zoom));
+      svg.setAttribute('width', width * state.zoom);
+      svg.setAttribute('height', height * state.zoom);
+      output.textContent = `${Math.round(state.zoom * 100)}%`;
+      scroller.scrollLeft = center * state.zoom - scroller.clientWidth / 2;
+    };
+    const button = (label, action) => {
+      const control = html('button', label);
+      control.type = 'button';
+      control.addEventListener('click', action);
+      controls.append(control);
+    };
+    button('Zoom out', () => resize(state.zoom / 1.25));
+    controls.append(output);
+    button('Zoom in', () => resize(state.zoom * 1.25));
+    button('Fit tree', () => resize(scroller.clientWidth / width));
+    button('Actual size', () => resize(1));
+    host.append(controls, scroller);
+    resize(state.zoom);
+    scroller.scrollLeft = scrollLeft;
+    const matchedIds = new Set(matches.map(row => row.ID));
+    svg.querySelectorAll('[data-node-id]').forEach(group => {
+      const id = group.dataset.nodeId;
+      const anchor = group.querySelector('a');
+      anchor.classList.toggle('atlas-tree-selected', selected === id);
+      anchor.classList.toggle('atlas-tree-match', Boolean(query) && matchedIds.has(id));
+      if (selected === id) anchor.setAttribute('aria-current', 'true');
+      else anchor.removeAttribute('aria-current');
     });
-
-    levels.forEach(row => row.forEach(node => {
-      const isRoot = node === root;
-      const group = svgEl('g', { 'data-node-id': node.row.ID, 'data-parent-id': node.row['Parent ID'] || '' });
-      const anchor = svgEl('a', { href: url(node.row.ID), tabindex: '0', 'aria-label': `${node.row.Type}: ${node.row.Name}, view record` });
-      anchor.classList.add(isRoot ? 'atlas-tree-root' : 'atlas-tree-node');
-      const title = svgEl('title'); title.textContent = node.row.Name; anchor.append(title);
-      const fill = palette[Math.min(node.depth, palette.length - 1)];
-      const rectAttrs = { x: node.x - node.w / 2, y: node.y - node.h / 2, width: node.w, height: node.h, rx: 10, fill, stroke: '#29241f', 'stroke-width': isRoot ? 2.5 : 1.5 };
-      anchor.append(svgEl('rect', rectAttrs));
-      if (query && matched.has(node.row.ID)) anchor.classList.add('atlas-tree-match');
-      if (selected === node.row.ID) anchor.classList.add('atlas-tree-selected');
-      const startY = node.y - (node.lines.length - 1) * node.lineHeight / 2;
-      const text = svgEl('text', { x: node.x, y: startY, 'text-anchor': 'middle', 'font-size': node.fontSize, fill: textColorFor(node.depth), 'pointer-events': 'none', 'font-weight': isRoot ? 700 : 500 });
-      node.lines.forEach((line, i) => { const tspan = svgEl('tspan', { x: node.x, dy: i ? node.lineHeight : 0 }); tspan.textContent = line; text.append(tspan); });
-      anchor.append(text);
-      group.append(anchor);
-      svg.append(group);
-    }));
-
-    // Only the canvas scrolls horizontally (like .atlas-table-wrap already
-    // does for the plain table) — breadcrumbs/search/hint stay in normal
-    // flow above and below it, so centering the canvas on a selection never
-    // carries them out of view too.
-    const scroller = html('div'); scroller.className = 'atlas-tree-scroll';
-    scroller.append(svg);
-    host.append(scroller);
-    // The canvas is usually wider than the viewport (a legible tree needs
-    // room to breathe more than a viewport-width chart does), so open the
-    // horizontal scroll centered on the selection if there is one, else on
-    // the root — never left-edge-first, which would bury the Mission box.
-    const focusNode = selectedNode || root;
-    if (focusNode && scroller.clientWidth) {
-      scroller.scrollLeft = Math.max(0, focusNode.x - scroller.clientWidth / 2);
+    if (!reusable || previous.selected !== selected) {
+      const focusNode = selectedNode || root;
+      scroller.scrollTo({
+        left: Math.max(0, focusNode.x * state.zoom - scroller.clientWidth / 2),
+        behavior: reusable && !matchMedia('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'instant',
+      });
     }
   } else {
     host.append(html('p', 'No Mission record is recorded yet. Use the table to review the domains records.'));
   }
 
-  const hint = html('p', 'This tree always shows the full hierarchy — the Active/All-statuses filter only affects the table. Box size reflects label length only, never progress or workload.');
+  const hint = html('p', 'Follow the lines to see how work connects to the mission. Rows show connections, not GTD horizons. All statuses are included. Use Fit tree for an overview, then Actual size to read labels. Box size does not indicate importance.');
   hint.className = 'atlas-tree-hint'; host.append(hint);
 
   if (unplaced.length) {

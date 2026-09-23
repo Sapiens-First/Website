@@ -150,9 +150,7 @@
 }
 .atlas-circle-svg text.atlas-circle-label { fill: #fffaf2; }
 
-/* Domains tree (Horizons of Focus) — vertical position is Horizon Level, a
-   fixed structural property (Mission→Pillar→Program→Product/Service→Project
-   depth), not a free layout choice. Box size reflects label length only. */
+/* Work tree: vertical position is parent-link depth, not a GTD horizon. */
 .atlas-tree-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
 .atlas-tree-layout.has-selection { grid-template-columns: minmax(0, 1fr) 320px; }
 #atlas-tree-chart { min-width: 0; padding: 20px; background: #f1eadd; border: 1px solid var(--line); }
@@ -191,3 +189,24 @@
   .atlas-tree-svg a:hover > rect, .atlas-tree-svg a:focus-visible > rect,
   .atlas-tree-svg .atlas-tree-match > rect, .atlas-tree-svg .atlas-tree-selected > rect { stroke-width: 4.5; }
 }
+
+/* Canvas navigation stays separate from record details and search results. */
+.atlas-tree-zoom { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0; }
+.atlas-tree-zoom button { font: inherit; font-size: 13px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--ink); color: var(--ink); background: var(--paper); cursor: pointer; }
+.atlas-tree-zoom button:hover { background: var(--yellow); }
+.atlas-tree-zoom output { min-width: 48px; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+.atlas-tree-scroll { overscroll-behavior-x: contain; scrollbar-width: auto; scrollbar-color: #8a8272 #f1eadd; }
+.atlas-tree-svg rect { transition: stroke .15s ease, stroke-width .15s ease; }
+@media (prefers-reduced-motion: reduce) { .atlas-tree-svg rect { transition: none; } }
+
+.atlas-guide { border-bottom: 1px solid var(--line); padding: 18px 0; }
+.atlas-guide summary { font-weight: 700; min-height: 32px; }
+.atlas-guide > p { max-width: 850px; line-height: 1.7; margin: 16px 0; font-size: 15px; }
+.atlas-guide h3 { font-family: var(--font-display); font-size: 26px; margin-top: 24px; }
+.atlas-horizons { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 20px 0; }
+.atlas-horizons li { padding: 18px; border: 1px solid var(--line); background: var(--soft); }
+.atlas-horizons span { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 12px; }
+.atlas-horizons strong { display: block; font-size: 16px; line-height: 1.4; }
+.atlas-horizons p { margin-top: 10px; line-height: 1.6; }
+@media (max-width: 850px) { .atlas-horizons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 650px) { .atlas-horizons { grid-template-columns: 1fr; } .atlas-switch button span { font-size: 14px; } }

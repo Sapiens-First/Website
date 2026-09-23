@@ -27,7 +27,29 @@ async def main():
             # present in one pass, plus a level below it.
             await expect(page.locator('.atlas-tree-svg [data-node-id="D-001"]')).to_have_count(1)
             await expect(page.locator('.atlas-tree-svg [data-node-id]')).to_have_count(len(DATA['domains']))
-            await expect(page.locator('.atlas-tree-band').first).to_contain_text('Purpose')
+            await expect(page.locator('.atlas-tree-band').first).to_contain_text('Mission')
+            assert not await page.locator('.atlas-tree-band').filter(has_text='H3').count()
+            await page.locator('.atlas-guide summary').click()
+            await expect(page.locator('.atlas-horizons li')).to_have_count(6)
+            assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')
+            await page.locator('.atlas-guide summary').click()
+            # Searching must preserve the canvas and the participant's place.
+            await page.evaluate('window.originalTree = document.querySelector(".atlas-tree-svg")')
+            await page.locator('.atlas-tree-scroll').evaluate('(n) => { n.scrollLeft = 120; }')
+            await page.locator('#atlas-search').fill('website')
+            assert await page.evaluate('window.originalTree === document.querySelector(".atlas-tree-svg")')
+            assert await page.locator('.atlas-tree-scroll').evaluate('n => n.scrollLeft') == 120
+            await page.locator('#atlas-search').fill('')
+            await page.get_by_role('button', name='Fit tree').click()
+            assert await page.locator('.atlas-tree-scroll').evaluate('n => n.scrollWidth <= n.clientWidth + 1')
+            await page.get_by_role('button', name='Actual size').click()
+            await expect(page.locator('.atlas-tree-zoom output')).to_have_text('100%')
+            await page.get_by_role('button', name='Zoom in', exact=True).click()
+            await expect(page.locator('.atlas-tree-zoom output')).to_have_text('125%')
+            await page.locator('#atlas-search').fill('website')
+            await expect(page.locator('.atlas-tree-zoom output')).to_have_text('125%')
+            await page.locator('#atlas-search').fill('')
+            await page.get_by_role('button', name='Actual size').click()
             # Keyboard: focus a node's link directly (mirrors the governance
             # circle test) and activate it with Enter.
             await page.locator('.atlas-tree-svg [data-node-id="D-013"] > a').first.focus()

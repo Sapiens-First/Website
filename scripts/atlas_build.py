@@ -96,11 +96,6 @@ def validate(data):
                 if not circle or circle[0] != 'governance' or circle[1]['Type'] != 'Circle':
                     raise ValueError(f'{identifier}: Circle ID must reference a governance Circle')
             if group == 'governance' and row.get('Person ID') and not re.fullmatch(r'P-\d+', row['Person ID']):
-                # Optional forward-looking field: format-checked only. No people.csv exists yet
-                # to resolve against, so this does not (and cannot) verify the ID refers to a
-                # real person record. See data/atlas/README.md "People and assignees" for the
-                # intended convention. Blank is always valid; the free-text Lead Link field
-                # remains the current source of truth for who holds a role.
                 raise ValueError(f'{identifier}: Person ID must look like P-123')
             if parent:
                 if parent not in index or index[parent][0] != group:
@@ -109,6 +104,20 @@ def validate(data):
                     raise ValueError(f'{identifier}: governance parent must be a Circle')
                 edges[identifier] = [parent]
         check_cycles(edges, 'Parent hierarchy')
+    people = {}
+    for row in data['governance']:
+        person_id = row.get('Person ID', '')
+        level = row.get('Engagement level', '')
+        name = row.get('Lead Link', '').strip()
+        if level and not person_id:
+            raise ValueError(f"{row['ID']}: engagement level requires Person ID")
+        if person_id:
+            if not name or name.lower() == 'unassigned' or level not in {'Fellow', 'Steward', 'Staff'}:
+                raise ValueError(f"{row['ID']}: person assignment requires a name and valid engagement level")
+            identity = (name, level)
+            if person_id in people and people[person_id] != identity:
+                raise ValueError(f"{person_id}: conflicting person name or engagement level")
+            people[person_id] = identity
     ownership, successors = {}, {}
     for row in data['relationships']:
         source, target, kind = row['From ID'], row['To ID'], row['Relationship']

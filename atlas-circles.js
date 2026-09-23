@@ -80,6 +80,20 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     });
   }
   host.append(nav);
+  // More than one root circle exists (e.g. Berkeley Chapter, independent of
+  // Sapiens First Global) — surface a picker right under the breadcrumbs so
+  // every root stays obviously reachable, not just technically parentless
+  // and buried below the chart.
+  if (roots.length > 1) {
+    const picker = html('nav'); picker.className = 'atlas-root-picker'; picker.setAttribute('aria-label', 'Root circles');
+    picker.append(html('span', 'Root circles:', 'atlas-root-picker-label'));
+    roots.forEach(node => {
+      const a = recordLink(node.row);
+      if (chain[0] === node) a.setAttribute('aria-current', 'page');
+      picker.append(a);
+    });
+    host.append(picker);
+  }
   if (records.some(row => row.ID === selected && row.Status === 'Retired')) {
     host.append(html('p', 'This record is retired. Its details and succession history remain available; the map shows the current organization.', 'atlas-circle-hint'));
   }
@@ -220,10 +234,6 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     focus.children.forEach(child => { const li = html('li'); li.append(recordLink(child.row), html('span', ` · ${child.row.Type}`)); list.append(li); });
     children.append(list); host.append(children);
   } else host.append(html('p', 'No root circle is recorded yet. Use the table to review the governance records.'));
-  if (roots.length > 1) {
-    host.append(html('h3', 'Root circles')); const list = html('ul');
-    roots.forEach(node => { const li = html('li'); li.append(recordLink(node.row)); list.append(li); }); host.append(list);
-  }
   if (unplaced.length) {
     const section = html('details'); section.className = 'atlas-unplaced';
     const summary = html('summary');

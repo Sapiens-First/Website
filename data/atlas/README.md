@@ -3,7 +3,7 @@
 Edit these files to maintain the organization. No Google Drive connection or spreadsheet is used.
 
 - `domains.csv`: mission, pillars, programs, domains/products, objectives, and projects. Each row has a stable `D-...` ID, Name, Type, Purpose, Parent ID, and Status. Extra columns appear in record details.
-- `governance.csv`: roles and circles, identified by `G-...`, with their purpose, parent circle, accountabilities, privileges, scope, and current Lead Link label. An optional `Person ID` column is also present for future person-record linking; see "People and assignees" below.
+- `governance.csv`: roles and circles, identified by `G-...`, with their purpose, parent circle, accountabilities, privileges, scope, and current Lead Link label. `Person ID`, `Engagement level`, and `Assignment basis` identify and describe the person currently energizing each role; see "People" below.
 - `relationships.csv`: ownership, strategic contributions, and succession. Each fact is stored once, with a stable `R-...` ID, From ID, Relationship, To ID, Valid from, Valid until, and Notes.
 
 Use an editor with CSV support or a spreadsheet program to edit the CSVs. Quote cells containing commas or newlines. Save UTF-8 and retain the required headers. Do not use names or row numbers as foreign keys.
@@ -80,16 +80,18 @@ Switch Governance to Circles to explore the hierarchy visually. Parent Circle ID
 
 When a real privilege grant is eventually documented, record it as short, semicolon-separated statements in the same style already used for `Accountabilities`, for example: `Publish/edit live site content; Manage DNS and hosting credentials`. No schema or code change is needed to display it: the record-detail panel already renders any non-blank column generically (`fieldsList()` in `atlas.js`), the same path used for `Accountabilities` and `Scope` today. A blank cell continues to render as "Not documented."
 
-## People and assignees
+## People
 
-Today every role or circle's incumbent is recorded only as free text in `Lead Link` — a name, `Unassigned`, or blank for "not recorded." That field is unchanged by this section and remains the source of truth.
+People is not a separately maintained list. The `/atlas#people` tab is a live projection of `governance.csv`, grouped by `Person ID` — there is no `people.csv` and none is planned; adding one would create a second, driftable source of truth for facts governance already carries.
 
-`governance.csv` also carries an optional `Person ID` column, blank on every row. It exists as forward-looking plumbing for a future `people.csv` (not yet created) that would hold stable `P-...` person records — the same pattern `D-...` and `G-...` IDs already use — kept distinct from any single role, so one person could eventually be linked from several roles/circles without repeating their name as text in each one. This is additive and optional:
+- `Person ID` (`P-123`) is a stable identity, independent of the public display name in `Lead Link`. Grouping by name would be wrong: two current Fellows both display the public label "Al" (see below) but are different people and must never be merged. A person can hold several roles/circles — e.g. one Fellow currently holds both Knowledge Base and Knowledge Management System Steward — and all of them roll up to one People card via a shared `Person ID`.
+- `Engagement level` records one of `Fellow`, `Steward`, or `Staff`. Rohan is the sole `Staff` and the default assignee for roles/circles with no other named contributor. Every other currently-named contributor is a `Fellow`. There are no current `Steward`s: Holacracy Steward status requires three months as a Fellow *and* graduation, and is never auto-promoted from tenure alone — advancing someone to Steward is a deliberate, explicit edit, not something the build infers.
+- `Assignment basis` is a short free-text note on how the assignment was made (e.g. "User-directed default assignment"), for auditability — it carries no computed meaning.
+- Only the first two letters of a Fellow's first name are used as their public `Lead Link` label (e.g. "Alex" and "Alejandra" both display "Al"). This is why grouping by `Person ID` rather than by name matters: same-label Fellows stay distinct people with their own roles, disambiguated in the UI by listing one of their role names alongside the shared label. Staff (Rohan) is not abbreviated.
+- Retired/completed governance assignments never appear on a People card — only an active current assignment counts as "currently energizing" a role.
+- The build enforces two consistency rules: engagement level requires a `Person ID` (not the reverse — a `Person ID` with no name/level is rejected too), and repeated rows for the same `Person ID` must agree on name and engagement level. Distinct `Person ID`s may still share a display label.
 
-- `Person ID`, when present, is format-checked as `P-123` by `python3 build.py`. It is not yet resolved against a `people.csv`, because that file does not exist; no referential-integrity check is possible until it does.
-- Leave `Person ID` blank until stable IDs and a reviewed person mapping are actually adopted (see `plan.md`, "Future work": stable IDs, reviewed domain-to-role mappings, and assignees are all still open).
-- `Lead Link` keeps working exactly as it does today for every row, whether or not `Person ID` is populated. Nothing about existing data needs to change or migrate.
-- Do not create `people.csv` or assign real people's `Person ID` values without an explicit decision to formalize that data; this convention documents the extension point, it does not populate it.
+Test the grouping logic with `node scripts/tests/atlas-people.cjs` and the rendered tab with `python3 scripts/tests/atlas-people-browser.py`.
 
 ## Work-map refinement (2026-09-23)
 
@@ -104,3 +106,16 @@ The anchor circle G-001 is named Sapiens First Global. Its overview renders only
 Meta (G-041) contains Vision & Strategy and Finance & Fundraising. Chapter Network remains a circle for its planned growth. Five single-role wrappers were retired and consolidated into continuing roles: G-003 → G-002, G-012 → G-033, G-014 → G-026, G-015 → G-030, and G-018 → G-031. Their recorded purpose, accountabilities, scope, privileges, and assignments were retained on the continuing role. Existing ownership links remain unchanged; dated succeeds relationships record the transitions. Retired records remain available via stable URLs and the table; the live circle map excludes them.
 
 The same rule also retires Tech (G-036), which contained only Knowledge Base after that merge. G-030 continues directly within Sapiens First Global; a sixth succession link records this step.
+
+### Governance and People restructuring (2026-09-23, later revision)
+
+Later the same day, explicit user direction superseded several of the automatic decisions above:
+
+- **Tech is restored.** The automatic singleton-consolidation rule above was overridden: Tech (G-036) is active again as its own circle, now containing House Party Fundraising Operations, Knowledge Management System Steward, and Membership Systems. `R-032` (the succession that retired it) is kept on file, annotated as reversed, rather than deleted — see its Notes in `relationships.csv`.
+- **Chapter Network is retired, not renamed.** It does not become Berkeley. Berkeley Chapter (`G-042`) is a new, separate root circle with no `Parent Circle ID`, outside Sapiens First Global entirely — a local chapter, not a rename of the worldwide chapter-support function. `/atlas#governance/circles` lists every root circle (Sapiens First Global and Berkeley Chapter) when there is more than one, so Berkeley stays discoverable rather than merely technically parentless.
+- **The Stop 1984 subcircle is removed.** Stop 1984! (`G-008`) is retired; the Stop 1984 CA Strategist and other campaign roles sit directly in Advocacy.
+- **Newspaper consolidates to one role.** The Newspaper circle is retired; Newspaper Editor-in-Chief (`G-034`) sits directly under Community.
+- **Meta is renamed DNA.** Same ID (`G-041`), new name. Social Media Manager (`G-033`) now sits in Media, not DNA.
+- **People is now explicit and public.** See "People" above. This supersedes the earlier "format-only, not yet populated" description of `Person ID` in prior revisions of this file.
+
+As elsewhere in this register, none of this is destructive: retired records (`G-011` Chapter Network, `G-008` Stop 1984!, `G-016` Newspaper, and others) keep their rows, remain addressable by stable URL, and stay out of the live circle map only because it excludes `Retired` status.

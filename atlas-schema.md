@@ -38,11 +38,11 @@ Record pages expose current ownership, parent ancestry, children, and relationsh
 
 The build rejects duplicate or invalid IDs, broken references, invalid types/statuses/dates, hierarchy and succession cycles, invalid relationship directions, and overlapping ownership.
 
-The migration retained 21 work items and 20 defined governance entries, plus 15 explicitly named owner roles whose governance definitions were missing. Those roles remain Needs definition, not inferred equivalents of similarly named circles. The mixed ownership claim on 1-1s remains visible and unresolved.
+The migration retained 21 work items and 20 defined governance entries, plus 15 explicitly named owner roles whose governance definitions were missing. Those roles remain Needs definition, not inferred equivalents of similarly named circles. The mixed ownership claim on 1-1s (D-021) has since been resolved with an explicit current responsible role; see its Ownership note.
 
 Missing privileges are displayed as undocumented. This register describes rights; it does not provision actual system access.
 
-Separate People records and dated role assignments are future work. Current Lead Link values remain as supplied. Dated relationships preserve structural transitions; full historical versions of every name, purpose, and parent are not implemented. Git tracks edits to the files.
+People are not a separate record type or file: `/atlas#people` groups `governance.csv` rows by the stable `Person ID` column (never by display name — see "People" in `data/atlas/README.md` for why that distinction matters, including same-label Fellows who must stay distinct). Current Lead Link values remain the public display source; `Person ID` plus `Engagement level` identify who that label refers to. Dated relationships preserve structural transitions; full historical versions of every name, purpose, and parent are not implemented. Git tracks edits to the files.
 
 ## Holacracy default authority and coverage
 

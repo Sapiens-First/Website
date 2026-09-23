@@ -19,7 +19,7 @@ D-017,Social Media,Product/Service,,"People encounter, follow, and share the mov
 D-018,Newspaper,Product/Service,,"Members stay informed, connected, and engaged.",D-036,,Active,In Progress,,,"Recurring sections, submission process, editorial workflow",Members & movement readers,Builds durable voice; low-barrier way for Fellows to contribute writing,,Missing — Jan launch target,
 D-019,Start a Circle,Product/Service,,Members can easily start local groups.,D-006,,Planned,Proposed,,,"Constitution, lifecycle model, Discord architecture, leader onboarding",Local organizers starting a chapter,Lets the movement scale to hundreds of chapters without a central bottleneck,,Missing,
 D-020,General Meetings,Product/Service,,Recurring member-facing convening (not a Holacracy governance meeting),D-001,,Active,In Progress,,,"Recurring cadence, prepped content/questions, breakout rooms, Discord announcement","Members & supporters, all engagement levels",Regular touchpoint that builds belonging and surfaces org news,,"Partial — steps exist in Active Projects, not written up",
-D-021,1-1s,Product/Service,,Relational check-ins outside formal governance process,D-001,,Active,In Progress,,,"Regular founder/lead check-ins, onboarding, mentorship","Fellows, new members, prospective leaders/donors",High-touch trust-building that async channels can't replicate,,Missing,Needs clarification: Vision Steward / relevant Circle Lead
+D-021,1-1s,Product/Service,,Relational check-ins outside formal governance process,D-001,,Active,In Progress,,,"Regular founder/lead check-ins, onboarding, mentorship","Fellows, new members, prospective leaders/donors",High-touch trust-building that async channels can't replicate,,Missing,Responsibility assigned to Fellowship Coordinator under the user-directed default.
 D-022,Freeze AI Campaign,Product/Service,,,D-033,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified.
 D-023,No Killer Robots,Product/Service,,Regulate deadly autonomous weapons.,D-033,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified.
 D-024,Stop 1984! Background Research,Project,,,D-005,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037).
@@ -27,9 +27,9 @@ D-025,Freeze AI Background Research,Project,,,D-022,,Needs definition,,,,,,,,,Ad
 D-026,Stop 1984! Asks,Project,,,D-005,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038).
 D-027,Freeze AI Asks,Project,,,D-022,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038).
 D-028,No Killer Robots Policy,Project,,,D-023,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by No Killer Robots Owner (G-039).
-D-029,Campaign Strategy,Project,,,D-034,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Campaign Strategist (G-040).
-D-030,Stop 1984! Campaign Design,Project,,,D-005,G-004,Needs definition,,,,,,,,,"Added 2026-09-22 per governance restructuring; held undelegated by Media Circle (G-004), no specific role named."
-D-031,Meta,Pillar,,"Movement has a vision, strategy, and financial support.",D-001,,Needs definition,,,,,,,,,
+D-029,Stop 1984 CA Strategic Plan,Project,,A clear California campaign strategy sequences winnable action.,D-005,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Campaign Strategist (G-040).
+D-030,Stop 1984! Campaign Design,Project,,Campaign organizers have reusable Stop 1984 media resources.,D-005,G-004,Needs definition,,,,,,,,,"Added 2026-09-22 per governance restructuring; held undelegated by Media Circle (G-004), no specific role named."
+D-031,DNA,Pillar,,"Movement has a vision, strategy, and financial support.",D-001,,Needs definition,,,,,,,,,
 D-032,Vision & Strategy,Program,,Movement has a clear vision and strategy.,D-031,,Needs definition,,,,,,,,,
 D-033,Campaign Creation,Program,,Build priority campaigns.,D-002,,Needs definition,,,,,,,,,
 D-034,Campaign Support,Program,,Campaigns have what they need to succeed.,D-002,,Needs definition,,,,,,,,,
@@ -40,3 +40,4 @@ D-038,Development,Program,,Members are empowered to take over projects and domai
 D-039,Governance,Program,,Clear structure and roles for all Fellows & Staff.,D-004,,Needs definition,,,,,,,,,
 D-040,Role Management,Product/Service,,Fellows hold domains that suit their strengths.,D-039,,Needs definition,,,,,,,,,
 D-041,Project Management,Product/Service,,Teams break down and strategically prioritize projects within each domain.,D-039,,Needs definition,,,,,,,,,
+D-042,Knowledge Management System,Product/Service,,Reliable infrastructure makes movement knowledge accessible and maintainable.,D-011,G-036,Active,,,,,,,,,

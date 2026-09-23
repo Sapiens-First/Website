@@ -54,6 +54,10 @@
     const result = responsibility(row);
     const block = el('div');
     block.append(linkedList(result.ids));
+    result.ids.forEach(id => {
+      const role = index.get(id)?.row;
+      if (role?.['Person ID']) { const note = el('p', 'Energized by ', 'atlas-coverage'); note.append(assignee(role)); block.append(note); }
+    });
     const descriptions = {
       undelegated: 'Held by this circle; not delegated to a role.',
       unfilled: 'The role retains responsibility for this work. Circle Lead coverage applies while the role is unfilled.',
@@ -72,8 +76,15 @@
     }
     return block;
   }
+  function assignee(row) {
+    const person = el('span');
+    if (!row['Person ID']) { person.textContent = row['Lead Link'] || 'Not recorded'; return person; }
+    const a = el('a', row['Lead Link']); a.href = `#people/${row['Person ID']}`;
+    person.append(a, el('span', ` · ${row['Engagement level']}`));
+    return person;
+  }
   function extraFields(row) {
-    return Object.keys(row).filter(key => !['Name', 'Type', 'Purpose', 'Parent ID', 'Parent Circle ID', 'Status'].includes(key));
+    return Object.keys(row).filter(key => !['Name', 'Type', 'Purpose', 'Parent ID', 'Parent Circle ID', 'Status', 'Lead Link', 'Person ID', 'Engagement level'].includes(key));
   }
   function fieldsList(row, fields) {
     const dl = el('dl');
@@ -117,6 +128,7 @@
     if (group === 'governance' && row.Type === 'Circle') {
       panel.append(el('p', 'Includes explicitly owned domains and undelegated domains held by this circle.', 'atlas-coverage'));
     }
+    if (group === 'governance' && row.Status !== 'Retired') panel.append(el('h3', 'Energized by'), assignee(row));
     panel.append(fieldsList(row, extraFields(row)));
     const children = (data[group] || []).filter(child => child[views[group].parent] === row.ID);
     if (children.length) panel.append(el('h3', 'Contains'), linkedList(children.map(child => child.ID)));
@@ -140,6 +152,21 @@
     }
   }
   function render() {
+    const peopleMode = current === 'people';
+    document.querySelector('#atlas-people').hidden = !peopleMode;
+    document.querySelector('#atlas-people-note').hidden = !peopleMode;
+    if (peopleMode) {
+      document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === current)));
+      ['#atlas-format', '#atlas-filter-label', '#atlas-circles', '#atlas-tree', '#atlas-results', '#atlas-record', '#atlas-error'].forEach(selector => { document.querySelector(selector).hidden = true; });
+      document.querySelector('#view-title').textContent = 'People';
+      document.querySelector('#view-description').textContent = 'Meet the people energizing our roles. Choose a role to see its purpose, accountabilities, and owned work. Fellow names use two-letter public labels.';
+      const source = document.querySelector('.atlas-source'); source.href = 'data/atlas/governance.csv'; source.textContent = 'Download governance CSV ↓';
+      search.disabled = !Array.isArray(data?.governance);
+      search.placeholder = 'Search people or roles…';
+      const counts = renderAtlasPeople(document.querySelector('#atlas-people'), data?.governance || [], search.value.trim().toLocaleLowerCase(), selected);
+      status.textContent = data?.governance ? `${counts.count} of ${counts.total} people. Assignments come from the governance records.` : 'Atlas data unavailable.';
+      return;
+    }
     const view = views[current];
     const valid = Array.isArray(data?.[current]);
     const circleMode = current === 'governance' && format === 'circles';
@@ -215,18 +242,21 @@
     if (location.hash === lastHash) return;
     lastHash = location.hash;
     const parts = location.hash.slice(1).split('/');
-    current = parts[0] === 'governance' ? 'governance' : 'domains';
+    current = parts[0] === 'people' ? 'people' : parts[0] === 'governance' ? 'governance' : 'domains';
     // Tree (Domains) and Circles (Governance) are the default graphical view;
     // Table is reached via an explicit /table/ segment. /circles/ and /tree/
     // segments are still accepted for old links/bookmarks, but redundant with
     // the default — either way, an explicit marker moves the ID one slot over.
     const marker = ['table', 'circles', 'tree'].includes(parts[1]) ? parts[1] : null;
-    format = marker || (current === 'governance' ? 'circles' : 'tree');
+    format = current === 'people' ? 'people' : marker || (current === 'governance' ? 'circles' : 'tree');
     selected = (marker ? parts[2] : parts[1]) || '';
     if (index.has(selected)) current = index.get(selected).group;
     search.value = '';
     render();
-    if (focus && selected) document.querySelector('#record-title')?.focus();
+    if (focus && selected) {
+      if (current === 'people') [...document.querySelectorAll('[data-person-id]')].find(card => card.dataset.personId === selected)?.focus();
+      else document.querySelector('#record-title')?.focus();
+    }
   }
   const mission = data?.domains?.find(row => row.Type === 'Mission');
   if (mission) { document.querySelector('#mission-text').textContent = mission.Purpose || mission.Name; document.querySelector('.atlas-mission').hidden = false; }

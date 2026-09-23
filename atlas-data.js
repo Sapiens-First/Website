@@ -398,7 +398,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "High-touch trust-building that async channels can't replicate",
       "SOP URL": "",
       "SOP Notes": "Missing",
-      "Ownership note": "Needs clarification: Vision Steward / relevant Circle Lead"
+      "Ownership note": "Responsibility assigned to Fellowship Coordinator under the user-directed default."
     },
     {
       "ID": "D-022",
@@ -535,11 +535,11 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "D-029",
-      "Name": "Campaign Strategy",
+      "Name": "Stop 1984 CA Strategic Plan",
       "Type": "Project",
       "Program category": "",
-      "Purpose": "",
-      "Parent ID": "D-034",
+      "Purpose": "A clear California campaign strategy sequences winnable action.",
+      "Parent ID": "D-005",
       "Circle ID": "",
       "Status": "Needs definition",
       "Stage": "",
@@ -557,7 +557,7 @@ window.ATLAS_DATA = {
       "Name": "Stop 1984! Campaign Design",
       "Type": "Project",
       "Program category": "",
-      "Purpose": "",
+      "Purpose": "Campaign organizers have reusable Stop 1984 media resources.",
       "Parent ID": "D-005",
       "Circle ID": "G-004",
       "Status": "Needs definition",
@@ -573,7 +573,7 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "D-031",
-      "Name": "Meta",
+      "Name": "DNA",
       "Type": "Pillar",
       "Program category": "",
       "Purpose": "Movement has a vision, strategy, and financial support.",
@@ -779,6 +779,25 @@ window.ATLAS_DATA = {
       "SOP URL": "",
       "SOP Notes": "",
       "Ownership note": ""
+    },
+    {
+      "ID": "D-042",
+      "Name": "Knowledge Management System",
+      "Type": "Product/Service",
+      "Program category": "",
+      "Purpose": "Reliable infrastructure makes movement knowledge accessible and maintainable.",
+      "Parent ID": "D-011",
+      "Circle ID": "G-036",
+      "Status": "Active",
+      "Stage": "",
+      "Started on": "",
+      "Ended on": "",
+      "Key Features": "",
+      "User": "",
+      "Value Proposition": "",
+      "SOP URL": "",
+      "SOP Notes": "",
+      "Ownership note": ""
     }
   ],
   "governance": [
@@ -787,14 +806,16 @@ window.ATLAS_DATA = {
       "Name": "Sapiens First Global",
       "Type": "Circle",
       "Parent Circle ID": "",
-      "Purpose": "A world where AI serves the common good",
-      "Accountabilities": "",
+      "Purpose": "Revolutionary social and political change around AI governance.",
+      "Accountabilities": "Maintaining movement-wide direction; coordinating shared resources and organizational records; supporting the work of its circles",
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
-      "Person ID": "",
-      "Definition note": ""
+      "Person ID": "P-001",
+      "Definition note": "",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-002",
@@ -807,8 +828,10 @@ window.ATLAS_DATA = {
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
-      "Person ID": "",
-      "Definition note": "Parent circle changed from General Company Circle (G-001) to Vision & Strategy Circle (G-003) per 2026-09-22 governance restructuring. Merged with G-003 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper."
+      "Person ID": "P-001",
+      "Definition note": "Parent circle changed from General Company Circle (G-001) to Vision & Strategy Circle (G-003) per 2026-09-22 governance restructuring. Merged with G-003 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-003",
@@ -822,7 +845,9 @@ window.ATLAS_DATA = {
       "Status": "Retired",
       "Lead Link": "Rohan",
       "Person ID": "",
-      "Definition note": "Renamed from Strategy Circle on 2026-09-22. Retired 2026-09-23: single-role circle consolidated into G-002; see the dated succeeds relationship."
+      "Definition note": "Renamed from Strategy Circle on 2026-09-22. Retired 2026-09-23: single-role circle consolidated into G-002; see the dated succeeds relationship.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-004",
@@ -834,9 +859,11 @@ window.ATLAS_DATA = {
       "Scope": "Brand, external messaging, website content",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Renamed from Communications & Narrative Circle on 2026-09-22."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Renamed from Communications & Narrative Circle on 2026-09-22.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-005",
@@ -848,9 +875,11 @@ window.ATLAS_DATA = {
       "Scope": "Public statements, media interviews",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-006",
@@ -862,9 +891,11 @@ window.ATLAS_DATA = {
       "Scope": "Site content, structure, hosting",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-007",
@@ -876,9 +907,11 @@ window.ATLAS_DATA = {
       "Scope": "Campaign selection, policy asks",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-008",
@@ -889,24 +922,28 @@ window.ATLAS_DATA = {
       "Accountabilities": "Research library; policy platform; city-by-city strategic plan; media resources",
       "Scope": "Campaign research, asks, media, strategic plan",
       "Privileges": "",
-      "Status": "Active",
-      "Lead Link": "Alex",
+      "Status": "Retired",
+      "Lead Link": "Al",
       "Person ID": "",
-      "Definition note": ""
+      "Definition note": " Retired 2026-09-23: Campaign coordination is carried directly by roles in Advocacy.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-009",
-      "Name": "California Strategy",
+      "Name": "Stop 1984 CA Strategist",
       "Type": "Role",
-      "Parent Circle ID": "G-008",
-      "Purpose": "Sequence the CA campaign for winnable early victories",
-      "Accountabilities": "Ranking target cities; mapping stakeholders; drafting city playbooks",
-      "Scope": "Priority-city rankings, coalition map",
+      "Parent Circle ID": "G-007",
+      "Purpose": "A focused California strategy advances the campaign to end AI-enabled mass surveillance.",
+      "Accountabilities": "Mapping decision-makers and coalition opportunities; prioritizing California cities and campaign milestones; maintaining the campaign strategic plan; coordinating research, policy asks, and organizing work",
+      "Scope": "California campaign strategy and city playbooks",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Alex",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Al",
+      "Person ID": "P-004",
+      "Definition note": " Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-010",
@@ -918,9 +955,11 @@ window.ATLAS_DATA = {
       "Scope": "Chapter model, member engagement, social content",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-011",
@@ -931,10 +970,12 @@ window.ATLAS_DATA = {
       "Accountabilities": "Starter kit; leader vetting; dispute handling; chapter lifecycle management",
       "Scope": "Chapter constitution, Discord architecture",
       "Privileges": "",
-      "Status": "Active",
+      "Status": "Retired",
       "Lead Link": "Unassigned",
       "Person ID": "",
-      "Definition note": ""
+      "Definition note": " Retired 2026-09-23: Chapter Network removed; Berkeley Chapter is a separate root circle, not its organizational successor.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-012",
@@ -948,7 +989,9 @@ window.ATLAS_DATA = {
       "Status": "Retired",
       "Lead Link": "Unassigned",
       "Person ID": "",
-      "Definition note": " Retired 2026-09-23: single-role circle consolidated into G-033; see the dated succeeds relationship."
+      "Definition note": " Retired 2026-09-23: single-role circle consolidated into G-033; see the dated succeeds relationship.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-013",
@@ -960,9 +1003,11 @@ window.ATLAS_DATA = {
       "Scope": "Fellowship program, leadership curriculum",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-014",
@@ -976,7 +1021,9 @@ window.ATLAS_DATA = {
       "Status": "Retired",
       "Lead Link": "Unassigned",
       "Person ID": "",
-      "Definition note": " Retired 2026-09-23: single-role circle consolidated into G-026; see the dated succeeds relationship."
+      "Definition note": " Retired 2026-09-23: single-role circle consolidated into G-026; see the dated succeeds relationship.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-015",
@@ -988,9 +1035,11 @@ window.ATLAS_DATA = {
       "Scope": "Wiki.js, information architecture",
       "Privileges": "",
       "Status": "Retired",
-      "Lead Link": "Damian",
+      "Lead Link": "Da",
       "Person ID": "",
-      "Definition note": "Parent circle changed from Empowerment Circle (G-013) to Tech Circle (G-036) per 2026-09-22 governance restructuring: Tech owns knowledge management. Retired 2026-09-23: single-role circle consolidated into G-030; see the dated succeeds relationship."
+      "Definition note": "Parent circle changed from Empowerment Circle (G-013) to Tech Circle (G-036) per 2026-09-22 governance restructuring: Tech owns knowledge management. Retired 2026-09-23: single-role circle consolidated into G-030; see the dated succeeds relationship.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-016",
@@ -1001,10 +1050,12 @@ window.ATLAS_DATA = {
       "Accountabilities": "Submissions process; editorial standards; production cadence",
       "Scope": "Editorial voice, sections, production",
       "Privileges": "",
-      "Status": "Active",
-      "Lead Link": "Victoria",
+      "Status": "Retired",
+      "Lead Link": "Vi",
       "Person ID": "",
-      "Definition note": ""
+      "Definition note": " Retired 2026-09-23: Newspaper is energized by Newspaper Editor-in-Chief (G-034) within Community.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-017",
@@ -1016,9 +1067,11 @@ window.ATLAS_DATA = {
       "Scope": "CRM, automations, legal/compliance, finance",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Renamed from Operations & Infrastructure Circle on 2026-09-22."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Renamed from Operations & Infrastructure Circle on 2026-09-22.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-018",
@@ -1030,9 +1083,11 @@ window.ATLAS_DATA = {
       "Scope": "Stripe, CRM, Discord integration",
       "Privileges": "",
       "Status": "Retired",
-      "Lead Link": "Baisayan",
+      "Lead Link": "Ba",
       "Person ID": "",
-      "Definition note": " Retired 2026-09-23: single-role circle consolidated into G-031; see the dated succeeds relationship."
+      "Definition note": " Retired 2026-09-23: single-role circle consolidated into G-031; see the dated succeeds relationship.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-019",
@@ -1044,65 +1099,75 @@ window.ATLAS_DATA = {
       "Scope": "Major gifts, foundations, dues, events",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Renamed from Fundraising & Development Circle on 2026-09-22."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Renamed from Fundraising & Development Circle on 2026-09-22.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-020",
-      "Name": "House Party Program",
+      "Name": "House Party Fundraising Operations",
       "Type": "Role",
-      "Parent Circle ID": "G-019",
-      "Purpose": "Turn supporters into fundraising hosts",
-      "Accountabilities": "Host recruitment; kit iteration; donation tracking",
-      "Scope": "Host kit, event follow-up automation",
+      "Parent Circle ID": "G-036",
+      "Purpose": "Hosts have reliable tools and processes for running effective fundraising gatherings.",
+      "Accountabilities": "Maintaining host kits and registration workflows; coordinating donation tracking and follow-up automations; supporting hosts; reviewing operational results with fundraising",
+      "Scope": "House-party systems, host support, and follow-up workflows",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Peter",
-      "Person ID": "",
-      "Definition note": ""
+      "Lead Link": "Pe",
+      "Person ID": "P-010",
+      "Definition note": " Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-021",
       "Name": "Advocacy Circle Lead",
       "Type": "Role",
       "Parent Circle ID": "G-007",
-      "Purpose": "",
-      "Accountabilities": "",
+      "Purpose": "Advocacy efforts have clear priorities, roles, and resources.",
+      "Accountabilities": "Prioritizing advocacy work; maintaining role assignments; allocating available resources; resolving priority conflicts across campaigns",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Advocacy Circle Lead. Parent circle set to Advocacy Circle (G-007): exact name match."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Advocacy Circle Lead. Parent circle set to Advocacy Circle (G-007): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-022",
       "Name": "Community Circle Lead",
       "Type": "Role",
       "Parent Circle ID": "G-010",
-      "Purpose": "",
-      "Accountabilities": "",
+      "Purpose": "People can join, participate, and build lasting local and global community.",
+      "Accountabilities": "Prioritizing community work; coordinating member participation and chapter-support resources; maintaining role assignments; reviewing participation needs",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Community Circle Lead. Parent circle set to Community Circle (G-010): exact name match."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Community Circle Lead. Parent circle set to Community Circle (G-010): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-023",
       "Name": "Empowerment Circle Lead",
       "Type": "Role",
       "Parent Circle ID": "G-013",
-      "Purpose": "",
-      "Accountabilities": "",
+      "Purpose": "Members develop the knowledge and leadership to take responsibility for movement work.",
+      "Accountabilities": "Prioritizing learning and development; coordinating training and fellowship support; maintaining role assignments; identifying capacity gaps",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Empowerment Circle Lead. Parent circle set to Empowerment Circle (G-013): exact name match."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Empowerment Circle Lead. Parent circle set to Empowerment Circle (G-013): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-024",
@@ -1113,10 +1178,12 @@ window.ATLAS_DATA = {
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
+      "Status": "Retired",
       "Lead Link": "",
       "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Stop 1984! Circle Lead (Alex). Parent circle set to Stop 1984! Circle (G-008): exact name match."
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Stop 1984! Circle Lead (Al). Parent circle set to Stop 1984! Circle (G-008): exact name match. Retired 2026-09-23: Stop 1984 campaign responsibility consolidated into Stop 1984 CA Strategist (G-009).",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-025",
@@ -1127,94 +1194,108 @@ window.ATLAS_DATA = {
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
+      "Status": "Retired",
       "Lead Link": "",
       "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Chapter Network Circle Lead. Parent circle set to Chapter Network Circle (G-011): exact name match."
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Chapter Network Circle Lead. Parent circle set to Chapter Network Circle (G-011): exact name match. Retired 2026-09-23: Chapter Network role removed; continuing chapter-support work belongs to Community Circle Lead.",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-026",
-      "Name": "Fellowship Program",
+      "Name": "Fellowship Coordinator",
       "Type": "Role",
       "Parent Circle ID": "G-013",
-      "Purpose": "Run the Fellowship end-to-end",
-      "Accountabilities": "Applicant funnel; project matching; check-ins; offboarding",
-      "Scope": "Recruitment, matching, cohort management",
+      "Purpose": "Fellows contribute meaningfully and develop the capacity to own work.",
+      "Accountabilities": "Coordinating recruitment and onboarding; matching Fellows to roles and projects; conducting check-ins; supporting program expansion; coordinating graduation reviews after three months",
+      "Scope": "Fellowship operations, role matching, and graduation process",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fellowship Program Lead. Parent circle set to Fellowship Program Circle (G-014): matching name. Merged with G-014 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fellowship Program Lead. Parent circle set to Fellowship Program Circle (G-014): matching name. Merged with G-014 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-027",
-      "Name": "Marketing & Communications Circle Lead",
+      "Name": "Communications Coordinator",
       "Type": "Role",
-      "Parent Circle ID": "",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Parent Circle ID": "G-004",
+      "Purpose": "People understand the movement and receive coherent, useful communications.",
+      "Accountabilities": "Coordinating messaging across channels; maintaining email and SMS plans; scheduling participant communications; collecting feedback and reviewing engagement",
+      "Scope": "Cross-channel communications planning",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Marketing & Communications Circle Lead. No governance circle named \"Marketing & Communications\" exists (closest is Communications & Narrative Circle, G-004); left unassigned pending explicit reconciliation, per the Website/Marketing & Communications naming mismatch already noted for D-013."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Marketing & Communications Circle Lead. No governance circle named \"Marketing & Communications\" exists (closest is Communications & Narrative Circle, G-004); left unassigned pending explicit reconciliation, per the Website/Marketing & Communications naming mismatch already noted for D-013. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-028",
-      "Name": "Fundraising & Development Circle Lead",
+      "Name": "Finance & Fundraising Lead",
       "Type": "Role",
       "Parent Circle ID": "G-019",
-      "Purpose": "",
-      "Accountabilities": "",
+      "Purpose": "The movement has dependable financial support for its strategy.",
+      "Accountabilities": "Maintaining fundraising priorities and the funding pipeline; coordinating financial planning and reporting; reviewing resource needs; supporting fundraising initiatives",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead. Parent circle set to Fundraising & Development Circle (G-019): exact name match."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead. Parent circle set to Fundraising & Development Circle (G-019): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-029",
-      "Name": "Operations & Infrastructure Circle Lead",
+      "Name": "Operations Lead",
       "Type": "Role",
       "Parent Circle ID": "G-017",
-      "Purpose": "",
-      "Accountabilities": "",
+      "Purpose": "Shared operational processes let the movement work reliably.",
+      "Accountabilities": "Maintaining operating processes and records; coordinating budget and administrative work; identifying operational bottlenecks; supporting clear project and role management",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-030",
       "Name": "Knowledge Base",
       "Type": "Role",
-      "Parent Circle ID": "G-001",
-      "Purpose": "Centralize organizational knowledge",
-      "Accountabilities": "Content ownership rules; permissions; keeping content current",
-      "Scope": "Wiki.js, information architecture",
+      "Parent Circle ID": "G-013",
+      "Purpose": "Members can find clear, current resources explaining why and how to participate.",
+      "Accountabilities": "Curating the Resource Center; organizing and reviewing guidance; coordinating content contributions; identifying missing or outdated knowledge",
+      "Scope": "Knowledge content, navigation, and editorial organization",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Damian",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Damian). Parent circle set to Knowledge Base Circle (G-015): matching name, corroborated by Damian also being its recorded Lead Link. Merged with G-015 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Tech (G-036) also consolidated on 2026-09-23 after the Knowledge Base merge left it with only this role; no additional definition or assignment was inferred."
+      "Lead Link": "Da",
+      "Person ID": "P-005",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Da). Parent circle set to Knowledge Base Circle (G-015): matching name, corroborated by Da also being its recorded Lead Link. Merged with G-015 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Tech (G-036) also consolidated on 2026-09-23 after the Knowledge Base merge left it with only this role; no additional definition or assignment was inferred. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-031",
       "Name": "Membership Systems",
       "Type": "Role",
-      "Parent Circle ID": "G-017",
-      "Purpose": "Automate the member lifecycle",
-      "Accountabilities": "Onboarding/offboarding triggers; failure handling; privacy/backups",
-      "Scope": "Stripe, CRM, Discord integration",
+      "Parent Circle ID": "G-036",
+      "Purpose": "Supporters can join and participate through reliable membership workflows.",
+      "Accountabilities": "Maintaining registration and onboarding automations; connecting payment, CRM, and community systems; monitoring failures; maintaining documented data and access practices",
+      "Scope": "Membership integrations and lifecycle automation",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Baisayan",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Membership Systems Lead (Baisayan). Parent circle set to Membership Systems Circle (G-018): matching name, corroborated by Baisayan also being its recorded Lead Link. Merged with G-018 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper."
+      "Lead Link": "Ba",
+      "Person ID": "P-008",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Membership Systems Lead (Ba). Parent circle set to Membership Systems Circle (G-018): matching name, corroborated by Ba also being its recorded Lead Link. Merged with G-018 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-032",
@@ -1225,136 +1306,204 @@ window.ATLAS_DATA = {
       "Accountabilities": "",
       "Scope": "",
       "Privileges": "",
-      "Status": "Needs definition",
+      "Status": "Retired",
       "Lead Link": "",
       "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: House Party Program Lead (Peter). Possible duplicate of House Party Program (G-020, Role under G-019, Lead Link Peter); left unassigned pending explicit reconciliation rather than merged."
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: House Party Program Lead (Pe). Possible duplicate of House Party Program (G-020, Role under G-019, Lead Link Pe); left unassigned pending explicit reconciliation rather than merged. Retired 2026-09-23: Duplicate house-party role consolidated into House Party Fundraising Operations (G-020).",
+      "Engagement level": "",
+      "Assignment basis": ""
     },
     {
       "ID": "G-033",
-      "Name": "Digital Presence",
+      "Name": "Social Media Manager",
       "Type": "Role",
-      "Parent Circle ID": "G-010",
-      "Purpose": "Grow reach across social channels",
-      "Accountabilities": "Content production workflow; approval process; channel metrics",
-      "Scope": "Content calendar, scheduling automations",
+      "Parent Circle ID": "G-004",
+      "Purpose": "People encounter, follow, and share the movement through its social channels.",
+      "Accountabilities": "Maintaining the social content calendar; publishing and coordinating channel content; monitoring engagement; improving distribution and channel workflows",
+      "Scope": "Social channels and publishing workflow",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Digital Presence Lead. Parent circle set to Digital Presence Circle (G-012): matching name. Merged with G-012 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Digital Presence Lead. Parent circle set to Digital Presence Circle (G-012): matching name. Merged with G-012 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-034",
-      "Name": "Editor-in-Chief",
+      "Name": "Newspaper Editor-in-Chief",
       "Type": "Role",
-      "Parent Circle ID": "",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Parent Circle ID": "G-010",
+      "Purpose": "The newspaper keeps members informed, connected, and engaged.",
+      "Accountabilities": "Planning issues and publication cadence; soliciting and editing contributions; maintaining editorial standards; coordinating publication and distribution",
+      "Scope": "Newspaper editorial process and production",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Editor-in-Chief (Victoria). Likely belongs under Newspaper Circle (G-016, Lead Link Victoria), but the name itself doesn't reference a circle; left unassigned pending explicit reconciliation."
+      "Status": "Active",
+      "Lead Link": "Vi",
+      "Person ID": "P-009",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Editor-in-Chief (Vi). Likely belongs under Newspaper Circle (G-016, Lead Link Vi), but the name itself doesn't reference a circle; left unassigned pending explicit reconciliation. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-035",
       "Name": "Secretary",
       "Type": "Role",
-      "Parent Circle ID": "",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Parent Circle ID": "G-001",
+      "Purpose": "Organizational records and meeting outcomes remain clear and accessible.",
+      "Accountabilities": "Maintaining governance records; recording decisions and meeting outputs; coordinating general-meeting documentation; keeping published role information current",
+      "Scope": "Organization-wide records and meeting documentation",
       "Privileges": "",
-      "Status": "Needs definition",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary. No corresponding circle name or owner correlation found; left unassigned pending explicit reconciliation."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary. No corresponding circle name or owner correlation found; left unassigned pending explicit reconciliation. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-036",
       "Name": "Tech",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
-      "Purpose": "",
-      "Accountabilities": "",
+      "Purpose": "Reliable tools and automations support the movement’s operations.",
+      "Accountabilities": "Maintaining shared technical systems; coordinating system ownership and improvements; tracking reliability and access needs",
       "Scope": "",
       "Privileges": "",
-      "Status": "Retired",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Added 2026-09-22 as a new top-level circle; takes over Knowledge Base Circle (G-015) from Empowerment. Purpose/Accountabilities/Scope not yet documented. Retired 2026-09-23: after Knowledge Base consolidation, its only child was G-030. The continuing role now sits in Sapiens First Global."
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-22 as a new top-level circle; takes over Knowledge Base Circle (G-015) from Empowerment. Purpose/Accountabilities/Scope not yet documented. Retired 2026-09-23: after Knowledge Base consolidation, its only child was G-030. The continuing role now sits in Sapiens First Global. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-037",
-      "Name": "Background Researcher",
+      "Name": "Stop 1984 Background Researcher",
       "Type": "Role",
       "Parent Circle ID": "G-007",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Purpose": "The campaign has a credible, accessible foundation of historical and policy research.",
+      "Accountabilities": "Gathering and checking source material; maintaining the campaign research brief; answering agreed research questions; sharing findings with strategy and policy roles",
+      "Scope": "Stop 1984 history and background research",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+      "Lead Link": "Ma",
+      "Person ID": "P-002",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-038",
-      "Name": "Policy Ask Creator",
+      "Name": "Stop 1984 Policy Ask Creator",
       "Type": "Role",
       "Parent Circle ID": "G-007",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Purpose": "The campaign communicates specific and well-supported policy asks.",
+      "Accountabilities": "Drafting policy asks; researching policy options and decision-makers; incorporating campaign research and coalition feedback; maintaining clear supporting arguments",
+      "Scope": "Stop 1984 policy asks and supporting briefs",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+      "Lead Link": "Ca",
+      "Person ID": "P-003",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-039",
-      "Name": "No Killer Robots Owner",
+      "Name": "No Killer Robots Campaigner",
       "Type": "Role",
       "Parent Circle ID": "G-007",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Purpose": "Support grows for regulating deadly autonomous weapons.",
+      "Accountabilities": "Developing campaign framing and policy arguments; mapping supporters and audiences; coordinating outreach and campaign materials; reviewing campaign opportunities",
+      "Scope": "No Killer Robots policy and public-support campaign",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+      "Lead Link": "Al",
+      "Person ID": "P-007",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     },
     {
       "ID": "G-040",
-      "Name": "Campaign Strategist",
+      "Name": "Campaign Support Strategist",
       "Type": "Role",
       "Parent Circle ID": "G-007",
-      "Purpose": "",
-      "Accountabilities": "",
-      "Scope": "",
+      "Purpose": "Campaign teams have practical tools and priorities for effective execution.",
+      "Accountabilities": "Maintaining the Campaign Execution Toolkit; helping teams break down and prioritize projects; identifying campaign-support gaps; sharing effective organizing practices",
+      "Scope": "Campaign support methods and execution toolkit",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-22 under Advocacy Circle. Purpose/Accountabilities not yet documented. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-041",
-      "Name": "Meta",
+      "Name": "DNA",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
-      "Purpose": "Movement has a vision, strategy, and financial support.",
-      "Accountabilities": "",
+      "Purpose": "The movement has a coherent direction and the resources to pursue it.",
+      "Accountabilities": "Integrating movement strategy and financial planning; reviewing progress toward organizational goals; maintaining shared priorities",
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "",
-      "Person ID": "",
-      "Definition note": "Created 2026-09-23 to contain Vision & Strategy and Finance & Fundraising; assignment not yet recorded."
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Created 2026-09-23 to contain Vision & Strategy and Finance & Fundraising; assignment not yet recorded. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-042",
+      "Name": "Berkeley Chapter",
+      "Type": "Circle",
+      "Parent Circle ID": "",
+      "Purpose": "A locally rooted Berkeley community advances the movement’s mission.",
+      "Accountabilities": "Organizing local participation and gatherings; developing local organizing capacity; coordinating chapter activities and sharing learning with the wider movement",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": " Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-043",
+      "Name": "Knowledge Management System Steward",
+      "Type": "Role",
+      "Parent Circle ID": "G-036",
+      "Purpose": "The knowledge platform is reliable, usable, and maintainable.",
+      "Accountabilities": "Maintaining the knowledge-management platform and integrations; managing documented access and backup processes; resolving technical issues; supporting content contributors",
+      "Scope": "Knowledge platform configuration and technical maintenance",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Da",
+      "Person ID": "P-005",
+      "Definition note": " Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
+    },
+    {
+      "ID": "G-044",
+      "Name": "Campaign Media Producer",
+      "Type": "Role",
+      "Parent Circle ID": "G-004",
+      "Purpose": "Campaign organizers have clear, usable media resources.",
+      "Accountabilities": "Developing Stop 1984 campaign media resources; adapting research and policy asks into public-facing materials; coordinating visual and editorial consistency; maintaining reusable campaign assets",
+      "Scope": "Campaign media resource development",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Ab",
+      "Person ID": "P-006",
+      "Definition note": " Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Engagement level": "Fellow",
+      "Assignment basis": "User-provided project match"
     }
   ],
   "relationships": [
@@ -1400,7 +1549,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-005",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Imported ownership; start date not recorded."
     },
     {
@@ -1409,7 +1558,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-006",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Imported ownership; start date not recorded."
     },
     {
@@ -1499,7 +1648,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-016",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Imported ownership; start date not recorded."
     },
     {
@@ -1526,7 +1675,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-019",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Imported ownership; start date not recorded."
     },
     {
@@ -1553,7 +1702,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-025",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Added 2026-09-22 per governance restructuring."
     },
     {
@@ -1571,7 +1720,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-027",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Added 2026-09-22 per governance restructuring."
     },
     {
@@ -1589,7 +1738,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-029",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-23",
       "Notes": "Added 2026-09-22 per governance restructuring."
     },
     {
@@ -1644,7 +1793,250 @@ window.ATLAS_DATA = {
       "To ID": "G-036",
       "Valid from": "2026-09-23",
       "Valid until": "",
-      "Notes": "Tech contained only the continuing Knowledge Base role after consolidation; apply the single-role-circle rule recursively."
+      "Notes": "Tech contained only the continuing Knowledge Base role after consolidation; apply the single-role-circle rule recursively. Subsequently reversed by user direction: Tech restored as its own circle on 2026-09-23."
+    },
+    {
+      "ID": "R-033",
+      "From ID": "G-009",
+      "Relationship": "owns",
+      "To ID": "D-005",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-034",
+      "From ID": "G-022",
+      "Relationship": "owns",
+      "To ID": "D-006",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-035",
+      "From ID": "G-020",
+      "Relationship": "owns",
+      "To ID": "D-016",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-036",
+      "From ID": "G-022",
+      "Relationship": "owns",
+      "To ID": "D-019",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-037",
+      "From ID": "G-026",
+      "Relationship": "owns",
+      "To ID": "D-021",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-038",
+      "From ID": "G-021",
+      "Relationship": "owns",
+      "To ID": "D-022",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-039",
+      "From ID": "G-039",
+      "Relationship": "owns",
+      "To ID": "D-023",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-040",
+      "From ID": "G-021",
+      "Relationship": "owns",
+      "To ID": "D-025",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-041",
+      "From ID": "G-021",
+      "Relationship": "owns",
+      "To ID": "D-027",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-042",
+      "From ID": "G-009",
+      "Relationship": "owns",
+      "To ID": "D-029",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-043",
+      "From ID": "G-044",
+      "Relationship": "owns",
+      "To ID": "D-030",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-044",
+      "From ID": "G-002",
+      "Relationship": "owns",
+      "To ID": "D-031",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-045",
+      "From ID": "G-002",
+      "Relationship": "owns",
+      "To ID": "D-032",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-046",
+      "From ID": "G-021",
+      "Relationship": "owns",
+      "To ID": "D-033",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-047",
+      "From ID": "G-040",
+      "Relationship": "owns",
+      "To ID": "D-034",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-048",
+      "From ID": "G-040",
+      "Relationship": "owns",
+      "To ID": "D-035",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-049",
+      "From ID": "G-022",
+      "Relationship": "owns",
+      "To ID": "D-036",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-050",
+      "From ID": "G-030",
+      "Relationship": "owns",
+      "To ID": "D-037",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-051",
+      "From ID": "G-023",
+      "Relationship": "owns",
+      "To ID": "D-038",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-052",
+      "From ID": "G-029",
+      "Relationship": "owns",
+      "To ID": "D-039",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-053",
+      "From ID": "G-026",
+      "Relationship": "owns",
+      "To ID": "D-040",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-054",
+      "From ID": "G-040",
+      "Relationship": "owns",
+      "To ID": "D-041",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-055",
+      "From ID": "G-043",
+      "Relationship": "owns",
+      "To ID": "D-042",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed role responsibility and default assignment refinement."
+    },
+    {
+      "ID": "R-056",
+      "From ID": "G-034",
+      "Relationship": "succeeds",
+      "To ID": "G-016",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed consolidation into a continuing role."
+    },
+    {
+      "ID": "R-057",
+      "From ID": "G-009",
+      "Relationship": "succeeds",
+      "To ID": "G-008",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed consolidation into a continuing role."
+    },
+    {
+      "ID": "R-058",
+      "From ID": "G-009",
+      "Relationship": "succeeds",
+      "To ID": "G-024",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed consolidation into a continuing role."
+    },
+    {
+      "ID": "R-059",
+      "From ID": "G-020",
+      "Relationship": "succeeds",
+      "To ID": "G-032",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "User-directed consolidation into a continuing role."
     }
   ]
 };

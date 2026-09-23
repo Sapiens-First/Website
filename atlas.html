@@ -26,6 +26,7 @@
   <script src="atlas-ownership.js" defer></script>
   <script src="atlas-circles.js" defer></script>
   <script src="atlas-tree.js" defer></script>
+  <script src="atlas-people.js" defer></script>
   <script src="atlas.js" defer></script>
 </head>
 <body>
@@ -46,8 +47,9 @@
     <section class="atlas-explorer container" aria-labelledby="view-title">
       <div class="atlas-toolbar">
         <div class="atlas-switch" role="group" aria-label="Atlas view">
-          <button type="button" data-view="domains" aria-pressed="true">01 <span>Our work</span></button>
-          <button type="button" data-view="governance" aria-pressed="false">02 <span>Roles &amp; circles</span></button>
+          <button type="button" data-view="domains" aria-pressed="true">01 <span>Domains</span></button>
+          <button type="button" data-view="governance" aria-pressed="false">02 <span>Roles</span></button>
+          <button type="button" data-view="people" aria-pressed="false">03 <span>People</span></button>
         </div>
         <a class="atlas-source" href="data/atlas/domains.csv" download>Download domains CSV ↓</a>
       </div>
@@ -86,6 +88,8 @@
       <div class="atlas-table-wrap" id="atlas-results" tabindex="0" role="region" aria-label="Domains table" hidden>
         <table id="atlas-table"><caption class="atlas-sr-only">Domains of work</caption><thead></thead><tbody></tbody></table>
       </div>
+      <div id="atlas-people" class="atlas-people-grid" hidden></div>
+      <p id="atlas-people-note" class="atlas-people-note" hidden>Fellows contribute through their roles. After three months and graduation, a Fellow can become a Steward. Engagement levels are recorded explicitly; they do not change automatically. Role titles such as “System Steward” are separate from engagement level.</p>
       <div id="atlas-circles" class="atlas-circles-layout" hidden>
         <div id="atlas-circle-chart"></div>
         <div id="atlas-circle-detail"></div>

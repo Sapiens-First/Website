@@ -47,16 +47,17 @@ invalid(lambda d: d['relationships'].extend([
     {'ID': 'R-900', 'From ID': 'D-001', 'Relationship': 'succeeds', 'To ID': 'D-002', 'Valid from': '', 'Valid until': ''},
     {'ID': 'R-901', 'From ID': 'D-002', 'Relationship': 'succeeds', 'To ID': 'D-001', 'Valid from': '', 'Valid until': ''},
 ]))
-# Person ID is optional forward-looking plumbing for a future people.csv (not yet
-# created): format-checked when present, but a blank value — today's state for every
-# real row — must keep validating exactly as before.
-assert all(row.get('Person ID', '') == '' for row in data['governance']), 'no real row should carry a Person ID yet'
-module.validate(copy.deepcopy(data))  # blank Person ID on every row: still valid
+# People are derived from stable identities on governance assignments.
+assert len({r['Person ID'] for r in data['governance'] if r.get('Person ID')}) == 10
+module.validate(copy.deepcopy(data))
 invalid(lambda d: d['governance'][0].update({'Person ID': 'not-a-valid-id'}))
-invalid(lambda d: d['governance'][0].update({'Person ID': 'G-001'}))
-sample = copy.deepcopy(data)
-sample['governance'][0]['Person ID'] = 'P-1'
-module.validate(sample)  # correctly formatted Person ID is accepted once present
+invalid(lambda d: d['governance'][0].update({'Engagement level': 'Graduate'}))
+invalid(lambda d: d['governance'][0].update({'Lead Link': 'Someone else'}))
+invalid(lambda d: d['governance'][0].update({'Person ID': ''}))
+invalid(lambda d: d['governance'][0].update({'Lead Link': ''}))
+# Duplicate display names are allowed; duplicate identities with conflicting facts are not.
+al_ids = {r['Person ID'] for r in data['governance'] if r.get('Lead Link') == 'Al' and r.get('Person ID')}
+assert len(al_ids) == 2
 # Adjacent ownership periods and a renamed entity retain stable references.
 sample = copy.deepcopy(data)
 sample['domains'][0]['Name'] = 'Renamed mission'

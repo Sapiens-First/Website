@@ -63,7 +63,9 @@ async def main():
             await page.locator('#atlas-search').fill('nonexistent 123')
             await expect(page.locator('#atlas-results')).to_be_hidden()
             await page.goto('http://localhost:8000/atlas#domains/D-021')
-            await expect(page.locator('#atlas-record')).to_contain_text('Needs clarification')
+            # Every domain now has an explicit current responsible role instead
+            # of the previous "Needs clarification" placeholder ownership note.
+            await expect(page.locator('#atlas-record')).to_contain_text('Fellowship Coordinator')
             await page.goto('http://localhost:8000/atlas#domains/D-003')
             await expect(page.locator('#record-title')).to_have_text('Community')
             assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')

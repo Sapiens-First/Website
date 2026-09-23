@@ -1,3 +1,5 @@
+> **Superseded (2026-09-23):** the People tab has since shipped, per explicit user direction, as a *public* view with two-letter abbreviated Fellow labels — not gated behind `atlas-protect.js`, and not backed by a separate `people.csv`. It's derived live from `governance.csv`'s `Person ID`/`Engagement level`/`Assignment basis` columns. See "People" in `data/atlas/README.md` for the shipped model. The password-gate-blocking and `people.csv` proposals in the "Blocked / not started" and "merge master project list" sections below are obsolete; left in place as history, not as an open plan.
+
 # SESSION HANDOFF (2026-09-22, hit context limit mid-task — read this first)
 
 Working dir: `/home/rohan/Desktop/Coding/S1 Website`, branch `improve-start-a-circle`. Dev server was running on :8000 (`python3 dev_server.py`, pid ~1147216 — may be dead by next session, just restart it).

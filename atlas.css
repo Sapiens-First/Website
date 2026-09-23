@@ -120,6 +120,14 @@
 .atlas-circle-breadcrumbs a:hover { color: var(--accent-dark); }
 .atlas-circle-crumb-sep { margin: 0 8px; color: var(--line); font-weight: 400; }
 .atlas-circle-crumb-current { color: var(--ink); font-weight: 900; }
+.atlas-root-picker { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 4px; }
+.atlas-root-picker-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: #575149; }
+.atlas-root-picker a {
+  font-size: 13px; font-weight: 700; padding: 4px 12px; border: 1px solid var(--ink); border-radius: 999px;
+  text-decoration: none; background: var(--paper);
+}
+.atlas-root-picker a:hover { background: var(--yellow); }
+.atlas-root-picker a[aria-current="page"] { background: var(--ink); color: var(--paper); }
 .atlas-circle-hint { font-size: 13px; line-height: 1.6; margin: 12px 0 20px; }
 .atlas-circle-children, .atlas-unplaced { padding: 16px 0; border-top: 1px solid var(--line); }
 .atlas-circle-children ul, .atlas-unplaced ul, .atlas-circle-search ul { padding-left: 20px; }
@@ -249,3 +257,15 @@
 .atlas-horizons li:nth-child(4) { background: #ddf2e9; border-color: #176758; }
 @media (max-width: 1000px) { .atlas-horizons { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 650px) { .atlas-horizons { grid-template-columns: 1fr; } }
+
+.atlas-people-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.atlas-person { padding: 24px; background: var(--soft); border: 1px solid var(--line); border-top: 5px solid var(--accent-dark); }
+.atlas-person h3 { font: 700 38px/1.1 var(--font-display); margin-bottom: 12px; }
+.atlas-person.is-selected { outline: 3px solid var(--accent-dark); outline-offset: 3px; }
+.atlas-person-context, .atlas-person-count { font-size: 13px; line-height: 1.5; margin-top: 12px; }
+.atlas-person .atlas-links { margin-top: 20px; }
+.atlas-person .atlas-links li { border-top: 1px solid var(--line); padding: 12px 0; font-size: 15px; line-height: 1.5; overflow-wrap: anywhere; }
+.atlas-person-role-type { display: block; font-size: 11px; color: #575149; }
+.atlas-people-note { font-size: 13px; line-height: 1.7; margin-top: 24px; max-width: 850px; }
+@media (max-width: 1000px) { .atlas-people-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 650px) { .atlas-people-grid { grid-template-columns: 1fr; } .atlas-switch button { padding: 12px 8px; } .atlas-switch button span { margin-left: 4px; } }

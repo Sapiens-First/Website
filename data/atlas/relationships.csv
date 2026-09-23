@@ -3,8 +3,8 @@ R-001,G-002,owns,D-001,,,Imported ownership; start date not recorded.
 R-002,G-021,owns,D-002,,,Imported ownership; start date not recorded.
 R-003,G-022,owns,D-003,,,Imported ownership; start date not recorded.
 R-004,G-023,owns,D-004,,,Imported ownership; start date not recorded.
-R-005,G-024,owns,D-005,,,Imported ownership; start date not recorded.
-R-006,G-025,owns,D-006,,,Imported ownership; start date not recorded.
+R-005,G-024,owns,D-005,,2026-09-23,Imported ownership; start date not recorded.
+R-006,G-025,owns,D-006,,2026-09-23,Imported ownership; start date not recorded.
 R-007,G-026,owns,D-007,,,Imported ownership; start date not recorded.
 R-008,G-023,owns,D-008,,,Imported ownership; start date not recorded.
 R-009,G-027,owns,D-009,,,Imported ownership; start date not recorded.
@@ -14,20 +14,47 @@ R-012,G-005,owns,D-012,,,Imported ownership; start date not recorded.
 R-013,G-006,owns,D-013,,,Imported ownership; start date not recorded.
 R-014,G-030,owns,D-014,,,Imported ownership; start date not recorded.
 R-015,G-031,owns,D-015,,,Imported ownership; start date not recorded.
-R-016,G-032,owns,D-016,,,Imported ownership; start date not recorded.
+R-016,G-032,owns,D-016,,2026-09-23,Imported ownership; start date not recorded.
 R-017,G-033,owns,D-017,,,Imported ownership; start date not recorded.
 R-018,G-034,owns,D-018,,,Imported ownership; start date not recorded.
-R-019,G-025,owns,D-019,,,Imported ownership; start date not recorded.
+R-019,G-025,owns,D-019,,2026-09-23,Imported ownership; start date not recorded.
 R-020,G-035,owns,D-020,,,Imported ownership; start date not recorded.
 R-021,G-037,owns,D-024,,,Added 2026-09-22 per governance restructuring.
-R-022,G-037,owns,D-025,,,Added 2026-09-22 per governance restructuring.
+R-022,G-037,owns,D-025,,2026-09-23,Added 2026-09-22 per governance restructuring.
 R-023,G-038,owns,D-026,,,Added 2026-09-22 per governance restructuring.
-R-024,G-038,owns,D-027,,,Added 2026-09-22 per governance restructuring.
+R-024,G-038,owns,D-027,,2026-09-23,Added 2026-09-22 per governance restructuring.
 R-025,G-039,owns,D-028,,,Added 2026-09-22 per governance restructuring.
-R-026,G-040,owns,D-029,,,Added 2026-09-22 per governance restructuring.
+R-026,G-040,owns,D-029,,2026-09-23,Added 2026-09-22 per governance restructuring.
 R-027,G-002,succeeds,G-003,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
 R-028,G-033,succeeds,G-012,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
 R-029,G-026,succeeds,G-014,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
 R-030,G-030,succeeds,G-015,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
 R-031,G-031,succeeds,G-018,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
-R-032,G-030,succeeds,G-036,2026-09-23,,Tech contained only the continuing Knowledge Base role after consolidation; apply the single-role-circle rule recursively.
+R-032,G-030,succeeds,G-036,2026-09-23,,Tech contained only the continuing Knowledge Base role after consolidation; apply the single-role-circle rule recursively. Subsequently reversed by user direction: Tech restored as its own circle on 2026-09-23.
+R-033,G-009,owns,D-005,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-034,G-022,owns,D-006,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-035,G-020,owns,D-016,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-036,G-022,owns,D-019,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-037,G-026,owns,D-021,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-038,G-021,owns,D-022,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-039,G-039,owns,D-023,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-040,G-021,owns,D-025,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-041,G-021,owns,D-027,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-042,G-009,owns,D-029,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-043,G-044,owns,D-030,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-044,G-002,owns,D-031,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-045,G-002,owns,D-032,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-046,G-021,owns,D-033,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-047,G-040,owns,D-034,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-048,G-040,owns,D-035,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-049,G-022,owns,D-036,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-050,G-030,owns,D-037,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-051,G-023,owns,D-038,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-052,G-029,owns,D-039,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-053,G-026,owns,D-040,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-054,G-040,owns,D-041,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-055,G-043,owns,D-042,2026-09-23,,User-directed role responsibility and default assignment refinement.
+R-056,G-034,succeeds,G-016,2026-09-23,,User-directed consolidation into a continuing role.
+R-057,G-009,succeeds,G-008,2026-09-23,,User-directed consolidation into a continuing role.
+R-058,G-009,succeeds,G-024,2026-09-23,,User-directed consolidation into a continuing role.
+R-059,G-020,succeeds,G-032,2026-09-23,,User-directed consolidation into a continuing role.

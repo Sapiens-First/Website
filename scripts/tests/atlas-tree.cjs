@@ -24,7 +24,7 @@ assert.equal(levels[0][0], root);
 assert.equal(nodes.get('D-009').depth, 2, 'Communications belongs to Community');
 assert.equal(nodes.get('D-002').depth, 1, 'Advocacy pillar is depth 1');
 assert.equal(nodes.get('D-020').depth, 1, 'General Meetings attaches directly to the Mission, skipping Program/Product');
-assert.equal(nodes.get('D-029').depth, 3, 'Campaign Strategy belongs to Campaign Support');
+assert.equal(nodes.get('D-029').depth, 4, 'Stop 1984 CA Strategic Plan sits under the Stop 1984 product, under Campaign Creation');
 
 // No-inverted-levels: every child is exactly one structural depth below its
 // parent, everywhere in the tree, regardless of Type.

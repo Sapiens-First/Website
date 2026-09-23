@@ -7,7 +7,7 @@ vm.runInNewContext(fs.readFileSync('atlas-data.js', 'utf8'), context);
 const records = JSON.parse(JSON.stringify(context.window.ATLAS_DATA.governance));
 const { roots, unplaced, nodes } = atlasCircleLayout(records);
 assert.equal(roots.length, 1);
-assert.equal(roots[0].row.Name, 'General Company');
+assert.equal(roots[0].row.Name, 'Sapiens First Global');
 // Governance data changes constantly (a core Holacracy principle), so this checks
 // specific known-ambiguous/known-resolved records rather than a total that would
 // need updating on every reorg. See data/atlas/governance.csv Definition notes.
@@ -35,3 +35,19 @@ assert.equal(count + unplaced.length, records.length);
 assert.equal(atlasCircleLayout([]).roots.length, 0);
 assert.equal(atlasCircleLayout([{ ID: 'G-001', Type: 'Circle', 'Parent Circle ID': '' }]).roots[0].children.length, 0);
 console.log('PASS hierarchy, containment, non-overlap, empty circles, unplaced records');
+
+// Authorized consolidation changes canonical records, not a visual projection.
+for (const [wrapper, role] of [['G-003','G-002'], ['G-012','G-033'], ['G-014','G-026'], ['G-015','G-030'], ['G-018','G-031'], ['G-036','G-030']]) {
+  assert.equal(nodes.get(wrapper).row.Status, 'Retired');
+  assert.equal(nodes.get(role).row.Type, 'Role');
+  assert.notEqual(nodes.get(role).row['Parent Circle ID'], wrapper);
+}
+assert.equal(nodes.get('G-011').row.Type, 'Circle', 'Chapter Network remains a circle');
+assert.equal(nodes.get('G-002').row['Parent Circle ID'], 'G-041', 'Vision & Strategy belongs to Meta');
+assert.equal(nodes.get('G-019').row['Parent Circle ID'], 'G-041', 'Finance & Fundraising belongs to Meta');
+
+for (const node of nodes.values()) {
+  if (node.row.Type !== 'Circle' || node.row.Status === 'Retired' || node.row.ID === 'G-011') continue;
+  const liveChildren = node.children.filter(child => child.row.Status !== 'Retired');
+  assert.ok(liveChildren.length !== 1 || liveChildren[0].row.Type !== 'Role', `${node.row.Name} is not a redundant single-role wrapper`);
+}

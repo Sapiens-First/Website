@@ -41,7 +41,7 @@ async def main():
             # the new Tree/Circles default.
             await page.locator('#atlas-table a[href="#domains/table/D-013"]').click()
             await expect(page.locator('#record-title')).to_have_text('Website')
-            await expect(page.locator('#atlas-record')).to_contain_text('Marketing & Communications')
+            await expect(page.locator('#atlas-record')).to_contain_text('Communications')
             await page.locator('#atlas-record a[href="#governance/table/G-006"]').first.click()
             await expect(page.locator('#record-title')).to_have_text('Website Owner')
             await expect(page.locator('#atlas-record')).to_contain_text('Publishing updates')

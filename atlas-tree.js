@@ -1,11 +1,14 @@
-/* A work hierarchy: vertical position is the number of parent links back
-   to the mission, not a GTD horizon or a measure of importance. */
-const ATLAS_TREE_LEVEL_GAP = 90;
-const ATLAS_TREE_SIBLING_GAP = 26;
-
-function atlasTreeBandLabel(row) {
-  return row[0].depth === 0 ? 'Mission' : `Connection level ${row[0].depth}`;
-}
+/* Sapiens First planning horizons. Parent links remain the source of
+   containment; Type determines a planning band, not authority or deadlines. */
+const ATLAS_TREE_LEVEL_GAP = 80;
+const ATLAS_TREE_SIBLING_GAP = 30;
+const ATLAS_HORIZONS = [
+  { label: 'H4 · Mission', time: '~3 years', question: 'What future are we building?', color: '#3155a4', fill: '#dce8ff', card: '#c2d5ff' },
+  { label: 'H3 · Strategic pillars', time: '~1 year', question: 'Where must we make progress?', color: '#78439b', fill: '#eee2fa', card: '#dac1f0' },
+  { label: 'H2 · Programs', time: '~6 months', question: 'What sustained efforts move us forward?', color: '#9a520c', fill: '#fff0d2', card: '#ffda91' },
+  { label: 'H1 · Products & projects', time: '~3 months', question: 'What are we delivering or improving?', color: '#176758', fill: '#ddf2e9', card: '#ace0cb' },
+];
+const ATLAS_TYPE_BAND = { Mission: 0, Pillar: 1, Objective: 1, Program: 2, Domain: 3, 'Product/Service': 3, Project: 3 };
 
 function atlasTreeWrapLabel(name, maxChars) {
   const words = String(name).split(/\s+/);
@@ -20,9 +23,9 @@ function atlasTreeWrapLabel(name, maxChars) {
 }
 
 function atlasTreeSizeNode(node, isRoot) {
-  const fontSize = isRoot ? 18 : 13;
+  const fontSize = isRoot ? 19 : 14;
   const maxChars = isRoot ? 40 : 20;
-  const lines = atlasTreeWrapLabel(node.row.Name, maxChars);
+  const lines = atlasTreeWrapLabel(isRoot ? (node.row.Purpose || node.row.Name) : node.row.Name, maxChars);
   const charWidth = fontSize * 0.58;
   const textWidth = Math.max(...lines.map(line => line.length)) * charWidth;
   const w = Math.min(isRoot ? 520 : 200, Math.max(isRoot ? 260 : 108, textWidth + 30));
@@ -56,8 +59,8 @@ function atlasTreeLayout(records) {
   }
 
   const unplaced = [];
-  const byDepth = new Map();
-  if (root) { root.depth = 0; byDepth.set(0, [root]); }
+  const levels = root ? ATLAS_HORIZONS.map(() => []) : [];
+  if (root) { root.depth = 0; root.band = 0; levels[0].push(root); }
   for (const node of nodes.values()) {
     if (node === root) continue;
     const depth = depthOf(node);
@@ -65,11 +68,9 @@ function atlasTreeLayout(records) {
     node.depth = depth;
     const parent = nodes.get(node.row['Parent ID']);
     parent.children.push(node);
-    if (!byDepth.has(depth)) byDepth.set(depth, []);
-    byDepth.get(depth).push(node);
+    node.band = ATLAS_TYPE_BAND[node.row.Type] ?? Math.min(3, depth);
+    levels[node.band].push(node);
   }
-  const maxDepth = byDepth.size ? Math.max(...byDepth.keys()) : -1;
-  const levels = Array.from({ length: maxDepth + 1 }, (_, d) => byDepth.get(d) || []);
 
   function sortChildren(node) {
     node.children.sort((a, b) => a.row.Name.localeCompare(b.row.Name) || a.row.ID.localeCompare(b.row.ID));
@@ -109,11 +110,10 @@ function atlasTreeLayout(records) {
     }
   });
 
-  // Vertical placement: one band per structural depth, sized to its
-  // tallest label, root-to-leaf top to bottom.
+  // Vertical placement: one planning band per type group, with room for labels.
   let cursorY = 0;
   levels.forEach(row => {
-    const rowHeight = Math.max(...row.map(node => node.h));
+    const rowHeight = Math.max(100, ...row.map(node => node.h));
     const centerY = cursorY + rowHeight / 2;
     row.forEach(node => { node.y = centerY; });
     cursorY += rowHeight + ATLAS_TREE_LEVEL_GAP;
@@ -122,7 +122,7 @@ function atlasTreeLayout(records) {
   const placed = levels.flat();
   const margin = 44;
   // Reserve space so band labels never sit under a node box.
-  const leftGutter = levels.length ? Math.max(...levels.map(row => atlasTreeBandLabel(row).length)) * 6.4 + margin : margin;
+  const leftGutter = margin;
   let width = 0, height = 0;
   if (placed.length) {
     const minX = Math.min(...placed.map(node => node.x - node.w / 2));
@@ -136,6 +136,30 @@ function atlasTreeLayout(records) {
 }
 
 function renderAtlasTree(host, records, selected, matches, query) {
+  const allRecords = records;
+  const mission = records.find(row => row.Type === 'Mission');
+  let branch = host.dataset.branch || '';
+  const ids = new Set(branch ? [branch] : []);
+  if (branch) {
+    let changed = true;
+    while (changed) {
+      changed = false;
+      records.forEach(row => {
+        if (ids.has(row['Parent ID']) && !ids.has(row.ID)) { ids.add(row.ID); changed = true; }
+      });
+    }
+    if ((selected && selected !== mission?.ID && !ids.has(selected)) || !records.some(row => row.ID === branch)) {
+      branch = ''; host.dataset.branch = '';
+    }
+  }
+  if (branch) {
+    const cached = host._branchRecords;
+    if (cached?.source === records && cached.id === branch) records = cached.rows;
+    else {
+      records = records.filter(row => row.ID === mission?.ID || ids.has(row.ID));
+      host._branchRecords = { source: allRecords, id: branch, rows: records };
+    }
+  }
   // ATLAS_DATA arrays are immutable for the lifetime of this static page.
   const previous = host._atlasTree;
   const reusable = previous?.records === records;
@@ -154,10 +178,9 @@ function renderAtlasTree(host, records, selected, matches, query) {
 
   // Breadcrumbs are a navigation aid pointing at the current selection's
   // ancestry — unlike the circle view, selecting a node never re-roots or
-  // re-lays-out the tree, since vertical position is a fixed property
-  // (containment depth), not something drilling should change.
+  // changes a record’s planning band. Branch filtering keeps its mission ancestor.
   const nav = html('nav'); nav.className = 'atlas-tree-breadcrumbs'; nav.setAttribute('aria-label', 'Domain hierarchy');
-  const reset = html('a', 'Full tree'); reset.href = '#domains/tree'; nav.append(reset);
+  const reset = html('a', 'All work'); reset.href = '#domains/tree'; reset.addEventListener('click', () => { host.dataset.branch = ''; }); nav.append(reset);
   const selectedNode = nodes.get(selected);
   if (selectedNode) {
     const chain = []; let node = selectedNode; const seen = new Set();
@@ -172,6 +195,22 @@ function renderAtlasTree(host, records, selected, matches, query) {
     });
   }
   host.append(nav);
+  const branchLabel = html('label', 'Explore a branch', 'atlas-branch-picker');
+  const picker = html('select');
+  picker.setAttribute('aria-label', 'Explore a branch');
+  const all = html('option', 'All work · overview'); all.value = ''; picker.append(all);
+  allRecords.filter(row => row['Parent ID'] === mission?.ID).forEach(row => {
+    const option = html('option', row.Name); option.value = row.ID; picker.append(option);
+  });
+  picker.value = branch;
+  picker.addEventListener('change', () => {
+    host.dataset.branch = picker.value;
+    const destination = picker.value ? url(picker.value) : '#domains/tree';
+    if (location.hash === destination) renderAtlasTree(host, allRecords, selected, matches, query);
+    else location.hash = destination;
+  });
+  branchLabel.append(picker); host.append(branchLabel);
+  host.append(html('p', 'Start with the overview, then choose a branch to read the work. Select a card for details.', 'atlas-tree-hint'));
 
   if (query) {
     const found = html('div'); found.className = 'atlas-tree-search';
@@ -197,8 +236,7 @@ function renderAtlasTree(host, records, selected, matches, query) {
       svg.classList.add('atlas-tree-svg');
 
       // Palette distinguishes connection depth without assigning GTD horizons.
-      const palette = ['#29241f', '#5a5346', '#d5c9ad', '#e6d9ad', '#f1e9d3', '#f7f2e8'];
-      const textColorFor = depth => depth <= 1 ? '#fffaf2' : '#29241f';
+      const textColorFor = () => '#202735';
 
       // Build connectors separately so they paint above bands and below nodes.
       const connectors = svgEl('g', { class: 'atlas-tree-connectors' });
@@ -206,18 +244,19 @@ function renderAtlasTree(host, records, selected, matches, query) {
         node.children.forEach(child => {
           const startY = node.y + node.h / 2, endY = child.y - child.h / 2;
           const midY = (startY + endY) / 2;
-          const path = svgEl('path', { d: `M ${node.x} ${startY} C ${node.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`, class: 'atlas-tree-edge' });
+          const d = node.band === child.band
+            ? `M ${node.x} ${node.y - node.h / 2} C ${node.x} ${endY - 45}, ${child.x} ${endY - 45}, ${child.x} ${endY}`
+            : `M ${node.x} ${startY} C ${node.x} ${midY}, ${child.x} ${midY}, ${child.x} ${endY}`;
+          const path = svgEl('path', { d, class: 'atlas-tree-edge' });
           connectors.append(path);
         });
       }));
 
-      // Bands describe containment depth, never a GTD horizon.
-      levels.forEach(row => {
-        const bandHeight = Math.max(...row.map(node => node.h)) + 36;
-        svg.append(svgEl('rect', { x: 0, y: row[0].y - bandHeight / 2, width, height: bandHeight, rx: 8, fill: row[0].depth % 2 ? '#e9e0ce' : '#f7f2e8', 'pointer-events': 'none' }));
-        const tag = svgEl('text', { x: 6, y: row[0].y, 'dominant-baseline': 'middle', class: 'atlas-tree-band' });
-        tag.textContent = atlasTreeBandLabel(row);
-        svg.append(tag);
+      let bandY = 44;
+      levels.forEach((row, band) => {
+        const rowHeight = Math.max(100, ...row.map(node => node.h));
+        svg.append(svgEl('rect', { x: 0, y: bandY - 24, width, height: rowHeight + 48, rx: 12, fill: ATLAS_HORIZONS[band].fill, 'pointer-events': 'none' }));
+        bandY += rowHeight + ATLAS_TREE_LEVEL_GAP;
       });
 
       svg.append(connectors);
@@ -226,9 +265,9 @@ function renderAtlasTree(host, records, selected, matches, query) {
         const group = svgEl('g', { 'data-node-id': node.row.ID, 'data-parent-id': node.row['Parent ID'] || '' });
         const anchor = svgEl('a', { href: url(node.row.ID), tabindex: '0', 'aria-label': `${node.row.Type}: ${node.row.Name}, view record` });
         anchor.classList.add(isRoot ? 'atlas-tree-root' : 'atlas-tree-node');
-        const title = svgEl('title'); title.textContent = node.row.Name; anchor.append(title);
-        const fill = palette[Math.min(node.depth, palette.length - 1)];
-        const rectAttrs = { x: node.x - node.w / 2, y: node.y - node.h / 2, width: node.w, height: node.h, rx: 10, fill, stroke: '#29241f', 'stroke-width': isRoot ? 2.5 : 1.5 };
+        const title = svgEl('title'); title.textContent = node.row.Purpose ? `${node.row.Name}: ${node.row.Purpose}` : node.row.Name; anchor.append(title);
+        const fill = ATLAS_HORIZONS[node.band].card;
+        const rectAttrs = { x: node.x - node.w / 2, y: node.y - node.h / 2, width: node.w, height: node.h, rx: 10, fill, stroke: ATLAS_HORIZONS[node.band].color, 'stroke-width': isRoot ? 2.5 : 1.5 };
         anchor.append(svgEl('rect', rectAttrs));
         const startY = node.y - (node.lines.length - 1) * node.lineHeight / 2;
         const text = svgEl('text', { x: node.x, y: startY, 'text-anchor': 'middle', 'font-size': node.fontSize, fill: textColorFor(node.depth), 'pointer-events': 'none', 'font-weight': isRoot ? 700 : 500 });
@@ -262,6 +301,15 @@ function renderAtlasTree(host, records, selected, matches, query) {
       svg.setAttribute('width', width * state.zoom);
       svg.setAttribute('height', height * state.zoom);
       output.textContent = `${Math.round(state.zoom * 100)}%`;
+      host.querySelector('.atlas-horizon-canvas')?.classList.toggle('is-overview', state.zoom < .65);
+      const rail = host.querySelector('.atlas-horizon-rail');
+      if (rail) {
+        rail.style.paddingTop = `${20 * state.zoom}px`;
+        [...rail.children].forEach((label, band) => {
+          const rowHeight = Math.max(100, ...levels[band].map(node => node.h));
+          label.style.height = `${(rowHeight + ATLAS_TREE_LEVEL_GAP) * state.zoom}px`;
+        });
+      }
       scroller.scrollLeft = center * state.zoom - scroller.clientWidth / 2;
     };
     const button = (label, action) => {
@@ -275,8 +323,20 @@ function renderAtlasTree(host, records, selected, matches, query) {
     button('Zoom in', () => resize(state.zoom * 1.25));
     button('Fit tree', () => resize(scroller.clientWidth / width));
     button('Actual size', () => resize(1));
-    host.append(controls, scroller);
-    resize(state.zoom);
+    button('← Pan', () => scroller.scrollBy({ left: -scroller.clientWidth * .7, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }));
+    button('Pan →', () => scroller.scrollBy({ left: scroller.clientWidth * .7, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }));
+    const canvas = html('div', undefined, 'atlas-horizon-canvas');
+    const rail = html('div', undefined, 'atlas-horizon-rail');
+    ATLAS_HORIZONS.forEach((horizon, band) => {
+      const label = html('div', undefined, 'atlas-horizon-label');
+      label.style.setProperty('--horizon-color', horizon.color);
+      label.style.setProperty('--horizon-fill', horizon.fill);
+      label.append(html('strong', horizon.label), html('span', horizon.question), html('small', `PLANNING WINDOW · ${horizon.time}`));
+      rail.append(label);
+    });
+    canvas.append(rail, scroller);
+    host.append(controls, canvas);
+    resize(!reusable && !selected ? Math.min(1, scroller.clientWidth / width) : state.zoom);
     scroller.scrollLeft = scrollLeft;
     const matchedIds = new Set(matches.map(row => row.ID));
     svg.querySelectorAll('[data-node-id]').forEach(group => {
@@ -298,7 +358,7 @@ function renderAtlasTree(host, records, selected, matches, query) {
     host.append(html('p', 'No Mission record is recorded yet. Use the table to review the domains records.'));
   }
 
-  const hint = html('p', 'Follow the lines to see how work connects to the mission. Rows show connections, not GTD horizons. All statuses are included. Use Fit tree for an overview, then Actual size to read labels. Box size does not indicate importance.');
+  const hint = html('p', 'Choose a branch for a closer look. Select any card to read its purpose and responsibilities. These are Sapiens First’s planning horizons: approximate review windows, not deadlines or a program’s lifespan. Lines show the recorded connections; all statuses are included.');
   hint.className = 'atlas-tree-hint'; host.append(hint);
 
   if (unplaced.length) {

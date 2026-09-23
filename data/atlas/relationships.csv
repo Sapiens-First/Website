@@ -25,3 +25,9 @@ R-023,G-038,owns,D-026,,,Added 2026-09-22 per governance restructuring.
 R-024,G-038,owns,D-027,,,Added 2026-09-22 per governance restructuring.
 R-025,G-039,owns,D-028,,,Added 2026-09-22 per governance restructuring.
 R-026,G-040,owns,D-029,,,Added 2026-09-22 per governance restructuring.
+R-027,G-002,succeeds,G-003,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
+R-028,G-033,succeeds,G-012,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
+R-029,G-026,succeeds,G-014,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
+R-030,G-030,succeeds,G-015,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
+R-031,G-031,succeeds,G-018,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
+R-032,G-030,succeeds,G-036,2026-09-23,,Tech contained only the continuing Knowledge Base role after consolidation; apply the single-role-circle rule recursively.

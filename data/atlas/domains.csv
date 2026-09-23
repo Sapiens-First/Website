@@ -1,31 +1,42 @@
 ID,Name,Type,Program category,Purpose,Parent ID,Circle ID,Status,Stage,Started on,Ended on,Key Features,User,Value Proposition,SOP URL,SOP Notes,Ownership note
-D-001,"A world where AI serves the common good — democracy, prosperity, and security preserved through the AI transition",Mission,,Landmark legislation for democratic AI by 2030,,G-001,Planned,Ideated,,,,,,,,
-D-002,Advocacy,Pillar,,"Win policy that restricts AI-enabled mass surveillance, starting in California",D-001,,Active,In Progress,,,,,Converts public pressure into binding policy,,,
-D-003,Community,Pillar,,Build a nationwide network of chapters,D-001,,Planned,Approved,,,,,Scales the movement beyond the founding team,,,
-D-004,Empowerment,Pillar,,Train leaders/activists at scale via Fellowship + Academy,D-001,,Active,In Progress,,,,,Builds the volunteer capacity everything else depends on,,,
-D-005,Stop 1984! Campaign,Program,,"Ban AI-enabled mass surveillance in CA, then expand state by state",D-002,,Active,In Progress,,,,,First proof point: local win building toward statewide policy,,,
-D-006,Chapter Network,Program,,Hundreds of thriving local chapters with a clear founding/lifecycle model,D-003,,Planned,Proposed,,,,,Distributed growth engine,,,
-D-007,Fellowship Program,Program,,Structured cohort pipeline producing skilled contributors each semester,D-004,,Active,In Progress,,,"Semester cohorts, 1 project/Fellow, kickoff + coworking sessions, 3 exit paths",Volunteers seeking high-ownership involvement,"Turns motivated volunteers into skilled, accountable contributors in one semester",,Exists — Fellowship Handbook,
-D-008,Leadership Academy,Program,,"Curriculum training leaders in org-building, NVDA, political strategy",D-004,,Planned,Ideated,,,,,Two-Year Roadmap commitment; not yet started,,,
-D-009,Marketing & Communications,Program,Enabling,Own how Sapiens First is seen and heard externally,D-001,,Active,In Progress,,,,,"Serves all three pillars, not one campaign",,,
-D-010,Fundraising & Development,Program,Enabling,"Legal + relational foundation for major-gifts, foundation, and dues revenue",D-001,,Active,In Progress,,,,,Funds runway for everything above,,,
+D-001,Current Mission,Mission,,Revolutionary social and political change around AI governance.,,G-001,Planned,Ideated,,,,,,,,
+D-002,Advocacy,Pillar,,"Pillars of support—civil society institutions, politicians, and media—become supporters.",D-001,,Active,In Progress,,,,,Converts public pressure into binding policy,,,
+D-003,Community,Pillar,,Large numbers of people participate as active supporters.,D-001,,Planned,Approved,,,,,Scales the movement beyond the founding team,,,
+D-004,Empowerment,Pillar,,Abundant leadership within the movement.,D-001,,Active,In Progress,,,,,Builds the volunteer capacity everything else depends on,,,
+D-005,Stop 1984,Product/Service,,End AI-enabled mass surveillance.,D-033,,Active,In Progress,,,,,First proof point: local win building toward statewide policy,,,
+D-006,Chapters,Program,,Passive supporters become Members by connecting locally.,D-003,,Planned,Proposed,,,,,Distributed growth engine,,,
+D-007,Global Fellowship,Product/Service,,"Members, regardless of location, can contribute meaningfully to movement infrastructure.",D-038,,Active,In Progress,,,"Semester cohorts, 1 project/Fellow, kickoff + coworking sessions, 3 exit paths",Volunteers seeking high-ownership involvement,"Turns motivated volunteers into skilled, accountable contributors in one semester",,Exists — Fellowship Handbook,
+D-008,Training,Product/Service,,Knowledge spreads throughout Members and Fellows.,D-037,,Planned,Ideated,,,,,Two-Year Roadmap commitment; not yet started,,,
+D-009,Communications,Program,,People understand the movement and stay engaged.,D-003,,Active,In Progress,,,,,"Serves all three pillars, not one campaign",,,
+D-010,Finance & Fundraising,Program,,Movement has the money to execute its strategy.,D-031,,Active,In Progress,,,,,Funds runway for everything above,,,
 D-011,Operations & Infrastructure,Program,Enabling,Systems that let a lean team run at scale,D-001,,Active,In Progress,,,,,Removes the founder as a bottleneck,,,
 D-012,Media Program,Product/Service,,Ongoing press/spokesperson capability usable by any campaign,D-009,G-004,Planned,Proposed,,,"Media moments, journalist relationships, press kit, spokesperson training, visual identity bank","Press, public, prospective members",Converts campaign wins into public visibility that accelerates recruitment,,Missing,
-D-013,Website,Product/Service,,Primary external site,D-009,G-004,Active,In Progress,,,"Campaign pages, strategy page, donate page",All external visitors,Primary conversion and credibility surface,,Missing,
-D-014,Knowledge Base / Wiki,Product/Service,,Centralized org knowledge base,D-011,,Active,In Progress,,,"Wiki.js base, information architecture, contribution/permission rules","All Fellows, organizers, chapter leaders",Lets the org scale past founder-memory,,In progress — this IS the SOP system,
-D-015,Membership System,Product/Service,,End-to-end member lifecycle automation,D-010,,Active,In Progress,,,"Stripe + CRM + Discord integration, onboarding/offboarding automation",Dues-paying members (M2+),"Reliable, low-labor pipeline from interested to active member",,Missing,
+D-013,Website,Product/Service,,Visitors understand the movement and know how to participate.,D-009,G-004,Active,In Progress,,,"Campaign pages, strategy page, donate page",All external visitors,Primary conversion and credibility surface,,Missing,
+D-014,Resource Center,Product/Service,,Social movement resources and know-how are clear and accessible.,D-037,,Active,In Progress,,,"Wiki.js base, information architecture, contribution/permission rules","All Fellows, organizers, chapter leaders",Lets the org scale past founder-memory,,In progress — this IS the SOP system,
+D-015,Membership Registration & Onboarding,Product/Service,,Supporters can easily join and start participating.,D-036,,Active,In Progress,,,"Stripe + CRM + Discord integration, onboarding/offboarding automation",Dues-paying members (M2+),"Reliable, low-labor pipeline from interested to active member",,Missing,
 D-016,House Party Fundraising Kit,Product/Service,,Turnkey fundraiser-hosting kit,D-010,,Planned,Proposed,,,"Invitation templates, host guide, ask script, donation page, automated follow-up",Supporter-hosts running small fundraisers,Multiplies fundraising capacity without staff presence,,Missing,
-D-017,Digital Presence / Social,Product/Service,,Repeatable content + distribution,D-003,,Planned,Proposed,,,"Repeatable content workflow, scheduling automation, measurement","Broader public, prospective supporters",Compounding reach at low marginal cost,,Missing,
-D-018,Sapiens First Newspaper,Product/Service,,Recurring publication,D-004,,Active,In Progress,,,"Recurring sections, submission process, editorial workflow",Members & movement readers,Builds durable voice; low-barrier way for Fellows to contribute writing,,Missing — Jan launch target,
-D-019,Chapter Starter Kit,Product/Service,,Turnkey chapter-founding kit,D-006,,Planned,Proposed,,,"Constitution, lifecycle model, Discord architecture, leader onboarding",Local organizers starting a chapter,Lets the movement scale to hundreds of chapters without a central bottleneck,,Missing,
+D-017,Social Media,Product/Service,,"People encounter, follow, and share the movement.",D-009,,Planned,Proposed,,,"Repeatable content workflow, scheduling automation, measurement","Broader public, prospective supporters",Compounding reach at low marginal cost,,Missing,
+D-018,Newspaper,Product/Service,,"Members stay informed, connected, and engaged.",D-036,,Active,In Progress,,,"Recurring sections, submission process, editorial workflow",Members & movement readers,Builds durable voice; low-barrier way for Fellows to contribute writing,,Missing — Jan launch target,
+D-019,Start a Circle,Product/Service,,Members can easily start local groups.,D-006,,Planned,Proposed,,,"Constitution, lifecycle model, Discord architecture, leader onboarding",Local organizers starting a chapter,Lets the movement scale to hundreds of chapters without a central bottleneck,,Missing,
 D-020,General Meetings,Product/Service,,Recurring member-facing convening (not a Holacracy governance meeting),D-001,,Active,In Progress,,,"Recurring cadence, prepped content/questions, breakout rooms, Discord announcement","Members & supporters, all engagement levels",Regular touchpoint that builds belonging and surfaces org news,,"Partial — steps exist in Active Projects, not written up",
 D-021,1-1s,Product/Service,,Relational check-ins outside formal governance process,D-001,,Active,In Progress,,,"Regular founder/lead check-ins, onboarding, mentorship","Fellows, new members, prospective leaders/donors",High-touch trust-building that async channels can't replicate,,Missing,Needs clarification: Vision Steward / relevant Circle Lead
-D-022,Freeze AI Campaign,Program,,,D-002,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified.
-D-023,No Killer Robots Campaign,Program,,,D-002,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified.
+D-022,Freeze AI Campaign,Product/Service,,,D-033,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified.
+D-023,No Killer Robots,Product/Service,,Regulate deadly autonomous weapons.,D-033,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified.
 D-024,Stop 1984! Background Research,Project,,,D-005,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037).
 D-025,Freeze AI Background Research,Project,,,D-022,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037).
 D-026,Stop 1984! Asks,Project,,,D-005,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038).
 D-027,Freeze AI Asks,Project,,,D-022,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038).
 D-028,No Killer Robots Policy,Project,,,D-023,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by No Killer Robots Owner (G-039).
-D-029,Campaign Strategy,Project,,,D-002,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Campaign Strategist (G-040).
+D-029,Campaign Strategy,Project,,,D-034,,Needs definition,,,,,,,,,Added 2026-09-22 per governance restructuring; owned by Campaign Strategist (G-040).
 D-030,Stop 1984! Campaign Design,Project,,,D-005,G-004,Needs definition,,,,,,,,,"Added 2026-09-22 per governance restructuring; held undelegated by Media Circle (G-004), no specific role named."
+D-031,Meta,Pillar,,"Movement has a vision, strategy, and financial support.",D-001,,Needs definition,,,,,,,,,
+D-032,Vision & Strategy,Program,,Movement has a clear vision and strategy.,D-031,,Needs definition,,,,,,,,,
+D-033,Campaign Creation,Program,,Build priority campaigns.,D-002,,Needs definition,,,,,,,,,
+D-034,Campaign Support,Program,,Campaigns have what they need to succeed.,D-002,,Needs definition,,,,,,,,,
+D-035,Campaign Execution Toolkit,Product/Service,,Organizers have the tools to run effective campaigns.,D-034,,Needs definition,,,,,,,,,
+D-036,Global Membership,Program,,Passive supporters anywhere have a way to deepen their commitment.,D-003,,Needs definition,,,,,,,,,
+D-037,Knowledge,Program,,Members know why and how to participate.,D-004,,Needs definition,,,,,,,,,
+D-038,Development,Program,,Members are empowered to take over projects and domains.,D-004,,Needs definition,,,,,,,,,
+D-039,Governance,Program,,Clear structure and roles for all Fellows & Staff.,D-004,,Needs definition,,,,,,,,,
+D-040,Role Management,Product/Service,,Fellows hold domains that suit their strengths.,D-039,,Needs definition,,,,,,,,,
+D-041,Project Management,Product/Service,,Teams break down and strategically prioritize projects within each domain.,D-039,,Needs definition,,,,,,,,,

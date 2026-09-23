@@ -21,10 +21,10 @@ assert.equal(levels[0][0], root);
 // attach directly to the Mission — the same depth as Pillars — and some
 // Products/Projects skip straight to a Pillar or the Mission, skipping the
 // Program/Product tier. These are exactly the cases this test pins down.
-assert.equal(nodes.get('D-009').depth, 1, 'an Enabling Program at the Mission shares a depth with Pillars');
+assert.equal(nodes.get('D-009').depth, 2, 'Communications belongs to Community');
 assert.equal(nodes.get('D-002').depth, 1, 'Advocacy pillar is depth 1');
 assert.equal(nodes.get('D-020').depth, 1, 'General Meetings attaches directly to the Mission, skipping Program/Product');
-assert.equal(nodes.get('D-029').depth, 2, 'Campaign Strategy (a Project) attaches directly to a Pillar, skipping Program/Product');
+assert.equal(nodes.get('D-029').depth, 3, 'Campaign Strategy belongs to Campaign Support');
 
 // No-inverted-levels: every child is exactly one structural depth below its
 // parent, everywhere in the tree, regardless of Type.
@@ -49,9 +49,11 @@ levels.forEach((row, depth) => {
     const prev = ordered[i - 1], cur = ordered[i];
     assert.ok(cur.x - cur.w / 2 >= prev.x + prev.w / 2 - 0.01, `boxes at depth ${depth} do not overlap`);
   }
-  row.forEach(node => assert.equal(node.depth, depth, 'node lives in the level array matching its own depth'));
+  row.forEach(node => assert.equal(node.band, depth, 'node lives in its planning horizon'));
+  if (!row.length) return;
   if (depth > 0) {
-    const above = levels[depth - 1];
+    const above = levels.slice(0, depth).filter(row => row.length).at(-1);
+    if (!above) return;
     const y = row[0].y, prevY = above[0].y;
     assert.ok(y > prevY, `depth ${depth} renders strictly below depth ${depth - 1}`);
   }
@@ -59,7 +61,7 @@ levels.forEach((row, depth) => {
 
 // Empty-branch handling: a Program/Pillar with no children lays out as an
 // ordinary leaf, without special-casing or crashing.
-const emptyBranch = nodes.get('D-008'); // Leadership Academy: a Program with no recorded children.
+const emptyBranch = nodes.get('D-008'); // Training: a Product/Service with no recorded children.
 assert.ok(emptyBranch, 'D-008 exists in the fixture');
 assert.equal(emptyBranch.children.length, 0);
 assert.ok(Number.isFinite(emptyBranch.x) && Number.isFinite(emptyBranch.y), 'a childless branch still gets a finite position');
@@ -96,6 +98,10 @@ assert.equal(empty.root, null);
 assert.equal(empty.unplaced.length, 0);
 assert.equal(empty.width, 0);
 assert.equal(empty.height, 0);
+
+assert.equal(nodes.get('D-009').band, 2, 'programs keep H2 even when attached to the mission');
+assert.equal(nodes.get('D-020').band, 3, 'products keep H1 regardless of parent');
+assert.equal(nodes.get('D-024').band, 3, 'projects share H1 delivery horizon');
 
 assert.ok(width > 0 && height > 0, 'the real fixture produces a positive-size canvas');
 console.log('PASS hierarchy, containment, non-overlap, no-inverted-levels, empty branches, unplaced records, no-root fallback');

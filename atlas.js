@@ -229,7 +229,7 @@
     if (focus && selected) document.querySelector('#record-title')?.focus();
   }
   const mission = data?.domains?.find(row => row.Type === 'Mission');
-  if (mission) { document.querySelector('#mission-text').textContent = mission.Name; document.querySelector('.atlas-mission').hidden = false; }
+  if (mission) { document.querySelector('#mission-text').textContent = mission.Purpose || mission.Name; document.querySelector('.atlas-mission').hidden = false; }
   document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {
     location.hash = `#${button.dataset.view}`;
     navigate(true);

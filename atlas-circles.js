@@ -46,7 +46,8 @@ function atlasCircleLayout(records) {
 
 function renderAtlasCircles(host, records, selected, matches, query) {
   host.replaceChildren();
-  const { nodes, roots, unplaced } = atlasCircleLayout(records);
+  // Retired wrappers stay addressable in records/history, not in the live map.
+  const { nodes, roots, unplaced } = atlasCircleLayout(records.filter(row => row.Status !== 'Retired'));
   const picked = nodes.get(selected);
   const focus = picked?.row.Type === 'Circle' ? picked : nodes.get(picked?.row['Parent Circle ID']) || roots[0];
   const html = (tag, text, className) => {
@@ -79,6 +80,9 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     });
   }
   host.append(nav);
+  if (records.some(row => row.ID === selected && row.Status === 'Retired')) {
+    host.append(html('p', 'This record is retired. Its details and succession history remain available; the map shows the current organization.', 'atlas-circle-hint'));
+  }
 
   if (query) {
     const found = html('div'); found.className = 'atlas-circle-search';
@@ -127,9 +131,8 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     function draw(node, x, y, depth) {
       const r = node.r * scale;
       const group = svgEl('g', { 'data-node-id': node.row.ID, 'data-parent-id': node.row['Parent Circle ID'] || '' });
-      // Every node stays keyboard-reachable (not just the two outer rings),
-      // so a hover/focus tooltip can stand in for labels that are too small
-      // to set inline at deep nesting.
+      // At the global overview, reveal only the immediate layer.
+      // Drilling into a circle reveals its descendants and role links.
       const anchor = svgEl('a', { href: url(node.row.ID), tabindex: '0', 'aria-label': `${node.row.Type}: ${node.row.Name}${node.row.Type === 'Circle' ? ', explore circle' : ', view responsibilities'}` });
       anchor.classList.add(node.row.Type === 'Role' ? 'atlas-node-role' : 'atlas-node-circle');
       const title = svgEl('title'); title.textContent = node.row.Name; anchor.append(title);
@@ -152,10 +155,10 @@ function renderAtlasCircles(host, records, selected, matches, query) {
           if (line && (line + ' ' + word).length > limit) { lines.push(line); line = word; } else line += (line ? ' ' : '') + word;
         }
         if (line) lines.push(line);
-        const labelY = node.children.length ? y - r + 18 : y - (lines.length - 1) * fontSize * .58;
+        const labelY = node.children.length && !(chain.length === 1 && depth === 1) ? y - r + 18 : y - (lines.length - 1) * fontSize * .58;
         const text = svgEl('text', { x, y: labelY, 'font-size': fontSize, 'text-anchor': 'middle', 'pointer-events': 'none', 'font-weight': node.row.Type === 'Circle' ? 700 : 500 });
         lines.forEach((value, i) => { const span = svgEl('tspan', { x, dy: i ? fontSize * 1.15 : 0 }); span.textContent = value; text.append(span); });
-        label = svgEl('a', { href: url(node.row.ID), tabindex: '-1', 'aria-hidden': 'true' });
+        label = svgEl('g', { 'aria-hidden': 'true', 'pointer-events': 'none' });
         if (node.row.Type === 'Circle') {
           const width = Math.max(...lines.map(value => value.length)) * fontSize * .6 + 16;
           label.append(svgEl('rect', { x: x - width / 2, y: labelY - fontSize, width, height: lines.length * fontSize * 1.15 + 8, rx: 10, fill: '#29241f' }));
@@ -169,7 +172,7 @@ function renderAtlasCircles(host, records, selected, matches, query) {
         tip.textContent = node.row.Name;
       }
       group.append(anchor);
-      node.children.forEach(child => group.append(draw(child, x + child.x * scale, y + child.y * scale, depth + 1)));
+      if (chain.length > 1 || depth === 0) node.children.forEach(child => group.append(draw(child, x + child.x * scale, y + child.y * scale, depth + 1)));
       if (label) group.append(label);
       if (tip) group.append(tip);
       return group;

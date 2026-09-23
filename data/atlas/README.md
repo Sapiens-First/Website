@@ -90,3 +90,17 @@ Today every role or circle's incumbent is recorded only as free text in `Lead Li
 - Leave `Person ID` blank until stable IDs and a reviewed person mapping are actually adopted (see `plan.md`, "Future work": stable IDs, reviewed domain-to-role mappings, and assignees are all still open).
 - `Lead Link` keeps working exactly as it does today for every row, whether or not `Person ID` is populated. Nothing about existing data needs to change or migrate.
 - Do not create `people.csv` or assign real people's `Person ID` values without an explicit decision to formalize that data; this convention documents the extension point, it does not populate it.
+
+## Work-map refinement (2026-09-23)
+
+The participant-facing map uses Sapiens First planning windows: H4 Mission (~3 years), H3 Strategic pillars (~1 year), H2 Programs (~6 months), and H1 Products & projects (~3 months). These are approximate planning/review windows, not deadlines or the standard GTD horizon taxonomy. Parent links retain actual containment, including links within a horizon.
+
+The supplied mission and Meta / Advocacy / Community / Empowerment outline has been applied. Continuing work retains its IDs, including Website, Communications, Finance & Fundraising, Resource Center, Training, Global Fellowship, Social Media, Newspaper, Chapters, Start a Circle, and Membership Registration & Onboarding. New work records D-031–D-041 have no invented owners or operational status; they start as Needs definition. Existing work omitted from the outline remains recorded. Ownership links and governance placement are independent of the work tree and were not inferred from new work parents.
+
+The anchor circle G-001 is named Sapiens First Global. Its overview renders only the immediate layer; open a circle to inspect deeper structure.
+
+### Governance consolidation (2026-09-23)
+
+Meta (G-041) contains Vision & Strategy and Finance & Fundraising. Chapter Network remains a circle for its planned growth. Five single-role wrappers were retired and consolidated into continuing roles: G-003 → G-002, G-012 → G-033, G-014 → G-026, G-015 → G-030, and G-018 → G-031. Their recorded purpose, accountabilities, scope, privileges, and assignments were retained on the continuing role. Existing ownership links remain unchanged; dated succeeds relationships record the transitions. Retired records remain available via stable URLs and the table; the live circle map excludes them.
+
+The same rule also retires Tech (G-036), which contained only Knowledge Base after that merge. G-030 continues directly within Sapiens First Global; a sixth succession link records this step.

@@ -1,0 +1,342 @@
+/* Preserved from events.html; scoped to this route. */
+/* ─── EVENTS SECTION ─────────────────────── */
+:where(.route-root.route-events) .events-section {
+  padding: 72px 0 96px;
+}
+:where(.route-root.route-events) .events-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+:where(.route-root.route-events) .events-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(40px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+/* ─── CITY FILTER ───────────────────────── */
+:where(.route-root.route-events) .city-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+:where(.route-root.route-events) .city-btn {
+  font-family: var(--font-body);
+  font-size: var(--sz-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+:where(.route-root.route-events) .city-btn:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+:where(.route-root.route-events) .city-btn.active {
+  background: var(--accent);
+  border-color: var(--accent-text);
+  color: #fff;
+}
+/* ─── EVENT LIST ────────────────────────── */
+:where(.route-root.route-events) .events-list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+}
+/* ─── EVENT CARD ────────────────────────── */
+:where(.route-root.route-events) .event-card {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+  min-height: 96px;
+}
+:where(.route-root.route-events) .event-card:last-child {
+  border-bottom: none;
+}
+:where(.route-root.route-events) .event-card:hover {
+  background: rgba(20, 18, 14, 0.04);
+}
+:where(.route-root.route-events) .event-card.past {
+  opacity: 0.5;
+}
+:where(.route-root.route-events) .event-card-date-col {
+  width: 88px;
+  flex-shrink: 0;
+  background: var(--accent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 8px;
+  gap: 2px;
+}
+:where(.route-root.route-events) .event-card.past .event-card-date-col {
+  background: var(--text);
+}
+:where(.route-root.route-events) .event-card:hover .event-card-date-col {
+  filter: brightness(1.08);
+}
+:where(.route-root.route-events) .event-card-month {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+:where(.route-root.route-events) .event-card-day {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 42px;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+:where(.route-root.route-events) .event-card-year {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+}
+:where(.route-root.route-events) .event-card-nodate-col {
+  width: 88px;
+  flex-shrink: 0;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:where(.route-root.route-events) .event-card-nodate-inner {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(20, 18, 14, 0.35);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+:where(.route-root.route-events) .event-card-body {
+  flex: 1;
+  padding: 18px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+:where(.route-root.route-events) .event-card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+:where(.route-root.route-events) .event-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+:where(.route-root.route-events) .event-card-meta-item {
+  font-family: var(--font-body);
+  font-size: var(--sz-label);
+  color: var(--text);
+}
+:where(.route-root.route-events) .event-card-meta-dot {
+  color: var(--border);
+}
+:where(.route-root.route-events) .event-card-arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 20px 0 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--border);
+  transition:
+    color 0.15s,
+    transform 0.15s;
+}
+:where(.route-root.route-events) .event-card:hover .event-card-arrow {
+  color: var(--accent-text);
+  transform: translateX(3px);
+}
+/* ─── PAST LABEL ────────────────────────── */
+:where(.route-root.route-events) .past-label {
+  margin: 48px 0 16px;
+}
+/* ─── EVENT MODAL ───────────────────────── */
+:where(.route-root.route-events) .event-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+  cursor: pointer;
+}
+:where(.route-root.route-events) .event-modal.open {
+  opacity: 1;
+  visibility: visible;
+}
+:where(.route-root.route-events) .event-modal-inner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(520px, 100%);
+  background: var(--bg);
+  cursor: default;
+  padding: 48px 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+:where(.route-root.route-events) .event-modal.open .event-modal-inner {
+  transform: translateX(0);
+}
+:where(.route-root.route-events) .modal-date-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+:where(.route-root.route-events) .modal-date {
+  font-family: var(--font-body);
+  font-size: var(--sz-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+:where(.route-root.route-events) .modal-time {
+  font-family: var(--font-body);
+  font-size: var(--sz-label);
+  color: var(--text);
+}
+:where(.route-root.route-events) .modal-dot {
+  width: 3px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+:where(.route-root.route-events) .modal-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+:where(.route-root.route-events) .modal-desc {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+:where(.route-root.route-events) .modal-details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+:where(.route-root.route-events) .detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+:where(.route-root.route-events) .detail-value {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.5;
+}
+:where(.route-root.route-events) .detail-value a {
+  color: var(--accent-text);
+  text-decoration: none;
+}
+:where(.route-root.route-events) .detail-value a:hover {
+  text-decoration: underline;
+}
+:where(.route-root.route-events) .modal-close-hint {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-align: center;
+  padding-top: 8px;
+  margin-top: auto;
+}
+:where(.route-root.route-events) .modal-share-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+:where(.route-root.route-events) .modal-share-url {
+  font-family: var(--font-body);
+  font-size: var(--sz-label);
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+/* ─── RESPONSIVE ────────────────────────── */
+@media (max-width: 768px) {
+  :where(.route-root.route-events) .events-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  :where(.route-root.route-events) .event-card-day {
+    font-size: 34px;
+  }
+  :where(.route-root.route-events) .event-card-date-col,
+  :where(.route-root.route-events) .event-card-nodate-col {
+    width: 68px;
+  }
+}
+@media (max-width: 600px) {
+  :where(.route-root.route-events) .container {
+    padding: 0 20px;
+  }
+  :where(.route-root.route-events) .event-card-body {
+    padding: 14px 16px 12px;
+  }
+  :where(.route-root.route-events) .event-card-title {
+    font-size: var(--sz-copy);
+  }
+  :where(.route-root.route-events) .event-card-arrow {
+    padding: 0 12px 0 4px;
+  }
+}

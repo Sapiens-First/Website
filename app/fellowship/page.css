@@ -1,0 +1,758 @@
+/* Preserved from fellowship.html; scoped to this route. */
+/* fellowship.html — page-specific only; shared rebrand atoms/hero/nav/footer live in app/globals.css */
+/* app/globals.css's bare h1/h2/.deck/.btn/etc. are tuned to the homepage
+       mockup's own type scale — about/fellowship/start-a-circle share a
+       different (but identical-to-each-other) scale, so each overrides
+       locally rather than changing the shared rule other pages (incl. the
+       signed-off homepage) depend on. */
+:where(.route-root.route-fellowship) h1 {
+  max-width: 9ch;
+  font-size: clamp(4rem, 8.4vw, 8.4rem);
+}
+:where(.route-root.route-fellowship) h2 {
+  font-size: clamp(2.5rem, 4.6vw, 4.6rem);
+  line-height: 0.98;
+}
+:where(.route-root.route-fellowship) .deck {
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+:where(.route-root.route-fellowship) .hero-copy p {
+  max-width: 34ch;
+  margin: 30px 0 26px;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.45;
+  font-weight: 600;
+}
+:where(.route-root.route-fellowship) .actions {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .btn {
+  padding: 16px 22px;
+  font-size: 14px;
+}
+:where(.route-root.route-fellowship) .poster {
+  font-size: clamp(0.95rem, 1.7vw, 1.4rem);
+}
+:where(.route-root.route-fellowship) .poster.alt {
+  bottom: 32%;
+}
+/* This mockup has no yellow underline squiggle below the hero paragraph
+       (that decorative :after is homepage-only) — suppress app/globals.css's copy. */
+:where(.route-root.route-fellowship) .hero-copy:after {
+  content: none;
+}
+:where(.route-root.route-fellowship) .hero-note {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .fact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0 0 30px;
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .fact-pill {
+  padding: 9px 13px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+/* ─── TEXT LINK (this page's own — see app/globals.css's .text-link for the
+       old design system's accent-based version used by unconverted pages) ── */
+:where(.route-root.route-fellowship) .text-link {
+  display: inline-block;
+  margin-top: 18px;
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+:where(.route-root.route-fellowship) .text-link:hover {
+  color: var(--accent-text);
+  border-color: var(--accent-text);
+}
+/* ─── QUICK FACTS BAR ── */
+:where(.route-root.route-fellowship) .factbar {
+  background: var(--ink);
+  padding: 0;
+}
+:where(.route-root.route-fellowship) .factbar .stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+:where(.route-root.route-fellowship) .factbar .stat {
+  min-height: 190px;
+  padding: 30px 26px;
+  border-right: 2px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+}
+:where(.route-root.route-fellowship) .factbar .stat:last-child {
+  border-right: 0;
+}
+:where(.route-root.route-fellowship) .factbar .stat strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+}
+:where(.route-root.route-fellowship) .factbar .stat span {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+  text-transform: uppercase;
+}
+:where(.route-root.route-fellowship) .factbar .stat:nth-child(1) strong {
+  color: var(--red);
+}
+:where(.route-root.route-fellowship) .factbar .stat:nth-child(2) strong {
+  color: var(--yellow);
+}
+:where(.route-root.route-fellowship) .factbar .stat:nth-child(3) strong {
+  color: var(--blue);
+}
+:where(.route-root.route-fellowship) .factbar .stat:nth-child(4) strong {
+  color: var(--green);
+}
+/* ─── ABOUT (two-col) ── */
+:where(.route-root.route-fellowship) .about {
+  background: #fff;
+  padding: 100px 0;
+}
+:where(.route-root.route-fellowship) .about-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 70px;
+  align-items: start;
+}
+:where(.route-root.route-fellowship) .about-copy p {
+  max-width: 38ch;
+}
+:where(.route-root.route-fellowship) .about-copy .deck {
+  margin: 26px 0 0;
+}
+:where(.route-root.route-fellowship) .about-art {
+  position: relative;
+  min-height: 400px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  overflow: hidden;
+}
+:where(.route-root.route-fellowship) .about-art .circle {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--red);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    14px -12px 0 var(--yellow),
+    -14px 14px 0 var(--blue);
+}
+:where(.route-root.route-fellowship) .about-art .tag {
+  position: absolute;
+  background: #fff;
+  border: 2px solid var(--ink);
+  padding: 10px 13px;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+:where(.route-root.route-fellowship) .about-art .t1 {
+  left: 6%;
+  top: 10%;
+  transform: rotate(-3deg);
+}
+:where(.route-root.route-fellowship) .about-art .t2 {
+  right: 6%;
+  top: 20%;
+  transform: rotate(3deg);
+}
+:where(.route-root.route-fellowship) .about-art .t3 {
+  left: 10%;
+  bottom: 12%;
+  transform: rotate(2deg);
+}
+/* ─── ABOUT YOU / focus rows ── */
+:where(.route-root.route-fellowship) .about-you {
+  background: var(--paper);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+:where(.route-root.route-fellowship) .about-you > .container {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .you-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: start;
+}
+:where(.route-root.route-fellowship) .focus {
+  border-top: 2px solid var(--ink);
+}
+:where(.route-root.route-fellowship) .focus-row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+:where(.route-root.route-fellowship) .focus-row .n {
+  font-size: 11px;
+  font-weight: 900;
+}
+:where(.route-root.route-fellowship) .focus-row:nth-child(1) .n {
+  color: var(--red);
+}
+:where(.route-root.route-fellowship) .focus-row:nth-child(2) .n {
+  color: var(--blue);
+}
+:where(.route-root.route-fellowship) .focus-row:nth-child(3) .n {
+  color: var(--green);
+}
+:where(.route-root.route-fellowship) .focus-row .name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+:where(.route-root.route-fellowship) .you-note {
+  margin-top: 26px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+}
+/* ─── ROLES accordion ── */
+:where(.route-root.route-fellowship) .roles {
+  background: #fff;
+  padding: 100px 0;
+}
+:where(.route-root.route-fellowship) .roles-head .deck {
+  margin-top: 26px;
+  max-width: 44ch;
+}
+:where(.route-root.route-fellowship) .role-acc {
+  margin-top: 44px;
+  border-top: 2px solid var(--ink);
+}
+:where(.route-root.route-fellowship) .role {
+  border-bottom: 2px solid var(--ink);
+  position: relative;
+}
+:where(.route-root.route-fellowship) .role summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 26px 46px 26px 22px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  position: relative;
+}
+:where(.route-root.route-fellowship) .role summary::-webkit-details-marker {
+  display: none;
+}
+:where(.route-root.route-fellowship) .role summary:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+}
+:where(.route-root.route-fellowship) .role:nth-of-type(1) summary:before {
+  background: var(--red);
+}
+:where(.route-root.route-fellowship) .role:nth-of-type(2) summary:before {
+  background: var(--blue);
+}
+:where(.route-root.route-fellowship) .role:nth-of-type(3) summary:before {
+  background: var(--green);
+}
+:where(.route-root.route-fellowship) .role:nth-of-type(4) summary:before {
+  background: var(--pink);
+}
+:where(.route-root.route-fellowship) .role-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  padding-left: 14px;
+}
+:where(.route-root.route-fellowship) .role-tag {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 9px;
+  border: 2px solid var(--ink);
+  white-space: nowrap;
+}
+:where(.route-root.route-fellowship) .role-chevron {
+  position: absolute;
+  right: 22px;
+  top: 28px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 900;
+}
+:where(.route-root.route-fellowship) .role-chevron:after {
+  content: "+";
+}
+:where(.route-root.route-fellowship) .role[open] .role-chevron:after {
+  content: "–";
+}
+:where(.route-root.route-fellowship) .role-body {
+  padding: 0 22px 34px 44px;
+}
+:where(.route-root.route-fellowship) .role-body p {
+  max-width: 60ch;
+  font-size: 1.02rem;
+  line-height: 1.55;
+  font-weight: 500;
+}
+:where(.route-root.route-fellowship) .role-activities-label {
+  display: block;
+  margin: 20px 0 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red-dark);
+}
+:where(.route-root.route-fellowship) .role-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+:where(.route-root.route-fellowship) .role-list li {
+  padding-left: 18px;
+  position: relative;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+:where(.route-root.route-fellowship) .role-list li:before {
+  content: "–";
+  position: absolute;
+  left: 0;
+  color: var(--ink);
+  opacity: 0.5;
+}
+:where(.route-root.route-fellowship) .role-note {
+  margin-top: 18px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+  max-width: 60ch;
+}
+/* ─── COMMITMENT banner ── */
+:where(.route-root.route-fellowship) .commitment {
+  background: var(--red);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+:where(.route-root.route-fellowship) .commitment > .container {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .commitment-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+:where(.route-root.route-fellowship) .commitment p {
+  margin: 0;
+  max-width: 34ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.08;
+}
+:where(.route-root.route-fellowship) .commitment-pills {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+:where(.route-root.route-fellowship) .commitment-pills span {
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+/* ─── BENEFITS ── */
+:where(.route-root.route-fellowship) .benefits {
+  background: var(--paper);
+  padding: 90px 0;
+  position: relative;
+  overflow: hidden;
+}
+:where(.route-root.route-fellowship) .benefits > .container {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .benefits-grid {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 70px;
+  align-items: start;
+}
+:where(.route-root.route-fellowship) .benefits .deck {
+  margin: 26px 0 0;
+  max-width: 48ch;
+}
+/* ─── FAQ ── */
+:where(.route-root.route-fellowship) .faq {
+  background: #fff;
+  padding: 100px 0;
+}
+:where(.route-root.route-fellowship) .faq-acc {
+  margin-top: 44px;
+  border-top: 2px solid var(--ink);
+}
+:where(.route-root.route-fellowship) .faq-item {
+  border-bottom: 2px solid var(--ink);
+}
+:where(.route-root.route-fellowship) .faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 24px 46px 24px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  position: relative;
+}
+:where(.route-root.route-fellowship) .faq-item summary::-webkit-details-marker {
+  display: none;
+}
+:where(.route-root.route-fellowship) .faq-n {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  min-width: 2.2ch;
+}
+:where(.route-root.route-fellowship) .faq-item:nth-of-type(1) .faq-n {
+  color: var(--red);
+}
+:where(.route-root.route-fellowship) .faq-item:nth-of-type(2) .faq-n {
+  color: var(--blue);
+}
+:where(.route-root.route-fellowship) .faq-item:nth-of-type(3) .faq-n {
+  color: var(--green);
+}
+:where(.route-root.route-fellowship) .faq-item:nth-of-type(4) .faq-n {
+  color: var(--pink);
+}
+:where(.route-root.route-fellowship) .faq-q {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+:where(.route-root.route-fellowship) .faq-chevron {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 900;
+}
+:where(.route-root.route-fellowship) .faq-chevron:after {
+  content: "+";
+}
+:where(.route-root.route-fellowship) .faq-item[open] .faq-chevron:after {
+  content: "–";
+}
+:where(.route-root.route-fellowship) .faq-body {
+  padding: 0 46px 30px 2.2ch;
+}
+:where(.route-root.route-fellowship) .faq-body p,
+:where(.route-root.route-fellowship) .faq-body ul,
+:where(.route-root.route-fellowship) .faq-body ol {
+  margin: 0 0 14px;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+:where(.route-root.route-fellowship) .faq-body :last-child {
+  margin-bottom: 0;
+}
+:where(.route-root.route-fellowship) .faq-body ul,
+:where(.route-root.route-fellowship) .faq-body ol {
+  padding-left: 1.2em;
+}
+:where(.route-root.route-fellowship) .faq-body li {
+  margin-bottom: 6px;
+}
+:where(.route-root.route-fellowship) .faq-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 14px;
+}
+:where(.route-root.route-fellowship) .faq-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+:where(.route-root.route-fellowship) .faq-table th,
+:where(.route-root.route-fellowship) .faq-table td {
+  text-align: left;
+  padding: 10px 16px 10px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+:where(.route-root.route-fellowship) .faq-table th {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--red-dark);
+  font-weight: 900;
+}
+/* ─── APPLY ── */
+:where(.route-root.route-fellowship) .apply {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--paper);
+}
+:where(.route-root.route-fellowship) .apply-copy {
+  padding: 100px max(28px, 7vw);
+}
+:where(.route-root.route-fellowship) .apply-copy .deck {
+  margin: 24px 0 30px;
+  max-width: 36ch;
+}
+:where(.route-root.route-fellowship) .apply-note {
+  margin-top: 16px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+:where(.route-root.route-fellowship) .apply-panel {
+  position: relative;
+  min-height: 480px;
+  background: var(--ink);
+  color: #fff;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 2px solid var(--ink);
+  overflow: hidden;
+}
+:where(.route-root.route-fellowship) .apply-panel .label {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .apply-panel .apply-deadline,
+:where(.route-root.route-fellowship) .apply-panel p,
+:where(.route-root.route-fellowship) .apply-panel .signup-row {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-fellowship) .apply-deadline {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 7vw, 5.6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  text-transform: uppercase;
+  color: var(--red);
+}
+:where(.route-root.route-fellowship) .apply-panel p {
+  margin: 18px 0 22px;
+  max-width: 30ch;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #fff;
+}
+:where(.route-root.route-fellowship) .apply-panel:after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background: var(--yellow);
+  right: 34px;
+  bottom: 38px;
+  transform: rotate(-3deg);
+  border-radius: 999px;
+}
+/* ─── RESPONSIVE ── */
+@media (max-width: 900px) {
+  :where(.route-root.route-fellowship) .hero-art {
+    min-height: 420px;
+  }
+  :where(.route-root.route-fellowship) .apply {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-fellowship) .about-grid,
+  :where(.route-root.route-fellowship) .you-grid,
+  :where(.route-root.route-fellowship) .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-fellowship) .about-art {
+    min-height: 320px;
+  }
+  :where(.route-root.route-fellowship) .factbar .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  :where(.route-root.route-fellowship) .factbar .stat:nth-child(2) {
+    border-right: 0;
+  }
+  :where(.route-root.route-fellowship) .factbar .stat:nth-child(1),
+  :where(.route-root.route-fellowship) .factbar .stat:nth-child(2) {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.18);
+  }
+  :where(.route-root.route-fellowship) .apply-panel {
+    border-left: 0;
+    border-top: 2px solid var(--ink);
+    min-height: 340px;
+  }
+}
+@media (max-width: 600px) {
+  :where(.route-root.route-fellowship) h1 {
+    font-size: clamp(3rem, 15vw, 4.6rem);
+    max-width: 9ch;
+  }
+  :where(.route-root.route-fellowship) h2 {
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+  :where(.route-root.route-fellowship) .hero-copy p {
+    font-size: 1.02rem;
+    max-width: none;
+  }
+  :where(.route-root.route-fellowship) .hero-art {
+    min-height: 320px;
+  }
+  :where(.route-root.route-fellowship) .sun {
+    width: 230px;
+    height: 230px;
+    top: 40px;
+    right: -70px;
+  }
+  :where(.route-root.route-fellowship) .face {
+    width: 180px;
+    height: 280px;
+    left: 10%;
+    bottom: -56px;
+  }
+  :where(.route-root.route-fellowship) .burst {
+    width: 120px;
+    height: 120px;
+    left: 8%;
+    top: 11%;
+  }
+  :where(.route-root.route-fellowship) .poster {
+    font-size: 0.85rem;
+    padding: 9px 11px;
+    bottom: 12%;
+    right: 6%;
+  }
+  :where(.route-root.route-fellowship) .factbar .stats {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-fellowship) .factbar .stat {
+    min-height: 0;
+    padding: 24px 20px;
+    border-right: 0 !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.18);
+  }
+  :where(.route-root.route-fellowship) .factbar .stat:last-child {
+    border-bottom: 0;
+  }
+  :where(.route-root.route-fellowship) .factbar .stat strong {
+    font-size: 2.2rem;
+  }
+  :where(.route-root.route-fellowship) .factbar .stat span {
+    font-size: 1rem;
+  }
+  :where(.route-root.route-fellowship) .about,
+  :where(.route-root.route-fellowship) .about-you,
+  :where(.route-root.route-fellowship) .roles,
+  :where(.route-root.route-fellowship) .benefits,
+  :where(.route-root.route-fellowship) .faq {
+    padding: 56px 0;
+  }
+  :where(.route-root.route-fellowship) .role summary {
+    padding: 20px 40px 20px 18px;
+  }
+  :where(.route-root.route-fellowship) .role-title {
+    font-size: 1.35rem;
+    padding-left: 10px;
+  }
+  :where(.route-root.route-fellowship) .role-body {
+    padding: 0 18px 26px 32px;
+  }
+  :where(.route-root.route-fellowship) .role-chevron {
+    right: 18px;
+    top: 22px;
+  }
+  :where(.route-root.route-fellowship) .faq-item summary {
+    padding: 20px 40px 20px 0;
+  }
+  :where(.route-root.route-fellowship) .faq-body {
+    padding: 0 40px 24px 1.6ch;
+  }
+  :where(.route-root.route-fellowship) .commitment-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  :where(.route-root.route-fellowship) .apply-copy {
+    padding: 54px 20px 48px;
+  }
+  :where(.route-root.route-fellowship) .apply-panel {
+    padding: 44px 24px;
+    min-height: 340px;
+  }
+  :where(.route-root.route-fellowship) .apply-deadline {
+    font-size: clamp(2.4rem, 11vw, 3.4rem);
+  }
+}

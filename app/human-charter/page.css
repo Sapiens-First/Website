@@ -1,0 +1,295 @@
+/* Preserved from human-charter.html; scoped to this route. */
+/* human-charter.html — page-specific only; shared rebrand atoms/nav/footer
+       live in app/globals.css. This mockup's hero is a plain centered block (no
+       split hero-art image side), so it uses its own .charter-hero class
+       rather than app/globals.css's .hero grid component — reusing "hero" here
+       would pull in that two-column layout and wreck this page. Its h1/h2/
+       .btn/.underline also use their own numbers (different from about/
+       fellowship/start-a-circle's shared inner-page overrides), so those are
+       overridden fresh per this mockup's actual values instead of reused. */
+:where(.route-root.route-human-charter) h1 {
+  margin: 0 auto;
+  max-width: 17ch;
+  font-size: clamp(3.4rem, 9vw, 7.6rem);
+  line-height: 0.9;
+  text-align: center;
+}
+:where(.route-root.route-human-charter) h2 {
+  font-size: clamp(2.9rem, 5.4vw, 5.6rem);
+  line-height: 0.96;
+}
+:where(.route-root.route-human-charter) .btn {
+  padding: 14px 22px;
+  letter-spacing: 0.03em;
+}
+:where(.route-root.route-human-charter) .charter-hero {
+  background: var(--paper);
+  padding: clamp(80px, 10vw, 140px) 0 clamp(70px, 8vw, 100px);
+  text-align: center;
+}
+:where(.route-root.route-human-charter) .charter-hero .kicker {
+  margin: 0 auto 26px;
+}
+:where(.route-root.route-human-charter) .charter-hero .deck {
+  max-width: 34ch;
+  margin: 30px auto 0;
+  font-weight: 700;
+}
+:where(.route-root.route-human-charter) .charter-hero .lede {
+  max-width: 56ch;
+  margin: 22px auto 0;
+  font-size: 1.08rem;
+  line-height: 1.55;
+  color: #3a352c;
+}
+:where(.route-root.route-human-charter) .charter-hero .actions {
+  justify-content: center;
+  margin-top: 38px;
+}
+/* ─── STAKES (dark crisis statement + stat trio) ── */
+:where(.route-root.route-human-charter) .stakes {
+  background: var(--ink);
+}
+:where(.route-root.route-human-charter) .crisis-statement {
+  color: #fff;
+  padding: 84px max(28px, 7vw);
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 4vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+:where(.route-root.route-human-charter) .crisis-statement em {
+  color: var(--red);
+  font-style: normal;
+}
+:where(.route-root.route-human-charter) .crisis-statement .label {
+  display: block;
+  width: max-content;
+  margin-bottom: 28px;
+}
+:where(.route-root.route-human-charter) .crisis-line {
+  max-width: 26ch;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+:where(.route-root.route-human-charter) .crisis-statement .stats {
+  margin: 64px calc(-1 * max(28px, 7vw)) -84px;
+  border-top: 2px solid rgba(255, 255, 255, 0.35);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat {
+  min-height: 200px;
+  padding: 32px 30px;
+  border-right: 2px solid var(--ink);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  font-family: var(--font-body);
+  color: #fff;
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat:last-child {
+  border-right: 0;
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(1) {
+  background: var(--red);
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(2) {
+  background: var(--blue);
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(3) {
+  background: var(--green);
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(1),
+:where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(2) {
+  color: var(--ink);
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat strong {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.4rem);
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+:where(.route-root.route-human-charter) .crisis-statement .stat span {
+  max-width: 20ch;
+  font-size: 1rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+/* ─── PILLARS ── */
+:where(.route-root.route-human-charter) .pillar {
+  padding: clamp(70px, 9vw, 110px) 0;
+}
+:where(.route-root.route-human-charter) .pillar.white {
+  background: #fff;
+}
+:where(.route-root.route-human-charter) .pillar.paper {
+  background: var(--paper);
+}
+:where(.route-root.route-human-charter) .pillar-head {
+  max-width: 52ch;
+}
+:where(.route-root.route-human-charter) .pillar-head h2 {
+  margin-top: 18px;
+}
+:where(.route-root.route-human-charter) .pillar-head .deck {
+  margin: 24px 0 0;
+  max-width: 46ch;
+  font-weight: 600;
+}
+:where(.route-root.route-human-charter) .principles {
+  margin-top: 56px;
+  border-top: 2px solid var(--ink);
+  display: grid;
+}
+:where(.route-root.route-human-charter) .principles-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+:where(.route-root.route-human-charter) .principles-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+:where(.route-root.route-human-charter) .principle {
+  min-height: 280px;
+  padding: 32px 30px;
+  border-right: 2px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+}
+:where(.route-root.route-human-charter) .principle:last-child {
+  border-right: 0;
+}
+:where(.route-root.route-human-charter) .principle .num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--red-dark);
+  line-height: 0.8;
+  margin-bottom: 26px;
+}
+:where(.route-root.route-human-charter) .principle h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.5rem, 2.2vw, 2.05rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+:where(.route-root.route-human-charter) .principle p {
+  margin: 0;
+  max-width: 32ch;
+  font-size: 1rem;
+  line-height: 1.48;
+  color: #3a352c;
+}
+:where(.route-root.route-human-charter)
+  .pillar.white
+  .principle:nth-child(odd) {
+  background: var(--paper);
+}
+:where(.route-root.route-human-charter)
+  .pillar.paper
+  .principle:nth-child(odd) {
+  background: #fff;
+}
+/* ─── CLOSING / SIGN ── */
+:where(.route-root.route-human-charter) .closing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--paper);
+}
+:where(.route-root.route-human-charter) .closing-copy {
+  padding: clamp(70px, 9vw, 105px) max(28px, 7vw);
+  position: relative;
+}
+:where(.route-root.route-human-charter) .closing-copy .deck {
+  margin: 26px 0 30px;
+  max-width: 28ch;
+}
+:where(.route-root.route-human-charter) .quote {
+  position: relative;
+  min-height: 420px;
+  background: var(--ink);
+  color: #fff;
+  padding: 72px 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  border-left: 2px solid var(--ink);
+}
+:where(.route-root.route-human-charter) .quote:before {
+  content: "\201C";
+  position: absolute;
+  top: -90px;
+  left: 25px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22rem;
+  line-height: 1;
+  color: var(--red);
+}
+:where(.route-root.route-human-charter) .quote blockquote {
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.7rem, 3vw, 2.9rem);
+  line-height: 1.1;
+}
+:where(.route-root.route-human-charter) .quote cite {
+  display: block;
+  margin-top: 22px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  font-style: normal;
+  position: relative;
+  z-index: 2;
+}
+/* ─── RESPONSIVE ── */
+@media (max-width: 900px) {
+  :where(.route-root.route-human-charter) .crisis-statement .stats {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-human-charter) .crisis-statement .stat {
+    border-right: 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  :where(.route-root.route-human-charter) .crisis-statement .stat:last-child {
+    border-bottom: 0;
+  }
+  :where(.route-root.route-human-charter) .principles-2,
+  :where(.route-root.route-human-charter) .principles-3 {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-human-charter) .principle {
+    border-right: 0;
+    border-bottom: 2px solid var(--ink);
+  }
+  :where(.route-root.route-human-charter) .principle:last-child {
+    border-bottom: 0;
+  }
+  :where(.route-root.route-human-charter) .closing {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-human-charter) .quote {
+    border-left: 0;
+    border-top: 2px solid var(--ink);
+  }
+}
+@media (max-width: 600px) {
+  :where(.route-root.route-human-charter) .charter-hero {
+    padding: 56px 0 48px;
+  }
+  :where(.route-root.route-human-charter) h1 {
+    max-width: 11ch;
+    font-size: clamp(2.5rem, 13vw, 4rem);
+  }
+}

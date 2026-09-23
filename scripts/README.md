@@ -1,6 +1,6 @@
 # Signup spreadsheet handler
 
-The site sends `{ email, interest }` to the existing Apps Script web app in `signup.js`.
+The Next.js site sends `{ email, interest }` to the existing Apps Script web app in `components/SignupForm.tsx`. The deployed endpoint is configured in `lib/site.ts`.
 Interest is `membership`, `start-a-circle`, or `fellowship`.
 
 ## Update the existing deployment

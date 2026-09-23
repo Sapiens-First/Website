@@ -1,0 +1,480 @@
+/* Preserved from circle.html; scoped to this route. */
+/* circle.html — page-specific only; shared rebrand atoms/hero/
+       nav/footer live in app/globals.css. Same inner-page type-scale overrides as
+       about/fellowship — see about.html for why app/globals.css's bare
+       h1/h2/.deck/.btn/etc. need overriding here. */
+:where(.route-root.route-circle) h1 {
+  max-width: 9ch;
+  font-size: clamp(4rem, 8.4vw, 8.4rem);
+}
+:where(.route-root.route-circle) h2 {
+  font-size: clamp(2.5rem, 4.6vw, 4.6rem);
+  line-height: 0.98;
+}
+:where(.route-root.route-circle) .deck {
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  line-height: 1.5;
+  font-weight: 500;
+}
+:where(.route-root.route-circle) .hero-copy p {
+  max-width: 34ch;
+  margin: 30px 0 26px;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.45;
+  font-weight: 600;
+}
+:where(.route-root.route-circle) .btn {
+  padding: 16px 22px;
+  font-size: 14px;
+}
+:where(.route-root.route-circle) .circle-hero-art {
+  display: grid;
+  place-items: center;
+  padding: 28px 12px;
+}
+:where(.route-root.route-circle) .circle-hero-art:before {
+  content: none;
+}
+:where(.route-root.route-circle) .circle-gathering {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+}
+:where(.route-root.route-circle) .circle-gathering .art-title {
+  font-family: var(--font-display);
+  font-size: 31px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+:where(.route-root.route-circle) .circle-gathering .art-note {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+:where(.route-root.route-circle) .hero-copy:after {
+  content: none;
+}
+:where(.route-root.route-circle) .hero-note {
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-circle) .fact-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 0 0 30px;
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-circle) .fact-pill {
+  padding: 9px 13px;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+:where(.route-root.route-circle) .circle-rally {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 0;
+  padding: 30px max(28px, 7vw);
+  background: var(--red);
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.7vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+:where(.route-root.route-circle) .circle-rally .zap {
+  width: 26px;
+  height: 40px;
+  flex-shrink: 0;
+}
+/* ─── ABOUT YOU / focus rows ── */
+:where(.route-root.route-circle) .about-you {
+  background: var(--paper);
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+:where(.route-root.route-circle) .about-you > .container {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-circle) .you-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: start;
+}
+:where(.route-root.route-circle) .focus {
+  border-top: 2px solid var(--ink);
+}
+:where(.route-root.route-circle) .focus-row {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 16px;
+  align-items: start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+:where(.route-root.route-circle) .focus-row .n {
+  font-size: 11px;
+  font-weight: 900;
+}
+:where(.route-root.route-circle) .focus-row:nth-child(1) .n {
+  color: var(--red);
+}
+:where(.route-root.route-circle) .focus-row:nth-child(2) .n {
+  color: var(--blue);
+}
+:where(.route-root.route-circle) .focus-row:nth-child(3) .n {
+  color: var(--green);
+}
+:where(.route-root.route-circle) .focus-row .name {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+:where(.route-root.route-circle) .focus-row p {
+  margin: 8px 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+:where(.route-root.route-circle) .focus-row h3 {
+  margin: 0;
+}
+:where(.route-root.route-circle) .section-intro {
+  max-width: 48ch;
+  margin: 26px 0 0;
+}
+:where(.route-root.route-circle) .getting-started {
+  background: #fff;
+  padding: 90px 0;
+}
+:where(.route-root.route-circle) .steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 44px 0 0;
+}
+:where(.route-root.route-circle) .step {
+  border-top: 3px solid var(--ink);
+  padding-top: 24px;
+}
+:where(.route-root.route-circle) .step-number {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+}
+:where(.route-root.route-circle) .step:nth-child(1) .step-number {
+  color: var(--red-dark);
+}
+:where(.route-root.route-circle) .step:nth-child(2) .step-number {
+  color: var(--blue);
+}
+:where(.route-root.route-circle) .step:nth-child(3) .step-number {
+  color: var(--green);
+}
+:where(.route-root.route-circle) .step h3 {
+  font-size: 1.25rem;
+  margin: 18px 0 12px;
+}
+:where(.route-root.route-circle) .step p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+:where(.route-root.route-circle) .step a,
+:where(.route-root.route-circle) .faq-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+:where(.route-root.route-circle) .shared-leadership {
+  background: var(--ink);
+  color: #fff;
+  padding: 80px 0;
+}
+:where(.route-root.route-circle) .shared-leadership .deck {
+  margin: 26px 0 0;
+  max-width: 40ch;
+  color: #fff;
+}
+:where(.route-root.route-circle) .role-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #777;
+}
+:where(.route-root.route-circle) .role-list li {
+  padding: 22px 0;
+  border-bottom: 1px solid #777;
+}
+:where(.route-root.route-circle) .role-list strong {
+  display: block;
+  color: var(--yellow);
+  margin-bottom: 6px;
+  font-size: 1.15rem;
+}
+:where(.route-root.route-circle) .role-list span {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+:where(.route-root.route-circle) .faq {
+  background: #fff;
+  padding: 100px 0;
+}
+:where(.route-root.route-circle) .faq-acc {
+  margin-top: 44px;
+  border-top: 2px solid var(--ink);
+}
+:where(.route-root.route-circle) .faq-item {
+  border-bottom: 2px solid var(--ink);
+}
+:where(.route-root.route-circle) .faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 24px 46px 24px 0;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  position: relative;
+}
+:where(.route-root.route-circle) .faq-item summary::-webkit-details-marker {
+  display: none;
+}
+:where(.route-root.route-circle) .faq-n {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  min-width: 2.2ch;
+}
+:where(.route-root.route-circle) .faq-item:nth-of-type(1) .faq-n {
+  color: var(--red);
+}
+:where(.route-root.route-circle) .faq-item:nth-of-type(2) .faq-n {
+  color: var(--blue);
+}
+:where(.route-root.route-circle) .faq-item:nth-of-type(3) .faq-n {
+  color: var(--green);
+}
+:where(.route-root.route-circle) .faq-item:nth-of-type(4) .faq-n {
+  color: var(--pink);
+}
+:where(.route-root.route-circle) .faq-q {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+:where(.route-root.route-circle) .faq-chevron {
+  position: absolute;
+  right: 0;
+  top: 24px;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--ink);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 900;
+}
+:where(.route-root.route-circle) .faq-chevron:after {
+  content: "+";
+}
+:where(.route-root.route-circle) .faq-item[open] .faq-chevron:after {
+  content: "–";
+}
+:where(.route-root.route-circle) .faq-body {
+  padding: 0 46px 30px 2.2ch;
+}
+:where(.route-root.route-circle) .faq-body p,
+:where(.route-root.route-circle) .faq-body ul,
+:where(.route-root.route-circle) .faq-body ol {
+  margin: 0 0 14px;
+  max-width: 62ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+:where(.route-root.route-circle) .faq-body :last-child {
+  margin-bottom: 0;
+}
+:where(.route-root.route-circle) .faq-body ul,
+:where(.route-root.route-circle) .faq-body ol {
+  padding-left: 1.2em;
+}
+:where(.route-root.route-circle) .faq-body li {
+  margin-bottom: 6px;
+}
+/* ─── APPLY / closing ── */
+:where(.route-root.route-circle) .apply {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--paper);
+}
+:where(.route-root.route-circle) .apply-copy {
+  padding: 100px max(28px, 7vw);
+}
+:where(.route-root.route-circle) .apply-copy .deck {
+  margin: 24px 0 30px;
+  max-width: 36ch;
+}
+:where(.route-root.route-circle) .apply-note {
+  margin-top: 16px;
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+:where(.route-root.route-circle) .apply-panel {
+  position: relative;
+  min-height: 480px;
+  background: var(--ink);
+  color: #fff;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 2px solid var(--ink);
+  overflow: hidden;
+}
+:where(.route-root.route-circle) .apply-panel .label {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-circle) .apply-panel .apply-deadline,
+:where(.route-root.route-circle) .apply-panel p,
+:where(.route-root.route-circle) .apply-panel .signup-row {
+  position: relative;
+  z-index: 2;
+}
+:where(.route-root.route-circle) .apply-deadline {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 800;
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: var(--red);
+}
+:where(.route-root.route-circle) .apply-panel p {
+  margin: 18px 0 0;
+  max-width: 30ch;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #fff;
+}
+:where(.route-root.route-circle) .apply-panel .signup-row {
+  margin-top: 22px;
+}
+:where(.route-root.route-circle) .apply-panel:after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 10px;
+  background: var(--yellow);
+  right: 34px;
+  bottom: 38px;
+  transform: rotate(-3deg);
+  border-radius: 999px;
+}
+:where(.route-root.route-circle) summary:focus-visible,
+:where(.route-root.route-circle) a:focus-visible,
+:where(.route-root.route-circle) button:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 5px;
+}
+:where(.route-root.route-circle) .hero-copy .hero-note {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 14px 0 0;
+  max-width: 44ch;
+}
+/* ─── RESPONSIVE ── */
+@media (max-width: 900px) {
+  :where(.route-root.route-circle) .hero-art {
+    min-height: 420px;
+  }
+  :where(.route-root.route-circle) .apply {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-circle) .you-grid {
+    grid-template-columns: 1fr;
+  }
+  :where(.route-root.route-circle) .apply-panel {
+    border-left: 0;
+    border-top: 2px solid var(--ink);
+    min-height: 340px;
+  }
+}
+@media (max-width: 600px) {
+  :where(.route-root.route-circle) .circle-rally {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+  :where(.route-root.route-circle) h1 {
+    font-size: clamp(3rem, 15vw, 4.6rem);
+    max-width: 9ch;
+  }
+  :where(.route-root.route-circle) h2 {
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+  :where(.route-root.route-circle) .hero-copy p {
+    font-size: 1.02rem;
+    max-width: none;
+  }
+  :where(.route-root.route-circle) .hero-art {
+    min-height: 320px;
+  }
+  :where(.route-root.route-circle) .about-you,
+  :where(.route-root.route-circle) .getting-started,
+  :where(.route-root.route-circle) .shared-leadership,
+  :where(.route-root.route-circle) .faq {
+    padding: 56px 0;
+  }
+  :where(.route-root.route-circle) .steps {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  :where(.route-root.route-circle) .you-grid {
+    gap: 36px;
+  }
+  :where(.route-root.route-circle) .focus-row {
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+  }
+  :where(.route-root.route-circle) .faq-item summary {
+    gap: 12px;
+  }
+  :where(.route-root.route-circle) .faq-body {
+    padding: 0 0 24px;
+  }
+  :where(.route-root.route-circle) .apply-copy {
+    padding: 54px 20px 48px;
+  }
+  :where(.route-root.route-circle) .apply-panel {
+    padding: 44px 24px;
+    min-height: 340px;
+  }
+  :where(.route-root.route-circle) .apply-deadline {
+    font-size: clamp(3.2rem, 18vw, 5rem);
+  }
+}

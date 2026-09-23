@@ -1,0 +1,37 @@
+/* Preserved from privacy.html; scoped to this route. */
+:where(.route-root.route-privacy) .privacy-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 100px 0 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+:where(.route-root.route-privacy) .privacy-heading {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(52px, 8vw, 88px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+:where(.route-root.route-privacy) .privacy-text {
+  font-size: var(--sz-copy);
+  line-height: 1.68;
+  color: var(--text);
+}
+:where(.route-root.route-privacy) .privacy-text a {
+  color: var(--accent-text);
+}
+:where(.route-root.route-privacy) .privacy-cookies {
+  font-size: var(--sz-label);
+  line-height: 1.7;
+  color: var(--text);
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 600px) {
+  :where(.route-root.route-privacy) .privacy-wrap {
+    padding: 80px 0 80px;
+  }
+}

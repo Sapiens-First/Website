@@ -86,16 +86,17 @@ async def main():
             assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')
             await page.locator('#atlas-circle-chart').screenshot(path=f'/tmp/atlas-circles-final-{width}.png')
             await page.locator('[data-view="domains"]').click()
-            # Domains now has its own Table/Tree toggle (see atlas-tree.js),
-            # so #atlas-format stays visible switching views — but the
-            # governance-only Circles button must not leak into Domains.
-            # Tree is Domains' own default (mirroring Circles for Governance),
-            # so switching tabs lands there, not the table, even though we
-            # were just in Table for Governance.
+            # Domains has its own Table/Explorer/Alignment toggle (see
+            # atlas-outline.js/atlas-alignment.js), so #atlas-format stays
+            # visible switching views — but the governance-only Circles
+            # button must not leak into Domains. Explorer is Domains' own
+            # default (mirroring Circles for Governance), so switching tabs
+            # lands there, not the table, even though we were just in Table
+            # for Governance.
             await expect(page.locator('#atlas-format')).to_be_visible()
             await expect(page.locator('[data-format="circles"]')).to_be_hidden()
-            await expect(page.locator('[data-format="tree"]')).to_be_visible()
-            await expect(page.locator('#atlas-tree')).to_be_visible()
+            await expect(page.locator('[data-format="outline"]')).to_be_visible()
+            await expect(page.locator('#atlas-outline')).to_be_visible()
             await expect(page.locator('#atlas-results')).to_be_hidden()
             await page.locator('[data-format="table"]').click()
             await expect(page.locator('#atlas-results')).to_be_visible()

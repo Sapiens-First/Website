@@ -18,7 +18,8 @@ async def main():
             await expect(page.locator('#atlas-format')).to_be_hidden()
             await expect(page.locator('#atlas-results')).to_be_hidden()
             await expect(page.locator('#atlas-circles')).to_be_hidden()
-            await expect(page.locator('#atlas-tree')).to_be_hidden()
+            await expect(page.locator('#atlas-outline')).to_be_hidden()
+            await expect(page.locator('#atlas-alignment')).to_be_hidden()
             cards = page.locator('.atlas-person')
             # Ten current people: Rohan (the only Staff) plus nine named Fellows.
             await expect(cards).to_have_count(10)

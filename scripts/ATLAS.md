@@ -8,13 +8,14 @@ python3 scripts/tests/atlas-data.py
 python3 scripts/tests/atlas-privacy-check.py
 node scripts/tests/atlas-ownership.cjs
 node scripts/tests/atlas-circles.cjs
-node scripts/tests/atlas-tree.cjs
+node scripts/tests/atlas-outline.cjs
 node scripts/tests/atlas-people.cjs
 python3 dev_server.py
 # In another terminal:
 python3 scripts/tests/atlas-browser.py
 python3 scripts/tests/atlas-circles-browser.py
-python3 scripts/tests/atlas-tree-browser.py
+python3 scripts/tests/atlas-outline-browser.py
+python3 scripts/tests/atlas-alignment-browser.py
 python3 scripts/tests/atlas-people-browser.py
 ```
 
@@ -32,14 +33,18 @@ The SVG layout is built solely from governance IDs and Parent Circle ID. Circle 
 
 Records with no parent stay in “Circle not assigned”; they are not silently attached to General Company Circle. Search gives links to matching records across all governance data. No external visualization library or network data source is required.
 
-## Domains tree view
+## Domains explorer view
 
-Open `/atlas#domains/tree`. It renders the whole Domains hierarchy at once — the Mission record at the top, branching down through Pillars, Programs, Products/Services, and Projects — rather than drilling into one circle at a time, since a node's vertical position is its structural Horizon Level (Mission→Pillar→Program→Product/Service→Project depth), a fixed property, not a focus the user can change. Table/Tree is encoded in the URL so browser history and direct links work, including `file://` previews.
+Open `/atlas#domains` (Explorer is Domains' default; `/atlas#domains/outline` is the explicit form, and old `/atlas#domains/tree/<id>` links still resolve, aliased to Explorer). It's a file-browser-style outline of the whole Domains hierarchy — rows, indentation, disclosure chevrons — collapsed to the Mission's immediate children on first load; there is no SVG canvas, no zoom/pan, and no giant always-expanded view. It replaced the earlier horizon-band Tree view (`atlas-tree.js`, removed) for the same reason the design brief gives: a flowchart of the whole hierarchy at once reads as a diagram to decipher, not an outline to browse.
 
-Depth is derived by walking each record's `Parent ID` chain back to the Mission — not by reading `Type` — because Type alone is ambiguous: some “Enabling” Programs (e.g. Marketing & Communications) attach directly to the Mission, landing at the same depth as Pillars, and a few Products/Projects attach directly to a Pillar or the Mission, skipping a tier. A row's left-edge label lists every Type actually present at that depth rather than picking one and hiding the mix. Box size reflects label length only, never progress, workload, or importance.
+A record's place in the outline is derived by walking its `Parent ID` chain back to the Mission — not by reading `Type` — for the same ambiguity reasons the old Tree view documented (some Programs attach directly to the Mission; some Products/Projects skip a tier). Records whose chain doesn't resolve (broken references or cycles) land in an "Uncategorized" section at the bottom rather than being silently dropped or attached to the root.
 
-Domains whose `Parent ID` chain doesn't resolve back to the Mission (broken references or cycles) stay in a separate “Not connected to the Mission” list; they are never silently attached to the root. Selecting a node opens its existing record panel and shows a breadcrumb of its ancestry — selecting never re-lays-out the tree itself. The canvas can be wider than the viewport (a legible tree needs more room than a single screen width), so only the chart scrolls horizontally, the same way the plain table already does, and it opens centered on the current selection (or the root) rather than left-edge-first.
+Selecting a row's chevron expands/collapses only that branch (state persists per browser session on the DOM host, not in the URL); selecting the row's name opens the existing shared record panel and shows a breadcrumb of its ancestry. Search prunes the outline to matches plus their ancestor context (dropping the redundant Mission wrapper while searching) rather than returning a flat result list — see `atlas-outline.js`.
+
+## Alignment view
+
+Open `/atlas#domains/alignment`. A matrix of Projects/Programs (rows) against whatever they cross-cuttingly `supports` (columns) — the relationships an Explorer's single-parent hierarchy can't represent, e.g. one project supporting several strategic goals at once. It reads `Relationship === 'supports'` rows from `relationships.csv`; none exist yet, so the view currently renders a plain-language empty state rather than a matrix — it is not stubbed, it's simply unpopulated, and will render real data automatically once `supports` rows exist. See `atlas-alignment.js`.
 
 ## People view
 
-Open `/atlas#people`. There is no separate people CSV or data group — `atlas-people.js` groups the same `governance.csv` assignments used everywhere else by `Person ID` (never by display name, so people sharing a label like the two Fellows named “Al” stay distinct). Retired/completed assignments are excluded. Table/Circles/Tree controls are hidden in this view since there's nothing to toggle. Each card shows the public label, engagement badge, and links into the governance record for every current role, which link back to `#people/<Person ID>`. See "People" in `data/atlas/README.md` for the data-side rules (two-letter Fellow labels, Steward eligibility).
+Open `/atlas#people`. There is no separate people CSV or data group — `atlas-people.js` groups the same `governance.csv` assignments used everywhere else by `Person ID` (never by display name, so people sharing a label like the two Fellows named “Al” stay distinct). Retired/completed assignments are excluded. Table/Circles/Explorer/Alignment controls are hidden in this view since there's nothing to toggle. Each card shows the public label, engagement badge, and links into the governance record for every current role, which link back to `#people/<Person ID>`. See "People" in `data/atlas/README.md` for the data-side rules (two-letter Fellow labels, Steward eligibility).

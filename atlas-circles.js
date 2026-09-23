@@ -45,6 +45,14 @@ function atlasCircleLayout(records) {
 }
 
 function renderAtlasCircles(host, records, selected, matches, query) {
+  // Captured before the host is cleared, so the outgoing view can keep
+  // animating (zooming further in/out and fading) as an overlay while the
+  // new one animates in underneath it — a true crossfade rather than a
+  // hard swap plus a one-sided entrance.
+  const outgoingSvg = host.querySelector('.atlas-circle-svg');
+  const prevFocusId = host.dataset.atlasFocusId || '';
+  const prevChainLen = Number(host.dataset.atlasChainLen || 0);
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   host.replaceChildren();
   // Retired wrappers stay addressable in records/history, not in the live map.
   const { nodes, roots, unplaced } = atlasCircleLayout(records.filter(row => row.Status !== 'Retired'));
@@ -57,7 +65,7 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     return node;
   };
   const url = id => `#governance/circles/${id}`;
-  const recordLink = row => { const a = html('a', row.Name); a.href = url(row.ID); return a; };
+  const recordLink = row => { const a = html('a', row.Name); a.href = url(row.ID); a.prepend(atlasIcon(row.Type)); return a; };
 
   // Breadcrumbs: ancestors are links, the current focus is plain text (it's
   // where you already are), separated by a small caret to read as a trail
@@ -175,7 +183,7 @@ function renderAtlasCircles(host, records, selected, matches, query) {
         label = svgEl('g', { 'aria-hidden': 'true', 'pointer-events': 'none' });
         if (node.row.Type === 'Circle') {
           const width = Math.max(...lines.map(value => value.length)) * fontSize * .6 + 16;
-          label.append(svgEl('rect', { x: x - width / 2, y: labelY - fontSize, width, height: lines.length * fontSize * 1.15 + 8, rx: 10, fill: '#29241f' }));
+          label.append(svgEl('rect', { x: x - width / 2, y: labelY - fontSize, width, height: lines.length * fontSize * 1.15 + 8, rx: 10, class: 'atlas-circle-label-bg', fill: '#29241f' }));
           text.classList.add('atlas-circle-label');
         }
         label.append(text);
@@ -208,18 +216,37 @@ function renderAtlasCircles(host, records, selected, matches, query) {
 
     // Smoother drill-in/out: scale+fade the newly drawn level in from a
     // slightly smaller (drilling in) or larger (drilling out) starting
-    // point instead of the level just appearing, so it reads as zooming.
-    // Skipped on first paint and on renders that don't change focus level
-    // (e.g. typing in search) so it never fires more often than needed.
-    const prevFocusId = host.dataset.atlasFocusId || '';
-    const prevChainLen = Number(host.dataset.atlasChainLen || 0);
-    if (prevFocusId && prevFocusId !== focus.row.ID) {
-      svg.classList.add(chain.length < prevChainLen ? 'atlas-circle-enter-out' : 'atlas-circle-enter-in');
+    // point instead of the level just appearing, so it reads as zooming —
+    // and let the level being replaced animate out the same way, as an
+    // overlay on top of the new one, so both halves of the zoom read as one
+    // continuous motion rather than an instant swap plus a one-sided
+    // entrance. Skipped on first paint and on renders that don't change
+    // focus level (e.g. typing in search) so it never fires more often than
+    // needed, and skipped entirely under reduced motion.
+    const stage = html('div'); stage.className = 'atlas-circle-stage';
+    stage.append(svg);
+    const zoomChanged = Boolean(prevFocusId) && prevFocusId !== focus.row.ID;
+    const zoomingIn = chain.length >= prevChainLen;
+    if (zoomChanged && !reducedMotion) {
+      svg.classList.add(zoomingIn ? 'atlas-circle-enter-in' : 'atlas-circle-enter-out');
+      if (outgoingSvg) {
+        // Positioning only, in this synchronous pass — no transform/opacity
+        // change yet, so it commits without triggering a transition. The
+        // actual leave-in/leave-out animation is added a frame later,
+        // alongside the entrance class removal below, so both halves of the
+        // crossfade start moving together.
+        outgoingSvg.classList.remove('atlas-circle-enter-in', 'atlas-circle-enter-out');
+        outgoingSvg.classList.add('atlas-circle-leaving');
+        stage.append(outgoingSvg);
+        outgoingSvg.addEventListener('transitionend', () => outgoingSvg.remove(), { once: true });
+        setTimeout(() => outgoingSvg.remove(), 500);
+      }
     }
-    host.append(svg);
-    if (svg.classList.contains('atlas-circle-enter-in') || svg.classList.contains('atlas-circle-enter-out')) {
+    host.append(stage);
+    if (zoomChanged && !reducedMotion) {
       requestAnimationFrame(() => requestAnimationFrame(() => {
         svg.classList.remove('atlas-circle-enter-in', 'atlas-circle-enter-out');
+        outgoingSvg?.classList.add(zoomingIn ? 'atlas-circle-leave-in' : 'atlas-circle-leave-out');
       }));
     }
     host.dataset.atlasFocusId = focus.row.ID;

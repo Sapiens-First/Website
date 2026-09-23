@@ -23,9 +23,11 @@
   <!-- BUILD:HEAD-COMMON:END -->
   <link rel="stylesheet" href="atlas.css">
   <script src="atlas-data.js" defer></script>
+  <script src="atlas-icons.js" defer></script>
   <script src="atlas-ownership.js" defer></script>
   <script src="atlas-circles.js" defer></script>
-  <script src="atlas-tree.js" defer></script>
+  <script src="atlas-outline.js" defer></script>
+  <script src="atlas-alignment.js" defer></script>
   <script src="atlas-people.js" defer></script>
   <script src="atlas.js" defer></script>
 </head>
@@ -33,29 +35,12 @@
   <header class="site-header"></header>
   <main class="atlas">
     <section class="atlas-hero container" aria-labelledby="atlas-title">
-      <div>
-        <div class="kicker">Sapiens First / Our organization</div>
-        <h1 id="atlas-title">The <span>Atlas.</span></h1>
-        <p class="atlas-intro">A shared map of our work.<br>And who makes it happen.</p>
-      </div>
-      <aside class="atlas-mission" aria-labelledby="mission-label" hidden>
-        <div class="kicker" id="mission-label">Our shared purpose</div>
-        <p id="mission-text"></p>
-        <span class="atlas-mission-note">The purpose that connects our work.</span>
-      </aside>
-    </section>
-    <section class="atlas-explorer container" aria-labelledby="view-title">
-      <div class="atlas-toolbar">
-        <div class="atlas-switch" role="group" aria-label="Atlas view">
-          <button type="button" data-view="domains" aria-pressed="true">01 <span>Domains</span></button>
-          <button type="button" data-view="governance" aria-pressed="false">02 <span>Roles</span></button>
-          <button type="button" data-view="people" aria-pressed="false">03 <span>People</span></button>
-        </div>
-        <a class="atlas-source" href="data/atlas/domains.csv" download>Download domains CSV ↓</a>
-      </div>
+      <div class="kicker">Atlas</div>
+      <h1 id="atlas-title">See how the movement works.</h1>
+      <p class="atlas-intro">Goals, circles, roles, projects, and the people behind them.<span id="mission-text"></span></p>
       <details class="atlas-guide">
-        <summary>How to read this map</summary>
-        <p><strong>Our work</strong> shows what we are building and how it connects. <strong>Roles &amp; circles</strong> shows who carries responsibilities. A circle organizes roles around a shared purpose.</p>
+        <summary>How Atlas works</summary>
+        <p><strong>Domains</strong> shows what we are building and how it connects. <strong>Roles</strong> shows who carries responsibilities — a circle organizes roles around a shared purpose. <strong>People</strong> shows who is energizing each role today.</p>
         <h3>From our mission to this quarter’s work</h3>
         <p>Our map uses four planning horizons. Start with the mission, follow a pillar, then explore its programs and concrete work. Choose a branch to see fewer cards at a readable size.</p>
         <ol class="atlas-horizons">
@@ -70,17 +55,34 @@
         <p>Atlas currently records work ownership and descriptive scope. These entries alone do not establish formal Holacracy Domains or policies. Missing definitions are gaps to resolve, not implied permission requirements.</p>
         <p class="atlas-guide-sources">Read more: <a href="https://gettingthingsdone.com/2011/01/the-6-horizons-of-focus/">David Allen’s Horizons of Focus</a> · <a href="https://www.holacracy.org/constitution/5-0/">Holacracy Constitution v5.0</a></p>
       </details>
-      <div class="atlas-view-heading">
-        <div><h2 id="view-title">Domains of work</h2><p id="view-description">Explore the areas of work that make up Sapiens First.</p></div>
-        <div class="atlas-controls">
-          <label id="atlas-filter-label">Show<select id="atlas-filter"><option value="active">Active work</option><option value="all">All statuses</option></select></label>
-          <label>Search this view<input type="search" id="atlas-search" placeholder="Search domains…" disabled></label>
+    </section>
+    <section class="atlas-explorer container" aria-labelledby="view-title">
+      <div class="atlas-toolbar">
+        <div class="atlas-switch" role="group" aria-label="Atlas view">
+          <button type="button" data-view="governance" aria-pressed="true"><span>Roles</span></button>
+          <button type="button" data-view="domains" aria-pressed="false"><span>Domains</span></button>
+          <button type="button" data-view="people" aria-pressed="false"><span>People</span></button>
+        </div>
+        <label class="atlas-search-field">
+          <svg class="atlas-search-icon" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="5.25" stroke="currentColor" stroke-width="1.5"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="atlas-sr-only">Search this view</span>
+          <input type="search" id="atlas-search" placeholder="Search Atlas…" disabled>
+        </label>
+        <label id="atlas-filter-label" class="atlas-filter-field">
+          <span class="atlas-sr-only">Show</span>
+          <select id="atlas-filter"><option value="active">Active work</option><option value="all">All statuses</option></select>
+        </label>
+        <div id="atlas-format" class="atlas-format" role="group" aria-label="Display" hidden>
+          <button type="button" data-format="table" aria-pressed="true">Table</button>
+          <button type="button" data-format="circles" data-view-format="governance" aria-pressed="false">Circles</button>
+          <button type="button" data-format="outline" data-view-format="domains" aria-pressed="true">Explorer</button>
+          <button type="button" data-format="alignment" data-view-format="domains" aria-pressed="false">Alignment</button>
         </div>
       </div>
-      <div id="atlas-format" class="atlas-format" role="group" aria-label="Display" hidden>
-        <button type="button" data-format="table" aria-pressed="true">Table</button>
-        <button type="button" data-format="circles" data-view-format="governance" aria-pressed="false">Circles</button>
-        <button type="button" data-format="tree" data-view-format="domains" aria-pressed="false">Tree</button>
+      <div class="atlas-view-heading">
+        <p id="view-title" class="atlas-view-label">Roles &amp; circles</p>
+        <p id="view-description">Explore responsibilities and linked work.</p>
+        <a class="atlas-source" href="data/atlas/governance.csv" download>Download CSV ↓</a>
       </div>
       <section id="atlas-record" class="atlas-record" aria-labelledby="record-title" hidden></section>
       <p id="atlas-status" role="status" aria-live="polite">Loading Atlas…</p>
@@ -94,12 +96,16 @@
         <div id="atlas-circle-chart"></div>
         <div id="atlas-circle-detail"></div>
       </div>
-      <div id="atlas-tree" class="atlas-tree-layout" hidden>
-        <div id="atlas-tree-chart"></div>
-        <div id="atlas-tree-detail"></div>
+      <div id="atlas-outline" class="atlas-outline-layout" hidden>
+        <div id="atlas-outline-tree"></div>
+        <div id="atlas-outline-detail"></div>
+      </div>
+      <div id="atlas-alignment" class="atlas-alignment-layout" hidden>
+        <div id="atlas-alignment-matrix"></div>
+        <div id="atlas-alignment-detail"></div>
       </div>
       <noscript><p>Enable JavaScript to explore Atlas, or download the source CSV above.</p></noscript>
-      <div class="atlas-notes"><p>Maintained by Sapiens First.</p><p>Explore governance as a table or circle map. A fuller project history will come later.</p></div>
+      <div class="atlas-notes"><p>Maintained by Sapiens First.</p></div>
     </section>
   </main>
   <footer class="site-footer"></footer>

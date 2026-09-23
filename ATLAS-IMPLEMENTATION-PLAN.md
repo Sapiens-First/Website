@@ -96,3 +96,126 @@ Shell sandbox currently fails with `error building bubblewrap command: mountinfo
 - Source CSVs are published. Use approved public labels everywhere in published data; a hidden HTML name would still be public.
 - Do not rerun machine-local migration script `/tmp/atlas_people_migration.py`: it is NOT idempotent and would duplicate records/relationships. Inspect the existing changes instead.
 - Current implementation is uncommitted. Preserve it; do not reset to the previously committed schema or throw away the intentionally failing test.
+
+## Track C: Atlas UI/UX redesign (visual only, added 2026-09-23)
+
+User-supplied brief (verbatim intent, paraphrased here): make `/atlas` look and feel dramatically cleaner and more attractive — Sapiens First brand, Linear-level polish, Airtable-like scanability, Holaspirit-like hierarchy navigation — **without** touching the data model, hierarchy, Person ID system, or adding open roles/dashboards. Full numbered brief (16 sections) is in the triggering user message; summarized requirements below.
+
+### Hard constraint discovered before editing: the existing Playwright/Node test suite pins exact DOM
+
+Read all five browser tests (`atlas-browser.py`, `atlas-circles-browser.py`, `atlas-tree-browser.py`, `atlas-people-browser.py`) and the three `.cjs` unit tests before touching markup. They assert on, and this redesign must preserve exactly:
+- `#atlas-table` stays a real `<table>` with `<thead>`/`<tbody><tr>`; first cell is `<th scope="row">` containing the record link + `.atlas-level` type span, plus a per-row `<details><summary>` (text "More details"/"Responsibilities") wrapping a `<dl>` of extra fields.
+- Row/record links keep the `#domains/table/<ID>`, `#governance/circles/<ID>`, `#domains/tree/<ID>`, `#people/<ID>` href formats.
+- `#atlas-record` (the detail panel) must remain a **direct child of `.atlas-explorer`** in Table format (tested via `n.parentElement.classList.contains('atlas-explorer')`) — so Table format cannot get a reparented two-column drawer; it keeps the existing inline-panel mechanism, just restyled (this matches the brief's own fallback: "if a drawer requires substantial architectural changes, preserve the existing detail mechanism but visually simplify it"). Circles/Tree already render `#atlas-record`'s content inside `#atlas-circle-detail`/`#atlas-tree-detail`, which already behave like a right-side drawer in a two-column grid (`.has-selection` modifier) — keep that mechanism, restyle it.
+- IDs/classes that must not be renamed: `#atlas-search`, `#atlas-filter`(+`-label`), `#atlas-format` and its `[data-format]` buttons, `.atlas-switch` and its `[data-view]` buttons, `#atlas-results`, `#atlas-error`, `#atlas-status`, `.atlas-source`, `#atlas-people`/`.atlas-person`(+`data-person-id`, `.atlas-badge`, `.atlas-person-context`, `.atlas-links`, `.atlas-person-role-type`), `#atlas-circles`/`#atlas-circle-chart`/`#atlas-circle-detail`, `#atlas-tree`/`#atlas-tree-chart`/`#atlas-tree-detail`, `.atlas-circle-svg`/`.atlas-node-role`/`.atlas-node-circle`/`.atlas-circle-selected`/`.atlas-circle-match`/`data-node-id`, `.atlas-tree-svg`/`.atlas-tree-node`/`.atlas-tree-root`/`.atlas-tree-selected`/`.atlas-tree-match`, `.atlas-tree-zoom` and its labelled buttons ("Zoom in"/"Zoom out"/"Fit tree"/"Actual size"/"← Pan"/"Pan →"), `.atlas-guide`/`.atlas-horizons` (must keep exactly 4 `<li>`, first containing "Mission"+"H4", last containing "~3 months"), `#view-title`/`#view-description` (text content asserted directly, e.g. must read exactly "People").
+- No test references `.atlas-mission`/`.atlas-hero`/`.atlas-intro`/`#atlas-title`/kicker markup, so the hero is free to restructure.
+- Two viewports are tested end-to-end (1440px, 390px) plus a 768px mental check from the brief; both assert **no page-level horizontal scroll** (`document.documentElement.scrollWidth > innerWidth` must be false) — the Tree's own horizontal scroller is exempt (it's a dedicated internal region), the page itself is not.
+- SVG canvases (circles/tree) cannot get CSS `::before` icons (unreliable in SVG); type differentiation there stays shape-based (dashed=Role vs solid=Circle, existing) plus a muted/consistent color pass. Icons per the brief's item 9 go on HTML surfaces only: table rows, breadcrumbs, children/unplaced/search lists, People rows — as real (non-text) `<svg>`/`<i>` elements or CSS `::before` with `content:''` + mask-image, never by injecting text into elements Playwright checks with `to_have_text`.
+
+### Execution scope (mapped from the 16-point brief to this codebase)
+
+1. Hero: shrink to kicker "ATLAS" + one headline + one subhead line; drop the standing yellow Mission card in favor of a quiet inline line (or fold into the guide disclosure).
+2. One toolbar: regroup `.atlas-switch` (Domains/Roles/People), `#atlas-search`, `#atlas-filter`, `#atlas-format` (Table/Circles/Tree) into a single sticky row; segmented-control styling for both switches.
+3–4. Demote `#view-title`/`#view-description` to small muted label + one-line text (no new headings); compact `<table>` rows via CSS row-height/padding, truncate `.atlas-cell-text` to one line with ellipsis.
+5. Hierarchy cues: type icon + muted type badge instead of restating level names as headings (table cell + breadcrumbs/lists); indentation/branch lines already exist in the Tree canvas — leave that layout engine alone, just restyle.
+6–7. Flatten: drop heavy shadows/thick borders/yellow-card treatment site-wide in Atlas; keep `var(--accent-dark)` (red) as the one selection/hover/link accent, already used for hover/selected states in circles/tree — extend consistently to table rows and people rows.
+9. Icons: small (14–18px) non-text SVG/CSS-mask icons per object type (Circle/Role/Mission/Pillar/Program/Product-Service/Project), applied identically across Table rows, People rows, and breadcrumb/list links; SVG canvases keep their existing shape-based distinction (see constraint above).
+10–11. Typography/whitespace: reduce to page-title / object-name / metadata tiers using existing `--sz-*` tokens from `shared.css`; roomy hero, dense data rows (~48–60px).
+12. Keep Table/Circles/Tree/People visually consistent (same icon set, hover/selection color, metadata language) — CSS-level consistency pass across `atlas.css`, small non-structural class additions in `atlas.js`/`atlas-circles.js`/`atlas-tree.js` (e.g. a class on the SVG label-background rect) where needed to let CSS reach into the SVG.
+13. Responsive: verify 390/768/1440 manually (browser tests already cover 390/1440); toolbar wraps, drawer content becomes full-width under the two-column breakpoints that already exist for circles/tree.
+14. Accessibility: keep existing `aria-pressed`/`aria-expanded`/`aria-current`/`aria-label` usage intact; don't remove any.
+
+Explicitly out of scope (per brief item 15 and the user's original data-model constraints): no new hierarchy levels, no open-roles system, no new heavy dependency/design system, no rewriting the SVG layout algorithms in `atlas-circles.js`/`atlas-tree.js`.
+
+### Verification for this track
+
+Run the existing suite unchanged (it is the acceptance test for "no functionality lost"):
+```
+python3 scripts/tests/atlas-data.py
+python3 scripts/tests/atlas-privacy-check.py
+node scripts/tests/atlas-ownership.cjs
+node scripts/tests/atlas-circles.cjs
+node scripts/tests/atlas-tree.cjs
+node scripts/tests/atlas-people.cjs
+python3 dev_server.py   # separate terminal/background
+python3 scripts/tests/atlas-browser.py
+python3 scripts/tests/atlas-circles-browser.py
+python3 scripts/tests/atlas-tree-browser.py
+python3 scripts/tests/atlas-people-browser.py
+```
+Plus a manual look at http://localhost:8000/atlas at ~390/768/1440px.
+
+### Progress (updated 2026-09-23, same session)
+
+**Status: implementation complete, verified, uncommitted.** Files touched (`git diff --stat` at time of writing): `atlas.html`, `atlas.css` (large rewrite, +538/-~230 lines), `atlas.js` (icon wiring, mission line, 4-line diff), `atlas-circles.js` (icon + label-bg class, 4-line diff), `atlas-tree.js` (icon, 2-line diff), plus new `atlas-icons.js` (untracked — shared icon-glyph helper, loaded in `atlas.html` right after `atlas-data.js`). `atlas-people.js` was deliberately left untouched — its People-card structure is exactly what `atlas-people-browser.py` pins, so all People styling is CSS-only (`.atlas-person h3::before` icon, row-list layout).
+
+Completed against the execution-scope checklist above:
+- Hero rebuilt (kicker/H1/one-line subhead; mission purpose folded into a quiet `#mission-text` line; full explanation moved into `.atlas-guide`, renamed "How Atlas works", still closed by default).
+- Toolbar unified into one sticky row: `.atlas-switch` (Domains/Roles/People) + `#atlas-search` (with icon) + `#atlas-filter` + `#atlas-format` (Table/Circles/Tree), all restyled as segmented controls. `#view-title`/`#view-description` demoted to a small muted label line.
+- Table: compact rows via CSS only (structure untouched), one-line truncated purpose, pill status/type badges, icon per row (`atlasIcon()`), hover states. Mobile (≤650px) now hides the Parent/Status columns via `nth-child` CSS so Name/Purpose/Responsible stay visible without full-table horizontal scroll (Responsible can still need internal scroll at 390px — acceptable, matches the Tree canvas's own internal-scroll precedent).
+- Record/detail panel: flat card, thin border + red top accent instead of the old bordered/shadowed box; same mechanism as before (inline for Table per the hard test constraint above, side-drawer-in-a-grid for Circles/Tree, unchanged JS insertion points).
+- Circles/Tree canvases: only cosmetic touches (CSS palette/stroke tuning, hover/selection already used `--accent-dark`; added a `class` to the SVG label-background `<rect>` so CSS can flatten its color) — layout algorithms in both files are untouched.
+- People: CSS-only flatten from a 3-col card grid to a dense bordered row list; icon via `::before` on `h3`; engagement badge reuses the shared `.atlas-badge` pill.
+- Icons: new `atlas-icons.js` (`atlasIcon(type)` → non-text `<span class="atlas-icon atlas-icon--slug">`, CSS mask-image glyphs) wired into `atlas.js`'s `link()`/record heading, and into `recordLink()` in both `atlas-circles.js` and `atlas-tree.js` — one glyph per Type, identical everywhere it appears on an HTML (non-SVG-canvas) surface.
+
+Verification run and passing, in this order, after every substantive change:
+```
+python3 scripts/tests/atlas-data.py
+python3 scripts/tests/atlas-privacy-check.py
+node scripts/tests/atlas-ownership.cjs
+node scripts/tests/atlas-circles.cjs
+node scripts/tests/atlas-tree.cjs
+node scripts/tests/atlas-people.cjs
+python3 scripts/tests/atlas-browser.py          # 1440px + 390px + direct-file
+python3 scripts/tests/atlas-circles-browser.py  # 1440px + 390px + direct-file
+python3 scripts/tests/atlas-tree-browser.py     # 1440px + 390px + unplaced + direct-file
+python3 scripts/tests/atlas-people-browser.py   # 1440px + 390px + direct-file
+git -c core.whitespace=cr-at-eol diff --check   # clean
+```
+All PASS. Also eyeballed via Playwright screenshots at 390/768/1440px across Hero, Table, Circles, Tree, People, and a Table + a Circles record-detail view — no regressions spotted, reads as a genuine Linear/Airtable-style cleanup while keeping the brand (Barlow Condensed display type, coral/red accent, the sitewide 2px `--ink` section rule under the hero).
+
+**Not yet done / left for the user or a follow-up session:**
+- Nothing is committed. Per this session's standing instruction ("NEVER commit unless explicitly asked"), the working tree is left as-is; if the user wants this landed, stage `atlas.html atlas.css atlas.js atlas-circles.js atlas-tree.js atlas-icons.js ATLAS-IMPLEMENTATION-PLAN.md` and commit.
+- No further test coverage was added for the new `atlas-icons.js` helper or the mobile column-hiding — both are small enough (CSS + a 10-line pure function) that the existing suite's coverage of the surfaces that use them was judged sufficient; add a `.cjs`/browser assertion if stricter coverage is wanted later.
+- Did not touch the circle-packing/tree-layout algorithms (`atlasCircleLayout`/`atlasTreeLayout`) or any data/CSV — out of scope by the user's own brief and by the earlier Track A/B governance work landed in `e663691`.
+
+## Track D: Explorer + Alignment (added 2026-09-23, same session)
+
+User-supplied brief (verbatim, 23 sections) requests replacing the Domains **Tree** with an **Explorer** (file-browser-style outline: rows, indentation, disclosure chevrons, no SVG canvas) and adding an **Alignment** view (a matrix of cross-cutting "supports" relationships, distinct from canonical containment).
+
+### Decisions made with the user before implementing (asked directly, not assumed)
+
+- **People tab**: local codebase is the source of truth — People stays exactly as-is (5th top-level view: Domains/Roles/People, unchanged). The brief's literal 4-tab nav (no People) does not apply here.
+- **Explorer scope**: Explorer replaces the Domains Tree only. Governance keeps its existing Circles view as the dedicated governance/role hierarchy browser — matches the current two-hierarchy architecture (Domains vs Governance are separate CSVs/parent chains); only the Domains format switch changes (Table/Tree → Table/Explorer/Alignment). Governance format switch (Table/Circles) is untouched.
+- **Alignment data**: `relationships.csv` currently has only `owns` and `succeeds` rows — no `supports` rows exist. Built the matrix fully data-ready (reads `Relationship === 'supports'` rows, keyed off a chosen row-type of Project or Program), but since none exist yet it renders an honest empty state rather than inventing relationship data. It will populate automatically once real `supports` rows are added to `relationships.csv`.
+
+### Naming collision avoided
+
+The page's outer container is already `<section class="atlas-explorer container">` (asserted by `atlas-tree-browser.py`/`atlas-circles-browser.py` as the parent of `#atlas-record` in Table format). The new Explorer *view* is therefore named `outline` internally (ids/classes/functions: `atlas-outline*`, `renderAtlasOutline`) — the button label users see still says "Explorer". `.atlas-explorer` itself is untouched.
+
+### What changed
+
+- **Removed**: `atlas-tree.js` (SVG horizon-band tree), its script tag, its two test files (`atlas-tree.cjs`, `atlas-tree-browser.py`), and the Tree format button/container.
+- **Added**: `atlas-outline.js` (`renderAtlasOutline`, `atlasOutlineTree` pure layout/search helper) — recursive `<ul role="tree">`/`<li role="treeitem">` rows, default-collapsed below the Mission's immediate children, chevron expand/collapse (persisted per-session on the host element), roving-tabindex arrow-key navigation, search that prunes to matches + ancestor context (dropping the redundant Mission wrapper while searching, per the brief's own example), an Uncategorized section for parentless records, and an Expand-all/Collapse-all disclosure. Reuses the existing shared `#atlas-record` detail panel and breadcrumb pattern already used by Tree/Circles — no new detail mechanism.
+- **Added**: `atlas-alignment.js` (`renderAtlasAlignment`, `atlasAlignmentMatrix` pure data helper) — sticky-header/sticky-first-column matrix, Projects/Programs row-type toggle, dot marks for `supports` relationships, column-click highlight, row-click opens the shared detail panel. Renders a plain-language empty state when no `supports` relationships exist (current state).
+- **`atlas.js`**: domains format buttons are now Table/Explorer(`outline`, default)/Alignment; governance keeps Table/Circles(default) unchanged. `link()` now preserves whichever of the *target group's own* valid formats you're currently browsing in (previously only special-cased Table; a bare non-table format always meant "the group's one graphical default", which broke once Domains gained two non-default formats). Old `#domains/tree/<id>` links still resolve (aliased to `outline`) for backward compatibility with anything bookmarked/shared before this change.
+- **`atlas.css`**: new `.atlas-outline*` and `.atlas-alignment*` rules following the same tokens/patterns as the existing Circles/Tree/People sections (flat, `--accent-dark` selection, existing type-icon system, `--font-display`/`--font-body`, the same `.has-selection` two-column desktop pattern) plus an Explorer-specific mobile rule that hides the outline (not just shrinks it) when a record is selected on narrow screens, per the brief's explicit "don't preserve the desktop split-pane on mobile" requirement — Tree/Circles mobile behavior (stack, don't hide) is untouched.
+- **Tests**: added `atlas-outline.cjs` (pure-function coverage for the outline/search helper) and `atlas-outline-browser.py` + `atlas-alignment-browser.py` (Playwright smoke coverage: default collapsed state, expand/select/detail, search pruning, empty-state rendering) at 1440/390px, following the existing test files' structure.
+
+### Verification
+
+Same command set as Track C, minus the retired `atlas-tree*` commands, plus the two new ones:
+```
+python3 scripts/tests/atlas-data.py
+python3 scripts/tests/atlas-privacy-check.py
+node scripts/tests/atlas-ownership.cjs
+node scripts/tests/atlas-circles.cjs
+node scripts/tests/atlas-outline.cjs
+node scripts/tests/atlas-people.cjs
+python3 dev_server.py
+python3 scripts/tests/atlas-browser.py
+python3 scripts/tests/atlas-circles-browser.py
+python3 scripts/tests/atlas-outline-browser.py
+python3 scripts/tests/atlas-alignment-browser.py
+python3 scripts/tests/atlas-people-browser.py
+```

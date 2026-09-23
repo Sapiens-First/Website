@@ -118,4 +118,21 @@ Later the same day, explicit user direction superseded several of the automatic 
 - **Meta is renamed DNA.** Same ID (`G-041`), new name. Social Media Manager (`G-033`) now sits in Media, not DNA.
 - **People is now explicit and public.** See "People" above. This supersedes the earlier "format-only, not yet populated" description of `Person ID` in prior revisions of this file.
 
+### Domain and role placement (2026-09-23, later revision)
+
+- **1-1s (`D-021`) moves under Development** (`D-038`, within the Empowerment pillar), reflecting that 1-1s are a relational/leadership-development mechanism, not general operations.
+- **General Meetings (`D-020`) moves under Global Membership** (`D-036`, within the Community pillar), reflecting that they are a member-facing convening mechanism, not general operations.
+- **Secretary (`G-035`) is renamed Holacracy Champion** and moves from the anchor circle (Sapiens First Global, `G-001`) into Empowerment (`G-013`).
+
+### Holacracy-coach follow-ups (2026-09-23, same day)
+
+Applied as recommendations after the placement changes above, since a rename alone left some structure inconsistent with the new name/shape:
+
+- **Holacracy Champion's purpose and accountabilities were rewritten** to match the new name (coaching the practice, constitution fidelity, facilitating governance meetings) rather than the prior Secretary text (general meeting documentation), which no longer fit once the role was renamed. Its general-meeting-documentation accountability and its ownership of General Meetings (`D-020`) moved to **Community Circle Lead** (`G-022`) accordingly — `R-020` ends 2026-09-23, `R-060` picks it up the same day.
+- **Biz Ops (`G-017`) is retired**, consolidated into its only live role, Operations Lead (`G-029`, now parented directly under Sapiens First Global), following the same single-role-circle rule already applied five times elsewhere in this register (`R-061`).
+- **Berkeley Chapter (`G-042`) gets a starter role**, Berkeley Chapter Circle Lead (`G-045`), left `Unassigned`. It previously had zero roles — a circle with no way to hold or assign accountability. Unlike the Biz Ops case, this is not flagged as a redundant single-role wrapper (see `scripts/tests/atlas-circles.cjs`): it's a real local chapter expected to grow more roles as organizing develops, not an administrative circle that turned out to be one role.
+- **Knowledge Base (`G-030`) is renamed Knowledge Content Steward** to distinguish it from Knowledge Management System Steward (`G-043`, Tech). The two were already cleanly split by ownership (content/curation vs. the platform it lives on) but the near-identical names invited confusion.
+
+Not acted on, left as an open observation: Media, Tech, Finance & Fundraising, and DNA rely on `Lead Link` alone for circle leadership, while Advocacy, Community, and Empowerment additionally have an explicit "X Circle Lead" role with its own accountabilities. Standardizing one way or the other is a real inconsistency, but adding four more roles with no demonstrated tension driving the need would be over-structuring; better to add them if and when a real accountability gap shows up in one of those circles.
+
 As elsewhere in this register, none of this is destructive: retired records (`G-011` Chapter Network, `G-008` Stop 1984!, `G-016` Newspaper, and others) keep their rows, remain addressable by stable URL, and stay out of the live circle map only because it excludes `Retired` status.

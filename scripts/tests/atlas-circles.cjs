@@ -67,11 +67,14 @@ assert.deepEqual(
 
 for (const node of nodes.values()) {
   if (node.row.Type !== 'Circle' || node.row.Status === 'Retired') continue;
-  // G-011 (retired, excluded above), G-017, and G-019 are known current
-  // singletons: their other role moved into Tech by explicit user direction
-  // (House Party Fundraising Operations and Membership Systems), not an
-  // automatic consolidation artifact this check is meant to catch.
-  if (['G-011', 'G-017', 'G-019'].includes(node.row.ID)) continue;
+  // G-011 (retired, excluded above) and G-019 are known current singletons:
+  // their other role moved into Tech by explicit user direction (House Party
+  // Fundraising Operations and Membership Systems), not an automatic
+  // consolidation artifact this check is meant to catch. G-042 (Berkeley
+  // Chapter) is a real local chapter root circle given a starter Circle Lead
+  // role — expected to grow more roles as chapter organizing develops, not an
+  // administrative wrapper that turned out to be redundant.
+  if (['G-011', 'G-019', 'G-042'].includes(node.row.ID)) continue;
   const liveChildren = node.children.filter(child => child.row.Status !== 'Retired');
   assert.ok(liveChildren.length !== 1 || liveChildren[0].row.Type !== 'Role', `${node.row.Name} is not a redundant single-role wrapper`);
 }

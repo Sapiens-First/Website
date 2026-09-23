@@ -368,7 +368,7 @@ window.ATLAS_DATA = {
       "Type": "Product/Service",
       "Program category": "",
       "Purpose": "Recurring member-facing convening (not a Holacracy governance meeting)",
-      "Parent ID": "D-001",
+      "Parent ID": "D-036",
       "Circle ID": "",
       "Status": "Active",
       "Stage": "In Progress",
@@ -387,7 +387,7 @@ window.ATLAS_DATA = {
       "Type": "Product/Service",
       "Program category": "",
       "Purpose": "Relational check-ins outside formal governance process",
-      "Parent ID": "D-001",
+      "Parent ID": "D-038",
       "Circle ID": "",
       "Status": "Active",
       "Stage": "In Progress",
@@ -1066,10 +1066,10 @@ window.ATLAS_DATA = {
       "Accountabilities": "Campaign automations; data integrity; 501(c)(3)/(c)(4) compliance; budget tracking",
       "Scope": "CRM, automations, legal/compliance, finance",
       "Privileges": "",
-      "Status": "Active",
+      "Status": "Retired",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Renamed from Operations & Infrastructure Circle on 2026-09-22.",
+      "Definition note": "Renamed from Operations & Infrastructure Circle on 2026-09-22. Retired 2026-09-23: single-role circle (only Operations Lead, G-029) consolidated per the org's established single-role-circle rule; G-029 moved directly under Sapiens First Global (G-001).",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -1253,7 +1253,7 @@ window.ATLAS_DATA = {
       "ID": "G-029",
       "Name": "Operations Lead",
       "Type": "Role",
-      "Parent Circle ID": "G-017",
+      "Parent Circle ID": "G-001",
       "Purpose": "Shared operational processes let the movement work reliably.",
       "Accountabilities": "Maintaining operating processes and records; coordinating budget and administrative work; identifying operational bottlenecks; supporting clear project and role management",
       "Scope": "",
@@ -1261,13 +1261,13 @@ window.ATLAS_DATA = {
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match. Updated from user-directed governance and role definitions on 2026-09-23. Parent circle changed from Biz Ops (G-017, retired 2026-09-23) to Sapiens First Global (G-001) on consolidation; existing work ownership retained.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
     {
       "ID": "G-030",
-      "Name": "Knowledge Base",
+      "Name": "Knowledge Content Steward",
       "Type": "Role",
       "Parent Circle ID": "G-013",
       "Purpose": "Members can find clear, current resources explaining why and how to participate.",
@@ -1277,7 +1277,7 @@ window.ATLAS_DATA = {
       "Status": "Active",
       "Lead Link": "Da",
       "Person ID": "P-005",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Da). Parent circle set to Knowledge Base Circle (G-015): matching name, corroborated by Da also being its recorded Lead Link. Merged with G-015 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Tech (G-036) also consolidated on 2026-09-23 after the Knowledge Base merge left it with only this role; no additional definition or assignment was inferred. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Knowledge Base Steward (Da). Parent circle set to Knowledge Base Circle (G-015): matching name, corroborated by Da also being its recorded Lead Link. Merged with G-015 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Tech (G-036) also consolidated on 2026-09-23 after the Knowledge Base merge left it with only this role; no additional definition or assignment was inferred. Updated from user-directed governance and role definitions on 2026-09-23. Renamed from \"Knowledge Base\" to \"Knowledge Content Steward\" on 2026-09-23 to distinguish it from Knowledge Management System Steward (G-043, Tech): this role owns knowledge content/curation, G-043 owns the platform it lives on.",
       "Engagement level": "Fellow",
       "Assignment basis": "User-provided project match"
     },
@@ -1347,17 +1347,17 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-035",
-      "Name": "Secretary",
+      "Name": "Holacracy Champion",
       "Type": "Role",
-      "Parent Circle ID": "G-001",
-      "Purpose": "Organizational records and meeting outcomes remain clear and accessible.",
-      "Accountabilities": "Maintaining governance records; recording decisions and meeting outputs; coordinating general-meeting documentation; keeping published role information current",
+      "Parent Circle ID": "G-013",
+      "Purpose": "The organization's practice of Holacracy is understood, followed, and continuously improved.",
+      "Accountabilities": "Maintaining governance records and published role information; coaching members on Holacracy process and the constitution; facilitating governance meetings when needed; tracking practice adoption and process questions",
       "Scope": "Organization-wide records and meeting documentation",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary. No corresponding circle name or owner correlation found; left unassigned pending explicit reconciliation. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Secretary. No corresponding circle name or owner correlation found; left unassigned pending explicit reconciliation. Updated from user-directed governance and role definitions on 2026-09-23. Renamed from Secretary and moved from Sapiens First Global (G-001) to Empowerment (G-013) per user-directed governance restructuring on 2026-09-23. Purpose and accountabilities rewritten on 2026-09-23 to match the Holacracy Champion role (coaching/practice fidelity) rather than the prior Secretary text (general meeting documentation); general-meeting-documentation accountability and D-020 ownership moved to Community Circle Lead (G-022) accordingly.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -1504,6 +1504,22 @@ window.ATLAS_DATA = {
       "Definition note": " Updated from user-directed governance and role definitions on 2026-09-23.",
       "Engagement level": "Fellow",
       "Assignment basis": "User-provided project match"
+    },
+    {
+      "ID": "G-045",
+      "Name": "Berkeley Chapter Circle Lead",
+      "Type": "Role",
+      "Parent Circle ID": "G-042",
+      "Purpose": "Berkeley Chapter's local organizing runs effectively and stays connected to the wider movement.",
+      "Accountabilities": "Prioritizing chapter work; coordinating local organizing and events; maintaining role assignments; representing chapter needs and progress to Sapiens First Global",
+      "Scope": "",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Unassigned",
+      "Person ID": "",
+      "Definition note": "Added 2026-09-23: Berkeley Chapter (G-042) had no defined roles. This gives the chapter a minimal governance structure (a Circle Lead) rather than remaining a circle with no way to hold or assign accountability. Left vacant pending an actual chapter lead.",
+      "Engagement level": "",
+      "Assignment basis": ""
     }
   ],
   "relationships": [
@@ -1684,8 +1700,8 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-020",
       "Valid from": "",
-      "Valid until": "",
-      "Notes": "Imported ownership; start date not recorded."
+      "Valid until": "2026-09-23",
+      "Notes": "Imported ownership; start date not recorded. Ended 2026-09-23: Holacracy Champion (G-035) scope narrowed to Holacracy practice; General Meetings ownership moves to Community Circle Lead."
     },
     {
       "ID": "R-021",
@@ -2037,6 +2053,24 @@ window.ATLAS_DATA = {
       "Valid from": "2026-09-23",
       "Valid until": "",
       "Notes": "User-directed consolidation into a continuing role."
+    },
+    {
+      "ID": "R-060",
+      "From ID": "G-022",
+      "Relationship": "owns",
+      "To ID": "D-020",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "Reassigned from Holacracy Champion (G-035) as its scope narrowed to Holacracy practice; General Meetings is a member-facing convening within Community's Global Membership program."
+    },
+    {
+      "ID": "R-061",
+      "From ID": "G-029",
+      "Relationship": "succeeds",
+      "To ID": "G-017",
+      "Valid from": "2026-09-23",
+      "Valid until": "",
+      "Notes": "Single-role circle consolidated into its continuing role by user direction; existing role ownership retained."
     }
   ]
 };

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://sapiensfirst.org/campaigns">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campaigns for AI Accountability — Sapiens First</title>
+  <meta name="description" content="Sapiens First's active campaigns to protect civil liberties in the age of AI.">
+  <meta property="og:title" content="Campaigns for AI Accountability — Sapiens First">
+  <meta property="og:description" content="Sapiens First's active campaigns to protect civil liberties in the age of AI.">
+  <meta property="og:url" content="https://sapiensfirst.org/campaigns">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    /* Use the same display type, paper background, and labels as About. */
+    .page-hero { padding: 88px 0 80px; background: var(--paper); }
+    .page-hero .label { margin-bottom: 26px; }
+    .page-title {
+      margin: 0; max-width: 17ch; text-align: left;
+      font-size: clamp(3.5rem, 8.4vw, 8.4rem);
+      line-height: .9; letter-spacing: -.025em;
+      opacity: 1; animation: none;
+    }
+    .page-title .underline { white-space: normal; }
+    @media (max-width: 600px) {
+      .page-hero { padding: 54px 0 48px; }
+    }
+
+    .section { padding: 80px 0; background: #fff; }
+    .section-compact { padding: 64px 0; }
+    #campaigns { background: var(--paper); padding: 80px 0; }
+    .section-label {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 4.6vw, 4.6rem);
+      line-height: .98; letter-spacing: -.025em; -webkit-text-stroke: 0;
+      text-align: left;
+    }
+    .section-label .title { color: var(--ink); }
+    .body-large {
+      font-size: clamp(1.1rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500;
+      text-align: left; max-width: 70ch; margin: 0 0 22px;
+    }
+    .body-large:last-child { margin-bottom: 0; }
+    .text-link { color: var(--ink); border-bottom: 2px solid var(--ink); }
+    .text-link:hover { color: var(--red-dark); border-color: var(--red-dark); }
+    @media (max-width: 768px) {
+      .section, .section-compact, #campaigns { padding: 48px 0; }
+    }
+
+    /* ─── CAMPAIGNS (horizontal expandable, matching about>focus-areas) ───
+       Tab-style expandable — a variant of the shared .accordion-* mechanics
+       in shared.css (chevron rotation, focus outline, panel grow/fade).
+       This block only adds the tab-row layout and content decoration. ─── */
+    .campaign-grid {
+      --campaign-panel-bg: #fff;
+      margin: 30px auto 0;
+      max-width: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 10px;
+      row-gap: 0;
+    }
+    .campaign-tab {
+      grid-row: 1;
+      border: 2px solid var(--ink);
+      border-top: 8px solid var(--campaign-color);
+      background: #fff;
+      width: 100%;
+      cursor: pointer;
+      padding: 22px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: inherit;
+      text-align: left;
+      transition: background .22s ease, border-color .22s ease;
+    }
+    .campaign-tab:nth-of-type(1) { grid-column: 1; --campaign-color: var(--red); }
+    .campaign-tab:nth-of-type(2) { grid-column: 2; --campaign-color: var(--green); }
+    .campaign-tab:nth-of-type(3) { grid-column: 3; --campaign-color: var(--blue); }
+    .campaign-tab:hover { background: var(--paper); }
+    .campaign-tab.is-active {
+      background: var(--campaign-panel-bg);
+      border-bottom-color: var(--campaign-panel-bg);
+    }
+    .campaign-header {
+      display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;
+    }
+    .campaign-tab .card-title {
+      color: var(--ink); margin-bottom: 8px; font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3vw, 2.8rem); font-weight: 800;
+      text-transform: uppercase; line-height: 1; letter-spacing: -.01em;
+    }
+    .campaign-objective { font-family: var(--font-body); font-size: var(--sz-copy); font-weight: 500; color: var(--text); }
+    .campaign-chevron {
+      --accordion-chevron-size: 11px;
+      --accordion-chevron-weight: 2px;
+      --accordion-chevron-opacity: 1;
+      border-color: var(--ink);
+    }
+    .campaign-panel {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      border: 2px solid var(--ink);
+      border-top: none;
+      background: var(--campaign-panel-bg);
+    }
+    .campaign-panel-inner {
+      transition: opacity .15s ease;
+    }
+    .campaign-panel-inner.is-fading {
+      opacity: 0;
+    }
+    .campaign-body { padding: 26px 30px; }
+    .campaign-desc { margin: 0 0 16px; }
+    .campaign-metrics-label { display: block; margin-bottom: 8px; }
+    .campaign-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .campaign-list li {
+      font-size: var(--sz-copy); line-height: 1.5; color: var(--text);
+      font-weight: 500; padding-left: 16px; position: relative;
+    }
+    .campaign-list li::before { content: '–'; position: absolute; left: 0; color: var(--accent); opacity: 0.6; }
+    .campaign-note { font-style: italic; margin-top: 14px; margin-bottom: 0; }
+
+    @media (max-width: 768px) {
+      .campaign-grid { max-width: 100%; }
+      .campaign-tab { padding: 22px 20px; }
+      .campaign-body { padding: 20px; }
+    }
+    @media (max-width: 700px) {
+      .campaign-grid { display: flex; flex-direction: column; gap: 10px; }
+      .campaign-tab.is-active { border-bottom-color: var(--ink); }
+      .campaign-panel { border-top: 2px solid var(--ink); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar"></div>
+
+  <header class="site-header"></header>
+
+  <!-- ═══════════ PAGE HERO ═══════════ -->
+  <div class="page-hero">
+    <div class="container">
+      <span class="label">Take action</span>
+      <h1 class="page-title">Our <span class="underline blue">Campaigns.</span></h1>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════ INTRO ═══════════ -->
+    <section class="section section-compact">
+      <div class="container">
+        <p class="body-large reveal">
+          Our long-term goal is to build movement power. Having intermediary objectives helps structure activities, allowing us to build leaders and expand movement participation.
+        </p>
+        <p class="body-large reveal">
+          These campaigns are drawn from our <a href="/policy" class="text-link" style="text-transform:none;letter-spacing:normal;font-size:inherit;">policies</a>. They are intended to be achievable, so that we have momentum in the movement. Therefore, they are chosen to be either incremental or symbolic.
+        </p>
+        <p class="body-large reveal">
+          Campaigns also help us win the support of institutions, like politicians, other advocacy organizations, and the media. This, however, is secondary to the objective of getting lots of people involved in the fight for democracy.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════ CAMPAIGNS ═══════════ -->
+    <section class="section" id="campaigns">
+      <div class="container">
+        <div class="section-label reveal"><span class="title">Current Campaigns</span></div>
+
+        <div class="campaign-grid" data-campaign-accordion>
+          <button class="campaign-tab accordion-toggle reveal" type="button" aria-expanded="false" aria-controls="campaign-shared-panel" data-campaign-trigger data-campaign-target="campaign-content-stop-1984">
+            <span class="campaign-header">
+              <span class="card-title">Stop 1984</span>
+              <span class="campaign-objective">Ban AI-enabled mass surveillance.</span>
+            </span>
+            <span class="campaign-chevron accordion-chevron" aria-hidden="true"></span>
+          </button>
+          <button class="campaign-tab accordion-toggle reveal reveal-d1" type="button" aria-expanded="false" aria-controls="campaign-shared-panel" data-campaign-trigger data-campaign-target="campaign-content-no-killer-robots">
+            <span class="campaign-header">
+              <span class="card-title">No Killer Robots</span>
+              <span class="campaign-objective">Regulate autonomous weapons in the military.</span>
+            </span>
+            <span class="campaign-chevron accordion-chevron" aria-hidden="true"></span>
+          </button>
+          <button class="campaign-tab accordion-toggle reveal reveal-d2" type="button" aria-expanded="false" aria-controls="campaign-shared-panel" data-campaign-trigger data-campaign-target="campaign-content-save-our-future">
+            <span class="campaign-header">
+                <span class="card-title">AI Freeze</span>
+              <span class="campaign-objective">Negotiate a coordinated slowdown on the development of artificial intelligence.</span>
+            </span>
+            <span class="campaign-chevron accordion-chevron" aria-hidden="true"></span>
+          </button>
+
+          <div class="campaign-panel accordion-panel" id="campaign-shared-panel">
+            <div class="campaign-panel-inner accordion-panel-inner">
+              <div class="campaign-body" id="campaign-content-stop-1984" hidden>
+                <p class="campaign-desc card-text">
+                  Mass surveillance is a threat to our civil liberties and free speech. AI-enabled surveillance could mean unprecedented concentration of power. We believe that a variety of coalition groups and civil society organizations could support a ban on AI-enabled mass surveillance.
+                </p>
+                <span class="eyebrow eyebrow--accent campaign-metrics-label">Metrics</span>
+                <ul class="campaign-list">
+                  <li>Get individuals and organizations to sign onto our open letter against AI-enabled mass surveillance (forthcoming)</li>
+                  <li>Get city councils to do resolutions against AI-enabled mass surveillance</li>
+                </ul>
+                <p class="campaign-note card-text">Resources: forthcoming</p>
+              </div>
+              <div class="campaign-body" id="campaign-content-no-killer-robots" hidden>
+                <p class="campaign-desc card-text">
+                  Militaries around the world are racing to deploy autonomous weapons that can select and kill targets without human oversight. However, most people are unaware this is already happening, or don't grasp how quickly it's becoming normalized. Increasing awareness of this threat expands the Overton window, and builds political will for regulation.
+                </p>
+                <span class="eyebrow eyebrow--accent campaign-metrics-label">Metrics</span>
+                <ul class="campaign-list">
+                  <li>Get mainstream media to write positively about activism against autonomous weapons</li>
+                  <li>Increase awareness through social media</li>
+                </ul>
+                <p class="campaign-note card-text">Resources: forthcoming</p>
+              </div>
+              <div class="campaign-body" id="campaign-content-save-our-future" hidden>
+                <p class="campaign-desc card-text">
+                  Experts in artificial intelligence, including those at frontier AI labs, have warned for years about the dangers of superintelligence. However, most people are unaware of these risks, or are not acting appropriately given their severity. Increasing awareness of existential risk expands the Overton window, and builds political will for AI safety.
+                </p>
+                <span class="eyebrow eyebrow--accent campaign-metrics-label">Metrics</span>
+                <ul class="campaign-list">
+                  <li>Get mainstream media to write positively about activism against existential risk posed by AI</li>
+                  <li>Increase awareness through social media</li>
+                </ul>
+                <p class="campaign-note card-text">Resources: forthcoming</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script>
+    const campaignAccordion = document.querySelector('[data-campaign-accordion]');
+    if (campaignAccordion) {
+      const campaignTabs = Array.from(campaignAccordion.querySelectorAll('[data-campaign-trigger]'));
+      const campaignPanel = campaignAccordion.querySelector('.campaign-panel');
+      const campaignInner = campaignPanel.querySelector('.campaign-panel-inner');
+      const campaignContents = Array.from(campaignPanel.querySelectorAll('.campaign-body'));
+
+      campaignTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const shouldActivate = !tab.classList.contains('is-active');
+          campaignTabs.forEach(t => {
+            const isActive = t === tab && shouldActivate;
+            t.classList.toggle('is-active', isActive);
+            t.setAttribute('aria-expanded', String(isActive));
+          });
+
+          const showTarget = () => {
+            tab.insertAdjacentElement('afterend', campaignPanel);
+            campaignContents.forEach(content => {
+              content.hidden = content.id !== tab.dataset.campaignTarget;
+            });
+            campaignPanel.classList.add('is-open');
+            requestAnimationFrame(() => campaignInner.classList.remove('is-fading'));
+          };
+
+          if (!shouldActivate) {
+            campaignPanel.classList.remove('is-open');
+          } else if (campaignPanel.classList.contains('is-open')) {
+            campaignInner.classList.add('is-fading');
+            setTimeout(showTarget, 150);
+          } else {
+            showTarget();
+          }
+        });
+      });
+    }
+  </script>
+  <script src="reveal.js"></script>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script src="nav-circle.js"></script>
+</body>
+</html>

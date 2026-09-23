@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Sapiens First</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="palette.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    /* ─── HERO ──────────────────────────── */
+    .hero {
+      padding: 80px 0 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(48px, 7vw, 88px);
+      line-height: 0.91;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+    .hero-headline .accent { color: var(--accent); }
+
+    /* ─── POST LIST ─────────────────────── */
+    .post-list {
+      padding: 64px 0 120px;
+    }
+    .post-card {
+      display: block;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s;
+    }
+    .post-card:first-child { padding-top: 0; }
+    .post-card:hover .post-title { color: var(--accent); }
+    .post-meta {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+    }
+    .post-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(28px, 3.5vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+      transition: color 0.15s;
+    }
+    .post-excerpt {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      max-width: 600px;
+    }
+    .post-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .empty-state {
+      padding: 80px 0;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      .hero { padding: 48px 0 40px; }
+      .post-list { padding: 40px 0 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="site-nav"></nav>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Sapiens First</div>
+      <h1 class="hero-headline">
+        <span class="accent">Blog</span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- POST LIST                               -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="post-list">
+    <div class="container" id="post-list-container">
+      <p class="empty-state">Loading posts…</p>
+    </div>
+  </section>
+
+  <script src="nav.js"></script>
+  <script src="posts.js"></script>
+  <script>
+    (function () {
+      const container = document.getElementById('post-list-container');
+
+      function formatDate(iso) {
+        const d = new Date(iso + 'T12:00:00');
+        return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      }
+
+      if (!POSTS || POSTS.length === 0) {
+        container.innerHTML = '<p class="empty-state">No posts yet.</p>';
+        return;
+      }
+
+      const sorted = POSTS.slice().sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      container.innerHTML = sorted.map(function (post) {
+        return (
+          '<a class="post-card" href="post.html?slug=' + encodeURIComponent(post.slug) + '">' +
+            '<div class="post-meta">' + formatDate(post.date) + '</div>' +
+            '<div class="post-title">' + post.title + '</div>' +
+            '<div class="post-excerpt">' + post.excerpt + '</div>' +
+            '<div class="post-read">Read &rarr;</div>' +
+          '</a>'
+        );
+      }).join('');
+    })();
+  </script>
+
+</body>
+</html>

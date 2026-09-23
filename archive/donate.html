@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate — Sapiens First</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="palette.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 64px;
+    }
+
+    /* ─── HERO ──────────────────────────── */
+    .hero {
+      padding: 100px 0 80px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(52px, 8.8vw, 104px);
+      line-height: 0.91;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+    .hero-headline .accent { color: var(--accent); }
+    .hero-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 36px;
+    }
+    .hero-body {
+      font-size: 20px;
+      line-height: 1.76;
+      color: var(--text-dim);
+      max-width: 560px;
+      font-weight: 400;
+    }
+
+    /* ─── COMING SOON ───────────────────── */
+    .coming-soon {
+      padding: 80px 0 120px;
+      border-top: 1px solid var(--border);
+    }
+    .coming-soon-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .coming-soon-text {
+      font-size: 18px;
+      line-height: 1.72;
+      color: var(--text-dim);
+      max-width: 480px;
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 0 24px; }
+      .hero { padding: 60px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="site-nav"></nav>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">Support the mission</div>
+      <h1 class="hero-headline">
+        <span>Donate</span><br>
+        <span class="accent">to us</span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-body">
+        Your support helps us organize communities, engage policymakers,
+        and ensure that Americans have a real voice in how AI shapes our future.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- COMING SOON                             -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="coming-soon">
+    <div class="container">
+      <div class="coming-soon-label">Coming soon</div>
+      <p class="coming-soon-text">
+        Donation options are being set up. Check back shortly,
+        or reach out to us directly.
+      </p>
+    </div>
+  </section>
+
+  <script src="nav.js"></script>
+</body>
+</html>

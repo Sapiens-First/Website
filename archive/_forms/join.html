@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join — Sapiens First</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <link rel="manifest" href="favicons/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link href='https://actionnetwork.org/css/style-embed-v3.css' rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="site-link">
+      <img src="sapiens_first_logo_clean_transparent.png" alt="Sapiens First Logo">
+      <span class="site-name">Sapiens First</span>
+    </a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="join.html" class="active">Join</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <a href="about.html">About</a>
+    <a href="join.html">Join</a>
+    <a href="donate.html">Donate</a>
+  </div>
+
+  <main>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <h1>Join the movement</h1>
+        <p>Whether you want to stay informed or get involved on the ground — in your city, or beyond — we want to hear from you.</p>
+      </div>
+    </section>
+
+    <!-- Form -->
+    <section class="section section-white form-section reveal">
+      <div class="section-inner">
+        <div class="form-inner">
+          <script src='https://actionnetwork.org/widgets/v6/form/join-the-guardrail-project?format=js&source=widget'></script>
+          <div id='can-form-area-join-the-guardrail-project' style='width: 100%'><!-- this div is the target for our HTML insertion --></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Below form -->
+    <section class="below-form reveal">
+      <div class="below-form-inner">
+        <p>We're building the infrastructure for campaigns across the country.</p>
+        <p>Whether you're a parent, a veteran, an artist, a technologist, or a concerned citizen, there's a role for you.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <span class="footer-org">Sapiens First Inc.</span>
+        <span class="footer-copy">&copy; 2026 Sapiens First Inc. All rights reserved.</span>
+      </div>
+      <p class="footer-legal">
+        Sapiens First Inc. is a nonprofit corporation with 501(c)(3) status pending. EIN: 41-4917212. Contributions may be tax-deductible retroactively upon IRS approval. Consult your tax advisor.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const toggle = document.querySelector('.nav-toggle');
+    const drawer = document.getElementById('nav-drawer');
+
+    toggle.addEventListener('click', () => {
+      const isOpen = drawer.classList.toggle('open');
+      toggle.classList.toggle('open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        drawer.classList.remove('open');
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', false);
+      });
+    });
+  </script>
+
+</body>
+</html>

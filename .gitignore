@@ -1,0 +1,7 @@
+design-tests/
+playground/
+docs/
+CLAUDE.md
+prose/
+__pycache__/
+*.py[cod]

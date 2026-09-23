@@ -1,0 +1,128 @@
+/* ═══════════════════════════════════════════════════════════════
+   SAPIENS FIRST — COLOR PALETTES
+   To switch: uncomment the desired :root block, comment the rest.
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ─── ANTHROPIC CREAM (active) ──────────────────────────────────
+   Cream (#EDE8DC) bg, deep blue (#1A3A66) text + CTAs,
+   royal blue (#2348A0) interactive, tangerine (#E86020) for
+   accent marks/headline, golden (#D4A020) for large stat numbers.
+   Warm, institutional, printed-document feel.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  /* base */
+  --bg:             #ffffff; /* warm parchment beige */
+  --surface:        rgba(20, 18, 14, 0.05);
+  --border:         rgba(20, 18, 14, 0.12);
+  --text:           #141210;
+  --text-dim:       rgba(20, 18, 14, 0.72);
+  --text-mid:       rgba(20, 18, 14, 0.88);
+
+  /* tangerine — decorative marks, scanbar, accent headline word */
+  --accent:              #CD551D;
+  --accent-glow:         rgba(205, 85, 29, 0.22);
+  --accent-dim:          rgba(205, 85, 29, 0.12);
+
+  /* royal blue — interactive states (closer to original) */
+  --blue:                #2C56B3; /* slightly brighter, more lively */
+  --blue-dim:            rgba(44, 86, 179, 0.12);
+  --blue-glow:           rgba(44, 86, 179, 0.25);
+
+  /* deep navy — CTAs + authority elements */
+  --navy:                #1F4093;
+  --navy-glow:           rgba(31, 64, 147, 0.2);
+
+  /* components */
+  --badge-bg:            rgba(44, 86, 179, 0.07);
+  --track-bg:            rgba(20, 18, 14, 0.08);
+  --input-bg:            rgba(20, 18, 14, 0.04);
+  --input-focus-border:  rgba(44, 86, 179, 0.4);
+  --input-focus-bg:      rgba(44, 86, 179, 0.06);
+  --pillar-hover-border: rgba(205, 85, 29, 0.3);
+  --pillar-hover-bg:     rgba(205, 85, 29, 0.06);
+
+  /* typography */
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+
+
+/* ─── CIVIC BLUE + ORANGE ───────────────────────────────────────
+   Source: coolors.co/ffa600-00a1ff-21217d-1b2431-ebf6ff
+   Orange (#FFA600) for accents/numbers, cyan (#00A1FF) for
+   interactive states, navy (#0F3460) for CTAs, jet black text.
+   ────────────────────────────────────────────────────────────── */
+/*
+:root {
+  --bg:             #FFFFFF;
+  --surface:        rgba(15, 52, 96, 0.05);
+  --border:         rgba(27, 36, 49, 0.13);
+  --text:           #1B2431;
+  --text-dim:       rgba(27, 36, 49, 0.68);
+  --text-mid:       rgba(27, 36, 49, 0.85);
+
+  --accent:              #FFA600;
+  --accent-glow:         rgba(255, 166, 0, 0.25);
+  --accent-dim:          rgba(255, 166, 0, 0.12);
+
+  --blue:                #00A1FF;
+  --blue-dim:            rgba(0, 161, 255, 0.12);
+  --blue-glow:           rgba(0, 161, 255, 0.28);
+
+  --navy:                #0F3460;
+  --navy-glow:           rgba(15, 52, 96, 0.2);
+
+  --badge-bg:            rgba(0, 161, 255, 0.06);
+  --track-bg:            rgba(27, 36, 49, 0.1);
+  --input-bg:            rgba(27, 36, 49, 0.04);
+  --input-focus-border:  rgba(0, 161, 255, 0.4);
+  --input-focus-bg:      rgba(0, 161, 255, 0.05);
+  --pillar-hover-border: rgba(15, 52, 96, 0.25);
+  --pillar-hover-bg:     rgba(15, 52, 96, 0.04);
+
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+*/
+
+
+/* ─── DARK (original) ───────────────────────────────────────────
+   Near-black background, orange-red accent, emerald secondary.
+   Tech/startup aesthetic. Less institutional.
+   ────────────────────────────────────────────────────────────── */
+/*
+:root {
+  --bg:             #05080F;
+  --surface:        rgba(59, 130, 246, 0.04);
+  --border:         rgba(148, 163, 200, 0.1);
+  --text:           #EDF2FF;
+  --text-dim:       rgba(237, 242, 255, 0.42);
+  --text-mid:       rgba(237, 242, 255, 0.65);
+
+  --accent:              #F97316;
+  --accent-glow:         rgba(249, 115, 22, 0.28);
+  --accent-dim:          rgba(249, 115, 22, 0.12);
+
+  --blue:                #3B82F6;
+  --blue-dim:            rgba(59, 130, 246, 0.12);
+  --blue-glow:           rgba(59, 130, 246, 0.3);
+
+  --navy:                #3B82F6;
+  --navy-glow:           rgba(59, 130, 246, 0.2);
+
+  --badge-bg:            rgba(59, 130, 246, 0.06);
+  --track-bg:            rgba(255, 255, 255, 0.07);
+  --input-bg:            rgba(255, 255, 255, 0.04);
+  --input-focus-border:  rgba(59, 130, 246, 0.38);
+  --input-focus-bg:      rgba(255, 255, 255, 0.055);
+  --pillar-hover-border: rgba(249, 115, 22, 0.28);
+  --pillar-hover-bg:     rgba(249, 115, 22, 0.025);
+
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'IBM Plex Mono', monospace;
+}
+*/

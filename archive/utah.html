@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utah State Campaign — Sapiens First</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="palette.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(45deg, rgba(90,25,25,0.025) 0px, rgba(90,25,25,0.025) 1px, transparent 1px, transparent 9px),
+        repeating-linear-gradient(-45deg, rgba(90,25,25,0.018) 0px, rgba(90,25,25,0.018) 1px, transparent 1px, transparent 9px);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 1;
+      mix-blend-mode: overlay;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 64px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── PROGRESS ──────────────────────── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px; width: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--blue) 100%);
+      transform-origin: left center;
+      transform: scaleX(0);
+      z-index: 10001;
+      pointer-events: none;
+    }
+
+    /* ─── DIVIDER ───────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── SECTION BASE ──────────────────── */
+    .section { padding: 110px 0; }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 18.42px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-weight: 575;
+      margin-bottom: 52px;
+    }
+    .section-label .title { color: #E56A14; }
+
+    .body-large {
+      font-size: 22px;
+      line-height: 1.72;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+    .body-large strong { font-weight: 638; }
+
+    /* ─── HERO ──────────────────────────── */
+    .hero {
+      padding: 96px 0 84px;
+      position: relative;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(52px, 8.8vw, 104px);
+      line-height: 0.91;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      max-width: 880px;
+    }
+    .hero-headline .accent { color: var(--accent); }
+    .hero-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 36px;
+    }
+    .hero-body {
+      font-size: 20px;
+      line-height: 1.76;
+      color: var(--text-dim);
+      max-width: 580px;
+      font-weight: 400;
+    }
+
+    /* ─── WHY SLC ───────────────────────── */
+    .why-body {
+      max-width: 720px;
+      margin-top: 8px;
+    }
+    .why-para {
+      font-size: 18px;
+      line-height: 1.82;
+      color: var(--text);
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+    .why-para:last-child { margin-bottom: 0; }
+    .why-para strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ─── ASKS ──────────────────────────── */
+    .ask-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .ask-card {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 20px;
+      padding: 26px 28px 26px 20px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 42%, transparent);
+      box-shadow: 0 1px 2px rgba(80,20,20,0.06), 0 3px 10px rgba(80,20,20,0.04);
+      transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+      cursor: default;
+    }
+    .ask-card:hover {
+      border-color: var(--pillar-hover-border);
+      background: var(--pillar-hover-bg);
+      transform: translateX(4px);
+    }
+    .ask-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      padding-top: 5px;
+    }
+    .ask-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .ask-text {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    /* ─── ASKS LIST ────────────────────── */
+    .ask-list {
+      margin-top: 28px;
+      padding-left: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .ask-list li {
+      font-size: 18px;
+      line-height: 1.78;
+      color: var(--text-dim);
+    }
+    .ask-list li strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ─── RESOLUTION DOC ────────────────── */
+    .resolution-wrap {
+      margin-top: 48px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(80,20,20,0.07), 0 6px 20px rgba(80,20,20,0.05);
+    }
+    .resolution-header {
+      background: color-mix(in srgb, var(--surface) 55%, transparent);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .resolution-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .resolution-header-title {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .resolution-header-file {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      opacity: 0.6;
+    }
+    .resolution-status-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(168, 50, 50, 0.38);
+      border-radius: 3px;
+      padding: 3px 8px;
+    }
+    .resolution-body {
+      padding: 44px 52px 40px;
+      background: #FDF8F5;
+    }
+    .resolution-doc-title {
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 13.5px;
+      line-height: 1.65;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      text-align: center;
+      padding: 0 24px 28px;
+      margin-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+    }
+    .resolution-clause {
+      font-family: var(--font-body);
+      font-size: 15.5px;
+      line-height: 1.88;
+      color: var(--text);
+      margin-bottom: 18px;
+      padding-left: 22px;
+      border-left: 2px solid var(--border);
+    }
+    .resolution-clause .kw {
+      font-weight: 700;
+      font-style: italic;
+    }
+    .resolution-clause.resolved {
+      border-left-color: var(--accent);
+    }
+    .resolution-preview-fade {
+      height: 72px;
+      background: linear-gradient(to bottom, transparent, #FDF8F5);
+      margin-top: -72px;
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .resolution-hidden { display: none; }
+    .resolution-expand-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 32px;
+      background: color-mix(in srgb, var(--surface) 35%, transparent);
+      border: none;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .resolution-expand-btn:hover {
+      background: var(--blue-dim);
+      color: var(--blue);
+    }
+
+    /* ─── TIMELINE ──────────────────────── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      margin-top: 48px;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 18px; top: 10px; bottom: 10px;
+      width: 1px;
+      background: var(--border);
+      z-index: 0;
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      padding-bottom: 36px;
+      position: relative;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-dot.done {
+      background: var(--accent);
+      color: #fff;
+    }
+    .timeline-dot.active {
+      background: var(--bg);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-dim);
+    }
+    .timeline-dot.upcoming {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+    }
+    .timeline-content { padding-top: 4px; }
+    .timeline-step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .timeline-step-title.done     { color: var(--text); }
+    .timeline-step-title.active   { color: var(--accent); }
+    .timeline-step-title.upcoming { color: var(--text-dim); }
+    .timeline-badge {
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(168,50,50,0.4);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+    .timeline-desc {
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    /* ─── CTA ───────────────────────────── */
+    .cta-section {
+      padding: 110px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(102,26,26,0.10) 1.5px, transparent 1.5px);
+      background-size: 18px 18px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 100%, black 0%, transparent 72%);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 100%, black 0%, transparent 72%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cta-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .cta-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(52px, 8vw, 90px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+    }
+    .cta-sub {
+      font-size: 17px;
+      color: var(--text-dim);
+      max-width: 420px;
+      margin: 0 auto;
+      line-height: 1.78;
+      font-weight: 400;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-email {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blue-dim);
+      transition: border-color 0.2s ease;
+    }
+    .cta-email:hover { border-color: var(--blue); }
+    .res-link {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in srgb, var(--blue) 35%, transparent);
+      transition: border-color 0.2s ease;
+    }
+    .res-link:hover { border-color: var(--blue); }
+
+    /* ─── FOOTER ────────────────────────── */
+    .footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .footer-back {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .footer-back:hover { color: var(--text); }
+    .footer-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.07em;
+    }
+
+    /* ─── ANIMATIONS ────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    /* ─── PETITION CARD ────────────────── */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .hero-right { padding-top: 2px; }
+    .petition-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--surface) 42%, transparent);
+      box-shadow: 0 1px 3px rgba(80,20,20,0.07), 0 6px 20px rgba(80,20,20,0.04);
+      overflow: hidden;
+    }
+    .petition-card-header {
+      background: color-mix(in srgb, var(--surface) 55%, transparent);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .petition-card-body { padding: 26px 28px 22px; }
+    .petition-intro {
+      font-size: 15.5px;
+      line-height: 1.72;
+      color: var(--text-dim);
+      margin-bottom: 22px;
+      font-weight: 400;
+    }
+    #petition-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .petition-form-row { display: flex; gap: 10px; }
+    .petition-form-row input { flex: 1; }
+    #petition-form input {
+      padding: 0.68rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 16px;
+      font-family: var(--font-body);
+      color: var(--text);
+      background: rgba(253,248,245,0.7);
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    #petition-form input::placeholder {
+      color: var(--text-dim);
+      opacity: 0.5;
+    }
+    #petition-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .petition-consent {
+      display: grid;
+      grid-template-columns: 15px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin-top: 2px;
+      width: 100%;
+    }
+    .petition-consent input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .petition-consent label {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-dim);
+      cursor: pointer;
+      overflow-wrap: break-word;
+    }
+    #petition-form button[type="submit"] {
+      margin-top: 6px;
+      background-color: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.72rem 1.4rem;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      align-self: flex-start;
+    }
+    #petition-form button[type="submit"]:hover {
+      background-color: var(--text);
+      transform: translateY(-1px);
+    }
+    #petition-form button[type="submit"]:active { transform: translateY(0); }
+    #form-status {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      min-height: 1.4em;
+      margin-top: 4px;
+    }
+    #form-status.success { color: var(--accent); }
+    .petition-thank-you {
+      display: none;
+      font-size: 15.5px;
+      line-height: 1.72;
+      color: var(--text);
+      padding: 18px 0 2px;
+    }
+    .petition-thank-you strong { font-weight: 600; color: var(--accent); }
+
+    /* ─── PALETTE OVERRIDES ─────────────── */
+    :root {
+      --accent:              #A83232;
+      --accent-dim:          rgba(168, 50, 50, 0.14);
+      --accent-glow:         rgba(168, 50, 50, 0.28);
+      --pillar-hover-border: rgba(168, 50, 50, 0.30);
+      --pillar-hover-bg:     rgba(168, 50, 50, 0.06);
+      --text-dim:            #141210;
+      --text-mid:            #141210;
+      --bg:                  #faf3ef;
+    }
+
+    /* ─── RESPONSIVE ────────────────────── */
+    @media (max-width: 860px) {
+      .hero-headline { font-size: clamp(44px, 8.8vw, 104px); }
+    }
+    @media (max-width: 768px) {
+      .section { padding: 72px 0; }
+      .hero { padding: 80px 0 60px; }
+      .hero-layout { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .hero { padding: 72px 0 52px; }
+      .hero-headline { font-size: clamp(36px, 11vw, 52px); }
+      .hero-body { font-size: 17px; }
+      .body-large { font-size: 18px; }
+      .why-para { font-size: 17px; }
+      .ask-card { grid-template-columns: 1fr; gap: 6px; }
+      .ask-card:hover { transform: none; }
+      .ask-num { padding-top: 0; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .petition-form-row { flex-direction: column; gap: 8px; }
+      #petition-form button[type="submit"] { align-self: stretch; text-align: center; }
+      .petition-card-body { padding: 20px 18px 18px; }
+      .petition-intro { font-size: 14.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- NAV                                     -->
+  <!-- ═══════════════════════════════════════ -->
+  <nav id="site-nav" class="site-nav"></nav>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-layout">
+
+        <div class="hero-left">
+          <div class="hero-eyebrow">Utah &nbsp;·&nbsp; 2026</div>
+          <h1 class="hero-headline">
+            Utah<br>
+            <span class="accent">State</span><br>
+            Campaign
+          </h1>
+          <div class="hero-rule"></div>
+          <p class="hero-body">
+            We're working directly with Utah state legislators to create democratic oversight over AI systems.
+          </p>
+        </div>
+
+        <div class="hero-right">
+          <div class="petition-card">
+            <div class="petition-card-header">
+              <span>Get Involved</span>
+              <span class="resolution-status-badge">Open</span>
+            </div>
+            <div class="petition-card-body">
+              <p class="petition-intro">
+                To express interest in getting involved with our activities in Utah, fill out this form.
+              </p>
+              <form id="petition-form" novalidate>
+                <div class="petition-form-row">
+                  <input type="text" id="given-name" placeholder="First name" required autocomplete="given-name" />
+                  <input type="text" id="family-name" placeholder="Last name" required autocomplete="family-name" />
+                </div>
+                <input type="email" id="email" placeholder="Email address" required autocomplete="email" />
+                <input type="text" id="zip" placeholder="ZIP code" maxlength="5" inputmode="numeric" autocomplete="postal-code" />
+                <div class="petition-consent">
+                  <input type="checkbox" id="consent" required checked />
+                  <label for="consent">I agree to receive updates and communications from Sapiens First. You can unsubscribe at any time.</label>
+                </div>
+                <button type="submit">Express Interest →</button>
+                <p id="form-status" aria-live="polite"></p>
+              </form>
+              <div class="petition-thank-you" id="petition-thank-you">
+                <strong>Thank you.</strong> We'll be in touch as the campaign moves forward.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!--
+  <div class="divider"></div>
+
+  WHY SLC
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">
+        <span class="title">Why Utah</span>
+      </div>
+      <div class="why-body">
+        <p class="why-para reveal">
+          <strong>Utah has spent three years leading the country on AI and tech accountability.</strong> The 2023 Social Media Regulation Act — first in the nation — required age verification and parental consent before minors could join social media platforms. The 2024 Utah Artificial Intelligence Policy Act was the first state law specifically regulating generative AI. In 2026, the Legislature passed the AI Transparency Act, which would require frontier AI companies to publish child safety plans and undergo third-party assessments. When the Trump administration called it "an unfixable bill" and pressed for a veto, Utah held its ground.
+        </p>
+        <p class="why-para reveal reveal-delay-1">
+          Utah also sits at the center of Silicon Slopes — over a thousand tech companies, sixty-seven thousand professionals, more than thirty billion dollars in annual economic output. Utah has as much at stake in how AI develops as anywhere in the country. The platform we're advancing — economic dignity, corporate accountability, democratic oversight — builds on what Utah has already shown it's willing to do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  THE ASKS
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">
+        <span class="title">Our Ask</span>
+      </div>
+      <p class="body-large reveal">Our campaign advances a platform built on three principles — and calls on the <strong>Utah State Legislature</strong> to put them into law.</p>
+      <ol class="ask-list reveal">
+        <li><strong>Economic Dignity.</strong> The gains of AI should belong to everyone, not just shareholders. The workers, communities, and public institutions whose data, labor, and publicly funded research made this technology possible deserve a stake in what it produces. We call on the Legislature to ensure that AI-driven growth strengthens the economic security of working Utahns — rather than concentrating wealth among the few who own these systems. This approach has been advanced by <a class="res-link" href="https://www.alexbores.nyc/files/Bores-Dividend_Policy.pdf" target="_blank" rel="noopener">policymakers</a> and endorsed by <a class="res-link" href="https://openai.com/index/industrial-policy-for-the-intelligence-age/" target="_blank" rel="noopener">OpenAI's own economic blueprint</a>.</li>
+        <li><strong>Corporate Accountability.</strong> AI companies currently deploy systems that cause real harm — to workers, consumers, and children — with almost no legal consequences. We call for accountability standards that match the scale of that harm: enforceable rules, meaningful recourse for those injured, and an end to the era of consequence-free deployment. <a class="res-link" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4694006" target="_blank" rel="noopener">Legal scholars have argued</a> that AI should be held to the same accountability standards as pharmaceuticals, aviation, and nuclear energy.</li>
+        <li><strong>Democratic Oversight.</strong> Decisions about how AI reshapes our economy and our children's lives are being made by a handful of companies without public input. We call for independent oversight with real authority — the power to audit AI systems, set standards, and ensure that the public has a genuine voice in the technology shaping their lives. Researchers have proposed <a class="res-link" href="https://arxiv.org/html/2503.18956v1" target="_blank" rel="noopener">concrete governance frameworks</a> for such a body, including <a class="res-link" href="https://arxiv.org/abs/2310.09217" target="_blank" rel="noopener">models for meaningful public participation</a>.</li>
+      </ol>
+    </div>
+  </section>
+  -->
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- CAMPAIGN STATUS                         -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label reveal">
+        <span class="title">Campaign Status</span>
+      </div>
+      <div class="timeline reveal">
+        <div class="timeline-item">
+          <div class="timeline-dot active">→</div>
+          <div class="timeline-content">
+            <div class="timeline-step-title active">
+              Platform Development
+              <span class="timeline-badge">In Progress</span>
+            </div>
+            <div class="timeline-desc">Developing policy platform grounded in existing Utah legislation and AI accountability research.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot upcoming">○</div>
+          <div class="timeline-content">
+            <div class="timeline-step-title upcoming">Legislator Outreach</div>
+            <div class="timeline-desc">Meeting with Utah state legislators to build support for AI accountability legislation.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot upcoming">○</div>
+          <div class="timeline-content">
+            <div class="timeline-step-title upcoming">Legislation Introduced</div>
+            <div class="timeline-desc">Sponsoring legislation in the Utah State Legislature advancing our three-part platform.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- FOOTER                                  -->
+  <!-- ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Sapiens First</div>
+        <a class="footer-back" href="index.html">← sapiensfirst.org</a>
+        <div class="footer-meta">© 2026 Sapiens First &nbsp;·&nbsp; 501(c)(3) &nbsp;·&nbsp; EIN 41-4917212</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = `scaleX(${maxScroll > 0 ? scrolled / maxScroll : 0})`;
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    document.getElementById("petition-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const status = document.getElementById("form-status");
+      const given = document.getElementById("given-name").value.trim();
+      const family = document.getElementById("family-name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const consent = document.getElementById("consent").checked;
+      if (!given || !family || !email) {
+        status.textContent = "Please fill in your name and email.";
+        return;
+      }
+      if (!consent) {
+        status.textContent = "Please agree to receive communications to continue.";
+        return;
+      }
+      document.getElementById("petition-form").style.display = "none";
+      document.getElementById("petition-thank-you").style.display = "block";
+    });
+  </script>
+  <script src="nav.js"></script>
+
+</body>
+</html>

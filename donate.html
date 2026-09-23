@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://sapiensfirst.org/donate">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donate — Sapiens First</title>
+  <meta name="description" content="Help Sapiens First build political power for AI safety. Fund local chapters, organizer training, and campaigns for a future where AI serves humanity.">
+  <meta property="og:title" content="Donate to Sapiens First">
+  <meta property="og:description" content="Help build 15 chapters in California and turn public concern about AI into political power.">
+  <meta property="og:url" content="https://sapiensfirst.org/donate">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    .donate-intro { padding: 72px 0 64px; }
+    main { font-size: 22px; }
+    .donate-intro .container { max-width: 1000px; display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+    .intro-copy, .intro-giving { min-width: 0; }
+    .donate-intro h1 { max-width: 100%; margin: 24px 0; font-size: clamp(3.4rem, 6.7vw, 6rem); text-wrap: balance; }
+    .donate-intro .deck { max-width: 44ch; font-size: 22px; line-height: 1.5; }
+    .donate-intro .actions { margin-top: 28px; justify-content: center; }
+    .donate-intro .checkout-note { text-align: center; }
+    .donate-intro #donate-cta {
+      min-width: 240px; padding: 18px 32px;
+      background: var(--yellow); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+      font: 800 34px/1.1 var(--font-display); letter-spacing: .03em;
+      text-align: center; transform: rotate(-2deg);
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+    .donate-intro #donate-cta:hover {
+      background: var(--yellow); transform: rotate(1deg) translateY(-3px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    .donate-intro #donate-cta:active {
+      transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink);
+    }
+    .donate-intro .checkout-note { margin-top: 24px; }
+    @media (prefers-reduced-motion: reduce) {
+      .donate-intro #donate-cta { transition: none; }
+      .donate-intro #donate-cta:hover,
+      .donate-intro #donate-cta:active { transform: rotate(-2deg); }
+    }
+    main .btn { padding: 16px 24px; font-size: 22px; min-height: 48px; }
+    .checkout-note { margin-top: 14px; font-size: 22px; line-height: 1.5; }
+    .donate-section { padding: 72px 0; }
+    .donate-row { display: grid; grid-template-columns: 1fr 1.7fr; column-gap: 56px; row-gap: 48px; max-width: 1000px; }
+    .donate-row h2 { font-size: clamp(2.25rem, 3.6vw, 3.1rem); line-height: 1.06; text-wrap: balance; }
+    .donate-copy { font-size: 22px; line-height: 1.65; min-width: 0; }
+    main p { text-wrap: pretty; }
+    main h3 { text-wrap: balance; }
+    .donate-copy p + p { margin-top: 20px; }
+    .donate-copy a:not(.btn) { color: inherit; text-decoration: underline; text-underline-offset: 4px; }
+    .donate-copy a:not(.btn):hover { color: var(--accent-dark); }
+    main a:focus-visible { outline: 3px solid var(--ink); outline-offset: 5px; }
+    .donate-copy ul { padding-left: 22px; margin-top: 22px; }
+    .donate-copy li + li { margin-top: 14px; }
+    .donate-copy .actions { margin-top: 26px; }
+    /* Small teaching diagrams borrow About's shapes and ink outlines. */
+    .donate-intro .container { position: relative; }
+    .donate-intro h1 .underline { white-space: nowrap; }
+    .intro-sketch { width: min(100%, 290px); margin: 0 auto; transform: rotate(3deg); }
+    .intro-sketch svg { display: block; width: 100%; height: auto; }
+    .section-index { display: block; margin-bottom: 16px; font: 700 22px/1.5 var(--font-body); letter-spacing: .08em; text-wrap: balance; }
+    .section-index::before { content: ''; display: inline-block; width: 22px; height: 8px; background: var(--red); margin-right: 10px; transform: rotate(-7deg); }
+    .donate-wide { grid-column: 1 / -1; }
+    .progress-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+    .progress-item { border-top: 3px solid var(--ink); padding-top: 22px; }
+    .progress-number { display: block; font: 800 clamp(3.25rem, 5.5vw, 4.5rem)/1 var(--font-display); white-space: nowrap; margin-bottom: 16px; }
+    .progress-item p { font-size: 22px; line-height: 1.6; }
+    .progress-item:nth-child(2) { border-color: var(--blue); }
+    .progress-item:nth-child(3) { border-color: var(--red); }
+    .chapter-target { margin: 28px auto 0; width: 240px; }
+    /* A faded halftone map, like ink printed into the poster paper. Same treatment as the home page's US map. */
+    .ca-map {
+      display: block; width: 100%; height: auto; aspect-ratio: 85.42 / 143.5;
+      background: radial-gradient(circle, rgba(17,17,17,.55) 1px, transparent 1.3px) 0 0 / 6px 6px,
+                  rgba(17,17,17,.1);
+      -webkit-mask: url("assets/usa-ca.svg") center / contain no-repeat;
+      mask: url("assets/usa-ca.svg") center / contain no-repeat;
+      transform: rotate(-4deg);
+    }
+    @media (max-width: 1000px) {
+      .donate-intro .container { gap: 32px; }
+      .donate-intro .deck { max-width: 38ch; }
+    }
+    .donate-story { background: var(--paper); }
+    .donate-giving { background: #ffe4dc; }
+    .story-next { padding: 40px; background: var(--yellow); border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--ink); }
+    .story-next .donate-row { column-gap: 40px; align-items: center; }
+    #funding-heading { font: 800 clamp(2rem, 3.2vw, 2.8rem)/1.15 var(--font-display); text-transform: uppercase; letter-spacing: .01em; margin-bottom: 28px; }
+    .donate-cta-row { justify-content: center; margin-top: 30px; }
+    .story-next #donate-cta-2 {
+      min-width: 220px; padding: 20px 40px;
+      background: var(--yellow); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink);
+      font: 800 30px/1.1 var(--font-display); letter-spacing: .03em;
+      text-align: center; transform: rotate(-2deg);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .story-next #donate-cta-2:hover { transform: rotate(1deg) translateY(-3px); box-shadow: 8px 8px 0 var(--ink); }
+    .story-next #donate-cta-2:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 var(--ink); }
+    .story-next .checkout-note { text-align: center; margin-top: 16px; }
+    .gift-tiers { display: grid; gap: 18px; margin-top: 24px; }
+    .gift-tier { padding-top: 16px; border-top: 1px solid rgba(17, 17, 17, .25); }
+    .gift-tier:first-child { padding-top: 0; border-top: none; }
+    .gift-tier dt { margin: 0; font: 800 clamp(2.1rem, 3.2vw, 2.6rem)/1 var(--font-display); }
+    .gift-tier dd { margin: 4px 0 0; font-size: 22px; line-height: 1.45; }
+    @media (max-width: 700px) {
+      .story-next { padding: 28px 18px; }
+    }
+    .donate-legal { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 22px; line-height: 1.6; }
+    .donate-copy a[href^="mailto:"] { overflow-wrap: anywhere; }
+    @media (max-width: 850px) {
+      .donate-row { grid-template-columns: 1fr; row-gap: 28px; }
+      .donate-row h2 { max-width: 22ch; }
+      .donate-copy { max-width: 65ch; }
+      .progress-grid { max-width: none; }
+    }
+    @media (max-width: 700px) {
+      .donate-intro { padding: 40px 0; }
+      .donate-intro .container { grid-template-columns: 1fr; gap: 28px; }
+      .donate-intro .actions { margin-top: 0; }
+      .donate-intro h1 { max-width: 17ch; font-size: clamp(3rem, 12vw, 5rem); }
+      main .container { width: calc(100% - 40px); }
+      .donate-section { padding: 48px 0; }
+      .donate-row { gap: 28px; }
+      .donate-copy { font-size: 22px; }
+      .intro-sketch { display: none; }
+      .donate-intro .deck { max-width: none; }
+      .progress-grid { grid-template-columns: 1fr; gap: 28px; }
+      .progress-number { font-size: 56px; margin-bottom: 10px; }
+      .chapter-target { width: 190px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<header class="site-header"></header>
+
+<main>
+  <section class="donate-intro" aria-labelledby="donate-heading">
+    <div class="container">
+      <div class="intro-copy">
+      <h1 id="donate-heading">Help keep the future <span class="underline yellow">human.</span></h1>
+      <p class="deck">We bring people together to act on AI. Help us build local chapters, train organizers, and win change.</p>
+      </div>
+      <div class="intro-giving">
+      <div class="intro-sketch" aria-hidden="true">
+        <svg viewBox="0 0 280 270" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M68 70L210 82M68 70L135 206M210 82L135 206" stroke-dasharray="6 6"/>
+          <circle cx="68" cy="70" r="48" fill="var(--yellow)"/>
+          <circle cx="210" cy="82" r="48" fill="#bcd8ff"/>
+          <circle cx="135" cy="206" r="48" fill="var(--red)"/>
+          <g stroke-linecap="round">
+            <circle cx="68" cy="58" r="10"/><path d="M47 88C47 65 89 65 89 88"/>
+            <circle cx="210" cy="70" r="10"/><path d="M189 100C189 77 231 77 231 100"/>
+            <circle cx="135" cy="194" r="10"/><path d="M114 224C114 201 156 201 156 224"/>
+          </g>
+          <path d="M118 119L164 119L164 148L146 148L139 157L132 148L118 148Z" fill="var(--paper)"/>
+          <path d="M128 133H154"/>
+        </svg>
+      </div>
+      <div class="actions">
+        <a class="btn primary" id="donate-cta" href="https://www.zeffy.com/en-US/donation-form/support-sapiens-first" target="_blank" rel="noopener">Donate →</a>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="donate-section donate-seeds" aria-labelledby="funding-heading">
+    <div class="container">
+      <div class="story-next">
+      <h2 id="funding-heading">Support our seed cities.</h2>
+      <div class="donate-row">
+      <figure class="chapter-target">
+        <span class="ca-map" role="img" aria-label="Map of California, where we're building our seed chapters."></span>
+      </figure>
+      <div class="donate-copy">
+        <dl class="gift-tiers">
+          <div class="gift-tier">
+            <dt>$1,000</dt>
+            <dd>Funds one chapter event.</dd>
+          </div>
+          <div class="gift-tier">
+            <dt>$5,000</dt>
+            <dd>Recruits and trains a chapter's founding team.</dd>
+          </div>
+          <div class="gift-tier">
+            <dt>$10,000</dt>
+            <dd>Powers a chapter's first campaign.</dd>
+          </div>
+        </dl>
+        <div class="actions donate-cta-row">
+          <a class="btn primary" id="donate-cta-2" href="https://www.zeffy.com/en-US/donation-form/support-sapiens-first" target="_blank" rel="noopener">Donate →</a>
+        </div>
+        <p class="checkout-note">Give once or monthly.</p>
+      </div>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="donate-section donate-story" aria-labelledby="progress-heading">
+    <div class="container donate-row">
+      <h2 id="progress-heading"><span class="section-index">OUR STORY</span>Building a Statewide Movement.</h2>
+      <div class="progress-grid donate-wide donate-copy">
+        <div class="progress-item"><strong class="progress-number">300–400</strong><p>People at the <a href="https://sfstandard.com/2026/07/11/anti-ai-protest-openai-anthropic-google-san-francisco/">San Francisco AI protest</a> we co-organized and fiscally sponsored.</p></div>
+        <div class="progress-item"><strong class="progress-number">50+</strong><p>In-depth voter interviews to shape our first campaign.</p></div>
+        <div class="progress-item"><strong class="progress-number">8</strong><p>Volunteer Fellows, with an <a href="/learn">organizer guide</a> for new chapter leaders.</p></div>
+      </div>
+
+    </div>
+  </section>
+  
+
+  <section class="donate-section donate-giving" aria-labelledby="giving-heading">
+    <div class="container donate-row">
+      <h2 id="giving-heading">Be a founding patron.</h2>
+      <div class="donate-copy">
+        <p>Founding Patrons are the small circle of donors giving $10,000 or more who back that first year.</p>
+        <p>We'd be happy to walk through our strategy and budget directly.</p>
+        <p>Email <a href="mailto:rohan@sapiensfirst.org">rohan@sapiensfirst.org</a> to start a conversation.</p>
+        <!-- Add alternative payment instructions only once confirmed by the organization. -->
+        <div class="donate-legal">Sapiens First / Guardrail Project, Inc.<br>U.S. 501(c)(3) nonprofit · EIN 41-4917212.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"></footer>
+
+<script>
+  document.getElementById('donate-cta').href = SITE_CONFIG.DONATION_URL;
+  document.getElementById('donate-cta-2').href = SITE_CONFIG.DONATION_URL;
+</script>
+<script src="nav.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>

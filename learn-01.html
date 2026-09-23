@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Guide (Outline test) &mdash; Sapiens First</title>
+  <meta name="description" content="Test page: the Sapiens First guide rendered from an Outline doc instead of Google Docs.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta property="og:url" content="https://sapiensfirst.org/learn-01">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <style>
+
+    /* GUIDE LAYOUT */
+    .guide-section { padding: 72px 0 120px; }
+
+    .guide-layout {
+      display: flex;
+      gap: 56px;
+      align-items: start;
+    }
+    .guide-sidebar {
+      width: 232px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 96px;
+      max-height: calc(100vh - 116px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .guide-main { flex: 1; min-width: 0; }
+
+    @media (max-width: 900px) {
+      .guide-layout { flex-direction: column; gap: 36px; }
+      .guide-sidebar { width: 100%; position: static; max-height: none; overflow-y: visible; }
+    }
+
+    /* DOCUMENT TYPOGRAPHY */
+    .doc-body { line-height: 1.68; }
+
+    .doc-body h1 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px); line-height: 1.05;
+      letter-spacing: -0.02em; text-transform: uppercase;
+      color: var(--text); margin: 100px 0 28px;
+      padding-top: 48px; border-top: 4px solid var(--accent);
+    }
+    .doc-body h1:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    .doc-body h2 {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(26px, 4vw, 38px); line-height: 1.1;
+      letter-spacing: -0.01em; text-transform: uppercase;
+      color: var(--text); margin: 56px 0 16px;
+      padding-bottom: 10px; border-bottom: 2px solid var(--accent);
+    }
+    .doc-body h3 {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: clamp(20px, 3vw, 26px); line-height: 1.15;
+      letter-spacing: 0.02em; text-transform: uppercase;
+      color: var(--text); margin: 40px 0 12px;
+    }
+    .doc-body h4 {
+      font-family: var(--font-body); font-weight: 600;
+      font-size: 17px; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text); margin: 28px 0 8px;
+    }
+
+    .doc-body p {
+      font-family: var(--font-body); font-size: var(--sz-copy);
+      color: var(--text); margin: 0 0 18px; line-height: 1.68;
+    }
+    .doc-body p:empty { display: none; }
+
+    .doc-body ul, .doc-body ol {
+      font-family: var(--font-body); font-size: var(--sz-copy);
+      color: var(--text); line-height: 1.68;
+      padding-left: 28px; margin: 0 0 20px;
+    }
+    .doc-body ul { list-style: disc; }
+    .doc-body ol { list-style: decimal; }
+    .doc-body li { margin-bottom: 8px; }
+    .doc-body li:last-child { margin-bottom: 0; }
+    .doc-body ul ul, .doc-body ol ol,
+    .doc-body ul ol, .doc-body ol ul { margin: 8px 0 0; padding-left: 24px; }
+
+    .doc-body a {
+      color: var(--accent-text); text-decoration: none;
+      border-bottom: 1px solid rgba(205,85,29,0.35);
+      transition: border-color .2s;
+    }
+    .doc-body a:hover { border-color: var(--accent-text); }
+    .doc-body strong { font-weight: 700; }
+    .doc-body em { font-style: italic; }
+
+    /* TABLE */
+    .doc-body table { width: 100%; border-collapse: collapse; margin: 0 0 24px; overflow-x: auto; display: block; }
+    .doc-body td, .doc-body th {
+      border: 1px solid var(--border);
+      padding: 10px 14px; vertical-align: top;
+      font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+    }
+    .doc-body tr:first-child td { background: var(--surface); font-weight: 600; }
+
+    /* TABLE OF CONTENTS — sidebar */
+    .toc-label {
+      display: block;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border); margin-bottom: 4px;
+    }
+
+    /* H1 group headers in the TOC */
+    .toc-group-header {
+      margin: 14px 0 2px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .toc-group-header:first-of-type { margin-top: 6px; padding-top: 0; border-top: none; }
+    .toc-group-header a {
+      font-family: var(--font-display); font-weight: 700;
+      font-size: var(--sz-label); letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text); text-decoration: none; border-bottom: none;
+      display: block; padding: 2px 8px; transition: color .15s;
+    }
+    .toc-group-header a:hover { color: var(--accent-text); border-bottom: none; }
+
+    /* h2 rows */
+    .toc-h2-row { display: flex; align-items: center; }
+    .toc-h2-link {
+      flex: 1; padding: 5px 2px 5px 21px;
+      font-family: var(--font-body); font-size: 15px; font-weight: 500;
+      color: var(--text); text-decoration: none; border-bottom: none;
+      transition: color .15s; line-height: 1.3;
+    }
+    /* chevron is 18px wide + 3px gap = 21px, matching the no-chevron indent */
+    .toc-chevron + .toc-h2-link { padding-left: 3px; }
+    .toc-h2-link:hover, .toc-h2-link.toc-active { color: var(--accent-text); border-bottom: none; }
+    .toc-h2-link.toc-active { font-weight: 600; }
+
+    .toc-chevron {
+      flex-shrink: 0; width: 18px; height: 26px;
+      display: flex; align-items: center; justify-content: center;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); font-size: 11px;
+      transition: transform .2s ease, color .15s;
+    }
+    .toc-chevron.open { transform: rotate(90deg); }
+    .toc-chevron:hover { color: var(--accent-text); }
+
+    /* h3 sub-list */
+    .toc-h3-list { list-style: none; padding: 0 0 4px 36px; margin: 0; display: none; }
+    .toc-h3-list.open { display: block; }
+    .toc-h3-list a {
+      display: block; padding: 3px 2px;
+      font-family: var(--font-body); font-size: var(--sz-label);
+      color: var(--text); text-decoration: none; border-bottom: none;
+      transition: color .15s;
+    }
+    .toc-h3-list a:hover, .toc-h3-list a.toc-active { color: var(--accent-text); border-bottom: none; }
+    .toc-h3-list a.toc-active { font-weight: 500; }
+
+    @media (max-width: 900px) {
+      .toc { border: 1px solid var(--border); padding: 16px 20px 12px; margin-bottom: 40px; }
+      .toc-label { margin-bottom: 8px; }
+      .toc-h2-link { font-size: 16px; padding: 7px 4px 7px 21px; }
+      .toc-h3-list a { font-size: 14px; }
+      .toc-h3-list { padding-left: 36px; }
+    }
+
+    @media (max-width: 768px) { .doc-body p, .doc-body li { font-size: 17px; line-height: 1.65; } }
+    @media (max-width: 600px) { .container { padding: 0 20px; } }
+
+  </style>
+</head>
+<body>
+
+  <header class="site-header"></header>
+
+  <div class="page-hero">
+    <div class="ember-field" aria-hidden="true"></div>
+    <div class="container">
+      <h1 class="page-title">Sapiens' Guide to<br><span class="title-accent">Revolution</span></h1>
+    </div>
+  </div>
+
+  <main>
+    <section class="guide-section">
+      <div class="container">
+        <div class="guide-layout">
+          <aside class="guide-sidebar">
+            <div id="toc-container"></div>
+          </aside>
+          <div class="guide-main">
+            <div id="doc-content">
+              <div class="loading-state">Loading guide...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script>
+    // Test page: same rendering pipeline as learn.html, but the source of truth
+    // is a public Outline share (a collection of documents) instead of one
+    // Google Doc. Each top-level doc in the share (Foundations, Our Model,
+    // Culture, ...) stands in for one H1 section of the Google Doc; docs
+    // nested under a parent (Outreach/Gatherings/Disruptions under Actions)
+    // stand in for H2 subsections of that parent's H1.
+    var OUTLINE_SHARE_URL = 'https://sapiensfirst.getoutline.com/s/c7586b91-e29a-4a0a-8126-e2503a77998f';
+    var OUTLINE_EDIT_URL = OUTLINE_SHARE_URL;
+
+    // Outline's own shares.info API returns this exact parent/child structure
+    // (confirmed via `sharedTree`), but it requires a POST body and doesn't
+    // send Access-Control-Allow-Origin, so the browser can't call it directly
+    // — unlike the per-document reads below, there's no CORS-friendly proxy
+    // for an arbitrary POST API. Mirroring the tree here once is simpler and
+    // more robust than re-deriving nesting from rendered sidebar indentation.
+    var DOC_TREE = [
+      { slug: 'foundations-OTcouF5h6e' },
+      { slug: 'our-model-ePlzeadqj6' },
+      { slug: 'culture-uVyGLfH92U' },
+      { slug: 'actions-fGPoPewwrC', children: [
+        { slug: 'outreach-oyEIs6LAuA' },
+        { slug: 'gatherings-HNdQ1ofHTj' },
+        { slug: 'disruptions-kYECo4nNNW' }
+      ] },
+      { slug: 'resources-7cF5xJhDiy' }
+    ];
+
+    // Outline's share pages are a JS SPA shell (no content in the initial
+    // HTML) and don't send Access-Control-Allow-Origin, so a direct
+    // cross-origin fetch() from the browser is blocked. r.jina.ai renders the
+    // page server-side and returns its readable content as markdown with CORS
+    // enabled — that stands in for the server-side fetch this static site
+    // can't do on its own.
+    function readerUrlFor(url) { return 'https://r.jina.ai/' + url; }
+
+    // Split r.jina.ai's response envelope ("Title: ...", "URL Source: ...",
+    // "Markdown Content:\n<body>") into the doc title and the markdown body.
+    function parseReaderResponse(text) {
+      var titleMatch = text.match(/^Title:\s*(.*)$/m);
+      var title = titleMatch ? titleMatch[1].replace(/\s*-\s*Outline\s*$/, '') : '';
+      var parts = text.split(/\nMarkdown Content:\n/);
+      var markdown = parts.length > 1 ? parts[1] : text;
+      return { title: title, markdown: markdown };
+    }
+
+    // headingLevel: 1 for a top-level doc's own title, 2 for a doc nested one
+    // level down (e.g. Outreach under Actions), etc.
+    function processDoc(markdown, title, headingLevel) {
+      var wrapper = document.createElement('div');
+      wrapper.innerHTML = marked.parse(markdown);
+
+      // marked emits "loose" lists (each item's own text wrapped in <p>) when
+      // the source markdown has blank lines between items — unwrap that
+      // leading <p> so list items don't inherit standalone-paragraph spacing
+      // (this also applies when the item has a nested sub-list after the text).
+      Array.from(wrapper.querySelectorAll('li')).forEach(function(li) {
+        var first = li.firstElementChild;
+        if (first && first.tagName === 'P') {
+          while (first.firstChild) li.insertBefore(first.firstChild, first);
+          li.removeChild(first);
+        }
+      });
+
+      // Open external links in a new tab, matching the Google Docs pipeline
+      Array.from(wrapper.querySelectorAll('a')).forEach(function(a) {
+        var href = a.getAttribute('href') || '';
+        if (href && !href.startsWith('#')) {
+          a.setAttribute('target', '_blank');
+          a.setAttribute('rel', 'noopener');
+        }
+      });
+
+      // Outline auto-appends a heading-only stub for each nested child
+      // document (meant to show an embedded preview), which r.jina.ai's
+      // markdown extraction can't render — drop the empty leftover heading(s)
+      // rather than show a blank section title. The real child content is
+      // fetched and appended separately, in the right place, by the caller.
+      while (wrapper.lastElementChild && /^H[1-6]$/.test(wrapper.lastElementChild.tagName)) {
+        wrapper.removeChild(wrapper.lastElementChild);
+      }
+
+      if (title) {
+        var h = document.createElement('h' + headingLevel);
+        h.textContent = title;
+        wrapper.insertBefore(h, wrapper.firstChild);
+      }
+
+      return wrapper.innerHTML;
+    }
+
+    async function fetchDocHtml(url, headingLevel) {
+      var res = await fetch(readerUrlFor(url));
+      if (!res.ok) throw new Error(res.status);
+      var parsed = parseReaderResponse(await res.text());
+      return processDoc(parsed.markdown, parsed.title, headingLevel);
+    }
+
+    // Fetch a doc and its children (if any) concurrently, then concatenate
+    // parent content followed by each child's — same order/nesting as the
+    // Outline sidebar.
+    async function renderDocTree(node, depth) {
+      var selfPromise = fetchDocHtml(OUTLINE_SHARE_URL + '/doc/' + node.slug, depth);
+      var childrenPromise = node.children
+        ? Promise.all(node.children.map(function(c) { return renderDocTree(c, depth + 1); }))
+        : Promise.resolve([]);
+      var selfHtml = await selfPromise;
+      var childHtmls = await childrenPromise;
+      return [selfHtml].concat(childHtmls).join('\n');
+    }
+
+    function slugify(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    }
+
+    function buildTOC() {
+      var docBody = document.querySelector('.doc-body');
+      var tocContainer = document.getElementById('toc-container');
+      if (!docBody || !tocContainer) return;
+
+      // Assign IDs to all headings
+      var seen = {};
+      Array.from(docBody.querySelectorAll('h1, h2, h3')).forEach(function(h, i) {
+        var base = slugify(h.textContent.trim()) || ('s' + i);
+        var id = seen[base] ? base + '-' + i : base;
+        seen[base] = true;
+        h.id = id;
+      });
+
+      // Build tree: h1 = section header, h2 = collapsible row, h3 = child
+      var groups = [];
+      var curGroup = null, curSection = null;
+      Array.from(docBody.querySelectorAll('h1, h2, h3')).forEach(function(h) {
+        var item = { text: h.textContent.trim(), id: h.id };
+        if (h.tagName === 'H1') {
+          curGroup = { header: item, sections: [] };
+          curSection = null;
+          groups.push(curGroup);
+        } else if (h.tagName === 'H2') {
+          if (!curGroup) { curGroup = { header: null, sections: [] }; groups.push(curGroup); }
+          curSection = { heading: item, children: [] };
+          curGroup.sections.push(curSection);
+        } else if (h.tagName === 'H3' && curSection) {
+          curSection.children.push(item);
+        }
+      });
+
+      if (groups.length === 0) return;
+
+      // Render as a single flat list — h1s are headers, h2s are collapsible rows (open by default)
+      var html = '';
+      groups.forEach(function(group, gi) {
+        if (group.header) {
+          html += '<div class="toc-group-header"><a href="#' + group.header.id + '">' + group.header.text + '</a></div>';
+        }
+        group.sections.forEach(function(sec, si) {
+          var uid = 'toc-' + gi + '-' + si;
+          var hasKids = sec.children.length > 0;
+          html += '<div class="toc-h2-item"><div class="toc-h2-row">';
+          if (hasKids) {
+            html += '<button class="toc-chevron" aria-expanded="false" data-target="' + uid + '">›</button>';
+          }
+          html += '<a class="toc-h2-link" href="#' + sec.heading.id + '">' + sec.heading.text + '</a>';
+          html += '</div>';
+          if (hasKids) {
+            html += '<ul class="toc-h3-list" id="' + uid + '">';
+            sec.children.forEach(function(child) {
+              html += '<li><a href="#' + child.id + '">' + child.text + '</a></li>';
+            });
+            html += '</ul>';
+          }
+          html += '</div>';
+        });
+      });
+
+      tocContainer.innerHTML = '<nav class="toc"><span class="toc-label eyebrow">Contents</span>' + html + '</nav>';
+
+      // Chevron expand/collapse
+      tocContainer.querySelectorAll('.toc-chevron').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var list = document.getElementById(btn.getAttribute('data-target'));
+          if (!list) return;
+          var open = list.classList.toggle('open');
+          btn.classList.toggle('open', open);
+          btn.setAttribute('aria-expanded', open);
+        });
+      });
+
+      // Smooth scroll (offset for fixed nav)
+      tocContainer.querySelectorAll('a[href^="#"]').forEach(function(a) {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          var el = document.getElementById(a.getAttribute('href').slice(1));
+          if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' });
+        });
+      });
+    }
+
+    function setupScrollSpy() {
+      var tocContainer = document.getElementById('toc-container');
+      if (!tocContainer) return;
+      var headings = Array.from(document.querySelectorAll('.doc-body h1, .doc-body h2, .doc-body h3'));
+      if (!headings.length) return;
+
+      var lastId = null;
+      var rafPending = false;
+
+      function activate(id) {
+        if (id === lastId) return;
+        lastId = id;
+
+        // Clear all active states
+        tocContainer.querySelectorAll('.toc-active').forEach(function(el) { el.classList.remove('toc-active'); });
+
+        // Find matching link
+        var link = tocContainer.querySelector('a[href="#' + CSS.escape(id) + '"]');
+        if (!link) return;
+        link.classList.add('toc-active');
+
+        // Auto-expand parent h3 list if needed
+        var h3List = link.closest('.toc-h3-list');
+        if (h3List && !h3List.classList.contains('open')) {
+          h3List.classList.add('open');
+          var chevron = tocContainer.querySelector('[data-target="' + h3List.id + '"]');
+          if (chevron) { chevron.classList.add('open'); chevron.setAttribute('aria-expanded', 'true'); }
+        }
+      }
+
+      function update() {
+        var threshold = 110; // px below top of viewport to consider "current"
+        var activeId = headings[0].id;
+        for (var i = 0; i < headings.length; i++) {
+          if (headings[i].getBoundingClientRect().top <= threshold) {
+            activeId = headings[i].id;
+          } else {
+            break;
+          }
+        }
+        activate(activeId);
+        rafPending = false;
+      }
+
+      window.addEventListener('scroll', function() {
+        if (!rafPending) { rafPending = true; requestAnimationFrame(update); }
+      }, { passive: true });
+
+      update(); // run once on load
+    }
+
+    async function loadGuide() {
+      var container = document.getElementById('doc-content');
+      try {
+        var sections = await Promise.all(DOC_TREE.map(function(node) { return renderDocTree(node, 1); }));
+        container.innerHTML = '<div class="doc-body">' + sections.join('\n') + '</div>';
+        buildTOC();
+        setupScrollSpy();
+      } catch (err) {
+        console.error('Guide load error:', err);
+        container.innerHTML = '<p class="empty-state">Could not load the guide right now. <a href="' + OUTLINE_EDIT_URL + '" target="_blank" rel="noopener">Open in Outline</a></p>';
+      }
+    }
+
+    loadGuide();
+
+    initEmberField();
+  </script>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script src="nav-circle.js"></script>
+</body>
+</html>

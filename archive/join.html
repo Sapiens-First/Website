@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join — Sapiens First</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <link rel="manifest" href="favicons/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="palette.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(45deg, rgba(100,65,10,0.028) 0px, rgba(100,65,10,0.028) 1px, transparent 1px, transparent 9px),
+        repeating-linear-gradient(-45deg, rgba(100,65,10,0.02) 0px, rgba(100,65,10,0.02) 1px, transparent 1px, transparent 9px);
+      color: var(--text);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: overlay;
+    }
+
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── EMBER FIELD ───────────────────────── */
+    .ember-field {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .ember {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: ember-flicker var(--ed, 3s) ease-in-out var(--ey, 0s) infinite;
+      box-shadow: 0 0 var(--eg, 3px) var(--ec, #f97316);
+    }
+    @keyframes ember-flicker {
+      0%, 100% { opacity: 0;               transform: scale(0.5); }
+      45%, 55% { opacity: var(--ep, 0.75); transform: scale(1.3); }
+    }
+
+    /* ─── HEADER ────────────────────────────── */
+    .page-header {
+      background-color: #000000;
+      padding: 160px 0 96px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.35s;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(72px, 11vw, 120px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: #ffffff;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.45s;
+    }
+
+    /* ─── CONTENT ───────────────────────────── */
+    .page-body {
+      padding: 96px 0 120px;
+    }
+
+    .intro {
+      font-size: 22px;
+      line-height: 1.72;
+      color: var(--text);
+      margin-bottom: 60px;
+    }
+
+    /* ─── SECTION LABEL ────────────────────── */
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 18.42px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 575;
+      margin-bottom: 24px;
+    }
+
+    /* ─── GENERAL INTEREST FORM ─────────────── */
+    .interest-section {
+      margin-top: 80px;
+      padding-top: 64px;
+      border-top: 1px solid var(--border);
+    }
+    .interest-heading {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 52px);
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin-bottom: 14px;
+    }
+    .interest-sub {
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+    #interest-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 480px;
+    }
+    .interest-form-row { display: flex; gap: 10px; }
+    .interest-form-row input { flex: 1; min-width: 0; }
+    #interest-form input {
+      padding: 0.68rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 16px;
+      font-family: var(--font-body);
+      color: var(--text);
+      background: rgba(253,248,245,0.7);
+      width: 100%;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    #interest-form input::placeholder { color: var(--text-dim); opacity: 0.5; }
+    #interest-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(229, 106, 20, 0.18);
+    }
+    .interest-consent {
+      display: grid;
+      grid-template-columns: 15px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin-top: 2px;
+      width: 100%;
+    }
+    .interest-consent input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .interest-consent label {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-dim);
+      cursor: pointer;
+      overflow-wrap: break-word;
+    }
+    #interest-form button[type="submit"] {
+      margin-top: 4px;
+      background-color: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.72rem 1.4rem;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease;
+      align-self: flex-start;
+    }
+    #interest-form button[type="submit"]:hover {
+      background-color: var(--text);
+      transform: translateY(-1px);
+    }
+    #interest-form button[type="submit"]:active { transform: translateY(0); }
+    #interest-status {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      min-height: 1.4em;
+    }
+    .interest-thank-you {
+      display: none;
+      font-size: 16px;
+      line-height: 1.72;
+      color: var(--text);
+    }
+    .interest-thank-you strong { font-weight: 600; color: var(--accent); }
+
+    /* ─── CAMPAIGN CARDS ────────────────────── */
+    .campaigns {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .campaign-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 28px 30px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 42%, transparent);
+      box-shadow: 0 1px 2px rgba(80,50,10,0.06), 0 3px 10px rgba(80,50,10,0.04);
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+      cursor: pointer;
+    }
+    .campaign-card:hover {
+      border-color: rgba(229, 106, 20, 0.35);
+      background: rgba(229, 106, 20, 0.05);
+      transform: translateX(6px);
+    }
+
+    .campaign-card-body { flex: 1; }
+
+    .campaign-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .campaign-text {
+      font-size: 17px;
+      line-height: 1.72;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    .campaign-badge {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(229, 106, 20, 0.35);
+      color: var(--accent);
+      border-radius: 3px;
+      padding: 3px 8px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+
+    .campaign-badge.state {
+      border-color: rgba(44, 86, 179, 0.4);
+      color: #2c56b3;
+      background: rgba(44, 86, 179, 0.07);
+    }
+
+    .campaign-badge.new {
+      border-color: rgba(44, 120, 60, 0.35);
+      color: #2c783c;
+    }
+
+    .campaign-arrow {
+      font-size: 18px;
+      color: var(--accent);
+      flex-shrink: 0;
+      padding-top: 3px;
+      opacity: 0.5;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .campaign-card:hover .campaign-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+
+    /* ─── FOOTER ────────────────────────────── */
+    .footer {
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .footer-meta {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+    .footer-meta a { color: inherit; text-decoration: none; }
+    .footer-meta a:hover { color: var(--text); }
+
+    /* ─── SCROLL PROGRESS ───────────────────── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px; width: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--blue) 100%);
+      transform-origin: left center;
+      transform: scaleX(0);
+      z-index: 10001;
+      pointer-events: none;
+    }
+
+    /* ─── VIGNETTE ──────────────────────────── */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 42%, rgba(26,58,102,0.07) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* ─── ANIMATIONS ────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.24s; }
+
+    :root {
+      --accent:   #E56A14;
+      --text-dim: #5a4a38;
+      --bg:       #faf5ee;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 24px; }
+      .page-header { padding: 120px 0 72px; }
+      .page-body { padding: 72px 0 80px; }
+      .intro { font-size: 19px; margin-bottom: 44px; }
+      .campaign-card:hover { transform: none; }
+      .interest-form-row { flex-direction: column; gap: 8px; }
+      #interest-form { max-width: 100%; }
+      #interest-form button[type="submit"] { align-self: stretch; text-align: center; }
+      .footer-inner { flex-direction: column; gap: 14px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar"></div>
+  <div class="vignette"></div>
+  <nav id="site-nav"></nav>
+
+  <header class="page-header">
+    <div class="ember-field" aria-hidden="true"></div>
+    <div class="container" style="position:relative;z-index:2;">
+      <h1>Join</h1>
+    </div>
+  </header>
+
+  <div class="page-body">
+    <div class="container">
+
+      <div class="section-label reveal">Campaigns</div>
+
+      <p class="intro reveal">
+        Get involved in our active campaigns, or start your own.
+      </p>
+
+      <div class="campaigns">
+
+        <a class="campaign-card reveal" href="berkeley.html">
+          <div class="campaign-card-body">
+            <div class="campaign-title">Berkeley City Council</div>
+            <div class="campaign-text">We call on Berkeley to take a stand on the oversight and safety of frontier artificial intelligence.</div>
+          </div>
+          <div class="campaign-badge new">California</div>
+          <div class="campaign-arrow">→</div>
+        </a>
+
+        <a class="campaign-card reveal reveal-delay-1" href="utah.html">
+          <div class="campaign-card-body">
+            <div class="campaign-title">Utah State Legislature</div>
+            <div class="campaign-text">Join our partners on the ground in advancing a bill for the democratic oversight of AI.</div>
+          </div>
+          <div class="campaign-badge new">Utah</div>
+          <div class="campaign-arrow">→</div>
+        </a>
+
+        <a class="campaign-card reveal reveal-delay-2" href="start-a-campaign.html">
+          <div class="campaign-card-body">
+            <div class="campaign-title">Start a Campaign</div>
+            <div class="campaign-text">Build support in your city, school district, or community organization. We'll provide the trainings, toolkits, and support.</div>
+          </div>
+          <div class="campaign-badge new">Your city</div>
+          <div class="campaign-arrow">→</div>
+        </a>
+
+      </div>
+
+      <div class="interest-section reveal">
+        <div class="section-label">General Interest</div>
+        <div class="interest-heading">Stay in the Loop</div>
+        <p class="interest-sub">Not ready to campaign yet? Sign up to follow along — we'll keep you posted as the movement grows.</p>
+        <form id="interest-form" novalidate>
+          <div class="interest-form-row">
+            <input type="text" id="int-given-name" placeholder="First name" required autocomplete="given-name" />
+            <input type="text" id="int-family-name" placeholder="Last name" required autocomplete="family-name" />
+          </div>
+          <input type="email" id="int-email" placeholder="Email address" required autocomplete="email" />
+          <input type="text" id="int-zip" placeholder="ZIP code" maxlength="5" inputmode="numeric" autocomplete="postal-code" />
+          <div class="interest-consent">
+            <input type="checkbox" id="int-consent" required checked />
+            <label for="int-consent">I agree to receive updates and communications from Sapiens First. You can unsubscribe at any time.</label>
+          </div>
+          <button type="submit">Follow Along →</button>
+          <p id="interest-status" aria-live="polite"></p>
+        </form>
+        <div class="interest-thank-you" id="interest-thank-you">
+          <strong>You're in.</strong> We'll keep you posted as the movement grows.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Sapiens First</div>
+        <div class="footer-meta">© 2026 SAPIENS FIRST &nbsp;·&nbsp; 501(c)(3) &nbsp;·&nbsp; EIN 41-4917212</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.querySelector('.progress-bar');
+    window.addEventListener('scroll', () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = `scaleX(${maxScroll > 0 ? window.scrollY / maxScroll : 0})`;
+    }, { passive: true });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    (function () {
+      const field = document.querySelector('.ember-field');
+      if (!field) return;
+      const colors = ['#f97316','#fb923c','#fbbf24','#ef4444','#f59e0b','#fdba74'];
+      for (let i = 0; i < 158; i++) {
+        const el = document.createElement('div');
+        el.className = 'ember';
+        const size = 1.5 + Math.random() * 2;
+        const col  = colors[Math.floor(Math.random() * colors.length)];
+        const dur  = (2.2 + Math.random() * 3.52).toFixed(2);
+        const del  = (-Math.random() * 7).toFixed(2);
+        const peak = (0.35 + Math.random() * 0.55).toFixed(2);
+        const glow = (size * 1.8).toFixed(1);
+        const x = Math.random() * 100;
+        const u = Math.random();
+        const y = (-0.8 + Math.sqrt(0.64 + 0.8 * u)) / 0.4 * 100;
+        el.style.cssText =
+          `left:${x}%;top:${y}%;` +
+          `width:${size}px;height:${size}px;` +
+          `background:${col};` +
+          `--ec:${col};--ed:${dur}s;--ey:${del}s;--ep:${peak};--eg:${glow}px`;
+        field.appendChild(el);
+      }
+    })();
+
+    const SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwX7TYzwhhbXSAavxvhEi3butP8Fyay5btdm5Zz6sAoedXjR65WCFc-CO7IYTaSDwB1/exec";
+
+    document.getElementById("interest-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const status = document.getElementById("interest-status");
+      const given = document.getElementById("int-given-name").value.trim();
+      const family = document.getElementById("int-family-name").value.trim();
+      const email = document.getElementById("int-email").value.trim();
+      const zip = document.getElementById("int-zip").value.trim();
+      const consent = document.getElementById("int-consent").checked;
+
+      if (!given || !family || !email) {
+        status.textContent = "Please fill in your name and email.";
+        return;
+      }
+      if (!consent) {
+        status.textContent = "Please agree to receive communications to continue.";
+        return;
+      }
+
+      // Build a hidden form and submit it into a hidden iframe to avoid CORS issues
+      const iframe = document.createElement("iframe");
+      iframe.name = "sheet-target";
+      iframe.style.display = "none";
+      document.body.appendChild(iframe);
+
+      const hiddenForm = document.createElement("form");
+      hiddenForm.method = "POST";
+      hiddenForm.action = SHEET_SCRIPT_URL;
+      hiddenForm.target = "sheet-target";
+
+      [["firstName", given], ["lastName", family], ["email", email], ["zip", zip]].forEach(([name, val]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = name;
+        input.value = val;
+        hiddenForm.appendChild(input);
+      });
+
+      document.body.appendChild(hiddenForm);
+      hiddenForm.submit();
+
+      document.getElementById("interest-form").style.display = "none";
+      document.getElementById("interest-thank-you").style.display = "block";
+    });
+  </script>
+
+  <script src="nav.js"></script>
+</body>
+</html>

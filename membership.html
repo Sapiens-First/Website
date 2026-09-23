@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://sapiensfirst.org/membership">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership — Sapiens First</title>
+  <meta name="description" content="Sapiens First membership is on its way — monthly dues, member perks, and a direct way to fund the movement.">
+  <meta property="og:title" content="Membership — Sapiens First">
+  <meta property="og:description" content="Membership is on its way — monthly dues, member perks, and a direct way to fund the movement.">
+  <meta property="og:url" content="https://sapiensfirst.org/membership">
+  <meta property="og:type" content="website">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    .section { padding: 56px 0 72px; }
+    @media (max-width: 768px) { .section { padding: 40px 0 56px; } }
+
+    /* ─── CONSTRUCTION BOX ──────────────────── */
+    .construction-box {
+      margin-top: 30px; padding: 40px 36px;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      gap: 18px;
+    }
+    .construction-icon {
+      width: 44px; height: 44px; color: var(--accent-text);
+      opacity: 0.85;
+    }
+    .construction-tag {
+      font-family: var(--font-body); font-size: var(--sz-label);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-text); border: 1px solid var(--accent);
+      padding: 6px 14px; opacity: 0.85;
+    }
+    .construction-text {
+      max-width: 480px;
+    }
+    .construction-actions {
+      display: flex; align-items: center; gap: 28px;
+      margin-top: 10px; flex-wrap: wrap; justify-content: center;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .construction-box { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar"></div>
+
+  <header class="site-header"></header>
+
+  <!-- ═══════════ PAGE HERO ═══════════ -->
+  <div class="page-hero">
+    <div class="ember-field" aria-hidden="true"></div>
+    <div class="container">
+      <h1 class="page-title">Become a<br><span class="title-accent">Member.</span></h1>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ═══════════ UNDER CONSTRUCTION ═══════════ -->
+    <section class="section">
+      <div class="container">
+        <p class="body-large reveal">
+          Membership is how you sustain Sapiens First for the long haul — monthly dues,
+          a stronger voice in the movement, and a direct way to help us stay accountable
+          to the people we organize with.
+        </p>
+
+        <div class="construction-box card reveal">
+          <svg class="construction-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+          </svg>
+          <div class="construction-tag">Membership page is under construction</div>
+          <p class="construction-text card-text">
+            We're still building this page. In the meantime, join our email list to hear
+            the moment it goes live, or support us right now with a donation.
+          </p>
+          <div class="construction-actions">
+            <a href="/join" class="btn btn--solid">Join our email list →</a>
+            <a href="/donate" class="text-link">Make a donation instead →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script>
+    initEmberField();
+  </script>
+  <script src="reveal.js"></script>
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script src="nav-circle.js"></script>
+</body>
+</html>

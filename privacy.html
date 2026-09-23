@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://sapiensfirst.org/privacy">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy — Sapiens First</title>
+  <meta name="description" content="Learn how Sapiens First uses your email address for updates, and how to opt out or request deletion.">
+  <!-- BUILD:HEAD-COMMON:START -->
+  <!-- Shared assets: edit partials/head-common.html, then run python3 build.py.
+       Keep page titles, descriptions, canonical URLs, and social tags outside this block. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="shared.css">
+  <script src="config.js"></script>
+  <!-- BUILD:HEAD-COMMON:END -->
+  <style>
+    .privacy-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 100px 0 120px;
+      display: flex; flex-direction: column; gap: 40px;
+    }
+    .privacy-heading {
+      font-family: var(--font-display); font-weight: 800;
+      font-size: clamp(52px, 8vw, 88px);
+      line-height: 0.9; letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+    .privacy-text {
+      font-size: var(--sz-copy); line-height: 1.68; color: var(--text);
+    }
+    .privacy-text a { color: var(--accent-text); }
+    .privacy-cookies {
+      font-size: var(--sz-label); line-height: 1.7;
+      color: var(--text);
+      padding-top: 16px; border-top: 1px solid var(--border);
+    }
+    @media (max-width: 600px) {
+      .privacy-wrap { padding: 80px 0 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header"></header>
+
+  <main>
+    <div class="container">
+      <div class="privacy-wrap">
+
+        <h1 class="privacy-heading">Privacy</h1>
+
+        <p class="privacy-text">
+          We collect your email address when you sign up. We use it to send you updates about Sapiens First — actions, calls, and news. We don't sell it, share it, or do anything sketchy with it. To opt out or request deletion, email <a href="mailto:rohan@sapiensfirst.org">rohan@sapiensfirst.org</a>.
+        </p>
+
+        <p class="privacy-cookies">
+          We do not use cookies or tracking software on this website.
+        </p>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"></footer>
+
+  <script src="nav.js"></script>
+  <script src="footer.js"></script>
+  <script src="nav-circle.js"></script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://sapiensfirst.org/careers/builder">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Native Builder (Contract) — Careers — Sapiens First</title>
+  <meta name="description" content="Sapiens First is hiring an AI-native builder on a paid contract to turn messy organizational problems into useful software, automations, and systems. Remote, India preferred.">
+  <!-- Nested page: build.py does not update this head. Keep shared assets in
+       sync with partials/head-common.html, preserving the ../ asset paths. -->
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js'); if (!('IntersectionObserver' in window)) document.documentElement.classList.add('no-io');</script>
+  <link rel="stylesheet" href="../shared.css">
+  <script src="../config.js"></script>
+  <style>
+    .job-page { width: min(1080px, calc(100% - 40px)); margin: 0 auto; padding: 48px 0 88px; }
+    .job-back { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 32px; font-size: 18px; line-height: 1.5; }
+    .job-back-label { text-decoration: underline; text-underline-offset: 4px; }
+    .job-header { padding-bottom: 32px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+    .job-page h1 { max-width: none; font-family: var(--font-body); font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.15; letter-spacing: -.035em; text-transform: none; font-weight: 700; }
+    .job-page h2 { margin: 40px 0 16px; font-family: var(--font-body); font-size: 26px; line-height: 1.35; letter-spacing: -.02em; text-transform: none; font-weight: 700; text-wrap: balance; }
+    .job-page h3 { margin: 24px 0 10px; font-size: 20px; line-height: 1.6; }
+    .job-page p, .job-page li { font-size: 18px; line-height: 1.7; }
+    .job-page p { margin: 0 0 18px; }
+    .job-page .job-meta { margin: 18px 0 24px; color: var(--ink); font-size: 18px; }
+    .job-meta strong { font-weight: 500; }
+    .job-page ul, .job-page ol { padding-left: 24px; margin: 0 0 20px; }
+    .job-page li { padding-left: 3px; margin-bottom: 12px; }
+    .job-page .job-lead { font-size: 20px; line-height: 1.65; }
+    .job-questions li::marker { color: var(--red-dark); font-weight: 700; }
+    .job-process { padding: 18px 20px; margin: 24px 0 18px; background: var(--soft); border-left: 3px solid var(--red-dark); }
+    .job-process h3 { margin: 0 0 8px; font-family: var(--font-body); font-size: 16px; line-height: 1.4; text-transform: none; letter-spacing: 0; }
+    .job-process p { margin: 0; font-weight: 500; }
+    .job-description a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+    .job-page a:hover { color: var(--red-dark); }
+    .job-description h2 { scroll-margin-top: 115px; }
+    .job-bottom { margin-top: 30px; }
+    @media (max-width: 600px) { .job-page { padding-top: 30px; padding-bottom: 56px; } }
+
+    .job-header { max-width: 760px; margin-left: 280px; }
+    .job-layout { display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 48px; align-items: start; }
+    .job-content { min-width: 0; max-width: 70ch; font-size: 18px; color: var(--ink); }
+    .job-sidebar { position: sticky; top: 110px; max-height: calc(100vh - 134px); overflow-y: auto; }
+    .job-toc summary { font-size: 16px; font-weight: 700; cursor: pointer; padding: 12px 0; }
+    .job-toc ul { list-style: none; margin: 8px 0 20px; padding: 0; }
+    .job-toc li { margin: 0; padding: 0; font-size: 16px; line-height: 1.5; }
+    .job-toc li a { display: block; padding: 9px 12px; border-left: 2px solid var(--line); font-weight: 600; color: var(--ink); transition: background-color 200ms ease, border-color 200ms ease; }
+    .job-toc li a:hover { background: var(--soft); }
+    .job-toc li a[aria-current="location"] { border-left-color: var(--red-dark); background: var(--soft); }
+    .job-toc a:focus-visible, .job-toc summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .job-facts { width: 100%; border-collapse: collapse; margin: 0 0 28px; font-size: 18px; line-height: 1.7; }
+    .job-facts th, .job-facts td { padding: 14px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    .job-facts th { width: 155px; padding-right: 20px; }
+    .job-facts td ul { list-style: none; padding: 0; margin: 0; }
+    .job-facts td li { padding: 0; margin: 0 0 8px; }
+    .job-facts td li:last-child { margin-bottom: 0; }
+    @supports (interpolate-size: allow-keywords) {
+      .job-toc { interpolate-size: allow-keywords; }
+      .job-toc::details-content { height: 0; overflow: clip; transition: height 240ms ease, content-visibility 240ms allow-discrete; }
+      .job-toc[open]::details-content { height: auto; }
+      .job-toc.is-navigating::details-content { transition: none; }
+    }
+    @media (max-width: 1100px) {
+      .job-page { max-width: 760px; }
+      .job-header { margin-left: 0; }
+      .job-layout { display: block; }
+      .job-sidebar { position: static; max-height: none; overflow: visible; margin-bottom: 32px; }
+      .job-toc { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 4px 0; }
+      .job-description h2 { scroll-margin-top: 180px; }
+    }
+    @media (max-width: 600px) {
+      .job-facts, .job-facts tbody, .job-facts tr, .job-facts th, .job-facts td { display: block; width: 100%; }
+      .job-facts th { border-bottom: 0; padding: 16px 0 4px; }
+      .job-facts td { padding: 0 0 16px; }
+      .job-description h2 { scroll-margin-top: 20px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .job-toc li a, .job-toc::details-content { transition: none; }
+    }
+    @media print {
+      header.site-header, footer.site-footer, .job-sidebar, .job-back, .job-page .btn { display: none; }
+      .job-page { width: 100%; padding: 0; }
+      .job-header { margin-left: 0; }
+      .job-layout { display: block; }
+      .job-page h2, .job-page h3 { break-after: avoid; }
+      .job-facts tr { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<header class="site-header"></header>
+<main class="job-page">
+  <a class="job-back" href="/careers" data-page-link="careers"><span aria-hidden="true">←</span><span class="job-back-label">All careers</span></a>
+  <article>
+    <header class="job-header">
+<h1>AI-Native Builder (Contract)</h1>
+<p class="job-meta"><strong>Remote · India preferred · 20 or 40 hours/week · 3 months</strong></p>
+<p><strong>₹50–70k/month for full-time</strong></p>
+      <a class="btn primary" href="#apply">Apply for this role →</a>
+    </header>
+    <div class="job-layout">
+      <aside class="job-sidebar">
+        <details class="job-toc" open>
+          <summary>On this page</summary>
+          <nav aria-label="Job description sections">
+            <ul>
+          <li><a href="#about-sapiens-first">About Sapiens First</a></li>
+          <li><a href="#the-role">About the Role</a></li>
+          <li><a href="#about-you">About You</a></li>
+          <li><a href="#benefits">Benefits</a></li>
+          <li><a href="#apply">Apply</a></li>
+            </ul>
+          </nav>
+        </details>
+      </aside>
+      <div class="job-content">
+    <div class="job-description">
+
+<p class="job-lead">Turn messy organizational problems into <strong>useful software, automations, and systems</strong>. You’ll work directly with the Executive Director to identify priorities, prototype solutions, and ship tools that help a growing political movement scale.</p>
+
+<h2 id="about-sapiens-first">About Sapiens First</h2>
+<p>We’re building political power to ensure technology serves the common good. We organize people, train leaders, run campaigns, and build media and movement infrastructure.</p>
+<p>We work like a political campaign and a startup: a small team, fast iteration, and direct communication. Our approach draws from <a href="https://www.holacracy.org/">Holacracy</a> and the <a href="https://jobs.netflix.com/culture">Netflix culture memo</a>: clear roles, distributed authority, freedom with responsibility, candor, and continuous improvement.</p>
+<p>You’ll get context and ownership, with the expectation that you make decisions, surface problems early, and learn quickly. This suits people who are self-directed and comfortable with ambiguity.</p>
+
+<h2 id="the-role">About the Role</h2>
+<p>You’ll research, build, and improve solutions across organizing, campaigns, fundraising, media, and internal coordination. We take an AI-first approach (see <a href="https://block.xyz/inside/from-hierarchy-to-intelligence">“From Hierarchy to Intelligence”</a>) to reduce manual operations.</p>
+<ul>
+  <li><strong>Movement infrastructure:</strong> Volunteer onboarding, training, events, local groups, and organizer workflows.</li>
+  <li><strong>AI and automation:</strong> Connect documents, CRM data, workflows, and AI agents; automate repetitive work.</li>
+  <li><strong>Campaigns and fundraising:</strong> Outreach, volunteer coordination, donor research, and follow-up.</li>
+  <li><strong>Media tools:</strong> Editing, repurposing, publishing, scheduling, and analytics.</li>
+</ul>
+<p>Priorities will evolve. Part of the job is noticing problems and deciding <strong>what’s worth building</strong>.</p>
+
+<h2 id="about-you">About You</h2>
+<ul>
+  <li><strong>Engineering ability:</strong> Build web products and work comfortably with APIs and databases.</li>
+  <li><strong>AI fluency:</strong> Use AI heavily, research tools independently, and choose when to build custom software or use an existing product.</li>
+  <li><strong>Product and design judgment:</strong> Clarify vague goals, narrow the scope, and ship useful, well-designed tools quickly.</li>
+  <li><strong>Initiative and mission alignment:</strong> Notice problems, make sound decisions, and care about the work Sapiens First is doing.</li>
+</ul>
+<p>We value <strong>what you can build</strong> over degrees, credentials, years of experience, or specific frameworks. Students and early-career applicants are welcome.</p>
+
+<h2 id="benefits">Benefits</h2>
+<table class="job-facts" aria-labelledby="benefits">
+<tbody>
+  <tr><th scope="row">Contract</th>
+    <td>Initial <strong>3 months</strong>, at 20 or 40 hours/week.</td></tr>
+  <tr><th scope="row">Monthly pay</th>
+    <td><ul>
+      <li><strong>20 hours/week:</strong> ₹25,000–₹35,000 (approx. $260–$365 USD).</li>
+      <li><strong>40 hours/week:</strong> ₹50,000–₹70,000 (approx. $520–$730 USD).</li>
+    </ul></td></tr>
+  <tr><th scope="row">Location</th>
+    <td>Remote; India preferred.</td></tr>
+  <tr><th scope="row">Schedule</th>
+    <td>Mostly flexible and asynchronous. Regular meetings (up to 3 hours/week) with staff in California.</td></tr>
+</tbody>
+</table>
+<p>This is a young organization with less structure and room to shape how we work. You’ll gain experience across engineering, product, AI, operations, and movement-building. <strong>A successful contract can lead to a full-time role</strong> with growing technical and product ownership.</p>
+
+<h2 id="apply">Apply</h2>
+<p>Email <a href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder"><strong>rohan@sapiensfirst.org</strong></a> with the subject <strong>“AI-Native Builder”</strong> and answers to these four questions:</p>
+<ol class="job-questions">
+  <li><strong>What are 2–3 things you’ve built?</strong> Include links, demos, GitHub repositories, screenshots, or short explanations, and say what you personally did.</li>
+  <li><strong>What about our mission appeals to you?</strong> Under 100 words.</li>
+  <li><strong>What do you hope to get out of this experience?</strong> Under 100 words.</li>
+  <li><strong>Are you applying for 20 or 40 hours/week?</strong></li>
+</ol>
+<div class="job-process">
+  <h3>Hiring process</h3>
+  <p>Application → 15-minute interview → 1-hour practical exercise → offer</p>
+</div>
+<p>We may not be able to reply to every application.</p>
+    </div>
+    <a class="btn primary job-bottom" href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder">Email your application →</a>
+      </div>
+    </div>
+  </article>
+</main>
+<footer class="site-footer"></footer>
+<script src="../nav.js"></script>
+<script src="../footer.js"></script>
+<script>
+  (() => {
+    const toc = document.querySelector('.job-toc');
+    const desktop = window.matchMedia('(min-width: 1101px)');
+    const syncMenu = () => { toc.open = desktop.matches; };
+    syncMenu();
+    desktop.addEventListener('change', syncMenu);
+
+    const headings = [...document.querySelectorAll('.job-description h2')];
+    const links = [...toc.querySelectorAll('li a')];
+    toc.addEventListener('click', event => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+      if (!desktop.matches) {
+        // Finish collapsing before the browser calculates the anchor position.
+        toc.classList.add('is-navigating');
+        toc.open = false;
+        toc.getBoundingClientRect();
+        requestAnimationFrame(() => toc.classList.remove('is-navigating'));
+      }
+      const target = document.querySelector(link.getAttribute('href'));
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    });
+
+    let scheduled = false;
+    const updateCurrent = () => {
+      scheduled = false;
+      const offset = parseFloat(getComputedStyle(headings[0]).scrollMarginTop) + 2;
+      let current;
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= offset) current = heading;
+      }
+      if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+        current = headings[headings.length - 1];
+      }
+      links.forEach(link => {
+        if (current && link.hash === '#' + current.id) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const scheduleUpdate = () => {
+      if (!scheduled) { scheduled = true; requestAnimationFrame(updateCurrent); }
+    };
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener('load', scheduleUpdate);
+    updateCurrent();
+  })();
+</script>
+</body>
+</html>

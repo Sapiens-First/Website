@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sapiens First</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="shortcut icon" href="favicons/favicon.ico">
+  <link rel="manifest" href="favicons/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="palette.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      background-image:
+        repeating-linear-gradient(45deg, rgba(100,65,10,0.028) 0px, rgba(100,65,10,0.028) 1px, transparent 1px, transparent 9px),
+        repeating-linear-gradient(-45deg, rgba(100,65,10,0.02) 0px, rgba(100,65,10,0.02) 1px, transparent 1px, transparent 9px);
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 1;
+      mix-blend-mode: overlay;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 0 64px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── HERO ──────────────────────────── */
+    /* ─── EMBER FIELD ──────────────────── */
+    .ember-field {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .ember {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      animation: ember-flicker var(--ed, 3s) ease-in-out var(--ey, 0s) infinite;
+      box-shadow: 0 0 var(--eg, 3px) var(--ec, #f97316);
+    }
+    @keyframes ember-flicker {
+      0%, 100% { opacity: 0;               transform: scale(0.5); }
+      45%, 55% { opacity: var(--ep, 0.75); transform: scale(1.3); }
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+      background-color: #000000;
+    }
+    /*
+    .hero-glow {
+      position: absolute;
+      bottom: 0; left: 10vw;
+      transform: translateX(-50%);
+      transform-origin: bottom center;
+      width: 200vw; height: 420px;
+      background: radial-gradient(ellipse at center bottom,
+        rgba(249,115,22,0.18) 0%,
+        rgba(230,90,10,0.08) 45%,
+        transparent 70%);
+      filter: blur(55px);
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform, opacity;
+    }
+    .hero-glow-core {
+      position: absolute;
+      bottom: 0; left: 10vw;
+      transform: translateX(-50%);
+      transform-origin: bottom center;
+      width: 130vw; height: 240px;
+      background: radial-gradient(ellipse at center bottom,
+        rgba(255,155,50,0.28) 0%,
+        rgba(249,115,22,0.12) 50%,
+        transparent 70%);
+      filter: blur(28px);
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform, opacity;
+      opacity: 0;
+    }
+    */
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(82px, 13vw, 140px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 44px;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.45s;
+    }
+    .hero .hero-headline { color: #ffffff; }
+    .hero .hero-headline .accent { color: var(--accent); }
+    .hero-body {
+      font-size: 27px;
+      line-height: 1.72;
+      color: #ffffff;
+      max-width: 750px;
+      font-weight: 400;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.65s;
+    }
+
+    /* ─── DIVIDER ───────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ─── SECTIONS ──────────────────────── */
+    .section { padding: 110px 0; position: relative; }
+
+    /* ─── EXP CURVE (remove both blocks to disable) ── */
+    /*
+    .challenge-section { overflow: hidden; }
+    .exp-curve-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    */
+    /* ────────────────────────────────────────────── */
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: var(--font-mono);
+      font-size: 18.42px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text);
+      font-weight: 575;
+      margin-bottom: 52px;
+    }
+    .section-label .mark  { color: var(--text-dim); letter-spacing: 0.05em; }
+    .section-label .title { color: var(--accent); }
+
+    /* ─── STATS ─────────────────────────── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(80,50,10,0.07), 0 4px 14px rgba(80,50,10,0.04);
+    }
+    .stat {
+      padding: 32px 26px 28px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(44px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ─── BODY TEXT ─────────────────────── */
+    .body-large {
+      font-size: 22px;
+      line-height: 1.72;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+    .body-large strong { color: var(--text); font-weight: 638; }
+
+    /* ─── PILLARS ───────────────────────── */
+    .pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 52px;
+    }
+    .pillar {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 26px 28px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 42%, transparent);
+      box-shadow: 0 1px 2px rgba(80,50,10,0.06), 0 3px 10px rgba(80,50,10,0.04);
+      transition: transform 0.25s ease;
+      cursor: default;
+    }
+    .pillar:hover { transform: translateX(4px); }
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      padding-top: 4px;
+      flex-shrink: 0;
+      width: 24px;
+    }
+    .pillar-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 7px;
+    }
+    .pillar-text {
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    /* ─── THEORY OF CHANGE: horizontal steps ─── */
+    .toc-steps {
+      display: grid;
+      grid-template-columns: 1fr 52px 1fr 52px 1fr;
+      align-items: stretch;
+      margin-top: 52px;
+    }
+    .toc-step {
+      padding: 28px 26px 32px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--surface) 42%, transparent);
+      box-shadow: 0 1px 2px rgba(80,50,10,0.06), 0 3px 10px rgba(80,50,10,0.04);
+      transition: transform 0.25s ease;
+      cursor: default;
+    }
+    .toc-step:hover { transform: translateY(-3px); }
+    .toc-step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .toc-step-text {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+    .toc-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 21.6px;
+      font-weight: 700;
+      color: var(--accent);
+      opacity: 0.32;
+    }
+
+    /* ─── FOOTNOTES ─────────────────────── */
+    .fn-sup {
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      letter-spacing: 0;
+      vertical-align: super;
+      line-height: 0;
+      margin-left: 3px;
+    }
+    .fn-sup a { color: var(--accent); text-decoration: none; opacity: 0.75; transition: opacity 0.2s ease; }
+    .fn-sup a::before { content: '['; }
+    .fn-sup a::after  { content: ']'; }
+    .fn-sup a:hover { opacity: 1; }
+
+    /* ─── CTA SECTION ───────────────────── */
+    .cta-section {
+      padding: 140px 0 120px;
+      text-align: center;
+      position: relative;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 80px;
+      background: linear-gradient(to bottom, var(--border), transparent);
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(26,58,102,0.17) 1.5px, transparent 1.5px);
+      background-size: 18px 18px;
+      -webkit-mask-image: radial-gradient(ellipse 65% 55% at 50% 100%, black 0%, transparent 72%);
+      mask-image: radial-gradient(ellipse 65% 55% at 50% 100%, black 0%, transparent 72%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .cta-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12.6px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      font-weight: 460;
+    }
+    .cta-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(56px, 9vw, 100px);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: -0.025em;
+      margin-bottom: 28px;
+    }
+    .cta-sub {
+      font-size: 18px;
+      color: var(--text-dim);
+      max-width: 380px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    /* ─── FOOTER ────────────────────────── */
+    .footer {
+      padding: 36px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .footer-meta {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── ANIMATIONS ────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-toc-2 { transition-delay: 0.25s; }
+    .reveal-delay-toc-3 { transition-delay: 0.5s; }
+
+    /* ─── SCROLL PROGRESS ──────────────────── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px; width: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--blue) 100%);
+      transform-origin: left center;
+      transform: scaleX(0);
+      z-index: 10001;
+      pointer-events: none;
+    }
+
+    /* ─── VIGNETTE ─────────────────────── */
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 42%, rgba(26,58,102,0.07) 100%);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    /* ─── US MAP ────────────────────────── */
+    .toc-section { overflow: hidden; }
+    .us-map-bg {
+      position: absolute;
+      top: 50%; left: 82%;
+      transform: translate(-50%, -50%);
+      width: 57.2%;
+      max-width: none; height: auto;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.028;
+      filter: invert(1) sepia(1) saturate(0.6) hue-rotate(190deg) brightness(1.4);
+    }
+
+    /* ─── REGISTER MARKS ────────────────── */
+    .reg-frame { position: relative; margin-bottom: 52px; }
+    .stats-grid { margin-bottom: 0; }
+    .reg-frame::before, .reg-frame::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 10px;
+      opacity: 0.42;
+      pointer-events: none;
+    }
+    .reg-frame::before { top: -6px; left: -6px; border-top: 1px solid var(--accent); border-left: 1px solid var(--accent); }
+    .reg-frame::after  { bottom: -6px; right: -6px; border-bottom: 1px solid var(--accent); border-right: 1px solid var(--accent); }
+
+    /* ─── RESPONSIVE ────────────────────── */
+    @media (max-width: 860px) {
+      .toc-steps { grid-template-columns: 1fr; gap: 8px; }
+      .toc-connector { display: none; }
+      .toc-step:hover { transform: translateX(4px); }
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 100px 0 60px; }
+      .hero-body { font-size: 23px; }
+      .section { padding: 80px 0; }
+      .cta-section { padding: 100px 0 80px; }
+      .body-large { font-size: 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .wordmark { display: none; }
+      .hero { padding: 96px 0 52px; }
+      .hero-headline { font-size: clamp(67px, 17.25vw, 92px); }
+      .hero-body { font-size: 21px; line-height: 1.65; margin-bottom: 40px; }
+      .section { padding: 60px 0; }
+      .section-label { font-size: 16.15px; letter-spacing: 0.14em; margin-bottom: 36px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); padding: 24px 20px; }
+      .stat:last-child { border-bottom: none; }
+      .body-large { font-size: 18px; }
+      .pillar { padding: 18px 20px; gap: 8px; }
+      .toc-step { padding: 18px 20px; }
+      .toc-step-title { font-size: 18px; }
+      .toc-step-text { font-size: 16px; }
+      .pillar:hover { transform: none; }
+      .pillar-title { font-size: 18px; }
+      .pillar-text { font-size: 16px; }
+      .us-map-bg { display: none; }
+      .cta-section { padding: 80px 0 64px; }
+      .cta-headline { font-size: clamp(44px, 12vw, 56px); }
+      .cta-sub { font-size: 16px; }
+      .footer-inner { flex-direction: column; gap: 14px; text-align: center; }
+      .footer-meta { font-size: 9px; line-height: 1.7; overflow-wrap: anywhere; }
+    }
+
+    @media (max-width: 375px) {
+      .container { padding: 0 16px; }
+      .hero-body { font-size: 18px; }
+      .body-large { font-size: 16px; }
+      .pillar-text { font-size: 14px; }
+    }
+
+    @media (min-width: 769px) {
+      .cta-eyebrow { font-size: 14.5px; }
+    }
+
+
+    /* ─── PALETTE OVERRIDES ─────────────── */
+    :root {
+      --accent:              #E56A14;
+      --accent-glow:         rgba(229, 106, 20, 0.28);
+      --pillar-hover-border: rgba(229, 106, 20, 0.30);
+      --pillar-hover-bg:     rgba(229, 106, 20, 0.06);
+      --text-dim:            #141210;
+      --text-mid:            #141210;
+      --bg:                  #faf5ee;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar"></div>
+  <div class="vignette"></div>
+  <nav id="site-nav"></nav>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- HERO                                    -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="hero">
+    <!-- <div class="hero-glow" aria-hidden="true"></div> -->
+    <!-- <div class="hero-glow-core" aria-hidden="true"></div> -->
+    <div class="ember-field" aria-hidden="true"></div>
+    <div class="container">
+      <h1 class="hero-headline">
+        <span>Local</span><br>
+        <span class="accent">organizing</span><br>
+        <span>for a</span><br>
+        <span>brighter</span><br>
+        <span>future</span>
+      </h1>
+      <p class="hero-body">
+        AI is remaking our country. <br>
+        It's time the people had a say.
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- THE CHALLENGE                           -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section challenge-section">
+    <!-- ─ EXP CURVE (remove both blocks to disable) ─ -->
+    <!--
+    <svg class="exp-curve-bg" viewBox="0 0 1000 360" preserveAspectRatio="none" aria-hidden="true">
+      <polyline
+        points="250,355 300,354 350,352 400,347 450,338 500,326 550,309 600,287 650,260 700,227 750,189 800,144 850,93 900,35 920,10"
+        fill="none"
+        stroke="var(--accent)"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        opacity="0.07"
+      />
+    </svg>
+    -->
+    <!-- ──────────────────────────────────────────── -->
+    <div class="container">
+      <div class="section-label reveal">
+        <span class="title">THE CHALLENGE</span>
+      </div>
+      <div class="reg-frame">
+        <div class="stats-grid reveal">
+          <div class="stat">
+            <div class="stat-val">300M</div>
+            <div class="stat-label">JOBS EXPOSED TO<br>AI AUTOMATION<sup class="fn-sup"><a href="https://www.goldmansachs.com/insights/articles/how-will-ai-affect-the-us-labor-market" target="_blank" rel="noopener">1</a></sup></div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">73%</div>
+            <div class="stat-label">OF AMERICANS FAVOR<br>STRONGER AI OVERSIGHT<sup class="fn-sup"><a href="https://futureoflife.org/recent-news/americans-want-regulation-or-prohibition-of-superhuman-ai/" target="_blank" rel="noopener">2</a></sup></div>
+          </div>
+          <div class="stat">
+            <div class="stat-val">$100M</div>
+            <div class="stat-label">RAISED BY INDUSTRY<br>LOBBYISTS IN 2026<sup class="fn-sup"><a href="https://qz.com/ai-2026-election-policy-regulation" target="_blank" rel="noopener">3</a></sup></div>
+          </div>
+        </div>
+      </div>
+      <p class="body-large reveal">
+        Public opinion strongly favors AI oversight.
+        <strong>But the industry has lobbied fiercely against real change.</strong>
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- THEORY OF CHANGE                        -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section toc-section">
+    <img class="us-map-bg" src="assets/us.svg" aria-hidden="true" alt="">
+    <div class="container">
+
+      <div class="section-label reveal">
+        <span class="title">THEORY OF CHANGE</span>
+      </div>
+
+      <p class="body-large reveal">
+        <strong>We give citizens the tools to fight back.</strong>
+        
+      </p>
+
+      <div class="toc-steps">
+
+        <div id="toc-pillar-1" class="toc-step reveal">
+          <div class="toc-step-title">Local Resolutions</div>
+          <div class="toc-step-text">City council resolutions let us build coalitions, demonstrate public will, and create a replicable template for every city that follows.</div>
+        </div>
+
+        <div class="toc-connector" aria-hidden="true">→</div>
+
+        <div id="toc-pillar-2" class="toc-step reveal reveal-delay-toc-2">
+          <div class="toc-step-title">State Laws</div>
+          <div class="toc-step-text">State campaigns turn our proposals into policy. We take the resolutions, coalitions, and momentum built by local campaigns to statehouses in red and blue states alike.</div>
+        </div>
+
+        <div class="toc-connector" aria-hidden="true">→</div>
+
+        <div id="toc-pillar-3" class="toc-step reveal reveal-delay-toc-3">
+          <div class="toc-step-title">Federal Policy</div>
+          <div class="toc-step-text">A national network of active chapters makes AI accountability impossible to ignore. Lawmakers act when the issue is in every district.</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- PLATFORM                                -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="section" id="platform">
+    <div class="container">
+
+      <div class="section-label reveal">
+        <span class="title">PLATFORM</span>
+      </div>
+
+      <p class="body-large reveal">
+        <strong>Our reforms would shift the balance of power.</strong>
+      </p>
+
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-num">01</div>
+          <div>
+            <div class="pillar-title">Economic Dignity</div>
+            <div class="pillar-text">If AI displaces workers at scale, the gains belong to all Americans — not just the wealthy few. We advocate for job training programs and wealth redistribution that scales with AI-driven productivity growth.<sup class="fn-sup"><a href="https://www.alexbores.nyc/files/Bores-Dividend_Policy.pdf" target="_blank" rel="noopener">4</a></sup><sup class="fn-sup"><a href="https://openai.com/index/industrial-policy-for-the-intelligence-age/" target="_blank" rel="noopener">5</a></sup></div>
+          </div>
+        </div>
+        <div class="pillar reveal reveal-delay-1">
+          <div class="pillar-num">02</div>
+          <div>
+            <div class="pillar-title">Democratic Oversight</div>
+            <div class="pillar-text">No corporation and no government should control AI alone. We call for an independent oversight agency with audit powers, treaty authority, and civil society input, analogous to the regulations in place for financial institutions.<sup class="fn-sup"><a href="https://arxiv.org/html/2503.18956v1" target="_blank" rel="noopener">7</a></sup><sup class="fn-sup"><a href="https://arxiv.org/abs/2310.09217" target="_blank" rel="noopener">8</a></sup></div>
+          </div>
+        </div>
+        <div class="pillar reveal reveal-delay-2">
+          <div class="pillar-num">03</div>
+          <div>
+            <div class="pillar-title">Corporate Accountability</div>
+            <div class="pillar-text">AI companies should bear legal responsibilities for their actions. We demand strict liability for harms caused by frontier models, and penalties for negligence in the event of wide-scale catastrophies. <sup class="fn-sup"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4694006" target="_blank" rel="noopener">6</a></sup></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- STAY TUNED                              -->
+  <!-- ═══════════════════════════════════════ -->
+  <section class="cta-section" id="connect">
+    <div class="container">
+      <div class="cta-eyebrow reveal" style="color: var(--blue);">We're building.</div>
+      <div class="cta-headline reveal">Stay<br>tuned.</div>
+      <p class="cta-sub reveal">Coming to a city near you.</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">Sapiens First</div>
+        <div class="footer-meta">© 2026 SAPIENS FIRST &nbsp;·&nbsp; 501(c)(3) &nbsp;·&nbsp; EIN 41-4917212</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const progressBar = document.querySelector('.progress-bar');
+
+    /*
+    const heroEl   = document.querySelector('.hero');
+    const heroGlow = document.querySelector('.hero-glow');
+    const heroCore = document.querySelector('.hero-glow-core');
+
+    function updateParallax() {
+      const t = Math.max(0, Math.min(1, window.scrollY / heroEl.offsetHeight));
+
+      // Base stays pinned at hero bottom (transform-origin: bottom center).
+      // Top edge climbs via scaleY; whole shape drifts sideways with scroll.
+      // Sweep from bottom-left to top-right: center starts at left edge, drifts to ~55vw
+      const drift = t * window.innerWidth * 0.55;
+      heroGlow.style.transform = `translateX(calc(-50% + ${drift}px)) scaleY(${1 + t * 3.2})`;
+      heroGlow.style.opacity   = t * 0.80;
+
+      heroCore.style.transform = `translateX(calc(-50% + ${drift * 0.8}px)) scaleY(${1 + t * 3.8})`;
+      heroCore.style.opacity   = t * 1.0;
+
+      // Background: cool blue-black (#0A0F1C) → warm amber-dark (#200C02)
+      heroEl.style.backgroundColor =
+        `rgb(${Math.round(10 + t * 22)},${Math.round(15 - t * 11)},${Math.round(28 - t * 26)})`;
+    }
+    */
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.transform = `scaleX(${maxScroll > 0 ? scrolled / maxScroll : 0})`;
+
+      /*
+      if (!rafPending) {
+        rafPending = true;
+        requestAnimationFrame(() => { updateParallax(); rafPending = false; });
+      }
+      */
+    }, { passive: true });
+
+    // updateParallax();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    let tocZone = 0;
+    const tocPillars = [
+      document.getElementById('toc-pillar-1'),
+      document.getElementById('toc-pillar-2'),
+      document.getElementById('toc-pillar-3'),
+    ];
+    const tocObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const zone = parseInt(entry.target.id.replace('toc-pillar-', ''), 10);
+        if (zone > tocZone) tocZone = zone;
+      });
+    }, { threshold: 0.4 });
+    tocPillars.forEach(el => { if (el) tocObserver.observe(el); });
+
+    // Ember field — seed warm flickering dots across the hero
+    (function () {
+      const field = document.querySelector('.ember-field');
+      if (!field) return;
+      const colors  = ['#f97316','#fb923c','#fbbf24','#ef4444','#f59e0b','#fdba74'];
+      const count   = 158;
+      for (let i = 0; i < count; i++) {
+        const el   = document.createElement('div');
+        el.className = 'ember';
+        const size = 1.5 + Math.random() * 2;        // 1.5–3.5 px
+        const col  = colors[Math.floor(Math.random() * colors.length)];
+        const dur  = (2.2 + Math.random() * 3.52).toFixed(2); // 2.2–5.72s cycle
+        const del  = (-Math.random() * 7).toFixed(2);         // stagger start
+        const peak = (0.35 + Math.random() * 0.55).toFixed(2); // 0.35–0.9
+        const glow = (size * 1.8).toFixed(1);
+        // Weight distribution toward right half (mirrors the dot grid mask)
+        const x = Math.random() * 100;
+        // Linear density: 0.8× at top → 1.2× at bottom (±20%).
+        // Inverse CDF of f(t)=0.8+0.4t → t=(-0.8+√(0.64+0.8u))/0.4
+        const u = Math.random();
+        const y = (-0.8 + Math.sqrt(0.64 + 0.8 * u)) / 0.4 * 100;
+        el.style.cssText =
+          `left:${x}%;top:${y}%;` +
+          `width:${size}px;height:${size}px;` +
+          `background:${col};` +
+          `--ec:${col};--ed:${dur}s;--ey:${del}s;--ep:${peak};--eg:${glow}px`;
+        field.appendChild(el);
+      }
+    })();
+  </script>
+
+  <script src="nav.js"></script>
+</body>
+</html>

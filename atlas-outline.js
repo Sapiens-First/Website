@@ -15,6 +15,7 @@ function atlasOutlineTypeLabel(type) { return ATLAS_OUTLINE_TYPE_LABEL[type] || 
 // chains/cycles land in `unplaced`, exactly like the retired Tree view did —
 // nothing here invents a parent.
 function atlasOutlineBuild(records) {
+  const order = new Map(records.map((row, i) => [row.ID, i]));
   const nodes = new Map(records.map(row => [row.ID, { row, children: [], parent: null }]));
   const root = [...nodes.values()].find(node => node.row.Type === 'Mission') || null;
   function resolves(node) {
@@ -39,7 +40,10 @@ function atlasOutlineBuild(records) {
     node.parent = parent;
   }
   function sortChildren(node) {
-    node.children.sort((a, b) => a.row.Name.localeCompare(b.row.Name) || a.row.ID.localeCompare(b.row.ID));
+    // Pillars are ordered deliberately (e.g. DNA last) rather than
+    // alphabetically; deeper levels still sort by name.
+    if (node === root) node.children.sort((a, b) => order.get(a.row.ID) - order.get(b.row.ID));
+    else node.children.sort((a, b) => a.row.Name.localeCompare(b.row.Name) || a.row.ID.localeCompare(b.row.ID));
     node.children.forEach(sortChildren);
   }
   if (root) sortChildren(root);

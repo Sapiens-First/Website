@@ -55,8 +55,10 @@ for (const [wrapper, role] of [['G-003','G-002'], ['G-012','G-033'], ['G-014','G
 // separate, independently-rooted circle; see the roots assertions above).
 assert.equal(nodes.get('G-011').row.Status, 'Retired', 'Chapter Network is retired');
 assert.equal(nodes.get('G-041').row.Name, 'DNA', 'Meta was renamed to DNA');
-assert.equal(nodes.get('G-002').row['Parent Circle ID'], 'G-041', 'Vision & Strategy belongs to DNA');
-assert.equal(nodes.get('G-019').row['Parent Circle ID'], 'G-041', 'Finance & Fundraising belongs to DNA');
+assert.equal(nodes.get('G-002').row['Parent Circle ID'], 'G-041', 'Chief Strategist belongs to DNA');
+assert.equal(nodes.get('G-019').row['Parent Circle ID'], 'G-001', 'Fundraising sits outside DNA');
+assert.deepEqual(nodes.get('G-041').children.map(child => child.row.Name).sort(), ['Chief Strategist', 'Vision Steward']);
+assert.deepEqual(nodes.get('G-047').children.map(child => child.row.Name).sort(), ['Donation Operations', 'Legal Coordinator', 'Operations Lead', 'Reimbursements Coordinator']);
 // Tech supersedes the previous automatic singleton consolidation: it stays its
 // own active circle, now containing three roles moved in by user direction.
 assert.equal(nodes.get('G-036').row.Status, 'Active', 'Tech remains its own circle');

@@ -1,8 +1,8 @@
 (() => {
   const data = window.ATLAS_DATA;
   const views = {
-    domains: { title: 'Our work', description: 'Explore our work, its purpose, and how it connects to the mission.', parent: 'Parent ID', columns: ['Name', 'Purpose', 'Parent', 'Status', 'Responsible role or circle'] },
-    governance: { title: 'Roles & circles', description: 'Explore responsibilities and linked work. Roles marked “Needs definition” were named as owners but have not yet been fully documented.', parent: 'Parent Circle ID', columns: ['Name', 'Purpose', 'Parent circle', 'Status', 'Linked work'] },
+    domains: { title: 'Our work', description: 'See how our work connects to the mission.', parent: 'Parent ID', columns: ['Name', 'Purpose', 'Parent', 'Status', 'Responsible role or circle'] },
+    governance: { title: 'Roles & circles', description: 'Explore roles, responsibilities, and access.', parent: 'Parent Circle ID', columns: ['Name', 'Purpose', 'Parent circle', 'Status', 'Linked work'] },
   };
   const search = document.querySelector('#atlas-search');
   const filter = document.querySelector('#atlas-filter');
@@ -91,8 +91,12 @@
     person.append(a, el('span', ` · ${row['Engagement level']}`));
     return person;
   }
+  const historicalFields = ['Definition note', 'Assignment basis'];
   function extraFields(row) {
-    return Object.keys(row).filter(key => !['Name', 'Type', 'Purpose', 'Parent ID', 'Parent Circle ID', 'Status', 'Lead Link', 'Person ID', 'Engagement level'].includes(key));
+    const omitted = ['ID', 'Name', 'Type', 'Purpose', 'Parent ID', 'Parent Circle ID', 'Status', 'Lead Link', 'Person ID', 'Engagement level', ...historicalFields];
+    const fields = Object.keys(row).filter(key => !omitted.includes(key) && (row[key] || key === 'Accountabilities' || key === 'Privileges'));
+    if (row.Type === 'Role' && !fields.includes('Privileges')) fields.push('Privileges');
+    return fields;
   }
   function fieldsList(row, fields) {
     const dl = el('dl');
@@ -100,7 +104,11 @@
       dl.append(el('dt', field));
       const dd = el('dd');
       const value = row[field];
-      if (field === 'Circle ID' && value) dd.append(link(value));
+      if (['Accountabilities', 'Privileges'].includes(field) && value?.trim()) {
+        const list = el('ul', undefined, 'atlas-field-list');
+        value.split(/[;\n]+/).map(text => text.trim()).filter(Boolean).forEach(text => list.append(el('li', text)));
+        dd.append(list);
+      } else if (field === 'Circle ID' && value) dd.append(link(value));
       else if (field.endsWith('URL') && /^https?:\/\//i.test(value)) {
         const a = el('a', value); a.href = value; a.target = '_blank'; a.rel = 'noopener'; dd.append(a);
       } else dd.textContent = value || 'Not documented';
@@ -133,17 +141,19 @@
       panel.append(linkedList(ancestry));
     }
     panel.append(el('p', row.Purpose || 'Purpose not documented.', 'atlas-record-purpose'));
-    panel.append(el('h3', group === 'domains' ? 'Domain authority & coverage' : 'Currently holds'), group === 'domains' ? ownershipDisplay(row) : linkedList(owners(row, group)));
-    if (group === 'governance' && row.Type === 'Circle') {
-      panel.append(el('p', 'Includes explicitly owned domains and undelegated domains held by this circle.', 'atlas-coverage'));
-    }
-    if (group === 'governance' && row.Status !== 'Retired') panel.append(el('h3', 'Energized by'), assignee(row));
+    const owned = owners(row, group);
+    if (group === 'domains') panel.append(el('h3', 'Responsibility'), ownershipDisplay(row));
+    else if (owned.length) panel.append(el('h3', 'Linked work'), linkedList(owned));
+    if (group === 'governance' && row.Status !== 'Retired') panel.append(el('h3', 'Filled by'), assignee(row));
     panel.append(fieldsList(row, extraFields(row)));
     const children = (data[group] || []).filter(child => child[views[group].parent] === row.ID);
     if (children.length) panel.append(el('h3', 'Contains'), linkedList(children.map(child => child.ID)));
     const history = relations().filter(r => r['From ID'] === row.ID || r['To ID'] === row.ID);
-    if (history.length) {
-      panel.append(el('h3', 'Relationships & history'));
+    const notes = historicalFields.filter(field => row[field]);
+    if (history.length || notes.length) {
+      const details = el('details', undefined, 'atlas-record-history');
+      details.append(el('summary', 'History & notes'));
+      if (notes.length) details.append(fieldsList(row, notes));
       const list = el('ul', undefined, 'atlas-history');
       history.forEach(r => {
         const li = el('li');
@@ -157,7 +167,8 @@
         if (r.Notes) li.append(el('small', r.Notes));
         list.append(li);
       });
-      panel.append(list);
+      details.append(list);
+      panel.append(details);
     }
   }
   function render() {
@@ -168,12 +179,12 @@
       document.querySelectorAll('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === current)));
       ['#atlas-format', '#atlas-filter-label', '#atlas-circles', '#atlas-outline', '#atlas-alignment', '#atlas-results', '#atlas-record', '#atlas-error'].forEach(selector => { document.querySelector(selector).hidden = true; });
       document.querySelector('#view-title').textContent = 'People';
-      document.querySelector('#view-description').textContent = 'Meet the people energizing our roles. Choose a role to see its purpose, accountabilities, and owned work. Fellow names use two-letter public labels.';
+      document.querySelector('#view-description').textContent = 'See who fills each role. Fellows use two-letter public names.';
       const source = document.querySelector('.atlas-source'); source.href = 'data/atlas/governance.csv'; source.textContent = 'Download governance CSV ↓';
       search.disabled = !Array.isArray(data?.governance);
       search.placeholder = 'Search people or roles…';
       const counts = renderAtlasPeople(document.querySelector('#atlas-people'), data?.governance || [], search.value.trim().toLocaleLowerCase(), selected);
-      status.textContent = data?.governance ? `${counts.count} of ${counts.total} people. Assignments come from the governance records.` : 'Atlas data unavailable.';
+      status.textContent = data?.governance ? `${counts.count} of ${counts.total} people.` : 'Atlas data unavailable.';
       return;
     }
     const view = views[current];
@@ -235,7 +246,7 @@
     renderRecord();
     if (circleMode) {
       renderAtlasCircles(document.querySelector('#atlas-circle-chart'), data.governance, selected, rows, query);
-      status.textContent = query ? `${rows.length} matching governance records.` : 'Governance circle map. Follow the nested circles to explore the organization.';
+      status.textContent = query ? `${rows.length} matching governance records.` : 'Explore the circles and their roles.';
       document.querySelector('#atlas-circles').classList.toggle('has-selection', Boolean(selected));
     }
     if (outlineMode) {
@@ -246,12 +257,12 @@
       const outlineMatches = data.domains.filter(row => [...Object.values(row), ...owners(row, 'domains').map(id => index.get(id)?.row.Name || id)].some(value => String(value).toLocaleLowerCase().includes(query)));
       document.querySelector('#atlas-outline').classList.toggle('has-selection', Boolean(selected));
       renderAtlasOutline(document.querySelector('#atlas-outline-tree'), data.domains, selected, outlineMatches, query, link);
-      status.textContent = query ? `${outlineMatches.length} matching domain records.` : 'Domains explorer. Expand a branch to see how work ladders up to the mission.';
+      status.textContent = query ? `${outlineMatches.length} matching domain records.` : 'Expand a branch to explore our work.';
     }
     if (alignmentMode) {
       document.querySelector('#atlas-alignment').classList.toggle('has-selection', Boolean(selected));
       renderAtlasAlignment(document.querySelector('#atlas-alignment-matrix'), data, selected, link);
-      status.textContent = 'Alignment matrix. Shows cross-cutting "supports" relationships, separate from canonical containment.';
+      status.textContent = 'See which goals each project or program supports.';
     }
   }
   let lastHash = null;

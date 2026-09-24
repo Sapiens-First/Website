@@ -55,14 +55,28 @@ invalid(lambda d: d['governance'][0].update({'Engagement level': 'Graduate'}))
 invalid(lambda d: d['governance'][0].update({'Lead Link': 'Someone else'}))
 invalid(lambda d: d['governance'][0].update({'Person ID': ''}))
 invalid(lambda d: d['governance'][0].update({'Lead Link': ''}))
+# Current governance has an explicit energizer; the user-directed default is
+# Rohan. Keep that assignment in the CSV rather than inventing UI fallbacks.
+for row in data['governance']:
+    if row['Status'] in {'Retired', 'Completed'}:
+        continue
+    assert row.get('Person ID'), f"{row['ID']}: record an energizer (default Rohan)"
+    if row.get('Assignment basis') == 'User-directed default assignment':
+        assert (row['Person ID'], row['Lead Link'], row['Engagement level']) == ('P-001', 'Rohan', 'Staff')
+    parent = row['Parent Circle ID']
+    if parent:
+        circle = next(r for r in data['governance'] if r['ID'] == parent)
+        assert circle['Status'] not in {'Retired', 'Completed'}, f"{row['ID']}: live record in an inactive circle"
+
 # Duplicate display names are allowed; duplicate identities with conflicting facts are not.
 al_ids = {r['Person ID'] for r in data['governance'] if r.get('Lead Link') == 'Al' and r.get('Person ID')}
 assert len(al_ids) == 2
 # Adjacent ownership periods and a renamed entity retain stable references.
 sample = copy.deepcopy(data)
 sample['domains'][0]['Name'] = 'Renamed mission'
-sample['relationships'][0]['Valid until'] = '2026-10-01'
-sample['relationships'].append(dict(sample['relationships'][0], ID='R-999', **{'Valid from': '2026-10-01', 'Valid until': ''}))
+current = next(r for r in sample['relationships'] if r['Relationship'] == 'owns' and r['To ID'] == 'D-001' and not r['Valid until'])
+current['Valid until'] = '2026-10-01'
+sample['relationships'].append(dict(current, ID='R-999', **{'Valid from': '2026-10-01', 'Valid until': ''}))
 module.validate(sample)
 with tempfile.TemporaryDirectory() as directory:
     root = Path(directory)

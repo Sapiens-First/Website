@@ -103,7 +103,7 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     host.append(picker);
   }
   if (records.some(row => row.ID === selected && row.Status === 'Retired')) {
-    host.append(html('p', 'This record is retired. Its details and succession history remain available; the map shows the current organization.', 'atlas-circle-hint'));
+    host.append(html('p', 'This record is retired. The map shows current roles and circles.', 'atlas-circle-hint'));
   }
 
   if (query) {
@@ -266,7 +266,7 @@ function renderAtlasCircles(host, records, selected, matches, query) {
     const summary = html('summary');
     summary.append(html('span', 'Circle not assigned'), ' ', html('span', String(unplaced.length), 'atlas-badge atlas-unplaced-count'));
     section.append(summary);
-    section.append(html('p', 'These records have no recorded containing circle. They have not been placed inside the organization chart — grouped below by likely area as a hint only; nothing here has been auto-assigned.'));
+    section.append(html('p', 'These roles have no assigned circle. Suggested groups are shown below.'));
     // Group by crude name-word overlap with existing circle names, purely as
     // a navigational hint. This never changes any record's actual parent.
     const circleNodes = [...nodes.values()].filter(n => n.row.Type === 'Circle');

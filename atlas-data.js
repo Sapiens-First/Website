@@ -174,29 +174,10 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "D-010",
-      "Name": "Finance & Fundraising",
+      "Name": "Fundraising",
       "Type": "Program",
       "Program category": "",
-      "Purpose": "Movement has the money to execute its strategy.",
-      "Parent ID": "D-031",
-      "Circle ID": "",
-      "Status": "Active",
-      "Stage": "In Progress",
-      "Started on": "",
-      "Ended on": "",
-      "Key Features": "",
-      "User": "",
-      "Value Proposition": "Funds runway for everything above",
-      "SOP URL": "",
-      "SOP Notes": "",
-      "Ownership note": ""
-    },
-    {
-      "ID": "D-011",
-      "Name": "Operations & Infrastructure",
-      "Type": "Program",
-      "Program category": "Enabling",
-      "Purpose": "Systems that let a lean team run at scale",
+      "Purpose": "Raise funds for the movement’s work.",
       "Parent ID": "D-001",
       "Circle ID": "",
       "Status": "Active",
@@ -205,7 +186,7 @@ window.ATLAS_DATA = {
       "Ended on": "",
       "Key Features": "",
       "User": "",
-      "Value Proposition": "Removes the founder as a bottleneck",
+      "Value Proposition": "Funds runway for everything above",
       "SOP URL": "",
       "SOP Notes": "",
       "Ownership note": ""
@@ -398,7 +379,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "High-touch trust-building that async channels can't replicate",
       "SOP URL": "",
       "SOP Notes": "Missing",
-      "Ownership note": "Responsibility assigned to Fellowship Coordinator under the user-directed default."
+      "Ownership note": ""
     },
     {
       "ID": "D-022",
@@ -417,7 +398,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified."
+      "Ownership note": ""
     },
     {
       "ID": "D-023",
@@ -436,7 +417,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; Purpose/Stage not yet specified."
+      "Ownership note": ""
     },
     {
       "ID": "D-024",
@@ -455,7 +436,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037)."
+      "Ownership note": ""
     },
     {
       "ID": "D-025",
@@ -474,7 +455,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Background Researcher (G-037)."
+      "Ownership note": ""
     },
     {
       "ID": "D-026",
@@ -493,7 +474,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038)."
+      "Ownership note": ""
     },
     {
       "ID": "D-027",
@@ -512,7 +493,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Policy Ask Creator (G-038)."
+      "Ownership note": ""
     },
     {
       "ID": "D-028",
@@ -531,7 +512,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by No Killer Robots Owner (G-039)."
+      "Ownership note": ""
     },
     {
       "ID": "D-029",
@@ -550,7 +531,7 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; owned by Campaign Strategist (G-040)."
+      "Ownership note": ""
     },
     {
       "ID": "D-030",
@@ -569,14 +550,14 @@ window.ATLAS_DATA = {
       "Value Proposition": "",
       "SOP URL": "",
       "SOP Notes": "",
-      "Ownership note": "Added 2026-09-22 per governance restructuring; held undelegated by Media Circle (G-004), no specific role named."
+      "Ownership note": ""
     },
     {
       "ID": "D-031",
       "Name": "DNA",
       "Type": "Pillar",
       "Program category": "",
-      "Purpose": "Movement has a vision, strategy, and financial support.",
+      "Purpose": "Keep the movement’s vision and strategy clear.",
       "Parent ID": "D-001",
       "Circle ID": "",
       "Status": "Needs definition",
@@ -786,7 +767,7 @@ window.ATLAS_DATA = {
       "Type": "Product/Service",
       "Program category": "",
       "Purpose": "Reliable infrastructure makes movement knowledge accessible and maintainable.",
-      "Parent ID": "D-011",
+      "Parent ID": "D-037",
       "Circle ID": "G-036",
       "Status": "Active",
       "Stage": "",
@@ -819,17 +800,17 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-002",
-      "Name": "Vision & Strategy",
+      "Name": "Chief Strategist",
       "Type": "Role",
       "Parent Circle ID": "G-041",
-      "Purpose": "Cross-pillar strategic planning; Keep the org anchored to Purpose over time",
-      "Accountabilities": "Setting/tracking OKRs; surfacing what's slipping; sequencing priority-city rankings; Reviewing major strategic decisions against Purpose; resolving Purpose-level tensions",
-      "Scope": "Org-wide OKRs, quarterly priorities; Final call on Purpose/Vision statements",
+      "Purpose": "Turn the mission into clear priorities and plans.",
+      "Accountabilities": "Set and track organizational goals; Review progress and risks; Rank campaign and city priorities; Coordinate strategy across circles",
+      "Scope": "Organizational strategy and quarterly priorities",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Parent circle changed from General Company Circle (G-001) to Vision & Strategy Circle (G-003) per 2026-09-22 governance restructuring. Merged with G-003 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper.",
+      "Definition note": "Parent circle changed from General Company Circle (G-001) to Vision & Strategy Circle (G-003) per 2026-09-22 governance restructuring. Merged with G-003 on 2026-09-23; continuing role retains its ID and work ownership. Purpose, accountabilities, scope, privileges, and recorded assignment carried forward from the wrapper. Updated 2026-09-24: DNA separates vision and strategy; Fundraising sits under Global; administration sits in Admin.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -889,7 +870,7 @@ window.ATLAS_DATA = {
       "Purpose": "Keep sapiensfirst.org accurate and converting",
       "Accountabilities": "Publishing updates; maintaining donate/strategy/campaign pages",
       "Scope": "Site content, structure, hosting",
-      "Privileges": "",
+      "Privileges": "GitHub admin (to confirm); Hosting admin account access (to confirm)",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
@@ -1091,17 +1072,17 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-019",
-      "Name": "Finance & Fundraising",
+      "Name": "Fundraising",
       "Type": "Circle",
-      "Parent Circle ID": "G-041",
-      "Purpose": "Fund the org's runway",
-      "Accountabilities": "Prospect pipeline; grant reporting; Founder's Council program; House Party kit",
-      "Scope": "Major gifts, foundations, dues, events",
+      "Parent Circle ID": "G-001",
+      "Purpose": "Raise funds to sustain the movement.",
+      "Accountabilities": "Build the donor and grant pipeline; Run fundraising programs; Report to funders",
+      "Scope": "Major gifts, grants, dues, and fundraising events",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Renamed from Fundraising & Development Circle on 2026-09-22.",
+      "Definition note": "Renamed from Fundraising & Development Circle on 2026-09-22. Updated 2026-09-24: DNA separates vision and strategy; Fundraising sits under Global; administration sits in Admin.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -1113,7 +1094,7 @@ window.ATLAS_DATA = {
       "Purpose": "Hosts have reliable tools and processes for running effective fundraising gatherings.",
       "Accountabilities": "Maintaining host kits and registration workflows; coordinating donation tracking and follow-up automations; supporting hosts; reviewing operational results with fundraising",
       "Scope": "House-party systems, host support, and follow-up workflows",
-      "Privileges": "",
+      "Privileges": "GitHub Contributor (to confirm)",
       "Status": "Active",
       "Lead Link": "Pe",
       "Person ID": "P-010",
@@ -1143,7 +1124,7 @@ window.ATLAS_DATA = {
       "Type": "Role",
       "Parent Circle ID": "G-010",
       "Purpose": "People can join, participate, and build lasting local and global community.",
-      "Accountabilities": "Prioritizing community work; coordinating member participation and chapter-support resources; maintaining role assignments; reviewing participation needs",
+      "Accountabilities": "Prioritizing community work; coordinating member participation and chapter-support resources; maintaining role assignments; reviewing participation needs; Maintain general meeting records",
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
@@ -1235,17 +1216,17 @@ window.ATLAS_DATA = {
     },
     {
       "ID": "G-028",
-      "Name": "Finance & Fundraising Lead",
+      "Name": "Fundraising Lead",
       "Type": "Role",
       "Parent Circle ID": "G-019",
-      "Purpose": "The movement has dependable financial support for its strategy.",
-      "Accountabilities": "Maintaining fundraising priorities and the funding pipeline; coordinating financial planning and reporting; reviewing resource needs; supporting fundraising initiatives",
+      "Purpose": "Secure funding for the movement’s work.",
+      "Accountabilities": "Set fundraising priorities; Maintain the donor and grant pipeline; Coordinate fundraising programs; Track funding needs",
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead. Parent circle set to Fundraising & Development Circle (G-019): exact name match. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Fundraising & Development Circle Lead. Parent circle set to Fundraising & Development Circle (G-019): exact name match. Updated from user-directed governance and role definitions on 2026-09-23. Updated 2026-09-24: DNA separates vision and strategy; Fundraising sits under Global; administration sits in Admin.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -1253,15 +1234,15 @@ window.ATLAS_DATA = {
       "ID": "G-029",
       "Name": "Operations Lead",
       "Type": "Role",
-      "Parent Circle ID": "G-001",
-      "Purpose": "Shared operational processes let the movement work reliably.",
-      "Accountabilities": "Maintaining operating processes and records; coordinating budget and administrative work; identifying operational bottlenecks; supporting clear project and role management",
+      "Parent Circle ID": "G-047",
+      "Purpose": "Keep shared operations running smoothly.",
+      "Accountabilities": "Maintain operating processes and records; Coordinate budgets and administration; Resolve operational bottlenecks; Support role and project management",
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match. Updated from user-directed governance and role definitions on 2026-09-23. Parent circle changed from Biz Ops (G-017, retired 2026-09-23) to Sapiens First Global (G-001) on consolidation; existing work ownership retained.",
+      "Definition note": "Named as an owner in the original work register; no matching governance definition. Original label: Operations & Infrastructure Circle Lead. Parent circle set to Operations & Infrastructure Circle (G-017): exact name match. Updated from user-directed governance and role definitions on 2026-09-23. Parent circle changed from Biz Ops (G-017, retired 2026-09-23) to Sapiens First Global (G-001) on consolidation; existing work ownership retained. Updated 2026-09-24: DNA separates vision and strategy; Fundraising sits under Global; administration sits in Admin.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -1289,7 +1270,7 @@ window.ATLAS_DATA = {
       "Purpose": "Supporters can join and participate through reliable membership workflows.",
       "Accountabilities": "Maintaining registration and onboarding automations; connecting payment, CRM, and community systems; monitoring failures; maintaining documented data and access practices",
       "Scope": "Membership integrations and lifecycle automation",
-      "Privileges": "",
+      "Privileges": "GitHub Contributor (to confirm); Membership system admin account access (to confirm)",
       "Status": "Active",
       "Lead Link": "Ba",
       "Person ID": "P-008",
@@ -1352,7 +1333,7 @@ window.ATLAS_DATA = {
       "Parent Circle ID": "G-013",
       "Purpose": "The organization's practice of Holacracy is understood, followed, and continuously improved.",
       "Accountabilities": "Maintaining governance records and published role information; coaching members on Holacracy process and the constitution; facilitating governance meetings when needed; tracking practice adoption and process questions",
-      "Scope": "Organization-wide records and meeting documentation",
+      "Scope": "Holacracy practice, governance records, and coaching",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
@@ -1446,14 +1427,14 @@ window.ATLAS_DATA = {
       "Name": "DNA",
       "Type": "Circle",
       "Parent Circle ID": "G-001",
-      "Purpose": "The movement has a coherent direction and the resources to pursue it.",
-      "Accountabilities": "Integrating movement strategy and financial planning; reviewing progress toward organizational goals; maintaining shared priorities",
+      "Purpose": "Keep the movement clear on its purpose and direction.",
+      "Accountabilities": "Maintain the vision; Align strategy with the mission; Review shared priorities",
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
       "Lead Link": "Rohan",
       "Person ID": "P-001",
-      "Definition note": "Created 2026-09-23 to contain Vision & Strategy and Finance & Fundraising; assignment not yet recorded. Updated from user-directed governance and role definitions on 2026-09-23.",
+      "Definition note": "Created 2026-09-23 to contain Vision & Strategy and Finance & Fundraising; assignment not yet recorded. Updated from user-directed governance and role definitions on 2026-09-23. Updated 2026-09-24: DNA separates vision and strategy; Fundraising sits under Global; administration sits in Admin.",
       "Engagement level": "Staff",
       "Assignment basis": "User-directed default assignment"
     },
@@ -1481,7 +1462,7 @@ window.ATLAS_DATA = {
       "Purpose": "The knowledge platform is reliable, usable, and maintainable.",
       "Accountabilities": "Maintaining the knowledge-management platform and integrations; managing documented access and backup processes; resolving technical issues; supporting content contributors",
       "Scope": "Knowledge platform configuration and technical maintenance",
-      "Privileges": "",
+      "Privileges": "Knowledge platform admin account access (to confirm)",
       "Status": "Active",
       "Lead Link": "Da",
       "Person ID": "P-005",
@@ -1515,11 +1496,91 @@ window.ATLAS_DATA = {
       "Scope": "",
       "Privileges": "",
       "Status": "Active",
-      "Lead Link": "Unassigned",
-      "Person ID": "",
-      "Definition note": "Added 2026-09-23: Berkeley Chapter (G-042) had no defined roles. This gives the chapter a minimal governance structure (a Circle Lead) rather than remaining a circle with no way to hold or assign accountability. Left vacant pending an actual chapter lead.",
-      "Engagement level": "",
-      "Assignment basis": ""
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-23: Berkeley Chapter (G-042) had no defined roles. This gives the chapter a minimal governance structure (a Circle Lead) rather than remaining a circle with no way to hold or assign accountability. Left vacant pending an actual chapter lead. Assigned to Rohan by the default-energizer policy on 2026-09-24.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-046",
+      "Name": "Vision Steward",
+      "Type": "Role",
+      "Parent Circle ID": "G-041",
+      "Purpose": "Keep the movement true to its purpose.",
+      "Accountabilities": "Maintain purpose and vision statements; Review major decisions against the mission; Resolve questions about the movement’s direction",
+      "Scope": "Purpose and vision",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-24 as part of the Atlas role and circle update. Assigned to Rohan by the default-energizer policy on 2026-09-24.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-047",
+      "Name": "Admin",
+      "Type": "Circle",
+      "Parent Circle ID": "G-001",
+      "Purpose": "Keep finances and administration in order.",
+      "Accountabilities": "Coordinate donation operations; Manage reimbursements; Maintain legal and administrative records",
+      "Scope": "Finance and administration",
+      "Privileges": "",
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-24 as part of the Atlas role and circle update. Assigned to Rohan by the default-energizer policy on 2026-09-24.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-048",
+      "Name": "Donation Operations",
+      "Type": "Role",
+      "Parent Circle ID": "G-047",
+      "Purpose": "Keep donation records and processing accurate.",
+      "Accountabilities": "Track and reconcile donations; Coordinate donor receipts; Resolve donation processing issues; Maintain donation records",
+      "Scope": "Donation processing and records",
+      "Privileges": "Donation platform access (to confirm)",
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-24 as part of the Atlas role and circle update. Assigned to Rohan by the default-energizer policy on 2026-09-24.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-049",
+      "Name": "Reimbursements Coordinator",
+      "Type": "Role",
+      "Parent Circle ID": "G-047",
+      "Purpose": "Help members recover approved expenses.",
+      "Accountabilities": "Collect expense claims and receipts; Check claims against reimbursement policy; Coordinate approved payments; Maintain reimbursement records",
+      "Scope": "Expense claims and reimbursements",
+      "Privileges": "Reimbursement records access (to confirm)",
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-24 as part of the Atlas role and circle update. Assigned to Rohan by the default-energizer policy on 2026-09-24.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
+    },
+    {
+      "ID": "G-050",
+      "Name": "Legal Coordinator",
+      "Type": "Role",
+      "Parent Circle ID": "G-047",
+      "Purpose": "Keep legal obligations and records organized.",
+      "Accountabilities": "Track filing deadlines; Maintain legal documents; Coordinate with legal advisers; Follow up on compliance tasks",
+      "Scope": "Legal administration",
+      "Privileges": "Legal records access (to confirm)",
+      "Status": "Active",
+      "Lead Link": "Rohan",
+      "Person ID": "P-001",
+      "Definition note": "Added 2026-09-24 as part of the Atlas role and circle update. Assigned to Rohan by the default-energizer policy on 2026-09-24.",
+      "Engagement level": "Staff",
+      "Assignment basis": "User-directed default assignment"
     }
   ],
   "relationships": [
@@ -1529,7 +1590,7 @@ window.ATLAS_DATA = {
       "Relationship": "owns",
       "To ID": "D-001",
       "Valid from": "",
-      "Valid until": "",
+      "Valid until": "2026-09-24",
       "Notes": "Imported ownership; start date not recorded."
     },
     {
@@ -1609,15 +1670,6 @@ window.ATLAS_DATA = {
       "From ID": "G-028",
       "Relationship": "owns",
       "To ID": "D-010",
-      "Valid from": "",
-      "Valid until": "",
-      "Notes": "Imported ownership; start date not recorded."
-    },
-    {
-      "ID": "R-011",
-      "From ID": "G-029",
-      "Relationship": "owns",
-      "To ID": "D-011",
       "Valid from": "",
       "Valid until": "",
       "Notes": "Imported ownership; start date not recorded."
@@ -2071,6 +2123,15 @@ window.ATLAS_DATA = {
       "Valid from": "2026-09-23",
       "Valid until": "",
       "Notes": "Single-role circle consolidated into its continuing role by user direction; existing role ownership retained."
+    },
+    {
+      "ID": "R-062",
+      "From ID": "G-046",
+      "Relationship": "owns",
+      "To ID": "D-001",
+      "Valid from": "2026-09-24",
+      "Valid until": "",
+      "Notes": "Mission ownership moves to Vision Steward when vision and strategy become separate roles."
     }
   ]
 };

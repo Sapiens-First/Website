@@ -1,5 +1,5 @@
 ID,From ID,Relationship,To ID,Valid from,Valid until,Notes
-R-001,G-002,owns,D-001,,,Imported ownership; start date not recorded.
+R-001,G-002,owns,D-001,,2026-09-24,Imported ownership; start date not recorded.
 R-002,G-021,owns,D-002,,,Imported ownership; start date not recorded.
 R-003,G-022,owns,D-003,,,Imported ownership; start date not recorded.
 R-004,G-023,owns,D-004,,,Imported ownership; start date not recorded.
@@ -9,7 +9,6 @@ R-007,G-026,owns,D-007,,,Imported ownership; start date not recorded.
 R-008,G-023,owns,D-008,,,Imported ownership; start date not recorded.
 R-009,G-027,owns,D-009,,,Imported ownership; start date not recorded.
 R-010,G-028,owns,D-010,,,Imported ownership; start date not recorded.
-R-011,G-029,owns,D-011,,,Imported ownership; start date not recorded.
 R-012,G-005,owns,D-012,,,Imported ownership; start date not recorded.
 R-013,G-006,owns,D-013,,,Imported ownership; start date not recorded.
 R-014,G-030,owns,D-014,,,Imported ownership; start date not recorded.
@@ -60,3 +59,4 @@ R-058,G-009,succeeds,G-024,2026-09-23,,User-directed consolidation into a contin
 R-059,G-020,succeeds,G-032,2026-09-23,,User-directed consolidation into a continuing role.
 R-060,G-022,owns,D-020,2026-09-23,,Reassigned from Holacracy Champion (G-035) as its scope narrowed to Holacracy practice; General Meetings is a member-facing convening within Community's Global Membership program.
 R-061,G-029,succeeds,G-017,2026-09-23,,Single-role circle consolidated into its continuing role by user direction; existing role ownership retained.
+R-062,G-046,owns,D-001,2026-09-24,,Mission ownership moves to Vision Steward when vision and strategy become separate roles.

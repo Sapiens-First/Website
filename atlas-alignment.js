@@ -50,7 +50,7 @@ function renderAtlasAlignment(host, data, selected, link) {
     if (!cols.length) {
       const empty = html('div', undefined, 'atlas-alignment-empty');
       empty.append(html('p', 'No cross-cutting relationships are recorded yet.'));
-      empty.append(html('p', 'Alignment shows how work supports goals beyond its canonical Explorer location — recorded as "supports" rows in relationships.csv. None exist in the current data, so nothing is invented here; add supports rows to relationships.csv to populate this matrix.', 'atlas-alignment-empty-detail'));
+      empty.append(html('p', 'This view connects projects and programs to the goals they support.', 'atlas-alignment-empty-detail'));
       host.append(empty);
       return;
     }

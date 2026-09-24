@@ -40,20 +40,12 @@
       <p class="atlas-intro">Goals, circles, roles, projects, and the people behind them.<span id="mission-text"></span></p>
       <details class="atlas-guide">
         <summary>How Atlas works</summary>
-        <p><strong>Domains</strong> shows what we are building and how it connects. <strong>Roles</strong> shows who carries responsibilities — a circle organizes roles around a shared purpose. <strong>People</strong> shows who is energizing each role today.</p>
-        <h3>From our mission to this quarter’s work</h3>
-        <p>Our map uses four planning horizons. Start with the mission, follow a pillar, then explore its programs and concrete work. Choose a branch to see fewer cards at a readable size.</p>
-        <ol class="atlas-horizons">
-          <li><span>H4 · Mission · ~3 years</span><strong>What future are we building?</strong><p>The direction that connects our work.</p></li>
-          <li><span>H3 · Strategic pillars · ~1 year</span><strong>Where must we make progress?</strong><p>The major areas we organize our efforts around.</p></li>
-          <li><span>H2 · Programs · ~6 months</span><strong>What sustained efforts move us forward?</strong><p>Coordinated work we review over the coming half-year.</p></li>
-          <li><span>H1 · Products &amp; projects · ~3 months</span><strong>What are we delivering or improving?</strong><p>Products need ongoing care; projects have a finish line.</p></li>
-        </ol>
-        <p>These are Sapiens First’s planning windows, inspired by horizons of focus rather than a reproduction of David Allen’s GTD levels. They are not deadlines or expiry dates. Next actions are tracked outside Atlas.</p>
-        <h3>Responsibility and authority</h3>
-        <p>In Holacracy, a role’s <strong>purpose</strong> explains what it serves; <strong>accountabilities</strong> describe ongoing responsibilities. A <strong>Domain</strong> is something the role has explicit authority to control, subject to relevant policies. Being responsible for a project does not by itself grant that authority.</p>
-        <p>Atlas currently records work ownership and descriptive scope. These entries alone do not establish formal Holacracy Domains or policies. Missing definitions are gaps to resolve, not implied permission requirements.</p>
-        <p class="atlas-guide-sources">Read more: <a href="https://gettingthingsdone.com/2011/01/the-6-horizons-of-focus/">David Allen’s Horizons of Focus</a> · <a href="https://www.holacracy.org/constitution/5-0/">Holacracy Constitution v5.0</a></p>
+        <p><strong>Roles</strong> shows responsibilities and access. Circles group roles around a shared purpose. <strong>Domains</strong> maps our work. <strong>People</strong> shows who fills each role.</p>
+        <h3>From mission to projects</h3>
+        <p>Mission → pillars → programs → projects and products. Our planning windows range from three years for the mission to three months for projects. These guide planning, not deadlines.</p>
+        <h3>Reading a role</h3>
+        <p><strong>Purpose</strong> explains why it exists. <strong>Accountabilities</strong> lists its ongoing responsibilities. <strong>Privileges</strong> records its access rights. Missing access details mean they have not been documented.</p>
+        <p>Linked work shows responsibility. It does not by itself grant formal Holacracy authority or system access.</p>
       </details>
     </section>
     <section class="atlas-explorer container" aria-labelledby="view-title">
@@ -73,9 +65,9 @@
           <select id="atlas-filter"><option value="active">Active work</option><option value="all">All statuses</option></select>
         </label>
         <div id="atlas-format" class="atlas-format" role="group" aria-label="Display" hidden>
-          <button type="button" data-format="table" aria-pressed="true">Table</button>
-          <button type="button" data-format="circles" data-view-format="governance" aria-pressed="false">Circles</button>
+          <button type="button" data-format="circles" data-view-format="governance" aria-pressed="true">Circles</button>
           <button type="button" data-format="outline" data-view-format="domains" aria-pressed="true">Explorer</button>
+          <button type="button" data-format="table" aria-pressed="false">Table</button>
           <button type="button" data-format="alignment" data-view-format="domains" aria-pressed="false">Alignment</button>
         </div>
       </div>
@@ -91,7 +83,7 @@
         <table id="atlas-table"><caption class="atlas-sr-only">Domains of work</caption><thead></thead><tbody></tbody></table>
       </div>
       <div id="atlas-people" class="atlas-people-grid" hidden></div>
-      <p id="atlas-people-note" class="atlas-people-note" hidden>Fellows contribute through their roles. After three months and graduation, a Fellow can become a Steward. Engagement levels are recorded explicitly; they do not change automatically. Role titles such as “System Steward” are separate from engagement level.</p>
+      <p id="atlas-people-note" class="atlas-people-note" hidden>Fellows can become Stewards after three months and graduation. A “Steward” role title is separate from this engagement level.</p>
       <div id="atlas-circles" class="atlas-circles-layout" hidden>
         <div id="atlas-circle-chart"></div>
         <div id="atlas-circle-detail"></div>
@@ -105,7 +97,6 @@
         <div id="atlas-alignment-detail"></div>
       </div>
       <noscript><p>Enable JavaScript to explore Atlas, or download the source CSV above.</p></noscript>
-      <div class="atlas-notes"><p>Maintained by Sapiens First.</p></div>
     </section>
   </main>
   <footer class="site-footer"></footer>

@@ -26,7 +26,10 @@ assert.equal(count + unplaced.length, records.length, 'every record is either pl
 // does not resolve back to the Mission (that's what `unplaced` is for).
 for (const node of nodes.values()) {
   const names = node.children.map(c => c.row.Name);
-  assert.deepEqual(names, [...names].sort((a, b) => a.localeCompare(b)), `${node.row.ID} children are name-sorted`);
+  const expected = node === root
+    ? records.filter(row => row['Parent ID'] === root.row.ID).map(row => row.Name)
+    : [...names].sort((a, b) => a.localeCompare(b));
+  assert.deepEqual(names, expected, `${node.row.ID} children follow root source order or nested name order`);
 }
 const unplacedIds = new Set(unplaced.map(n => n.row.ID));
 for (const node of nodes.values()) for (const child of node.children) assert.ok(!unplacedIds.has(child.row.ID));

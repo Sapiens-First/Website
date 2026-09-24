@@ -50,14 +50,14 @@ async def main():
 
             # A role link on a person card leads into that governance record.
             await page.locator('.atlas-person[data-person-id="P-005"] .atlas-links a').first.click()
-            await expect(page.locator('#record-title')).to_have_text('Knowledge Base')
+            await expect(page.locator('#record-title')).to_have_text('Knowledge Content Steward')
             # The role links back to People, landing on the same person.
             await page.locator('#atlas-record a[href^="#people/"]').first.click()
             await expect(page.locator('#view-title')).to_have_text('People')
             await expect(page.locator('.atlas-person.is-selected')).to_have_attribute('data-person-id', 'P-005')
 
             await page.go_back()
-            await expect(page.locator('#record-title')).to_have_text('Knowledge Base')
+            await expect(page.locator('#record-title')).to_have_text('Knowledge Content Steward')
             await page.go_back()
             await expect(page.locator('#view-title')).to_have_text('People')
 

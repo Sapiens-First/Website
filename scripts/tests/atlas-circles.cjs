@@ -55,8 +55,10 @@ for (const [wrapper, role] of [['G-003','G-002'], ['G-012','G-033'], ['G-014','G
 // separate, independently-rooted circle; see the roots assertions above).
 assert.equal(nodes.get('G-011').row.Status, 'Retired', 'Chapter Network is retired');
 assert.equal(nodes.get('G-041').row.Name, 'DNA', 'Meta was renamed to DNA');
-assert.equal(nodes.get('G-002').row['Parent Circle ID'], 'G-041', 'Vision & Strategy belongs to DNA');
-assert.equal(nodes.get('G-019').row['Parent Circle ID'], 'G-041', 'Finance & Fundraising belongs to DNA');
+assert.equal(nodes.get('G-002').row['Parent Circle ID'], 'G-041', 'Chief Strategist belongs to DNA');
+assert.equal(nodes.get('G-019').row['Parent Circle ID'], 'G-001', 'Fundraising sits outside DNA');
+assert.deepEqual(nodes.get('G-041').children.map(child => child.row.Name).sort(), ['Chief Strategist', 'Vision Steward']);
+assert.deepEqual(nodes.get('G-047').children.map(child => child.row.Name).sort(), ['Donation Operations', 'Legal Coordinator', 'Operations Lead', 'Reimbursements Coordinator']);
 // Tech supersedes the previous automatic singleton consolidation: it stays its
 // own active circle, now containing three roles moved in by user direction.
 assert.equal(nodes.get('G-036').row.Status, 'Active', 'Tech remains its own circle');
@@ -67,11 +69,14 @@ assert.deepEqual(
 
 for (const node of nodes.values()) {
   if (node.row.Type !== 'Circle' || node.row.Status === 'Retired') continue;
-  // G-011 (retired, excluded above), G-017, and G-019 are known current
-  // singletons: their other role moved into Tech by explicit user direction
-  // (House Party Fundraising Operations and Membership Systems), not an
-  // automatic consolidation artifact this check is meant to catch.
-  if (['G-011', 'G-017', 'G-019'].includes(node.row.ID)) continue;
+  // G-011 (retired, excluded above) and G-019 are known current singletons:
+  // their other role moved into Tech by explicit user direction (House Party
+  // Fundraising Operations and Membership Systems), not an automatic
+  // consolidation artifact this check is meant to catch. G-042 (Berkeley
+  // Chapter) is a real local chapter root circle given a starter Circle Lead
+  // role — expected to grow more roles as chapter organizing develops, not an
+  // administrative wrapper that turned out to be redundant.
+  if (['G-011', 'G-019', 'G-042'].includes(node.row.ID)) continue;
   const liveChildren = node.children.filter(child => child.row.Status !== 'Retired');
   assert.ok(liveChildren.length !== 1 || liveChildren[0].row.Type !== 'Role', `${node.row.Name} is not a redundant single-role wrapper`);
 }

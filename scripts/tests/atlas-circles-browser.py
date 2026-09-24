@@ -23,10 +23,8 @@ async def main():
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-004"]')).to_have_count(1)
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-006"]')).to_have_count(0)
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-008"]')).to_have_count(0)
-            # Secretary (G-035) is now a directly-placed root-level role, not
-            # unplaced, so it renders in the immediate layer under Global —
-            # and nothing remains unplaced, so the section doesn't render.
-            await expect(page.locator('.atlas-circle-svg [data-node-id="G-035"]')).to_have_count(1)
+            # Holacracy Champion is nested under Empowerment.
+            await expect(page.locator('.atlas-circle-svg [data-node-id="G-035"]')).to_have_count(0)
             await expect(page.locator('.atlas-unplaced')).to_have_count(0)
             # Berkeley Chapter is a second, independently-rooted circle (not a
             # rename of the retired Chapter Network); it must stay obviously
@@ -36,12 +34,18 @@ async def main():
             await expect(page.locator('.atlas-root-picker a[href="#governance/circles/G-001"]')).to_have_attribute('aria-current', 'page')
             await page.locator('.atlas-root-picker a[href="#governance/circles/G-042"]').click()
             await expect(page.locator('.atlas-circle-breadcrumbs')).to_contain_text('Berkeley Chapter')
-            await expect(page.locator('.atlas-circle-hint')).to_contain_text('No roles or subcircles')
+            await expect(page.locator('.atlas-circle-svg [data-node-id="G-045"]')).to_have_count(1)
             await page.locator('.atlas-root-picker a[href="#governance/circles/G-001"]').click()
             await expect(page.locator('.atlas-circle-breadcrumbs')).to_contain_text('Sapiens First Global')
             await page.locator('.atlas-circle-svg [data-node-id="G-041"] > a').first.click()
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-002"] > a')).to_have_class('atlas-node-role')
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-003"]')).to_have_count(0)
+            await expect(page.locator('.atlas-circle-svg [data-node-id="G-046"]')).to_have_count(1)
+            await expect(page.locator('.atlas-circle-svg [data-node-id="G-019"]')).to_have_count(0)
+            await page.goto('http://localhost:8000/atlas#governance/circles/G-047')
+            await expect(page.locator('#record-title')).to_have_text('Admin')
+            for role in ('G-029', 'G-048', 'G-049', 'G-050'):
+                await expect(page.locator(f'.atlas-circle-svg [data-node-id="{role}"]')).to_have_count(1)
             await page.goto('http://localhost:8000/atlas#governance/circles/G-012')
             await expect(page.locator('#atlas-record')).to_contain_text('Retired')
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-012"]')).to_have_count(0)
@@ -79,23 +83,25 @@ async def main():
             await expect(page.locator('.atlas-circle-svg [data-node-id="G-008"]')).to_have_count(0)
             await expect(page.locator('.atlas-circle-breadcrumbs')).to_contain_text('Advocacy')
             await page.locator('.atlas-circle-breadcrumbs a').first.click()
+            await page.locator('.atlas-circle-svg [data-node-id="G-013"] > a').first.click()
             await page.locator('.atlas-circle-svg [data-node-id="G-035"] > a').first.click()
-            await expect(page.locator('#record-title')).to_have_text('Secretary')
+            await expect(page.locator('#record-title')).to_have_text('Holacracy Champion')
             await expect(page.locator('#atlas-record')).to_contain_text('Maintaining governance records')
             await page.goto('http://localhost:8000/atlas#governance/circles')
             assert not await page.evaluate('document.documentElement.scrollWidth > innerWidth')
             await page.locator('#atlas-circle-chart').screenshot(path=f'/tmp/atlas-circles-final-{width}.png')
             await page.locator('[data-view="domains"]').click()
-            # Domains now has its own Table/Tree toggle (see atlas-tree.js),
-            # so #atlas-format stays visible switching views — but the
-            # governance-only Circles button must not leak into Domains.
-            # Tree is Domains' own default (mirroring Circles for Governance),
-            # so switching tabs lands there, not the table, even though we
-            # were just in Table for Governance.
+            # Domains has its own Table/Explorer/Alignment toggle (see
+            # atlas-outline.js/atlas-alignment.js), so #atlas-format stays
+            # visible switching views — but the governance-only Circles
+            # button must not leak into Domains. Explorer is Domains' own
+            # default (mirroring Circles for Governance), so switching tabs
+            # lands there, not the table, even though we were just in Table
+            # for Governance.
             await expect(page.locator('#atlas-format')).to_be_visible()
             await expect(page.locator('[data-format="circles"]')).to_be_hidden()
-            await expect(page.locator('[data-format="tree"]')).to_be_visible()
-            await expect(page.locator('#atlas-tree')).to_be_visible()
+            await expect(page.locator('[data-format="outline"]')).to_be_visible()
+            await expect(page.locator('#atlas-outline')).to_be_visible()
             await expect(page.locator('#atlas-results')).to_be_hidden()
             await page.locator('[data-format="table"]').click()
             await expect(page.locator('#atlas-results')).to_be_visible()

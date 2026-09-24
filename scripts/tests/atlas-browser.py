@@ -19,15 +19,29 @@ async def main():
             page.on('pageerror', lambda error: errors.append(str(error)))
             page.on('request', lambda request: sheets_requests.append(request.url) if 'docs.google.com' in request.url else None)
             await page.goto('http://localhost:8000/atlas')
-            # Tree/Circles are now the default graphical view for their group —
-            # Domains lands on Tree, not the table, until Table is pressed.
-            await expect(page.locator('#atlas-tree')).to_be_visible()
+            # Roles is the default landing tab, and Circles is the default
+            # graphical view for it — the page lands on Circles, not the table,
+            # until Table is pressed.
+            await expect(page.locator('#atlas-circles')).to_be_visible()
             await expect(page.locator('#atlas-results')).to_be_hidden()
             await page.locator('[data-format="table"]').click()
             rows = page.locator('#atlas-table tbody tr')
             # Counts are derived from the loaded data, not hardcoded, since domains
             # and governance are expected to change constantly (a core Holacracy
             # principle) — this only catches rendering bugs, not legitimate growth.
+            await expect(rows).to_have_count(len(DATA['governance']))
+            await page.locator('#atlas-search').fill('rohan')
+            rohan_count = sum(1 for row in DATA['governance'] if 'rohan' in ' '.join(row.values()).lower())
+            await expect(rows).to_have_count(rohan_count)
+            await page.locator('#atlas-search').fill('nonexistent 123')
+            await expect(page.locator('#atlas-results')).to_be_hidden()
+            await page.locator('#atlas-search').fill('')
+            await page.locator('[data-view="domains"]').focus()
+            await page.keyboard.press('Enter')
+            # Switching the top-level tab returns to that view's own graphical
+            # default (Explorer), even though Roles was just in Table.
+            await expect(page.locator('#atlas-outline')).to_be_visible()
+            await page.locator('[data-format="table"]').click()
             active_count = sum(1 for row in DATA['domains'] if row['Status'] == 'Active')
             await expect(rows).to_have_count(active_count)
             await page.locator('#atlas-filter').select_option('all')
@@ -38,30 +52,29 @@ async def main():
             await expect(page.locator('#atlas-table details[open]')).to_have_count(1)
             # Links generated while browsing in Table mode carry an explicit
             # /table/ marker so they stay in Table rather than falling back to
-            # the new Tree/Circles default.
+            # the Explorer/Circles default.
             await page.locator('#atlas-table a[href="#domains/table/D-013"]').click()
             await expect(page.locator('#record-title')).to_have_text('Website')
             await expect(page.locator('#atlas-record')).to_contain_text('Communications')
             await page.locator('#atlas-record a[href="#governance/table/G-006"]').first.click()
             await expect(page.locator('#record-title')).to_have_text('Website Owner')
             await expect(page.locator('#atlas-record')).to_contain_text('Publishing updates')
+            await expect(page.locator('#atlas-record dt').filter(has_text='Accountabilities').locator('+ dd li')).to_have_count(2)
+            await expect(page.locator('#atlas-record dt').filter(has_text='Privileges').locator('+ dd li')).to_have_text(['GitHub admin (to confirm)', 'Hosting admin account access (to confirm)'])
+            await expect(page.locator('#atlas-record dt:text-is("ID")')).to_have_count(0)
+            await expect(page.locator('.atlas-record-history')).not_to_have_attribute('open', '')
+            assert await page.locator('.atlas-record-meta').evaluate("node => getComputedStyle(node).color") == 'rgb(17, 17, 17)'
             await page.locator('#atlas-record a[href="#domains/table/D-013"]').first.click()
             await expect(page.locator('#record-title')).to_have_text('Website')
             await page.go_back()
             await expect(page.locator('#record-title')).to_have_text('Website Owner')
             await page.locator('[data-view="governance"]').focus()
             await page.keyboard.press('Enter')
-            # Switching the top-level tab returns to that view's own graphical
-            # default (Circles), even though we were just in Table.
+            # Switching the top-level tab clears the selection and returns to
+            # that view's own graphical default (Circles), even though we
+            # were just in Table.
             await expect(page.locator('#atlas-circles')).to_be_visible()
-            await page.locator('[data-format="table"]').click()
-            await expect(rows).to_have_count(len(DATA['governance']))
             await expect(page.locator('#atlas-record')).to_be_hidden()
-            await page.locator('#atlas-search').fill('rohan')
-            rohan_count = sum(1 for row in DATA['governance'] if 'rohan' in ' '.join(row.values()).lower())
-            await expect(rows).to_have_count(rohan_count)
-            await page.locator('#atlas-search').fill('nonexistent 123')
-            await expect(page.locator('#atlas-results')).to_be_hidden()
             await page.goto('http://localhost:8000/atlas#domains/D-021')
             # Every domain now has an explicit current responsible role instead
             # of the previous "Needs clarification" placeholder ownership note.
@@ -109,6 +122,7 @@ async def main():
         await expect(page.locator('#atlas-record')).to_contain_text('Ended')
         await expect(page.locator('#atlas-record')).to_contain_text('Web infrastructure')
         await expect(page.locator('#atlas-record')).to_contain_text('Web content')
+        await page.locator('.atlas-record-history summary').click()
         await page.locator('#atlas-record a[href="#domains/D-098"]').click()
         await expect(page.locator('#atlas-record')).to_contain_text('Succeeds:')
         await page.close()
@@ -121,7 +135,7 @@ async def main():
         page = await browser.new_page(java_script_enabled=False)
         await page.goto('http://localhost:8000/atlas')
         await expect(page.locator('noscript')).to_be_visible()
-        await expect(page.locator('.atlas-source')).to_have_attribute('href', 'data/atlas/domains.csv')
+        await expect(page.locator('.atlas-source')).to_have_attribute('href', 'data/atlas/governance.csv')
         print('PASS direct-file, retired records, split successors, historical ownership, safe text, missing data, no-JS')
         await browser.close()
 

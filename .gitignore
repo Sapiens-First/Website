@@ -1,6 +1,8 @@
 design-tests/
 playground/
-docs/
+docs/*
+!docs/atlas.md
+!docs/atlas-migration.md
 CLAUDE.md
 prose/
 __pycache__/

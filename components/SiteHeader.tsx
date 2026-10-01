@@ -31,7 +31,7 @@ export default function SiteHeader() {
         link.hasAttribute("download")
       )
         return;
-      const url = new URL(link.href);
+      const url = new URL(link.getAttribute("href") || "", document.baseURI);
       if (
         url.origin !== location.origin ||
         !/^\/(join|join\.html)\/?$/.test(url.pathname)
@@ -85,7 +85,8 @@ export default function SiteHeader() {
                   path === item.href ||
                   (item.href === "/about" &&
                     (path.startsWith("/about/") ||
-                      path.startsWith("/careers")));
+                      path.startsWith("/careers") ||
+                      path === "/atlas"));
                 if ("children" in item)
                   return (
                     <div

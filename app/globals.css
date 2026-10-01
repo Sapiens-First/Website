@@ -1955,18 +1955,6 @@ h2 .marker:after {
     border-color 0.2s,
     background 0.2s;
 }
-.sf--dark input {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: #fff;
-}
-.sf--dark input::placeholder {
-  color: rgba(255, 255, 255, 0.75);
-}
-.sf--dark input:focus {
-  border-color: rgba(255, 255, 255, 0.55);
-  background: rgba(255, 255, 255, 0.14);
-}
 .sf--light input {
   background: rgba(20, 18, 14, 0.04);
   border: 1px solid rgba(20, 18, 14, 0.15);
@@ -1978,9 +1966,6 @@ h2 .marker:after {
 .sf--light input:focus {
   border-color: var(--accent-text);
   background: color-mix(in srgb, var(--coral) 6%, var(--paper));
-}
-.sf input.sf-err {
-  border-color: #b91c1c !important;
 }
 .sf button {
   font-family: var(--font-body);
@@ -2007,21 +1992,6 @@ h2 .marker:after {
 .sf button:disabled {
   opacity: 0.5;
   cursor: default;
-}
-.sf-done {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 14px 0;
-  display: block;
-}
-.sf--dark .sf-done {
-  color: rgba(255, 255, 255, 0.85);
-}
-.sf--light .sf-done {
-  color: var(--accent-text);
 }
 @media (max-width: 600px) {
   .sf {
@@ -2188,19 +2158,6 @@ h2 .marker:after {
   .section-compact {
     padding: 40px 0;
   }
-  .footer-inner {
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    text-align: center;
-  }
-  .footer-nav {
-    gap: 28px;
-    justify-content: center;
-  }
-  .footer-col {
-    align-items: center;
-  }
   .share-buttons {
     flex-direction: column;
   }
@@ -2215,4 +2172,24 @@ h2 .marker:after {
   background: var(--yellow);
   color: var(--ink);
   border-color: var(--ink);
+}
+
+.foot-col-links {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+.foot-col-split .foot-col-links {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, auto);
+  column-gap: 24px;
+  row-gap: 11px;
+}
+@media (max-width: 600px) {
+  .foot-col-split .foot-col-links {
+    grid-auto-flow: row;
+    grid-template-rows: none;
+    grid-template-columns: none;
+  }
 }

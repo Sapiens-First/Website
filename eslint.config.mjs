@@ -7,7 +7,6 @@ export default defineConfig([
   ...nextTs,
   {
     rules: {
-      "@next/next/no-img-element": "off",
       "@next/next/no-page-custom-font": "off",
     },
   },
@@ -16,6 +15,5 @@ export default defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "public/archive/**",
   ]),
 ]);

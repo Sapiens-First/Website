@@ -14,7 +14,10 @@ export const navigation = [
   {
     label: "About",
     href: "/about",
-    children: [{ label: "Careers", href: "/careers" }],
+    children: [
+      { label: "Careers", href: "/careers" },
+      { label: "Atlas", href: "/atlas" },
+    ],
   },
   { label: "Fellowship", href: "/fellowship" },
   { label: "Start a Circle", href: "/circle" },
@@ -26,6 +29,7 @@ export const footerGroups = [
     links: [
       { label: "About", href: "/about" },
       { label: "Careers", href: "/careers" },
+      { label: "Atlas", href: "/atlas" },
       { label: "Privacy", href: "/privacy" },
       { label: "Donate", href: "/donate" },
     ],

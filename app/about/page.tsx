@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../shared-about-circle-fellowship.css";
 import "./page.css";
 
 export const metadata: Metadata = {

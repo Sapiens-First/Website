@@ -147,68 +147,6 @@ function faq(): Cleanup {
   return () => cleanups.forEach((cleanup) => cleanup());
 }
 
-function homeCarousel(): Cleanup {
-  const viewport = document.querySelector<HTMLElement>(".campaign-viewport");
-  const track = viewport?.querySelector<HTMLElement>(".campaign-track");
-  const prev = document.querySelector<HTMLButtonElement>(".campaign-prev");
-  const next = document.querySelector<HTMLButtonElement>(".campaign-next");
-  if (!viewport || !track || !prev || !next) return () => {};
-  const originals = [...track.querySelectorAll<HTMLElement>(".campaign-card")];
-  const count = originals.length;
-  if (!count) return () => {};
-  originals.forEach((card) => {
-    const clone = card.cloneNode(true) as HTMLElement;
-    clone.setAttribute("aria-hidden", "true");
-    track.appendChild(clone);
-  });
-  originals
-    .slice()
-    .reverse()
-    .forEach((card) => {
-      const clone = card.cloneNode(true) as HTMLElement;
-      clone.setAttribute("aria-hidden", "true");
-      track.insertBefore(clone, track.firstChild);
-    });
-  const cards = [...track.querySelectorAll<HTMLElement>(".campaign-card")];
-  let current = count;
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const center = (instant = false) => {
-    const card = cards[current];
-    viewport.scrollTo({
-      left: card.offsetLeft - (viewport.clientWidth - card.offsetWidth) / 2,
-      behavior: instant ? "instant" : "smooth",
-    });
-  };
-  const show = (direction: number) => {
-    current += direction;
-    if (current >= cards.length) current -= count;
-    if (current < 0) current += count;
-    center();
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      while (current >= count * 2) current -= count;
-      while (current < count) current += count;
-      center(true);
-    }, 600);
-  };
-  const goPrev = () => show(-1);
-  const goNext = () => show(1);
-  const recenter = () => center(true);
-  prev.addEventListener("click", goPrev);
-  next.addEventListener("click", goNext);
-  window.addEventListener("resize", recenter);
-  requestAnimationFrame(recenter);
-  return () => {
-    prev.removeEventListener("click", goPrev);
-    next.removeEventListener("click", goNext);
-    window.removeEventListener("resize", recenter);
-    clearTimeout(timer);
-    cards
-      .filter((card) => !originals.includes(card))
-      .forEach((card) => card.remove());
-  };
-}
-
 function aboutCycle(): Cleanup {
   const nodes = [
     ...document.querySelectorAll<HTMLButtonElement>(".cycle-node"),
@@ -234,48 +172,6 @@ function aboutCycle(): Cleanup {
     };
   });
   return () => cleanups.forEach((cleanup) => cleanup());
-}
-
-function campaigns(): Cleanup {
-  const root = document.querySelector<HTMLElement>("[data-campaign-accordion]");
-  const panel = root?.querySelector<HTMLElement>(".campaign-panel");
-  const inner = panel?.querySelector<HTMLElement>(".campaign-panel-inner");
-  if (!root || !panel || !inner) return () => {};
-  const tabs = [
-    ...root.querySelectorAll<HTMLButtonElement>("[data-campaign-trigger]"),
-  ];
-  const contents = [...panel.querySelectorAll<HTMLElement>(".campaign-body")];
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  const cleanups = tabs.map((tab) => {
-    const click = () => {
-      clearTimeout(timer);
-      const shouldActivate = !tab.classList.contains("is-active");
-      tabs.forEach((item) => {
-        const active = item === tab && shouldActivate;
-        item.classList.toggle("is-active", active);
-        item.setAttribute("aria-expanded", String(active));
-      });
-      const show = () => {
-        tab.insertAdjacentElement("afterend", panel);
-        contents.forEach((content) => {
-          content.hidden = content.id !== tab.dataset.campaignTarget;
-        });
-        panel.classList.add("is-open");
-        requestAnimationFrame(() => inner.classList.remove("is-fading"));
-      };
-      if (!shouldActivate) panel.classList.remove("is-open");
-      else if (panel.classList.contains("is-open")) {
-        inner.classList.add("is-fading");
-        timer = setTimeout(show, 150);
-      } else show();
-    };
-    tab.addEventListener("click", click);
-    return () => tab.removeEventListener("click", click);
-  });
-  return () => {
-    clearTimeout(timer);
-    cleanups.forEach((cleanup) => cleanup());
-  };
 }
 
 function share(): Cleanup {
@@ -372,9 +268,7 @@ export default function PageInteractions() {
   useEffect(() => {
     document.body.classList.toggle("print-job", path === "/careers/builder");
     const cleanups: Cleanup[] = [revealAndProgress(), faq(), embers()];
-    if (path === "/") cleanups.push(homeCarousel());
     if (path === "/about") cleanups.push(aboutCycle());
-    if (path === "/campaigns") cleanups.push(campaigns());
     if (path === "/join") cleanups.push(share());
     if (path === "/careers/builder") cleanups.push(builderToc());
     return () => {

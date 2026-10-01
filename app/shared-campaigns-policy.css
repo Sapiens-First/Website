@@ -1,0 +1,29 @@
+/* Cascade-safe shared rules for campaigns, policy. */
+
+:where(.route-root.route-campaigns, .route-root.route-policy) .page-hero {
+  padding: 88px 0 80px;
+  background: var(--paper);
+}
+
+:where(.route-root.route-campaigns, .route-root.route-policy)
+  .page-hero
+  .label {
+  margin-bottom: 26px;
+}
+
+:where(.route-root.route-campaigns, .route-root.route-policy) .page-title {
+  margin: 0;
+  max-width: 17ch;
+  text-align: left;
+  font-size: clamp(3.5rem, 8.4vw, 8.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  opacity: 1;
+  animation: none;
+}
+
+:where(.route-root.route-campaigns, .route-root.route-policy)
+  .page-title
+  .underline {
+  white-space: normal;
+}

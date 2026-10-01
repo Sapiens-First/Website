@@ -1,29 +1,8 @@
-/* Preserved from fellowship.html; scoped to this route. */
-/* fellowship.html — page-specific only; shared rebrand atoms/hero/nav/footer live in app/globals.css */
-/* app/globals.css's bare h1/h2/.deck/.btn/etc. are tuned to the homepage
-       mockup's own type scale — about/fellowship/start-a-circle share a
-       different (but identical-to-each-other) scale, so each overrides
-       locally rather than changing the shared rule other pages (incl. the
-       signed-off homepage) depend on. */
-:where(.route-root.route-fellowship) h1 {
-  max-width: 9ch;
-  font-size: clamp(4rem, 8.4vw, 8.4rem);
-}
+/* Page-specific Fellowship rules. Shared rules are imported from app/shared-about-circle-fellowship.css. */
+/* Fellowship-only form and application details stay here. */
 :where(.route-root.route-fellowship) h2 {
   font-size: clamp(2.5rem, 4.6vw, 4.6rem);
   line-height: 0.98;
-}
-:where(.route-root.route-fellowship) .deck {
-  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
-  line-height: 1.5;
-  font-weight: 500;
-}
-:where(.route-root.route-fellowship) .hero-copy p {
-  max-width: 34ch;
-  margin: 30px 0 26px;
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  line-height: 1.45;
-  font-weight: 600;
 }
 :where(.route-root.route-fellowship) .actions {
   position: relative;
@@ -35,9 +14,6 @@
 }
 :where(.route-root.route-fellowship) .poster {
   font-size: clamp(0.95rem, 1.7vw, 1.4rem);
-}
-:where(.route-root.route-fellowship) .poster.alt {
-  bottom: 32%;
 }
 /* This mockup has no yellow underline squiggle below the hero paragraph
        (that decorative :after is homepage-only) — suppress app/globals.css's copy. */
@@ -83,10 +59,6 @@
   font-weight: 900;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-:where(.route-root.route-fellowship) .text-link:hover {
-  color: var(--accent-text);
-  border-color: var(--accent-text);
 }
 /* ─── QUICK FACTS BAR ── */
 :where(.route-root.route-fellowship) .factbar {
@@ -149,28 +121,12 @@
 :where(.route-root.route-fellowship) .about-copy p {
   max-width: 38ch;
 }
-:where(.route-root.route-fellowship) .about-copy .deck {
-  margin: 26px 0 0;
-}
 :where(.route-root.route-fellowship) .about-art {
   position: relative;
   min-height: 400px;
   background: var(--paper);
   border: 2px solid var(--ink);
   overflow: hidden;
-}
-:where(.route-root.route-fellowship) .about-art .circle {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: var(--red);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow:
-    14px -12px 0 var(--yellow),
-    -14px 14px 0 var(--blue);
 }
 :where(.route-root.route-fellowship) .about-art .tag {
   position: absolute;
@@ -213,9 +169,6 @@
   gap: 70px;
   align-items: start;
 }
-:where(.route-root.route-fellowship) .focus {
-  border-top: 2px solid var(--ink);
-}
 :where(.route-root.route-fellowship) .focus-row {
   display: grid;
   grid-template-columns: 60px 1fr;
@@ -227,9 +180,6 @@
 :where(.route-root.route-fellowship) .focus-row .n {
   font-size: 11px;
   font-weight: 900;
-}
-:where(.route-root.route-fellowship) .focus-row:nth-child(1) .n {
-  color: var(--red);
 }
 :where(.route-root.route-fellowship) .focus-row:nth-child(2) .n {
   color: var(--blue);
@@ -521,9 +471,6 @@
   font-size: 1rem;
   line-height: 1.6;
   font-weight: 500;
-}
-:where(.route-root.route-fellowship) .faq-body :last-child {
-  margin-bottom: 0;
 }
 :where(.route-root.route-fellowship) .faq-body ul,
 :where(.route-root.route-fellowship) .faq-body ol {

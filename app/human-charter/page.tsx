@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SignupForm from "@/components/SignupForm";
+import "../shared-home-charter.css";
 import "./page.css";
 
 export const metadata: Metadata = {

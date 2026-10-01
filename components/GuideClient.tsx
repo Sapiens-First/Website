@@ -1,31 +1,69 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { marked } from "marked";
 import { site } from "@/lib/site";
 
-type Source = "google" | "outline";
 type TocItem = { id: string; text: string };
 type TocSection = { heading: TocItem; children: TocItem[] };
 type TocGroup = { header: TocItem | null; sections: TocSection[] };
 type FontStyle = { size?: number; weight?: number; italic?: boolean };
 
-const outlineUrl =
-  "https://sapiensfirst.getoutline.com/s/c7586b91-e29a-4a0a-8126-e2503a77998f";
-const outlineTree = [
-  { slug: "foundations-OTcouF5h6e" },
-  { slug: "our-model-ePlzeadqj6" },
-  { slug: "culture-uVyGLfH92U" },
-  {
-    slug: "actions-fGPoPewwrC",
-    children: [
-      { slug: "outreach-oyEIs6LAuA" },
-      { slug: "gatherings-HNdQ1ofHTj" },
-      { slug: "disruptions-kYECo4nNNW" },
-    ],
-  },
-  { slug: "resources-7cF5xJhDiy" },
-];
+const allowedTags = new Set([
+  "A",
+  "B",
+  "BLOCKQUOTE",
+  "BR",
+  "CAPTION",
+  "CODE",
+  "DD",
+  "DIV",
+  "DL",
+  "DT",
+  "EM",
+  "H1",
+  "H2",
+  "H3",
+  "H4",
+  "H5",
+  "H6",
+  "HR",
+  "I",
+  "IMG",
+  "LI",
+  "OL",
+  "P",
+  "S",
+  "SMALL",
+  "SPAN",
+  "STRONG",
+  "SUB",
+  "SUP",
+  "TABLE",
+  "TBODY",
+  "TD",
+  "TFOOT",
+  "TH",
+  "THEAD",
+  "TR",
+  "U",
+  "UL",
+]);
+const blockedTags = new Set([
+  "AUDIO",
+  "BUTTON",
+  "EMBED",
+  "FORM",
+  "IFRAME",
+  "INPUT",
+  "MATH",
+  "OBJECT",
+  "SCRIPT",
+  "SOURCE",
+  "STYLE",
+  "SVG",
+  "TEMPLATE",
+  "VIDEO",
+]);
 
 function fontStyles(css: string): Record<string, FontStyle> {
   const map: Record<string, FontStyle> = {};
@@ -52,24 +90,45 @@ function mergedStyle(
   );
 }
 
-function cleanNode(node: Node) {
-  if (!(node instanceof Element)) return;
-  [...node.attributes].forEach((attribute) => {
-    if (
-      ["style", "class", "id"].includes(attribute.name) ||
-      attribute.name.startsWith("on")
-    )
-      node.removeAttribute(attribute.name);
-  });
-  if (node.tagName === "A") {
-    const href = node.getAttribute("href") ?? "";
-    if (!/^(https?:|mailto:|#)/i.test(href)) node.removeAttribute("href");
-    else if (!href.startsWith("#")) {
-      node.setAttribute("target", "_blank");
-      node.setAttribute("rel", "noopener");
+function sanitizeNode(node: Node): void {
+  for (const child of [...node.childNodes]) {
+    if (!(child instanceof Element)) continue;
+    if (blockedTags.has(child.tagName)) {
+      child.remove();
+      continue;
+    }
+    sanitizeNode(child);
+    if (!allowedTags.has(child.tagName)) {
+      child.replaceWith(...child.childNodes);
+      continue;
+    }
+
+    for (const attribute of [...child.attributes]) {
+      const name = attribute.name.toLowerCase();
+      const allowed =
+        (child.tagName === "A" && name === "href") ||
+        (child.tagName === "IMG" && ["src", "alt", "title"].includes(name)) ||
+        (["TD", "TH"].includes(child.tagName) &&
+          ["colspan", "rowspan"].includes(name)) ||
+        (["TD", "TH"].includes(child.tagName) &&
+          name === "scope" &&
+          ["row", "col", "rowgroup", "colgroup"].includes(attribute.value));
+      if (!allowed) child.removeAttribute(attribute.name);
+    }
+
+    if (child.tagName === "A") {
+      const href = child.getAttribute("href") ?? "";
+      if (!/^(https?:|mailto:|#)/i.test(href)) child.removeAttribute("href");
+      else if (!href.startsWith("#")) {
+        child.setAttribute("target", "_blank");
+        child.setAttribute("rel", "noopener noreferrer");
+      }
+    } else if (child.tagName === "IMG") {
+      const src = child.getAttribute("src") ?? "";
+      if (!/^https?:\/\//i.test(src)) child.remove();
+      else child.setAttribute("loading", "lazy");
     }
   }
-  [...node.childNodes].forEach(cleanNode);
 }
 
 function processGoogleDoc(html: string): string {
@@ -132,8 +191,7 @@ function processGoogleDoc(html: string): string {
     span.replaceWith(...replacement.childNodes);
   });
 
-  body.querySelectorAll("style, script").forEach((element) => element.remove());
-  cleanNode(body);
+  sanitizeNode(body);
   let previousBlank = false;
   body.querySelectorAll("p").forEach((paragraph) => {
     const blank = !paragraph.textContent?.trim();
@@ -141,80 +199,6 @@ function processGoogleDoc(html: string): string {
     previousBlank = blank;
   });
   return body.innerHTML;
-}
-
-function processOutlineDoc(
-  markdown: string,
-  title: string,
-  level: number,
-): string {
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = marked.parse(markdown) as string;
-  wrapper
-    .querySelectorAll("script, style, iframe, object")
-    .forEach((element) => element.remove());
-  wrapper.querySelectorAll("li").forEach((item) => {
-    const first = item.firstElementChild;
-    if (first?.tagName === "P") {
-      while (first.firstChild) item.insertBefore(first.firstChild, first);
-      first.remove();
-    }
-  });
-  wrapper.querySelectorAll("*").forEach((element) => {
-    [...element.attributes].forEach((attribute) => {
-      if (attribute.name.startsWith("on"))
-        element.removeAttribute(attribute.name);
-    });
-    if (element.tagName === "A") {
-      const href = element.getAttribute("href") ?? "";
-      if (!/^(https?:|mailto:|#)/i.test(href)) element.removeAttribute("href");
-      else if (!href.startsWith("#")) {
-        element.setAttribute("target", "_blank");
-        element.setAttribute("rel", "noopener");
-      }
-    }
-  });
-  while (
-    wrapper.lastElementChild &&
-    /^H[1-6]$/.test(wrapper.lastElementChild.tagName)
-  )
-    wrapper.lastElementChild.remove();
-  if (title) {
-    const heading = document.createElement(`h${level}`);
-    heading.textContent = title;
-    wrapper.insertBefore(heading, wrapper.firstChild);
-  }
-  return wrapper.innerHTML;
-}
-
-async function loadOutline(): Promise<string> {
-  async function fetchNode(
-    node: (typeof outlineTree)[number],
-    depth: number,
-  ): Promise<string> {
-    const response = await fetch(
-      `https://r.jina.ai/${outlineUrl}/doc/${node.slug}`,
-    );
-    if (!response.ok)
-      throw new Error(`Outline document returned ${response.status}`);
-    const text = await response.text();
-    const title = (text.match(/^Title:\s*(.*)$/m)?.[1] ?? "").replace(
-      /\s*-\s*Outline\s*$/,
-      "",
-    );
-    const markdown = text.split(/\nMarkdown Content:\n/)[1] ?? text;
-    const ownHtml = processOutlineDoc(markdown, title, depth);
-    const children =
-      "children" in node && node.children
-        ? await Promise.all(
-            node.children.map((child) => fetchNode(child, depth + 1)),
-          )
-        : [];
-    return [ownHtml, ...children].join("\n");
-  }
-  return (
-    await Promise.all(outlineTree.map((node) => fetchNode(node, 1)))
-  ).join("\n");
 }
 
 function buildGroups(body: HTMLElement): TocGroup[] {
@@ -248,7 +232,7 @@ function buildGroups(body: HTMLElement): TocGroup[] {
   return groups;
 }
 
-export default function GuideClient({ source }: { source: Source }) {
+export default function GuideClient() {
   const [html, setHtml] = useState<string | null>(null);
   const [error, setError] = useState(false);
   const [groups, setGroups] = useState<TocGroup[]>([]);
@@ -258,44 +242,40 @@ export default function GuideClient({ source }: { source: Source }) {
   const contentsRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
-    let alive = true;
+    const controller = new AbortController();
     async function load() {
       try {
-        let result: string;
-        if (source === "google") {
-          const response = await fetch(
-            `https://docs.google.com/document/d/${site.guideDocId}/export?format=html`,
-          );
-          if (!response.ok)
-            throw new Error(`Guide returned ${response.status}`);
-          result = processGoogleDoc(await response.text());
-        } else result = await loadOutline();
-        if (alive) setHtml(result);
+        const response = await fetch(
+          `https://docs.google.com/document/d/${site.guideDocId}/export?format=html`,
+          { signal: controller.signal },
+        );
+        if (!response.ok) throw new Error(`Guide returned ${response.status}`);
+        setHtml(processGoogleDoc(await response.text()));
       } catch (reason) {
+        if (controller.signal.aborted) return;
         console.error("Guide load error:", reason);
-        if (alive) setError(true);
+        setError(true);
       }
     }
-    load();
-    return () => {
-      alive = false;
-    };
-  }, [source]);
+    void load();
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
-    if (source !== "google" || !contentsRef.current) return;
+    const contents = contentsRef.current;
+    if (!contents) return;
     const query = window.matchMedia("(max-width: 900px)");
     const sync = () => {
-      if (contentsRef.current) contentsRef.current.open = !query.matches;
+      contents.open = !query.matches;
     };
     sync();
     query.addEventListener("change", sync);
     return () => query.removeEventListener("change", sync);
-  }, [source]);
+  }, []);
 
   useEffect(() => {
-    if (!html || !bodyRef.current) return;
     const body = bodyRef.current;
+    if (!html || !body) return;
     setGroups(buildGroups(body));
     const headings = [...body.querySelectorAll<HTMLElement>("h1, h2, h3")];
     let frame = 0;
@@ -322,19 +302,13 @@ export default function GuideClient({ source }: { source: Source }) {
   function goTo(id: string) {
     const target = document.getElementById(id);
     if (!target) return;
-    if (
-      source === "google" &&
-      window.matchMedia("(max-width: 900px)").matches &&
-      contentsRef.current
-    )
+    if (window.matchMedia("(max-width: 900px)").matches && contentsRef.current)
       contentsRef.current.open = false;
     const header = document.querySelector<HTMLElement>(".site-header");
     const offset =
       header && getComputedStyle(header).position === "sticky"
         ? header.getBoundingClientRect().height + 24
-        : source === "google"
-          ? 24
-          : 100;
+        : 24;
     window.scrollTo({
       top: target.getBoundingClientRect().top + window.scrollY - offset,
       behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -426,14 +400,10 @@ export default function GuideClient({ source }: { source: Source }) {
   return (
     <>
       <aside className="guide-sidebar">
-        {source === "google" ? (
-          <details className="guide-contents" open ref={contentsRef}>
-            <summary className="contents-toggle">Contents</summary>
-            <div id="toc-container">{toc}</div>
-          </details>
-        ) : (
+        <details className="guide-contents" open ref={contentsRef}>
+          <summary className="contents-toggle">Contents</summary>
           <div id="toc-container">{toc}</div>
-        )}
+        </details>
       </aside>
       <div className="guide-main">
         <div id="doc-content">
@@ -441,15 +411,11 @@ export default function GuideClient({ source }: { source: Source }) {
             <p className="empty-state">
               Could not load the guide right now.{" "}
               <a
-                href={
-                  source === "google"
-                    ? `https://docs.google.com/document/d/${site.guideDocId}/edit`
-                    : outlineUrl
-                }
+                href={`https://docs.google.com/document/d/${site.guideDocId}/edit`}
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
               >
-                Open in {source === "google" ? "Google Docs" : "Outline"}
+                Open in Google Docs
               </a>
             </p>
           ) : html === null ? (

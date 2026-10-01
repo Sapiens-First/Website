@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PolicyInteractions from "@/components/PolicyInteractions";
+import "../shared-campaigns-policy.css";
 import "./page.css";
 
 export const metadata: Metadata = {

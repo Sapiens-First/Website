@@ -1,0 +1,15 @@
+/* Cascade-safe shared rules for home, human-charter. */
+
+:where(.route-root.route-human-charter, .route-root.route-home)
+  .crisis-statement
+  .stat:last-child {
+  border-right: 0;
+}
+
+@media (max-width: 900px) {
+  :where(.route-root.route-human-charter, .route-root.route-home)
+    .crisis-statement
+    .stat:last-child {
+    border-bottom: 0;
+  }
+}

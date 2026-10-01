@@ -75,9 +75,6 @@
   font-family: var(--font-body);
   position: relative;
 }
-:where(.route-root.route-home) .crisis-statement .stat:last-child {
-  border-right: 0;
-}
 :where(.route-root.route-home) .crisis-statement .stat:nth-child(1) {
   background: var(--red);
   color: var(--ink);
@@ -881,9 +878,6 @@
     min-height: 0;
     border-right: 0;
     border-bottom: 2px solid var(--ink);
-  }
-  :where(.route-root.route-home) .crisis-statement .stat:last-child {
-    border-bottom: 0;
   }
   :where(.route-root.route-home) .strategy-grid {
     gap: 31px;

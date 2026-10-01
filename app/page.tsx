@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import CampaignCarousel from "@/components/CampaignCarousel";
 import SignupForm from "@/components/SignupForm";
+import "./shared-home-charter.css";
 import "./page.css";
 
 export const metadata: Metadata = {
@@ -173,7 +175,7 @@ export default function Page() {
 
                 <g
                   fill="currentColor"
-                  fill-opacity=".22"
+                  fillOpacity={0.22}
                   stroke="currentColor"
                   strokeWidth="2"
                   strokeLinejoin="round"
@@ -405,59 +407,7 @@ export default function Page() {
               <div className="campaigns-head">
                 <h3>{"Our demands"}</h3>
               </div>
-              <div className="campaign-viewport" tabIndex={0}>
-                <div className="campaign-track">
-                  <article className="campaign-card freeze">
-                    <div className="campaign-art" aria-hidden="true"></div>
-                    <div className="campaign-copy">
-                      <h4>{"Freeze AI."}</h4>
-                      <p>
-                        {
-                          "Call on the US to slow the development of frontier intelligence."
-                        }
-                      </p>
-                    </div>
-                  </article>
-                  <article className="campaign-card surveillance">
-                    <div className="campaign-art" aria-hidden="true"></div>
-                    <div className="campaign-copy">
-                      <h4>{"Stop 1984."}</h4>
-                      <p>{"End AI-enabled mass surveillance."}</p>
-                    </div>
-                  </article>
-                  <article className="campaign-card robots">
-                    <div className="campaign-art" aria-hidden="true"></div>
-                    <div className="campaign-copy">
-                      <h4>{"No Killer Robots."}</h4>
-                      <p>{"Regulate deadly, autonomous weapons."}</p>
-                    </div>
-                  </article>
-                </div>
-              </div>
-              <div className="campaigns-footer">
-                <div
-                  className="campaign-controls"
-                  aria-label="Campaign carousel controls"
-                >
-                  <button
-                    className="campaign-arrow campaign-prev"
-                    type="button"
-                    aria-label="Previous campaign"
-                  >
-                    {"←"}
-                  </button>
-                  <button
-                    className="campaign-arrow campaign-next"
-                    type="button"
-                    aria-label="Next campaign"
-                  >
-                    {"→"}
-                  </button>
-                </div>
-                <a className="campaigns-link" href="/campaigns">
-                  {"See all campaigns →"}
-                </a>
-              </div>
+              <CampaignCarousel />
             </div>
           </div>
         </section>

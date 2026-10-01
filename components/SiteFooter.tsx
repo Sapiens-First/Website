@@ -66,13 +66,18 @@ export default function SiteFooter() {
           </Link>
           <div className="foot-cols">
             {footerGroups.map((group) => (
-              <div className="foot-col" key={group.title}>
+              <div
+                className={`foot-col${group.title === "About" ? " foot-col-split" : ""}`}
+                key={group.title}
+              >
                 <span className="foot-col-title">{group.title}</span>
-                {group.links.map((link) => (
-                  <Link href={link.href} key={link.href}>
-                    {link.label}
-                  </Link>
-                ))}
+                <div className="foot-col-links">
+                  {group.links.map((link) => (
+                    <Link href={link.href} key={link.href}>
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
             ))}
           </div>

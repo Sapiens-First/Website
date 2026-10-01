@@ -90,9 +90,6 @@
   font-family: var(--font-body);
   color: #fff;
 }
-:where(.route-root.route-human-charter) .crisis-statement .stat:last-child {
-  border-right: 0;
-}
 :where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(1) {
   background: var(--red);
 }
@@ -261,9 +258,6 @@
   :where(.route-root.route-human-charter) .crisis-statement .stat {
     border-right: 0;
     border-bottom: 2px solid var(--ink);
-  }
-  :where(.route-root.route-human-charter) .crisis-statement .stat:last-child {
-    border-bottom: 0;
   }
   :where(.route-root.route-human-charter) .principles-2,
   :where(.route-root.route-human-charter) .principles-3 {

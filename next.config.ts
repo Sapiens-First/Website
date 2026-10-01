@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const legacyPages = [
   "/about",
+  "/atlas",
   "/campaigns",
   "/careers",
   "/careers/builder",
@@ -12,7 +13,6 @@ const legacyPages = [
   "/human-charter",
   "/join",
   "/learn",
-  "/learn-01",
   "/membership",
   "/policy",
   "/privacy",
@@ -23,11 +23,6 @@ const nextConfig: NextConfig = {
     return [
       { source: "/index.html", destination: "/", permanent: true },
       { source: "/index", destination: "/", permanent: true },
-      {
-        source: "/archive",
-        destination: "/archive/index.html",
-        permanent: false,
-      },
       { source: "/act", destination: "/join", permanent: true },
       { source: "/guide", destination: "/learn", permanent: true },
       {

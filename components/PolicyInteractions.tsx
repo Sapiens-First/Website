@@ -44,6 +44,7 @@ export default function PolicyInteractions() {
     const toggles = [
       ...content.querySelectorAll<HTMLButtonElement>(".policy-card-toggle"),
     ];
+    let scrollTimer: number | undefined;
     const scrollTo = (element: Element) =>
       window.scrollTo({
         top: element.getBoundingClientRect().top + window.scrollY - 100,
@@ -57,8 +58,12 @@ export default function PolicyInteractions() {
       });
       const card = toggle.closest(".policy-card");
       if (card) {
+        if (scrollTimer !== undefined) window.clearTimeout(scrollTimer);
         scrollTo(card);
-        window.setTimeout(() => scrollTo(card), 420);
+        scrollTimer = window.setTimeout(() => {
+          scrollTimer = undefined;
+          scrollTo(card);
+        }, 420);
       }
     };
     const toggleClick = (event: MouseEvent) => {
@@ -117,6 +122,7 @@ export default function PolicyInteractions() {
       content.removeEventListener("click", toggleClick);
       nav.removeEventListener("click", tocClick);
       window.removeEventListener("scroll", schedule);
+      if (scrollTimer !== undefined) window.clearTimeout(scrollTimer);
       container.replaceChildren();
     };
   }, []);

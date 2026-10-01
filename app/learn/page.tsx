@@ -38,7 +38,7 @@ export default function Page() {
         <section className="guide-section">
           <div className="container">
             <div className="guide-layout">
-              <GuideClient source="google" />
+              <GuideClient />
             </div>
           </div>
         </section>

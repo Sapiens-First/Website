@@ -1,29 +1,8 @@
-/* Preserved from about.html; scoped to this route. */
-/* about.html — page-specific only; shared rebrand atoms/hero/nav/footer live in app/globals.css */
-/* app/globals.css's bare h1/h2 are tuned to the homepage mockup's own type
-       scale — about/fellowship/start-a-circle use a different (but
-       identical-to-each-other) clamp, so each overrides locally rather
-       than changing the shared rule other pages (incl. the signed-off
-       homepage) depend on. */
-:where(.route-root.route-about) h1 {
-  max-width: 9ch;
-  font-size: clamp(4rem, 8.4vw, 8.4rem);
-}
+/* Page-specific About rules. Shared rules are imported from app/shared-about-circle-fellowship.css. */
+/* The inner-page type scale is shared; unique About details stay here. */
 :where(.route-root.route-about) h2 {
   font-size: clamp(2.5rem, 4.6vw, 4.6rem);
   line-height: 0.98;
-}
-:where(.route-root.route-about) .deck {
-  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
-  line-height: 1.5;
-  font-weight: 500;
-}
-:where(.route-root.route-about) .hero-copy p {
-  max-width: 34ch;
-  margin: 30px 0 26px;
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  line-height: 1.45;
-  font-weight: 600;
 }
 /* This mockup has no yellow underline squiggle below the hero paragraph
        (that decorative :after is homepage-only) — suppress app/globals.css's copy. */
@@ -35,9 +14,6 @@
 }
 :where(.route-root.route-about) .poster {
   font-size: clamp(0.95rem, 1.7vw, 1.4rem);
-}
-:where(.route-root.route-about) .poster.alt {
-  bottom: 32%;
 }
 :where(.route-root.route-about) .hero-note {
   margin-top: 16px;
@@ -62,10 +38,6 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-:where(.route-root.route-about) .text-link:hover {
-  color: var(--accent-text);
-  border-color: var(--accent-text);
-}
 /* ─── ABOUT (two-col, reused for Vision + Founder) ── */
 :where(.route-root.route-about) .about {
   background: #fff;
@@ -80,28 +52,12 @@
 :where(.route-root.route-about) .about-copy p {
   max-width: 38ch;
 }
-:where(.route-root.route-about) .about-copy .deck {
-  margin: 26px 0 0;
-}
 :where(.route-root.route-about) .about-art {
   position: relative;
   min-height: 400px;
   background: var(--paper);
   border: 2px solid var(--ink);
   overflow: hidden;
-}
-:where(.route-root.route-about) .about-art .circle {
-  position: absolute;
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: var(--red);
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow:
-    14px -12px 0 var(--yellow),
-    -14px 14px 0 var(--blue);
 }
 :where(.route-root.route-about) .about-art img {
   position: absolute;

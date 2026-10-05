@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import CampaignAccordion from "@/components/CampaignAccordion";
 import "../shared-campaigns-policy.css";
 import "./page.css";
@@ -41,7 +42,7 @@ export default function Page() {
             </p>
             <p className="body-large reveal">
               {"\n          These campaigns are drawn from our "}
-              <a
+              <Link
                 href="/policy"
                 className="text-link"
                 style={
@@ -53,7 +54,7 @@ export default function Page() {
                 }
               >
                 {"policies"}
-              </a>
+              </Link>
               {
                 ". They are intended to be achievable, so that we have momentum in the movement. Therefore, they are chosen to be either incremental or symbolic.\n        "
               }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { footerGroups } from "@/lib/site";
@@ -61,7 +62,12 @@ export default function SiteFooter() {
       <div className="wrap">
         <div className="foot-top">
           <Link className="foot-brand" href="/">
-            <img src="/favicons/android-chrome-192x192.png" alt="" />
+            <Image
+              src="/favicons/android-chrome-192x192.png"
+              alt=""
+              width={32}
+              height={32}
+            />
             <span>Sapiens First</span>
           </Link>
           <div className="foot-cols">

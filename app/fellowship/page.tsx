@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 import "../shared-about-circle-fellowship.css";
 import "./page.css";
@@ -135,9 +136,9 @@ export default function Page() {
                   "Our mission is to achieve revolutionary political change for technology before the arrival of superintelligence."
                 }
               </p>
-              <a className="text-link" href="/learn">
+              <Link className="text-link" href="/learn">
                 {"Learn more →"}
-              </a>
+              </Link>
             </div>
             <div className="about-art">
               <div className="circle"></div>

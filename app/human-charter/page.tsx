@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 import "../shared-home-charter.css";
 import "./page.css";
@@ -34,9 +35,9 @@ export default function Page() {
               }
             </p>
             <div className="actions">
-              <a className="btn primary" href="/join">
+              <Link className="btn primary" href="/join">
                 {"Add Your Name →"}
-              </a>
+              </Link>
               <a className="btn secondary" href="#principles">
                 {"Read the Principles ↓"}
               </a>

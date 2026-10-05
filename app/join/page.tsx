@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 import "./page.css";
 
@@ -45,7 +47,7 @@ export default function Page() {
                   describedBy="join-note"
                 />
                 <p className="join-note">
-                  <a href="/privacy">{"Privacy policy"}</a>
+                  <Link href="/privacy">{"Privacy policy"}</Link>
                 </p>
                 <noscript>
                   {
@@ -55,12 +57,13 @@ export default function Page() {
               </div>
             </div>
             <figure className="join-photo">
-              <img
+              <Image
                 src="/assets/image.png"
                 alt="People raising clasped hands together at a demonstration"
-                width="1024"
-                height="683"
-                fetchPriority="high"
+                width={1024}
+                height={683}
+                sizes="(max-width: 600px) calc(100vw - 24px), 50vw"
+                preload
               />
             </figure>
           </div>

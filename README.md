@@ -17,12 +17,12 @@ Open `http://localhost:3000`. Run `npm run build` for a production build, `npm r
 - `app/<route>/page.tsx`, `page.css`: the page and its route scoped styles. The homepage uses `app/page.tsx` and `app/page.css`.
 - `components/`: shared navigation, footer, signup form, and interactive page behavior. The guide and events have dedicated client components because they read external data.
 - `lib/site.ts`: site URLs, current external integrations, and navigation/footer links.
-- `public/assets/` and `public/favicons/`: original images, SVGs, local font, and favicon files with unchanged names.
+- `public/assets/` and `public/favicons/`: original images, SVGs, and favicon files with unchanged names.
 - `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery.
 - `next.config.ts`: redirects for the former `.html` URLs and older route aliases.
 - `scripts/signup-apps-script.gs`: the existing spreadsheet handler. Keep it until signup moves to Supabase.
 
-Page CSS selectors are prefixed with `:where(.route-root.route-…)` so styles from one route do not bleed into another during client navigation. The route wrapper uses `display: contents` to preserve the original layout. Shared colors, type, controls, and layout remain in `app/globals.css`. The site still loads Barlow Condensed, DM Sans, and Special Elite from the same Google Fonts URL; the existing local DM Sans Black file remains under `public/assets/`.
+Page CSS selectors are prefixed with `:where(.route-root.route-…)` so styles from one route do not bleed into another during client navigation. The route wrapper uses `display: contents` to preserve the original layout. Shared colors, type, controls, and layout remain in `app/globals.css`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
 
 ## Current data sources
 
@@ -32,6 +32,4 @@ The Google Apps Script response is opaque to the browser because the existing en
 
 ## Atlas
 
-`/atlas` ports the upstream organization explorer into React and TypeScript. Its public CSV source lives in `public/data/atlas/`; `npm run atlas:validate` validates it without building the app. Production builds also validate automatically.
-
-See [the migration map](docs/atlas-migration.md) for commit coverage and [Editing Atlas](docs/atlas.md) for the data model and editing workflow.
+`/atlas` ports the upstream organization explorer into React and TypeScript. Its public CSV source lives in `public/data/atlas/`. Production builds validate the data automatically.

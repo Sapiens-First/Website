@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import "../shared-about-circle-fellowship.css";
 import "./page.css";
 
@@ -94,9 +96,9 @@ export default function Page() {
                   "AI will reshape democracy, prosperity, and security. We're building the political power to make sure it reshapes them for the better."
                 }
               </p>
-              <a className="text-link" href="/policy">
+              <Link className="text-link" href="/policy">
                 {"Read our Recommendations →"}
-              </a>
+              </Link>
             </div>
             <div className="about-art">
               <div className="circle"></div>
@@ -272,18 +274,19 @@ export default function Page() {
                 </span>
               </button>
             </div>
-            <a className="text-link" href="/learn">
+            <Link className="text-link" href="/learn">
               {"Read the Guide →"}
-            </a>
+            </Link>
           </div>
         </section>
         <section className="about" id="founder">
           <div className="container about-grid">
             <div className="about-art">
-              <img
+              <Image
                 src="/assets/rohan-prasad.jpg"
                 alt="Rohan Prasad, founder of Sapiens First"
-                loading="lazy"
+                fill
+                sizes="(max-width: 340px) calc(100vw - 24px), 320px"
               />
             </div>
             <div className="about-copy">

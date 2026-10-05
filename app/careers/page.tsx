@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./page.css";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function Page() {
         </p>
         <section aria-labelledby="open-roles">
           <h2 id="open-roles">{"Open roles"}</h2>
-          <a className="job-listing" href="/careers/builder">
+          <Link className="job-listing" href="/careers/builder">
             <div>
               <h3>{"AI-Native Builder (Contract)"}</h3>
               <p>
@@ -37,7 +38,7 @@ export default function Page() {
             <span className="job-listing-arrow" aria-hidden="true">
               {"→"}
             </span>
-          </a>
+          </Link>
         </section>
       </main>
     </div>

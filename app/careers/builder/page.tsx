@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./page.css";
 
 export const metadata: Metadata = {
@@ -19,10 +20,10 @@ export default function Page() {
   return (
     <div className="route-root route-builder">
       <main className="job-page route-builder">
-        <a className="job-back" href="/careers">
+        <Link className="job-back" href="/careers">
           <span aria-hidden="true">{"←"}</span>
           <span className="job-back-label">{"All careers"}</span>
-        </a>
+        </Link>
         <article>
           <header className="job-header">
             <h1>{"AI-Native Builder (Contract)"}</h1>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -70,7 +71,7 @@ export default function SiteHeader() {
         <div className="wrap">
           <nav>
             <Link className="brand" href="/">
-              <img
+              <Image
                 className="brand-logo"
                 src="/favicons/android-chrome-192x192.png"
                 alt=""

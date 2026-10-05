@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./page.css";
 
 export const metadata: Metadata = {
@@ -60,12 +61,12 @@ export default function Page() {
                 }
               </p>
               <div className="construction-actions">
-                <a href="/join" className="btn btn--solid">
+                <Link href="/join" className="btn btn--solid">
                   {"Join our email list →"}
-                </a>
-                <a href="/donate" className="text-link">
+                </Link>
+                <Link href="/donate" className="text-link">
                   {"Make a donation instead →"}
-                </a>
+                </Link>
               </div>
             </div>
           </div>

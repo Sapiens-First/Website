@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import CampaignCarousel from "@/components/CampaignCarousel";
 import SignupForm from "@/components/SignupForm";
 import "./shared-home-charter.css";
@@ -94,10 +95,13 @@ export default function Page() {
             </a>
           </div>
           <div className="hero-art" aria-hidden="true">
-            <img
+            <Image
               className="hero-photo"
               src="/assets/homepage-hero-photo.jpg"
               alt=""
+              fill
+              sizes="(max-width: 900px) 100vw, 46vw"
+              preload
             />
             <svg
               className="hero-confetti"

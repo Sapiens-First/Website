@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./page.css";
 
 export const metadata: Metadata = {
@@ -155,7 +156,7 @@ export default function Page() {
                 <strong className="progress-number">{"8"}</strong>
                 <p>
                   {"Volunteer Fellows, with an "}
-                  <a href="/learn">{"organizer guide"}</a>
+                  <Link href="/learn">{"organizer guide"}</Link>
                   {" for new chapter leaders."}
                 </p>
               </div>

@@ -31,8 +31,8 @@
   --red: var(--accent);
   --red-dark: var(--accent-dark);
   --max: 1220px;
-  --font-display: "Barlow Condensed", sans-serif;
-  --font-body: "DM Sans", sans-serif;
+  --font-display: var(--font-barlow-condensed), sans-serif;
+  --font-body: var(--font-dm-sans), sans-serif;
 
   /* ─── TYPE SCALE ────────────────────────── */
   --sz-label: 13px; /* meta, buttons, nav labels, small UI   */
@@ -125,13 +125,6 @@ header.site-header nav {
   align-items: center;
   gap: 30px;
 }
-@font-face {
-  font-family: "DM Sans Brand";
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url("/assets/dm-sans-black.ttf") format("truetype");
-}
 .brand {
   display: inline-flex;
   align-items: center;
@@ -141,7 +134,7 @@ header.site-header nav {
   padding: 10px 14px;
   width: max-content;
   border: 2px solid var(--ink);
-  font-family: "DM Sans Brand", var(--font-body);
+  font-family: var(--font-body);
   font-size: 25.2px;
   font-weight: 900;
   line-height: 1;

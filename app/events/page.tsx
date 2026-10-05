@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import EventsClient from "@/components/EventsClient";
 import "./page.css";
 
@@ -34,9 +35,9 @@ export default function Page() {
           <div className="container">
             <div className="events-header">
               <h2 className="events-title">{"All Events"}</h2>
-              <a className="text-link" href="/circle">
+              <Link className="text-link" href="/circle">
                 {"Want to host? →"}
-              </a>
+              </Link>
             </div>
             <EventsClient />
           </div>

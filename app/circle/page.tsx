@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 import "../shared-about-circle-fellowship.css";
 import "./page.css";
@@ -699,9 +700,9 @@ export default function Page() {
                 <div className="faq-body">
                   <p>
                     {"Yes. You can join a "}
-                    <a href="/campaigns">{"priority campaign"}</a>
+                    <Link href="/campaigns">{"priority campaign"}</Link>
                     {" or propose a different campaign that falls within "}
-                    <a href="/about">{"Sapiens First’s focus areas"}</a>
+                    <Link href="/about">{"Sapiens First’s focus areas"}</Link>
                     {
                       ". Bring your idea to the Global team so you can explore how it fits and what support would help."
                     }

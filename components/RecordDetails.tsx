@@ -65,7 +65,7 @@ export function LinkedRecords({
 }) {
   if (!ids.length) return <span>Not recorded</span>;
   return (
-    <ul className="atlas-links">
+    <ul className="atlas-links list-none">
       {ids.map((id) => (
         <li key={id}>
           <RecordLink id={id} format={format} />
@@ -85,30 +85,33 @@ export function Ownership({ row, format }: { row: AtlasRow; format?: Format }) {
       {result.ids.map((id) => {
         const owner = rowsById.get(id);
         return owner?.["Person ID"] ? (
-          <p key={id} className="atlas-coverage">
+          <p
+            key={id}
+            className="atlas-coverage text-xs leading-relaxed mt-2 text-ink"
+          >
             Energized by <Assignee row={owner} />
           </p>
         ) : null;
       })}
       {result.kind === "undelegated" && (
-        <p className="atlas-coverage">
+        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
           Held by this circle; not delegated to a role.
         </p>
       )}
       {result.kind === "unfilled" && (
-        <p className="atlas-coverage">
+        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
           The role retains responsibility for this work. Circle Lead coverage
           applies while the role is unfilled.
         </p>
       )}
       {result.kind === "unknown" && (
-        <p className="atlas-coverage">
+        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
           Containing circle not recorded; default responsibility cannot be
           resolved.
         </p>
       )}
       {coverage && (
-        <p className="atlas-coverage">
+        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
           {coverage.circleId && (
             <>
               Coverage through <RecordLink id={coverage.circleId} />:{" "}
@@ -160,7 +163,7 @@ export function FieldsList({ fields }: { fields: string[][] }) {
             {key === "Circle ID" && value ? (
               <RecordLink id={value} />
             ) : ["Accountabilities", "Privileges"].includes(key) && value ? (
-              <ul className="atlas-field-list">
+              <ul className="atlas-field-list pl-5">
                 {value
                   .split(/[;\n]+/)
                   .map((s) => s.trim())
@@ -225,7 +228,7 @@ export default function RecordDetails({
   return (
     <section
       id="atlas-record"
-      className="atlas-record"
+      className="atlas-record border border-solid border-line rounded-lg bg-white max-sm:rounded-none"
       aria-labelledby="record-title"
     >
       <a className="atlas-record-close" href={`#${group}/${format}`}>
@@ -245,7 +248,7 @@ export default function RecordDetails({
         <p>No record exists for {id}.</p>
       ) : (
         <>
-          <p className="atlas-record-meta">
+          <p className="atlas-record-meta text-xs text-ink tracking-wide">
             {row.ID} · {row.Type} · {row.Status}
           </p>
           {parents.length > 0 && (
@@ -254,7 +257,7 @@ export default function RecordDetails({
               <LinkedRecords ids={parents} format={format} />
             </>
           )}
-          <p className="atlas-record-purpose">
+          <p className="atlas-record-purpose text-base leading-relaxed mt-4">
             {row.Purpose || "Purpose not documented."}
           </p>
           {group === "domains" ? (
@@ -286,10 +289,10 @@ export default function RecordDetails({
             </>
           )}
           {(history.length > 0 || notes.length > 0) && (
-            <details className="atlas-record-history">
+            <details className="atlas-record-history mt-5 border-t border-solid border-t-line pt-3.5">
               <summary>History &amp; notes</summary>
               {notes.length > 0 && <FieldsList fields={notes} />}
-              <ul className="atlas-history">
+              <ul className="atlas-history list-none leading-normal">
                 {history.map((relation) => {
                   const outgoing = relation["From ID"] === id;
                   const state = isCurrent(relation, today)

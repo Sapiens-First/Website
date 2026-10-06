@@ -1,5 +1,5 @@
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Privacy — Sapiens First",
@@ -19,10 +19,12 @@ export default function Page() {
   return (
     <div className="route-root route-privacy">
       <main className="route-privacy">
-        <div className="container">
-          <div className="privacy-wrap">
-            <h1 className="privacy-heading">{"Privacy"}</h1>
-            <p className="privacy-text">
+        <Container>
+          <div className="privacy-wrap max-w-2xl my-0 mx-auto pt-24 pr-0 pb-28 pl-0 flex flex-col gap-10 max-sm:pt-20 max-sm:pr-0 max-sm:pb-20 max-sm:pl-0">
+            <h1 className="privacy-heading text-5xl sm:text-6xl lg:text-8xl font-display font-extrabold leading-none tracking-tight uppercase">
+              {"Privacy"}
+            </h1>
+            <p className="privacy-text text-lg leading-relaxed">
               {
                 "\n          We collect your email address when you sign up. We use it to send you updates about Sapiens First — actions, calls, and news. We don't sell it, share it, or do anything sketchy with it. To opt out or request deletion, email "
               }
@@ -31,13 +33,13 @@ export default function Page() {
               </a>
               {".\n        "}
             </p>
-            <p className="privacy-cookies">
+            <p className="privacy-cookies text-sm leading-relaxed text-ink pt-4 border-t border-solid border-t-line">
               {
                 "\n          We do not use cookies or tracking software on this website.\n        "
               }
             </p>
           </div>
-        </div>
+        </Container>
       </main>
     </div>
   );

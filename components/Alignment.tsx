@@ -21,9 +21,9 @@ export default function Alignment({
   const { rows, cols, cells } = alignmentMatrix(data, rowType);
   return (
     <div id="atlas-alignment-matrix">
-      <div className="atlas-alignment-toolbar">
+      <div className="atlas-alignment-toolbar flex mb-3">
         <div
-          className="atlas-alignment-switch"
+          className="atlas-alignment-switch inline-flex gap-0.5"
           role="group"
           aria-label="Alignment rows"
         >
@@ -43,22 +43,22 @@ export default function Alignment({
         </div>
       </div>
       {!cols.length ? (
-        <div className="atlas-alignment-empty">
+        <div className="atlas-alignment-empty py-8 px-2 max-w-2xl">
           <p>No cross-cutting relationships are recorded yet.</p>
-          <p className="atlas-alignment-empty-detail">
+          <p className="atlas-alignment-empty-detail mt-2.5 text-xs text-ink">
             This view connects projects and programs to the goals they support.
           </p>
         </div>
       ) : (
         <>
           <div
-            className="atlas-alignment-scroll"
+            className="atlas-alignment-scroll overflow-auto border border-solid border-line rounded-lg"
             tabIndex={0}
             role="region"
             aria-label="Alignment matrix"
           >
             <table className="atlas-alignment-table">
-              <caption className="atlas-sr-only">
+              <caption className="atlas-sr-only absolute w-px h-px overflow-hidden">
                 {rowType}s and what they support
               </caption>
               <thead>
@@ -73,7 +73,7 @@ export default function Alignment({
                       }
                     >
                       <button
-                        className="atlas-alignment-col-header"
+                        className="atlas-alignment-col-header text-xs font-bold uppercase tracking-wide border-0 cursor-pointer whitespace-nowrap"
                         type="button"
                         aria-pressed={col.ID === highlighted}
                         onClick={() =>
@@ -114,7 +114,7 @@ export default function Alignment({
                           >
                             {relation && (
                               <span
-                                className="atlas-alignment-mark"
+                                className="atlas-alignment-mark text-sm text-coral-dark"
                                 role="img"
                                 aria-label={`${row.Name} supports ${col.Name}`}
                                 title={relation.Notes || undefined}
@@ -130,7 +130,7 @@ export default function Alignment({
               </tbody>
             </table>
           </div>
-          <p className="atlas-alignment-hint">
+          <p className="atlas-alignment-hint text-xs leading-relaxed mt-3 text-ink">
             Select a name to read its details. Select a column to highlight
             everything supporting that priority.
           </p>

@@ -1,8 +1,8 @@
+import { TextLink } from "@/components/ui/Action";
+import { Label } from "@/components/ui/Label";
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
-import Link from "next/link";
 import CampaignAccordion from "@/components/CampaignAccordion";
-import "../shared-campaigns-policy.css";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Campaigns for AI Accountability — Sapiens First",
@@ -24,17 +24,17 @@ export default function Page() {
       <div className="progress-bar"></div>
 
       <div className="page-hero">
-        <div className="container">
-          <span className="label">{"Take action"}</span>
+        <Container>
+          <Label tone="coral">{"Take action"}</Label>
           <h1 className="page-title">
             {"Our "}
-            <span className="underline blue">{"Campaigns."}</span>
+            <span className="ink-underline blue">{"Campaigns."}</span>
           </h1>
-        </div>
+        </Container>
       </div>
       <main className="route-campaigns">
         <section className="section section-compact">
-          <div className="container">
+          <Container>
             <p className="body-large reveal">
               {
                 "\n          Our long-term goal is to build movement power. Having intermediary objectives helps structure activities, allowing us to build leaders and expand movement participation.\n        "
@@ -42,9 +42,9 @@ export default function Page() {
             </p>
             <p className="body-large reveal">
               {"\n          These campaigns are drawn from our "}
-              <Link
+              <TextLink
                 href="/policy"
-                className="text-link"
+
                 style={
                   {
                     textTransform: "none",
@@ -54,7 +54,7 @@ export default function Page() {
                 }
               >
                 {"policies"}
-              </Link>
+              </TextLink>
               {
                 ". They are intended to be achievable, so that we have momentum in the movement. Therefore, they are chosen to be either incremental or symbolic.\n        "
               }
@@ -64,16 +64,16 @@ export default function Page() {
                 "\n          Campaigns also help us win the support of institutions, like politicians, other advocacy organizations, and the media. This, however, is secondary to the objective of getting lots of people involved in the fight for democracy.\n        "
               }
             </p>
-          </div>
+          </Container>
         </section>
 
         <section className="section" id="campaigns">
-          <div className="container">
+          <Container>
             <div className="section-label reveal">
               <span className="title">{"Current Campaigns"}</span>
             </div>
             <CampaignAccordion />
-          </div>
+          </Container>
         </section>
       </main>
     </div>

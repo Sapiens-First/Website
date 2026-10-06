@@ -1,4 +1,7 @@
 "use client";
+import { Container } from "@/components/layout/Container";
+
+import { Label } from "@/components/ui/Label";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -68,7 +71,7 @@ export default function SiteHeader() {
   return (
     <>
       <header className="site-header">
-        <div className="wrap">
+        <Container>
           <nav>
             <Link className="brand" href="/">
               <Image
@@ -171,11 +174,11 @@ export default function SiteHeader() {
               </Link>
             </div>
           </nav>
-        </div>
+        </Container>
       </header>
       <dialog
         ref={dialogRef}
-        className="join-dialog"
+        className="join-dialog mx-4 my-auto w-auto max-w-xl max-h-dvh sm:mx-auto"
         aria-labelledby="join-dialog-title"
         aria-describedby="join-dialog-description"
         onClose={() => setJoinOpen(false)}
@@ -191,7 +194,7 @@ export default function SiteHeader() {
         >
           ×
         </button>
-        <div className="label">Get involved</div>
+        <Label tone="coral">Get involved</Label>
         <h2 id="join-dialog-title">Join Sapiens First</h2>
         <p id="join-dialog-description">
           Interested in becoming a member? Leave your email and we&apos;ll be in

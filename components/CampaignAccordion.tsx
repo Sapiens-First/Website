@@ -2,45 +2,7 @@
 
 import { Fragment, useEffect, useRef, useState } from "react";
 
-const campaigns = [
-  {
-    id: "stop-1984",
-    title: "Stop 1984",
-    objective: "Ban AI-enabled mass surveillance.",
-    description:
-      "Mass surveillance is a threat to our civil liberties and free speech. AI-enabled surveillance could mean unprecedented concentration of power. We believe that a variety of coalition groups and civil society organizations could support a ban on AI-enabled mass surveillance.",
-    metrics: [
-      "Get individuals and organizations to sign onto our open letter against AI-enabled mass surveillance (forthcoming)",
-      "Get city councils to do resolutions against AI-enabled mass surveillance",
-    ],
-    resources: "Resources: forthcoming",
-  },
-  {
-    id: "no-killer-robots",
-    title: "No Killer Robots",
-    objective: "Regulate autonomous weapons in the military.",
-    description:
-      "Militaries around the world are racing to deploy autonomous weapons that can select and kill targets without human oversight. However, most people are unaware this is already happening, or don't grasp how quickly it's becoming normalized. Increasing awareness of this threat expands the Overton window, and builds political will for regulation.",
-    metrics: [
-      "Get mainstream media to write positively about activism against autonomous weapons",
-      "Increase awareness through social media",
-    ],
-    resources: "Resources: forthcoming",
-  },
-  {
-    id: "save-our-future",
-    title: "AI Freeze",
-    objective:
-      "Negotiate a coordinated slowdown on the development of artificial intelligence.",
-    description:
-      "Experts in artificial intelligence, including those at frontier AI labs, have warned for years about the dangers of superintelligence. However, most people are unaware of these risks, or are not acting appropriately given their severity. Increasing awareness of existential risk expands the Overton window, and builds political will for AI safety.",
-    metrics: [
-      "Get mainstream media to write positively about activism against existential risk posed by AI",
-      "Increase awareness through social media",
-    ],
-    resources: "Resources: forthcoming",
-  },
-] as const;
+import { campaignDetails as campaigns } from "@/content/campaigns";
 
 export default function CampaignAccordion() {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -96,7 +58,7 @@ export default function CampaignAccordion() {
   const panelPosition = panelId ?? campaigns.at(-1)?.id;
 
   return (
-    <div className="campaign-grid">
+    <div className="campaign-grid mt-7 mr-auto mb-0 ml-auto max-w-none grid grid-cols-3 gap-x-2.5 gap-y-0 max-md:max-w-full max-sm:flex max-sm:flex-col max-sm:gap-2.5">
       {campaigns.map((campaign, index) => (
         <Fragment key={campaign.id}>
           <button
@@ -106,9 +68,11 @@ export default function CampaignAccordion() {
             aria-controls="campaign-shared-panel"
             onClick={() => select(campaign.id)}
           >
-            <span className="campaign-header">
+            <span className="campaign-header flex flex-col gap-1.5 min-w-0">
               <span className="card-title">{campaign.title}</span>
-              <span className="campaign-objective">{campaign.objective}</span>
+              <span className="campaign-objective font-body text-lg font-medium text-ink">
+                {campaign.objective}
+              </span>
             </span>
             <span
               className="campaign-chevron accordion-chevron"
@@ -125,23 +89,25 @@ export default function CampaignAccordion() {
               >
                 {campaigns.map((item) => (
                   <div
-                    className="campaign-body"
+                    className="campaign-body py-6 px-7 max-md:p-5"
                     id={`campaign-content-${item.id}`}
                     key={item.id}
                     hidden={panel?.id !== item.id}
                   >
-                    <p className="campaign-desc card-text">
+                    <p className="campaign-desc card-text mt-0 mr-0 mb-4 ml-0">
                       {item.description}
                     </p>
-                    <span className="eyebrow eyebrow--accent campaign-metrics-label">
+                    <span className="eyebrow eyebrow--accent campaign-metrics-label block mb-2">
                       Metrics
                     </span>
-                    <ul className="campaign-list">
+                    <ul className="campaign-list list-none m-0 flex flex-col gap-1.5">
                       {item.metrics.map((metric) => (
                         <li key={metric}>{metric}</li>
                       ))}
                     </ul>
-                    <p className="campaign-note card-text">{item.resources}</p>
+                    <p className="campaign-note card-text italic mt-3.5 mb-0">
+                      {item.resources}
+                    </p>
                   </div>
                 ))}
               </div>

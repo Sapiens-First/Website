@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { loadAtlasData } from "@/lib/atlas/data";
 import AtlasExplorer from "@/components/AtlasExplorer";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Atlas — Sapiens First",
@@ -21,10 +20,13 @@ export default function Page() {
   return (
     <div className="route-root route-atlas">
       <main className="atlas">
-        <section className="atlas-hero container" aria-labelledby="atlas-title">
+        <section
+          className="atlas-hero site-container relative z-2 mx-auto w-full max-w-2xl px-3 pt-20 pb-10 sm:px-6 max-sm:pt-12 max-sm:pb-7"
+          aria-labelledby="atlas-title"
+        >
           <div className="kicker">Atlas</div>
           <h1 id="atlas-title">See how the movement works.</h1>
-          <p className="atlas-intro">
+          <p className="atlas-intro leading-normal">
             Goals, circles, roles, projects, and the people behind them.
             <span id="mission-text">
               Our mission:{" "}

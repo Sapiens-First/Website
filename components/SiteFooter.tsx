@@ -1,4 +1,5 @@
 "use client";
+import { Container } from "@/components/layout/Container";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -59,7 +60,7 @@ export default function SiteFooter() {
           </svg>
         </i>
       </div>
-      <div className="wrap">
+      <Container>
         <div className="foot-top">
           <Link className="foot-brand" href="/">
             <Image
@@ -93,7 +94,7 @@ export default function SiteFooter() {
             © {new Date().getFullYear()} Sapiens First. All rights reserved.
           </span>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

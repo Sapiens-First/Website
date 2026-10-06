@@ -1,7 +1,7 @@
+import { Label } from "@/components/ui/Label";
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
 import PolicyInteractions from "@/components/PolicyInteractions";
-import "../shared-campaigns-policy.css";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Policy — Sapiens First",
@@ -24,22 +24,22 @@ export default function Page() {
       <div className="progress-bar"></div>
 
       <div className="page-hero">
-        <div className="container">
-          <span className="label">{"Policy Brief — Sapiens First"}</span>
+        <Container>
+          <Label tone="coral">{"Policy Brief — Sapiens First"}</Label>
           <h1 className="page-title">
             {"A People's Agenda"}
             <br />
             {"for the "}
-            <span className="underline blue">{"Age of AI."}</span>
+            <span className="ink-underline blue">{"Age of AI."}</span>
           </h1>
-          <p className="policy-meta">
+          <p className="policy-meta mt-7 mr-0 mb-0 ml-0 text-xs font-bold tracking-wider uppercase">
             {"3 Pillars · 12 Policies · Updated July 2026"}
           </p>
-        </div>
+        </Container>
       </div>
       <main className="route-policy">
         <section className="guide-section">
-          <div className="container">
+          <Container>
             <div className="guide-layout">
               <aside className="guide-sidebar">
                 <div id="toc-container"></div>
@@ -75,7 +75,7 @@ export default function Page() {
                         "This page represents an early draft of policies, which we share in the spirit of transparency and collaboration. We'd like to develop policies in collaboration with experts in social, economic, and tech policy. If you'd like to contribute, please reach out to rohan@sapiensfirst.org."
                       }
                     </p>
-                    <p className="policy-colophon-meta reveal">
+                    <p className="policy-colophon-meta reveal mt-1 text-left font-body text-sm tracking-wider text-ink">
                       {
                         "This page is a living document, last updated in July 2026."
                       }
@@ -91,16 +91,16 @@ export default function Page() {
                       }
                     </p>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="ban-ai-enabled-mass-surveillance"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="ban-ai-enabled-mass-surveillance-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Ban AI-Enabled Mass Surveillance"}
                         </span>
                         <span
@@ -118,16 +118,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="end-big-tech-s-influence-on-elections"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="end-big-tech-s-influence-on-elections-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"End Big Tech's Influence on Elections"}
                         </span>
                         <span
@@ -145,16 +145,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="citizens-assemblies-for-ai-policy"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="citizens-assemblies-for-ai-policy-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Citizens' Assemblies for AI Policy"}
                         </span>
                         <span
@@ -172,16 +172,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="upgrade-our-democratic-process"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="upgrade-our-democratic-process-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Upgrade Our Democratic Process"}
                         </span>
                         <span
@@ -209,16 +209,16 @@ export default function Page() {
                       }
                     </p>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="benefits-for-communities-affected-by-data-centers"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="benefits-for-communities-affected-by-data-centers-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Benefits for Communities Affected by Data Centers"}
                         </span>
                         <span
@@ -236,16 +236,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="enhance-our-government-institutions"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="enhance-our-government-institutions-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Enhance Our Government Institutions"}
                         </span>
                         <span
@@ -263,16 +263,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="build-a-sovereign-wealth-fund-for-ai"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="build-a-sovereign-wealth-fund-for-ai-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Build a Sovereign Wealth Fund for AI"}
                         </span>
                         <span
@@ -290,16 +290,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="citizens-dividend"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="citizens-dividend-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Citizen's Dividend"}
                         </span>
                         <span
@@ -327,16 +327,16 @@ export default function Page() {
                       }
                     </p>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="lead-a-treaty-with-china-to-stop-the-ai-arms-race"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="lead-a-treaty-with-china-to-stop-the-ai-arms-race-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {"Lead a Treaty with China to Stop the AI Arms Race"}
                         </span>
                         <span
@@ -354,16 +354,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="mandate-that-all-frontier-ai-development-be-done-in-the-open"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="mandate-that-all-frontier-ai-development-be-done-in-the-open-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {
                             "Mandate That All Frontier AI Development Be Done in the Open"
                           }
@@ -383,16 +383,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="institute-strict-liability-and-punitive-damages-for-ai-harms"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="institute-strict-liability-and-punitive-damages-for-ai-harms-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {
                             "Institute Strict Liability and Punitive Damages for AI Harms"
                           }
@@ -412,16 +412,16 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule"
+                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
                       id="build-a-powerful-and-independent-ai-safety-institute"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle"
+                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="build-a-powerful-and-independent-ai-safety-institute-body"
                       >
-                        <span className="policy-card-title">
+                        <span className="policy-card-title font-display uppercase leading-tight">
                           {
                             "Build a Powerful and Independent AI Safety Institute"
                           }
@@ -441,7 +441,7 @@ export default function Page() {
                       </div>
                     </div>
                   </section>
-                  <p className="policy-colophon-meta reveal">
+                  <p className="policy-colophon-meta reveal mt-1 text-left font-body text-sm tracking-wider text-ink">
                     {
                       "Sapiens First — A People's Agenda for the Age of AI · Updated July 2026"
                     }
@@ -449,7 +449,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       </main>
     </div>

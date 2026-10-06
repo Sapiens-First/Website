@@ -1,6 +1,6 @@
+import { ActionLink } from "@/components/ui/Action";
 import type { Metadata } from "next";
 import Link from "next/link";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "AI-Native Builder (Contract) — Careers — Sapiens First",
@@ -19,13 +19,18 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="route-root route-builder">
-      <main className="job-page route-builder">
-        <Link className="job-back" href="/careers">
+      <main className="job-page route-builder mx-auto w-full max-w-6xl px-5 pt-12 pb-20 max-sm:pt-7 max-sm:pb-14">
+        <Link
+          className="job-back items-center gap-2 mb-8 text-lg leading-normal"
+          href="/careers"
+        >
           <span aria-hidden="true">{"←"}</span>
-          <span className="job-back-label">{"All careers"}</span>
+          <span className="job-back-label underline underline-offset-4">
+            {"All careers"}
+          </span>
         </Link>
         <article>
-          <header className="job-header">
+          <header className="job-header pb-8 mb-8 border-b border-solid border-b-rule max-w-3xl ml-72 max-lg:ml-0">
             <h1>{"AI-Native Builder (Contract)"}</h1>
             <p className="job-meta">
               <strong>
@@ -35,13 +40,16 @@ export default function Page() {
             <p>
               <strong>{"₹50–70k/month for full-time"}</strong>
             </p>
-            <a className="btn primary" href="#apply">
+            <ActionLink variant="primary" href="#apply">
               {"Apply for this role →"}
-            </a>
+            </ActionLink>
           </header>
-          <div className="job-layout">
-            <aside className="job-sidebar">
-              <details className="job-toc" open={true}>
+          <div className="job-layout grid gap-12 items-start max-lg:block">
+            <aside className="job-sidebar sticky top-28 overflow-y-auto max-lg:max-h-none max-lg:overflow-visible max-lg:mb-8">
+              <details
+                className="job-toc max-lg:border-t max-lg:border-solid max-lg:border-t-rule max-lg:border-b max-lg:border-b-rule"
+                open={true}
+              >
                 <summary>{"On this page"}</summary>
                 <nav aria-label="Job description sections">
                   <ul>
@@ -64,7 +72,7 @@ export default function Page() {
                 </nav>
               </details>
             </aside>
-            <div className="job-content">
+            <div className="job-content min-w-0 text-lg text-ink">
               <div className="job-description">
                 <p className="job-lead">
                   {"Turn messy organizational problems into "}
@@ -175,7 +183,10 @@ export default function Page() {
                   }
                 </p>
                 <h2 id="benefits">{"Benefits"}</h2>
-                <table className="job-facts" aria-labelledby="benefits">
+                <table
+                  className="job-facts text-lg leading-relaxed"
+                  aria-labelledby="benefits"
+                >
                   <tbody>
                     <tr>
                       <th scope="row">{"Contract"}</th>
@@ -256,7 +267,7 @@ export default function Page() {
                     </strong>
                   </li>
                 </ol>
-                <div className="job-process">
+                <div className="job-process py-4 px-5 bg-soft">
                   <h3>{"Hiring process"}</h3>
                   <p>
                     {
@@ -266,12 +277,13 @@ export default function Page() {
                 </div>
                 <p>{"We may not be able to reply to every application."}</p>
               </div>
-              <a
-                className="btn primary job-bottom"
+              <ActionLink
+                className="job-bottom mt-7"
+                variant="primary"
                 href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder"
               >
                 {"Email your application →"}
-              </a>
+              </ActionLink>
             </div>
           </div>
         </article>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { site } from "@/lib/site";
+import { Button } from "@/components/ui/Action";
 
 type Interest = "membership" | "fellowship" | "start-a-circle";
 
@@ -90,13 +91,9 @@ export default function SignupForm({
           aria-describedby={describedBy}
           required
         />
-        <button
-          className={variant === "dialog" ? undefined : "btn primary"}
-          type="submit"
-          disabled={status === "sending"}
-        >
+        <Button variant="primary" type="submit" disabled={status === "sending"}>
           {status === "sending" ? "Sending…" : buttonText}
-        </button>
+        </Button>
       </form>
       {status === "error" && (
         <div className="signup-status" role="status">

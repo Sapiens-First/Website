@@ -1,8 +1,8 @@
+import { Label } from "@/components/ui/Label";
+import { ActionLink } from "@/components/ui/Action";
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
-import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
-import "../shared-home-charter.css";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "The Human Charter — Sapiens First",
@@ -22,8 +22,8 @@ export default function Page() {
   return (
     <div className="route-root route-human-charter">
       <main className="route-human-charter">
-        <section className="charter-hero">
-          <div className="container">
+        <section className="charter-hero bg-paper text-center max-sm:pt-14 max-sm:pr-0 max-sm:pb-12 max-sm:pl-0">
+          <Container>
             <div className="kicker">{"The Human Charter · V0.1"}</div>
             <h1>{"The Human Charter"}</h1>
             <p className="deck">
@@ -35,18 +35,22 @@ export default function Page() {
               }
             </p>
             <div className="actions">
-              <Link className="btn primary" href="/join">
+              <ActionLink variant="primary" href="/join">
                 {"Add Your Name →"}
-              </Link>
-              <a className="btn secondary" href="#principles">
+              </ActionLink>
+              <ActionLink
+                className="secondary"
+                variant="outline"
+                href="#principles"
+              >
                 {"Read the Principles ↓"}
-              </a>
+              </ActionLink>
             </div>
-          </div>
+          </Container>
         </section>
-        <section className="stakes">
+        <section className="stakes bg-ink">
           <div className="crisis-statement">
-            <div className="label alt-yellow">{"The Stakes"}</div>
+            <Label tone="yellow">{"The Stakes"}</Label>
             <div className="crisis-line">
               {"A brighter future is not guaranteed. It has to be "}
               <em>{"fought for."}</em>
@@ -74,21 +78,21 @@ export default function Page() {
           </div>
         </section>
         <section className="pillar white" id="principles">
-          <div className="container pillar-head">
-            <div className="label alt-yellow">{"I"}</div>
+          <Container className="pillar-head">
+            <Label tone="yellow">{"I"}</Label>
             <h2>
               {"Protect Humanity "}
-              <span className="underline yellow">{"(Life)"}</span>
+              <span className="ink-underline yellow">{"(Life)"}</span>
             </h2>
             <p className="deck">
               {
                 "Before anything else, humanity has to survive what it is building."
               }
             </p>
-          </div>
-          <div className="container">
-            <div className="principles principles-2">
-              <div className="principle">
+          </Container>
+          <Container>
+            <div className="principles principles-2 mt-14 border-t-2 border-solid border-t-ink grid">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"01"}</span>
                 <h3>{"A Coordinated Slowdown"}</h3>
                 <p>
@@ -97,7 +101,7 @@ export default function Page() {
                   }
                 </p>
               </div>
-              <div className="principle">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"02"}</span>
                 <h3>{"A Global Initiative for Superalignment"}</h3>
                 <p>
@@ -107,24 +111,24 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
         <section className="pillar paper">
-          <div className="container pillar-head">
-            <div className="label alt-blue">{"II"}</div>
+          <Container className="pillar-head">
+            <Label tone="blue">{"II"}</Label>
             <h2>
               {"Strengthen Democracy "}
-              <span className="underline blue">{"(Liberty)"}</span>
+              <span className="ink-underline blue">{"(Liberty)"}</span>
             </h2>
             <p className="deck">
               {
                 "Power built by superintelligence has to answer to the people it is built on."
               }
             </p>
-          </div>
-          <div className="container">
-            <div className="principles principles-3">
-              <div className="principle">
+          </Container>
+          <Container>
+            <div className="principles principles-3 mt-14 border-t-2 border-solid border-t-ink grid">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"03"}</span>
                 <h3>{"A Human-First Government"}</h3>
                 <p>
@@ -133,7 +137,7 @@ export default function Page() {
                   }
                 </p>
               </div>
-              <div className="principle">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"04"}</span>
                 <h3>{"Renewed Checks and Balances"}</h3>
                 <p>
@@ -142,7 +146,7 @@ export default function Page() {
                   }
                 </p>
               </div>
-              <div className="principle">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"05"}</span>
                 <h3>{"Enhance Civic Input"}</h3>
                 <p>
@@ -152,14 +156,14 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
         <section className="pillar white">
-          <div className="container pillar-head">
-            <div className="label alt-green">{"III"}</div>
+          <Container className="pillar-head">
+            <Label tone="purple">{"III"}</Label>
             <h2>
               {"Build a Shared Future "}
-              <span className="underline green">
+              <span className="ink-underline green">
                 {"(the pursuit of Happiness)"}
               </span>
             </h2>
@@ -168,10 +172,10 @@ export default function Page() {
                 "Abundant intelligence should raise everyone up, not just the few who own it."
               }
             </p>
-          </div>
-          <div className="container">
-            <div className="principles principles-3">
-              <div className="principle">
+          </Container>
+          <Container>
+            <div className="principles principles-3 mt-14 border-t-2 border-solid border-t-ink grid">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"06"}</span>
                 <h3>{"Institutional Reform"}</h3>
                 <p>
@@ -180,7 +184,7 @@ export default function Page() {
                   }
                 </p>
               </div>
-              <div className="principle">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"07"}</span>
                 <h3>{"The Citizen's Dividend"}</h3>
                 <p>
@@ -189,7 +193,7 @@ export default function Page() {
                   }
                 </p>
               </div>
-              <div className="principle">
+              <div className="principle min-h-72 py-8 px-7 flex flex-col">
                 <span className="num">{"08"}</span>
                 <h3>{"Uplift All Sentient Beings"}</h3>
                 <p>
@@ -199,14 +203,17 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
-        <section className="closing" id="sign">
-          <div className="closing-copy">
-            <div className="label alt-yellow">{"Sign the Charter"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+        <section
+          className="closing grid grid-cols-2 bg-paper max-lg:grid-cols-1"
+          id="sign"
+        >
+          <div className="closing-copy relative">
+            <Label tone="yellow">{"Sign the Charter"}</Label>
+            <h2 className="mt-5">
               {"Add your name to the "}
-              <span className="underline">{"North Star."}</span>
+              <span className="ink-underline">{"North Star."}</span>
             </h2>
             <p className="deck">
               <strong>

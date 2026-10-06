@@ -109,7 +109,7 @@ export default function DomainOutline({
     ) : (
       <>
         {name.slice(0, index)}
-        <mark className="atlas-outline-highlight">
+        <mark className="atlas-outline-highlight rounded-xs py-0 px-px">
           {name.slice(index, index + query.length)}
         </mark>
         {name.slice(index + query.length)}
@@ -149,16 +149,19 @@ export default function DomainOutline({
               }}
             />
           ) : (
-            <span className="atlas-outline-bullet" aria-hidden="true" />
+            <span
+              className="atlas-outline-bullet inline-flex items-center justify-center"
+              aria-hidden="true"
+            />
           )}
           <a
             href={recordHref(node.row.ID, "outline")}
-            className="atlas-outline-title"
+            className="atlas-outline-title inline-flex items-center min-w-0 no-underline"
           >
             <TypeIcon type={node.row.Type} />
             {highlighted(node.row.Name)}
           </a>
-          <span className="atlas-outline-meta">
+          <span className="atlas-outline-meta ml-auto text-xs font-semibold tracking-wide text-ink whitespace-nowrap pl-2.5">
             {labels[node.row.Type] || node.row.Type}
             {!open && node.children.length ? ` · ${node.children.length}` : ""}
           </span>
@@ -175,15 +178,19 @@ export default function DomainOutline({
     <div id="atlas-outline-tree">
       {chain.length > 0 && (
         <nav
-          className="atlas-outline-breadcrumbs"
+          className="atlas-outline-breadcrumbs font-body text-xs font-bold leading-loose mt-1 mr-1 mb-0.5 ml-1 tracking-normal"
           aria-label="Domain hierarchy"
         >
           {chain.map((node, i) => (
             <Fragment key={node.row.ID}>
-              {i > 0 && <span className="atlas-outline-crumb-sep">›</span>}
+              {i > 0 && (
+                <span className="atlas-outline-crumb-sep my-0 mx-2 text-ink font-normal">
+                  ›
+                </span>
+              )}
               {i === chain.length - 1 ? (
                 <span
-                  className="atlas-outline-crumb-current"
+                  className="atlas-outline-crumb-current text-ink font-extrabold"
                   aria-current="page"
                 >
                   {node.row.Name}
@@ -195,7 +202,7 @@ export default function DomainOutline({
           ))}
         </nav>
       )}
-      <div className="atlas-outline-toolbar">
+      <div className="atlas-outline-toolbar flex justify-end pt-1 pr-1 pb-0.5 pl-1">
         <details className="atlas-outline-menu" ref={menu}>
           <summary aria-label="More actions">⋯</summary>
           <button
@@ -226,7 +233,7 @@ export default function DomainOutline({
       ) : (
         <>
           {query && (
-            <p className="atlas-outline-hint">
+            <p className="atlas-outline-hint text-xs leading-relaxed mt-2.5 mr-1 mb-1 ml-1 text-ink">
               {matches.length} search{" "}
               {matches.length === 1 ? "result" : "results"}
             </p>
@@ -251,7 +258,7 @@ export default function DomainOutline({
             </ul>
           )}
           {!query && (
-            <p className="atlas-outline-hint">
+            <p className="atlas-outline-hint text-xs leading-relaxed mt-2.5 mr-1 mb-1 ml-1 text-ink">
               Select the chevron to expand a branch, or a name to read its
               purpose and responsibilities.
             </p>
@@ -262,7 +269,7 @@ export default function DomainOutline({
         <details className="atlas-unplaced">
           <summary>
             <span>Uncategorized</span>{" "}
-            <span className="atlas-badge atlas-unplaced-count">
+            <span className="atlas-badge atlas-unplaced-count font-bold bg-soft border-line text-ink">
               {unplaced.length}
             </span>
           </summary>

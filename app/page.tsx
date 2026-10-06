@@ -1,9 +1,10 @@
+import { SplitHero } from "@/components/sections/SplitSection";
+import { Container } from "@/components/layout/Container";
+import { Label } from "@/components/ui/Label";
 import type { Metadata } from "next";
 import Image from "next/image";
 import CampaignCarousel from "@/components/CampaignCarousel";
 import SignupForm from "@/components/SignupForm";
-import "./shared-home-charter.css";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Sapiens First — A Movement for AI Accountability",
@@ -23,7 +24,7 @@ export default function Page() {
   return (
     <div className="route-root route-home">
       <main className="route-home">
-        <section className="hero">
+        <SplitHero>
           <div className="hero-copy">
             <svg
               className="hero-confetti hero-confetti--top"
@@ -96,7 +97,7 @@ export default function Page() {
           </div>
           <div className="hero-art" aria-hidden="true">
             <Image
-              className="hero-photo"
+              className="hero-photo absolute inset-0 w-full h-full object-cover"
               src="/assets/homepage-hero-photo.jpg"
               alt=""
               fill
@@ -142,9 +143,9 @@ export default function Page() {
               ></path>
             </svg>
           </div>
-        </section>
+        </SplitHero>
 
-        <section className="crisis" id="crisis">
+        <section className="crisis bg-white" id="crisis">
           <div className="crisis-statement">
             <svg
               className="crisis-earth"
@@ -216,14 +217,19 @@ export default function Page() {
               </i>
             </div>
             <div className="crisis-copy">
-              <div className="label section-label-primary">{"Crisis"}</div>
+              <Label tone="coral" size="section">
+                {"Crisis"}
+              </Label>
               <div className="crisis-line">
                 {"Artificial intelligence is threatening the future of "}
                 <em>
                   <span className="word-brush">{"humanity."}</span>
                 </em>
               </div>
-              <div className="crisis-stars" aria-hidden="true">
+              <div
+                className="crisis-stars -top-20 -bottom-16 left-0 pointer-events-none max-sm:-top-11 max-sm:-bottom-8 max-sm:right-60"
+                aria-hidden="true"
+              >
                 <i
                   className="star"
                   style={
@@ -375,9 +381,12 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="vision" id="vision">
+        <section
+          className="vision bg-paper py-28 px-0 overflow-hidden max-sm:py-14 max-sm:px-0"
+          id="vision"
+        >
           <svg
-            className="section-mark"
+            className="section-mark absolute w-20 h-14 top-5 pointer-events-none max-sm:w-14 max-sm:h-9 max-sm:right-5 max-sm:top-2.5"
             viewBox="0 0 88 56"
             aria-hidden="true"
             focusable="false"
@@ -385,14 +394,14 @@ export default function Page() {
             <circle cx="44" cy="28" r="13"></circle>
             <path d="M44 3v5M44 48v5M19 28h5M64 28h5M26 10l4 4M58 42l4 4M26 46l4-4M58 14l4-4"></path>
           </svg>
-          <div className="container">
+          <Container>
             <div className="vision-copy">
-              <div className="label alt-yellow section-label-primary">
+              <Label tone="yellow" size="section">
                 {"Vision"}
-              </div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              </Label>
+              <h2 className="mt-5">
                 {"Technology for the "}
-                <span className="underline blue">{"common good."}</span>
+                <span className="ink-underline blue">{"common good."}</span>
               </h2>
               <p className="deck">
                 {
@@ -400,25 +409,25 @@ export default function Page() {
                 }
               </p>
               <svg
-                className="action-strokes"
+                className="action-strokes block w-20 h-7 mt-7 text-coral"
                 viewBox="0 0 76 30"
                 aria-hidden="true"
               >
                 <path d="M4 25L19 7M28 25L43 7M52 25L67 7"></path>
               </svg>
             </div>
-            <div className="campaigns">
-              <div className="campaigns-head">
+            <div className="campaigns mt-20 max-sm:mt-12">
+              <div className="campaigns-head flex items-end justify-between gap-6 max-sm:items-center">
                 <h3>{"Our demands"}</h3>
               </div>
               <CampaignCarousel />
             </div>
-          </div>
+          </Container>
         </section>
 
         <section className="strategy" id="strategy">
           <svg
-            className="section-mark"
+            className="section-mark absolute w-20 h-14 top-5 pointer-events-none max-sm:w-14 max-sm:h-9 max-sm:right-5 max-sm:top-2.5"
             viewBox="0 0 88 56"
             aria-hidden="true"
             focusable="false"
@@ -426,12 +435,16 @@ export default function Page() {
             <path d="M10 46h20V32h20V18h24M64 8l10 10-10 10"></path>
             <circle cx="10" cy="46" r="3"></circle>
           </svg>
-          <div className="container strategy-grid">
+          <Container className="strategy-grid grid gap-12 items-center max-lg:gap-8 max-sm:gap-5 max-sm:pb-8">
             <div>
-              <div className="label section-label-primary">{"Strategy"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="coral" size="section">
+                {"Strategy"}
+              </Label>
+              <h2 className="mt-5">
                 {"We build movement "}
-                <span className="word-block">{"power."}</span>
+                <span className="word-block text-white leading-none">
+                  {"power."}
+                </span>
               </h2>
             </div>
             <div>
@@ -441,8 +454,8 @@ export default function Page() {
                 }
               </p>
             </div>
-          </div>
-          <div className="process">
+          </Container>
+          <div className="process mt-12 grid border-t-2 border-solid border-t-ink isolate max-sm:mt-0">
             <div className="step">
               <small>{"01"}</small>
               <h3>{"Seed cities"}</h3>
@@ -458,10 +471,13 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="involved" id="involved">
-          <div className="involved-copy">
+        <section
+          className="involved grid grid-cols-2 bg-paper max-lg:grid-cols-1"
+          id="involved"
+        >
+          <div className="involved-copy overflow-hidden max-sm:pt-14 max-sm:pr-5 max-sm:pb-11 max-sm:pl-5">
             <svg
-              className="section-mark"
+              className="section-mark absolute w-20 h-14 top-5 pointer-events-none max-sm:w-14 max-sm:h-9 max-sm:right-5 max-sm:top-2.5"
               viewBox="0 0 88 56"
               aria-hidden="true"
               focusable="false"
@@ -471,10 +487,12 @@ export default function Page() {
               <circle cx="66" cy="25" r="6"></circle>
               <path d="M33 32v-3a11 11 0 0 1 22 0v3M10 48v-4a12 12 0 0 1 24 0v4M54 48v-4a12 12 0 0 1 24 0v4M34 48h20"></path>
             </svg>
-            <div className="label alt-green">{"Get involved"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+            <Label tone="purple">{"Get involved"}</Label>
+            <h2 className="mt-5">
               {"Dare to "}
-              <em className="fight-highlight">{"fight"}</em>
+              <em className="fight-highlight inline-block isolate text-ink not-italic">
+                {"fight"}
+              </em>
               {" for a brighter future."}
             </h2>
             <p className="deck">

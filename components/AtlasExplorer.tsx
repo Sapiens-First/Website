@@ -168,10 +168,10 @@ export default function AtlasExplorer({
   return (
     <AtlasLookupsProvider value={lookups}>
       <section
-        className="atlas-explorer container"
+        className="atlas-explorer site-container relative z-2 mx-auto w-full max-w-7xl px-3 pb-16 sm:px-6"
         aria-labelledby="view-title"
       >
-        <div className="atlas-toolbar">
+        <div className="atlas-toolbar sticky top-20 flex items-center flex-wrap gap-2.5 py-3.5 px-0 mb-1 border-b border-solid border-b-line max-lg:top-16 max-sm:flex-col max-sm:items-stretch">
           <div className="atlas-switch" role="group" aria-label="Atlas view">
             {(["governance", "domains", "people"] as View[]).map((value) => (
               <button
@@ -190,7 +190,7 @@ export default function AtlasExplorer({
               </button>
             ))}
           </div>
-          <label className="atlas-search-field">
+          <label className="atlas-search-field relative flex items-center min-w-0 max-w-sm max-sm:max-w-none">
             <svg
               className="atlas-search-icon"
               width="15"
@@ -213,7 +213,9 @@ export default function AtlasExplorer({
                 strokeLinecap="round"
               />
             </svg>
-            <span className="atlas-sr-only">Search this view</span>
+            <span className="atlas-sr-only absolute w-px h-px overflow-hidden">
+              Search this view
+            </span>
             <input
               type="search"
               id="atlas-search"
@@ -230,7 +232,9 @@ export default function AtlasExplorer({
           </label>
           {view === "domains" && format === "table" && (
             <label id="atlas-filter-label" className="atlas-filter-field">
-              <span className="atlas-sr-only">Show</span>
+              <span className="atlas-sr-only absolute w-px h-px overflow-hidden">
+                Show
+              </span>
               <select
                 id="atlas-filter"
                 value={filter}
@@ -244,7 +248,7 @@ export default function AtlasExplorer({
           {view !== "people" && (
             <div
               id="atlas-format"
-              className="atlas-format"
+              className="atlas-format ml-auto max-sm:ml-0"
               role="group"
               aria-label="Display"
             >
@@ -263,13 +267,16 @@ export default function AtlasExplorer({
             </div>
           )}
         </div>
-        <div className="atlas-view-heading">
-          <p id="view-title" className="atlas-view-label">
+        <div className="atlas-view-heading flex items-baseline gap-3.5 flex-wrap pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1">
+          <p
+            id="view-title"
+            className="atlas-view-label font-body text-xs font-extrabold tracking-wider uppercase text-ink"
+          >
             {titles[view]}
           </p>
           <p id="view-description">{descriptions[view]}</p>
           <a
-            className="atlas-source"
+            className="atlas-source ml-auto text-xs underline-offset-4 whitespace-nowrap max-sm:ml-0"
             href={`/data/atlas/${group}.csv`}
             download
           >
@@ -282,7 +289,10 @@ export default function AtlasExplorer({
         </p>
         {view === "people" ? (
           <>
-            <div id="atlas-people" className="atlas-people-grid">
+            <div
+              id="atlas-people"
+              className="atlas-people-grid flex flex-col rounded-lg overflow-hidden bg-white"
+            >
               {!matchingPeople.length && <p>No people match this search.</p>}
               {matchingPeople.map((person) => (
                 <article
@@ -304,13 +314,13 @@ export default function AtlasExplorer({
                     {person.roles.length}{" "}
                     {person.roles.length === 1 ? "assignment" : "assignments"}
                   </p>
-                  <ul className="atlas-links">
+                  <ul className="atlas-links list-none">
                     {person.roles.map((role) => (
                       <li key={role.ID}>
                         <a href={`#governance/circles/${role.ID}`}>
                           <TypeIcon type={role.Type} />
                           {role.Name}
-                          <span className="atlas-person-role-type">
+                          <span className="atlas-person-role-type text-xs uppercase tracking-wide text-ink">
                             {role.Type}
                           </span>
                         </a>
@@ -320,7 +330,10 @@ export default function AtlasExplorer({
                 </article>
               ))}
             </div>
-            <p id="atlas-people-note" className="atlas-people-note">
+            <p
+              id="atlas-people-note"
+              className="atlas-people-note text-xs leading-relaxed mt-5 max-w-4xl text-ink"
+            >
               Fellows can become Stewards after three months and graduation. A
               “Steward” role title is separate from this engagement level.
             </p>
@@ -371,7 +384,7 @@ export default function AtlasExplorer({
           </div>
         ) : (
           <div
-            className="atlas-table-wrap"
+            className="atlas-table-wrap overflow-x-auto border border-solid border-line rounded-lg"
             id="atlas-results"
             hidden={!matches.length}
             tabIndex={0}
@@ -379,7 +392,9 @@ export default function AtlasExplorer({
             aria-label={`${titles[view]} table`}
           >
             <table id="atlas-table">
-              <caption className="atlas-sr-only">{titles[view]}</caption>
+              <caption className="atlas-sr-only absolute w-px h-px overflow-hidden">
+                {titles[view]}
+              </caption>
               <thead>
                 <tr>
                   {[
@@ -402,7 +417,7 @@ export default function AtlasExplorer({
                   <tr key={row.ID}>
                     <th scope="row">
                       <RecordLink id={row.ID} format="table" />
-                      <span className="atlas-level">
+                      <span className="atlas-level block ml-5 text-xs font-medium mt-0.5 uppercase tracking-wide text-ink">
                         {row.Type} · {row.ID}
                       </span>
                       <details className="atlas-row-details">
@@ -417,7 +432,7 @@ export default function AtlasExplorer({
                       </details>
                     </th>
                     <td>
-                      <span className="atlas-cell-text">
+                      <span className="atlas-cell-text overflow-hidden whitespace-normal text-ink">
                         {row.Purpose || "Not documented"}
                       </span>
                     </td>
@@ -447,7 +462,7 @@ export default function AtlasExplorer({
                         <LinkedRecords ids={owners(row.ID)} />
                       )}
                       {row["Ownership note"] && (
-                        <p className="atlas-unresolved">
+                        <p className="atlas-unresolved text-xs mt-2 text-coral-dark">
                           {row["Ownership note"]}
                         </p>
                       )}

@@ -1,8 +1,17 @@
+import { TextLink } from "@/components/ui/Action";
+import { FactPill } from "@/components/ui/Label";
+import { FaqItem, FaqList } from "@/components/sections/Faq";
+import {
+  SplitHero,
+  ClosingSection,
+  ClosingCopy,
+  SignupPanel,
+} from "@/components/sections/SplitSection";
+import { ActionLink } from "@/components/ui/Action";
+import { Label } from "@/components/ui/Label";
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
-import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
-import "../shared-about-circle-fellowship.css";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "AI Advocacy Fellowship — Sapiens First",
@@ -22,7 +31,7 @@ export default function Page() {
   return (
     <div className="route-root route-fellowship">
       <main className="route-fellowship">
-        <section className="hero">
+        <SplitHero>
           <div className="hero-copy">
             <div className="kicker">{"Fellowship · Rolling Cohorts"}</div>
             <h1>
@@ -35,10 +44,10 @@ export default function Page() {
               }
             </p>
             <div className="fact-pills">
-              <span className="fact-pill">{"Rolling admissions"}</span>
-              <span className="fact-pill">{"12 weeks"}</span>
-              <span className="fact-pill">{"3–5 hrs / week"}</span>
-              <span className="fact-pill">{"Volunteer"}</span>
+              <FactPill>{"Rolling admissions"}</FactPill>
+              <FactPill>{"12 weeks"}</FactPill>
+              <FactPill>{"3–5 hrs / week"}</FactPill>
+              <FactPill>{"Volunteer"}</FactPill>
             </div>
             <SignupForm
               interest="fellowship"
@@ -102,8 +111,8 @@ export default function Page() {
               </svg>
             </i>
           </div>
-        </section>
-        <section className="factbar">
+        </SplitHero>
+        <section className="factbar bg-ink">
           <div className="stats">
             <div className="stat">
               <strong>{"Rolling"}</strong>
@@ -124,21 +133,19 @@ export default function Page() {
           </div>
         </section>
         <section className="about" id="about">
-          <div className="container about-grid">
+          <Container className="about-grid">
             <div className="about-copy">
-              <div className="label">{"About"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="coral">{"About"}</Label>
+              <h2 className="mt-5">
                 {"We imagine tech that serves the "}
-                <span className="underline blue">{"common good."}</span>
+                <span className="ink-underline blue">{"common good."}</span>
               </h2>
               <p className="deck">
                 {
                   "Our mission is to achieve revolutionary political change for technology before the arrival of superintelligence."
                 }
               </p>
-              <Link className="text-link" href="/learn">
-                {"Learn more →"}
-              </Link>
+              <TextLink href="/learn">{"Learn more →"}</TextLink>
             </div>
             <div className="about-art">
               <div className="circle"></div>
@@ -146,7 +153,7 @@ export default function Page() {
               <div className="tag t2">{"AI safety"}</div>
               <div className="tag t3">{"Democracy"}</div>
             </div>
-          </div>
+          </Container>
         </section>
         <section className="about-you" id="about-you">
           <div className="fun-layer" aria-hidden="true">
@@ -203,14 +210,14 @@ export default function Page() {
               </svg>
             </i>
           </div>
-          <div className="container you-grid">
+          <Container className="you-grid">
             <div>
-              <div className="label alt-yellow">{"About you"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="yellow">{"About you"}</Label>
+              <h2 className="mt-5">
                 {"We're looking for people who "}
-                <span className="underline yellow">{"care deeply."}</span>
+                <span className="ink-underline yellow">{"care deeply."}</span>
               </h2>
-              <p className="you-note">
+              <p className="you-note mt-6 italic font-semibold text-ink">
                 {"We look for enthusiasm, dedication, and a desire to grow."}
               </p>
             </div>
@@ -234,15 +241,15 @@ export default function Page() {
                 </span>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
-        <section className="roles" id="roles">
-          <div className="container">
+        <section className="roles bg-white" id="roles">
+          <Container>
             <div className="roles-head">
-              <div className="label">{"Roles"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="coral">{"Roles"}</Label>
+              <h2 className="mt-5">
                 {"Four "}
-                <span className="underline green">{"workstreams,"}</span>
+                <span className="ink-underline green">{"workstreams,"}</span>
                 {" one movement."}
               </h2>
               <p className="deck">
@@ -251,20 +258,27 @@ export default function Page() {
                 }
               </p>
             </div>
-            <div className="role-acc">
-              <details className="role" open={true}>
+            <div className="role-acc mt-11 border-t-2 border-solid border-t-ink">
+              <details
+                className="role border-b-2 border-solid border-b-ink"
+                open={true}
+              >
                 <summary>
-                  <span className="role-title">{"Community Organizing"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
+                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
+                    {"Community Organizing"}
+                  </span>
+                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
+                    {"Remote-friendly"}
+                  </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
-                <div className="role-body">
+                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
                     {
                       "You enjoy talking to new people, are a great listener, and care deeply about community. You're great at making people feel empowered, with the goal of them joining the movement."
                     }
                   </p>
-                  <span className="role-activities-label">
+                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
                     {"Example activities"}
                   </span>
                   <ul className="role-list">
@@ -276,26 +290,30 @@ export default function Page() {
                       }
                     </li>
                   </ul>
-                  <p className="role-note">
+                  <p className="role-note mt-4 italic font-semibold text-ink">
                     {
                       "Community Fellows help grow and support Circles forming across the country."
                     }
                   </p>
                 </div>
               </details>
-              <details className="role">
+              <details className="role border-b-2 border-solid border-b-ink">
                 <summary>
-                  <span className="role-title">{"Campaign Automations"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
+                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
+                    {"Campaign Automations"}
+                  </span>
+                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
+                    {"Remote-friendly"}
+                  </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
-                <div className="role-body">
+                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
                     {
                       "You enjoy building scalable systems and automations to empower communities. You're a fast learner and excellent at incorporating AI to assist you in the process, with the goal of streamlining our supporter and membership onboarding and retention processes."
                     }
                   </p>
-                  <span className="role-activities-label">
+                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
                     {"Example activities"}
                   </span>
                   <ul className="role-list">
@@ -313,19 +331,23 @@ export default function Page() {
                   </ul>
                 </div>
               </details>
-              <details className="role">
+              <details className="role border-b-2 border-solid border-b-ink">
                 <summary>
-                  <span className="role-title">{"Digital Marketing"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
+                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
+                    {"Digital Marketing"}
+                  </span>
+                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
+                    {"Remote-friendly"}
+                  </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
-                <div className="role-body">
+                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
                     {
                       "You enjoy communicating big ideas clearly and learning what inspires people to take action. You will test messaging and branding, with the goal of expanding our digital reach."
                     }
                   </p>
-                  <span className="role-activities-label">
+                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
                     {"Example activities"}
                   </span>
                   <ul className="role-list">
@@ -341,19 +363,23 @@ export default function Page() {
                   </ul>
                 </div>
               </details>
-              <details className="role">
+              <details className="role border-b-2 border-solid border-b-ink">
                 <summary>
-                  <span className="role-title">{"Policy & Coalitions"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
+                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
+                    {"Policy & Coalitions"}
+                  </span>
+                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
+                    {"Remote-friendly"}
+                  </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
-                <div className="role-body">
+                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
                     {
                       "You enjoy diving deep into policy and AI safety. You're good at putting yourself in other people's shoes. You enjoy building relationships, with the goal of building coalitional support for Sapiens First's campaigns nationally."
                     }
                   </p>
-                  <span className="role-activities-label">
+                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
                     {"Example activities"}
                   </span>
                   <ul className="role-list">
@@ -372,9 +398,9 @@ export default function Page() {
                 </div>
               </details>
             </div>
-          </div>
+          </Container>
         </section>
-        <section className="commitment">
+        <section className="commitment bg-coral py-14 px-0 overflow-hidden">
           <div className="fun-layer" aria-hidden="true">
             <i
               style={
@@ -406,16 +432,16 @@ export default function Page() {
               </svg>
             </i>
           </div>
-          <div className="container commitment-inner">
+          <Container className="commitment-inner flex items-center justify-between gap-6 flex-wrap max-sm:flex-col max-sm:items-start">
             <p>{"Find your voice, find some friends, and fight like hell."}</p>
-            <div className="commitment-pills">
+            <div className="commitment-pills flex gap-2.5 flex-wrap">
               <span>{"Rolling cohorts"}</span>
               <span>{"12 weeks"}</span>
               <span>{"3–5 hrs / week"}</span>
             </div>
-          </div>
+          </Container>
         </section>
-        <section className="benefits" id="benefits">
+        <section className="benefits bg-paper overflow-hidden" id="benefits">
           <div className="fun-layer" aria-hidden="true">
             <i
               style={
@@ -447,12 +473,12 @@ export default function Page() {
               </svg>
             </i>
           </div>
-          <div className="container benefits-grid">
+          <Container className="benefits-grid grid gap-16 items-start">
             <div>
-              <div className="label">{"Benefits"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="coral">{"Benefits"}</Label>
+              <h2 className="mt-5">
                 {"What you "}
-                <span className="underline blue">{"receive."}</span>
+                <span className="ink-underline blue">{"receive."}</span>
               </h2>
             </div>
             <div>
@@ -462,178 +488,156 @@ export default function Page() {
                 }
               </p>
             </div>
-          </div>
+          </Container>
         </section>
         <section className="faq" id="faq">
-          <div className="container">
-            <div className="label">{"FAQ"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+          <Container>
+            <Label tone="coral">{"FAQ"}</Label>
+            <h2 className="mt-5">
               {"Questions, "}
-              <span className="underline green">{"answered."}</span>
+              <span className="ink-underline green">{"answered."}</span>
             </h2>
-            <div className="faq-acc">
-              <details className="faq-item" open={true}>
-                <summary>
-                  <span className="faq-n">{"01"}</span>
-                  <span className="faq-q">{"What is the Fellowship?"}</span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
+            <FaqList>
+              <FaqItem
+                number={1}
+                question={<>{"What is the Fellowship?"}</>}
+                open
+              >
+                <p>
+                  {
+                    "Each Fellow will own a priority project, and sync with a team working on a similar project. There'll also be programming to connect, learn about social change, politics, and hang out."
+                  }
+                </p>
+              </FaqItem>
+              <FaqItem number={2} question={<>{"Why join the Fellowship?"}</>}>
+                <ul>
+                  <li>
                     {
-                      "Each Fellow will own a priority project, and sync with a team working on a similar project. There'll also be programming to connect, learn about social change, politics, and hang out."
+                      "Be a founding member of the movement to save the future of humanity"
                     }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"02"}</span>
-                  <span className="faq-q">{"Why join the Fellowship?"}</span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <ul>
-                    <li>
-                      {
-                        "Be a founding member of the movement to save the future of humanity"
-                      }
-                    </li>
-                    <li>
-                      {
-                        "Build skills like strategic analysis, project planning, and leadership"
-                      }
-                    </li>
-                    <li>
-                      {"Make professional connections in AI safety / policy"}
-                    </li>
-                    <li>{"Have fun!"}</li>
-                  </ul>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"03"}</span>
-                  <span className="faq-q">
-                    {"What does the process look like?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <ol>
-                    <li>
-                      {"Express interest at "}
-                      <a
-                        className="text-link"
-                        style={{ marginTop: "0" } as React.CSSProperties}
-                        href="#signup"
-                      >
-                        {"sapiensfirst.org/fellowship"}
-                      </a>
-                    </li>
-                    <li>
-                      {
-                        "Meet with the Executive Director to discuss your interests"
-                      }
-                    </li>
-                    <li>
-                      {
-                        "Receive an initial priority project. Accept by signing the Fellowship agreement."
-                      }
-                    </li>
-                    <li>{"Join the Discord and get started!"}</li>
-                  </ol>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"04"}</span>
-                  <span className="faq-q">
+                  </li>
+                  <li>
+                    {
+                      "Build skills like strategic analysis, project planning, and leadership"
+                    }
+                  </li>
+                  <li>
+                    {"Make professional connections in AI safety / policy"}
+                  </li>
+                  <li>{"Have fun!"}</li>
+                </ul>
+              </FaqItem>
+              <FaqItem
+                number={3}
+                question={<>{"What does the process look like?"}</>}
+              >
+                <ol>
+                  <li>
+                    {"Express interest at "}
+                    <TextLink href="#signup">
+                      {"sapiensfirst.org/fellowship"}
+                    </TextLink>
+                  </li>
+                  <li>
+                    {
+                      "Meet with the Executive Director to discuss your interests"
+                    }
+                  </li>
+                  <li>
+                    {
+                      "Receive an initial priority project. Accept by signing the Fellowship agreement."
+                    }
+                  </li>
+                  <li>{"Join the Discord and get started!"}</li>
+                </ol>
+              </FaqItem>
+              <FaqItem
+                number={4}
+                question={
+                  <>
                     {
                       "What does the program look like week by week, month by month?"
                     }
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <div className="faq-table-wrap">
-                    <table className="faq-table">
-                      <thead>
-                        <tr>
-                          <th>{"Activity"}</th>
-                          <th>{"Content"}</th>
-                          <th>{"Timing"}</th>
-                          <th>{"Priority"}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{"Department Sync"}</td>
-                          <td>
-                            {
-                              "Synchronous meeting or written memo sharing progress & reflections on your project"
-                            }
-                          </td>
-                          <td>{"Weekly or biweekly (45 min)"}</td>
-                          <td>{"Required"}</td>
-                        </tr>
-                        <tr>
-                          <td>{"1-1s with Rohan"}</td>
-                          <td>
-                            {
-                              "Chat about the movement, strategy, or future project direction"
-                            }
-                          </td>
-                          <td>{"Weekly or biweekly (30 min)"}</td>
-                          <td>{"Required"}</td>
-                        </tr>
-                        <tr>
-                          <td>{"General Meetings"}</td>
-                          <td>
-                            {
-                              "Discussions with Fellows about social change, leadership, and your current work."
-                            }
-                          </td>
-                          <td>{"Tuesdays, 6:30–7:30pm PT"}</td>
-                          <td>{"Optional"}</td>
-                        </tr>
-                        <tr>
-                          <td>{"Socials in SF / Oakland"}</td>
-                          <td>{"Bowling, karaoke, or pizza"}</td>
-                          <td>{"Monthly or spontaneous"}</td>
-                          <td>{"Optional"}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <p>{"By week, the program will roughly be:"}</p>
-                  <ul>
-                    <li>
-                      <strong>{"Weeks 1–2:"}</strong>
-                      {" Research, strategy, create success metrics"}
-                    </li>
-                    <li>
-                      <strong>{"Weeks 3–5:"}</strong>
-                      {" Design & build a prototype"}
-                    </li>
-                    <li>
-                      <strong>{"Weeks 6–9:"}</strong>
-                      {" Iterate and evolve the prototype"}
-                    </li>
-                    <li>
-                      <strong>{"Weeks 10–12:"}</strong>
-                      {" Document and present"}
-                    </li>
-                  </ul>
+                  </>
+                }
+              >
+                <div className="faq-table-wrap overflow-x-auto mb-3.5">
+                  <table className="faq-table w-full">
+                    <thead>
+                      <tr>
+                        <th>{"Activity"}</th>
+                        <th>{"Content"}</th>
+                        <th>{"Timing"}</th>
+                        <th>{"Priority"}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{"Department Sync"}</td>
+                        <td>
+                          {
+                            "Synchronous meeting or written memo sharing progress & reflections on your project"
+                          }
+                        </td>
+                        <td>{"Weekly or biweekly (45 min)"}</td>
+                        <td>{"Required"}</td>
+                      </tr>
+                      <tr>
+                        <td>{"1-1s with Rohan"}</td>
+                        <td>
+                          {
+                            "Chat about the movement, strategy, or future project direction"
+                          }
+                        </td>
+                        <td>{"Weekly or biweekly (30 min)"}</td>
+                        <td>{"Required"}</td>
+                      </tr>
+                      <tr>
+                        <td>{"General Meetings"}</td>
+                        <td>
+                          {
+                            "Discussions with Fellows about social change, leadership, and your current work."
+                          }
+                        </td>
+                        <td>{"Tuesdays, 6:30–7:30pm PT"}</td>
+                        <td>{"Optional"}</td>
+                      </tr>
+                      <tr>
+                        <td>{"Socials in SF / Oakland"}</td>
+                        <td>{"Bowling, karaoke, or pizza"}</td>
+                        <td>{"Monthly or spontaneous"}</td>
+                        <td>{"Optional"}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-              </details>
-            </div>
-          </div>
+                <p>{"By week, the program will roughly be:"}</p>
+                <ul>
+                  <li>
+                    <strong>{"Weeks 1–2:"}</strong>
+                    {" Research, strategy, create success metrics"}
+                  </li>
+                  <li>
+                    <strong>{"Weeks 3–5:"}</strong>
+                    {" Design & build a prototype"}
+                  </li>
+                  <li>
+                    <strong>{"Weeks 6–9:"}</strong>
+                    {" Iterate and evolve the prototype"}
+                  </li>
+                  <li>
+                    <strong>{"Weeks 10–12:"}</strong>
+                    {" Document and present"}
+                  </li>
+                </ul>
+              </FaqItem>
+            </FaqList>
+          </Container>
         </section>
-        <section className="apply" id="apply">
-          <div className="apply-copy">
-            <div className="label alt-green">{"Apply"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+        <ClosingSection id="apply">
+          <ClosingCopy>
+            <Label tone="purple">{"Apply"}</Label>
+            <h2 className="mt-5">
               {"We're excited to "}
               <span className="marker">{"hear from you."}</span>
             </h2>
@@ -642,14 +646,14 @@ export default function Page() {
                 "Interested in the fellowship? Leave your email and we'll be in touch about opportunities and next steps."
               }
             </p>
-            <a className="btn primary" href="#signup">
+            <ActionLink variant="primary" href="#signup">
               {"Express interest →"}
-            </a>
+            </ActionLink>
             <p className="apply-note">
               {"Questions? Email rohan@sapiensfirst.org"}
             </p>
-          </div>
-          <div className="apply-panel">
+          </ClosingCopy>
+          <SignupPanel>
             <div className="fun-layer" aria-hidden="true">
               <i
                 style={
@@ -680,7 +684,7 @@ export default function Page() {
                 </svg>
               </i>
             </div>
-            <div className="label">{"Rolling Cohorts"}</div>
+            <Label tone="coral">{"Rolling Cohorts"}</Label>
             <div className="apply-deadline">
               {"Always"}
               <br />
@@ -692,8 +696,8 @@ export default function Page() {
               }
             </p>
             <SignupForm interest="fellowship" buttonText="Keep me posted →" />
-          </div>
-        </section>
+          </SignupPanel>
+        </ClosingSection>
       </main>
     </div>
   );

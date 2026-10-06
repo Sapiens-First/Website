@@ -1,6 +1,7 @@
+import { ActionLink } from "@/components/ui/Action";
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
 import Link from "next/link";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Donate — Sapiens First",
@@ -21,11 +22,11 @@ export default function Page() {
     <div className="route-root route-donate">
       <main className="route-donate">
         <section className="donate-intro" aria-labelledby="donate-heading">
-          <div className="container">
+          <Container>
             <div className="intro-copy">
               <h1 id="donate-heading">
                 {"Help keep the future "}
-                <span className="underline yellow">{"human."}</span>
+                <span className="ink-underline yellow">{"human."}</span>
               </h1>
               <p className="deck">
                 {
@@ -34,7 +35,7 @@ export default function Page() {
               </p>
             </div>
             <div className="intro-giving">
-              <div className="intro-sketch" aria-hidden="true">
+              <div className="intro-sketch my-0 mx-auto" aria-hidden="true">
                 <svg
                   viewBox="0 0 280 270"
                   fill="none"
@@ -64,36 +65,36 @@ export default function Page() {
                 </svg>
               </div>
               <div className="actions">
-                <a
-                  className="btn primary"
+                <ActionLink
+                  variant="donation"
                   id="donate-cta"
                   href="https://www.zeffy.com/en-US/donation-form/support-sapiens-first"
                   target="_blank"
                   rel="noopener"
                 >
                   {"Donate →"}
-                </a>
+                </ActionLink>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
         <section
-          className="donate-section donate-seeds"
+          className="donate-section donate-seeds py-16 px-0 max-sm:py-12 max-sm:px-0"
           aria-labelledby="funding-heading"
         >
-          <div className="container">
+          <Container>
             <div className="story-next">
               <h2 id="funding-heading">{"Support our seed cities."}</h2>
-              <div className="donate-row">
-                <figure className="chapter-target">
+              <div className="donate-row grid gap-y-12 max-md:grid-cols-1 max-md:gap-y-7 max-sm:gap-7">
+                <figure className="chapter-target mt-7 mr-auto mb-0 ml-auto w-60 max-sm:w-48">
                   <span
                     className="ca-map"
                     role="img"
                     aria-label="Map of California, where we're building our seed chapters."
                   ></span>
                 </figure>
-                <div className="donate-copy">
-                  <dl className="gift-tiers">
+                <div className="donate-copy text-xl leading-relaxed min-w-0 max-sm:text-xl">
+                  <dl className="gift-tiers grid gap-4 mt-6">
                     <div className="gift-tier">
                       <dt>{"$1,000"}</dt>
                       <dd>{"Funds one chapter event."}</dd>
@@ -109,35 +110,41 @@ export default function Page() {
                       <dd>{"Powers a chapter's first campaign."}</dd>
                     </div>
                   </dl>
-                  <div className="actions donate-cta-row">
-                    <a
-                      className="btn primary"
+                  <div className="actions donate-cta-row justify-center mt-7">
+                    <ActionLink
+                      variant="donation"
                       id="donate-cta-2"
                       href="https://www.zeffy.com/en-US/donation-form/support-sapiens-first"
                       target="_blank"
                       rel="noopener"
                     >
                       {"Donate →"}
-                    </a>
+                    </ActionLink>
                   </div>
-                  <p className="checkout-note">{"Give once or monthly."}</p>
+                  <p className="checkout-note text-xl leading-normal">
+                    {"Give once or monthly."}
+                  </p>
                 </div>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
         <section
-          className="donate-section donate-story"
+          className="donate-section donate-story py-16 px-0 max-sm:py-12 max-sm:px-0 bg-paper"
           aria-labelledby="progress-heading"
         >
-          <div className="container donate-row">
+          <Container className="donate-row grid gap-y-12 max-md:grid-cols-1 max-md:gap-y-7 max-sm:gap-7">
             <h2 id="progress-heading">
-              <span className="section-index">{"OUR STORY"}</span>
+              <span className="section-index mb-4 tracking-widest">
+                {"OUR STORY"}
+              </span>
               {"Building a Statewide Movement."}
             </h2>
-            <div className="progress-grid donate-wide donate-copy">
-              <div className="progress-item">
-                <strong className="progress-number">{"300–400"}</strong>
+            <div className="progress-grid donate-wide donate-copy grid grid-cols-3 gap-7 max-md:max-w-none max-sm:grid-cols-1 max-sm:gap-7 text-xl leading-relaxed min-w-0 max-sm:text-xl">
+              <div className="progress-item pt-5">
+                <strong className="progress-number block whitespace-nowrap mb-4 max-sm:text-6xl max-sm:mb-2.5">
+                  {"300–400"}
+                </strong>
                 <p>
                   {"People at the "}
                   <a href="https://sfstandard.com/2026/07/11/anti-ai-protest-openai-anthropic-google-san-francisco/">
@@ -146,14 +153,18 @@ export default function Page() {
                   {" we co-organized and fiscally sponsored."}
                 </p>
               </div>
-              <div className="progress-item">
-                <strong className="progress-number">{"50+"}</strong>
+              <div className="progress-item pt-5">
+                <strong className="progress-number block whitespace-nowrap mb-4 max-sm:text-6xl max-sm:mb-2.5">
+                  {"50+"}
+                </strong>
                 <p>
                   {"In-depth voter interviews to shape our first campaign."}
                 </p>
               </div>
-              <div className="progress-item">
-                <strong className="progress-number">{"8"}</strong>
+              <div className="progress-item pt-5">
+                <strong className="progress-number block whitespace-nowrap mb-4 max-sm:text-6xl max-sm:mb-2.5">
+                  {"8"}
+                </strong>
                 <p>
                   {"Volunteer Fellows, with an "}
                   <Link href="/learn">{"organizer guide"}</Link>
@@ -161,15 +172,15 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
         <section
-          className="donate-section donate-giving"
+          className="donate-section donate-giving py-16 px-0 max-sm:py-12 max-sm:px-0"
           aria-labelledby="giving-heading"
         >
-          <div className="container donate-row">
+          <Container className="donate-row grid gap-y-12 max-md:grid-cols-1 max-md:gap-y-7 max-sm:gap-7">
             <h2 id="giving-heading">{"Be a founding patron."}</h2>
-            <div className="donate-copy">
+            <div className="donate-copy text-xl leading-relaxed min-w-0 max-sm:text-xl">
               <p>
                 {
                   "Founding Patrons are the small circle of donors giving $10,000 or more who back that first year."
@@ -188,13 +199,13 @@ export default function Page() {
                 {" to start a conversation."}
               </p>
 
-              <div className="donate-legal">
+              <div className="donate-legal mt-7 pt-6 border-t border-solid border-t-rule text-xl leading-relaxed">
                 {"Sapiens First / Guardrail Project, Inc."}
                 <br />
                 {"U.S. 501(c)(3) nonprofit · EIN 41-4917212."}
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       </main>
     </div>

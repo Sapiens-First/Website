@@ -1,8 +1,9 @@
+import { TextLink } from "@/components/ui/Action";
+import { SplitHero } from "@/components/sections/SplitSection";
+import { Label } from "@/components/ui/Label";
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import "../shared-about-circle-fellowship.css";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "About — Sapiens First",
@@ -22,12 +23,12 @@ export default function Page() {
   return (
     <div className="route-root route-about">
       <main className="route-about">
-        <section className="hero">
+        <SplitHero>
           <div className="hero-copy">
             <div className="kicker">{"About Sapiens First"}</div>
             <h1>
               {"We are the human "}
-              <span className="underline yellow">{"movement."}</span>
+              <span className="ink-underline yellow">{"movement."}</span>
             </h1>
             <p>
               {
@@ -82,23 +83,21 @@ export default function Page() {
               </svg>
             </i>
           </div>
-        </section>
+        </SplitHero>
         <section className="about" id="vision">
-          <div className="container about-grid">
+          <Container className="about-grid">
             <div className="about-copy">
-              <div className="label">{"Vision"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="coral">{"Vision"}</Label>
+              <h2 className="mt-5">
                 {"We imagine tech for the "}
-                <span className="underline blue">{"common good."}</span>
+                <span className="ink-underline blue">{"common good."}</span>
               </h2>
               <p className="deck">
                 {
                   "AI will reshape democracy, prosperity, and security. We're building the political power to make sure it reshapes them for the better."
                 }
               </p>
-              <Link className="text-link" href="/policy">
-                {"Read our Recommendations →"}
-              </Link>
+              <TextLink href="/policy">{"Read our Recommendations →"}</TextLink>
             </div>
             <div className="about-art">
               <div className="circle"></div>
@@ -106,14 +105,17 @@ export default function Page() {
               <div className="tag t2">{"Common Prosperity"}</div>
               <div className="tag t3">{"A Secure Future"}</div>
             </div>
-          </div>
-          <div className="container">
-            <details className="focus-dropdown" id="focus-areas">
+          </Container>
+          <Container>
+            <details
+              className="focus-dropdown mt-11 border-t-2 border-solid border-t-ink border-b-2 border-b-ink"
+              id="focus-areas"
+            >
               <summary>
                 {"Our focus areas "}
                 <span aria-hidden="true" className="focus-toggle"></span>
               </summary>
-              <article className="focus-area">
+              <article className="focus-area pt-0 pr-0 pb-0 pl-5">
                 <h3>{"Democratic Renewal"}</h3>
                 <p>
                   {
@@ -121,7 +123,7 @@ export default function Page() {
                   }
                 </p>
               </article>
-              <article className="focus-area">
+              <article className="focus-area pt-0 pr-0 pb-0 pl-5">
                 <h3>{"Common Prosperity"}</h3>
                 <p>
                   {
@@ -129,7 +131,7 @@ export default function Page() {
                   }
                 </p>
               </article>
-              <article className="focus-area">
+              <article className="focus-area pt-0 pr-0 pb-0 pl-5">
                 <h3>{"A Secure Future"}</h3>
                 <p>
                   {
@@ -138,21 +140,21 @@ export default function Page() {
                 </p>
               </article>
             </details>
-          </div>
+          </Container>
         </section>
         <section className="roadmap-band" id="roadmap">
-          <div className="container">
-            <div className="label alt-blue">{"Our Plan"}</div>
+          <Container>
+            <Label tone="blue">{"Our Plan"}</Label>
             <h2>
               {"City by city, "}
-              <span className="underline blue">{"state by state."}</span>
+              <span className="ink-underline blue">{"state by state."}</span>
             </h2>
             <p className="deck">
               {
                 "We build local chapters, press city councils to act on AI, and bring that momentum together to win policy in California."
               }
             </p>
-            <ol className="strategy-path">
+            <ol className="strategy-path list-none grid grid-cols-3 gap-12 p-0 max-sm:grid-cols-1 max-sm:gap-14">
               <li>
                 <span className="step-icon" aria-hidden="true">
                   <svg viewBox="0 0 36 36">
@@ -179,14 +181,14 @@ export default function Page() {
                 <h3>{"Statewide movement"}</h3>
               </li>
             </ol>
-          </div>
+          </Container>
         </section>
         <section className="strategy" id="strategy">
-          <div className="container">
-            <div className="label alt-green">{"Strategy"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+          <Container>
+            <Label tone="purple">{"Strategy"}</Label>
+            <h2 className="mt-5">
               {"We build "}
-              <span className="underline green">{"movement power."}</span>
+              <span className="ink-underline green">{"movement power."}</span>
             </h2>
             <p className="deck">
               {
@@ -194,12 +196,12 @@ export default function Page() {
               }
             </p>
             <div
-              className="cycle"
+              className="cycle relative w-full max-w-md mt-12 mr-auto mb-3 ml-auto max-sm:max-w-xs max-sm:mt-10 max-sm:mr-auto max-sm:mb-2 max-sm:ml-auto"
               role="group"
               aria-label="Act, Recruit, Train cycle"
             >
               <svg
-                className="cycle-lines"
+                className="cycle-lines absolute inset-0 w-full h-full overflow-visible"
                 viewBox="0 0 380 330"
                 preserveAspectRatio="xMidYMid meet"
                 aria-hidden="true"
@@ -229,58 +231,56 @@ export default function Page() {
                   markerEnd="url(#cycle-arrowhead)"
                 ></path>
               </svg>
-              <div className="cycle-hub">
+              <div className="cycle-hub absolute bg-white border-2 border-solid border-ink py-2.5 px-4 font-display text-base font-extrabold tracking-wider uppercase text-center leading-tight whitespace-nowrap max-sm:text-sm max-sm:py-2 max-sm:px-3">
                 {"Movement"}
                 <br />
                 {"power"}
               </div>
               <button
-                className="cycle-node cycle-node-act"
+                className="cycle-node cycle-node-act absolute rounded-full flex items-center justify-center cursor-pointer font-display font-extrabold uppercase text-ink max-sm:text-xl top-0 bg-coral"
                 type="button"
                 data-step="act"
                 aria-pressed="false"
               >
                 <span>{"Act"}</span>
-                <span className="cycle-tip">
+                <span className="cycle-tip absolute bg-white text-ink border-2 border-solid border-ink py-2.5 px-3 font-body text-xs font-semibold leading-snug normal-case pointer-events-none">
                   {
                     "Visible, peaceful pressure makes AI governance impossible to ignore."
                   }
                 </span>
               </button>
               <button
-                className="cycle-node cycle-node-recruit"
+                className="cycle-node cycle-node-recruit absolute rounded-full flex items-center justify-center cursor-pointer font-display font-extrabold uppercase text-ink max-sm:text-xl bottom-0 bg-brand-yellow"
                 type="button"
                 data-step="recruit"
                 aria-pressed="false"
               >
                 <span>{"Recruit"}</span>
-                <span className="cycle-tip">
+                <span className="cycle-tip absolute bg-white text-ink border-2 border-solid border-ink py-2.5 px-3 font-body text-xs font-semibold leading-snug normal-case pointer-events-none">
                   {
                     "Every public action creates conversations, gatherings, and local relationships."
                   }
                 </span>
               </button>
               <button
-                className="cycle-node cycle-node-train"
+                className="cycle-node cycle-node-train absolute rounded-full flex items-center justify-center cursor-pointer font-display font-extrabold uppercase text-ink max-sm:text-xl bottom-0 bg-brand-blue text-white"
                 type="button"
                 data-step="train"
                 aria-pressed="false"
               >
                 <span>{"Train"}</span>
-                <span className="cycle-tip">
+                <span className="cycle-tip absolute bg-white text-ink border-2 border-solid border-ink py-2.5 px-3 font-body text-xs font-semibold leading-snug normal-case pointer-events-none">
                   {
                     "New advocates learn organizing skills and become leaders for the next action."
                   }
                 </span>
               </button>
             </div>
-            <Link className="text-link" href="/learn">
-              {"Read the Guide →"}
-            </Link>
-          </div>
+            <TextLink href="/learn">{"Read the Guide →"}</TextLink>
+          </Container>
         </section>
         <section className="about" id="founder">
-          <div className="container about-grid">
+          <Container className="about-grid">
             <div className="about-art">
               <Image
                 src="/assets/rohan-prasad.jpg"
@@ -290,10 +290,10 @@ export default function Page() {
               />
             </div>
             <div className="about-copy">
-              <div className="label alt-yellow">{"Founder"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
+              <Label tone="yellow">{"Founder"}</Label>
+              <h2 className="mt-5">
                 {"Rohan Prasad "}
-                <span className="underline yellow">
+                <span className="ink-underline yellow">
                   {"Executive Director."}
                 </span>
               </h2>
@@ -305,13 +305,13 @@ export default function Page() {
                   href="https://www.rohanprasad.org"
                   target="_blank"
                   rel="noopener"
-                  style={{ textDecoration: "underline" } as React.CSSProperties}
+                  className="underline"
                 >
                   {"blog"}
                 </a>
                 {", play guitar, and run barefoot."}
               </p>
-              <div className="founder-socials">
+              <div className="founder-socials flex gap-2.5 mt-6">
                 <a
                   className="social-icon"
                   href="https://x.com/rohantohab"
@@ -346,7 +346,7 @@ export default function Page() {
                 </a>
               </div>
             </div>
-          </div>
+          </Container>
         </section>
       </main>
     </div>

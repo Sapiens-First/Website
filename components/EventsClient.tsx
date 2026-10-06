@@ -2,6 +2,7 @@
 
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { site } from "@/lib/site";
+import { Button } from "@/components/ui/Action";
 
 type GvizCell = { v?: string | number | null; f?: string } | null;
 type GvizRow = { c: GvizCell[] };
@@ -98,34 +99,46 @@ function EventCard({
       tabIndex={0}
     >
       {event.date ? (
-        <div className="event-card-date-col">
-          <span className="event-card-month">
+        <div className="event-card-date-col shrink-0 flex flex-col items-center justify-center py-4 px-2 gap-0.5">
+          <span className="event-card-month font-body text-xs tracking-widest uppercase">
             {months[event.date.getMonth()]}
           </span>
-          <span className="event-card-day">{event.date.getDate()}</span>
-          <span className="event-card-year">{event.date.getFullYear()}</span>
+          <span className="event-card-day font-display font-extrabold text-4xl leading-none text-white tracking-tight max-md:text-4xl">
+            {event.date.getDate()}
+          </span>
+          <span className="event-card-year font-body text-xs tracking-widest">
+            {event.date.getFullYear()}
+          </span>
         </div>
       ) : (
-        <div className="event-card-nodate-col">
-          <span className="event-card-nodate-inner">TBD</span>
+        <div className="event-card-nodate-col shrink-0 bg-line flex items-center justify-center">
+          <span className="event-card-nodate-inner font-body text-xs tracking-widest uppercase">
+            TBD
+          </span>
         </div>
       )}
-      <div className="event-card-body">
-        <div className="event-card-title">{event.title}</div>
+      <div className="event-card-body pt-4 pr-6 pb-4 pl-6 flex flex-col justify-center gap-1 max-sm:pt-3.5 max-sm:pr-4 max-sm:pb-3 max-sm:pl-4">
+        <div className="event-card-title font-display font-bold text-xl leading-none tracking-normal uppercase text-ink max-sm:text-lg">
+          {event.title}
+        </div>
         {meta.length > 0 && (
-          <div className="event-card-meta">
+          <div className="event-card-meta flex items-center gap-2 flex-wrap">
             {meta.map((part, index) => (
               <Fragment key={`${part}-${index}`}>
-                <span className="event-card-meta-item">{part}</span>
+                <span className="event-card-meta-item font-body text-sm text-ink">
+                  {part}
+                </span>
                 {index < meta.length - 1 && (
-                  <span className="event-card-meta-dot">·</span>
+                  <span className="event-card-meta-dot text-line">·</span>
                 )}
               </Fragment>
             ))}
           </div>
         )}
       </div>
-      <div className="event-card-arrow">→</div>
+      <div className="event-card-arrow shrink-0 flex items-center pt-0 pr-5 pb-0 pl-2 font-body text-base max-sm:pt-0 max-sm:pr-3 max-sm:pb-0 max-sm:pl-1">
+        →
+      </div>
     </article>
   );
 }
@@ -231,7 +244,7 @@ export default function EventsClient() {
     <>
       <div id="city-filter-wrap">
         {cities.length >= 2 && (
-          <div className="city-filter">
+          <div className="city-filter flex flex-wrap gap-2 mb-7">
             {[["all", "All cities"], ...cities.map((name) => [name, name])].map(
               ([value, label]) => (
                 <button
@@ -258,7 +271,7 @@ export default function EventsClient() {
         ) : (
           <>
             {upcoming.length > 0 && (
-              <div className="events-list">
+              <div className="events-list flex flex-col border border-solid border-line">
                 {upcoming.map((event) => (
                   <EventCard
                     key={`${event.title}-${event.date?.toISOString()}`}
@@ -270,8 +283,10 @@ export default function EventsClient() {
             )}
             {past.length > 0 && (
               <>
-                <p className="eyebrow past-label">Past Events</p>
-                <div className="events-list">
+                <p className="eyebrow past-label mt-12 mr-0 mb-4 ml-0">
+                  Past Events
+                </p>
+                <div className="events-list flex flex-col border border-solid border-line">
                   {past.map((event) => (
                     <EventCard
                       key={`${event.title}-${event.date?.toISOString()}`}
@@ -296,10 +311,13 @@ export default function EventsClient() {
         }}
       >
         {selected && (
-          <div className="event-modal-inner" id="event-modal-inner">
-            <div className="modal-date-row">
+          <div
+            className="event-modal-inner absolute top-0 right-0 bottom-0 bg-paper cursor-default py-12 px-10 overflow-y-auto flex flex-col gap-5"
+            id="event-modal-inner"
+          >
+            <div className="modal-date-row flex items-center gap-2.5">
               {selected.date && (
-                <span className="modal-date">
+                <span className="modal-date font-body text-sm font-medium tracking-widest uppercase text-coral-dark">
                   {selected.date.toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
@@ -308,19 +326,29 @@ export default function EventsClient() {
                   })}
                 </span>
               )}
-              {selected.date && selected.time && <span className="modal-dot" />}
+              {selected.date && selected.time && (
+                <span className="modal-dot w-0.5 h-0.5 bg-line rounded-full shrink-0" />
+              )}
               {selected.time && (
-                <span className="modal-time">{selected.time}</span>
+                <span className="modal-time font-body text-sm text-ink">
+                  {selected.time}
+                </span>
               )}
             </div>
-            <div className="modal-title">{selected.title}</div>
-            {selected.desc && <p className="modal-desc">{selected.desc}</p>}
+            <div className="modal-title font-display font-extrabold leading-none tracking-normal uppercase text-ink">
+              {selected.title}
+            </div>
+            {selected.desc && (
+              <p className="modal-desc font-body text-base text-ink leading-relaxed border-t border-solid border-t-line pt-5">
+                {selected.desc}
+              </p>
+            )}
             {(selected.address || selected.bring || selected.orgName) && (
-              <div className="modal-details">
+              <div className="modal-details flex flex-col gap-3.5 border-t border-solid border-t-line pt-5">
                 {selected.address && (
-                  <div className="detail-row">
+                  <div className="detail-row flex flex-col gap-1">
                     <span className="eyebrow">Location</span>
-                    <span className="detail-value">
+                    <span className="detail-value font-body text-sm leading-normal">
                       {mapQuery ? (
                         <a
                           href={`https://maps.google.com/?q=${encodeURIComponent(mapQuery)}`}
@@ -337,15 +365,17 @@ export default function EventsClient() {
                   </div>
                 )}
                 {selected.bring && (
-                  <div className="detail-row">
+                  <div className="detail-row flex flex-col gap-1">
                     <span className="eyebrow">What to bring</span>
-                    <span className="detail-value">{selected.bring}</span>
+                    <span className="detail-value font-body text-sm leading-normal">
+                      {selected.bring}
+                    </span>
                   </div>
                 )}
                 {selected.orgName && (
-                  <div className="detail-row">
+                  <div className="detail-row flex flex-col gap-1">
                     <span className="eyebrow">Organizer</span>
-                    <span className="detail-value">
+                    <span className="detail-value font-body text-sm leading-normal">
                       {selected.orgName}
                       {selected.orgPhone && ` · ${selected.orgPhone}`}
                     </span>
@@ -353,10 +383,12 @@ export default function EventsClient() {
                 )}
               </div>
             )}
-            <div className="modal-share-row">
-              <span className="modal-share-url">{shareUrl}</span>
-              <button
-                className={`btn${copied ? " copied" : ""}`}
+            <div className="modal-share-row flex items-center gap-2.5 border-t border-solid border-t-line pt-5">
+              <span className="modal-share-url font-body text-sm text-ink overflow-hidden whitespace-nowrap min-w-0">
+                {shareUrl}
+              </span>
+              <Button
+                className={copied ? "copied" : ""}
                 onClick={async () => {
                   await navigator.clipboard.writeText(shareUrl);
                   setCopied(true);
@@ -364,9 +396,11 @@ export default function EventsClient() {
                 }}
               >
                 {copied ? "Copied!" : "Copy link"}
-              </button>
+              </Button>
             </div>
-            <p className="modal-close-hint">Click outside to close</p>
+            <p className="modal-close-hint font-body text-xs font-medium tracking-widest uppercase text-ink text-center pt-2 mt-auto">
+              Click outside to close
+            </p>
           </div>
         )}
       </div>

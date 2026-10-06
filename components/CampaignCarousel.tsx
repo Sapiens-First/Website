@@ -3,24 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const campaigns = [
-  {
-    id: "freeze",
-    title: "Freeze AI.",
-    description:
-      "Call on the US to slow the development of frontier intelligence.",
-  },
-  {
-    id: "surveillance",
-    title: "Stop 1984.",
-    description: "End AI-enabled mass surveillance.",
-  },
-  {
-    id: "robots",
-    title: "No Killer Robots.",
-    description: "Regulate deadly, autonomous weapons.",
-  },
-] as const;
+import { campaignTeasers as campaigns } from "@/content/campaigns";
 
 export default function CampaignCarousel() {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -89,8 +72,15 @@ export default function CampaignCarousel() {
 
   return (
     <>
-      <div className="campaign-viewport" tabIndex={0} ref={viewportRef}>
-        <div className="campaign-track" ref={trackRef}>
+      <div
+        className="campaign-viewport relative left-1/2 w-screen -translate-x-1/2 overflow-x-auto px-6 py-4 sm:px-20 lg:px-32"
+        tabIndex={0}
+        ref={viewportRef}
+      >
+        <div
+          className="campaign-track flex gap-5 w-max max-sm:gap-3"
+          ref={trackRef}
+        >
           {[-1, 0, 1].flatMap((copy) =>
             campaigns.map((campaign) => (
               <article
@@ -100,7 +90,7 @@ export default function CampaignCarousel() {
                 inert={copy === 0 ? undefined : true}
               >
                 <div className="campaign-art" aria-hidden="true" />
-                <div className="campaign-copy">
+                <div className="campaign-copy absolute left-8 right-8 bottom-7 text-white max-sm:left-5 max-sm:right-5 max-sm:bottom-5">
                   <h4>{campaign.title}</h4>
                   <p>{campaign.description}</p>
                 </div>
@@ -109,13 +99,13 @@ export default function CampaignCarousel() {
           )}
         </div>
       </div>
-      <div className="campaigns-footer">
+      <div className="campaigns-footer grid items-center gap-5 mt-5 max-sm:grid-cols-1 max-sm:gap-5">
         <div
-          className="campaign-controls"
+          className="campaign-controls flex gap-2 max-sm:justify-self-center"
           aria-label="Campaign carousel controls"
         >
           <button
-            className="campaign-arrow campaign-prev"
+            className="campaign-arrow campaign-prev w-12 h-12 border-2 border-solid border-ink text-ink text-xl font-extrabold cursor-pointer max-sm:w-10 max-sm:h-10"
             type="button"
             aria-label="Previous campaign"
             onClick={() => move(-1)}
@@ -123,7 +113,7 @@ export default function CampaignCarousel() {
             ←
           </button>
           <button
-            className="campaign-arrow campaign-next"
+            className="campaign-arrow campaign-next w-12 h-12 border-2 border-solid border-ink text-ink text-xl font-extrabold cursor-pointer max-sm:w-10 max-sm:h-10"
             type="button"
             aria-label="Next campaign"
             onClick={() => move(1)}
@@ -131,7 +121,10 @@ export default function CampaignCarousel() {
             →
           </button>
         </div>
-        <Link className="campaigns-link" href="/campaigns">
+        <Link
+          className="campaigns-link block w-max m-0 justify-self-end pb-0.5 border-b-2 border-solid border-b-ink font-body text-base font-bold tracking-wider uppercase"
+          href="/campaigns"
+        >
           See all campaigns →
         </Link>
       </div>

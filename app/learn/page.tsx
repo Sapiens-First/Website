@@ -1,6 +1,6 @@
+import { Container } from "@/components/layout/Container";
 import type { Metadata } from "next";
 import GuideClient from "@/components/GuideClient";
-import "./page.css";
 
 export const metadata: Metadata = {
   title: "Guide — Sapiens First",
@@ -20,27 +20,27 @@ export default function Page() {
   return (
     <div className="route-root route-learn">
       <div className="page-hero">
-        <div className="container">
+        <Container>
           <div className="kicker">{"Learn · Organize · Act"}</div>
           <h1 className="page-title">
             {"Sapiens' Guide to"}
             <br />
             <span className="title-accent">{"Revolution"}</span>
           </h1>
-          <p className="guide-intro">
+          <p className="guide-intro mt-7 leading-normal max-sm:mt-6">
             {
               "A practical guide to AI, people power, and organizing for change."
             }
           </p>
-        </div>
+        </Container>
       </div>
       <main className="route-learn">
         <section className="guide-section">
-          <div className="container">
+          <Container>
             <div className="guide-layout">
               <GuideClient />
             </div>
-          </div>
+          </Container>
         </section>
       </main>
     </div>

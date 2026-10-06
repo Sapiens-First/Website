@@ -344,7 +344,7 @@ export default function GuideClient() {
               section.children.some((child) => child.id === activeId);
             return (
               <div className="toc-h2-item" key={key}>
-                <div className="toc-h2-row">
+                <div className="toc-h2-row flex items-center">
                   {section.children.length > 0 && (
                     <button
                       className={`toc-chevron${open ? " open" : ""}`}
@@ -400,8 +400,14 @@ export default function GuideClient() {
   return (
     <>
       <aside className="guide-sidebar">
-        <details className="guide-contents" open ref={contentsRef}>
-          <summary className="contents-toggle">Contents</summary>
+        <details
+          className="guide-contents max-lg:bg-white"
+          open
+          ref={contentsRef}
+        >
+          <summary className="contents-toggle cursor-pointer uppercase max-lg:text-xl">
+            Contents
+          </summary>
           <div id="toc-container">{toc}</div>
         </details>
       </aside>

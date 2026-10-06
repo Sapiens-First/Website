@@ -1,8 +1,11 @@
 design-tests/
+test-results/
+playwright-report/
 playground/
 docs/*
 !docs/atlas.md
 !docs/atlas-migration.md
+!docs/design-system.md
 CLAUDE.md
 prose/
 __pycache__/

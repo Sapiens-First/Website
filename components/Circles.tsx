@@ -308,13 +308,21 @@ export default function Circles({
   );
   return (
     <div id="atlas-circle-chart">
-      <nav className="atlas-circle-breadcrumbs" aria-label="Circle hierarchy">
+      <nav
+        className="atlas-circle-breadcrumbs font-body text-xs font-bold leading-loose tracking-normal"
+        aria-label="Circle hierarchy"
+      >
         <a href="#governance/circles">All circles</a>
         {chain.map((node, i) => (
           <Fragment key={node.row.ID}>
-            <span className="atlas-circle-crumb-sep">›</span>
+            <span className="atlas-circle-crumb-sep my-0 mx-2 text-ink font-normal">
+              ›
+            </span>
             {i === chain.length - 1 ? (
-              <span className="atlas-circle-crumb-current" aria-current="page">
+              <span
+                className="atlas-circle-crumb-current text-ink font-extrabold"
+                aria-current="page"
+              >
                 {node.row.Name}
               </span>
             ) : (
@@ -324,8 +332,13 @@ export default function Circles({
         ))}
       </nav>
       {layout.roots.length > 1 && (
-        <nav className="atlas-root-picker" aria-label="Root circles">
-          <span className="atlas-root-picker-label">Root circles:</span>
+        <nav
+          className="atlas-root-picker flex flex-wrap items-center gap-2 mt-2.5 mr-0 mb-1 ml-0"
+          aria-label="Root circles"
+        >
+          <span className="atlas-root-picker-label text-xs font-bold uppercase tracking-wider text-ink">
+            Root circles:
+          </span>
           {layout.roots.map((node) => (
             <a
               key={node.row.ID}
@@ -344,7 +357,7 @@ export default function Circles({
       {data.governance.some(
         (row) => row.ID === selected && row.Status === "Retired",
       ) && (
-        <p className="atlas-circle-hint">
+        <p className="atlas-circle-hint text-xs leading-relaxed mt-3 mr-0 mb-4 ml-0 text-ink">
           This record is retired. The map shows current roles and circles.
         </p>
       )}
@@ -365,7 +378,7 @@ export default function Circles({
       )}
       {focus ? (
         <>
-          <div className="atlas-circle-stage" ref={stage}>
+          <div className="atlas-circle-stage relative" ref={stage}>
             <CircleChart
               {...layout}
               focus={focus}
@@ -392,7 +405,7 @@ export default function Circles({
               />
             )}
           </div>
-          <p className="atlas-circle-hint">
+          <p className="atlas-circle-hint text-xs leading-relaxed mt-3 mr-0 mb-4 ml-0 text-ink">
             {focus.children.length
               ? "Select a circle to explore it, or a role to read its responsibilities. Sizes show containment, not importance."
               : "No roles or subcircles are recorded inside this circle yet."}
@@ -414,7 +427,7 @@ export default function Circles({
         <details className="atlas-unplaced">
           <summary>
             <span>Circle not assigned</span>{" "}
-            <span className="atlas-badge atlas-unplaced-count">
+            <span className="atlas-badge atlas-unplaced-count font-bold bg-soft border-line text-ink">
               {layout.unplaced.length}
             </span>
           </summary>
@@ -430,7 +443,7 @@ export default function Circles({
             )
             .map(([label, nodes]) => (
               <Fragment key={label}>
-                <h4 className="atlas-unplaced-group">
+                <h4 className="atlas-unplaced-group text-xs uppercase tracking-wider font-bold text-ink">
                   {label === "No likely match"
                     ? label
                     : `Possibly related to ${label}`}

@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:ui": "playwright test",
     "format": "prettier --write app components lib next.config.ts eslint.config.mjs"
   },
   "dependencies": {
@@ -17,7 +16,6 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",

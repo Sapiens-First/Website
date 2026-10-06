@@ -30,10 +30,7 @@
     border-color: currentColor;
   }
 }
-
-/* global: custom artwork, content selectors and interaction states. */
 @layer components {
-  /* ─── TOKENS ────────────────────────────── */
   :root {
     --bg: #f8f3eb;
     --white: #ffffff;
@@ -63,8 +60,6 @@
     --max: var(--container-7xl);
     --font-display: var(--font-barlow-condensed), sans-serif;
     --font-body: var(--font-dm-sans), sans-serif;
-
-    /* ─── TYPE SCALE ────────────────────────── */
     --sz-label: var(--text-sm); /* meta, buttons, nav labels, small UI   */
     --sz-copy: var(--text-lg); /* paragraph/body copy inside cards      */
     --sz-title: var(--text-3xl); /* card & component titles               */
@@ -116,8 +111,6 @@
   main {
     @apply flex-1;
   }
-
-  /* ─── NAV (rebrand 09-12 — sticky brutalist header) ── */
   header.site-header {
     @apply sticky top-0 border-b-2 border-solid border-b-ink z-50;
     background: rgba(246, 240, 231, 0.96);
@@ -320,13 +313,8 @@
       @apply text-sm py-2 px-1;
     }
   }
-
-  /* ─── FOOTER (rebrand 09-12) ─────────────── */
   footer.site-footer {
     @apply bg-ink text-white pt-16 pr-0 pb-7 pl-0 text-xs border-t-2 border-solid border-t-ink relative overflow-hidden;
-  }
-  footer.site-footer > .wrap {
-    @apply relative z-2;
   }
   .foot-top {
     @apply flex justify-between flex-wrap pb-10 gap-y-10 gap-x-14;
@@ -384,8 +372,6 @@
       @apply flex-col items-start gap-2;
     }
   }
-
-  /* ─── EMBER FIELD ───────────────────────── */
   .ember-field {
     position: absolute;
     inset: 0;
@@ -412,19 +398,8 @@
     }
   }
 
-  /* ══════════════════════════════════════════════════════════════════════════
-   REBRAND 09-12 DESIGN SYSTEM
-   Ported (as close to verbatim as the shared-architecture constraints allow)
-   from design-tests/rebrand 09-12/. Sitewide atoms/typography/hero/footer-fun
-   live here; each route stylesheet holds that page's unique
-   content sections (crisis/vision/strategy/etc. on the homepage, and so on).
-   ══════════════════════════════════════════════════════════════════════════ */
-
   a {
     @apply no-underline text-inherit;
-  }
-  .serif {
-    font-family: Georgia, "Times New Roman", serif;
   }
 
   h1 {
@@ -438,13 +413,9 @@
   .deck {
     @apply font-body leading-snug text-ink text-xl sm:text-xl lg:text-2xl xl:text-3xl;
   }
-
-  /* ─── SECTION / LABEL ATOMS ─────────────── */
   section {
     @apply border-b-2 border-solid border-b-ink;
   }
-
-  /* ─── HERO (homepage / about / fellowship / etc.) ── */
   .hero {
     @apply grid border-b-2 border-solid border-b-ink grid-cols-2;
     @apply min-h-screen;
@@ -626,28 +597,6 @@
     color: var(--ink);
     transform: rotate(4deg);
   }
-  .hero-art .scribble {
-    position: absolute;
-    width: 120px;
-    height: 35px;
-    border-top: 5px solid var(--yellow);
-    border-radius: 50%;
-    right: 11%;
-    top: 33%;
-    transform: rotate(-13deg);
-  }
-  .hero-art .scribble:after {
-    content: "";
-    position: absolute;
-    width: 84px;
-    height: 28px;
-    border-top: 4px solid var(--yellow);
-    border-radius: 50%;
-    left: 16px;
-    top: 8px;
-  }
-
-  /* ─── PLAYFUL ACCENT SYSTEM — used sparingly ── */
   .marker {
     @apply relative;
     display: inline;
@@ -702,36 +651,11 @@
   .ink-underline.green:after {
     @apply bg-brand-purple;
   }
-  .spark {
-    @apply inline-block w-3 h-3 bg-brand-yellow mt-0 mr-1.5 mb-0.5 ml-0.5;
-    transform: rotate(45deg);
-    vertical-align: middle;
-  }
-  .dot-row {
-    @apply flex gap-1.5 items-center mt-6;
-  }
-  .dot-row i {
-    @apply w-2.5 h-2.5 rounded-full block;
-  }
-  .dot-row i:nth-child(1) {
-    @apply bg-coral;
-  }
-  .dot-row i:nth-child(2) {
-    @apply bg-brand-yellow;
-  }
-  .dot-row i:nth-child(3) {
-    @apply bg-brand-blue;
-  }
-  .dot-row i:nth-child(4) {
-    @apply bg-brand-purple;
-  }
   .jolt {
     @apply inline-block bg-brand-yellow;
     transform: rotate(-2deg);
     padding: 0 0.08em;
   }
-
-  /* ─── EXTRA FUN — decorative SVG icon system ── */
   .fun-layer {
     @apply absolute inset-0 overflow-hidden pointer-events-none z-1;
   }
@@ -746,16 +670,6 @@
     stroke: currentColor;
     stroke-width: 1.8;
     stroke-linecap: round;
-  }
-  .swirl-arrow {
-    @apply block w-16 h-auto text-ink;
-  }
-  .swirl-arrow path {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2.4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
   }
   .moon {
     @apply block;
@@ -832,114 +746,7 @@
     background: var(--pink);
     transform: rotate(-18deg);
   }
-  .sticker-round {
-    @apply absolute w-20 h-20 rounded-full bg-brand-yellow border-2 border-solid border-ink grid text-center font-body text-xs uppercase leading-none place-items-center;
-    font-weight: 950;
-    transform: rotate(9deg);
-    right: 9%;
-    bottom: 25%;
-  }
-  .arrow-burst {
-    position: absolute;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    border: 2px dashed var(--ink);
-    right: 7%;
-    top: 8%;
-  }
-  .arrow-burst:before,
-  .arrow-burst:after {
-    content: "";
-    position: absolute;
-    background: var(--ink);
-  }
-  .arrow-burst:before {
-    width: 34px;
-    height: 2px;
-    left: 38px;
-    top: 52px;
-    transform: rotate(35deg);
-  }
-  .arrow-burst:after {
-    width: 2px;
-    height: 34px;
-    left: 53px;
-    top: 37px;
-    transform: rotate(35deg);
-  }
-
-  /* ─── HERO-FUN (celebratory hero accents) ── */
-  .hero-fun {
-    @apply absolute inset-0 pointer-events-none z-1;
-  }
-  .hero-fun i {
-    @apply absolute block;
-  }
-  .hero-fun .star-one {
-    @apply w-16 h-16 bg-brand-yellow;
-    right: 7%;
-    top: 12%;
-    clip-path: polygon(
-      50% 0,
-      61% 35%,
-      98% 35%,
-      68% 56%,
-      80% 94%,
-      50% 71%,
-      20% 94%,
-      32% 56%,
-      2% 35%,
-      39% 35%
-    );
-    transform: rotate(10deg);
-  }
-  .hero-fun .ring-one {
-    @apply w-24 h-24 border-8 border-solid border-brand-blue rounded-full;
-    right: 11%;
-    bottom: 15%;
-    transform: rotate(-12deg);
-  }
-  .hero-fun .spark-one {
-    @apply w-4 h-14 bg-brand-pink;
-    right: 29%;
-    top: 9%;
-    transform: rotate(24deg);
-  }
-  .hero-fun .spark-two {
-    @apply w-3.5 h-10 bg-brand-yellow;
-    left: 7%;
-    bottom: 9%;
-    transform: rotate(-35deg);
-  }
-  .hero-fun .dots-one {
-    @apply w-16 h-5;
-    right: 4%;
-    top: 42%;
-    background: radial-gradient(circle, var(--red) 0 4px, transparent 5px) 0
-      0/22px 22px;
-  }
   @variant max-sm {
-    .hero-fun .star-one {
-      @apply w-11 h-11;
-      right: 5%;
-      top: 8%;
-    }
-    .hero-fun .ring-one {
-      @apply w-16 h-16;
-      border-width: 6px;
-      right: 4%;
-      bottom: 7%;
-    }
-    .hero-fun .spark-one {
-      @apply h-8;
-      right: 20%;
-      top: 5%;
-    }
-    .hero-fun .spark-two,
-    .hero-fun .dots-one {
-      @apply hidden;
-    }
     .hero-art:before {
       width: 94px;
       height: 94px;
@@ -1028,20 +835,10 @@
       left: 5%;
       bottom: 31%;
     }
-    .hero-art .scribble {
-      width: 86px;
-      right: 7%;
-      top: 32%;
-    }
-    .hero-art .scribble:after {
-      width: 60px;
-    }
     section {
       @apply scroll-mt-20;
     }
   }
-
-  /* ─── PAGE HERO (join / about / donate / guide) ── */
   .page-hero {
     @apply flex flex-col justify-center py-40 px-0 relative overflow-hidden bg-paper border-b-2 border-solid border-b-ink;
   }
@@ -1052,28 +849,16 @@
     @apply font-display font-extrabold leading-none tracking-tighter uppercase text-ink text-center text-6xl sm:text-6xl lg:text-8xl xl:text-8xl opacity-0;
     animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.45s;
   }
-
-  /* ─── KICKER (small solid tag label above a headline) ── */
   .kicker {
     @apply inline-block w-max mb-5 py-2 px-2.5 bg-ink text-white font-body text-xs font-black tracking-widest uppercase;
   }
-
-  /* ─── DIVIDER ───────────────────────────── */
-  .divider {
-    @apply h-px bg-line relative z-2;
-  }
-
-  /* ─── SECTIONS ──────────────────────────── */
   .section {
     @apply py-20 px-0 relative;
   }
   .section-compact {
     @apply py-16 px-0;
   }
-  /* Adjacent sections each carry their own top+bottom padding, so two
-   stacked with no divider between them double up. Drop the top half
-   when a section directly follows another (a .divider in between
-   still breaks the adjacency, so that pairing keeps full spacing). */
+  /* Adjacent sections each carry their own top and bottom padding, so drop the top half when a section directly follows another. */
   .section + .section {
     @apply pt-0;
   }
@@ -1090,238 +875,8 @@
   .body-large strong {
     font-weight: 638;
   }
-
-  /* ─── FLIP CARDS (grid of cards that flip on hover) ── */
-  .flip-cards {
-    @apply grid grid-cols-3 gap-2 mt-7;
-  }
-  .flip-card {
-    @apply h-32 cursor-default;
-    perspective: 1200px;
-  }
-  .flip-card-inner {
-    @apply relative w-full h-full;
-    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transform-style: preserve-3d;
-  }
-  .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  .flip-card-face {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 26px 28px;
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--accent);
-    background: var(--bg);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  .flip-card-face-back {
-    transform: rotateY(180deg);
-    align-items: center;
-  }
-  .flip-card-face-front {
-    align-items: center;
-  }
-  .flip-card-title {
-    @apply font-display font-bold tracking-wider uppercase text-center text-4xl;
-  }
-  .flip-card-text {
-    @apply text-lg leading-relaxed text-ink font-medium text-center;
-  }
-  .flip-card-hrs {
-    @apply font-body text-xs tracking-wider text-ink py-0.5 px-2 border border-solid border-line mt-2.5;
-  }
-  .flip-card-list {
-    @apply list-none p-0 m-0 flex flex-col gap-2;
-  }
-  .flip-card-list li {
-    @apply text-lg leading-normal text-ink font-medium pl-4 relative text-left;
-  }
-  .flip-card-list li::before {
-    @apply absolute left-0 text-coral-dark;
-    content: "–";
-    @apply opacity-60;
-  }
-
-  /* ─── FLYWHEEL (Act / Recruit / Train strategy graphic) ── */
-  .strategy-cycle {
-    @apply mt-10 mr-auto mb-0 ml-auto max-w-2xl;
-  }
-  .flywheel {
-    position: relative;
-    width: 100%;
-    max-width: 540px;
-    aspect-ratio: 380 / 330;
-    margin: 0 auto;
-  }
-  .flywheel-lines {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-  .flywheel-lines path {
-    stroke: var(--accent);
-    stroke-width: 2.5;
-    fill: none;
-    opacity: 0.55;
-  }
-  .flywheel-core ellipse {
-    fill: color-mix(in srgb, var(--bg) 82%, transparent);
-    stroke: color-mix(in srgb, var(--accent) 36%, transparent);
-    stroke-width: 1;
-  }
-  .flywheel-core text {
-    font-family: var(--font-body);
-    font-size: var(--sz-label);
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    fill: var(--text);
-    text-anchor: middle;
-    dominant-baseline: middle;
-  }
-  .flywheel-node {
-    position: absolute;
-    width: 34%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    border: 2.5px solid var(--accent);
-    background: color-mix(in srgb, var(--surface) 60%, transparent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6%;
-    box-sizing: border-box;
-    color: var(--accent-text);
-    cursor: pointer;
-    transition:
-      background 0.2s,
-      box-shadow 0.2s,
-      transform 0.2s;
-  }
-  .flywheel-node:hover,
-  .flywheel-node:focus-visible,
-  .flywheel-node.is-active {
-    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
-    box-shadow: 0 16px 34px rgba(20, 18, 14, 0.12);
-    transform: translateY(-3px);
-  }
-  .flywheel-node:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
-    outline-offset: 4px;
-  }
-  .flywheel-node-top {
-    top: 0;
-    left: 50%;
-    margin-left: -17%;
-  }
-  .flywheel-node-right {
-    bottom: 0;
-    right: 0;
-  }
-  .flywheel-node-left {
-    bottom: 0;
-    left: 0;
-  }
-  .flywheel-label {
-    font-family: var(--font-display);
-    font-size: var(--sz-title);
-    line-height: 1.2;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: currentColor;
-    font-weight: 700;
-    text-align: center;
-  }
-  .flywheel-tip {
-    position: absolute;
-    z-index: 4;
-    left: 50%;
-    bottom: calc(100% + 12px);
-    width: min(240px, 64vw);
-    transform: translate(-50%, 8px);
-    padding: 12px 14px;
-    border: 1px solid var(--border);
-    background: rgba(250, 245, 238, 0.96);
-    color: var(--text);
-    font-size: 15px;
-    line-height: 1.45;
-    font-weight: 500;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition:
-      opacity 0.18s,
-      visibility 0.18s,
-      transform 0.18s;
-  }
-  .flywheel-tip::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -6px;
-    width: 10px;
-    height: 10px;
-    background: rgba(250, 245, 238, 0.96);
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    transform: translateX(-50%) rotate(45deg);
-  }
-  .flywheel-node:hover .flywheel-tip,
-  .flywheel-node:focus-visible .flywheel-tip,
-  .flywheel-node.is-active .flywheel-tip {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, 0);
-  }
-  .flywheel-node-right .flywheel-tip {
-    left: auto;
-    right: 0;
-    transform: translate(0, 8px);
-  }
-  .flywheel-node-right .flywheel-tip::after {
-    left: auto;
-    right: 34px;
-    transform: rotate(45deg);
-  }
-  .flywheel-node-right:hover .flywheel-tip,
-  .flywheel-node-right:focus-visible .flywheel-tip,
-  .flywheel-node-right.is-active .flywheel-tip {
-    transform: translate(0, 0);
-  }
-  .flywheel-node-left .flywheel-tip {
-    left: 0;
-    transform: translate(0, 8px);
-  }
-  .flywheel-node-left .flywheel-tip::after {
-    left: 34px;
-    transform: rotate(45deg);
-  }
-  .flywheel-node-left:hover .flywheel-tip,
-  .flywheel-node-left:focus-visible .flywheel-tip,
-  .flywheel-node-left.is-active .flywheel-tip {
-    transform: translate(0, 0);
-  }
   @variant max-sm {
-    .flywheel {
-      max-width: 390px;
-    }
-    .flywheel-core text {
-      font-size: 11px;
-    }
-    .flywheel-label {
-      font-size: 15px;
-    }
   }
-
-  /* ─── CARD (bordered content block: title + text) ── */
   .card {
     @apply py-6 px-7 border border-solid border-line cursor-default;
     border-top: 3px solid var(--accent);
@@ -1338,14 +893,7 @@
     @apply text-lg leading-relaxed text-ink font-medium;
   }
 
-  /* ─── ACCORDION (shared expand/collapse mechanics) ──────────────
-   Single source of truth for how any expandable on the site moves:
-   chevron rotation, panel grow/fade, focus outline. Add these classes
-   alongside a page's own content classes (e.g. class="campaign-toggle
-   accordion-toggle") — page CSS should only add unique decoration via
-   a variant modifier (.accordion--card, .accordion--rule, ...), never
-   redefine the motion. Built with accordion.js; see that file for the
-   toggle/panel wiring. ── */
+  /* Shared accordion motion: chevron rotation, panel grow/fade, focus outline. Pages add decoration through variant modifiers (e.g. .accordion--rule), never by redefining the motion. */
   .accordion-toggle {
     @apply w-full flex items-center justify-between gap-4 border-0 cursor-pointer text-left;
     background: none;
@@ -1393,26 +941,7 @@
     @apply overflow-hidden min-h-0;
   }
 
-  /* Boxed-card variant: campaign / role cards */
-  .accordion--card {
-    transition:
-      border-color 0.35s ease,
-      background-color 0.35s ease;
-  }
-  .accordion--card:has(.accordion-panel.is-open) {
-    border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
-    background: color-mix(in srgb, var(--accent) 6%, var(--surface) 42%);
-  }
-  .accordion--card .accordion-toggle {
-    @apply py-6 px-7;
-  }
-  .accordion--card .accordion-body {
-    @apply pt-0.5 pr-7 pb-6 pl-7;
-    border-top: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));
-  }
-
-  /* Thin-rule variant: policy dossier list — no box, just a quiet echo
-   of the same open-state cue the card variant uses. */
+  /* Thin-rule variant: no box, just a faint tint on the open item. */
   .accordion--rule {
     transition: background-color 0.35s ease;
   }
@@ -1426,39 +955,25 @@
     @apply pt-1 pr-6 pb-7 pl-6;
     border-top: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
   }
-
-  /* ─── EYEBROW (small tracked mono-style label) ── */
   .eyebrow {
     @apply font-body text-sm tracking-widest uppercase text-ink;
   }
   .eyebrow--accent {
     @apply text-coral-dark;
   }
-
-  /* ─── TEXT LINK (underlined accent link) ── */
-  /* stand-alone, right-aligned on its own line (e.g. under a paragraph) */
-
-  /* ─── BUTTON ─────────────────────────────── */
-  .btn.primary,
-  .btn--solid {
+  .btn.primary {
     @apply bg-coral text-ink border-ink;
   }
 
   .btn.primary:where(
       :not([href="/donate"], [href="donate.html"], [href*="zeffy.com/"])
-    ):hover,
-  .btn--solid:where(
-      :not([href="/donate"], [href="donate.html"], [href*="zeffy.com/"])
     ):hover {
     @apply bg-coral-dark text-white;
   }
   .btn.primary:focus-visible,
-  .btn--solid:focus-visible,
   .sf button:focus-visible {
     @apply outline-2 outline-ink outline-offset-4;
   }
-
-  /* ─── SIGNUP FORM (components/SignupForm.tsx) ── */
   .sf {
     @apply flex gap-2 max-w-md;
   }
@@ -1500,8 +1015,6 @@
       @apply w-full;
     }
   }
-
-  /* ─── ASYNC STATE TEXT (loading / empty / error) ── */
   .loading-state {
     @apply py-10 px-0 font-body text-sm text-ink tracking-widest uppercase;
   }
@@ -1511,16 +1024,12 @@
   .empty-state a {
     @apply text-coral-dark;
   }
-
-  /* ─── PROGRESS BAR ──────────────────────── */
   .progress-bar {
     @apply fixed top-0 left-0 h-0.5 w-full bg-coral pointer-events-none;
     transform-origin: left center;
     transform: scaleX(0);
     @apply z-10001;
   }
-
-  /* ─── SHARE ROW (join.html) ─────────────── */
   .share-buttons {
     @apply flex flex-wrap gap-2.5 justify-center;
   }
@@ -1536,8 +1045,6 @@
     @apply text-ellipsis;
     user-select: all;
   }
-
-  /* ─── ANIMATIONS ────────────────────────── */
   @keyframes fadeUp {
     from {
       opacity: 0;
@@ -1584,12 +1091,7 @@
       transition: none;
     }
   }
-
-  /* ─── RESPONSIVE ────────────────────────── */
   @variant max-lg {
-    .flip-cards {
-      @apply grid-cols-1;
-    }
   }
   @variant max-md {
     .page-hero {
@@ -1603,13 +1105,6 @@
     }
     .body-large {
       @apply text-xl leading-relaxed max-w-full;
-    }
-    .flip-card-title,
-    .flip-card-text {
-      @apply text-lg;
-    }
-    .strategy-cycle {
-      @apply mt-8;
     }
   }
   @variant max-sm {
@@ -1651,7 +1146,6 @@
       @apply grid-cols-none;
     }
   }
-  /* Cascade-safe shared rules for about, circle, fellowship. */
 
   :where(
       .route-root.route-about,
@@ -1729,7 +1223,6 @@
     .n {
     color: var(--red);
   }
-  /* Cascade-safe shared rules for campaigns, policy. */
 
   :where(.route-root.route-campaigns, .route-root.route-policy) .page-hero {
     @apply pt-20 pb-20 px-0;
@@ -1758,7 +1251,6 @@
     .ink-underline {
     white-space: normal;
   }
-  /* Cascade-safe shared rules for home, human-charter. */
 
   :where(.route-root.route-human-charter, .route-root.route-home)
     .crisis-statement
@@ -1802,7 +1294,6 @@
   :where(.route-root.route-human-charter) .charter-hero .actions {
     @apply justify-center mt-9;
   }
-  /* ─── STAKES (dark crisis statement + stat trio) ── */
   :where(.route-root.route-human-charter) .crisis-statement {
     @apply text-white font-display leading-none tracking-tight py-20 lg:py-24 px-7 sm:px-12 lg:px-20 text-4xl sm:text-4xl lg:text-4xl xl:text-5xl;
   }
@@ -1846,7 +1337,6 @@
     @apply text-base leading-snug font-bold;
     @apply max-w-xl;
   }
-  /* ─── PILLARS ── */
   :where(.route-root.route-human-charter) .pillar {
     @apply py-20 lg:py-24 px-0;
   }
@@ -1899,7 +1389,6 @@
     .principle:nth-child(odd) {
     @apply bg-white;
   }
-  /* ─── CLOSING / SIGN ── */
   :where(.route-root.route-human-charter) .closing-copy {
     @apply py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
   }
@@ -1923,7 +1412,6 @@
   :where(.route-root.route-human-charter) .quote cite {
     @apply block mt-5 font-body text-sm font-bold tracking-wider uppercase text-brand-yellow not-italic relative z-2;
   }
-  /* ─── RESPONSIVE ── */
   @variant max-lg {
     :where(.route-root.route-human-charter) .crisis-statement .stats {
       @apply grid-cols-1;
@@ -2049,7 +1537,6 @@
   :where(.route-root.route-donate) .donate-copy .actions {
     @apply mt-6;
   }
-  /* Small teaching diagrams borrow About's shapes and ink outlines. */
   :where(.route-root.route-donate) .donate-intro .site-container {
     @apply relative;
   }
@@ -2091,7 +1578,6 @@
   :where(.route-root.route-donate) .progress-item:nth-child(3) {
     @apply border-coral;
   }
-  /* A faded halftone map, like ink printed into the poster paper. Same treatment as the home page's US map. */
   :where(.route-root.route-donate) .ca-map {
     display: block;
     width: 100%;
@@ -2199,14 +1685,12 @@
       @apply max-w-none;
     }
   }
-  /* The inner-page type scale is shared; unique About details stay here. */
   :where(.route-root.route-about) h2,
   :where(.route-root.route-fellowship) h2,
   :where(.route-root.route-circle) h2 {
     @apply leading-none text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
   }
-  /* This mockup has no yellow ink-underline squiggle below the hero paragraph
-       (that decorative :after is homepage-only) — suppress app/globals.css's copy. */
+  /* No ink-underline squiggle below the hero paragraph (that :after is homepage-only). */
   :where(.route-root.route-about) .hero-copy:after,
   :where(.route-root.route-fellowship) .hero-copy:after,
   :where(.route-root.route-circle) .hero-copy:after {
@@ -2224,13 +1708,10 @@
   :where(.route-root.route-circle) .hero-note {
     @apply mt-4 text-xs font-semibold italic text-ink relative z-2;
   }
-  /* ─── TEXT LINK (this page's own — see app/globals.css's .text-link for the
-       old design system's accent-based version used by unconverted pages) ── */
   :where(.route-root.route-about) .text-link,
   :where(.route-root.route-fellowship) .text-link {
     @apply inline-block mt-4 pb-0.5 border-b-2 border-solid border-b-ink text-ink font-body text-xs font-black tracking-wider uppercase;
   }
-  /* ─── ABOUT (two-col, reused for Vision + Founder) ── */
   :where(.route-root.route-about) .about,
   :where(.route-root.route-fellowship) .about {
     @apply bg-white py-24 px-0;
@@ -2323,7 +1804,6 @@
     height: 18px;
     display: block;
   }
-  /* Focus areas expand within Vision. */
   :where(.route-root.route-about) .focus-dropdown > summary {
     @apply flex justify-between items-center gap-6 py-6 px-0 cursor-pointer list-none uppercase font-display font-extrabold text-2xl sm:text-2xl lg:text-2xl xl:text-3xl leading-tight;
   }
@@ -2358,7 +1838,6 @@
     @apply text-base leading-normal;
     @apply max-w-4xl;
   }
-  /* Local chapters grow into a statewide movement. */
   :where(.route-root.route-about) .roadmap-band {
     background: #e5efff;
     padding: 100px 0;
@@ -2417,7 +1896,6 @@
       transform: translateX(-50%);
     }
   }
-  /* ─── STRATEGY / cycle ── */
   :where(.route-root.route-about) .strategy {
     @apply bg-white py-24 px-0;
   }
@@ -2520,7 +1998,6 @@
       transform: none;
     }
   }
-  /* ─── RESPONSIVE ── */
   @variant max-lg {
     :where(.route-root.route-about) .about-grid {
       @apply grid-cols-1;
@@ -2581,7 +2058,6 @@
       padding: 64px 0;
     }
   }
-  /* Fellowship-only form and application details stay here. */
   :where(.route-root.route-fellowship) .actions {
     @apply relative z-2;
   }
@@ -2589,15 +2065,11 @@
   :where(.route-root.route-circle) .btn {
     @apply py-4 px-5 text-sm;
   }
-  /* This mockup has no yellow ink-underline squiggle below the hero paragraph
-       (that decorative :after is homepage-only) — suppress app/globals.css's copy. */
+  /* No ink-underline squiggle below the hero paragraph (that :after is homepage-only). */
   :where(.route-root.route-fellowship) .fact-pills,
   :where(.route-root.route-circle) .fact-pills {
     @apply flex flex-wrap gap-2 mt-0 mr-0 mb-7 ml-0 relative z-2;
   }
-  /* ─── TEXT LINK (this page's own — see app/globals.css's .text-link for the
-       old design system's accent-based version used by unconverted pages) ── */
-  /* ─── QUICK FACTS BAR ── */
   :where(.route-root.route-fellowship) .factbar {
     @apply p-0;
   }
@@ -2629,8 +2101,6 @@
   :where(.route-root.route-fellowship) .factbar .stat:nth-child(4) strong {
     @apply text-brand-purple;
   }
-  /* ─── ABOUT (two-col) ── */
-  /* ─── ABOUT YOU / focus rows ── */
   :where(.route-root.route-fellowship) .about-you,
   :where(.route-root.route-circle) .about-you {
     @apply bg-paper py-24 px-0 relative overflow-hidden;
@@ -2664,7 +2134,6 @@
   :where(.route-root.route-circle) .focus-row .name {
     @apply text-xl font-extrabold leading-snug;
   }
-  /* ─── ROLES accordion ── */
   :where(.route-root.route-fellowship) .roles {
     @apply py-24 px-0;
   }
@@ -2736,7 +2205,6 @@
   :where(.route-root.route-fellowship) .role-note {
     @apply max-w-3xl;
   }
-  /* ─── COMMITMENT banner ── */
   :where(.route-root.route-fellowship) .commitment {
     @apply relative;
   }
@@ -2751,7 +2219,6 @@
   :where(.route-root.route-fellowship) .commitment-pills span {
     @apply bg-ink text-white py-2.5 px-3.5 text-xs font-black tracking-wider uppercase;
   }
-  /* ─── BENEFITS ── */
   :where(.route-root.route-fellowship) .benefits {
     @apply py-24 px-0 relative;
   }
@@ -2765,7 +2232,6 @@
     @apply mt-6 mr-0 mb-0 ml-0;
     @apply max-w-xl;
   }
-  /* ─── FAQ ── */
   :where(.route-root.route-fellowship) .faq,
   :where(.route-root.route-circle) .faq {
     @apply bg-white py-24 px-0;
@@ -2781,7 +2247,6 @@
   :where(.route-root.route-fellowship) .faq-table th {
     @apply text-xs tracking-wider uppercase text-coral-dark font-black;
   }
-  /* ─── APPLY ── */
   :where(.route-root.route-fellowship) .apply,
   :where(.route-root.route-circle) .apply {
     @apply grid grid-cols-2 bg-paper;
@@ -2825,7 +2290,6 @@
     content: "";
     transform: rotate(-3deg);
   }
-  /* ─── RESPONSIVE ── */
   @variant max-lg {
     :where(.route-root.route-fellowship) .hero-art {
       min-height: 420px;
@@ -2934,7 +2398,6 @@
       @apply text-5xl sm:text-6xl lg:text-6xl xl:text-6xl;
     }
   }
-  /* Circle-only artwork and layout details stay here. */
   :where(.route-root.route-circle) .circle-hero-art {
     display: grid;
     place-items: center;
@@ -2981,7 +2444,6 @@
     height: 40px;
     flex-shrink: 0;
   }
-  /* ─── ABOUT YOU / focus rows ── */
   :where(.route-root.route-circle) .focus-row p {
     @apply mt-2 mr-0 mb-0 ml-0 text-base leading-relaxed;
   }
@@ -3034,7 +2496,6 @@
   :where(.route-root.route-circle) .role-list span {
     @apply text-base leading-relaxed;
   }
-  /* ─── APPLY / closing ── */
   :where(.route-root.route-circle) .apply-panel .apply-deadline,
   :where(.route-root.route-circle) .apply-panel p,
   :where(.route-root.route-circle) .apply-panel .signup-row {
@@ -3059,7 +2520,6 @@
     @apply text-sm font-medium mt-3.5 mr-0 mb-0 ml-0;
     @apply max-w-lg;
   }
-  /* ─── RESPONSIVE ── */
   @variant max-lg {
     :where(.route-root.route-circle) .hero-art {
       min-height: 420px;
@@ -3124,7 +2584,6 @@
   :where(.route-root.route-home) .hero-read-more {
     @apply text-sm;
   }
-  /* ─── CRISIS ────────────────────────────── */
   :where(.route-root.route-home) .crisis-statement {
     @apply bg-ink text-white font-display leading-none tracking-tighter relative overflow-hidden py-20 lg:py-24 px-7 sm:px-12 lg:px-20 text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
   }
@@ -3200,7 +2659,6 @@
     @apply text-xl sm:text-xl lg:text-xl xl:text-xl;
     letter-spacing: normal;
   }
-  /* ─── VISION ────────────────────────────── */
   :where(.route-root.route-home) .vision {
     @apply relative;
   }
@@ -3238,7 +2696,6 @@
       5% 60%
     );
   }
-  /* ─── PRIORITY CAMPAIGNS ────────────────── */
   :where(.route-root.route-home) .campaigns-head {
     @apply mb-6;
   }
@@ -3370,7 +2827,6 @@
   :where(.route-root.route-home) .campaigns-link:hover {
     @apply text-coral border-coral;
   }
-  /* ─── STRATEGY ──────────────────────────── */
   :where(.route-root.route-home) .strategy {
     @apply bg-white pt-20 pr-0 pb-0 pl-0 relative overflow-hidden border-b-2 border-solid border-b-ink;
   }
@@ -3436,7 +2892,6 @@
   :where(.route-root.route-home) .step:nth-child(3) h3:after {
     @apply bg-brand-purple;
   }
-  /* ─── INVOLVED ──────────────────────────── */
   :where(.route-root.route-home) .involved-copy {
     @apply relative py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
   }
@@ -3486,7 +2941,6 @@
   :where(.route-root.route-home) .quote cite {
     @apply block mt-6 font-body not-italic text-base leading-normal font-bold uppercase tracking-wider text-white;
   }
-  /* ─── PHOTO SYSTEM (hero-art uses a real photo instead of decorative shapes) ── */
   :where(.route-root.route-home) .hero-art {
     background: #f40000;
   }
@@ -3513,8 +2967,6 @@
   :where(.route-root.route-home) .hero-art .poster {
     display: none;
   }
-  /* Keep accents in compact corner groups, clear of copy and photo subjects. */
-  /* A faded halftone map, like ink printed into the poster paper. */
   :where(.route-root.route-home) .hero-copy:before {
     @apply absolute h-auto border-0 rounded-none pointer-events-none;
     content: "";
@@ -3532,7 +2984,6 @@
     mask: url("/assets/us.svg") center / contain no-repeat;
     transform: rotate(-9deg);
   }
-  /* Loose groups of paper strips in the three hero accent colors. */
   :where(.route-root.route-home) .hero-confetti {
     position: absolute;
     width: 160px;
@@ -3603,10 +3054,8 @@
     stroke-width: 3;
     stroke-linecap: round;
   }
-  /* Poster-style emphasis: a brush stroke, a printed block, and a penned box. */
   :where(.route-root.route-home) .word-brush,
-  :where(.route-root.route-home) .word-block,
-  :where(.route-root.route-home) .word-outline {
+  :where(.route-root.route-home) .word-block {
     @apply relative inline-block;
   }
   :where(.route-root.route-home) h1 .jolt {
@@ -3627,19 +3076,6 @@
     transform: rotate(-2deg);
     box-shadow: 0.045em 0.045em 0 var(--ink);
   }
-  :where(.route-root.route-home) .word-outline {
-    @apply leading-none;
-    padding: 0.02em 0.09em;
-  }
-  :where(.route-root.route-home) .word-outline:after {
-    @apply absolute pointer-events-none;
-    content: "";
-    inset: 0 -0.015em;
-    border: 3px solid var(--red);
-    border-radius: 9% 3% 7% 2%;
-    transform: rotate(-3deg);
-  }
-  /* Section symbols share the hero's rounded, three-unit line work. */
   :where(.route-root.route-home) .section-mark {
     @apply text-coral;
     right: max(28px, 7vw);
@@ -3722,8 +3158,6 @@
     }
   }
   @variant max-lg {
-    :where(.route-root.route-home) .crisis-head,
-    :where(.route-root.route-home) .vision-grid,
     :where(.route-root.route-home) .strategy-grid {
       @apply grid-cols-1;
     }
@@ -3752,10 +3186,6 @@
     }
   }
   @variant max-md:sm {
-    :where(.route-root.route-home) .crisis-head,
-    :where(.route-root.route-home) .vision-grid {
-      @apply gap-12;
-    }
     :where(.route-root.route-home) .quote {
       @apply min-h-120;
     }
@@ -3793,9 +3223,6 @@
     :where(.route-root.route-home) .crisis-statement .stat span {
       @apply text-left;
       @apply max-w-sm;
-    }
-    :where(.route-root.route-home) .vision-grid {
-      @apply gap-7;
     }
     :where(.route-root.route-home) .vision-copy .deck {
       @apply mt-5;
@@ -3849,7 +3276,6 @@
       box-shadow: 9px 9px 0 rgba(244, 0, 0, 0.24);
     }
   }
-  /* Oversized architectural contours fade into the section edges. */
   :where(.route-root.route-home) .strategy {
     background-image: url("/assets/homepage-strategy-contours.svg");
     background-size: 1000px 600px;
@@ -3871,12 +3297,7 @@
     }
   }
   :where(.route-root.route-atlas) {
-    /* ─── ATLAS ICONS ───────────────────────── shared 14–18px, non-text glyphs.
-   Applied as CSS mask-image ::before pseudo-elements so they never touch
-   textContent (Playwright assertions in scripts/tests/ check exact text on
-   several of these elements) and never require SVG-in-SVG hacks inside the
-   canvases. One glyph per object Type, reused identically across Table,
-   People, and every breadcrumb/list surface. */
+    /* Atlas icons are mask-image ::before pseudo-elements so they never alter textContent (tests assert exact text). One glyph per Type, shared across the table, people and breadcrumbs. */
     & {
       --atlas-icon-circle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6.5' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3Ccircle cx='8' cy='8' r='2.4' fill='%23000'/%3E%3C/svg%3E");
       --atlas-icon-role: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='5.4' r='2.6' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3Cpath d='M2.6 14c.7-3 2.8-4.6 5.4-4.6s4.7 1.6 5.4 4.6' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -3937,10 +3358,6 @@
       -webkit-mask-image: var(--atlas-icon-person);
       mask-image: var(--atlas-icon-person);
     }
-
-    /* ─── HERO ──────────────────────────────── roomy, minimal: kicker + one
-   headline + one line of subhead. Longer explanation lives in the disclosure
-   right below, closed by default. */
     .atlas-hero .kicker {
       @apply mb-4;
     }
@@ -3980,9 +3397,6 @@
         @apply text-4xl sm:text-5xl lg:text-5xl xl:text-5xl;
       }
     }
-
-    /* ─── TOOLBAR ───────────────────────────── one sticky row: view switch,
-   search, filter, format switch. Segmented controls, not giant buttons. */
     .atlas-toolbar {
       @apply z-20;
       background: color-mix(in srgb, var(--bg) 96%, transparent);
@@ -4095,9 +3509,7 @@
       }
     }
 
-    /* ─── TABLE ─────────────────────────────── compact, scannable rows.
-   Structure stays a real <table> (accessibility + existing tests); density,
-   icons and metadata chips come entirely from CSS + small class hooks. */
+    /* The table stays a real <table> for accessibility; density, icons and chips come from CSS. */
     .atlas table {
       @apply w-full text-sm text-left border-collapse;
     }
@@ -4169,10 +3581,6 @@
         @apply hidden;
       }
     }
-
-    /* ─── RECORD PANEL ──────────────────────── the one detail mechanism, reused
-   (unstyled structurally) across Table/Circles/Tree/People. Flat card, thin
-   border, red accent rule instead of a heavy box-shadow "poster" treatment. */
     .atlas a {
       @apply underline-offset-2 text-inherit;
     }
@@ -4237,9 +3645,6 @@
         @apply mb-2.5;
       }
     }
-
-    /* ─── CIRCLES ───────────────────────────── flatter canvas, muted lineage
-   palette, red accent for hover/selected (already the case; extended here). */
     .atlas-circles-layout {
       @apply grid gap-5 items-start grid-cols-1;
     }
@@ -4258,9 +3663,7 @@
       max-height: 780px;
       margin: 6px auto;
       overflow: visible;
-      /* A slower, decelerating (ease-out-quint-ish) curve reads as a camera
-     settling into place rather than a linear pop — closer to an actual
-     zoom than the quick, constant-speed .26s/ease this replaced. */
+      /* Decelerating curve so the zoom reads as a camera settling, not a linear pop. */
       transition:
         opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
         transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
@@ -4275,10 +3678,7 @@
       opacity: 0;
       transform: scale(1.2);
     }
-    /* The outgoing level: an absolutely-positioned overlay that keeps
-   animating (past the incoming level's start/end points) while the new
-   one animates in beneath it, so the two halves read as one continuous
-   zoom instead of a hard cut followed by a one-sided entrance. */
+    /* Outgoing level: an absolutely-positioned overlay that keeps animating while the new level animates in beneath it, so the two read as one continuous zoom. */
     .atlas-circle-svg.atlas-circle-leaving {
       position: absolute;
       inset: 0;
@@ -4445,10 +3845,6 @@
         stroke-width: 4.5;
       }
     }
-
-    /* ─── EXPLORER (Domains outline) ─────────── file-browser-style rows: no
-   SVG canvas, no zoom/pan. Hierarchy reads through indentation, subtle
-   guide lines and typography weight/size — never primarily through color. */
     .atlas-outline-layout {
       @apply grid gap-5 items-start grid-cols-1;
     }
@@ -4637,10 +4033,6 @@
         @apply max-h-none;
       }
     }
-
-    /* ─── ALIGNMENT (Domains cross-cutting relationships) ── editorial matrix,
-   not a spreadsheet: generous rows, light rules, sticky headers/first
-   column, a single accent mark for "supports". */
     .atlas-alignment-layout {
       @apply grid gap-5 items-start grid-cols-1;
     }
@@ -4703,10 +4095,6 @@
         @apply max-h-none;
       }
     }
-
-    /* ─── PEOPLE ────────────────────────────── compact row list (same density
-   language as the Table), not a card grid: one row per person, icon + name +
-   engagement chip + role links, quiet separators, red-accent hover/select. */
     .atlas-people-grid {
       @apply border border-solid border-line;
     }
@@ -4764,8 +4152,6 @@
         @apply py-2 px-2.5;
       }
     }
-
-    /* Lists keep role responsibilities and access easy to scan. */
     .atlas-field-list {
       @apply m-0 list-disc;
     }
@@ -5017,7 +4403,6 @@
       @apply pt-10 pr-0 pb-14 pl-0;
     }
   }
-  /* ─── CONSTRUCTION BOX ──────────────────── */
   :where(.route-root.route-membership) .construction-icon {
     width: 44px;
     height: 44px;
@@ -5098,11 +4483,9 @@
       @apply flex-wrap;
     }
   }
-  /* ─── EVENTS SECTION ─────────────────────── */
   :where(.route-root.route-events) .events-title {
     @apply text-4xl sm:text-4xl lg:text-6xl xl:text-6xl;
   }
-  /* ─── CITY FILTER ───────────────────────── */
   :where(.route-root.route-events) .city-btn {
     @apply font-body text-sm tracking-widest uppercase py-2 px-4 border border-solid border-line bg-transparent text-ink cursor-pointer;
     transition:
@@ -5116,8 +4499,6 @@
   :where(.route-root.route-events) .city-btn.active {
     @apply bg-coral border-coral-dark text-white;
   }
-  /* ─── EVENT LIST ────────────────────────── */
-  /* ─── EVENT CARD ────────────────────────── */
   :where(.route-root.route-events) .event-card {
     @apply flex items-stretch border-b border-solid border-b-line cursor-pointer min-h-24;
     transition: background 0.15s;
@@ -5168,8 +4549,6 @@
     @apply text-coral-dark;
     transform: translateX(3px);
   }
-  /* ─── PAST LABEL ────────────────────────── */
-  /* ─── EVENT MODAL ───────────────────────── */
   :where(.route-root.route-events) .event-modal {
     @apply fixed inset-0 cursor-pointer;
     background: rgba(0, 0, 0, 0.3);
@@ -5204,7 +4583,6 @@
   :where(.route-root.route-events) .modal-share-url {
     @apply text-ellipsis flex-1;
   }
-  /* ─── RESPONSIVE ────────────────────────── */
   @variant max-md {
     :where(.route-root.route-events) .event-card-date-col,
     :where(.route-root.route-events) .event-card-nodate-col {
@@ -5439,7 +4817,6 @@
       @apply mt-14 pt-8;
     }
   }
-  /* Use the same display type, paper background, and labels as About. */
   @variant max-sm {
     :where(.route-root.route-campaigns) .page-hero {
       @apply pt-14 pr-0 pb-12 pl-0;
@@ -5481,10 +4858,6 @@
       @apply py-12 px-0;
     }
   }
-  /* ─── CAMPAIGNS (horizontal expandable, matching about>focus-areas) ───
-       Tab-style expandable — a variant of the shared .accordion-* mechanics
-       in app/globals.css (chevron rotation, focus outline, panel grow/fade).
-       This block only adds the tab-row layout and content decoration. ─── */
   :where(.route-root.route-campaigns) .campaign-grid {
     --campaign-panel-bg: #fff;
   }
@@ -5564,14 +4937,11 @@
       @apply border-t-2 border-solid border-t-ink;
     }
   }
-  /* Use the same display type, paper background, and labels as About. */
   @variant max-sm {
     :where(.route-root.route-policy) .page-hero {
       @apply pt-14 pr-0 pb-12 pl-0;
     }
   }
-  /* Document-style prose — left-aligned, measured width, not centered
-       marketing copy — since this content sits beside a sidebar TOC. */
   :where(.route-root.route-policy) .guide-main .body-large {
     @apply text-left max-w-none mt-0 mr-0 mb-4 ml-0 leading-normal font-medium text-lg sm:text-lg lg:text-lg xl:text-xl;
   }
@@ -5589,7 +4959,6 @@
   :where(.route-root.route-policy) .guide-main .overview-list li::marker {
     @apply text-coral-dark;
   }
-  /* ─── GUIDE-STYLE LAYOUT (sidebar TOC + content) ───────────── */
   :where(.route-root.route-policy) .guide-section {
     @apply pt-20 pr-0 pb-24 pl-0 bg-white;
   }
@@ -5614,7 +4983,6 @@
       overflow-y: visible;
     }
   }
-  /* TOC */
   :where(.route-root.route-policy) .toc-label {
     @apply block pb-2.5 border-b border-solid border-b-line mb-1;
   }
@@ -5653,7 +5021,6 @@
       @apply text-base p-2;
     }
   }
-  /* ─── PILLARS + POLICY ACCORDION CARDS ───────────── */
   :where(.route-root.route-policy) .policy-pillar {
     @apply mt-0 mr-0 mb-16 ml-0 border-b-0;
     --pillar-color: var(--red);
@@ -5667,8 +5034,6 @@
   :where(.route-root.route-policy) .policy-pillar:last-of-type {
     @apply mb-0;
   }
-  /* Document-style section heading — left-aligned with a rule, like a
-       formal report heading, rather than the centered marketing label. */
   :where(.route-root.route-policy) .guide-main .section-label {
     @apply text-left mt-0 mr-0 mb-3.5 ml-0 font-display font-extrabold leading-none tracking-normal pb-4 text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
     -webkit-text-stroke: 0;
@@ -5680,8 +5045,6 @@
   :where(.route-root.route-policy) .guide-main .pillar-lead {
     @apply mt-4 mr-0 mb-8 ml-0;
   }
-  /* Numbered entries use the shared accordion motion, with the bold
-       rules and colored accents used by the About page. */
   :where(.route-root.route-policy) #policy-content {
     counter-reset: policy-num;
   }
@@ -5741,55 +5104,11 @@
   :where(.route-root.route-policy) .policy-card-body strong {
     @apply font-bold;
   }
-  /* How it's done — Cities vs. State tabs */
-  :where(.route-root.route-policy) .howits {
-    @apply mt-0 mr-0 mb-3.5 ml-0;
-  }
-  :where(.route-root.route-policy) .howits-tabs {
-    @apply flex gap-0.5 flex-wrap;
-  }
-  :where(.route-root.route-policy) .howits-tab {
-    @apply border border-solid border-line border-b-0 bg-transparent cursor-pointer py-2 px-4 font-body text-sm font-semibold tracking-wide text-ink opacity-60;
-    transition:
-      opacity 0.18s ease,
-      background 0.18s ease;
-  }
-  :where(.route-root.route-policy) .howits-tab:hover {
-    @apply opacity-80;
-  }
-  :where(.route-root.route-policy) .howits-tab.is-active {
-    @apply bg-brand-yellow opacity-100;
-  }
-  :where(.route-root.route-policy) .howits-tab:focus-visible {
-    outline: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
-    @apply -outline-offset-2;
-  }
-  :where(.route-root.route-policy) .howits-panel {
-    @apply border border-solid border-line bg-paper pt-4 pr-4 pb-0.5 pl-4;
-  }
-  :where(.route-root.route-policy) .howits-content {
-    @apply opacity-0;
-    transition: opacity 0.2s ease;
-  }
-  :where(.route-root.route-policy) .howits-content.is-visible {
-    @apply opacity-100;
-  }
-  :where(.route-root.route-policy) .howits-content p:last-child,
-  :where(.route-root.route-policy) .howits-content ul:last-child {
-    @apply mb-3.5;
-  }
   @variant max-sm {
     :where(.route-root.route-policy) .policy-card-body {
       @apply pt-1 pr-4 pb-5 pl-4;
     }
-    :where(.route-root.route-policy) .howits-tab {
-      @apply py-2 px-3 text-xs;
-    }
-    :where(.route-root.route-policy) .howits-panel {
-      @apply pt-3.5 pr-3.5 pb-0.5 pl-3.5;
-    }
   }
-  /* Closing colophon */
   :where(.route-root.route-policy) .policy-colophon-meta {
     @apply opacity-60;
   }
@@ -5849,35 +5168,3 @@
     @apply xl:col-span-2;
   }
 }
-
-/* human-charter: custom artwork, content selectors and interaction states. */
-
-/* donate: custom artwork, content selectors and interaction states. */
-
-/* about: custom artwork, content selectors and interaction states. */
-
-/* fellowship: custom artwork, content selectors and interaction states. */
-
-/* circle: custom artwork, content selectors and interaction states. */
-
-/* home: custom artwork, content selectors and interaction states. */
-
-/* atlas: custom artwork, content selectors and interaction states. */
-
-/* privacy: custom artwork, content selectors and interaction states. */
-
-/* careers: custom artwork, content selectors and interaction states. */
-
-/* careers/builder: custom artwork, content selectors and interaction states. */
-
-/* membership: custom artwork, content selectors and interaction states. */
-
-/* join: custom artwork, content selectors and interaction states. */
-
-/* events: custom artwork, content selectors and interaction states. */
-
-/* learn: custom artwork, content selectors and interaction states. */
-
-/* campaigns: custom artwork, content selectors and interaction states. */
-
-/* policy: custom artwork, content selectors and interaction states. */

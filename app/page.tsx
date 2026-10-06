@@ -502,9 +502,7 @@ export default function Page() {
           </div>
           <div className="quote">
             <blockquote>
-              {
-                "\n        “It always seems impossible until it is done.”\n        "
-              }
+              {"“It always seems impossible until it is done.”"}
               <cite>{"Nelson Mandela"}</cite>
             </blockquote>
           </div>

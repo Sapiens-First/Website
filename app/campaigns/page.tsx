@@ -37,14 +37,13 @@ export default function Page() {
           <Container>
             <p className="body-large reveal">
               {
-                "\n          Our long-term goal is to build movement power. Having intermediary objectives helps structure activities, allowing us to build leaders and expand movement participation.\n        "
+                "Our long-term goal is to build movement power. Having intermediary objectives helps structure activities, allowing us to build leaders and expand movement participation."
               }
             </p>
             <p className="body-large reveal">
-              {"\n          These campaigns are drawn from our "}
+              {"These campaigns are drawn from our "}
               <TextLink
                 href="/policy"
-
                 style={
                   {
                     textTransform: "none",
@@ -56,12 +55,12 @@ export default function Page() {
                 {"policies"}
               </TextLink>
               {
-                ". They are intended to be achievable, so that we have momentum in the movement. Therefore, they are chosen to be either incremental or symbolic.\n        "
+                ". They are intended to be achievable, so that we have momentum in the movement. Therefore, they are chosen to be either incremental or symbolic."
               }
             </p>
             <p className="body-large reveal">
               {
-                "\n          Campaigns also help us win the support of institutions, like politicians, other advocacy organizations, and the media. This, however, is secondary to the objective of getting lots of people involved in the fight for democracy.\n        "
+                "Campaigns also help us win the support of institutions, like politicians, other advocacy organizations, and the media. This, however, is secondary to the objective of getting lots of people involved in the fight for democracy."
               }
             </p>
           </Container>

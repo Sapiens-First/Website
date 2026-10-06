@@ -225,7 +225,7 @@ export default function Page() {
           <div className="quote">
             <blockquote>
               {
-                "\n        We offer these as a North Star — a vision that empowers us to fight for our Rights for the decades ahead.\n      "
+                "We offer these as a North Star — a vision that empowers us to fight for our Rights for the decades ahead."
               }
             </blockquote>
             <cite>{"The Human Charter, v0.1"}</cite>

@@ -26,17 +26,15 @@ export default function Page() {
             </h1>
             <p className="privacy-text text-lg leading-relaxed">
               {
-                "\n          We collect your email address when you sign up. We use it to send you updates about Sapiens First — actions, calls, and news. We don't sell it, share it, or do anything sketchy with it. To opt out or request deletion, email "
+                "We collect your email address when you sign up. We use it to send you updates about Sapiens First — actions, calls, and news. We don't sell it, share it, or do anything sketchy with it. To opt out or request deletion, email "
               }
               <a href="mailto:rohan@sapiensfirst.org">
                 {"rohan@sapiensfirst.org"}
               </a>
-              {".\n        "}
+              {"."}
             </p>
             <p className="privacy-cookies text-sm leading-relaxed text-ink pt-4 border-t border-solid border-t-line">
-              {
-                "\n          We do not use cookies or tracking software on this website.\n        "
-              }
+              {"We do not use cookies or tracking software on this website."}
             </p>
           </div>
         </Container>

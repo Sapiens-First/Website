@@ -37,7 +37,7 @@ export default function Page() {
           <Container>
             <p className="body-large reveal">
               {
-                "\n          Membership is how you sustain Sapiens First for the long haul — monthly dues,\n          a stronger voice in the movement, and a direct way to help us stay accountable\n          to the people we organize with.\n        "
+                "Membership is how you sustain Sapiens First for the long haul — monthly dues, a stronger voice in the movement, and a direct way to help us stay accountable to the people we organize with."
               }
             </p>
             <div className="construction-box card reveal mt-7 py-10 px-9 flex flex-col items-center text-center gap-4 max-sm:py-9 max-sm:px-6">
@@ -58,7 +58,7 @@ export default function Page() {
               </div>
               <p className="construction-text card-text max-w-md">
                 {
-                  "\n            We're still building this page. In the meantime, join our email list to hear\n            the moment it goes live, or support us right now with a donation.\n          "
+                  "We're still building this page. In the meantime, join our email list to hear the moment it goes live, or support us right now with a donation."
                 }
               </p>
               <div className="construction-actions flex items-center gap-7 mt-2.5 flex-wrap justify-center">

@@ -1,16 +1,11 @@
 "use client";
 
-import { Fragment, useEffect, type MouseEvent } from "react";
-import { policyPillars } from "@/content/policies";
+import { Fragment, useEffect, useMemo, type MouseEvent } from "react";
 import { useActiveSection } from "@/lib/useActiveSection";
 import { cn } from "@/lib/cn";
 
-const overview = { id: "overview", title: "Overview", policies: [] };
-const groups = [overview, ...policyPillars];
-const ids = groups.flatMap((group) => [
-  group.id,
-  ...group.policies.map((policy) => policy.id),
-]);
+type Link = { id: string; title: string };
+type Pillar = Link & { policies: Link[] };
 
 // Opening a card collapses its sibling, so re-align once the 0.4s panel transition settles.
 function scrollToCard(card: Element) {
@@ -21,7 +16,19 @@ function scrollToCard(card: Element) {
   );
 }
 
-export default function PolicyToc() {
+export default function PolicyToc({ pillars }: { pillars: Pillar[] }) {
+  const groups = useMemo(
+    () => [{ id: "overview", title: "Overview", policies: [] }, ...pillars],
+    [pillars],
+  );
+  const ids = useMemo(
+    () =>
+      groups.flatMap((group) => [
+        group.id,
+        ...group.policies.map((policy) => policy.id),
+      ]),
+    [groups],
+  );
   const activeId = useActiveSection(ids, 110) ?? ids[0];
 
   useEffect(() => {

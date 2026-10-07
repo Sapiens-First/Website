@@ -50,11 +50,7 @@ export function LinkedRecords({
 }) {
   if (!ids.length) return <span>Not recorded</span>;
   return (
-    <ul
-      className={
-        "list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5"
-      }
-    >
+    <ul className="list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5">
       {ids.map((id) => (
         <li key={id}>
           <RecordLink id={id} format={format} />
@@ -291,20 +287,12 @@ export default function RecordDetails({
             </>
           )}
           {(history.length > 0 || notes.length > 0) && (
-            <details
-              className={
-                "mt-5 border-t border-solid border-t-line pt-3.5 [&_summary]:cursor-pointer [&_summary]:font-semibold"
-              }
-            >
+            <details className="mt-5 border-t border-solid border-t-line pt-3.5 [&_summary]:cursor-pointer [&_summary]:font-semibold">
               <summary className="cursor-pointer text-ink underline underline-offset-2 hover:text-coral-dark">
                 History &amp; notes
               </summary>
               {notes.length > 0 && <FieldsList fields={notes} />}
-              <ul
-                className={
-                  "list-none pl-0 text-sm leading-normal [&_li]:mb-2.5 [&_li]:border-l-2 [&_li]:border-solid [&_li]:border-l-line [&_li]:pl-3.5 [&_small]:block [&_small]:text-xs [&_small]:text-ink"
-                }
-              >
+              <ul className="list-none pl-0 text-sm leading-normal [&_li]:mb-2.5 [&_li]:border-l-2 [&_li]:border-solid [&_li]:border-l-line [&_li]:pl-3.5 [&_small]:block [&_small]:text-xs [&_small]:text-ink">
                 {history.map((relation) => {
                   const outgoing = relation["From ID"] === id;
                   const state = isCurrent(relation, today)

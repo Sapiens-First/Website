@@ -92,11 +92,7 @@ export default function Page() {
         <SplitHero>
           <HeroCopy>
             <Kicker>About Sapiens First</Kicker>
-            <h1
-              className={
-                "relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl"
-              }
-            >
+            <h1 className="relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl">
               We are the human{" "}
               <span className="ink-underline whitespace-nowrap ink-underline-brand-yellow">
                 movement.
@@ -188,9 +184,7 @@ export default function Page() {
           </Container>
         </section>
         <section
-          className={
-            "border-b-2 border-ink bg-[#e5efff] py-[100px] max-sm:scroll-mt-20 max-sm:py-16"
-          }
+          className="border-b-2 border-ink bg-[#e5efff] py-[100px] max-sm:scroll-mt-20 max-sm:py-16"
           id="roadmap"
         >
           <Container>
@@ -238,9 +232,7 @@ export default function Page() {
           </Container>
         </section>
         <section
-          className={
-            "border-b-2 border-ink bg-white px-0 py-24 max-sm:scroll-mt-20 max-sm:py-16"
-          }
+          className="border-b-2 border-ink bg-white px-0 py-24 max-sm:scroll-mt-20 max-sm:py-16"
           id="strategy"
         >
           <Container>

@@ -171,16 +171,10 @@ export default function AtlasExplorer({
   return (
     <AtlasLookupsProvider value={lookups}>
       <section
-        className={
-          "relative z-2 mx-auto w-full max-w-7xl border-b-2 border-ink px-3 pb-16 max-sm:scroll-mt-20 sm:px-6"
-        }
+        className="relative z-2 mx-auto w-full max-w-7xl border-b-2 border-ink px-3 pb-16 max-sm:scroll-mt-20 sm:px-6"
         aria-labelledby="view-title"
       >
-        <div
-          className={
-            "sticky top-20 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-lg:top-16 max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch"
-          }
-        >
+        <div className="sticky top-20 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-lg:top-16 max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch">
           <div
             className={
               'inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,_color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:px-2.5 max-md:[&_button]:py-2 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,_var(--color-ink)_6%,_transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(17,_17,_17,_0.12)]'
@@ -205,15 +199,9 @@ export default function AtlasExplorer({
               </button>
             ))}
           </div>
-          <label
-            className={
-              "relative flex max-w-sm min-w-0 [flex:1_1_240px] items-center max-md:[order:-1] max-md:[flex:none] max-sm:max-w-none [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-solid [&_input]:border-line [&_input]:bg-white [&_input]:pt-2 [&_input]:pr-3 [&_input]:pb-2 [&_input]:pl-8 [&_input]:font-body [&_input]:text-sm [&_input]:text-ink [&_input]:[font:inherit] [&_input::placeholder]:text-ink [&_input:focus]:border-coral-dark [&_input:focus]:[box-shadow:0_0_0_3px_color-mix(in_srgb,_var(--color-coral)_22%,_transparent)] [&_input:focus]:outline-none"
-            }
-          >
+          <label className="relative flex max-w-sm min-w-0 [flex:1_1_240px] items-center max-md:[order:-1] max-md:[flex:none] max-sm:max-w-none [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-solid [&_input]:border-line [&_input]:bg-white [&_input]:pt-2 [&_input]:pr-3 [&_input]:pb-2 [&_input]:pl-8 [&_input]:font-body [&_input]:text-sm [&_input]:text-ink [&_input]:[font:inherit] [&_input::placeholder]:text-ink [&_input:focus]:border-coral-dark [&_input:focus]:[box-shadow:0_0_0_3px_color-mix(in_srgb,_var(--color-coral)_22%,_transparent)] [&_input:focus]:outline-none">
             <svg
-              className={
-                "[pointer-events:none] [position:absolute] [left:11px] [color:var(--color-ink)]"
-              }
+              className="[pointer-events:none] [position:absolute] [left:11px] [color:var(--color-ink)]"
               width="15"
               height="15"
               viewBox="0 0 16 16"
@@ -234,11 +222,7 @@ export default function AtlasExplorer({
                 strokeLinecap="round"
               />
             </svg>
-            <span
-              className={
-                "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
-              }
-            >
+            <span className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
               Search this view
             </span>
             <input
@@ -258,15 +242,9 @@ export default function AtlasExplorer({
           {view === "domains" && format === "table" && (
             <label
               id="atlas-filter-label"
-              className={
-                "[&_select]:cursor-pointer [&_select]:rounded-md [&_select]:border [&_select]:border-solid [&_select]:border-line [&_select]:bg-white [&_select]:pt-2 [&_select]:pr-7 [&_select]:pb-2 [&_select]:pl-3 [&_select]:font-body [&_select]:text-xs [&_select]:font-semibold [&_select]:text-ink [&_select]:[font:inherit] [&_select:focus-visible]:[outline:3px_solid_var(--color-coral-dark)] [&_select:focus-visible]:outline-offset-2"
-              }
+              className="[&_select]:cursor-pointer [&_select]:rounded-md [&_select]:border [&_select]:border-solid [&_select]:border-line [&_select]:bg-white [&_select]:pt-2 [&_select]:pr-7 [&_select]:pb-2 [&_select]:pl-3 [&_select]:font-body [&_select]:text-xs [&_select]:font-semibold [&_select]:text-ink [&_select]:[font:inherit] [&_select:focus-visible]:[outline:3px_solid_var(--color-coral-dark)] [&_select:focus-visible]:outline-offset-2"
             >
-              <span
-                className={
-                  "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
-                }
-              >
+              <span className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
                 Show
               </span>
               <select
@@ -303,16 +281,10 @@ export default function AtlasExplorer({
             </div>
           )}
         </div>
-        <div
-          className={
-            "flex flex-wrap items-baseline gap-3.5 pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1"
-          }
-        >
+        <div className="flex flex-wrap items-baseline gap-3.5 pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1">
           <p
             id="view-title"
-            className={
-              "font-body text-xs font-extrabold tracking-wider text-ink uppercase"
-            }
+            className="font-body text-xs font-extrabold tracking-wider text-ink uppercase"
           >
             {titles[view]}
           </p>
@@ -323,9 +295,7 @@ export default function AtlasExplorer({
             {descriptions[view]}
           </p>
           <a
-            className={
-              "ml-auto text-xs whitespace-nowrap text-ink underline-offset-4 hover:text-coral-dark max-sm:ml-0"
-            }
+            className="ml-auto text-xs whitespace-nowrap text-ink underline-offset-4 hover:text-coral-dark max-sm:ml-0"
             href={`/data/atlas/${group}.csv`}
             download
           >
@@ -345,9 +315,7 @@ export default function AtlasExplorer({
           <>
             <div
               id="atlas-people"
-              className={
-                "flex flex-col overflow-hidden rounded-lg border border-line bg-white"
-              }
+              className="flex flex-col overflow-hidden rounded-lg border border-line bg-white"
             >
               {!matchingPeople.length && <p>No people match this search.</p>}
               {matchingPeople.map((person) => (
@@ -382,21 +350,13 @@ export default function AtlasExplorer({
                     {person.roles.length}{" "}
                     {person.roles.length === 1 ? "assignment" : "assignments"}
                   </p>
-                  <ul
-                    className={
-                      "list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5"
-                    }
-                  >
+                  <ul className="list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5">
                     {person.roles.map((role) => (
                       <li key={role.ID}>
                         <a href={`#governance/circles/${role.ID}`}>
                           <TypeIcon type={role.Type} />
                           {role.Name}
-                          <span
-                            className={
-                              "text-xs tracking-wide text-ink uppercase"
-                            }
-                          >
+                          <span className="text-xs tracking-wide text-ink uppercase">
                             {role.Type}
                           </span>
                         </a>
@@ -476,9 +436,7 @@ export default function AtlasExplorer({
           </div>
         ) : (
           <div
-            className={
-              "overflow-x-auto rounded-lg border border-solid border-line"
-            }
+            className="overflow-x-auto rounded-lg border border-solid border-line"
             id="atlas-results"
             hidden={!matches.length}
             tabIndex={0}
@@ -486,11 +444,7 @@ export default function AtlasExplorer({
             aria-label={`${titles[view]} table`}
           >
             <AtlasTable id="atlas-table">
-              <caption
-                className={
-                  "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
-                }
-              >
+              <caption className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
                 {titles[view]}
               </caption>
               <thead>
@@ -515,11 +469,7 @@ export default function AtlasExplorer({
                   <tr key={row.ID}>
                     <th scope="row">
                       <RecordLink id={row.ID} format="table" />
-                      <span
-                        className={
-                          "mt-0.5 ml-5 block text-xs font-medium tracking-wide text-ink uppercase"
-                        }
-                      >
+                      <span className="mt-0.5 ml-5 block text-xs font-medium tracking-wide text-ink uppercase">
                         {row.Type} · {row.ID}
                       </span>
                       <details className="mt-2 text-xs font-normal [&_summary]:cursor-pointer [&_summary]:text-ink [&_summary]:underline [&_summary]:underline-offset-2 [&_summary:hover]:text-coral-dark">
@@ -534,11 +484,7 @@ export default function AtlasExplorer({
                       </details>
                     </th>
                     <td>
-                      <span
-                        className={
-                          "[display:-webkit-box] max-w-lg overflow-hidden text-ellipsis whitespace-normal text-ink [-webkit-box-orient:vertical] [-webkit-line-clamp:1]"
-                        }
-                      >
+                      <span className="[display:-webkit-box] max-w-lg overflow-hidden text-ellipsis whitespace-normal text-ink [-webkit-box-orient:vertical] [-webkit-line-clamp:1]">
                         {row.Purpose || "Not documented"}
                       </span>
                     </td>

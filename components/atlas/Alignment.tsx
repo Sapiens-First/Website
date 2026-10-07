@@ -56,23 +56,13 @@ export default function Alignment({
       ) : (
         <>
           <div
-            className={
-              "max-h-180 overflow-auto rounded-lg border border-solid border-line"
-            }
+            className="max-h-180 overflow-auto rounded-lg border border-solid border-line"
             tabIndex={0}
             role="region"
             aria-label="Alignment matrix"
           >
-            <table
-              className={
-                "w-full border-separate border-spacing-0 text-sm [&_:is(th,td)]:max-w-sm [&_:is(th,td)]:leading-normal [&_:is(th,td)]:wrap-anywhere [&_tbody_th]:sticky [&_tbody_th]:left-0 [&_tbody_th]:z-1 [&_tbody_th]:min-w-44 [&_tbody_th]:border-b [&_tbody_th]:border-rule [&_tbody_th]:bg-white [&_tbody_th]:p-3.5 [&_tbody_th]:text-left [&_tbody_th]:font-semibold [&_td]:min-w-24 [&_td]:border-b [&_td]:border-rule [&_td]:p-3.5 [&_td]:text-center [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-2 [&_thead_th]:border-b [&_thead_th]:border-line [&_thead_th]:bg-white [&_thead_th]:px-3.5 [&_thead_th]:py-3 [&_thead_th]:align-bottom [&_thead_th]:text-xs [&_thead_th]:font-bold [&_thead_th]:tracking-wider [&_thead_th]:uppercase"
-              }
-            >
-              <caption
-                className={
-                  "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
-                }
-              >
+            <table className="w-full border-separate border-spacing-0 text-sm [&_:is(th,td)]:max-w-sm [&_:is(th,td)]:leading-normal [&_:is(th,td)]:wrap-anywhere [&_tbody_th]:sticky [&_tbody_th]:left-0 [&_tbody_th]:z-1 [&_tbody_th]:min-w-44 [&_tbody_th]:border-b [&_tbody_th]:border-rule [&_tbody_th]:bg-white [&_tbody_th]:p-3.5 [&_tbody_th]:text-left [&_tbody_th]:font-semibold [&_td]:min-w-24 [&_td]:border-b [&_td]:border-rule [&_td]:p-3.5 [&_td]:text-center [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-2 [&_thead_th]:border-b [&_thead_th]:border-line [&_thead_th]:bg-white [&_thead_th]:px-3.5 [&_thead_th]:py-3 [&_thead_th]:align-bottom [&_thead_th]:text-xs [&_thead_th]:font-bold [&_thead_th]:tracking-wider [&_thead_th]:uppercase">
+              <caption className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
                 {rowType}s and what they support
               </caption>
               <thead>
@@ -89,9 +79,7 @@ export default function Alignment({
                       }
                     >
                       <button
-                        className={
-                          "cursor-pointer border-0 bg-transparent text-xs font-bold tracking-wide whitespace-nowrap text-ink uppercase [font:inherit] [writing-mode:horizontal-tb] hover:text-coral-dark"
-                        }
+                        className="cursor-pointer border-0 bg-transparent text-xs font-bold tracking-wide whitespace-nowrap text-ink uppercase [font:inherit] [writing-mode:horizontal-tb] hover:text-coral-dark"
                         type="button"
                         aria-pressed={col.ID === highlighted}
                         onClick={() =>

@@ -1,11 +1,17 @@
 "use client";
-import { CardText } from "@/components/ui/Card";
 
 import { Fragment, useEffect, useRef, useState } from "react";
-
-import { campaignDetails as campaigns } from "@/content/campaigns";
-import { cn } from "@/lib/cn";
+import { CardText } from "@/components/ui/Card";
 import { AccordionChevron } from "@/components/sections/Faq";
+import { cn } from "@/lib/cn";
+
+type Campaign = {
+  id: string;
+  title: string;
+  objective: string;
+  description: string;
+  metrics: string[];
+};
 
 const tabColors = [
   "col-start-1 border-t-coral",
@@ -13,7 +19,11 @@ const tabColors = [
   "col-start-3 border-t-brand-blue",
 ];
 
-export default function CampaignAccordion() {
+export default function CampaignAccordion({
+  campaigns,
+}: {
+  campaigns: Campaign[];
+}) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [panelId, setPanelId] = useState<string | null>(null);
   const [shownId, setShownId] = useState<string | null>(null);
@@ -133,7 +143,7 @@ export default function CampaignAccordion() {
                       ))}
                     </ul>
                     <CardText className="mt-3.5 mb-0 italic">
-                      {item.resources}
+                      Resources: forthcoming
                     </CardText>
                   </div>
                 ))}

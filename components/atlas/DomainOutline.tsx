@@ -117,11 +117,7 @@ export default function DomainOutline({
     ) : (
       <>
         {name.slice(0, index)}
-        <mark
-          className={
-            "rounded-xs px-px py-0 text-inherit [background:color-mix(in_srgb,_var(--color-coral)_45%,_transparent)]"
-          }
-        >
+        <mark className="rounded-xs px-px py-0 text-inherit [background:color-mix(in_srgb,_var(--color-coral)_45%,_transparent)]">
           {name.slice(index, index + query.length)}
         </mark>
         {name.slice(index + query.length)}
@@ -171,9 +167,7 @@ export default function DomainOutline({
             />
           ) : (
             <span
-              className={
-                "inline-flex h-4 w-4 flex-none items-center justify-center before:h-1 before:w-1 before:rounded-full before:content-[''] before:[background:color-mix(in_srgb,_var(--color-ink)_40%,_transparent)]"
-              }
+              className="inline-flex h-4 w-4 flex-none items-center justify-center before:h-1 before:w-1 before:rounded-full before:content-[''] before:[background:color-mix(in_srgb,_var(--color-ink)_40%,_transparent)]"
               aria-hidden="true"
             />
           )}
@@ -187,11 +181,7 @@ export default function DomainOutline({
             <TypeIcon type={node.row.Type} />
             {highlighted(node.row.Name)}
           </a>
-          <span
-            className={
-              "ml-auto flex-none pl-2.5 text-xs font-semibold tracking-wide whitespace-nowrap text-ink"
-            }
-          >
+          <span className="ml-auto flex-none pl-2.5 text-xs font-semibold tracking-wide whitespace-nowrap text-ink">
             {labels[node.row.Type] || node.row.Type}
             {!open && node.children.length ? ` · ${node.children.length}` : ""}
           </span>
@@ -199,9 +189,7 @@ export default function DomainOutline({
         {open && node.children.length > 0 && (
           <ul
             role="group"
-            className={
-              "m-0 ml-2 list-none border-l border-solid border-l-rule p-0 pl-5"
-            }
+            className="m-0 ml-2 list-none border-l border-solid border-l-rule p-0 pl-5"
           >
             {node.children.map((child) => branch(child, depth + 1))}
           </ul>
@@ -216,9 +204,7 @@ export default function DomainOutline({
     >
       {chain.length > 0 && (
         <nav
-          className={
-            "mt-1 mr-1 mb-0.5 ml-1 font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
-          }
+          className="mt-1 mr-1 mb-0.5 ml-1 font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
           aria-label="Domain hierarchy"
         >
           {chain.map((node, i) => (
@@ -239,9 +225,7 @@ export default function DomainOutline({
       )}
       <div className={"flex justify-end pt-1 pr-1 pb-0.5 pl-1"}>
         <details
-          className={
-            "relative [&_button]:cursor-pointer [&_button]:rounded-md [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-2 [&_button]:text-left [&_button]:text-xs [&_button]:font-semibold [&_button]:whitespace-nowrap [&_button]:text-ink [&_button]:[font:inherit] [&_button:hover]:bg-surface [&_button:hover]:text-coral-dark [&_summary]:flex [&_summary]:h-7 [&_summary]:w-7 [&_summary]:cursor-pointer [&_summary]:list-none [&_summary]:items-center [&_summary]:justify-center [&_summary]:rounded-md [&_summary]:text-base [&_summary]:leading-none [&_summary]:text-ink [&_summary::-webkit-details-marker]:hidden [&_summary:hover]:bg-surface [&_summary:hover]:text-ink [&[open]_button]:absolute [&[open]_button]:right-0 [&[open]_button]:z-5 [&[open]_button]:w-max [&[open]_button]:min-w-36 [&[open]_button]:border [&[open]_button]:border-solid [&[open]_button]:border-line [&[open]_button]:bg-white [&[open]_button]:[box-shadow:0_4px_14px_rgba(17,_17,_17,_0.1)] [&[open]_button:first-of-type]:top-8 [&[open]_button:last-of-type]:top-20 [&[open]_summary]:bg-surface [&[open]_summary]:text-ink"
-          }
+          className="relative [&_button]:cursor-pointer [&_button]:rounded-md [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-2 [&_button]:text-left [&_button]:text-xs [&_button]:font-semibold [&_button]:whitespace-nowrap [&_button]:text-ink [&_button]:[font:inherit] [&_button:hover]:bg-surface [&_button:hover]:text-coral-dark [&_summary]:flex [&_summary]:h-7 [&_summary]:w-7 [&_summary]:cursor-pointer [&_summary]:list-none [&_summary]:items-center [&_summary]:justify-center [&_summary]:rounded-md [&_summary]:text-base [&_summary]:leading-none [&_summary]:text-ink [&_summary::-webkit-details-marker]:hidden [&_summary:hover]:bg-surface [&_summary:hover]:text-ink [&[open]_button]:absolute [&[open]_button]:right-0 [&[open]_button]:z-5 [&[open]_button]:w-max [&[open]_button]:min-w-36 [&[open]_button]:border [&[open]_button]:border-solid [&[open]_button]:border-line [&[open]_button]:bg-white [&[open]_button]:[box-shadow:0_4px_14px_rgba(17,_17,_17,_0.1)] [&[open]_button:first-of-type]:top-8 [&[open]_button:last-of-type]:top-20 [&[open]_summary]:bg-surface [&[open]_summary]:text-ink"
           ref={menu}
         >
           <summary aria-label="More actions">⋯</summary>
@@ -273,21 +257,13 @@ export default function DomainOutline({
       ) : (
         <>
           {query && (
-            <p
-              className={
-                "mt-2.5 mr-1 mb-1 ml-1 text-xs leading-relaxed text-ink"
-              }
-            >
+            <p className="mt-2.5 mr-1 mb-1 ml-1 text-xs leading-relaxed text-ink">
               {matches.length} search{" "}
               {matches.length === 1 ? "result" : "results"}
             </p>
           )}
           {query && !matches.length ? (
-            <div
-              className={
-                "px-2 py-5 [&_button]:cursor-pointer [&_button]:rounded-md [&_button]:border [&_button]:border-solid [&_button]:border-line [&_button]:bg-white [&_button]:px-3.5 [&_button]:py-2 [&_button]:text-xs [&_button]:font-semibold [&_button]:[font:inherit] [&_button:hover]:border-coral-dark [&_button:hover]:text-coral-dark [&_p]:mb-3 [&_p]:text-sm [&_p]:leading-relaxed"
-              }
-            >
+            <div className="px-2 py-5 [&_button]:cursor-pointer [&_button]:rounded-md [&_button]:border [&_button]:border-solid [&_button]:border-line [&_button]:bg-white [&_button]:px-3.5 [&_button]:py-2 [&_button]:text-xs [&_button]:font-semibold [&_button]:[font:inherit] [&_button:hover]:border-coral-dark [&_button:hover]:text-coral-dark [&_p]:mb-3 [&_p]:text-sm [&_p]:leading-relaxed">
               <p>No Atlas items match “{query}”.</p>
               <button type="button" onClick={clearSearch}>
                 Clear search
@@ -296,9 +272,7 @@ export default function DomainOutline({
           ) : (
             <ul
               ref={tree}
-              className={
-                "m-0 list-none p-0 [&_>_li]:mt-2.5 [&_>_li_>_ul_>_li]:mt-0.5"
-              }
+              className="m-0 list-none p-0 [&_>_li]:mt-2.5 [&_>_li_>_ul_>_li]:mt-0.5"
               role="tree"
               aria-label="Domains hierarchy"
             >
@@ -308,11 +282,7 @@ export default function DomainOutline({
             </ul>
           )}
           {!query && (
-            <p
-              className={
-                "mt-2.5 mr-1 mb-1 ml-1 text-xs leading-relaxed text-ink"
-              }
-            >
+            <p className="mt-2.5 mr-1 mb-1 ml-1 text-xs leading-relaxed text-ink">
               Select the chevron to expand a branch, or a name to read its
               purpose and responsibilities.
             </p>
@@ -320,18 +290,10 @@ export default function DomainOutline({
         </>
       )}
       {unplaced.length > 0 && (
-        <details
-          className={
-            "border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_p]:mt-2.5 [&_p]:text-xs [&_p]:leading-relaxed [&_p]:text-ink [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0"
-          }
-        >
+        <details className="border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_p]:mt-2.5 [&_p]:text-xs [&_p]:leading-relaxed [&_p]:text-ink [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0">
           <summary>
             <span>Uncategorized</span>{" "}
-            <span
-              className={
-                "inline-block rounded-full border border-solid border-line bg-soft px-2 py-1 text-xs leading-none font-bold text-ink"
-              }
-            >
+            <span className="inline-block rounded-full border border-solid border-line bg-soft px-2 py-1 text-xs leading-none font-bold text-ink">
               {unplaced.length}
             </span>
           </summary>

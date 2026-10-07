@@ -4,7 +4,6 @@ import { Container } from "@/components/layout/Container";
 import PolicyToc from "@/components/policy/PolicyToc";
 import { Accordion, AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
-import { policyPillars } from "@/content/policies";
 
 export const metadata = pageMetadata({
   title: "Policy",
@@ -12,6 +11,75 @@ export const metadata = pageMetadata({
     "A People's Agenda for the Age of AI — Sapiens First's policy recommendations for democratic renewal, common prosperity, and a secure future.",
   path: "/policy",
 });
+
+const pillars = [
+  {
+    id: "democratic-renewal",
+    title: "Democratic Renewal",
+    lead: "AI could give governments and corporations unprecedented power to watch people, manipulate public debate, and shape policy behind closed doors. We should use this moment to strengthen democracy instead: defending civil liberties, breaking corporate control over policymaking, and giving ordinary people a direct role in decisions about our future.",
+    policies: [
+      {
+        id: "ban-ai-enabled-mass-surveillance",
+        title: "Ban AI-Enabled Mass Surveillance",
+      },
+      {
+        id: "end-big-tech-s-influence-on-elections",
+        title: "End Big Tech's Influence on Elections",
+      },
+      {
+        id: "citizens-assemblies-for-ai-policy",
+        title: "Citizens' Assemblies for AI Policy",
+      },
+      {
+        id: "upgrade-our-democratic-process",
+        title: "Upgrade Our Democratic Process",
+      },
+    ],
+  },
+  {
+    id: "common-prosperity",
+    title: "Common Prosperity",
+    lead: "AI could create immense wealth while eliminating jobs, weakening workers' bargaining power, and concentrating ownership in a small number of companies. The gains should instead be shared broadly through dividends, public ownership, creator compensation, worker protections, and renewed investment in public institutions.",
+    policies: [
+      {
+        id: "benefits-for-communities-affected-by-data-centers",
+        title: "Benefits for Communities Affected by Data Centers",
+      },
+      {
+        id: "enhance-our-government-institutions",
+        title: "Enhance Our Government Institutions",
+      },
+      {
+        id: "build-a-sovereign-wealth-fund-for-ai",
+        title: "Build a Sovereign Wealth Fund for AI",
+      },
+      { id: "citizens-dividend", title: "Citizen's Dividend" },
+    ],
+  },
+  {
+    id: "a-secure-future",
+    title: "A Secure Future",
+    lead: "Cutting-edge AI systems could create catastrophic risks if developed through an uncontrolled race among companies and nations. Governments need independent scientific capacity, enforceable transparency, and international agreements that keep advanced AI under meaningful human control.",
+    policies: [
+      {
+        id: "lead-a-treaty-with-china-to-stop-the-ai-arms-race",
+        title: "Lead a Treaty with China to Stop the AI Arms Race",
+      },
+      {
+        id: "mandate-that-all-frontier-ai-development-be-done-in-the-open",
+        title: "Mandate That All Frontier AI Development Be Done in the Open",
+      },
+      {
+        id: "institute-strict-liability-and-punitive-damages-for-ai-harms",
+        title: "Institute Strict Liability and Punitive Damages for AI Harms",
+      },
+      {
+        id: "build-a-powerful-and-independent-ai-safety-institute",
+        title: "Build a Powerful and Independent AI Safety Institute",
+      },
+    ],
+  },
+];
 
 const pillarColors = [
   "[--pillar-color:var(--color-coral)]",
@@ -50,7 +118,7 @@ export default function Page() {
           <Container>
             <div className="flex items-start gap-14 max-lg:flex-col max-lg:gap-8">
               <aside className="sticky top-24 max-h-180 w-60 shrink-0 [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] overflow-y-auto max-lg:static max-lg:max-h-none max-lg:w-full max-lg:overflow-visible">
-                <PolicyToc />
+                <PolicyToc pillars={pillars} />
               </aside>
               <div className="min-w-0 flex-1">
                 <div id="policy-content" className="[counter-reset:policy-num]">
@@ -94,7 +162,7 @@ export default function Page() {
                       This page is a living document, last updated in July 2026.
                     </p>
                   </section>
-                  {policyPillars.map((pillar, index) => (
+                  {pillars.map((pillar, index) => (
                     <section
                       className={cn(pillarClass, pillarColors[index])}
                       id={pillar.id}

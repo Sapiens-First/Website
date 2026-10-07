@@ -72,17 +72,13 @@ export default function Page() {
     <>
       <main className={"text-xl"}>
         <section
-          className={
-            "border-b-2 border-ink px-0 py-16 max-sm:scroll-mt-20 max-sm:py-10"
-          }
+          className="border-b-2 border-ink px-0 py-16 max-sm:scroll-mt-20 max-sm:py-10"
           aria-labelledby="donate-heading"
         >
           <Container className="grid grid-cols-2 items-center gap-14 max-lg:gap-8 max-sm:grid-cols-1 max-sm:gap-7">
             <div className="min-w-0">
               <h1
-                className={
-                  "relative z-2 mx-0 my-6 max-w-full font-display text-6xl font-extrabold tracking-tight text-balance uppercase max-sm:max-w-xl max-sm:text-5xl max-sm:tracking-tighter lg:text-7xl xl:text-8xl"
-                }
+                className="relative z-2 mx-0 my-6 max-w-full font-display text-6xl font-extrabold tracking-tight text-balance uppercase max-sm:max-w-xl max-sm:text-5xl max-sm:tracking-tighter lg:text-7xl xl:text-8xl"
                 id="donate-heading"
               >
                 Help keep the future{" "}
@@ -90,11 +86,7 @@ export default function Page() {
                   human.
                 </span>
               </h1>
-              <p
-                className={
-                  "max-w-lg font-body text-xl leading-normal text-pretty text-ink max-lg:max-w-md max-sm:max-w-none lg:text-2xl xl:text-3xl"
-                }
-              >
+              <p className="max-w-lg font-body text-xl leading-normal text-pretty text-ink max-lg:max-w-md max-sm:max-w-none lg:text-2xl xl:text-3xl">
                 We bring people together to act on AI. Help us build local
                 chapters, train organizers, and win change.
               </p>
@@ -143,11 +135,7 @@ export default function Page() {
                   <path d="M128 133H154"></path>
                 </svg>
               </div>
-              <div
-                className={
-                  "mt-7 flex flex-wrap justify-center gap-3 max-sm:mt-0 max-sm:gap-2"
-                }
-              >
+              <div className="mt-7 flex flex-wrap justify-center gap-3 max-sm:mt-0 max-sm:gap-2">
                 <ActionLink
                   variant="donation"
                   className={cn(
@@ -206,11 +194,7 @@ export default function Page() {
                       </div>
                     ))}
                   </dl>
-                  <div
-                    className={
-                      "mt-7 flex flex-wrap justify-center gap-3 max-sm:gap-2"
-                    }
-                  >
+                  <div className="mt-7 flex flex-wrap justify-center gap-3 max-sm:gap-2">
                     <ActionLink
                       variant="donation"
                       className={cn(

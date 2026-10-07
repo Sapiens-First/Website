@@ -36,6 +36,25 @@ const steps = [
   { title: "Federal action", underline: "after:bg-brand-purple" },
 ];
 
+const campaigns = [
+  {
+    id: "freeze",
+    title: "Freeze AI.",
+    description:
+      "Call on the US to slow the development of frontier intelligence.",
+  },
+  {
+    id: "surveillance",
+    title: "Stop 1984.",
+    description: "End AI-enabled mass surveillance.",
+  },
+  {
+    id: "robots",
+    title: "No Killer Robots.",
+    description: "Regulate deadly, autonomous weapons.",
+  },
+];
+
 const h2 = "mt-5 text-5xl lg:text-6xl xl:text-7xl";
 
 export const metadata = pageMetadata({
@@ -60,11 +79,7 @@ export default function Page() {
             <Confetti className="top-5 right-7 h-[90px] w-[160px] -rotate-8 max-sm:top-0.5 max-sm:right-5 max-sm:h-[45px] max-sm:w-20 sm:max-lg:top-1 sm:max-lg:h-12 sm:max-lg:w-[110px]" />
             <Confetti className="right-8 bottom-[18px] h-[60px] w-[130px] rotate-14 max-sm:right-5 max-sm:bottom-2.5 max-sm:h-10 max-sm:w-20" />
             <Confetti className="top-[22px] left-7 h-14 w-[100px] rotate-12 max-sm:top-1.5 max-sm:left-5 max-sm:h-10 max-sm:w-[76px] sm:max-lg:top-2 sm:max-lg:h-10 sm:max-lg:w-[90px]" />
-            <h1
-              className={
-                "relative z-2 max-w-xs font-display text-7xl font-extrabold tracking-tight uppercase max-sm:text-6xl max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl xl:text-9xl"
-              }
-            >
+            <h1 className="relative z-2 max-w-xs font-display text-7xl font-extrabold tracking-tight uppercase max-sm:text-6xl max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl xl:text-9xl">
               Revolt for our{" "}
               <span className="inline-block -rotate-2 bg-brand-yellow px-[0.08em] leading-none text-ink">
                 future.
@@ -187,9 +202,7 @@ export default function Page() {
         </section>
 
         <section
-          className={
-            "relative overflow-hidden border-b-2 border-ink bg-paper px-0 py-28 max-sm:scroll-mt-20 max-sm:px-0 max-sm:py-14"
-          }
+          className="relative overflow-hidden border-b-2 border-ink bg-paper px-0 py-28 max-sm:scroll-mt-20 max-sm:px-0 max-sm:py-14"
           id="vision"
         >
           <SectionMark>
@@ -225,15 +238,13 @@ export default function Page() {
                   Our demands
                 </h3>
               </div>
-              <CampaignCarousel />
+              <CampaignCarousel campaigns={campaigns} />
             </div>
           </Container>
         </section>
 
         <section
-          className={
-            "relative overflow-hidden border-b-2 border-ink bg-white bg-[url(/assets/homepage-strategy-contours.svg)] bg-size-[1000px_600px] bg-position-[right_-100px_top_-160px] bg-no-repeat px-0 pt-20 pb-0 max-sm:scroll-mt-20 max-sm:bg-position-[right_-360px_top_-120px] max-sm:pt-12"
-          }
+          className="relative overflow-hidden border-b-2 border-ink bg-white bg-[url(/assets/homepage-strategy-contours.svg)] bg-size-[1000px_600px] bg-position-[right_-100px_top_-160px] bg-no-repeat px-0 pt-20 pb-0 max-sm:scroll-mt-20 max-sm:bg-position-[right_-360px_top_-120px] max-sm:pt-12"
           id="strategy"
         >
           <SectionMark>
@@ -287,9 +298,7 @@ export default function Page() {
         </section>
 
         <section
-          className={
-            "grid grid-cols-2 border-b-2 border-ink bg-paper max-lg:grid-cols-1 max-sm:scroll-mt-20"
-          }
+          className="grid grid-cols-2 border-b-2 border-ink bg-paper max-lg:grid-cols-1 max-sm:scroll-mt-20"
           id="involved"
         >
           <div className="relative overflow-hidden bg-[url(/assets/homepage-involved-arcs.svg)] bg-size-[900px_900px] bg-position-[right_-460px_bottom_-470px] bg-no-repeat px-7 py-20 max-sm:bg-position-[right_-520px_bottom_-510px] max-sm:pt-14 max-sm:pr-5 max-sm:pb-11 max-sm:pl-5 sm:px-12 lg:px-20 lg:py-24">

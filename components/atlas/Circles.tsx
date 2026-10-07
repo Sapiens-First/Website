@@ -142,9 +142,7 @@ function CircleChart({
                 width={width}
                 height={lines.length * fontSize * 1.15 + 8}
                 rx={10}
-                className={
-                  "fill-[color-mix(in_srgb,var(--color-ink)_88%,transparent)]"
-                }
+                className="fill-[color-mix(in_srgb,var(--color-ink)_88%,transparent)]"
                 fill="#29241f"
               />
             )}
@@ -171,9 +169,7 @@ function CircleChart({
             textAnchor="middle"
             fontSize={11}
             pointerEvents="none"
-            className={
-              "fill-ink stroke-paper stroke-3 font-body font-semibold opacity-0 transition-opacity duration-150 [paint-order:stroke] [stroke-linejoin:round] peer-hover/node:opacity-100 peer-focus-visible/node:opacity-100"
-            }
+            className="fill-ink stroke-paper stroke-3 font-body font-semibold opacity-0 transition-opacity duration-150 [paint-order:stroke] [stroke-linejoin:round] peer-hover/node:opacity-100 peer-focus-visible/node:opacity-100"
           >
             {node.row.Name}
           </text>
@@ -330,9 +326,7 @@ export default function Circles({
       className="min-w-0 rounded-lg border border-solid border-line bg-white p-4 max-md:p-2.5"
     >
       <nav
-        className={
-          "font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
-        }
+        className="font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
         aria-label="Circle hierarchy"
       >
         <a href="#governance/circles">All circles</a>
@@ -381,11 +375,7 @@ export default function Circles({
         </p>
       )}
       {query && (
-        <div
-          className={
-            "mt-3.5 rounded-lg bg-soft p-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_ul]:list-none [&_ul]:pl-0"
-          }
-        >
+        <div className="mt-3.5 rounded-lg bg-soft p-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_ul]:list-none [&_ul]:pl-0">
           <p>
             {matches.length} search{" "}
             {matches.length === 1 ? "result" : "results"}
@@ -439,11 +429,7 @@ export default function Circles({
               ? "Select a circle to explore it, or a role to read its responsibilities. Sizes show containment, not importance."
               : "No roles or subcircles are recorded inside this circle yet."}
           </p>
-          <details
-            className={
-              "border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0"
-            }
-          >
+          <details className="border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0">
             <summary>
               Inside {focus.row.Name} ({focus.children.length})
             </summary>
@@ -457,18 +443,10 @@ export default function Circles({
         </p>
       )}
       {layout.unplaced.length > 0 && (
-        <details
-          className={
-            "border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_p]:mt-2.5 [&_p]:text-xs [&_p]:leading-relaxed [&_p]:text-ink [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0"
-          }
-        >
+        <details className="border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_p]:mt-2.5 [&_p]:text-xs [&_p]:leading-relaxed [&_p]:text-ink [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0">
           <summary>
             <span>Circle not assigned</span>{" "}
-            <span
-              className={
-                "inline-block rounded-full border border-solid border-line bg-soft px-2 py-1 text-xs leading-none font-bold text-ink"
-              }
-            >
+            <span className="inline-block rounded-full border border-solid border-line bg-soft px-2 py-1 text-xs leading-none font-bold text-ink">
               {layout.unplaced.length}
             </span>
           </summary>
@@ -484,11 +462,7 @@ export default function Circles({
             )
             .map(([label, nodes]) => (
               <Fragment key={label}>
-                <h4
-                  className={
-                    "mt-3.5 text-xs font-bold tracking-wider text-ink uppercase [&:first-of-type]:mt-3"
-                  }
-                >
+                <h4 className="mt-3.5 text-xs font-bold tracking-wider text-ink uppercase [&:first-of-type]:mt-3">
                   {label === "No likely match"
                     ? label
                     : `Possibly related to ${label}`}

@@ -77,11 +77,7 @@ export default function Page() {
         <SplitHero>
           <HeroCopy>
             <Kicker>Local people. Shared purpose.</Kicker>
-            <h1
-              className={
-                "relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl"
-              }
-            >
+            <h1 className="relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl">
               Start a <span className="marker">Circle.</span>
             </h1>
             <HeroLede>
@@ -190,9 +186,7 @@ export default function Page() {
           </Container>
         </section>
         <section
-          className={
-            "border-b-2 border-ink bg-ink px-0 py-20 text-white max-sm:scroll-mt-20 max-sm:py-14"
-          }
+          className="border-b-2 border-ink bg-ink px-0 py-20 text-white max-sm:scroll-mt-20 max-sm:py-14"
           id="shared-leadership"
         >
           <Container className={grid}>

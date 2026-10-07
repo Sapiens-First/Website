@@ -33,11 +33,7 @@ export default function Page() {
         </Link>
         <article>
           <header className="mb-8 ml-72 max-w-3xl border-b border-solid border-b-rule pb-8 max-lg:ml-0 print:ml-0">
-            <h1
-              className={
-                "relative z-2 max-w-none font-body text-3xl leading-tight font-bold tracking-tight normal-case max-sm:tracking-tighter lg:text-5xl"
-              }
-            >
+            <h1 className="relative z-2 max-w-none font-body text-3xl leading-tight font-bold tracking-tight normal-case max-sm:tracking-tighter lg:text-5xl">
               AI-Native Builder (Contract)
             </h1>
             <p className="mx-0 mt-4 mb-6 text-lg text-ink [&_strong]:font-medium">

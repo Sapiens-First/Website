@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-
-import { campaignTeasers as campaigns } from "@/content/campaigns";
 import { cn } from "@/lib/cn";
+
+type Campaign = { id: string; title: string; description: string };
 
 /** Abstract poster art per campaign, drawn with the art layer and its two pseudo-elements. */
 const art: Record<string, string> = {
@@ -16,7 +16,11 @@ const art: Record<string, string> = {
     "bg-brand-purple before:top-[6%] before:left-[calc(50%-125px)] before:h-[300px] before:w-[250px] before:bg-ink before:[clip-path:polygon(20%_0,80%_0,100%_20%,85%_100%,15%_100%,0_20%)] after:top-[26%] after:left-[calc(50%-19px)] after:size-[38px] after:rounded-full after:bg-brand-pink after:shadow-[-68px_0_0_var(--color-brand-pink),68px_0_0_var(--color-brand-pink)]",
 };
 
-export default function CampaignCarousel() {
+export default function CampaignCarousel({
+  campaigns,
+}: {
+  campaigns: Campaign[];
+}) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const positionRef = useRef<number>(campaigns.length);

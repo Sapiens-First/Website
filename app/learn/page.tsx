@@ -28,11 +28,7 @@ export default function Page() {
         </Container>
       </PageHero>
       <main>
-        <section
-          className={
-            "border-b-2 border-ink px-0 pt-14 pb-24 max-sm:scroll-mt-20 max-sm:pt-7 max-sm:pb-16"
-          }
-        >
+        <section className="border-b-2 border-ink px-0 pt-14 pb-24 max-sm:scroll-mt-20 max-sm:pt-7 max-sm:pb-16">
           <Container className="max-w-6xl">
             <div className="grid grid-cols-1 items-start gap-16 max-lg:gap-9 lg:grid-cols-12">
               <GuideClient />

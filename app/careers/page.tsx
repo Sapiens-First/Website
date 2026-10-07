@@ -12,16 +12,8 @@ export const metadata = pageMetadata({
 export default function Page() {
   return (
     <>
-      <main
-        className={
-          "mx-auto my-0 w-full max-w-4xl px-5 pt-16 pb-24 max-sm:pt-10 max-sm:pb-16"
-        }
-      >
-        <h1
-          className={
-            "relative z-2 max-w-none font-display text-6xl leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter lg:text-7xl"
-          }
-        >
+      <main className="mx-auto my-0 w-full max-w-4xl px-5 pt-16 pb-24 max-sm:pt-10 max-sm:pb-16">
+        <h1 className="relative z-2 max-w-none font-display text-6xl leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter lg:text-7xl">
           Careers
         </h1>
         <p className="mt-6 mr-0 mb-14 ml-0 max-w-2xl text-lg leading-relaxed max-sm:mb-10">
@@ -34,9 +26,7 @@ export default function Page() {
           aria-labelledby="open-roles"
         >
           <h2
-            className={
-              "mb-5 font-body text-xl leading-snug font-extrabold tracking-tight normal-case"
-            }
+            className="mb-5 font-body text-xl leading-snug font-extrabold tracking-tight normal-case"
             id="open-roles"
           >
             Open roles

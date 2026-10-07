@@ -7,7 +7,7 @@ import {
   type AtlasRow,
   type Format,
 } from "@/lib/atlas/model";
-import { useAtlasLookups } from "@/components/AtlasLookupsContext";
+import { useAtlasLookups } from "@/components/atlas/AtlasLookupsContext";
 
 export function TypeIcon({ type }: { type: string }) {
   const icons: Record<string, string> = {

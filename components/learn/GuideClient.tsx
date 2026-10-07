@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { site } from "@/lib/site";
 import { cn } from "@/lib/cn";
+import { useActiveSection } from "@/lib/useActiveSection";
 
 type TocItem = { id: string; text: string };
 type TocSection = { heading: TocItem; children: TocItem[] };
@@ -237,7 +238,6 @@ export default function GuideClient() {
   const [html, setHtml] = useState<string | null>(null);
   const [error, setError] = useState(false);
   const [groups, setGroups] = useState<TocGroup[]>([]);
-  const [activeId, setActiveId] = useState("");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const bodyRef = useRef<HTMLDivElement>(null);
   const contentsRef = useRef<HTMLDetailsElement>(null);
@@ -265,9 +265,9 @@ export default function GuideClient() {
   useEffect(() => {
     const contents = contentsRef.current;
     if (!contents) return;
-    const query = window.matchMedia("(max-width: 900px)");
+    const query = window.matchMedia("(min-width: 64rem)");
     const sync = () => {
-      contents.open = !query.matches;
+      contents.open = query.matches;
     };
     sync();
     query.addEventListener("change", sync);
@@ -278,32 +278,25 @@ export default function GuideClient() {
     const body = bodyRef.current;
     if (!html || !body) return;
     setGroups(buildGroups(body));
-    const headings = [...body.querySelectorAll<HTMLElement>("h1, h2, h3")];
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      let current = headings[0]?.id ?? "";
-      for (const heading of headings) {
-        if (heading.getBoundingClientRect().top <= 110) current = heading.id;
-        else break;
-      }
-      setActiveId(current);
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", schedule, { passive: true });
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", schedule);
-    };
   }, [html]);
+
+  const ids = useMemo(
+    () =>
+      groups.flatMap((group) => [
+        ...(group.header ? [group.header.id] : []),
+        ...group.sections.flatMap((section) => [
+          section.heading.id,
+          ...section.children.map((child) => child.id),
+        ]),
+      ]),
+    [groups],
+  );
+  const activeId = useActiveSection(ids, 110) ?? ids[0];
 
   function goTo(id: string) {
     const target = document.getElementById(id);
     if (!target) return;
-    if (window.matchMedia("(max-width: 900px)").matches && contentsRef.current)
+    if (!window.matchMedia("(min-width: 64rem)").matches && contentsRef.current)
       contentsRef.current.open = false;
     const header = document.querySelector<HTMLElement>(".site-header");
     const offset =

@@ -1,19 +1,14 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import { loadAtlasData } from "@/lib/atlas/data";
-import AtlasExplorer from "@/components/AtlasExplorer";
+import AtlasExplorer from "@/components/atlas/AtlasExplorer";
 
-export const metadata: Metadata = {
-  title: "Atlas — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Atlas",
   description:
     "Explore Sapiens First’s domains of work, purpose, roles, and responsibilities.",
-  alternates: { canonical: "/atlas" },
-  openGraph: {
-    title: "Atlas — Sapiens First",
-    description: "A shared map of our work and the people responsible for it.",
-    url: "/atlas",
-    type: "website",
-  },
-};
+  path: "/atlas",
+  ogDescription: "A shared map of our work and the people responsible for it.",
+});
 
 export default function Page() {
   const data = loadAtlasData();

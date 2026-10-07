@@ -1,27 +1,21 @@
+import { pageMetadata } from "@/lib/site";
+import ScrollProgress from "@/components/ScrollProgress";
 import { TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Label";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
-import CampaignAccordion from "@/components/CampaignAccordion";
+import CampaignAccordion from "@/components/campaigns/CampaignAccordion";
 
-export const metadata: Metadata = {
-  title: "Campaigns for AI Accountability — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Campaigns for AI Accountability",
   description:
     "Sapiens First's active campaigns to protect civil liberties in the age of AI.",
-  alternates: { canonical: "/campaigns" },
-  openGraph: {
-    title: "Campaigns for AI Accountability — Sapiens First",
-    description:
-      "Sapiens First's active campaigns to protect civil liberties in the age of AI.",
-    url: "/campaigns",
-    type: "website",
-  },
-};
+  path: "/campaigns",
+});
 
 export default function Page() {
   return (
     <div className="route-root route-campaigns">
-      <div className="progress-bar"></div>
+      <ScrollProgress />
 
       <div className="page-hero">
         <Container>

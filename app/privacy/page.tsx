@@ -1,19 +1,12 @@
+import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Privacy — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Privacy",
   description:
     "Learn how Sapiens First uses your email address for updates, and how to opt out or request deletion.",
-  alternates: { canonical: "/privacy" },
-  openGraph: {
-    title: "Privacy — Sapiens First",
-    description:
-      "Learn how Sapiens First uses your email address for updates, and how to opt out or request deletion.",
-    url: "/privacy",
-    type: "website",
-  },
-};
+  path: "/privacy",
+});
 
 export default function Page() {
   return (

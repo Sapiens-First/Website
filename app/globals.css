@@ -45,8 +45,8 @@
     @apply contents;
   }
   @media print {
-    body.print-job > header.site-header,
-    body.print-job > footer.site-footer {
+    body:has(.route-builder) > header.site-header,
+    body:has(.route-builder) > footer.site-footer {
       @apply hidden;
     }
   }
@@ -852,9 +852,9 @@
     @apply text-lg leading-relaxed font-medium text-ink;
   }
 
-  /* Shared accordion motion: chevron rotation, panel grow/fade, focus outline. Pages add decoration through variant modifiers (e.g. .accordion--rule), never by redefining the motion. */
+  /* Shared accordion motion: chevron rotation, panel grow/fade, focus outline. Pages add decoration through variant modifiers (e.g. .accordion--rule), never by redefining the motion. Native <details class="accordion"> animate via ::details-content; campaigns' shared panel uses .accordion-panel. */
   .accordion-toggle {
-    @apply flex w-full cursor-pointer items-center justify-between gap-4 border-0 text-left;
+    @apply flex w-full cursor-pointer list-none items-center justify-between gap-4 border-0 text-left;
     background: none;
     @apply text-inherit;
     font: inherit;
@@ -879,7 +879,11 @@
       transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
       opacity 0.2s ease;
   }
-  .accordion-toggle[aria-expanded="true"] .accordion-chevron {
+  .accordion-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .accordion-toggle[aria-expanded="true"] .accordion-chevron,
+  .accordion[open] > .accordion-toggle .accordion-chevron {
     transform: rotate(225deg);
     opacity: 1;
   }
@@ -899,12 +903,28 @@
   .accordion-panel-inner {
     @apply min-h-0 overflow-hidden;
   }
+  @supports (interpolate-size: allow-keywords) {
+    .accordion {
+      interpolate-size: allow-keywords;
+    }
+    .accordion::details-content {
+      @apply h-0 opacity-0;
+      overflow: clip;
+      transition:
+        height 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.28s ease,
+        content-visibility 0.4s allow-discrete;
+    }
+    .accordion[open]::details-content {
+      @apply h-auto opacity-100;
+    }
+  }
 
   /* Thin-rule variant: no box, just a faint tint on the open item. */
   .accordion--rule {
     transition: background-color 0.35s ease;
   }
-  .accordion--rule:has(.accordion-panel.is-open) {
+  .accordion--rule[open] {
     background: color-mix(in srgb, var(--color-coral) 4%, transparent);
   }
   .accordion--rule .accordion-toggle {
@@ -1015,20 +1035,19 @@
       transform: translateY(0);
     }
   }
-  .reveal {
-    @apply opacity-100;
-    transform: none;
-  }
-  .js .reveal {
-    @apply opacity-0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .js .reveal.visible {
-    @apply opacity-100;
-    transform: translateY(0);
+  /* Hide reveal targets only when scripts can run to show them again. */
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    .reveal {
+      @apply opacity-0;
+      transform: translateY(20px);
+      transition:
+        opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      @apply opacity-100;
+      transform: none;
+    }
   }
   .reveal-d1 {
     transition-delay: 0.15s;
@@ -1038,13 +1057,6 @@
   }
   .reveal-d3 {
     transition-delay: 0.45s;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .js .reveal {
-      @apply opacity-100;
-      transform: none;
-      transition: none;
-    }
   }
   @variant max-md {
     .page-hero {
@@ -3344,26 +3356,14 @@
         @apply text-4xl sm:text-5xl;
       }
     }
-    .atlas-toolbar {
-      @apply z-20;
-      background: color-mix(in srgb, var(--color-paper) 96%, transparent);
-      backdrop-filter: blur(6px);
-    }
-    @variant max-md {
-      .atlas-toolbar {
-        @apply static;
-        backdrop-filter: none;
-      }
-    }
-
     .atlas-switch,
     .atlas-format {
       @apply inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5;
     }
     .atlas-switch button,
     .atlas-format button {
-      @apply cursor-pointer rounded-sm border-0 bg-transparent px-3 py-1.5 font-body text-xs font-semibold text-ink;
       font: inherit;
+      @apply cursor-pointer rounded-sm border-0 bg-transparent px-3 py-1.5 font-body text-xs font-semibold text-ink;
       transition:
         background-color 0.15s ease,
         color 0.15s ease;
@@ -3389,8 +3389,8 @@
       pointer-events: none;
     }
     .atlas-search-field input {
-      @apply w-full rounded-md border border-solid border-line bg-white pt-2 pr-3 pb-2 pl-8 font-body text-sm text-ink;
       font: inherit;
+      @apply w-full rounded-md border border-solid border-line bg-white pt-2 pr-3 pb-2 pl-8 font-body text-sm text-ink;
     }
     .atlas-search-field input:focus {
       @apply border-coral-dark outline-none;
@@ -3401,8 +3401,8 @@
       @apply text-ink;
     }
     .atlas-filter-field select {
-      @apply cursor-pointer rounded-md border border-solid border-line bg-white pt-2 pr-7 pb-2 pl-3 font-body text-xs font-semibold text-ink;
       font: inherit;
+      @apply cursor-pointer rounded-md border border-solid border-line bg-white pt-2 pr-7 pb-2 pl-3 font-body text-xs font-semibold text-ink;
     }
     .atlas-filter-field select:focus-visible {
       outline: 3px solid var(--color-coral-dark);
@@ -3826,8 +3826,8 @@
       @apply bg-surface text-ink;
     }
     .atlas-outline-menu button {
-      @apply cursor-pointer rounded-md border-0 px-3 py-2 text-left text-xs font-semibold whitespace-nowrap text-ink;
       font: inherit;
+      @apply cursor-pointer rounded-md border-0 px-3 py-2 text-left text-xs font-semibold whitespace-nowrap text-ink;
       background: none;
     }
     .atlas-outline-menu button:hover {
@@ -3944,8 +3944,8 @@
       @apply mb-3 text-sm leading-relaxed;
     }
     .atlas-outline-empty button {
-      @apply cursor-pointer rounded-md border border-solid border-line bg-white px-3.5 py-2 text-xs font-semibold;
       font: inherit;
+      @apply cursor-pointer rounded-md border border-solid border-line bg-white px-3.5 py-2 text-xs font-semibold;
     }
     .atlas-outline-empty button:hover {
       @apply border-coral-dark text-coral-dark;
@@ -3999,8 +3999,8 @@
       @apply rounded-lg border border-solid border-line bg-surface p-0.5;
     }
     .atlas-alignment-switch button {
-      @apply cursor-pointer rounded-sm border-0 bg-transparent px-3 py-1.5 text-xs font-semibold text-ink;
       font: inherit;
+      @apply cursor-pointer rounded-sm border-0 bg-transparent px-3 py-1.5 text-xs font-semibold text-ink;
     }
     .atlas-alignment-switch button[aria-pressed="true"] {
       @apply bg-white font-bold text-ink;
@@ -5010,7 +5010,7 @@
   :where(.route-root.route-policy) .policy-pillar .policy-card:last-child {
     @apply border-b-2 border-solid border-b-ink;
   }
-  :where(.route-root.route-policy) .policy-card:has(.accordion-panel.is-open) {
+  :where(.route-root.route-policy) .policy-card[open] {
     @apply bg-paper;
   }
   :where(.route-root.route-policy) .policy-card .accordion-chevron {

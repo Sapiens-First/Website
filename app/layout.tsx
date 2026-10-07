@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import PageInteractions from "@/components/PageInteractions";
+import RevealOnScroll from "@/components/RevealOnScroll";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const displayFont = Barlow_Condensed({
@@ -21,8 +22,8 @@ const bodyFont = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sapiensfirst.org"),
-  title: "Sapiens First",
+  metadataBase: new URL(site.url),
+  title: { default: "Sapiens First", template: "%s — Sapiens First" },
   icons: {
     icon: [
       { url: "/favicons/favicon.ico" },
@@ -40,13 +41,13 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${displayFont.variable} ${bodyFont.variable} js`}
+      className={`${displayFont.variable} ${bodyFont.variable}`}
     >
       <body>
         <SiteHeader />
         {children}
         <SiteFooter />
-        <PageInteractions />
+        <RevealOnScroll />
       </body>
     </html>
   );

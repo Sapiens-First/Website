@@ -1,20 +1,13 @@
+import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
-import GuideClient from "@/components/GuideClient";
+import GuideClient from "@/components/learn/GuideClient";
 
-export const metadata: Metadata = {
-  title: "Guide — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Guide",
   description:
     "The Sapiens First guide to AI, people power, and how to make change.",
-  alternates: { canonical: "/learn" },
-  openGraph: {
-    title: "Guide — Sapiens First",
-    description:
-      "The Sapiens First guide to AI, people power, and how to make change.",
-    url: "/learn",
-    type: "website",
-  },
-};
+  path: "/learn",
+});
 
 export default function Page() {
   return (

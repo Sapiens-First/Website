@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
-import CircleHeroArt from "@/components/artwork/CircleHeroArt";
+import CircleHeroArt from "@/components/circle/CircleHeroArt";
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import {
@@ -13,19 +13,12 @@ import SignupForm from "@/components/SignupForm";
 import { ActionLink } from "@/components/ui/Action";
 import { FactPill, Label } from "@/components/ui/Label";
 
-export const metadata: Metadata = {
-  title: "Start a Circle — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Start a Circle",
   description:
     "Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.",
-  alternates: { canonical: "/circle" },
-  openGraph: {
-    title: "Start a Circle — Sapiens First",
-    description:
-      "Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.",
-    url: "/circle",
-    type: "website",
-  },
-};
+  path: "/circle",
+});
 
 export default function Page() {
   return (

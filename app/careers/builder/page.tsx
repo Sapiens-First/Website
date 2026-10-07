@@ -1,20 +1,14 @@
+import { pageMetadata } from "@/lib/site";
 import { ActionLink } from "@/components/ui/Action";
-import type { Metadata } from "next";
 import Link from "next/link";
+import BuilderToc from "@/components/careers/BuilderToc";
 
-export const metadata: Metadata = {
-  title: "AI-Native Builder (Contract) — Careers — Sapiens First",
+export const metadata = pageMetadata({
+  title: "AI-Native Builder (Contract) — Careers",
   description:
     "Sapiens First is hiring an AI-native builder on a paid contract to turn messy organizational problems into useful software, automations, and systems. Remote, India preferred.",
-  alternates: { canonical: "/careers/builder" },
-  openGraph: {
-    title: "AI-Native Builder (Contract) — Careers — Sapiens First",
-    description:
-      "Sapiens First is hiring an AI-native builder on a paid contract to turn messy organizational problems into useful software, automations, and systems. Remote, India preferred.",
-    url: "/careers/builder",
-    type: "website",
-  },
-};
+  path: "/careers/builder",
+});
 
 export default function Page() {
   return (
@@ -46,31 +40,7 @@ export default function Page() {
           </header>
           <div className="job-layout grid items-start gap-12 max-lg:block">
             <aside className="job-sidebar sticky top-28 overflow-y-auto max-lg:mb-8 max-lg:max-h-none max-lg:overflow-visible">
-              <details
-                className="job-toc max-lg:border-t max-lg:border-b max-lg:border-solid max-lg:border-t-rule max-lg:border-b-rule"
-                open={true}
-              >
-                <summary>On this page</summary>
-                <nav aria-label="Job description sections">
-                  <ul>
-                    <li>
-                      <a href="#about-sapiens-first">About Sapiens First</a>
-                    </li>
-                    <li>
-                      <a href="#the-role">About the Role</a>
-                    </li>
-                    <li>
-                      <a href="#about-you">About You</a>
-                    </li>
-                    <li>
-                      <a href="#benefits">Benefits</a>
-                    </li>
-                    <li>
-                      <a href="#apply">Apply</a>
-                    </li>
-                  </ul>
-                </nav>
-              </details>
+              <BuilderToc />
             </aside>
             <div className="job-content min-w-0 text-lg text-ink">
               <div className="job-description">

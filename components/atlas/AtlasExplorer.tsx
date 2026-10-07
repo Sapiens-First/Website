@@ -24,11 +24,11 @@ import RecordDetails, {
   Ownership,
   RecordLink,
   TypeIcon,
-} from "@/components/RecordDetails";
-import Circles from "@/components/Circles";
-import DomainOutline from "@/components/DomainOutline";
-import Alignment from "@/components/Alignment";
-import { AtlasLookupsProvider } from "@/components/AtlasLookupsContext";
+} from "@/components/atlas/RecordDetails";
+import Circles from "@/components/atlas/Circles";
+import DomainOutline from "@/components/atlas/DomainOutline";
+import Alignment from "@/components/atlas/Alignment";
+import { AtlasLookupsProvider } from "@/components/atlas/AtlasLookupsContext";
 import { cn } from "@/lib/cn";
 
 const getHash = () => window.location.hash;
@@ -172,7 +172,7 @@ export default function AtlasExplorer({
         className="atlas-explorer site-container relative z-2 mx-auto w-full max-w-7xl px-3 pb-16 sm:px-6"
         aria-labelledby="view-title"
       >
-        <div className="atlas-toolbar sticky top-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line px-0 py-3.5 max-lg:top-16 max-sm:flex-col max-sm:items-stretch">
+        <div className="atlas-toolbar sticky top-20 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-lg:top-16 max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch">
           <div className="atlas-switch" role="group" aria-label="Atlas view">
             {(["governance", "domains", "people"] as View[]).map((value) => (
               <button

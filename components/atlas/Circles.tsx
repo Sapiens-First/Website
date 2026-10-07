@@ -10,7 +10,7 @@ import {
 } from "react";
 import { circleLayout } from "@/lib/atlas/circles";
 import type { AtlasData, AtlasRow, HierarchyNode } from "@/lib/atlas/model";
-import { RecordLink } from "@/components/RecordDetails";
+import { RecordLink } from "@/components/atlas/RecordDetails";
 import { cn } from "@/lib/cn";
 
 const palette = [

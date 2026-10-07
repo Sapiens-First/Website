@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 export const site = {
   url: "https://sapiensfirst.org",
   donationUrl:
@@ -51,3 +53,63 @@ export const footerGroups = [
     ],
   },
 ] as const;
+
+export const routes = [
+  "/",
+  "/about",
+  "/atlas",
+  "/fellowship",
+  "/circle",
+  "/campaigns",
+  "/join",
+  "/donate",
+  "/events",
+  "/learn",
+  "/policy",
+  "/human-charter",
+  "/privacy",
+  "/membership",
+  "/careers",
+  "/careers/builder",
+] as const;
+
+/** Old static-site paths; each also redirects from its `.html` form. */
+export const redirectAliases: Record<string, string> = {
+  "/index": "/",
+  "/act": "/join",
+  "/guide": "/learn",
+  "/fellowship-app": "/fellowship#signup",
+  "/start-a-circle": "/circle",
+  "/organize": "/circle",
+  "/about/approach": "/about#strategy",
+  "/about/vision": "/about#vision",
+  "/about/careers": "/careers",
+  "/advise":
+    "https://docs.google.com/document/d/1pxrOr9pyE72UF2UM9tek9p1rYK984AHRtIDtzIi3XkY/edit?tab=t.0",
+  "/strategy": site.strategyDocUrl,
+};
+
+export function pageMetadata({
+  title,
+  description,
+  path,
+  ogDescription = description,
+}: {
+  title: string | { absolute: string };
+  description: string;
+  path: string;
+  ogDescription?: string;
+}): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title:
+        typeof title === "string" ? `${title} — Sapiens First` : title.absolute,
+      description: ogDescription,
+      url: path,
+      type: "website",
+    },
+  };
+}

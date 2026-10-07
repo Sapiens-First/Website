@@ -29,7 +29,11 @@ export function FaqItem({
   open?: boolean;
 }) {
   return (
-    <details className="faq-item border-b-2 border-ink" open={open}>
+    <details
+      className="faq-item accordion border-b-2 border-ink"
+      name="faq"
+      open={open}
+    >
       <summary className="relative flex cursor-pointer list-none items-baseline gap-4 py-6 pr-12">
         <span
           className={`faq-n shrink-0 font-display text-xl font-extrabold ${numberColors[(number - 1) % numberColors.length]}`}

@@ -1,27 +1,21 @@
+import { pageMetadata } from "@/lib/site";
+import EmberField from "@/components/EmberField";
 import { TextLink } from "@/components/ui/Action";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
-import EventsClient from "@/components/EventsClient";
+import EventsClient from "@/components/events/EventsClient";
 
-export const metadata: Metadata = {
-  title: "Events — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Events",
   description:
     "Find Sapiens First events near you and show up for the revolution.",
-  alternates: { canonical: "/events" },
-  openGraph: {
-    title: "Events — Sapiens First",
-    description:
-      "Find Sapiens First events near you and show up for the revolution.",
-    url: "/events",
-    type: "website",
-  },
-};
+  path: "/events",
+});
 
 export default function Page() {
   return (
     <div className="route-root route-events">
       <div className="page-hero">
-        <div className="ember-field" aria-hidden="true"></div>
+        <EmberField />
         <Container>
           <h1 className="page-title">
             Upcoming

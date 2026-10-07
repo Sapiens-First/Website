@@ -8,7 +8,7 @@ import {
   type AtlasRow,
   type HierarchyNode,
 } from "@/lib/atlas/model";
-import { RecordLink, TypeIcon } from "@/components/RecordDetails";
+import { RecordLink, TypeIcon } from "@/components/atlas/RecordDetails";
 import { cn } from "@/lib/cn";
 
 const bands: Record<string, number> = {

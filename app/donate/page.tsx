@@ -1,21 +1,14 @@
+import { pageMetadata } from "@/lib/site";
 import { ActionLink } from "@/components/ui/Action";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Donate — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Donate",
   description:
     "Help Sapiens First build political power for AI safety. Fund local chapters, organizer training, and campaigns for a future where AI serves humanity.",
-  alternates: { canonical: "/donate" },
-  openGraph: {
-    title: "Donate — Sapiens First",
-    description:
-      "Help Sapiens First build political power for AI safety. Fund local chapters, organizer training, and campaigns for a future where AI serves humanity.",
-    url: "/donate",
-    type: "website",
-  },
-};
+  path: "/donate",
+});
 
 export default function Page() {
   return (

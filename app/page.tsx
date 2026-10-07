@@ -1,24 +1,33 @@
+import { pageMetadata } from "@/lib/site";
 import { SplitHero } from "@/components/sections/SplitSection";
 import { Container } from "@/components/layout/Container";
 import { Label } from "@/components/ui/Label";
-import type { Metadata } from "next";
 import Image from "next/image";
-import CampaignCarousel from "@/components/CampaignCarousel";
+import CampaignCarousel from "@/components/home/CampaignCarousel";
 import SignupForm from "@/components/SignupForm";
 
-export const metadata: Metadata = {
-  title: "Sapiens First — A Movement for AI Accountability",
+/** Crisis-section stars: [left, top, size]. */
+const stars = [
+  ["28%", "9%", "5.6px"],
+  ["61%", "16%", "7.7px"],
+  ["43%", "23%", "9.8px"],
+  ["78%", "30%", "5.6px"],
+  ["32%", "37%", "7.7px"],
+  ["67%", "44%", "9.8px"],
+  ["48%", "51%", "5.6px"],
+  ["82%", "58%", "7.7px"],
+  ["36%", "65%", "9.8px"],
+  ["71%", "72%", "5.6px"],
+  ["53%", "79%", "11.2px"],
+  ["25%", "86%", "7px"],
+] as const;
+
+export const metadata = pageMetadata({
+  title: { absolute: "Sapiens First — A Movement for AI Accountability" },
   description:
     "Join Sapiens First to defend humanity from the threats of superintelligence. Explore our campaigns, fellowship, and local organizing groups.",
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Sapiens First — A Movement for AI Accountability",
-    description:
-      "Join Sapiens First to defend humanity from the threats of superintelligence. Explore our campaigns, fellowship, and local organizing groups.",
-    url: "/",
-    type: "website",
-  },
-};
+  path: "/",
+});
 
 export default function Page() {
   return (
@@ -26,63 +35,9 @@ export default function Page() {
       <main className="route-home">
         <SplitHero>
           <div className="hero-copy">
-            <svg
-              className="hero-confetti hero-confetti--top"
-              viewBox="0 0 160 90"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                className="paper-red"
-                d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
-              ></path>
-              <path
-                className="paper-blue"
-                d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
-              ></path>
-              <path
-                className="paper-yellow"
-                d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
-              ></path>
-            </svg>
-            <svg
-              className="hero-confetti hero-confetti--bottom"
-              viewBox="0 0 160 90"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                className="paper-red"
-                d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
-              ></path>
-              <path
-                className="paper-blue"
-                d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
-              ></path>
-              <path
-                className="paper-yellow"
-                d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
-              ></path>
-            </svg>
-            <svg
-              className="hero-confetti hero-confetti--left"
-              viewBox="0 0 160 90"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                className="paper-red"
-                d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
-              ></path>
-              <path
-                className="paper-blue"
-                d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
-              ></path>
-              <path
-                className="paper-yellow"
-                d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
-              ></path>
-            </svg>
+            <Confetti className="hero-confetti--top" />
+            <Confetti className="hero-confetti--bottom" />
+            <Confetti className="hero-confetti--left" />
             <h1>
               Revolt for our <span className="jolt">future.</span>
             </h1>
@@ -101,44 +56,8 @@ export default function Page() {
               sizes="(max-width: 900px) 100vw, 46vw"
               preload
             />
-            <svg
-              className="hero-confetti"
-              viewBox="0 0 160 90"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                className="paper-red"
-                d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
-              ></path>
-              <path
-                className="paper-blue"
-                d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
-              ></path>
-              <path
-                className="paper-yellow"
-                d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
-              ></path>
-            </svg>
-            <svg
-              className="hero-confetti hero-confetti--right"
-              viewBox="0 0 160 90"
-              aria-hidden="true"
-              focusable="false"
-            >
-              <path
-                className="paper-red"
-                d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
-              ></path>
-              <path
-                className="paper-blue"
-                d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
-              ></path>
-              <path
-                className="paper-yellow"
-                d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
-              ></path>
-            </svg>
+            <Confetti />
+            <Confetti className="hero-confetti--right" />
           </div>
         </SplitHero>
 
@@ -227,114 +146,13 @@ export default function Page() {
                 className="crisis-stars pointer-events-none -top-20 -bottom-16 left-0 max-sm:-top-11 max-sm:right-60 max-sm:-bottom-8"
                 aria-hidden="true"
               >
-                <i
-                  className="star"
-                  style={{
-                    left: "28%",
-                    top: "9%",
-                    width: "5.6px",
-                    height: "5.6px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "61%",
-                    top: "16%",
-                    width: "7.7px",
-                    height: "7.7px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "43%",
-                    top: "23%",
-                    width: "9.8px",
-                    height: "9.8px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "78%",
-                    top: "30%",
-                    width: "5.6px",
-                    height: "5.6px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "32%",
-                    top: "37%",
-                    width: "7.7px",
-                    height: "7.7px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "67%",
-                    top: "44%",
-                    width: "9.8px",
-                    height: "9.8px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "48%",
-                    top: "51%",
-                    width: "5.6px",
-                    height: "5.6px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "82%",
-                    top: "58%",
-                    width: "7.7px",
-                    height: "7.7px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "36%",
-                    top: "65%",
-                    width: "9.8px",
-                    height: "9.8px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "71%",
-                    top: "72%",
-                    width: "5.6px",
-                    height: "5.6px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "53%",
-                    top: "79%",
-                    width: "11.2px",
-                    height: "11.2px",
-                  }}
-                ></i>
-                <i
-                  className="star"
-                  style={{
-                    left: "25%",
-                    top: "86%",
-                    width: "7px",
-                    height: "7px",
-                  }}
-                ></i>
+                {stars.map(([left, top, size]) => (
+                  <i
+                    className="star"
+                    key={top}
+                    style={{ left, top, width: size, height: size }}
+                  />
+                ))}
               </div>
             </div>
             <div className="stats">
@@ -481,5 +299,29 @@ export default function Page() {
         </section>
       </main>
     </div>
+  );
+}
+
+function Confetti({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={`hero-confetti ${className}`.trim()}
+      viewBox="0 0 160 90"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        className="paper-red"
+        d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
+      ></path>
+      <path
+        className="paper-blue"
+        d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
+      ></path>
+      <path
+        className="paper-yellow"
+        d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
+      ></path>
+    </svg>
   );
 }

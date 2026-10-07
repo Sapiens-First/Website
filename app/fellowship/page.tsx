@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
+import { fellowshipRoles } from "@/content/fellowship";
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import {
@@ -11,19 +12,12 @@ import SignupForm from "@/components/SignupForm";
 import { ActionLink, TextLink } from "@/components/ui/Action";
 import { FactPill, Label } from "@/components/ui/Label";
 
-export const metadata: Metadata = {
-  title: "AI Advocacy Fellowship — Sapiens First",
+export const metadata = pageMetadata({
+  title: "AI Advocacy Fellowship",
   description:
     "Become a Sapiens First Fellow — hands-on experience, mentorship, and a key role in our movement to build political power over AI.",
-  alternates: { canonical: "/fellowship" },
-  openGraph: {
-    title: "AI Advocacy Fellowship — Sapiens First",
-    description:
-      "Become a Sapiens First Fellow — hands-on experience, mentorship, and a key role in our movement to build political power over AI.",
-    url: "/fellowship",
-    type: "website",
-  },
-};
+  path: "/fellowship",
+});
 
 export default function Page() {
   return (
@@ -241,142 +235,39 @@ export default function Page() {
               </p>
             </div>
             <div className="role-acc mt-11 border-t-2 border-solid border-t-ink">
-              <details
-                className="role border-b-2 border-solid border-b-ink"
-                open={true}
-              >
-                <summary>
-                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
-                    Community Organizing
-                  </span>
-                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
-                    Remote-friendly
-                  </span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
-                  <p>
-                    You enjoy talking to new people, are a great listener, and
-                    care deeply about community. You&apos;re great at making
-                    people feel empowered, with the goal of them joining the
-                    movement.
-                  </p>
-                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
-                    Example activities
-                  </span>
-                  <ul className="role-list">
-                    <li>Designing events for people</li>
-                    <li>Door-to-door conversations with people</li>
-                    <li>
-                      Creating curriculum and documentation for volunteers to
-                      train up
-                    </li>
-                  </ul>
-                  <p className="role-note mt-4 font-semibold text-ink italic">
-                    Community Fellows help grow and support Circles forming
-                    across the country.
-                  </p>
-                </div>
-              </details>
-              <details className="role border-b-2 border-solid border-b-ink">
-                <summary>
-                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
-                    Campaign Automations
-                  </span>
-                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
-                    Remote-friendly
-                  </span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
-                  <p>
-                    You enjoy building scalable systems and automations to
-                    empower communities. You&apos;re a fast learner and
-                    excellent at incorporating AI to assist you in the process,
-                    with the goal of streamlining our supporter and membership
-                    onboarding and retention processes.
-                  </p>
-                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
-                    Example activities
-                  </span>
-                  <ul className="role-list">
-                    <li>
-                      Rigging up an open-source CRM to our membership sign-up
-                      page
-                    </li>
-                    <li>
-                      Creating an email automation protocol for sign-ups, event
-                      attendees, and supporters
-                    </li>
-                    <li>Automating member onboarding on Discord</li>
-                  </ul>
-                </div>
-              </details>
-              <details className="role border-b-2 border-solid border-b-ink">
-                <summary>
-                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
-                    Digital Marketing
-                  </span>
-                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
-                    Remote-friendly
-                  </span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
-                  <p>
-                    You enjoy communicating big ideas clearly and learning what
-                    inspires people to take action. You will test messaging and
-                    branding, with the goal of expanding our digital reach.
-                  </p>
-                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
-                    Example activities
-                  </span>
-                  <ul className="role-list">
-                    <li>Refining our brand marketing strategy</li>
-                    <li>
-                      Designing and executing our digital marketing strategy
-                    </li>
-                    <li>
-                      Designing materials like business cards, banners, and lawn
-                      signs
-                    </li>
-                  </ul>
-                </div>
-              </details>
-              <details className="role border-b-2 border-solid border-b-ink">
-                <summary>
-                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
-                    Policy &amp; Coalitions
-                  </span>
-                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
-                    Remote-friendly
-                  </span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
-                  <p>
-                    You enjoy diving deep into policy and AI safety. You&apos;re
-                    good at putting yourself in other people&apos;s shoes. You
-                    enjoy building relationships, with the goal of building
-                    coalitional support for Sapiens First&apos;s campaigns
-                    nationally.
-                  </p>
-                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
-                    Example activities
-                  </span>
-                  <ul className="role-list">
-                    <li>Crafting achievable campaign objectives</li>
-                    <li>
-                      Collaborating with other movements like YDSA and the
-                      Sunrise Movement
-                    </li>
-                    <li>
-                      Reaching out and building relationships with mainstream
-                      orgs like the ACLU
-                    </li>
-                  </ul>
-                </div>
-              </details>
+              {fellowshipRoles.map((role, index) => (
+                <details
+                  className="role border-b-2 border-solid border-b-ink"
+                  key={role.title}
+                  open={index === 0}
+                >
+                  <summary>
+                    <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
+                      {role.title}
+                    </span>
+                    <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                      Remote-friendly
+                    </span>
+                    <span className="role-chevron" aria-hidden="true"></span>
+                  </summary>
+                  <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
+                    <p>{role.description}</p>
+                    <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                      Example activities
+                    </span>
+                    <ul className="role-list">
+                      {role.activities.map((activity) => (
+                        <li key={activity}>{activity}</li>
+                      ))}
+                    </ul>
+                    {role.note && (
+                      <p className="role-note mt-4 font-semibold text-ink italic">
+                        {role.note}
+                      </p>
+                    )}
+                  </div>
+                </details>
+              ))}
             </div>
           </Container>
         </section>

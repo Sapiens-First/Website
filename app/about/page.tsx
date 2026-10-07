@@ -1,23 +1,17 @@
+import { pageMetadata } from "@/lib/site";
+import CycleNodes from "@/components/about/CycleNodes";
 import { TextLink } from "@/components/ui/Action";
 import { SplitHero } from "@/components/sections/SplitSection";
 import { Label } from "@/components/ui/Label";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
 import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "About — Sapiens First",
+export const metadata = pageMetadata({
+  title: "About",
   description:
     "Learn about Sapiens First — who we are, what we do, and the values that guide our fight for humanity's future.",
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About — Sapiens First",
-    description:
-      "Learn about Sapiens First — who we are, what we do, and the values that guide our fight for humanity's future.",
-    url: "/about",
-    type: "website",
-  },
-};
+  path: "/about",
+});
 
 export default function Page() {
   return (
@@ -244,42 +238,7 @@ export default function Page() {
                 <br />
                 power
               </div>
-              <button
-                className="cycle-node cycle-node-act absolute top-0 flex cursor-pointer items-center justify-center rounded-full bg-coral font-display font-extrabold text-ink uppercase max-sm:text-xl"
-                type="button"
-                data-step="act"
-                aria-pressed="false"
-              >
-                <span>Act</span>
-                <span className="cycle-tip pointer-events-none absolute border-2 border-solid border-ink bg-white px-3 py-2.5 font-body text-xs leading-snug font-semibold text-ink normal-case">
-                  Visible, peaceful pressure makes AI governance impossible to
-                  ignore.
-                </span>
-              </button>
-              <button
-                className="cycle-node cycle-node-recruit absolute bottom-0 flex cursor-pointer items-center justify-center rounded-full bg-brand-yellow font-display font-extrabold text-ink uppercase max-sm:text-xl"
-                type="button"
-                data-step="recruit"
-                aria-pressed="false"
-              >
-                <span>Recruit</span>
-                <span className="cycle-tip pointer-events-none absolute border-2 border-solid border-ink bg-white px-3 py-2.5 font-body text-xs leading-snug font-semibold text-ink normal-case">
-                  Every public action creates conversations, gatherings, and
-                  local relationships.
-                </span>
-              </button>
-              <button
-                className="cycle-node cycle-node-train absolute bottom-0 flex cursor-pointer items-center justify-center rounded-full bg-brand-blue font-display font-extrabold text-ink text-white uppercase max-sm:text-xl"
-                type="button"
-                data-step="train"
-                aria-pressed="false"
-              >
-                <span>Train</span>
-                <span className="cycle-tip pointer-events-none absolute border-2 border-solid border-ink bg-white px-3 py-2.5 font-body text-xs leading-snug font-semibold text-ink normal-case">
-                  New advocates learn organizing skills and become leaders for
-                  the next action.
-                </span>
-              </button>
+              <CycleNodes />
             </div>
             <TextLink href="/learn">Read the Guide →</TextLink>
           </Container>

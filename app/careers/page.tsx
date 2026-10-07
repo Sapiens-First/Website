@@ -1,19 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Careers — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Careers",
   description:
     "Explore open roles at Sapiens First. Help build political power to ensure technology serves the common good.",
-  alternates: { canonical: "/careers" },
-  openGraph: {
-    title: "Careers — Sapiens First",
-    description:
-      "Explore open roles at Sapiens First. Help build political power to ensure technology serves the common good.",
-    url: "/careers",
-    type: "website",
-  },
-};
+  path: "/careers",
+});
 
 export default function Page() {
   return (

@@ -1,28 +1,23 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
+import EmberField from "@/components/EmberField";
+import ScrollProgress from "@/components/ScrollProgress";
 import { Container } from "@/components/layout/Container";
 import { ActionLink, TextLink } from "@/components/ui/Action";
 
-export const metadata: Metadata = {
-  title: "Membership — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Membership",
   description:
     "Sapiens First membership is on its way — monthly dues, member perks, and a direct way to fund the movement.",
-  alternates: { canonical: "/membership" },
-  openGraph: {
-    title: "Membership — Sapiens First",
-    description:
-      "Sapiens First membership is on its way — monthly dues, member perks, and a direct way to fund the movement.",
-    url: "/membership",
-    type: "website",
-  },
-};
+  path: "/membership",
+});
 
 export default function Page() {
   return (
     <div className="route-root route-membership">
-      <div className="progress-bar"></div>
+      <ScrollProgress />
 
       <div className="page-hero">
-        <div className="ember-field" aria-hidden="true"></div>
+        <EmberField />
         <Container>
           <h1 className="page-title">
             Become a

@@ -1,22 +1,25 @@
-import { ActionLink, Button } from "@/components/ui/Action";
+import { pageMetadata, site } from "@/lib/site";
+import { ActionLink } from "@/components/ui/Action";
+import CopyLinkButton from "@/components/join/CopyLinkButton";
 import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import SignupForm from "@/components/SignupForm";
 
-export const metadata: Metadata = {
-  title: "Join — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Join",
   description:
     "We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.",
-  alternates: { canonical: "/join" },
-  openGraph: {
-    title: "Join — Sapiens First",
-    description:
-      "We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.",
-    url: "/join",
-    type: "website",
-  },
+  path: "/join",
+});
+
+const shareUrl = `${site.url}/join`;
+const shareText =
+  "Help build political power so technology serves the common good. Get involved with Sapiens First: ";
+const shareLinks = {
+  x: `https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+  whatsapp: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
 };
 
 export default function Page() {
@@ -75,8 +78,7 @@ export default function Page() {
             <div className="share-buttons">
               <ActionLink
                 variant="outline"
-                id="share-x"
-                href="#"
+                href={shareLinks.x}
                 target="_blank"
                 rel="noopener"
               >
@@ -92,8 +94,7 @@ export default function Page() {
               </ActionLink>
               <ActionLink
                 variant="outline"
-                id="share-fb"
-                href="#"
+                href={shareLinks.facebook}
                 target="_blank"
                 rel="noopener"
               >
@@ -109,8 +110,7 @@ export default function Page() {
               </ActionLink>
               <ActionLink
                 variant="outline"
-                id="share-wa"
-                href="#"
+                href={shareLinks.whatsapp}
                 target="_blank"
                 rel="noopener"
               >
@@ -126,22 +126,10 @@ export default function Page() {
               </ActionLink>
             </div>
             <div className="share-url-row">
-              <div className="share-url" id="share-url-display"></div>
-              <Button className="copy-btn" id="copy-link" title="Copy link">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2"></rect>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
-                </svg>
-              </Button>
+              <div className="share-url">
+                {shareUrl.replace("https://", "")}
+              </div>
+              <CopyLinkButton url={shareUrl} />
             </div>
           </Container>
         </section>

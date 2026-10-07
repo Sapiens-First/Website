@@ -1,7 +1,7 @@
 "use client";
 
 import { alignmentMatrix, type AtlasData } from "@/lib/atlas/model";
-import { RecordLink } from "@/components/RecordDetails";
+import { RecordLink } from "@/components/atlas/RecordDetails";
 
 export default function Alignment({
   data,

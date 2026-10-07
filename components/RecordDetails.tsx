@@ -87,31 +87,31 @@ export function Ownership({ row, format }: { row: AtlasRow; format?: Format }) {
         return owner?.["Person ID"] ? (
           <p
             key={id}
-            className="atlas-coverage text-xs leading-relaxed mt-2 text-ink"
+            className="atlas-coverage mt-2 text-xs leading-relaxed text-ink"
           >
             Energized by <Assignee row={owner} />
           </p>
         ) : null;
       })}
       {result.kind === "undelegated" && (
-        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
+        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
           Held by this circle; not delegated to a role.
         </p>
       )}
       {result.kind === "unfilled" && (
-        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
+        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
           The role retains responsibility for this work. Circle Lead coverage
           applies while the role is unfilled.
         </p>
       )}
       {result.kind === "unknown" && (
-        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
+        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
           Containing circle not recorded; default responsibility cannot be
           resolved.
         </p>
       )}
       {coverage && (
-        <p className="atlas-coverage text-xs leading-relaxed mt-2 text-ink">
+        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
           {coverage.circleId && (
             <>
               Coverage through <RecordLink id={coverage.circleId} />:{" "}
@@ -228,7 +228,7 @@ export default function RecordDetails({
   return (
     <section
       id="atlas-record"
-      className="atlas-record border border-solid border-line rounded-lg bg-white max-sm:rounded-none"
+      className="atlas-record rounded-lg border border-solid border-line bg-white max-sm:rounded-none"
       aria-labelledby="record-title"
     >
       <a className="atlas-record-close" href={`#${group}/${format}`}>
@@ -248,7 +248,7 @@ export default function RecordDetails({
         <p>No record exists for {id}.</p>
       ) : (
         <>
-          <p className="atlas-record-meta text-xs text-ink tracking-wide">
+          <p className="atlas-record-meta text-xs tracking-wide text-ink">
             {row.ID} · {row.Type} · {row.Status}
           </p>
           {parents.length > 0 && (
@@ -257,7 +257,7 @@ export default function RecordDetails({
               <LinkedRecords ids={parents} format={format} />
             </>
           )}
-          <p className="atlas-record-purpose text-base leading-relaxed mt-4">
+          <p className="atlas-record-purpose mt-4 text-base leading-relaxed">
             {row.Purpose || "Purpose not documented."}
           </p>
           {group === "domains" ? (

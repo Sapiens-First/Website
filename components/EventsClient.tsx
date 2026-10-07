@@ -3,6 +3,7 @@
 import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { site } from "@/lib/site";
 import { Button } from "@/components/ui/Action";
+import { cn } from "@/lib/cn";
 
 type GvizCell = { v?: string | number | null; f?: string } | null;
 type GvizRow = { c: GvizCell[] };
@@ -87,7 +88,7 @@ function EventCard({
   const meta = [event.city, event.time].filter(Boolean);
   return (
     <article
-      className={`event-card${isPast(event) ? " past" : ""}`}
+      className={cn("event-card", isPast(event) && "past")}
       onClick={() => open(event)}
       onKeyDown={(key) => {
         if (key.key === "Enter" || key.key === " ") {
@@ -99,11 +100,11 @@ function EventCard({
       tabIndex={0}
     >
       {event.date ? (
-        <div className="event-card-date-col shrink-0 flex flex-col items-center justify-center py-4 px-2 gap-0.5">
+        <div className="event-card-date-col flex shrink-0 flex-col items-center justify-center gap-0.5 px-2 py-4">
           <span className="event-card-month font-body text-xs tracking-widest uppercase">
             {months[event.date.getMonth()]}
           </span>
-          <span className="event-card-day font-display font-extrabold text-4xl leading-none text-white tracking-tight max-md:text-4xl">
+          <span className="event-card-day font-display text-4xl leading-none font-extrabold tracking-tight text-white max-md:text-4xl">
             {event.date.getDate()}
           </span>
           <span className="event-card-year font-body text-xs tracking-widest">
@@ -111,18 +112,18 @@ function EventCard({
           </span>
         </div>
       ) : (
-        <div className="event-card-nodate-col shrink-0 bg-line flex items-center justify-center">
+        <div className="event-card-nodate-col flex shrink-0 items-center justify-center bg-line">
           <span className="event-card-nodate-inner font-body text-xs tracking-widest uppercase">
             TBD
           </span>
         </div>
       )}
-      <div className="event-card-body pt-4 pr-6 pb-4 pl-6 flex flex-col justify-center gap-1 max-sm:pt-3.5 max-sm:pr-4 max-sm:pb-3 max-sm:pl-4">
-        <div className="event-card-title font-display font-bold text-xl leading-none tracking-normal uppercase text-ink max-sm:text-lg">
+      <div className="event-card-body flex flex-col justify-center gap-1 pt-4 pr-6 pb-4 pl-6 max-sm:pt-3.5 max-sm:pr-4 max-sm:pb-3 max-sm:pl-4">
+        <div className="event-card-title font-display text-xl leading-none font-bold tracking-normal text-ink uppercase max-sm:text-lg">
           {event.title}
         </div>
         {meta.length > 0 && (
-          <div className="event-card-meta flex items-center gap-2 flex-wrap">
+          <div className="event-card-meta flex flex-wrap items-center gap-2">
             {meta.map((part, index) => (
               <Fragment key={`${part}-${index}`}>
                 <span className="event-card-meta-item font-body text-sm text-ink">
@@ -136,7 +137,7 @@ function EventCard({
           </div>
         )}
       </div>
-      <div className="event-card-arrow shrink-0 flex items-center pt-0 pr-5 pb-0 pl-2 font-body text-base max-sm:pt-0 max-sm:pr-3 max-sm:pb-0 max-sm:pl-1">
+      <div className="event-card-arrow flex shrink-0 items-center pt-0 pr-5 pb-0 pl-2 font-body text-base max-sm:pt-0 max-sm:pr-3 max-sm:pb-0 max-sm:pl-1">
         →
       </div>
     </article>
@@ -244,11 +245,11 @@ export default function EventsClient() {
     <>
       <div id="city-filter-wrap">
         {cities.length >= 2 && (
-          <div className="city-filter flex flex-wrap gap-2 mb-7">
+          <div className="city-filter mb-7 flex flex-wrap gap-2">
             {[["all", "All cities"], ...cities.map((name) => [name, name])].map(
               ([value, label]) => (
                 <button
-                  className={`city-btn${city === value ? " active" : ""}`}
+                  className={cn("city-btn", city === value && "active")}
                   key={value}
                   onClick={() => setCity(value)}
                 >
@@ -302,7 +303,7 @@ export default function EventsClient() {
       </div>
       <div
         id="event-modal"
-        className={`event-modal${selected ? " open" : ""}`}
+        className={cn("event-modal", selected && "open")}
         role="dialog"
         aria-modal="true"
         aria-label={selected?.title ?? "Event details"}
@@ -312,12 +313,12 @@ export default function EventsClient() {
       >
         {selected && (
           <div
-            className="event-modal-inner absolute top-0 right-0 bottom-0 bg-paper cursor-default py-12 px-10 overflow-y-auto flex flex-col gap-5"
+            className="event-modal-inner absolute top-0 right-0 bottom-0 flex cursor-default flex-col gap-5 overflow-y-auto bg-paper px-10 py-12"
             id="event-modal-inner"
           >
             <div className="modal-date-row flex items-center gap-2.5">
               {selected.date && (
-                <span className="modal-date font-body text-sm font-medium tracking-widest uppercase text-coral-dark">
+                <span className="modal-date font-body text-sm font-medium tracking-widest text-coral-dark uppercase">
                   {selected.date.toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
@@ -327,7 +328,7 @@ export default function EventsClient() {
                 </span>
               )}
               {selected.date && selected.time && (
-                <span className="modal-dot w-0.5 h-0.5 bg-line rounded-full shrink-0" />
+                <span className="modal-dot h-0.5 w-0.5 shrink-0 rounded-full bg-line" />
               )}
               {selected.time && (
                 <span className="modal-time font-body text-sm text-ink">
@@ -335,11 +336,11 @@ export default function EventsClient() {
                 </span>
               )}
             </div>
-            <div className="modal-title font-display font-extrabold leading-none tracking-normal uppercase text-ink">
+            <div className="modal-title font-display leading-none font-extrabold tracking-normal text-ink uppercase">
               {selected.title}
             </div>
             {selected.desc && (
-              <p className="modal-desc font-body text-base text-ink leading-relaxed border-t border-solid border-t-line pt-5">
+              <p className="modal-desc border-t border-solid border-t-line pt-5 font-body text-base leading-relaxed text-ink">
                 {selected.desc}
               </p>
             )}
@@ -384,7 +385,7 @@ export default function EventsClient() {
               </div>
             )}
             <div className="modal-share-row flex items-center gap-2.5 border-t border-solid border-t-line pt-5">
-              <span className="modal-share-url font-body text-sm text-ink overflow-hidden whitespace-nowrap min-w-0">
+              <span className="modal-share-url min-w-0 overflow-hidden font-body text-sm whitespace-nowrap text-ink">
                 {shareUrl}
               </span>
               <Button
@@ -398,7 +399,7 @@ export default function EventsClient() {
                 {copied ? "Copied!" : "Copy link"}
               </Button>
             </div>
-            <p className="modal-close-hint font-body text-xs font-medium tracking-widest uppercase text-ink text-center pt-2 mt-auto">
+            <p className="modal-close-hint mt-auto pt-2 text-center font-body text-xs font-medium tracking-widest text-ink uppercase">
               Click outside to close
             </p>
           </div>

@@ -2,20 +2,21 @@
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
-@theme inline {
-  --color-paper: var(--bg);
-  --color-soft: var(--soft);
-  --color-surface: var(--surface);
-  --color-ink: var(--ink);
-  --color-coral: var(--coral);
-  --color-coral-dark: var(--accent-dark);
-  --color-line: var(--border);
-  --color-rule: var(--line);
-  --color-brand-blue: var(--blue);
-  --color-brand-yellow: var(--yellow);
-  --color-brand-purple: var(--green);
-  --color-brand-pink: var(--pink);
-  --color-success: var(--success);
+@theme static {
+  --color-paper: #f8f3eb;
+  --color-soft: #f0e8dc;
+  --color-surface: rgba(17, 17, 17, 0.05);
+  --color-ink: #111111;
+  /* Coral fills pair with ink; deep red text pairs with paper or white. */
+  --color-coral: #ff7870;
+  --color-coral-dark: #b53236;
+  --color-line: rgba(17, 17, 17, 0.22);
+  --color-rule: #c9c1b4;
+  --color-brand-blue: #3a86ff;
+  --color-brand-yellow: #ffd60a;
+  --color-brand-purple: #8338ec;
+  --color-brand-pink: #ff006e;
+  --color-success: #22c55e;
   --font-display: var(--font-barlow-condensed), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
 }
@@ -31,46 +32,6 @@
   }
 }
 @layer components {
-  :root {
-    --bg: #f8f3eb;
-    --white: #ffffff;
-    --soft: #f0e8dc;
-    --surface: rgba(17, 17, 17, 0.05);
-    --border: rgba(17, 17, 17, 0.22);
-    --border-strong: var(--ink);
-    --ink: #111111;
-    --text: #111111;
-    /* Coral fills pair with ink; deep red text pairs with paper or white. */
-    --coral: #ff7870;
-    --accent: var(--coral);
-    --accent-dark: #b53236;
-    --accent-text: var(--accent-dark);
-    --blue: #3a86ff;
-    --yellow: #ffd60a;
-    --green: #8338ec;
-    --pink: #ff006e;
-    --success: #22c55e;
-    --hero-bg: var(--bg);
-    --hero-text: var(--ink);
-    --on-dark: #fff;
-    --paper: var(--bg);
-    --line: #c9c1b4;
-    --red: var(--accent);
-    --red-dark: var(--accent-dark);
-    --max: var(--container-7xl);
-    --font-display: var(--font-barlow-condensed), sans-serif;
-    --font-body: var(--font-dm-sans), sans-serif;
-    --sz-label: var(--text-sm); /* meta, buttons, nav labels, small UI   */
-    --sz-copy: var(--text-lg); /* paragraph/body copy inside cards      */
-    --sz-title: var(--text-3xl); /* card & component titles               */
-    --sz-body: var(
-      --text-xl
-    ); /* larger prose copy — act/donate/hero body text (see --sz-copy for compact component copy) */
-    --sz-lead: var(--text-3xl); /* body-large, hero body                 */
-    --sz-h2: var(--text-3xl); /* section headers (.section-label)      */
-    --sz-subhead: var(--text-4xl); /* form headings, share headings         */
-  }
-
   *,
   *::before,
   *::after {
@@ -96,12 +57,12 @@
   }
 
   body {
-    @apply bg-paper text-ink font-body overflow-x-hidden min-h-screen flex flex-col;
+    @apply flex min-h-screen flex-col overflow-x-hidden bg-paper font-body text-ink;
     -webkit-font-smoothing: antialiased;
   }
 
   body::after {
-    @apply fixed inset-0 pointer-events-none;
+    @apply pointer-events-none fixed inset-0;
     content: "";
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
     @apply z-9999;
@@ -112,17 +73,17 @@
     @apply flex-1;
   }
   header.site-header {
-    @apply sticky top-0 border-b-2 border-solid border-b-ink z-50;
+    @apply sticky top-0 z-50 border-b-2 border-solid border-b-ink;
     background: rgba(246, 240, 231, 0.96);
     backdrop-filter: blur(8px);
   }
   header.site-header nav {
-    @apply min-h-20 grid items-center gap-7;
+    @apply grid min-h-20 items-center gap-7;
     grid-template-columns: auto 1fr;
   }
   .brand {
-    @apply inline-flex items-center gap-2.5 text-ink py-2.5 px-3.5 w-max border-2 border-solid border-ink font-body text-2xl font-black leading-none tracking-tighter uppercase whitespace-nowrap;
-    background: color-mix(in srgb, var(--red) 75%, var(--paper));
+    @apply inline-flex w-max items-center gap-2.5 border-2 border-solid border-ink px-3.5 py-2.5 font-body text-2xl leading-none font-black tracking-tighter whitespace-nowrap text-ink uppercase;
+    background: color-mix(in srgb, var(--color-coral) 75%, var(--color-paper));
   }
   .brand-logo {
     @apply block shrink-0;
@@ -135,13 +96,13 @@
     @apply block;
   }
   .brand:focus-visible {
-    @apply outline-2 outline-ink outline-offset-4;
+    @apply outline-2 outline-offset-4 outline-ink;
   }
   .nav-actions {
-    @apply flex gap-4 justify-self-end items-center;
+    @apply flex items-center gap-4 justify-self-end;
   }
   .nav-fellowship {
-    @apply flex items-center py-3 px-2.5 font-body text-lg font-bold tracking-wider uppercase text-ink;
+    @apply flex items-center px-2.5 py-3 font-body text-lg font-bold tracking-wider text-ink uppercase;
   }
   .nav-fellowship,
   .nav-dropdown-label {
@@ -149,7 +110,7 @@
   }
   .nav-fellowship::after,
   .nav-dropdown-label::after {
-    @apply absolute pointer-events-none left-2 right-2 bottom-2 h-1.5 bg-coral;
+    @apply pointer-events-none absolute right-2 bottom-2 left-2 h-1.5 bg-coral;
     content: "";
     @apply -z-1 opacity-0;
     clip-path: polygon(
@@ -177,7 +138,7 @@
     @apply relative flex items-center;
   }
   .nav-dropdown-toggle {
-    @apply grid border-0 bg-transparent text-ink cursor-pointer min-w-8 min-h-11 place-items-center;
+    @apply grid min-h-11 min-w-8 cursor-pointer place-items-center border-0 bg-transparent text-ink;
   }
   .nav-dropdown-chevron {
     width: 8px;
@@ -193,19 +154,19 @@
     @apply text-coral-dark;
   }
   .nav-dropdown-toggle:focus-visible {
-    @apply outline-2 outline-ink outline-offset-2;
+    @apply outline-2 outline-offset-2 outline-ink;
   }
   .nav-dropdown-links {
-    @apply absolute left-0 w-56 p-3 bg-paper border-2 border-solid border-ink;
+    @apply absolute left-0 w-56 border-2 border-solid border-ink bg-paper p-3;
     top: calc(100% + 10px);
-    box-shadow: 4px 5px 0 var(--ink);
+    box-shadow: 4px 5px 0 var(--color-ink);
     transform: rotate(-1deg);
     @apply z-5;
   }
   .nav-dropdown-links::before {
-    @apply absolute left-3 right-3 -top-0.5 h-1.5;
+    @apply absolute -top-0.5 right-3 left-3 h-1.5;
     content: "";
-    background: color-mix(in srgb, var(--red) 75%, var(--paper));
+    background: color-mix(in srgb, var(--color-coral) 75%, var(--color-paper));
     clip-path: polygon(
       0 20%,
       28% 0,
@@ -218,10 +179,10 @@
     );
   }
   .nav-dropdown-links a {
-    @apply flex items-center justify-between gap-6 py-3.5 px-2.5 text-ink font-body text-lg leading-snug font-bold tracking-wider uppercase;
+    @apply flex items-center justify-between gap-6 px-2.5 py-3.5 font-body text-lg leading-snug font-bold tracking-wider text-ink uppercase;
   }
   .nav-dropdown-label::after {
-    @apply left-0 right-0 -bottom-0.5;
+    @apply right-0 -bottom-0.5 left-0;
   }
   .nav-dropdown-arrow {
     @apply font-body text-xl font-medium;
@@ -230,11 +191,11 @@
     outline-offset: 0;
   }
   .nav-cta {
-    @apply bg-brand-yellow text-ink py-3 px-4 border-2 border-solid border-ink font-body text-2xl leading-none font-extrabold uppercase;
+    @apply border-2 border-solid border-ink bg-brand-yellow px-4 py-3 font-body text-2xl leading-none font-extrabold text-ink uppercase;
   }
   .nav-cta {
-    @apply font-display text-center;
-    box-shadow: 4px 4px 0 var(--ink);
+    @apply text-center font-display;
+    box-shadow: 4px 4px 0 var(--color-ink);
     transform: rotate(-2deg);
     transition:
       transform 0.15s ease,
@@ -247,17 +208,17 @@
   }
   .nav-cta:hover {
     transform: translateY(-3px);
-    box-shadow: 6px 6px 0 var(--ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
   }
   .nav-cta:active {
     transform: translate(3px, 3px);
-    box-shadow: 1px 1px 0 var(--ink);
+    box-shadow: 1px 1px 0 var(--color-ink);
   }
   .nav-actions a:focus-visible {
-    @apply outline-2 outline-ink outline-offset-4;
+    @apply outline-2 outline-offset-4 outline-ink;
   }
   .brand {
-    box-shadow: 3px 3px 0 var(--ink);
+    box-shadow: 3px 3px 0 var(--color-ink);
     transform: rotate(-1deg);
   }
   @media (prefers-reduced-motion: reduce) {
@@ -272,7 +233,7 @@
 
   @variant max-lg {
     header.site-header nav {
-      @apply grid-cols-1 pt-2.5 pr-0 pb-2.5 pl-0 gap-2 min-h-16;
+      @apply min-h-16 grid-cols-1 gap-2 pt-2.5 pr-0 pb-2.5 pl-0;
     }
     .nav-actions {
       @apply w-full justify-between gap-1;
@@ -283,21 +244,21 @@
       @apply relative;
     }
     .brand {
-      @apply text-xl py-2 px-2.5 gap-2;
+      @apply gap-2 px-2.5 py-2 text-xl;
     }
     .brand-logo {
       width: 0.82em;
       height: 0.82em;
     }
     .nav-actions {
-      @apply relative grid grid-cols-6 pt-1 pr-1 pb-1 pl-1 gap-y-2.5 gap-x-2;
+      @apply relative grid grid-cols-6 gap-x-2 gap-y-2.5 pt-1 pr-1 pb-1 pl-1;
     }
     .nav-fellowship {
       @apply justify-center text-center;
       grid-column: span 2;
     }
     .nav-dropdown {
-      @apply justify-center static;
+      @apply static justify-center;
       grid-column: span 2;
     }
     .nav-dropdown-links {
@@ -306,56 +267,56 @@
       @apply w-60 max-w-full;
     }
     .nav-cta {
-      @apply text-xl py-2.5 px-2.5 whitespace-nowrap;
+      @apply px-2.5 py-2.5 text-xl whitespace-nowrap;
       grid-column: span 3;
     }
     .nav-fellowship {
-      @apply text-sm py-2 px-1;
+      @apply px-1 py-2 text-sm;
     }
   }
   footer.site-footer {
-    @apply bg-ink text-white pt-16 pr-0 pb-7 pl-0 text-xs border-t-2 border-solid border-t-ink relative overflow-hidden;
+    @apply relative overflow-hidden border-t-2 border-solid border-t-ink bg-ink pt-16 pr-0 pb-7 pl-0 text-xs text-white;
   }
   .foot-top {
-    @apply flex justify-between flex-wrap pb-10 gap-y-10 gap-x-14;
+    @apply flex flex-wrap justify-between gap-x-14 gap-y-10 pb-10;
     border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   }
   .foot-brand {
     @apply flex items-center gap-2.5;
   }
   .foot-brand img {
-    @apply w-8 h-8 block;
+    @apply block h-8 w-8;
   }
   .foot-brand span {
-    @apply font-display text-xl font-extrabold uppercase tracking-normal text-white;
+    @apply font-display text-xl font-extrabold tracking-normal text-white uppercase;
   }
   .foot-cols {
-    @apply flex gap-14 flex-wrap;
+    @apply flex flex-wrap gap-14;
   }
   .foot-col {
     @apply flex flex-col gap-2.5;
   }
   .foot-col-title {
-    @apply block font-body text-xs font-black tracking-widest uppercase text-brand-yellow mb-0.5;
+    @apply mb-0.5 block font-body text-xs font-black tracking-widest text-brand-yellow uppercase;
   }
   .foot-col a {
     @apply font-body text-xs font-bold text-white;
   }
-  footer.site-footer.footer-home .foot-col a {
+  body:has(.route-home) footer.site-footer .foot-col a {
     @apply text-sm leading-normal;
   }
-  footer.site-footer.footer-home .foot-col-title,
-  footer.site-footer.footer-home .foot-bottom {
+  body:has(.route-home) footer.site-footer .foot-col-title,
+  body:has(.route-home) footer.site-footer .foot-bottom {
     @apply text-sm;
   }
   .foot-col a:hover {
     @apply text-coral;
   }
   .foot-bottom {
-    @apply flex justify-between items-center gap-4 flex-wrap pt-5 text-xs;
+    @apply flex flex-wrap items-center justify-between gap-4 pt-5 text-xs;
   }
   .foot-bottom span:before {
-    @apply inline-block w-2 h-2 rounded-full bg-coral mr-2;
+    @apply mr-2 inline-block h-2 w-2 rounded-full bg-coral;
     content: "";
   }
   @variant max-sm {
@@ -399,66 +360,66 @@
   }
 
   a {
-    @apply no-underline text-inherit;
+    @apply text-inherit no-underline;
   }
 
   h1 {
-    @apply m-0 font-display leading-none tracking-tight uppercase font-extrabold relative;
+    @apply relative m-0 font-display leading-none font-extrabold tracking-tight uppercase;
     @apply max-w-xs sm:max-w-md lg:max-w-xl;
-    @apply text-7xl sm:text-7xl lg:text-8xl xl:text-9xl z-2;
+    @apply z-2 text-7xl lg:text-8xl xl:text-9xl;
   }
   h2 {
-    @apply m-0 font-display leading-none tracking-tight uppercase font-extrabold text-5xl sm:text-5xl lg:text-6xl xl:text-7xl;
+    @apply m-0 font-display text-5xl leading-none font-extrabold tracking-tight uppercase lg:text-6xl xl:text-7xl;
   }
   .deck {
-    @apply font-body leading-snug text-ink text-xl sm:text-xl lg:text-2xl xl:text-3xl;
+    @apply font-body text-xl leading-snug text-ink lg:text-2xl xl:text-3xl;
   }
   section {
     @apply border-b-2 border-solid border-b-ink;
   }
   .hero {
-    @apply grid border-b-2 border-solid border-b-ink grid-cols-2;
+    @apply grid grid-cols-2 border-b-2 border-solid border-b-ink;
     @apply min-h-screen;
   }
   .hero-copy {
-    @apply flex flex-col justify-center bg-paper relative overflow-hidden py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
+    @apply relative flex flex-col justify-center overflow-hidden bg-paper px-7 py-20 sm:px-12 lg:px-20 lg:py-24;
   }
   .hero-copy p {
-    @apply mt-8 mr-0 mb-7 ml-0 font-body leading-snug font-bold relative;
+    @apply relative mt-8 mr-0 mb-7 ml-0 font-body leading-snug font-bold;
     @apply max-w-sm;
-    @apply text-lg sm:text-lg lg:text-lg xl:text-2xl z-2;
+    @apply z-2 text-lg xl:text-2xl;
   }
   .hero-copy .signup-row,
   .hero-copy .hero-read-more {
     @apply relative z-2;
   }
   .hero-copy:after {
-    @apply w-24 h-2 bg-brand-yellow mt-8 rounded-full;
+    @apply mt-8 h-2 w-24 rounded-full bg-brand-yellow;
     content: "";
     transform: rotate(-2deg);
   }
   .hero-copy:before {
-    @apply absolute w-48 h-48 rounded-full -right-28;
+    @apply absolute -right-28 h-48 w-48 rounded-full;
     content: "";
-    border: 2px dashed var(--ink);
+    border: 2px dashed var(--color-ink);
     top: 31%;
     @apply opacity-20;
   }
   .actions {
-    @apply flex gap-3 flex-wrap;
+    @apply flex flex-wrap gap-3;
   }
   .hero-read-more {
-    @apply inline-block w-max mt-4 pb-0.5 border-b-2 border-solid border-b-ink font-body text-xs font-black tracking-widest uppercase;
+    @apply mt-4 inline-block w-max border-b-2 border-solid border-b-ink pb-0.5 font-body text-xs font-black tracking-widest uppercase;
   }
 
   .signup-row {
-    @apply flex items-stretch gap-2 w-full max-w-xl;
+    @apply flex w-full max-w-xl items-stretch gap-2;
   }
   .signup-row input {
-    @apply min-w-0 py-3 px-4 border-2 border-solid border-ink rounded-none bg-white text-ink flex-1 font-body font-medium text-base leading-tight;
+    @apply min-w-0 flex-1 rounded-none border-2 border-solid border-ink bg-white px-4 py-3 font-body text-base leading-tight font-medium text-ink;
   }
   .signup-row input:focus {
-    @apply outline-2 outline-brand-yellow outline-offset-1;
+    @apply outline-2 outline-offset-1 outline-brand-yellow;
   }
   .signup-row .btn {
     @apply cursor-pointer;
@@ -474,14 +435,14 @@
     @apply mt-3 text-base;
   }
   .join-dialog {
-    @apply m-auto py-10 px-7 overflow-auto border-2 border-solid border-ink bg-paper text-ink;
-    box-shadow: 8px 8px 0 var(--ink);
+    @apply m-auto overflow-auto border-2 border-solid border-ink bg-paper px-7 py-10 text-ink;
+    box-shadow: 8px 8px 0 var(--color-ink);
   }
   .join-dialog::backdrop {
     background: rgba(0, 0, 0, 0.6);
   }
   .join-dialog h2 {
-    @apply mt-5 mr-0 mb-4 ml-0 text-3xl sm:text-5xl lg:text-5xl xl:text-5xl;
+    @apply mt-5 mr-0 mb-4 ml-0 text-3xl sm:text-5xl;
   }
   .join-dialog p {
     @apply mb-6 text-lg leading-normal;
@@ -490,17 +451,17 @@
     @apply max-w-none;
   }
   .join-dialog-close {
-    @apply absolute top-2 right-2 w-10 h-10 border-0 bg-transparent text-ink text-3xl cursor-pointer;
+    @apply absolute top-2 right-2 h-10 w-10 cursor-pointer border-0 bg-transparent text-3xl text-ink;
   }
   .signup-done {
-    @apply block py-3.5 px-0 font-body text-sm font-black tracking-wider uppercase text-coral-dark;
+    @apply block px-0 py-3.5 font-body text-sm font-black tracking-wider text-coral-dark uppercase;
   }
 
   .hero-art {
     position: relative;
     overflow: hidden;
-    background: var(--red);
-    border-left: 2px solid var(--ink);
+    background: var(--color-coral);
+    border-left: 2px solid var(--color-ink);
   }
   .hero-art:before {
     content: "";
@@ -510,8 +471,8 @@
     height: 150px;
     right: -42px;
     top: -42px;
-    background: var(--yellow);
-    border: 2px solid var(--ink);
+    background: var(--color-brand-yellow);
+    border: 2px solid var(--color-ink);
     border-radius: 50%;
     mix-blend-mode: multiply;
   }
@@ -523,7 +484,7 @@
     background: #f2c9b6;
     top: 72px;
     right: -100px;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--color-ink);
   }
   .face {
     position: absolute;
@@ -532,8 +493,8 @@
     left: 14%;
     bottom: -60px;
     border-radius: 46% 46% 40% 40% / 31% 31% 60% 60%;
-    background: var(--ink);
-    border: 2px solid var(--ink);
+    background: var(--color-ink);
+    border: 2px solid var(--color-ink);
     transform: rotate(-7deg);
     overflow: hidden;
   }
@@ -544,7 +505,7 @@
     background: repeating-linear-gradient(
       126deg,
       transparent 0 13px,
-      var(--paper) 13px 17px
+      var(--color-paper) 13px 17px
     );
     opacity: 0.95;
   }
@@ -554,7 +515,7 @@
     top: 11%;
     width: 190px;
     height: 190px;
-    background: var(--paper);
+    background: var(--color-paper);
     clip-path: polygon(
       50% 0,
       61% 29%,
@@ -580,9 +541,9 @@
     bottom: 12%;
     transform: rotate(-5deg);
     padding: 13px 16px;
-    background: var(--ink);
+    background: var(--color-ink);
     color: #fff;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--color-ink);
     font-family: var(--font-body);
     font-size: clamp(1rem, 2vw, 1.6rem);
     font-weight: 950;
@@ -593,8 +554,8 @@
     right: auto;
     left: 7%;
     bottom: 30%;
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--color-paper);
+    color: var(--color-ink);
     transform: rotate(4deg);
   }
   .marker {
@@ -603,7 +564,7 @@
     z-index: 1;
   }
   .marker:after {
-    @apply absolute bg-brand-yellow rounded-full;
+    @apply absolute rounded-full bg-brand-yellow;
     content: "";
     left: -0.02em;
     right: -0.02em;
@@ -621,7 +582,7 @@
     @apply relative inline-block;
   }
   .ink-underline:after {
-    @apply absolute left-0 w-full bg-coral pointer-events-none;
+    @apply pointer-events-none absolute left-0 w-full bg-coral;
     content: "";
     top: calc(100% + 0.1em + 4px);
     height: clamp(8px, 0.14em, 16px);
@@ -657,13 +618,13 @@
     padding: 0 0.08em;
   }
   .fun-layer {
-    @apply absolute inset-0 overflow-hidden pointer-events-none z-1;
+    @apply pointer-events-none absolute inset-0 z-1 overflow-hidden;
   }
   .fun-layer i {
     @apply absolute block leading-none;
   }
   .bird {
-    @apply block w-7 h-auto;
+    @apply block h-auto w-7;
   }
   .bird path {
     fill: none;
@@ -720,30 +681,30 @@
     position: absolute;
     width: 8px;
     height: 24px;
-    background: var(--yellow);
+    background: var(--color-brand-yellow);
     transform: rotate(24deg);
   }
   .confetti.c1 {
     left: 8%;
     top: 18%;
-    background: var(--yellow);
+    background: var(--color-brand-yellow);
   }
   .confetti.c2 {
     left: 18%;
     top: 9%;
-    background: var(--blue);
+    background: var(--color-brand-blue);
     transform: rotate(-28deg);
   }
   .confetti.c3 {
     right: 15%;
     top: 13%;
-    background: var(--green);
+    background: var(--color-brand-purple);
     transform: rotate(42deg);
   }
   .confetti.c4 {
     right: 7%;
     top: 26%;
-    background: var(--pink);
+    background: var(--color-brand-pink);
     transform: rotate(-18deg);
   }
   @variant max-sm {
@@ -761,26 +722,26 @@
     }
     .hero-art {
       border-left: 0;
-      border-top: 2px solid var(--ink);
+      border-top: 2px solid var(--color-ink);
       min-height: 520px;
     }
   }
   @variant max-md:sm {
     .hero-copy {
-      @apply py-16 px-8;
+      @apply px-8 py-16;
     }
     .hero-art {
       min-height: 460px;
     }
     h1 {
-      @apply text-6xl sm:text-7xl lg:text-8xl xl:text-8xl;
+      @apply text-6xl sm:text-7xl lg:text-8xl;
     }
   }
   @variant max-sm {
     h1 {
       @apply leading-none tracking-tighter;
       @apply max-w-xs sm:max-w-md lg:max-w-xl;
-      @apply text-6xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-6xl sm:text-7xl;
     }
     .hero {
       @apply min-h-auto;
@@ -793,7 +754,7 @@
       @apply max-w-sm;
     }
     .hero-copy:after {
-      @apply w-16 h-1.5 mt-6;
+      @apply mt-6 h-1.5 w-16;
     }
     .actions {
       @apply gap-2;
@@ -840,68 +801,66 @@
     }
   }
   .page-hero {
-    @apply flex flex-col justify-center py-40 px-0 relative overflow-hidden bg-paper border-b-2 border-solid border-b-ink;
+    @apply relative flex flex-col justify-center overflow-hidden border-b-2 border-solid border-b-ink bg-paper px-0 py-40;
   }
   .title-accent {
     @apply text-coral-dark;
   }
   .page-title {
-    @apply font-display font-extrabold leading-none tracking-tighter uppercase text-ink text-center text-6xl sm:text-6xl lg:text-8xl xl:text-8xl opacity-0;
+    @apply text-center font-display text-6xl leading-none font-extrabold tracking-tighter text-ink uppercase opacity-0 lg:text-8xl;
     animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.45s;
   }
   .kicker {
-    @apply inline-block w-max mb-5 py-2 px-2.5 bg-ink text-white font-body text-xs font-black tracking-widest uppercase;
+    @apply mb-5 inline-block w-max bg-ink px-2.5 py-2 font-body text-xs font-black tracking-widest text-white uppercase;
   }
   .section {
-    @apply py-20 px-0 relative;
+    @apply relative px-0 py-20;
   }
   .section-compact {
-    @apply py-16 px-0;
+    @apply px-0 py-16;
   }
   /* Adjacent sections each carry their own top and bottom padding, so drop the top half when a section directly follows another. */
   .section + .section {
     @apply pt-0;
   }
   .section-label {
-    @apply font-body text-3xl tracking-widest uppercase font-extrabold mb-4 text-center;
+    @apply mb-4 text-center font-body text-3xl font-extrabold tracking-widest uppercase;
     -webkit-text-stroke: 0.35px currentColor;
   }
   .section-label .title {
     @apply text-coral-dark;
   }
   .body-large {
-    @apply text-3xl leading-relaxed font-normal text-ink mb-5 text-center max-w-2xl ml-auto mr-auto;
+    @apply mr-auto mb-5 ml-auto max-w-2xl text-center text-3xl leading-relaxed font-normal text-ink;
   }
   .body-large strong {
     font-weight: 638;
   }
-  @variant max-sm {
-  }
   .card {
-    @apply py-6 px-7 border border-solid border-line cursor-default;
-    border-top: 3px solid var(--accent);
-    background: color-mix(in srgb, var(--surface) 42%, transparent);
+    @apply cursor-default border border-solid border-line px-7 py-6;
+    border-top: 3px solid var(--color-coral);
+    background: color-mix(in srgb, var(--color-surface) 42%, transparent);
     transition: transform 0.25s ease;
   }
   .card:hover {
     transform: translateY(-3px);
   }
   .card-title {
-    @apply font-display font-bold text-3xl tracking-wide uppercase text-coral-dark mb-2.5;
+    @apply mb-2.5 font-display text-3xl font-bold tracking-wide text-coral-dark uppercase;
   }
   .card-text {
-    @apply text-lg leading-relaxed text-ink font-medium;
+    @apply text-lg leading-relaxed font-medium text-ink;
   }
 
   /* Shared accordion motion: chevron rotation, panel grow/fade, focus outline. Pages add decoration through variant modifiers (e.g. .accordion--rule), never by redefining the motion. */
   .accordion-toggle {
-    @apply w-full flex items-center justify-between gap-4 border-0 cursor-pointer text-left;
+    @apply flex w-full cursor-pointer items-center justify-between gap-4 border-0 text-left;
     background: none;
     @apply text-inherit;
     font: inherit;
   }
   .accordion-toggle:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    outline: 3px solid color-mix(in srgb, var(--color-coral) 40%, transparent);
     @apply -outline-offset-2;
   }
   .accordion-chevron {
@@ -911,8 +870,8 @@
     flex: 0 0 auto;
     width: var(--accordion-chevron-size);
     height: var(--accordion-chevron-size);
-    border-right: var(--accordion-chevron-weight) solid var(--accent);
-    border-bottom: var(--accordion-chevron-weight) solid var(--accent);
+    border-right: var(--accordion-chevron-weight) solid var(--color-coral);
+    border-bottom: var(--accordion-chevron-weight) solid var(--color-coral);
     transform: rotate(45deg);
     transform-origin: 60% 60%;
     opacity: var(--accordion-chevron-opacity);
@@ -938,7 +897,7 @@
     @apply opacity-100;
   }
   .accordion-panel-inner {
-    @apply overflow-hidden min-h-0;
+    @apply min-h-0 overflow-hidden;
   }
 
   /* Thin-rule variant: no box, just a faint tint on the open item. */
@@ -946,23 +905,24 @@
     transition: background-color 0.35s ease;
   }
   .accordion--rule:has(.accordion-panel.is-open) {
-    background: color-mix(in srgb, var(--accent) 4%, transparent);
+    background: color-mix(in srgb, var(--color-coral) 4%, transparent);
   }
   .accordion--rule .accordion-toggle {
-    @apply py-5 px-6;
+    @apply px-6 py-5;
   }
   .accordion--rule .accordion-body {
     @apply pt-1 pr-6 pb-7 pl-6;
-    border-top: 1px solid color-mix(in srgb, var(--accent) 20%, var(--border));
+    border-top: 1px solid
+      color-mix(in srgb, var(--color-coral) 20%, var(--color-line));
   }
   .eyebrow {
-    @apply font-body text-sm tracking-widest uppercase text-ink;
+    @apply font-body text-sm tracking-widest text-ink uppercase;
   }
   .eyebrow--accent {
     @apply text-coral-dark;
   }
   .btn.primary {
-    @apply bg-coral text-ink border-ink;
+    @apply border-ink bg-coral text-ink;
   }
 
   .btn.primary:where(
@@ -972,13 +932,13 @@
   }
   .btn.primary:focus-visible,
   .sf button:focus-visible {
-    @apply outline-2 outline-ink outline-offset-4;
+    @apply outline-2 outline-offset-4 outline-ink;
   }
   .sf {
-    @apply flex gap-2 max-w-md;
+    @apply flex max-w-md gap-2;
   }
   .sf input {
-    @apply min-w-0 font-body text-base font-normal py-3 px-4 rounded-sm flex-1 outline-none;
+    @apply min-w-0 flex-1 rounded-sm px-4 py-3 font-body text-base font-normal outline-none;
     transition:
       border-color 0.2s,
       background 0.2s;
@@ -993,10 +953,10 @@
   }
   .sf--light input:focus {
     @apply border-coral-dark;
-    background: color-mix(in srgb, var(--coral) 6%, var(--paper));
+    background: color-mix(in srgb, var(--color-coral) 6%, var(--color-paper));
   }
   .sf button {
-    @apply font-body text-xs font-semibold tracking-widest uppercase py-3 px-5 bg-coral text-ink border-2 border-solid border-ink rounded-sm cursor-pointer whitespace-nowrap shrink-0;
+    @apply shrink-0 cursor-pointer rounded-sm border-2 border-solid border-ink bg-coral px-5 py-3 font-body text-xs font-semibold tracking-widest whitespace-nowrap text-ink uppercase;
     transition:
       background-color 0.2s,
       color 0.2s;
@@ -1016,32 +976,32 @@
     }
   }
   .loading-state {
-    @apply py-10 px-0 font-body text-sm text-ink tracking-widest uppercase;
+    @apply px-0 py-10 font-body text-sm tracking-widest text-ink uppercase;
   }
   .empty-state {
-    @apply py-10 px-0 font-body text-xl text-ink leading-relaxed;
+    @apply px-0 py-10 font-body text-xl leading-relaxed text-ink;
   }
   .empty-state a {
     @apply text-coral-dark;
   }
   .progress-bar {
-    @apply fixed top-0 left-0 h-0.5 w-full bg-coral pointer-events-none;
+    @apply pointer-events-none fixed top-0 left-0 h-0.5 w-full bg-coral;
     transform-origin: left center;
     transform: scaleX(0);
     @apply z-10001;
   }
   .share-buttons {
-    @apply flex flex-wrap gap-2.5 justify-center;
+    @apply flex flex-wrap justify-center gap-2.5;
   }
   .btn.copied {
     @apply border-success text-success;
   }
   .share-url-row {
-    @apply flex justify-center items-center gap-2.5 mt-4;
+    @apply mt-4 flex items-center justify-center gap-2.5;
   }
   .share-url {
-    @apply inline-block font-body text-sm tracking-wider text-ink py-3 px-4 border border-solid border-line overflow-hidden whitespace-nowrap;
-    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    @apply inline-block overflow-hidden border border-solid border-line px-4 py-3 font-body text-sm tracking-wider whitespace-nowrap text-ink;
+    background: color-mix(in srgb, var(--color-surface) 60%, transparent);
     @apply text-ellipsis;
     user-select: all;
   }
@@ -1070,11 +1030,6 @@
     @apply opacity-100;
     transform: translateY(0);
   }
-  .js.no-io .reveal {
-    @apply opacity-100;
-    transform: none;
-    transition: none;
-  }
   .reveal-d1 {
     transition-delay: 0.15s;
   }
@@ -1091,44 +1046,33 @@
       transition: none;
     }
   }
-  @variant max-lg {
-  }
   @variant max-md {
     .page-hero {
       @apply pt-28 pr-0 pb-20 pl-0;
     }
     .section {
-      @apply py-16 px-0;
+      @apply px-0 py-16;
     }
     .section-compact {
-      @apply py-12 px-0;
+      @apply px-0 py-12;
     }
     .body-large {
-      @apply text-xl leading-relaxed max-w-full;
+      @apply max-w-full text-xl leading-relaxed;
     }
   }
   @variant max-sm {
     .page-title {
-      @apply leading-none text-6xl sm:text-8xl lg:text-8xl xl:text-8xl;
+      @apply text-6xl leading-none sm:text-8xl;
     }
     .body-large {
       @apply text-lg leading-relaxed;
     }
     .section-compact {
-      @apply py-10 px-0;
+      @apply px-0 py-10;
     }
     .share-buttons {
       @apply flex-col;
     }
-  }
-
-  /* Donation actions retain their yellow identity across pages and states. */
-  .btn[href="/donate"],
-  .btn[href="donate.html"],
-  .btn[href*="zeffy.com/"],
-  #donate-cta,
-  #donate-cta-2 {
-    @apply bg-brand-yellow text-ink border-ink;
   }
 
   .foot-col-links {
@@ -1154,7 +1098,7 @@
     )
     h1 {
     @apply max-w-xs sm:max-w-md lg:max-w-xl;
-    @apply text-6xl sm:text-6xl lg:text-8xl xl:text-8xl;
+    @apply text-6xl lg:text-8xl;
   }
 
   :where(
@@ -1163,7 +1107,7 @@
       .route-root.route-fellowship
     )
     .deck {
-    @apply text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply text-lg xl:text-xl;
     line-height: 1.5;
     font-weight: 500;
   }
@@ -1177,7 +1121,7 @@
     p {
     @apply max-w-md;
     margin: 30px 0 26px;
-    @apply text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply text-lg xl:text-xl;
     line-height: 1.45;
     font-weight: 600;
   }
@@ -1188,14 +1132,14 @@
 
   :where(.route-root.route-about, .route-root.route-fellowship)
     .text-link:hover {
-    color: var(--accent-text);
-    border-color: var(--accent-text);
+    color: var(--color-coral-dark);
+    border-color: var(--color-coral-dark);
   }
 
   :where(.route-root.route-about, .route-root.route-fellowship)
     .about-copy
     .deck {
-    @apply mt-6 mx-0 mb-0;
+    @apply mx-0 mt-6 mb-0;
   }
 
   :where(.route-root.route-about, .route-root.route-fellowship)
@@ -1205,28 +1149,28 @@
     width: 220px;
     height: 220px;
     border-radius: 50%;
-    background: var(--red);
+    background: var(--color-coral);
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     box-shadow:
-      14px -12px 0 var(--yellow),
-      -14px 14px 0 var(--blue);
+      14px -12px 0 var(--color-brand-yellow),
+      -14px 14px 0 var(--color-brand-blue);
   }
 
   :where(.route-root.route-circle, .route-root.route-fellowship) .focus {
-    border-top: 2px solid var(--ink);
+    border-top: 2px solid var(--color-ink);
   }
 
   :where(.route-root.route-circle, .route-root.route-fellowship)
     .focus-row:nth-child(1)
     .n {
-    color: var(--red);
+    color: var(--color-coral);
   }
 
   :where(.route-root.route-campaigns, .route-root.route-policy) .page-hero {
-    @apply pt-20 pb-20 px-0;
-    background: var(--paper);
+    @apply px-0 pt-20 pb-20;
+    background: var(--color-paper);
   }
 
   :where(.route-root.route-campaigns, .route-root.route-policy)
@@ -1239,7 +1183,7 @@
     margin: 0;
     @apply max-w-xl;
     text-align: left;
-    @apply text-6xl sm:text-6xl lg:text-8xl xl:text-8xl;
+    @apply text-6xl lg:text-8xl;
     line-height: 0.9;
     letter-spacing: -0.025em;
     @apply opacity-100;
@@ -1266,18 +1210,18 @@
     }
   }
   :where(.route-root.route-human-charter) h1 {
-    @apply my-0 mx-auto leading-none text-center;
+    @apply mx-auto my-0 text-center leading-none;
     @apply max-w-xl;
-    @apply text-6xl sm:text-6xl lg:text-8xl xl:text-9xl;
+    @apply text-6xl lg:text-8xl xl:text-9xl;
   }
   :where(.route-root.route-human-charter) h2 {
-    @apply leading-none text-5xl sm:text-5xl lg:text-6xl xl:text-7xl;
+    @apply text-5xl leading-none lg:text-6xl xl:text-7xl;
   }
   :where(.route-root.route-human-charter) .btn {
-    @apply py-3.5 px-5 tracking-wide;
+    @apply px-5 py-3.5 tracking-wide;
   }
   :where(.route-root.route-human-charter) .charter-hero {
-    @apply py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
+    @apply px-7 py-20 sm:px-12 lg:px-20 lg:py-24;
   }
   :where(.route-root.route-human-charter) .charter-hero .kicker {
     @apply mt-0 mr-auto mb-6 ml-auto;
@@ -1292,17 +1236,17 @@
     @apply text-ink;
   }
   :where(.route-root.route-human-charter) .charter-hero .actions {
-    @apply justify-center mt-9;
+    @apply mt-9 justify-center;
   }
   :where(.route-root.route-human-charter) .crisis-statement {
-    @apply text-white font-display leading-none tracking-tight py-20 lg:py-24 px-7 sm:px-12 lg:px-20 text-4xl sm:text-4xl lg:text-4xl xl:text-5xl;
+    @apply px-7 py-20 font-display text-4xl leading-none tracking-tight text-white sm:px-12 lg:px-20 lg:py-24 xl:text-5xl;
   }
   :where(.route-root.route-human-charter) .crisis-statement em {
     @apply text-coral not-italic;
   }
   :where(.route-root.route-human-charter) .crisis-statement .label,
   :where(.route-root.route-home) .crisis-statement .label {
-    @apply block w-max mb-7;
+    @apply mb-7 block w-max;
   }
   :where(.route-root.route-human-charter) .crisis-line {
     @apply font-extrabold uppercase;
@@ -1310,11 +1254,11 @@
   }
   :where(.route-root.route-human-charter) .crisis-statement .stats {
     @apply grid grid-cols-3;
-    @apply mt-16 -mx-7 -mb-20 sm:-mx-12 lg:-mx-20 lg:-mb-24;
+    @apply -mx-7 mt-16 -mb-20 sm:-mx-12 lg:-mx-20 lg:-mb-24;
     border-top: 2px solid rgba(255, 255, 255, 0.35);
   }
   :where(.route-root.route-human-charter) .crisis-statement .stat {
-    @apply min-h-48 py-8 px-7 border-r-2 border-solid border-r-ink relative flex flex-col justify-start gap-4 font-body text-white;
+    @apply relative flex min-h-48 flex-col justify-start gap-4 border-r-2 border-solid border-r-ink px-7 py-8 font-body text-white;
   }
   :where(.route-root.route-human-charter) .crisis-statement .stat:nth-child(1) {
     @apply bg-coral;
@@ -1331,14 +1275,14 @@
     @apply text-ink;
   }
   :where(.route-root.route-human-charter) .crisis-statement .stat strong {
-    @apply font-display leading-none tracking-tight font-extrabold text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
+    @apply font-display text-4xl leading-none font-extrabold tracking-tight lg:text-5xl xl:text-6xl;
   }
   :where(.route-root.route-human-charter) .crisis-statement .stat span {
     @apply text-base leading-snug font-bold;
     @apply max-w-xl;
   }
   :where(.route-root.route-human-charter) .pillar {
-    @apply py-20 lg:py-24 px-0;
+    @apply px-0 py-20 lg:py-24;
   }
   :where(.route-root.route-human-charter) .pillar.white {
     @apply bg-white;
@@ -1369,10 +1313,10 @@
     @apply border-r-0;
   }
   :where(.route-root.route-human-charter) .principle .num {
-    @apply font-display font-extrabold tracking-tight text-coral-dark leading-none mb-6 text-4xl sm:text-4xl lg:text-4xl xl:text-5xl;
+    @apply mb-6 font-display text-4xl leading-none font-extrabold tracking-tight text-coral-dark xl:text-5xl;
   }
   :where(.route-root.route-human-charter) .principle h3 {
-    @apply mt-0 mr-0 mb-3 ml-0 leading-none tracking-tight uppercase font-display font-extrabold text-2xl sm:text-2xl lg:text-2xl xl:text-3xl;
+    @apply mt-0 mr-0 mb-3 ml-0 font-display text-2xl leading-none font-extrabold tracking-tight uppercase xl:text-3xl;
   }
   :where(.route-root.route-human-charter) .principle p {
     @apply m-0 text-base leading-normal;
@@ -1390,14 +1334,14 @@
     @apply bg-white;
   }
   :where(.route-root.route-human-charter) .closing-copy {
-    @apply py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
+    @apply px-7 py-20 sm:px-12 lg:px-20 lg:py-24;
   }
   :where(.route-root.route-human-charter) .closing-copy .deck {
     @apply mt-6 mr-0 mb-7 ml-0;
     @apply max-w-sm;
   }
   :where(.route-root.route-human-charter) .quote {
-    @apply relative bg-ink text-white py-16 px-14 flex flex-col justify-end overflow-hidden border-l-2 border-solid border-l-ink min-h-112;
+    @apply relative flex min-h-112 flex-col justify-end overflow-hidden border-l-2 border-solid border-l-ink bg-ink px-14 py-16 text-white;
   }
   :where(.route-root.route-human-charter) .quote:before {
     @apply absolute -top-24 left-6 text-9xl leading-none text-coral;
@@ -1405,12 +1349,12 @@
     font-family: Georgia, "Times New Roman", serif;
   }
   :where(.route-root.route-human-charter) .quote blockquote {
-    @apply m-0 relative leading-none z-2;
+    @apply relative z-2 m-0 leading-none;
     font-family: Georgia, "Times New Roman", serif;
-    @apply text-3xl sm:text-3xl lg:text-3xl xl:text-4xl;
+    @apply text-3xl xl:text-4xl;
   }
   :where(.route-root.route-human-charter) .quote cite {
-    @apply block mt-5 font-body text-sm font-bold tracking-wider uppercase text-brand-yellow not-italic relative z-2;
+    @apply relative z-2 mt-5 block font-body text-sm font-bold tracking-wider text-brand-yellow uppercase not-italic;
   }
   @variant max-lg {
     :where(.route-root.route-human-charter) .crisis-statement .stats {
@@ -1430,13 +1374,13 @@
       @apply border-b-0;
     }
     :where(.route-root.route-human-charter) .quote {
-      @apply border-l-0 border-t-2 border-solid border-t-ink;
+      @apply border-t-2 border-l-0 border-solid border-t-ink;
     }
   }
   @variant max-sm {
     :where(.route-root.route-human-charter) h1 {
       @apply max-w-xs sm:max-w-md lg:max-w-xl;
-      @apply text-5xl sm:text-6xl lg:text-6xl xl:text-6xl;
+      @apply text-5xl sm:text-6xl;
     }
   }
   :where(.route-root.route-donate) .donate-intro {
@@ -1446,7 +1390,7 @@
     @apply text-xl;
   }
   :where(.route-root.route-donate) .donate-intro .site-container {
-    @apply max-w-5xl grid gap-14 items-center;
+    @apply grid max-w-5xl items-center gap-14;
     @apply grid-cols-2;
   }
   :where(.route-root.route-donate) .intro-copy,
@@ -1454,7 +1398,7 @@
     @apply min-w-0;
   }
   :where(.route-root.route-donate) .donate-intro h1 {
-    @apply max-w-full my-6 mx-0 text-6xl sm:text-6xl lg:text-7xl xl:text-8xl text-balance;
+    @apply mx-0 my-6 max-w-full text-6xl text-balance lg:text-7xl xl:text-8xl;
   }
   :where(.route-root.route-donate) .donate-intro .deck {
     @apply text-xl leading-normal;
@@ -1467,10 +1411,10 @@
     @apply text-center;
   }
   :where(.route-root.route-donate) .donate-intro #donate-cta {
-    @apply min-w-60 py-4 px-8 bg-brand-yellow tracking-wide text-center;
-    border: 3px solid var(--ink);
-    box-shadow: 6px 6px 0 var(--ink);
-    @apply font-display font-extrabold text-4xl leading-tight;
+    @apply min-w-60 bg-brand-yellow px-8 py-4 text-center tracking-wide;
+    border: 3px solid var(--color-ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
+    @apply font-display text-4xl leading-tight font-extrabold;
     transform: rotate(-2deg);
     transition:
       transform 0.15s ease,
@@ -1480,11 +1424,11 @@
   :where(.route-root.route-donate) .donate-intro #donate-cta:hover {
     @apply bg-brand-yellow;
     transform: rotate(1deg) translateY(-3px);
-    box-shadow: 8px 8px 0 var(--ink);
+    box-shadow: 8px 8px 0 var(--color-ink);
   }
   :where(.route-root.route-donate) .donate-intro #donate-cta:active {
     transform: translate(4px, 4px);
-    box-shadow: 2px 2px 0 var(--ink);
+    box-shadow: 2px 2px 0 var(--color-ink);
   }
   :where(.route-root.route-donate) .donate-intro .checkout-note {
     @apply mt-6;
@@ -1499,16 +1443,16 @@
     }
   }
   :where(.route-root.route-donate) main .btn {
-    @apply py-4 px-6 text-xl min-h-12;
+    @apply min-h-12 px-6 py-4 text-xl;
   }
   :where(.route-root.route-donate) .checkout-note {
     @apply mt-3.5;
   }
   :where(.route-root.route-donate) .donate-row {
-    @apply gap-x-14 max-w-5xl grid-cols-2;
+    @apply max-w-5xl grid-cols-2 gap-x-14;
   }
   :where(.route-root.route-donate) .donate-row h2 {
-    @apply leading-none text-4xl sm:text-4xl lg:text-4xl xl:text-5xl text-balance;
+    @apply text-4xl leading-none text-balance xl:text-5xl;
   }
   :where(.route-root.route-donate) main p {
     @apply text-pretty;
@@ -1520,16 +1464,16 @@
     @apply mt-5;
   }
   :where(.route-root.route-donate) .donate-copy a:not(.btn) {
-    @apply underline underline-offset-4 text-inherit;
+    @apply text-inherit underline underline-offset-4;
   }
   :where(.route-root.route-donate) .donate-copy a:not(.btn):hover {
     @apply text-coral-dark;
   }
   :where(.route-root.route-donate) main a:focus-visible {
-    @apply outline-2 outline-ink outline-offset-4;
+    @apply outline-2 outline-offset-4 outline-ink;
   }
   :where(.route-root.route-donate) .donate-copy ul {
-    @apply pl-5 mt-5;
+    @apply mt-5 pl-5;
   }
   :where(.route-root.route-donate) .donate-copy li + li {
     @apply mt-3.5;
@@ -1553,10 +1497,10 @@
     height: auto;
   }
   :where(.route-root.route-donate) .section-index {
-    @apply block font-body font-bold text-xl leading-snug text-balance;
+    @apply block font-body text-xl leading-snug font-bold text-balance;
   }
   :where(.route-root.route-donate) .section-index::before {
-    @apply inline-block w-5 h-2 bg-coral mr-2.5;
+    @apply mr-2.5 inline-block h-2 w-5 bg-coral;
     content: "";
     transform: rotate(-7deg);
   }
@@ -1564,10 +1508,10 @@
     grid-column: 1 / -1;
   }
   :where(.route-root.route-donate) .progress-item {
-    border-top: 3px solid var(--ink);
+    border-top: 3px solid var(--color-ink);
   }
   :where(.route-root.route-donate) .progress-number {
-    @apply font-display font-extrabold text-5xl sm:text-5xl lg:text-6xl xl:text-7xl leading-tight;
+    @apply font-display text-5xl leading-tight font-extrabold lg:text-6xl xl:text-7xl;
   }
   :where(.route-root.route-donate) .progress-item p {
     @apply text-xl leading-relaxed;
@@ -1603,20 +1547,20 @@
     background: #ffe4dc;
   }
   :where(.route-root.route-donate) .story-next {
-    @apply p-10 bg-brand-yellow border-2 border-solid border-ink;
-    box-shadow: 8px 8px 0 var(--ink);
+    @apply border-2 border-solid border-ink bg-brand-yellow p-10;
+    box-shadow: 8px 8px 0 var(--color-ink);
   }
   :where(.route-root.route-donate) .story-next .donate-row {
-    @apply gap-x-10 items-center;
+    @apply items-center gap-x-10;
   }
   :where(.route-root.route-donate) #funding-heading {
-    @apply uppercase tracking-normal mb-7 font-display font-extrabold text-3xl sm:text-3xl lg:text-3xl xl:text-4xl leading-tight;
+    @apply mb-7 font-display text-3xl leading-tight font-extrabold tracking-normal uppercase xl:text-4xl;
   }
   :where(.route-root.route-donate) .story-next #donate-cta-2 {
-    @apply min-w-56 py-5 px-10 bg-brand-yellow tracking-wide text-center;
-    border: 3px solid var(--ink);
-    box-shadow: 6px 6px 0 var(--ink);
-    @apply font-display font-extrabold text-3xl leading-tight;
+    @apply min-w-56 bg-brand-yellow px-10 py-5 text-center tracking-wide;
+    border: 3px solid var(--color-ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
+    @apply font-display text-3xl leading-tight font-extrabold;
     transform: rotate(-2deg);
     transition:
       transform 0.15s ease,
@@ -1624,31 +1568,31 @@
   }
   :where(.route-root.route-donate) .story-next #donate-cta-2:hover {
     transform: rotate(1deg) translateY(-3px);
-    box-shadow: 8px 8px 0 var(--ink);
+    box-shadow: 8px 8px 0 var(--color-ink);
   }
   :where(.route-root.route-donate) .story-next #donate-cta-2:active {
     transform: translate(3px, 3px);
-    box-shadow: 2px 2px 0 var(--ink);
+    box-shadow: 2px 2px 0 var(--color-ink);
   }
   :where(.route-root.route-donate) .story-next .checkout-note {
-    @apply text-center mt-4;
+    @apply mt-4 text-center;
   }
   :where(.route-root.route-donate) .gift-tier {
     @apply pt-4;
     border-top: 1px solid rgba(17, 17, 17, 0.25);
   }
   :where(.route-root.route-donate) .gift-tier:first-child {
-    @apply pt-0 border-t-0;
+    @apply border-t-0 pt-0;
   }
   :where(.route-root.route-donate) .gift-tier dt {
-    @apply m-0 font-display font-extrabold text-4xl sm:text-4xl lg:text-4xl xl:text-4xl leading-tight;
+    @apply m-0 font-display text-4xl leading-tight font-extrabold;
   }
   :where(.route-root.route-donate) .gift-tier dd {
     @apply mt-1 mr-0 mb-0 ml-0 text-xl leading-normal;
   }
   @variant max-sm {
     :where(.route-root.route-donate) .story-next {
-      @apply py-7 px-4;
+      @apply px-4 py-7;
     }
   }
   :where(.route-root.route-donate) .donate-copy a[href^="mailto:"] {
@@ -1664,7 +1608,7 @@
   }
   @variant max-sm {
     :where(.route-root.route-donate) .donate-intro {
-      @apply py-10 px-0;
+      @apply px-0 py-10;
     }
     :where(.route-root.route-donate) .donate-intro .site-container {
       @apply grid-cols-1 gap-7;
@@ -1674,7 +1618,7 @@
     }
     :where(.route-root.route-donate) .donate-intro h1 {
       @apply max-w-xl;
-      @apply text-5xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-5xl sm:text-7xl;
     }
     :where(.route-root.route-donate) main .site-container {
     }
@@ -1688,7 +1632,7 @@
   :where(.route-root.route-about) h2,
   :where(.route-root.route-fellowship) h2,
   :where(.route-root.route-circle) h2 {
-    @apply leading-none text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
+    @apply text-4xl leading-none lg:text-5xl xl:text-6xl;
   }
   /* No ink-underline squiggle below the hero paragraph (that :after is homepage-only). */
   :where(.route-root.route-about) .hero-copy:after,
@@ -1706,19 +1650,19 @@
   :where(.route-root.route-about) .hero-note,
   :where(.route-root.route-fellowship) .hero-note,
   :where(.route-root.route-circle) .hero-note {
-    @apply mt-4 text-xs font-semibold italic text-ink relative z-2;
+    @apply relative z-2 mt-4 text-xs font-semibold text-ink italic;
   }
   :where(.route-root.route-about) .text-link,
   :where(.route-root.route-fellowship) .text-link {
-    @apply inline-block mt-4 pb-0.5 border-b-2 border-solid border-b-ink text-ink font-body text-xs font-black tracking-wider uppercase;
+    @apply mt-4 inline-block border-b-2 border-solid border-b-ink pb-0.5 font-body text-xs font-black tracking-wider text-ink uppercase;
   }
   :where(.route-root.route-about) .about,
   :where(.route-root.route-fellowship) .about {
-    @apply bg-white py-24 px-0;
+    @apply bg-white px-0 py-24;
   }
   :where(.route-root.route-about) .about-grid,
   :where(.route-root.route-fellowship) .about-grid {
-    @apply grid gap-16 items-start grid-cols-2;
+    @apply grid grid-cols-2 items-start gap-16;
   }
   :where(.route-root.route-about) .about-copy p,
   :where(.route-root.route-fellowship) .about-copy p {
@@ -1728,8 +1672,8 @@
   :where(.route-root.route-fellowship) .about-art {
     position: relative;
     min-height: 400px;
-    background: var(--paper);
-    border: 2px solid var(--ink);
+    background: var(--color-paper);
+    border: 2px solid var(--color-ink);
     overflow: hidden;
   }
   :where(.route-root.route-about) .about-art img {
@@ -1744,7 +1688,7 @@
   :where(.route-root.route-fellowship) .about-art .tag {
     position: absolute;
     background: #fff;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--color-ink);
     padding: 10px 13px;
     font-size: 12px;
     font-weight: 900;
@@ -1778,7 +1722,7 @@
     width: min(100%, 3.5em);
   }
   :where(.route-root.route-about) .strategy .text-link {
-    @apply block w-max mt-8 mr-0 mb-0 ml-auto;
+    @apply mt-8 mr-0 mb-0 ml-auto block w-max;
   }
   :where(.route-root.route-about) .social-icon {
     display: inline-flex;
@@ -1786,16 +1730,16 @@
     justify-content: center;
     width: 42px;
     height: 42px;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--color-ink);
     background: #fff;
-    color: var(--ink);
+    color: var(--color-ink);
     transition:
       background 0.15s ease,
       color 0.15s ease,
       transform 0.15s ease;
   }
   :where(.route-root.route-about) .social-icon:hover {
-    background: var(--red);
+    background: var(--color-coral);
     color: #fff;
     transform: translateY(-2px);
   }
@@ -1805,7 +1749,7 @@
     display: block;
   }
   :where(.route-root.route-about) .focus-dropdown > summary {
-    @apply flex justify-between items-center gap-6 py-6 px-0 cursor-pointer list-none uppercase font-display font-extrabold text-2xl sm:text-2xl lg:text-2xl xl:text-3xl leading-tight;
+    @apply flex cursor-pointer list-none items-center justify-between gap-6 px-0 py-6 font-display text-2xl leading-tight font-extrabold uppercase xl:text-3xl;
   }
   :where(.route-root.route-about)
     .focus-dropdown
@@ -1813,7 +1757,7 @@
     @apply hidden;
   }
   :where(.route-root.route-about) .focus-dropdown > summary:focus-visible {
-    @apply outline-2 outline-brand-blue outline-offset-4;
+    @apply outline-2 outline-offset-4 outline-brand-blue;
   }
   :where(.route-root.route-about) .focus-toggle::after {
     content: "+";
@@ -1823,7 +1767,7 @@
   }
   :where(.route-root.route-about) .focus-area {
     @apply mt-0 mr-0 mb-7 ml-0;
-    border-left: 6px solid var(--red);
+    border-left: 6px solid var(--color-coral);
   }
   :where(.route-root.route-about) .focus-area:nth-of-type(2) {
     @apply border-brand-blue;
@@ -1832,7 +1776,7 @@
     @apply border-brand-purple;
   }
   :where(.route-root.route-about) .focus-area h3 {
-    @apply uppercase mb-3.5 font-display font-extrabold text-2xl sm:text-2xl lg:text-2xl xl:text-3xl leading-tight;
+    @apply mb-3.5 font-display text-2xl leading-tight font-extrabold uppercase xl:text-3xl;
   }
   :where(.route-root.route-about) .focus-area p {
     @apply text-base leading-normal;
@@ -1864,17 +1808,17 @@
     height: 100px;
     display: grid;
     place-items: center;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--color-ink);
     border-radius: 50%;
-    background: var(--yellow);
-    box-shadow: 3px 3px 0 var(--ink);
+    background: var(--color-brand-yellow);
+    box-shadow: 3px 3px 0 var(--color-ink);
     margin: 0 auto 24px;
   }
   :where(.route-root.route-about) .strategy-path li:nth-child(2) .step-icon {
     background: #bcd8ff;
   }
   :where(.route-root.route-about) .strategy-path li:nth-child(3) .step-icon {
-    background: var(--red);
+    background: var(--color-coral);
   }
   :where(.route-root.route-about) .step-icon svg {
     width: 54px;
@@ -1886,7 +1830,7 @@
     stroke-linejoin: round;
   }
   :where(.route-root.route-about) .strategy-path h3 {
-    @apply uppercase m-0 font-display font-extrabold text-3xl sm:text-3xl lg:text-3xl xl:text-3xl leading-tight text-balance;
+    @apply m-0 font-display text-3xl leading-tight font-extrabold text-balance uppercase;
   }
   @variant max-sm {
     :where(.route-root.route-about) .strategy-path li + li::before {
@@ -1897,7 +1841,7 @@
     }
   }
   :where(.route-root.route-about) .strategy {
-    @apply bg-white py-24 px-0;
+    @apply bg-white px-0 py-24;
   }
   :where(.route-root.route-about) .strategy .deck {
     @apply mt-8;
@@ -1907,7 +1851,7 @@
     aspect-ratio: 380/330;
   }
   :where(.route-root.route-about) .cycle-lines path {
-    stroke: var(--ink);
+    stroke: var(--color-ink);
     stroke-width: 3;
     fill: none;
   }
@@ -1915,13 +1859,13 @@
     left: 50%;
     top: 62%;
     transform: translate(-50%, -50%) rotate(-2deg);
-    box-shadow: 5px 5px 0 var(--ink);
+    box-shadow: 5px 5px 0 var(--color-ink);
     z-index: 2;
   }
   :where(.route-root.route-about) .cycle-node {
     width: 34%;
     aspect-ratio: 1;
-    border: 3px solid var(--ink);
+    border: 3px solid var(--color-ink);
     padding: 6%;
     box-sizing: border-box;
     font-size: clamp(1.235rem, 2.34vw, 1.56rem);
@@ -1934,21 +1878,21 @@
     transform: translateY(-5px);
   }
   :where(.route-root.route-about) .cycle-node:focus-visible {
-    outline: 3px solid var(--ink);
+    outline: 3px solid var(--color-ink);
     outline-offset: 3px;
   }
   :where(.route-root.route-about) .cycle-node-act {
     left: 50%;
     margin-left: -17%;
-    box-shadow: 6px 6px 0 var(--ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
   }
   :where(.route-root.route-about) .cycle-node-recruit {
     @apply right-0;
-    box-shadow: 6px 6px 0 var(--ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
   }
   :where(.route-root.route-about) .cycle-node-train {
     @apply left-0;
-    box-shadow: 6px 6px 0 var(--ink);
+    box-shadow: 6px 6px 0 var(--color-ink);
   }
   :where(.route-root.route-about) .cycle-tip {
     z-index: 4;
@@ -1956,7 +1900,7 @@
     bottom: calc(100% + 14px);
     transform: translate(-50%, 6px);
     width: min(220px, 64vw);
-    box-shadow: 4px 4px 0 var(--ink);
+    box-shadow: 4px 4px 0 var(--color-ink);
     letter-spacing: normal;
     opacity: 0;
     visibility: hidden;
@@ -1973,7 +1917,7 @@
     transform: translate(-50%, 0);
   }
   :where(.route-root.route-about) .cycle-node-recruit .cycle-tip {
-    @apply left-auto right-0;
+    @apply right-0 left-auto;
     transform: translate(0, 6px);
   }
   :where(.route-root.route-about) .cycle-node-recruit:hover .cycle-tip,
@@ -2011,14 +1955,14 @@
   }
   @variant max-sm {
     :where(.route-root.route-about) h1 {
-      @apply text-6xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-6xl sm:text-7xl;
       @apply max-w-xs sm:max-w-md lg:max-w-xl;
     }
     :where(.route-root.route-about) h2 {
-      @apply text-5xl sm:text-5xl lg:text-5xl xl:text-5xl;
+      @apply text-5xl;
     }
     :where(.route-root.route-about) .hero-copy p {
-      @apply text-base max-w-none;
+      @apply max-w-none text-base;
     }
     :where(.route-root.route-about) .hero-art {
       min-height: 320px;
@@ -2048,7 +1992,7 @@
       right: 6%;
     }
     :where(.route-root.route-about) .about {
-      @apply py-14 px-0;
+      @apply px-0 py-14;
     }
     :where(.route-root.route-about) #founder .about-art {
       aspect-ratio: 1/1;
@@ -2063,12 +2007,12 @@
   }
   :where(.route-root.route-fellowship) .btn,
   :where(.route-root.route-circle) .btn {
-    @apply py-4 px-5 text-sm;
+    @apply px-5 py-4 text-sm;
   }
   /* No ink-underline squiggle below the hero paragraph (that :after is homepage-only). */
   :where(.route-root.route-fellowship) .fact-pills,
   :where(.route-root.route-circle) .fact-pills {
-    @apply flex flex-wrap gap-2 mt-0 mr-0 mb-7 ml-0 relative z-2;
+    @apply relative z-2 mt-0 mr-0 mb-7 ml-0 flex flex-wrap gap-2;
   }
   :where(.route-root.route-fellowship) .factbar {
     @apply p-0;
@@ -2077,14 +2021,14 @@
     @apply grid grid-cols-4;
   }
   :where(.route-root.route-fellowship) .factbar .stat {
-    @apply min-h-48 py-7 px-6 flex flex-col justify-between text-white;
+    @apply flex min-h-48 flex-col justify-between px-6 py-7 text-white;
     border-right: 2px solid rgba(255, 255, 255, 0.18);
   }
   :where(.route-root.route-fellowship) .factbar .stat:last-child {
     @apply border-r-0;
   }
   :where(.route-root.route-fellowship) .factbar .stat strong {
-    @apply font-display font-extrabold uppercase leading-none text-3xl sm:text-3xl lg:text-3xl xl:text-4xl;
+    @apply font-display text-3xl leading-none font-extrabold uppercase xl:text-4xl;
   }
   :where(.route-root.route-fellowship) .factbar .stat span {
     @apply text-base font-bold tracking-wide text-white uppercase;
@@ -2103,7 +2047,7 @@
   }
   :where(.route-root.route-fellowship) .about-you,
   :where(.route-root.route-circle) .about-you {
-    @apply bg-paper py-24 px-0 relative overflow-hidden;
+    @apply relative overflow-hidden bg-paper px-0 py-24;
   }
   :where(.route-root.route-fellowship) .about-you > .site-container,
   :where(.route-root.route-circle) .about-you > .site-container {
@@ -2111,11 +2055,11 @@
   }
   :where(.route-root.route-fellowship) .you-grid,
   :where(.route-root.route-circle) .you-grid {
-    @apply grid grid-cols-2 gap-16 items-start;
+    @apply grid grid-cols-2 items-start gap-16;
   }
   :where(.route-root.route-fellowship) .focus-row,
   :where(.route-root.route-circle) .focus-row {
-    @apply grid gap-4 items-start py-6 px-0 border-b border-solid border-b-rule;
+    @apply grid items-start gap-4 border-b border-solid border-b-rule px-0 py-6;
     @apply flex items-start;
   }
   :where(.route-root.route-fellowship) .focus-row .n,
@@ -2132,10 +2076,10 @@
   }
   :where(.route-root.route-fellowship) .focus-row .name,
   :where(.route-root.route-circle) .focus-row .name {
-    @apply text-xl font-extrabold leading-snug;
+    @apply text-xl leading-snug font-extrabold;
   }
   :where(.route-root.route-fellowship) .roles {
-    @apply py-24 px-0;
+    @apply px-0 py-24;
   }
   :where(.route-root.route-fellowship) .roles-head .deck {
     @apply mt-6;
@@ -2145,13 +2089,13 @@
     @apply relative;
   }
   :where(.route-root.route-fellowship) .role summary {
-    @apply list-none cursor-pointer pt-6 pr-11 pb-6 pl-5 flex items-baseline justify-between flex-wrap relative gap-y-4 gap-x-6;
+    @apply relative flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-4 pt-6 pr-11 pb-6 pl-5;
   }
   :where(.route-root.route-fellowship) .role summary::-webkit-details-marker {
     @apply hidden;
   }
   :where(.route-root.route-fellowship) .role summary:before {
-    @apply absolute left-0 top-0 bottom-0 w-2;
+    @apply absolute top-0 bottom-0 left-0 w-2;
     content: "";
   }
   :where(.route-root.route-fellowship) .role:nth-of-type(1) summary:before {
@@ -2167,7 +2111,7 @@
     @apply bg-brand-pink;
   }
   :where(.route-root.route-fellowship) .role-title {
-    @apply text-2xl sm:text-2xl lg:text-2xl xl:text-4xl;
+    @apply text-2xl xl:text-4xl;
   }
   :where(.route-root.route-fellowship) .role-chevron {
     position: absolute;
@@ -2175,7 +2119,7 @@
     top: 28px;
     width: 22px;
     height: 22px;
-    border: 2px solid var(--ink);
+    border: 2px solid var(--color-ink);
     display: grid;
     place-items: center;
     font-size: 14px;
@@ -2192,10 +2136,10 @@
     @apply max-w-3xl;
   }
   :where(.route-root.route-fellowship) .role-list {
-    @apply list-none m-0 p-0 flex flex-col gap-2;
+    @apply m-0 flex list-none flex-col gap-2 p-0;
   }
   :where(.route-root.route-fellowship) .role-list li {
-    @apply pl-4 relative text-base leading-normal font-semibold;
+    @apply relative pl-4 text-base leading-normal font-semibold;
   }
   :where(.route-root.route-fellowship) .role-list li:before {
     @apply absolute left-0 text-ink;
@@ -2212,15 +2156,15 @@
     @apply relative z-2;
   }
   :where(.route-root.route-fellowship) .commitment p {
-    @apply m-0 font-display font-extrabold uppercase leading-none;
+    @apply m-0 font-display leading-none font-extrabold uppercase;
     @apply max-w-md;
-    @apply text-2xl sm:text-2xl lg:text-2xl xl:text-4xl;
+    @apply text-2xl xl:text-4xl;
   }
   :where(.route-root.route-fellowship) .commitment-pills span {
-    @apply bg-ink text-white py-2.5 px-3.5 text-xs font-black tracking-wider uppercase;
+    @apply bg-ink px-3.5 py-2.5 text-xs font-black tracking-wider text-white uppercase;
   }
   :where(.route-root.route-fellowship) .benefits {
-    @apply py-24 px-0 relative;
+    @apply relative px-0 py-24;
   }
   :where(.route-root.route-fellowship) .benefits > .site-container {
     @apply relative z-2;
@@ -2234,18 +2178,18 @@
   }
   :where(.route-root.route-fellowship) .faq,
   :where(.route-root.route-circle) .faq {
-    @apply bg-white py-24 px-0;
+    @apply bg-white px-0 py-24;
   }
   :where(.route-root.route-fellowship) .faq-table {
-    @apply text-sm border-collapse;
+    @apply border-collapse text-sm;
   }
   :where(.route-root.route-fellowship) .faq-table th,
   :where(.route-root.route-fellowship) .faq-table td {
-    @apply text-left pt-2.5 pr-4 pb-2.5 pl-0 border-b border-solid border-b-rule;
+    @apply border-b border-solid border-b-rule pt-2.5 pr-4 pb-2.5 pl-0 text-left;
     vertical-align: top;
   }
   :where(.route-root.route-fellowship) .faq-table th {
-    @apply text-xs tracking-wider uppercase text-coral-dark font-black;
+    @apply text-xs font-black tracking-wider text-coral-dark uppercase;
   }
   :where(.route-root.route-fellowship) .apply,
   :where(.route-root.route-circle) .apply {
@@ -2253,7 +2197,7 @@
   }
   :where(.route-root.route-fellowship) .apply-copy,
   :where(.route-root.route-circle) .apply-copy {
-    @apply py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
+    @apply px-7 py-20 sm:px-12 lg:px-20 lg:py-24;
   }
   :where(.route-root.route-fellowship) .apply-copy .deck,
   :where(.route-root.route-circle) .apply-copy .deck {
@@ -2262,15 +2206,15 @@
   }
   :where(.route-root.route-fellowship) .apply-note,
   :where(.route-root.route-circle) .apply-note {
-    @apply mt-4 italic font-semibold text-ink text-base;
+    @apply mt-4 text-base font-semibold text-ink italic;
   }
   :where(.route-root.route-fellowship) .apply-panel,
   :where(.route-root.route-circle) .apply-panel {
-    @apply relative bg-ink text-white py-14 px-12 flex flex-col justify-center border-l-2 border-solid border-l-ink overflow-hidden min-h-120;
+    @apply relative flex min-h-120 flex-col justify-center overflow-hidden border-l-2 border-solid border-l-ink bg-ink px-12 py-14 text-white;
   }
   :where(.route-root.route-fellowship) .apply-panel .label,
   :where(.route-root.route-circle) .apply-panel .label {
-    @apply mb-6 relative z-2;
+    @apply relative z-2 mb-6;
   }
   :where(.route-root.route-fellowship) .apply-panel .apply-deadline,
   :where(.route-root.route-fellowship) .apply-panel p,
@@ -2278,15 +2222,15 @@
     @apply relative z-2;
   }
   :where(.route-root.route-fellowship) .apply-deadline {
-    @apply font-display font-extrabold leading-none uppercase text-coral text-5xl sm:text-5xl lg:text-7xl xl:text-8xl;
+    @apply font-display text-5xl leading-none font-extrabold text-coral uppercase lg:text-7xl xl:text-8xl;
   }
   :where(.route-root.route-fellowship) .apply-panel p {
-    @apply mt-4 mr-0 mb-5 ml-0 text-base font-semibold leading-normal text-white;
+    @apply mt-4 mr-0 mb-5 ml-0 text-base leading-normal font-semibold text-white;
     @apply max-w-sm;
   }
   :where(.route-root.route-fellowship) .apply-panel:after,
   :where(.route-root.route-circle) .apply-panel:after {
-    @apply absolute w-24 h-2.5 bg-brand-yellow right-8 bottom-9 rounded-full;
+    @apply absolute right-8 bottom-9 h-2.5 w-24 rounded-full bg-brand-yellow;
     content: "";
     transform: rotate(-3deg);
   }
@@ -2316,19 +2260,19 @@
       border-bottom: 2px solid rgba(255, 255, 255, 0.18);
     }
     :where(.route-root.route-fellowship) .apply-panel {
-      @apply border-l-0 border-t-2 border-solid border-t-ink min-h-80;
+      @apply min-h-80 border-t-2 border-l-0 border-solid border-t-ink;
     }
   }
   @variant max-sm {
     :where(.route-root.route-fellowship) h1 {
-      @apply text-6xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-6xl sm:text-7xl;
       @apply max-w-xs sm:max-w-md lg:max-w-xl;
     }
     :where(.route-root.route-fellowship) h2 {
-      @apply text-5xl sm:text-5xl lg:text-5xl xl:text-5xl;
+      @apply text-5xl;
     }
     :where(.route-root.route-fellowship) .hero-copy p {
-      @apply text-base max-w-none;
+      @apply max-w-none text-base;
     }
     :where(.route-root.route-fellowship) .hero-art {
       min-height: 320px;
@@ -2361,7 +2305,7 @@
       @apply grid-cols-1;
     }
     :where(.route-root.route-fellowship) .factbar .stat {
-      @apply min-h-0 py-6 px-5;
+      @apply min-h-0 px-5 py-6;
       border-right: 0 !important;
       border-bottom: 2px solid rgba(255, 255, 255, 0.18);
     }
@@ -2379,7 +2323,7 @@
     :where(.route-root.route-fellowship) .roles,
     :where(.route-root.route-fellowship) .benefits,
     :where(.route-root.route-fellowship) .faq {
-      @apply py-14 px-0;
+      @apply px-0 py-14;
     }
     :where(.route-root.route-fellowship) .role summary {
       @apply pt-5 pr-10 pb-5 pl-4;
@@ -2392,10 +2336,10 @@
       @apply pt-14 pr-5 pb-12 pl-5;
     }
     :where(.route-root.route-fellowship) .apply-panel {
-      @apply py-11 px-6 min-h-80;
+      @apply min-h-80 px-6 py-11;
     }
     :where(.route-root.route-fellowship) .apply-deadline {
-      @apply text-5xl sm:text-6xl lg:text-6xl xl:text-6xl;
+      @apply text-5xl sm:text-6xl;
     }
   }
   :where(.route-root.route-circle) .circle-hero-art {
@@ -2430,9 +2374,9 @@
     gap: 22px;
     margin: 0;
     padding: 30px max(28px, 7vw);
-    background: var(--red);
-    color: var(--ink);
-    border-bottom: 2px solid var(--ink);
+    background: var(--color-coral);
+    color: var(--color-ink);
+    border-bottom: 2px solid var(--color-ink);
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 2.7vw, 2.7rem);
     font-weight: 800;
@@ -2454,11 +2398,11 @@
     @apply max-w-xl;
   }
   :where(.route-root.route-circle) .getting-started {
-    @apply py-24 px-0;
+    @apply px-0 py-24;
   }
   :where(.route-root.route-circle) .step {
     @apply pt-6;
-    border-top: 3px solid var(--ink);
+    border-top: 3px solid var(--color-ink);
   }
   :where(.route-root.route-circle) .step:nth-child(1) .step-number {
     @apply text-coral-dark;
@@ -2470,28 +2414,28 @@
     @apply text-brand-purple;
   }
   :where(.route-root.route-circle) .step h3 {
-    @apply text-xl mt-4 mr-0 mb-3 ml-0;
+    @apply mt-4 mr-0 mb-3 ml-0 text-xl;
   }
   :where(.route-root.route-circle) .step p {
-    @apply text-base leading-relaxed m-0;
+    @apply m-0 text-base leading-relaxed;
   }
   :where(.route-root.route-circle) .shared-leadership {
-    @apply text-white py-20 px-0;
+    @apply px-0 py-20 text-white;
   }
   :where(.route-root.route-circle) .shared-leadership .deck {
     @apply mt-6 mr-0 mb-0 ml-0 text-white;
     @apply max-w-lg;
   }
   :where(.route-root.route-circle) .role-list {
-    @apply list-none p-0 m-0;
+    @apply m-0 list-none p-0;
     border-top: 1px solid #777;
   }
   :where(.route-root.route-circle) .role-list li {
-    @apply py-5 px-0;
+    @apply px-0 py-5;
     border-bottom: 1px solid #777;
   }
   :where(.route-root.route-circle) .role-list strong {
-    @apply block text-brand-yellow mb-1.5 text-lg;
+    @apply mb-1.5 block text-lg text-brand-yellow;
   }
   :where(.route-root.route-circle) .role-list span {
     @apply text-base leading-relaxed;
@@ -2502,10 +2446,10 @@
     @apply relative z-2;
   }
   :where(.route-root.route-circle) .apply-deadline {
-    @apply font-display font-extrabold leading-none uppercase text-coral text-5xl sm:text-5xl lg:text-5xl xl:text-6xl;
+    @apply font-display text-5xl leading-none font-extrabold text-coral uppercase xl:text-6xl;
   }
   :where(.route-root.route-circle) .apply-panel p {
-    @apply mt-4 mr-0 mb-0 ml-0 text-base font-semibold leading-normal text-white;
+    @apply mt-4 mr-0 mb-0 ml-0 text-base leading-normal font-semibold text-white;
     @apply max-w-sm;
   }
   :where(.route-root.route-circle) .apply-panel .signup-row {
@@ -2514,10 +2458,10 @@
   :where(.route-root.route-circle) summary:focus-visible,
   :where(.route-root.route-circle) a:focus-visible,
   :where(.route-root.route-circle) button:focus-visible {
-    @apply outline-2 outline-brand-blue outline-offset-4;
+    @apply outline-2 outline-offset-4 outline-brand-blue;
   }
   :where(.route-root.route-circle) .hero-copy .hero-note {
-    @apply text-sm font-medium mt-3.5 mr-0 mb-0 ml-0;
+    @apply mt-3.5 mr-0 mb-0 ml-0 text-sm font-medium;
     @apply max-w-lg;
   }
   @variant max-lg {
@@ -2531,7 +2475,7 @@
       @apply grid-cols-1;
     }
     :where(.route-root.route-circle) .apply-panel {
-      @apply border-l-0 border-t-2 border-solid border-t-ink min-h-80;
+      @apply min-h-80 border-t-2 border-l-0 border-solid border-t-ink;
     }
   }
   @variant max-sm {
@@ -2540,14 +2484,14 @@
       gap: 16px;
     }
     :where(.route-root.route-circle) h1 {
-      @apply text-6xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-6xl sm:text-7xl;
       @apply max-w-xs sm:max-w-md lg:max-w-xl;
     }
     :where(.route-root.route-circle) h2 {
-      @apply text-5xl sm:text-5xl lg:text-5xl xl:text-5xl;
+      @apply text-5xl;
     }
     :where(.route-root.route-circle) .hero-copy p {
-      @apply text-base max-w-none;
+      @apply max-w-none text-base;
     }
     :where(.route-root.route-circle) .hero-art {
       min-height: 320px;
@@ -2556,7 +2500,7 @@
     :where(.route-root.route-circle) .getting-started,
     :where(.route-root.route-circle) .shared-leadership,
     :where(.route-root.route-circle) .faq {
-      @apply py-14 px-0;
+      @apply px-0 py-14;
     }
     :where(.route-root.route-circle) .you-grid {
       @apply gap-9;
@@ -2569,10 +2513,10 @@
       @apply pt-14 pr-5 pb-12 pl-5;
     }
     :where(.route-root.route-circle) .apply-panel {
-      @apply py-11 px-6 min-h-80;
+      @apply min-h-80 px-6 py-11;
     }
     :where(.route-root.route-circle) .apply-deadline {
-      @apply text-7xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-7xl;
     }
   }
   :where(.route-root.route-home) main .deck {
@@ -2585,7 +2529,7 @@
     @apply text-sm;
   }
   :where(.route-root.route-home) .crisis-statement {
-    @apply bg-ink text-white font-display leading-none tracking-tighter relative overflow-hidden py-20 lg:py-24 px-7 sm:px-12 lg:px-20 text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
+    @apply relative overflow-hidden bg-ink px-7 py-20 font-display text-4xl leading-none tracking-tighter text-white sm:px-12 lg:px-20 lg:py-24 lg:text-5xl xl:text-6xl;
   }
   :where(.route-root.route-home) .crisis-statement > *:not(.fun-layer) {
     @apply relative z-2;
@@ -2597,13 +2541,13 @@
     height: auto;
     right: 5%;
     top: 100px;
-    color: var(--blue);
+    color: var(--color-brand-blue);
     opacity: 0.42;
     transform: rotate(-12deg);
     pointer-events: none;
   }
   :where(.route-root.route-home) .crisis-statement em {
-    @apply not-italic text-coral;
+    @apply text-coral not-italic;
   }
   :where(.route-root.route-home) .crisis-line {
     @apply font-extrabold uppercase;
@@ -2612,11 +2556,11 @@
   :where(.route-root.route-home) .crisis-statement .stats {
     @apply grid grid-cols-3 text-base;
     letter-spacing: normal;
-    @apply mt-16 -mx-7 -mb-20 sm:-mx-12 lg:-mx-20 lg:-mb-24;
+    @apply -mx-7 mt-16 -mb-20 sm:-mx-12 lg:-mx-20 lg:-mb-24;
     border-top: 2px solid rgba(255, 255, 255, 0.35);
   }
   :where(.route-root.route-home) .crisis-statement .stat {
-    @apply min-h-56 py-9 px-8 border-r-2 border-solid border-r-ink flex flex-col justify-start gap-5 text-white font-body relative;
+    @apply relative flex min-h-56 flex-col justify-start gap-5 border-r-2 border-solid border-r-ink px-8 py-9 font-body text-white;
   }
   :where(.route-root.route-home) .crisis-statement .stat:nth-child(1) {
     @apply bg-coral text-ink;
@@ -2633,7 +2577,7 @@
     @apply text-ink;
   }
   :where(.route-root.route-home) .crisis-statement .stat strong {
-    @apply font-display font-extrabold leading-none tracking-tight relative w-max text-7xl sm:text-7xl lg:text-7xl xl:text-8xl;
+    @apply relative w-max font-display text-7xl leading-none font-extrabold tracking-tight xl:text-8xl;
   }
   :where(.route-root.route-home)
     .crisis-statement
@@ -2656,7 +2600,7 @@
   :where(.route-root.route-home) .crisis-statement .stat span {
     @apply leading-normal font-medium;
     @apply max-w-sm;
-    @apply text-xl sm:text-xl lg:text-xl xl:text-xl;
+    @apply text-xl;
     letter-spacing: normal;
   }
   :where(.route-root.route-home) .vision {
@@ -2673,11 +2617,11 @@
     @apply relative;
   }
   :where(.route-root.route-home) .fight-highlight::before {
-    @apply absolute pointer-events-none;
+    @apply pointer-events-none absolute;
     content: "";
     @apply -z-1;
     inset: -5% -0.1em -7%;
-    background: color-mix(in srgb, var(--red) 75%, var(--paper));
+    background: color-mix(in srgb, var(--color-coral) 75%, var(--color-paper));
     transform: rotate(-3deg);
     clip-path: polygon(
       0 12%,
@@ -2700,7 +2644,7 @@
     @apply mb-6;
   }
   :where(.route-root.route-home) .campaigns-head h3 {
-    @apply m-0 font-display font-bold leading-none tracking-tight uppercase text-4xl sm:text-4xl lg:text-4xl xl:text-5xl;
+    @apply m-0 font-display text-4xl leading-none font-bold tracking-tight uppercase xl:text-5xl;
   }
   :where(.route-root.route-home) .campaigns-footer {
     grid-template-columns: 1fr auto 1fr;
@@ -2723,7 +2667,7 @@
     @apply hidden;
   }
   :where(.route-root.route-home) .campaign-card {
-    @apply relative overflow-hidden border-2 border-solid border-ink isolate;
+    @apply relative isolate overflow-hidden border-2 border-solid border-ink;
     flex: 0 0 min(68vw, 760px);
     @apply min-h-112;
     scroll-snap-align: center;
@@ -2751,7 +2695,7 @@
     position: absolute;
   }
   :where(.route-root.route-home) .campaign-card.freeze .campaign-art {
-    background: var(--blue);
+    background: var(--color-brand-blue);
   }
   :where(.route-root.route-home) .campaign-card.freeze .campaign-art:before {
     width: 58%;
@@ -2765,20 +2709,20 @@
   :where(.route-root.route-home) .campaign-card.freeze .campaign-art:after {
     width: 130%;
     height: 18px;
-    background: var(--ink);
+    background: var(--color-ink);
     left: -15%;
     top: 44%;
     transform: rotate(-8deg);
   }
   :where(.route-root.route-home) .campaign-card.surveillance .campaign-art {
-    background: var(--red);
+    background: var(--color-coral);
   }
   :where(.route-root.route-home)
     .campaign-card.surveillance
     .campaign-art:before {
     width: 70%;
     height: 42%;
-    border: 26px solid var(--ink);
+    border: 26px solid var(--color-ink);
     border-radius: 50%;
     left: 15%;
     top: 17%;
@@ -2788,19 +2732,19 @@
     .campaign-art:after {
     width: 110px;
     height: 110px;
-    background: var(--yellow);
-    border: 18px solid var(--ink);
+    background: var(--color-brand-yellow);
+    border: 18px solid var(--color-ink);
     border-radius: 50%;
     left: calc(50% - 55px);
     top: calc(38% - 55px);
   }
   :where(.route-root.route-home) .campaign-card.robots .campaign-art {
-    background: var(--green);
+    background: var(--color-brand-purple);
   }
   :where(.route-root.route-home) .campaign-card.robots .campaign-art:before {
     width: 250px;
     height: 300px;
-    background: var(--ink);
+    background: var(--color-ink);
     left: calc(50% - 125px);
     top: 6%;
     clip-path: polygon(20% 0, 80% 0, 100% 20%, 85% 100%, 15% 100%, 0 20%);
@@ -2808,27 +2752,27 @@
   :where(.route-root.route-home) .campaign-card.robots .campaign-art:after {
     width: 38px;
     height: 38px;
-    background: var(--pink);
+    background: var(--color-brand-pink);
     border-radius: 50%;
     left: calc(50% - 19px);
     top: 26%;
     box-shadow:
-      -68px 0 0 var(--pink),
-      68px 0 0 var(--pink);
+      -68px 0 0 var(--color-brand-pink),
+      68px 0 0 var(--color-brand-pink);
   }
   :where(.route-root.route-home) .campaign-copy h4 {
-    @apply mt-0 mr-0 mb-2.5 ml-0 font-display font-extrabold leading-none tracking-tight uppercase text-5xl sm:text-5xl lg:text-6xl xl:text-7xl;
+    @apply mt-0 mr-0 mb-2.5 ml-0 font-display text-5xl leading-none font-extrabold tracking-tight uppercase lg:text-6xl xl:text-7xl;
   }
   :where(.route-root.route-home) .campaign-copy p {
-    @apply m-0 font-medium leading-normal;
+    @apply m-0 leading-normal font-medium;
     @apply max-w-lg;
-    @apply text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply text-lg xl:text-xl;
   }
   :where(.route-root.route-home) .campaigns-link:hover {
-    @apply text-coral border-coral;
+    @apply border-coral text-coral;
   }
   :where(.route-root.route-home) .strategy {
-    @apply bg-white pt-20 pr-0 pb-0 pl-0 relative overflow-hidden border-b-2 border-solid border-b-ink;
+    @apply relative overflow-hidden border-b-2 border-solid border-b-ink bg-white pt-20 pr-0 pb-0 pl-0;
   }
   :where(.route-root.route-home) .strategy-grid {
     @apply grid-cols-2;
@@ -2841,7 +2785,7 @@
     @apply font-bold tracking-tight;
   }
   :where(.route-root.route-home) .process {
-    @apply grid-cols-3 relative;
+    @apply relative grid-cols-3;
     background: url("/assets/homepage-process-texture.png") center 48% / cover
       no-repeat;
   }
@@ -2860,11 +2804,14 @@
     @apply absolute inset-0;
     content: "";
     @apply -z-1 opacity-15;
-    background-image: radial-gradient(var(--ink) 0.8px, transparent 0.8px);
+    background-image: radial-gradient(
+      var(--color-ink) 0.8px,
+      transparent 0.8px
+    );
     background-size: 5px 5px;
   }
   :where(.route-root.route-home) .step {
-    @apply pt-11 pr-9 pb-12 pl-9 border-r-2 border-solid border-r-ink;
+    @apply border-r-2 border-solid border-r-ink pt-11 pr-9 pb-12 pl-9;
     background: transparent !important;
     backdrop-filter: saturate(0.78);
   }
@@ -2872,15 +2819,15 @@
     @apply border-r-0;
   }
   :where(.route-root.route-home) .step small {
-    @apply block mb-7 font-display leading-none font-extrabold tracking-tighter uppercase text-coral-dark text-5xl sm:text-5xl lg:text-5xl xl:text-6xl;
+    @apply mb-7 block font-display text-5xl leading-none font-extrabold tracking-tighter text-coral-dark uppercase xl:text-6xl;
   }
   :where(.route-root.route-home) .step h3 {
-    @apply m-0 relative inline-block font-display leading-none tracking-tighter uppercase font-extrabold text-3xl sm:text-3xl lg:text-3xl xl:text-4xl;
+    @apply relative m-0 inline-block font-display text-3xl leading-none font-extrabold tracking-tighter uppercase xl:text-4xl;
   }
   :where(.route-root.route-home) .step:nth-child(1) h3:after,
   :where(.route-root.route-home) .step:nth-child(2) h3:after,
   :where(.route-root.route-home) .step:nth-child(3) h3:after {
-    @apply absolute left-0 right-0 -bottom-2 h-1 rounded-full;
+    @apply absolute right-0 -bottom-2 left-0 h-1 rounded-full;
     content: "";
   }
   :where(.route-root.route-home) .step:nth-child(1) h3:after {
@@ -2893,7 +2840,7 @@
     @apply bg-brand-purple;
   }
   :where(.route-root.route-home) .involved-copy {
-    @apply relative py-20 lg:py-24 px-7 sm:px-12 lg:px-20;
+    @apply relative px-7 py-20 sm:px-12 lg:px-20 lg:py-24;
   }
   :where(.route-root.route-home) .involved-copy .label,
   :where(.route-root.route-home) .involved-copy h2,
@@ -2909,7 +2856,7 @@
     @apply leading-none tracking-tight;
   }
   :where(.route-root.route-home) .quote {
-    @apply relative bg-ink text-white py-16 px-14 flex flex-col justify-end overflow-hidden border-l-2 border-solid border-l-ink min-h-128;
+    @apply relative flex min-h-128 flex-col justify-end overflow-hidden border-l-2 border-solid border-l-ink bg-ink px-14 py-16 text-white;
     background:
       linear-gradient(
         180deg,
@@ -2923,23 +2870,23 @@
     content: "\201C";
     font-family: Georgia, "Times New Roman", serif;
     color: rgba(244, 0, 0, 0.92);
-    text-shadow: 0 2px 0 var(--ink);
+    text-shadow: 0 2px 0 var(--color-ink);
   }
   :where(.route-root.route-home) .quote:after {
-    @apply absolute w-24 h-2.5 bg-brand-yellow right-8 bottom-9 rounded-full;
+    @apply absolute right-8 bottom-9 h-2.5 w-24 rounded-full bg-brand-yellow;
     content: "";
     transform: rotate(-3deg);
   }
   :where(.route-root.route-home) .quote blockquote {
-    @apply m-0 relative leading-none py-6 px-6 border-l-8 border-solid border-l-coral z-2;
+    @apply relative z-2 m-0 border-l-8 border-solid border-l-coral px-6 py-6 leading-none;
     font-family: Georgia, "Times New Roman", serif;
-    @apply text-3xl sm:text-3xl lg:text-4xl xl:text-5xl;
+    @apply text-3xl lg:text-4xl xl:text-5xl;
     text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75);
     background: rgba(17, 17, 17, 0.76);
     box-shadow: 14px 14px 0 rgba(244, 0, 0, 0.24);
   }
   :where(.route-root.route-home) .quote cite {
-    @apply block mt-6 font-body not-italic text-base leading-normal font-bold uppercase tracking-wider text-white;
+    @apply mt-6 block font-body text-base leading-normal font-bold tracking-wider text-white uppercase not-italic;
   }
   :where(.route-root.route-home) .hero-art {
     background: #f40000;
@@ -2968,7 +2915,7 @@
     display: none;
   }
   :where(.route-root.route-home) .hero-copy:before {
-    @apply absolute h-auto border-0 rounded-none pointer-events-none;
+    @apply pointer-events-none absolute h-auto rounded-none border-0;
     content: "";
     @apply z-0;
     width: 112%;
@@ -2993,13 +2940,13 @@
     z-index: 1;
   }
   :where(.route-root.route-home) .hero-confetti .paper-red {
-    fill: var(--red);
+    fill: var(--color-coral);
   }
   :where(.route-root.route-home) .hero-confetti .paper-blue {
-    fill: var(--blue);
+    fill: var(--color-brand-blue);
   }
   :where(.route-root.route-home) .hero-confetti .paper-yellow {
-    fill: var(--yellow);
+    fill: var(--color-brand-yellow);
   }
   :where(.route-root.route-home) .hero-confetti--top {
     top: 20px;
@@ -3059,7 +3006,7 @@
     @apply relative inline-block;
   }
   :where(.route-root.route-home) h1 .jolt {
-    @apply text-ink leading-none;
+    @apply leading-none text-ink;
   }
   :where(.route-root.route-home) .word-brush:after {
     @apply absolute left-0 bg-coral;
@@ -3074,7 +3021,7 @@
     padding: 0.02em 0.09em 0.04em;
     background: #1647a8;
     transform: rotate(-2deg);
-    box-shadow: 0.045em 0.045em 0 var(--ink);
+    box-shadow: 0.045em 0.045em 0 var(--color-ink);
   }
   :where(.route-root.route-home) .section-mark {
     @apply text-coral;
@@ -3091,11 +3038,11 @@
     @apply text-ink;
   }
   :where(.route-root.route-home) .crisis-statement > .fun-layer {
-    @apply w-36 h-24;
+    @apply h-24 w-36;
     inset: 44px max(28px, 7vw) auto auto;
   }
   :where(.route-root.route-home) .crisis-statement .accent-moon {
-    @apply right-4 top-5 text-paper;
+    @apply top-5 right-4 text-paper;
   }
   @variant sm:max-lg {
     :where(.route-root.route-home) .hero-confetti--top {
@@ -3169,7 +3116,7 @@
       @apply min-h-0 border-r-0 border-b-2 border-solid border-b-ink;
     }
     :where(.route-root.route-home) .step {
-      @apply grid items-center gap-6 pt-9 pr-9 pb-11 pl-9 border-r-0 border-b-2 border-solid border-b-ink;
+      @apply grid items-center gap-6 border-r-0 border-b-2 border-solid border-b-ink pt-9 pr-9 pb-11 pl-9;
       @apply flex items-start;
     }
     :where(.route-root.route-home) .step small {
@@ -3182,7 +3129,7 @@
       @apply border-b-0;
     }
     :where(.route-root.route-home) .quote {
-      @apply border-l-0 border-t-2 border-solid border-t-ink;
+      @apply border-t-2 border-l-0 border-solid border-t-ink;
     }
   }
   @variant max-md:sm {
@@ -3209,16 +3156,16 @@
       );
     }
     :where(.route-root.route-home) .crisis-statement {
-      @apply py-11 px-5 text-4xl sm:text-5xl lg:text-5xl xl:text-5xl;
+      @apply px-5 py-11 text-4xl sm:text-5xl;
     }
     :where(.route-root.route-home) .crisis-statement .stats {
       @apply mt-8 -mr-5 -mb-11 -ml-5;
     }
     :where(.route-root.route-home) .crisis-statement .stat {
-      @apply min-h-0 py-7 px-5 flex-col gap-6 items-start;
+      @apply min-h-0 flex-col items-start gap-6 px-5 py-7;
     }
     :where(.route-root.route-home) .crisis-statement .stat strong {
-      @apply text-6xl sm:text-6xl lg:text-6xl xl:text-6xl;
+      @apply text-6xl;
     }
     :where(.route-root.route-home) .crisis-statement .stat span {
       @apply text-left;
@@ -3261,17 +3208,17 @@
       @apply mt-5 mr-0 mb-5 ml-0;
     }
     :where(.route-root.route-home) .quote {
-      @apply min-h-72 py-10 px-5;
+      @apply min-h-72 px-5 py-10;
       background-position: 51% center;
     }
     :where(.route-root.route-home) .quote:before {
-      @apply text-9xl -top-12 left-3;
+      @apply -top-12 left-3 text-9xl;
     }
     :where(.route-root.route-home) .quote:after {
-      @apply w-16 h-1.5 right-5 bottom-6;
+      @apply right-5 bottom-6 h-1.5 w-16;
     }
     :where(.route-root.route-home) .quote blockquote {
-      @apply py-4 px-4 text-3xl sm:text-4xl lg:text-4xl xl:text-4xl;
+      @apply px-4 py-4 text-3xl sm:text-4xl;
       border-left-width: 6px;
       box-shadow: 9px 9px 0 rgba(244, 0, 0, 0.24);
     }
@@ -3362,7 +3309,7 @@
       @apply mb-4;
     }
     .atlas h1 {
-      @apply font-display font-extrabold leading-none tracking-tight normal-case mt-0 mr-0 mb-3.5 ml-0 text-4xl sm:text-4xl lg:text-6xl xl:text-6xl;
+      @apply mt-0 mr-0 mb-3.5 ml-0 font-display text-4xl leading-none font-extrabold tracking-tight normal-case lg:text-6xl;
       @apply max-w-xl;
     }
     .atlas-intro {
@@ -3370,15 +3317,15 @@
       @apply max-w-xl;
     }
     .atlas-intro #mission-text {
-      @apply block mt-2.5 text-sm text-ink font-medium;
+      @apply mt-2.5 block text-sm font-medium text-ink;
     }
     .atlas-guide {
       @apply border-0 pt-5 pr-0 pb-0 pl-0;
     }
     .atlas-guide summary {
-      @apply inline-flex items-center gap-1.5 font-body text-xs font-bold tracking-wide text-coral-dark pb-0.5 min-h-auto w-max;
+      @apply inline-flex min-h-auto w-max items-center gap-1.5 pb-0.5 font-body text-xs font-bold tracking-wide text-coral-dark;
       border-bottom: 1px solid
-        color-mix(in srgb, var(--accent) 55%, transparent);
+        color-mix(in srgb, var(--color-coral) 55%, transparent);
     }
     .atlas-guide summary:hover {
       border-bottom-color: currentColor;
@@ -3387,19 +3334,19 @@
       @apply mb-4;
     }
     .atlas-guide > p {
-      @apply max-w-3xl leading-relaxed my-3.5 mx-0 text-sm text-ink;
+      @apply mx-0 my-3.5 max-w-3xl text-sm leading-relaxed text-ink;
     }
     .atlas-guide h3 {
-      @apply font-display text-xl font-bold normal-case tracking-normal mt-5;
+      @apply mt-5 font-display text-xl font-bold tracking-normal normal-case;
     }
     @variant max-md {
       .atlas h1 {
-        @apply text-4xl sm:text-5xl lg:text-5xl xl:text-5xl;
+        @apply text-4xl sm:text-5xl;
       }
     }
     .atlas-toolbar {
       @apply z-20;
-      background: color-mix(in srgb, var(--bg) 96%, transparent);
+      background: color-mix(in srgb, var(--color-paper) 96%, transparent);
       backdrop-filter: blur(6px);
     }
     @variant max-md {
@@ -3411,11 +3358,11 @@
 
     .atlas-switch,
     .atlas-format {
-      @apply inline-flex items-center gap-0.5 shrink-0 p-0.5 bg-surface border border-solid border-line rounded-lg;
+      @apply inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5;
     }
     .atlas-switch button,
     .atlas-format button {
-      @apply font-body text-xs font-semibold py-1.5 px-3 border-0 rounded-sm bg-transparent text-ink cursor-pointer;
+      @apply cursor-pointer rounded-sm border-0 bg-transparent px-3 py-1.5 font-body text-xs font-semibold text-ink;
       font: inherit;
       transition:
         background-color 0.15s ease,
@@ -3424,11 +3371,11 @@
     .atlas-switch button:hover,
     .atlas-format button:hover {
       @apply text-ink;
-      background: color-mix(in srgb, var(--ink) 6%, transparent);
+      background: color-mix(in srgb, var(--color-ink) 6%, transparent);
     }
     .atlas-switch button[aria-pressed="true"],
     .atlas-format button[aria-pressed="true"] {
-      @apply bg-white text-ink font-bold;
+      @apply bg-white font-bold text-ink;
       box-shadow: 0 1px 2px rgba(17, 17, 17, 0.12);
     }
 
@@ -3438,30 +3385,31 @@
     .atlas-search-icon {
       position: absolute;
       left: 11px;
-      color: var(--ink);
+      color: var(--color-ink);
       pointer-events: none;
     }
     .atlas-search-field input {
-      @apply w-full font-body text-sm pt-2 pr-3 pb-2 pl-8 border border-solid border-line rounded-md bg-white text-ink;
+      @apply w-full rounded-md border border-solid border-line bg-white pt-2 pr-3 pb-2 pl-8 font-body text-sm text-ink;
       font: inherit;
     }
     .atlas-search-field input:focus {
       @apply border-coral-dark outline-none;
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-coral) 22%, transparent);
     }
     .atlas-search-field input::placeholder {
       @apply text-ink;
     }
     .atlas-filter-field select {
-      @apply font-body text-xs font-semibold border border-solid border-line rounded-md bg-white text-ink pt-2 pr-7 pb-2 pl-3 cursor-pointer;
+      @apply cursor-pointer rounded-md border border-solid border-line bg-white pt-2 pr-7 pb-2 pl-3 font-body text-xs font-semibold text-ink;
       font: inherit;
     }
     .atlas-filter-field select:focus-visible {
-      outline: 3px solid var(--accent-dark);
+      outline: 3px solid var(--color-coral-dark);
       @apply outline-offset-2;
     }
     #view-description {
-      @apply text-xs leading-normal text-ink min-w-0;
+      @apply min-w-0 text-xs leading-normal text-ink;
       flex: 1 1 auto;
     }
     .atlas-source {
@@ -3472,17 +3420,17 @@
     }
 
     .atlas :focus-visible {
-      outline: 3px solid var(--accent-dark);
+      outline: 3px solid var(--color-coral-dark);
       @apply outline-offset-2;
     }
     #atlas-status {
-      @apply text-xs text-ink mb-3;
+      @apply mb-3 text-xs text-ink;
     }
     #atlas-error {
-      @apply bg-soft border border-solid border-rule rounded-lg p-7;
+      @apply rounded-lg border border-solid border-rule bg-soft p-7;
     }
     #atlas-error h3 {
-      @apply text-xl mb-2.5;
+      @apply mb-2.5 text-xl;
     }
     #atlas-error p {
       @apply text-sm leading-relaxed;
@@ -3501,7 +3449,7 @@
       }
       .atlas-switch button,
       .atlas-format button {
-        @apply text-center flex-1;
+        @apply flex-1 text-center;
       }
       .atlas-search-field {
         flex: none;
@@ -3511,14 +3459,14 @@
 
     /* The table stays a real <table> for accessibility; density, icons and chips come from CSS. */
     .atlas table {
-      @apply w-full text-sm text-left border-collapse;
+      @apply w-full border-collapse text-left text-sm;
     }
     .atlas thead th {
-      @apply bg-soft text-ink text-xs font-bold tracking-wider uppercase whitespace-nowrap py-2.5 px-3.5;
+      @apply bg-soft px-3.5 py-2.5 text-xs font-bold tracking-wider whitespace-nowrap text-ink uppercase;
     }
     .atlas th,
     .atlas td {
-      @apply py-3 px-3.5 min-w-36 max-w-sm leading-normal;
+      @apply max-w-sm min-w-36 px-3.5 py-3 leading-normal;
       vertical-align: middle;
       @apply wrap-anywhere;
     }
@@ -3558,18 +3506,26 @@
       @apply mt-3;
     }
     .atlas dt {
-      @apply text-xs uppercase tracking-wider mt-2.5 font-bold text-ink;
+      @apply mt-2.5 text-xs font-bold tracking-wider text-ink uppercase;
     }
     .atlas dd {
       @apply mt-0.5 whitespace-pre-wrap;
     }
     .atlas-badge {
-      @apply inline-block text-xs font-semibold leading-none border border-solid border-line rounded-full py-1 px-2 text-ink bg-white;
+      @apply inline-block rounded-full border border-solid border-line bg-white px-2 py-1 text-xs leading-none font-semibold text-ink;
     }
     .atlas-badge.active {
-      background: color-mix(in srgb, var(--success) 14%, var(--white));
-      border-color: color-mix(in srgb, var(--success) 45%, var(--border));
-      color: color-mix(in srgb, var(--success) 70%, var(--ink));
+      background: color-mix(
+        in srgb,
+        var(--color-success) 14%,
+        var(--color-white)
+      );
+      border-color: color-mix(
+        in srgb,
+        var(--color-success) 45%,
+        var(--color-line)
+      );
+      color: color-mix(in srgb, var(--color-success) 70%, var(--color-ink));
     }
     @variant max-md {
       /* Metadata hides before name/description on narrow screens: keep Name,
@@ -3582,7 +3538,7 @@
       }
     }
     .atlas a {
-      @apply underline-offset-2 text-inherit;
+      @apply text-inherit underline-offset-2;
     }
     .atlas-links {
       @apply p-0;
@@ -3597,42 +3553,42 @@
       @apply text-coral-dark;
     }
     .atlas-record {
-      @apply p-6 mb-5;
-      border-top: 3px solid var(--accent-dark);
+      @apply mb-5 p-6;
+      border-top: 3px solid var(--color-coral-dark);
       @apply scroll-mt-36;
     }
     .atlas-record h2 {
-      @apply font-display font-bold text-2xl tracking-normal normal-case mt-4 wrap-anywhere;
+      @apply mt-4 font-display text-2xl font-bold tracking-normal wrap-anywhere normal-case;
     }
     .atlas-record h3 {
-      @apply mt-5 mb-1.5 text-xs font-bold uppercase tracking-wider text-ink;
+      @apply mt-5 mb-1.5 text-xs font-bold tracking-wider text-ink uppercase;
     }
     .atlas-record > a:first-child {
-      @apply text-xs font-bold text-ink tracking-wide;
+      @apply text-xs font-bold tracking-wide text-ink;
     }
     .atlas-record > a:first-child:hover {
       @apply text-coral-dark;
     }
     .atlas-record dl {
-      @apply grid mt-5 text-sm;
+      @apply mt-5 grid text-sm;
       @apply grid-cols-2;
-      @apply gap-y-2.5 gap-x-5;
+      @apply gap-x-5 gap-y-2.5;
     }
     .atlas-record dt,
     .atlas-record dd {
       @apply m-0 wrap-anywhere;
     }
     .atlas-record dt {
-      @apply text-xs font-bold uppercase tracking-wider text-ink;
+      @apply text-xs font-bold tracking-wider text-ink uppercase;
     }
     .atlas-history {
       @apply pl-0 text-sm;
     }
     .atlas-history li {
-      @apply mb-2.5 pl-3.5 border-l-2 border-solid border-l-line;
+      @apply mb-2.5 border-l-2 border-solid border-l-line pl-3.5;
     }
     .atlas-history small {
-      @apply block text-ink text-xs;
+      @apply block text-xs text-ink;
     }
     @variant max-md {
       .atlas-record {
@@ -3646,13 +3602,13 @@
       }
     }
     .atlas-circles-layout {
-      @apply grid gap-5 items-start grid-cols-1;
+      @apply grid grid-cols-1 items-start gap-5;
     }
     .atlas-circles-layout.has-selection {
       @apply grid-cols-1 xl:grid-cols-3;
     }
     #atlas-circle-chart {
-      @apply min-w-0 p-4 bg-white border border-solid border-line rounded-lg;
+      @apply min-w-0 rounded-lg border border-solid border-line bg-white p-4;
     }
     .atlas-circle-stage {
       overflow: clip;
@@ -3705,12 +3661,12 @@
       cursor: zoom-out;
     }
     .atlas-circle-svg text {
-      fill: var(--ink);
+      fill: var(--color-ink);
       font-family: var(--font-body);
     }
     .atlas-circle-svg a:hover > circle,
     .atlas-circle-svg a:focus-visible > circle {
-      stroke: var(--accent-dark);
+      stroke: var(--color-coral-dark);
       stroke-width: 3.5;
     }
     .atlas-circle-svg a.atlas-node-role:hover > circle,
@@ -3721,21 +3677,21 @@
       outline: none;
     }
     .atlas-circle-svg a:focus-visible {
-      outline: 3px solid var(--accent-dark);
+      outline: 3px solid var(--color-coral-dark);
       outline-offset: 3px;
     }
     .atlas-circle-svg .atlas-circle-match > circle,
     .atlas-circle-svg .atlas-circle-selected > circle {
-      stroke: var(--accent-dark);
+      stroke: var(--color-coral-dark);
       stroke-width: 3.5;
     }
     .atlas-circle-svg .atlas-circle-tip {
       opacity: 0;
-      fill: var(--ink);
+      fill: var(--color-ink);
       font-weight: 600;
       font-family: var(--font-body);
       paint-order: stroke;
-      stroke: var(--paper);
+      stroke: var(--color-paper);
       stroke-width: 3px;
       stroke-linejoin: round;
       transition: opacity 0.12s ease;
@@ -3745,37 +3701,37 @@
       opacity: 1;
     }
     .atlas-circle-svg .atlas-circle-label-bg {
-      fill: color-mix(in srgb, var(--ink) 88%, transparent);
+      fill: color-mix(in srgb, var(--color-ink) 88%, transparent);
     }
     .atlas-circle-svg text.atlas-circle-label {
       fill: #fffaf2;
     }
     .atlas-circle-breadcrumbs {
-      @apply text-ink wrap-anywhere;
+      @apply wrap-anywhere text-ink;
     }
     .atlas-circle-breadcrumbs a {
-      @apply underline underline-offset-2 text-inherit;
+      @apply text-inherit underline underline-offset-2;
     }
     .atlas-circle-breadcrumbs a:hover {
       @apply text-coral-dark;
     }
     .atlas-root-picker a {
-      @apply text-xs font-bold py-1 px-3 border border-solid border-line rounded-full no-underline bg-white text-ink;
+      @apply rounded-full border border-solid border-line bg-white px-3 py-1 text-xs font-bold text-ink no-underline;
     }
     .atlas-root-picker a:hover {
       @apply border-coral-dark text-coral-dark;
     }
     .atlas-root-picker a[aria-current="page"] {
-      @apply bg-ink text-paper border-ink;
+      @apply border-ink bg-ink text-paper;
     }
     .atlas-circle-children,
     .atlas-unplaced {
-      @apply py-3.5 px-0 border-t border-solid border-t-rule;
+      @apply border-t border-solid border-t-rule px-0 py-3.5;
     }
     .atlas-circle-children ul,
     .atlas-unplaced ul,
     .atlas-circle-search ul {
-      @apply pl-0 list-none;
+      @apply list-none pl-0;
     }
     .atlas-circle-children li,
     .atlas-unplaced li,
@@ -3785,7 +3741,7 @@
     .atlas-circle-children a,
     .atlas-unplaced a,
     .atlas-circle-search a {
-      @apply flex items-center gap-2 py-1.5 px-1.5 rounded-md;
+      @apply flex items-center gap-2 rounded-md px-1.5 py-1.5;
     }
     .atlas-circle-children a:hover,
     .atlas-unplaced a:hover,
@@ -3798,7 +3754,7 @@
     }
     .atlas-circle-children summary > span:first-child,
     .atlas-unplaced summary > span:first-child {
-      @apply no-underline font-bold text-xs;
+      @apply text-xs font-bold no-underline;
     }
     .atlas-unplaced-group {
       @apply mt-3.5;
@@ -3807,16 +3763,16 @@
       @apply mt-3;
     }
     .atlas-unplaced p {
-      @apply text-xs leading-relaxed mt-2.5 text-ink;
+      @apply mt-2.5 text-xs leading-relaxed text-ink;
     }
     .atlas-circle-search {
-      @apply mt-3.5 p-3.5 bg-soft rounded-lg;
+      @apply mt-3.5 rounded-lg bg-soft p-3.5;
     }
     #atlas-circle-detail {
       @apply min-w-0;
     }
     #atlas-circle-detail .atlas-record {
-      @apply p-5 overflow-y-auto;
+      @apply overflow-y-auto p-5;
       @apply max-h-200;
     }
     #atlas-circle-detail .atlas-record h2 {
@@ -3846,19 +3802,19 @@
       }
     }
     .atlas-outline-layout {
-      @apply grid gap-5 items-start grid-cols-1;
+      @apply grid grid-cols-1 items-start gap-5;
     }
     .atlas-outline-layout.has-selection {
       @apply grid-cols-1 xl:grid-cols-3;
     }
     #atlas-outline-tree {
-      @apply min-w-0 py-1.5 px-2.5 bg-white border border-solid border-line rounded-lg;
+      @apply min-w-0 rounded-lg border border-solid border-line bg-white px-2.5 py-1.5;
     }
     .atlas-outline-menu {
       @apply relative;
     }
     .atlas-outline-menu summary {
-      @apply flex items-center justify-center w-7 h-7 list-none cursor-pointer rounded-md text-ink text-base leading-none;
+      @apply flex h-7 w-7 cursor-pointer list-none items-center justify-center rounded-md text-base leading-none text-ink;
     }
     .atlas-outline-menu summary::-webkit-details-marker {
       @apply hidden;
@@ -3870,7 +3826,7 @@
       @apply bg-surface text-ink;
     }
     .atlas-outline-menu button {
-      @apply text-xs font-semibold text-left py-2 px-3 border-0 cursor-pointer text-ink rounded-md whitespace-nowrap;
+      @apply cursor-pointer rounded-md border-0 px-3 py-2 text-left text-xs font-semibold whitespace-nowrap text-ink;
       font: inherit;
       background: none;
     }
@@ -3878,7 +3834,7 @@
       @apply bg-surface text-coral-dark;
     }
     .atlas-outline-menu[open] button {
-      @apply absolute right-0 w-max min-w-36 bg-white border border-solid border-line z-5;
+      @apply absolute right-0 z-5 w-max min-w-36 border border-solid border-line bg-white;
       box-shadow: 0 4px 14px rgba(17, 17, 17, 0.1);
     }
     .atlas-outline-menu[open] button:first-of-type {
@@ -3890,27 +3846,27 @@
 
     ul.atlas-outline-tree,
     ul.atlas-outline-group {
-      @apply list-none m-0 p-0;
+      @apply m-0 list-none p-0;
     }
     ul.atlas-outline-group {
-      @apply pl-5 ml-2 border-l border-solid border-l-rule;
+      @apply ml-2 border-l border-solid border-l-rule pl-5;
     }
     .atlas-outline-tree > li {
       @apply mt-1.5;
     }
     .atlas-outline-row {
-      @apply flex items-baseline gap-2 py-1.5 px-2 rounded-md cursor-default;
+      @apply flex cursor-default items-baseline gap-2 rounded-md px-2 py-1.5;
       transition: background-color 0.12s ease;
     }
     .atlas-outline-row:hover {
       @apply bg-surface;
     }
     .atlas-outline-row.is-selected {
-      background: color-mix(in srgb, var(--accent) 8%, var(--white));
-      box-shadow: inset 3px 0 0 var(--accent-dark);
+      background: color-mix(in srgb, var(--color-coral) 8%, var(--color-white));
+      box-shadow: inset 3px 0 0 var(--color-coral-dark);
     }
     .atlas-outline-row:focus-visible {
-      outline: 3px solid var(--accent-dark);
+      outline: 3px solid var(--color-coral-dark);
       @apply -outline-offset-1;
     }
     .atlas-outline-chevron {
@@ -3921,7 +3877,7 @@
       border: 0;
       background: none;
       cursor: pointer;
-      color: var(--ink);
+      color: var(--color-ink);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -3941,13 +3897,13 @@
       transform: rotate(90deg);
     }
     .atlas-outline-bullet {
-      @apply w-4 h-4;
+      @apply h-4 w-4;
       flex: 0 0 auto;
     }
     .atlas-outline-bullet::before {
-      @apply w-1 h-1 rounded-full;
+      @apply h-1 w-1 rounded-full;
       content: "";
-      background: color-mix(in srgb, var(--text) 40%, transparent);
+      background: color-mix(in srgb, var(--color-ink) 40%, transparent);
     }
     .atlas-outline-title {
       @apply wrap-anywhere;
@@ -3956,7 +3912,7 @@
       @apply text-coral-dark;
     }
     .atlas-outline-highlight {
-      background: color-mix(in srgb, var(--accent) 45%, transparent);
+      background: color-mix(in srgb, var(--color-coral) 45%, transparent);
       @apply text-inherit;
     }
     .atlas-outline-meta {
@@ -3982,23 +3938,23 @@
       @apply mt-0.5;
     }
     .atlas-outline-empty {
-      @apply py-5 px-2;
+      @apply px-2 py-5;
     }
     .atlas-outline-empty p {
-      @apply text-sm leading-relaxed mb-3;
+      @apply mb-3 text-sm leading-relaxed;
     }
     .atlas-outline-empty button {
-      @apply text-xs font-semibold py-2 px-3.5 border border-solid border-line rounded-md bg-white cursor-pointer;
+      @apply cursor-pointer rounded-md border border-solid border-line bg-white px-3.5 py-2 text-xs font-semibold;
       font: inherit;
     }
     .atlas-outline-empty button:hover {
       @apply border-coral-dark text-coral-dark;
     }
     .atlas-outline-breadcrumbs {
-      @apply text-ink wrap-anywhere;
+      @apply wrap-anywhere text-ink;
     }
     .atlas-outline-breadcrumbs a {
-      @apply underline underline-offset-2 text-inherit;
+      @apply text-inherit underline underline-offset-2;
     }
     .atlas-outline-breadcrumbs a:hover {
       @apply text-coral-dark;
@@ -4007,7 +3963,7 @@
       @apply min-w-0;
     }
     #atlas-outline-detail .atlas-record {
-      @apply p-5 overflow-y-auto;
+      @apply overflow-y-auto p-5;
       @apply max-h-200;
     }
     #atlas-outline-detail .atlas-record h2 {
@@ -4034,20 +3990,20 @@
       }
     }
     .atlas-alignment-layout {
-      @apply grid gap-5 items-start grid-cols-1;
+      @apply grid grid-cols-1 items-start gap-5;
     }
     .atlas-alignment-layout.has-selection {
       @apply grid-cols-1 xl:grid-cols-3;
     }
     .atlas-alignment-switch {
-      @apply p-0.5 bg-surface border border-solid border-line rounded-lg;
+      @apply rounded-lg border border-solid border-line bg-surface p-0.5;
     }
     .atlas-alignment-switch button {
-      @apply text-xs font-semibold py-1.5 px-3 border-0 rounded-sm bg-transparent text-ink cursor-pointer;
+      @apply cursor-pointer rounded-sm border-0 bg-transparent px-3 py-1.5 text-xs font-semibold text-ink;
       font: inherit;
     }
     .atlas-alignment-switch button[aria-pressed="true"] {
-      @apply bg-white text-ink font-bold;
+      @apply bg-white font-bold text-ink;
       box-shadow: 0 1px 2px rgba(17, 17, 17, 0.12);
     }
     .atlas-alignment-empty p {
@@ -4057,11 +4013,11 @@
       @apply max-h-180;
     }
     table.atlas-alignment-table {
-      @apply w-full text-sm border-separate;
+      @apply w-full border-separate text-sm;
       border-spacing: 0;
     }
     .atlas-alignment-table thead th {
-      @apply sticky top-0 bg-white border-b border-solid border-b-line py-3 px-3.5 z-2;
+      @apply sticky top-0 z-2 border-b border-solid border-b-line bg-white px-3.5 py-3;
       vertical-align: bottom;
     }
     .atlas-alignment-col-header {
@@ -4075,17 +4031,17 @@
       @apply text-coral-dark;
     }
     .atlas-alignment-table tbody th {
-      @apply sticky left-0 bg-white text-left font-semibold p-3.5 border-b border-solid border-b-rule min-w-44 z-1;
+      @apply sticky left-0 z-1 min-w-44 border-b border-solid border-b-rule bg-white p-3.5 text-left font-semibold;
     }
     .atlas-alignment-table tbody th.is-selected {
-      box-shadow: inset 3px 0 0 var(--accent-dark);
+      box-shadow: inset 3px 0 0 var(--color-coral-dark);
     }
     .atlas-alignment-table td {
-      @apply p-3.5 text-center border-b border-solid border-b-rule min-w-24;
+      @apply min-w-24 border-b border-solid border-b-rule p-3.5 text-center;
     }
     .atlas-alignment-table td.is-highlighted,
     .atlas-alignment-table th.is-highlighted {
-      background: color-mix(in srgb, var(--accent) 6%, transparent);
+      background: color-mix(in srgb, var(--color-coral) 6%, transparent);
     }
     @variant max-md {
       .atlas-alignment-layout.has-selection {
@@ -4099,7 +4055,7 @@
       @apply border border-solid border-line;
     }
     .atlas-person {
-      @apply py-4 px-4 border-b border-solid border-b-rule;
+      @apply border-b border-solid border-b-rule px-4 py-4;
       transition: background-color 0.12s ease;
     }
     .atlas-people-grid > .atlas-person:last-child {
@@ -4109,13 +4065,13 @@
       @apply bg-surface;
     }
     .atlas-person h3 {
-      @apply inline-flex items-center gap-2 font-body text-base font-bold leading-tight;
+      @apply inline-flex items-center gap-2 font-body text-base leading-tight font-bold;
     }
     .atlas-person h3::before {
-      @apply w-4 h-4;
+      @apply h-4 w-4;
       content: "";
       flex: 0 0 auto;
-      background-color: color-mix(in srgb, var(--ink) 70%, transparent);
+      background-color: color-mix(in srgb, var(--color-ink) 70%, transparent);
       -webkit-mask-image: var(--atlas-icon-person);
       mask-image: var(--atlas-icon-person);
       -webkit-mask-size: contain;
@@ -4128,28 +4084,28 @@
       vertical-align: middle;
     }
     .atlas-person.is-selected {
-      background: color-mix(in srgb, var(--accent) 8%, var(--white));
-      box-shadow: inset 3px 0 0 var(--accent-dark);
+      background: color-mix(in srgb, var(--color-coral) 8%, var(--color-white));
+      box-shadow: inset 3px 0 0 var(--color-coral-dark);
     }
     .atlas-person-context,
     .atlas-person-count {
-      @apply text-xs leading-normal mt-1.5 text-ink;
+      @apply mt-1.5 text-xs leading-normal text-ink;
     }
     .atlas-person .atlas-links {
-      @apply mt-2.5 flex flex-wrap gap-y-1 gap-x-2;
+      @apply mt-2.5 flex flex-wrap gap-x-2 gap-y-1;
     }
     .atlas-person .atlas-links li {
-      @apply text-xs leading-snug m-0 wrap-anywhere;
+      @apply m-0 text-xs leading-snug wrap-anywhere;
     }
     .atlas-person .atlas-links a {
-      @apply inline-flex items-center gap-1.5 py-1 px-2.5 border border-solid border-line rounded-full bg-soft;
+      @apply inline-flex items-center gap-1.5 rounded-full border border-solid border-line bg-soft px-2.5 py-1;
     }
     .atlas-person .atlas-links a:hover {
-      @apply border-coral-dark text-coral-dark bg-white;
+      @apply border-coral-dark bg-white text-coral-dark;
     }
     @variant max-md {
       .atlas-switch button {
-        @apply py-2 px-2.5;
+        @apply px-2.5 py-2;
       }
     }
     .atlas-field-list {
@@ -4174,7 +4130,7 @@
     }
   }
   :where(.route-root.route-privacy) .privacy-heading {
-    @apply text-5xl sm:text-5xl lg:text-7xl xl:text-8xl;
+    @apply text-5xl lg:text-7xl xl:text-8xl;
   }
   :where(.route-root.route-privacy) .privacy-text {
     @apply text-ink;
@@ -4183,16 +4139,16 @@
     @apply text-coral-dark;
   }
   :where(.route-root.route-careers) .careers-page {
-    @apply my-0 mx-auto;
+    @apply mx-auto my-0;
   }
   :where(.route-root.route-careers) .careers-page h1 {
-    @apply max-w-none leading-none text-6xl sm:text-6xl lg:text-7xl xl:text-7xl;
+    @apply max-w-none text-6xl leading-none lg:text-7xl;
   }
   :where(.route-root.route-careers) .careers-page h2 {
-    @apply font-body text-xl leading-snug normal-case tracking-tight mb-5;
+    @apply mb-5 font-body text-xl leading-snug tracking-tight normal-case;
   }
   :where(.route-root.route-careers) .job-listing h3 {
-    @apply text-xl leading-snug mb-2.5;
+    @apply mb-2.5 text-xl leading-snug;
   }
   :where(.route-root.route-careers) .job-listing p {
     @apply text-lg leading-relaxed text-ink/70;
@@ -4201,16 +4157,16 @@
     @apply underline underline-offset-4;
   }
   :where(.route-root.route-builder) .job-page {
-    @apply my-0 mx-auto pt-12 pr-0 pb-20 pl-0;
+    @apply mx-auto my-0 pt-12 pr-0 pb-20 pl-0;
   }
   :where(.route-root.route-builder) .job-back {
     @apply inline-flex;
   }
   :where(.route-root.route-builder) .job-page h1 {
-    @apply max-w-none font-body leading-tight tracking-tight normal-case font-bold text-3xl sm:text-3xl lg:text-5xl xl:text-5xl;
+    @apply max-w-none font-body text-3xl leading-tight font-bold tracking-tight normal-case lg:text-5xl;
   }
   :where(.route-root.route-builder) .job-page h2 {
-    @apply mt-10 mr-0 mb-4 ml-0 font-body text-2xl leading-snug tracking-tight normal-case font-bold text-balance;
+    @apply mt-10 mr-0 mb-4 ml-0 font-body text-2xl leading-snug font-bold tracking-tight text-balance normal-case;
   }
   :where(.route-root.route-builder) .job-page h3 {
     @apply mt-6 mr-0 mb-2.5 ml-0 text-xl leading-relaxed;
@@ -4223,27 +4179,27 @@
     @apply mt-0 mr-0 mb-4 ml-0;
   }
   :where(.route-root.route-builder) .job-page .job-meta {
-    @apply mt-4 mr-0 mb-6 ml-0 text-ink text-lg;
+    @apply mt-4 mr-0 mb-6 ml-0 text-lg text-ink;
   }
   :where(.route-root.route-builder) .job-meta strong {
     @apply font-medium;
   }
   :where(.route-root.route-builder) .job-page ul,
   :where(.route-root.route-builder) .job-page ol {
-    @apply pl-6 mt-0 mr-0 mb-5 ml-0;
+    @apply mt-0 mr-0 mb-5 ml-0 pl-6;
   }
   :where(.route-root.route-builder) .job-page li {
-    @apply pl-0.5 mb-3;
+    @apply mb-3 pl-0.5;
   }
   :where(.route-root.route-builder) .job-page .job-lead {
     @apply text-xl leading-relaxed;
   }
   :where(.route-root.route-builder) .job-questions li::marker {
-    @apply text-coral-dark font-bold;
+    @apply font-bold text-coral-dark;
   }
   :where(.route-root.route-builder) .job-process {
     @apply mt-6 mr-0 mb-4 ml-0;
-    border-left: 3px solid var(--red-dark);
+    border-left: 3px solid var(--color-coral-dark);
   }
   :where(.route-root.route-builder) .job-process h3 {
     @apply mt-0 mr-0 mb-2 ml-0 font-body text-base leading-snug normal-case;
@@ -4253,7 +4209,7 @@
     @apply m-0 font-medium;
   }
   :where(.route-root.route-builder) .job-description a {
-    @apply underline underline-offset-2 wrap-anywhere;
+    @apply wrap-anywhere underline underline-offset-2;
   }
   :where(.route-root.route-builder) .job-page a:hover {
     @apply text-coral-dark;
@@ -4271,16 +4227,16 @@
     @apply max-h-180;
   }
   :where(.route-root.route-builder) .job-toc summary {
-    @apply text-base font-bold cursor-pointer py-3 px-0;
+    @apply cursor-pointer px-0 py-3 text-base font-bold;
   }
   :where(.route-root.route-builder) .job-toc ul {
-    @apply list-none mt-2 mr-0 mb-5 ml-0 p-0;
+    @apply mt-2 mr-0 mb-5 ml-0 list-none p-0;
   }
   :where(.route-root.route-builder) .job-toc li {
     @apply m-0 p-0 text-base leading-normal;
   }
   :where(.route-root.route-builder) .job-toc li a {
-    @apply block py-2 px-3 border-l-2 border-solid border-l-rule font-semibold text-ink;
+    @apply block border-l-2 border-solid border-l-rule px-3 py-2 font-semibold text-ink;
     transition:
       background-color 200ms ease,
       border-color 200ms ease;
@@ -4290,28 +4246,28 @@
   }
   :where(.route-root.route-builder) .job-toc li a[aria-current="location"] {
     @apply bg-soft;
-    border-left-color: var(--red-dark);
+    border-left-color: var(--color-coral-dark);
   }
   :where(.route-root.route-builder) .job-toc a:focus-visible,
   :where(.route-root.route-builder) .job-toc summary:focus-visible {
-    @apply outline-2 outline-ink outline-offset-2;
+    @apply outline-2 outline-offset-2 outline-ink;
   }
   :where(.route-root.route-builder) .job-facts {
-    @apply w-full mt-0 mr-0 mb-7 ml-0 border-collapse;
+    @apply mt-0 mr-0 mb-7 ml-0 w-full border-collapse;
   }
   :where(.route-root.route-builder) .job-facts th,
   :where(.route-root.route-builder) .job-facts td {
-    @apply py-3.5 px-0 border-b border-solid border-b-rule text-left;
+    @apply border-b border-solid border-b-rule px-0 py-3.5 text-left;
     vertical-align: top;
   }
   :where(.route-root.route-builder) .job-facts th {
     @apply w-40 pr-5;
   }
   :where(.route-root.route-builder) .job-facts td ul {
-    @apply list-none p-0 m-0;
+    @apply m-0 list-none p-0;
   }
   :where(.route-root.route-builder) .job-facts td li {
-    @apply p-0 mt-0 mr-0 mb-2 ml-0;
+    @apply mt-0 mr-0 mb-2 ml-0 p-0;
   }
   :where(.route-root.route-builder) .job-facts td li:last-child {
     @apply mb-0;
@@ -4342,7 +4298,7 @@
       @apply static;
     }
     :where(.route-root.route-builder) .job-toc {
-      @apply py-1 px-0;
+      @apply px-0 py-1;
     }
     :where(.route-root.route-builder) .job-description h2 {
       @apply scroll-mt-44;
@@ -4406,7 +4362,7 @@
   :where(.route-root.route-membership) .construction-icon {
     width: 44px;
     height: 44px;
-    color: var(--accent-text);
+    color: var(--color-coral-dark);
     opacity: 0.85;
   }
   :where(.route-root.route-membership) .construction-tag {
@@ -4414,13 +4370,13 @@
   }
   @variant max-sm {
     :where(.route-root.route-membership) .site-container {
-      @apply py-0 px-5;
+      @apply px-5 py-0;
     }
   }
   :where(.route-root.route-join) .join-copy h1 {
     @apply mt-5 mr-0 mb-6 ml-0 leading-none;
     @apply max-w-xs sm:max-w-md lg:max-w-xl;
-    @apply text-6xl sm:text-6xl lg:text-6xl xl:text-7xl;
+    @apply text-6xl xl:text-7xl;
   }
   :where(.route-root.route-join) .join-copy p {
     @apply text-xl leading-relaxed;
@@ -4430,7 +4386,7 @@
     @apply mt-8;
   }
   :where(.route-root.route-join) .join-signup label {
-    @apply block mb-2.5 text-base font-bold;
+    @apply mb-2.5 block text-base font-bold;
   }
   :where(.route-root.route-join) .join-signup .signup-row {
     @apply m-0 flex-wrap;
@@ -4440,7 +4396,7 @@
     flex: 1 1 200px;
   }
   :where(.route-root.route-join) .join-signup .btn {
-    @apply text-sm py-4 px-5;
+    @apply px-5 py-4 text-sm;
   }
   :where(.route-root.route-join) .join-copy .join-note {
     @apply mt-3.5 text-base leading-normal;
@@ -4449,7 +4405,7 @@
     @apply underline underline-offset-2;
   }
   :where(.route-root.route-join) .join-photo img {
-    @apply block w-full h-auto object-cover border-2 border-solid border-ink;
+    @apply block h-auto w-full border-2 border-solid border-ink object-cover;
     aspect-ratio: 4 / 5;
     object-position: center;
   }
@@ -4457,14 +4413,14 @@
     @apply font-body text-2xl leading-tight tracking-tight normal-case;
   }
   :where(.route-root.route-join) .share-buttons {
-    @apply flex flex-wrap gap-2.5 mt-5;
+    @apply mt-5 flex flex-wrap gap-2.5;
   }
   :where(.route-root.route-join) .share-url-row {
-    @apply flex items-center gap-2.5 mt-4;
+    @apply mt-4 flex items-center gap-2.5;
   }
   @variant max-sm {
     :where(.route-root.route-join) .join-copy h1 {
-      @apply text-6xl sm:text-7xl lg:text-7xl xl:text-7xl;
+      @apply text-6xl sm:text-7xl;
     }
     :where(.route-root.route-join) .join-copy p {
       @apply text-lg;
@@ -4484,10 +4440,10 @@
     }
   }
   :where(.route-root.route-events) .events-title {
-    @apply text-4xl sm:text-4xl lg:text-6xl xl:text-6xl;
+    @apply text-4xl lg:text-6xl;
   }
   :where(.route-root.route-events) .city-btn {
-    @apply font-body text-sm tracking-widest uppercase py-2 px-4 border border-solid border-line bg-transparent text-ink cursor-pointer;
+    @apply cursor-pointer border border-solid border-line bg-transparent px-4 py-2 font-body text-sm tracking-widest text-ink uppercase;
     transition:
       background 0.15s,
       color 0.15s,
@@ -4497,10 +4453,10 @@
     @apply border-ink text-ink;
   }
   :where(.route-root.route-events) .city-btn.active {
-    @apply bg-coral border-coral-dark text-white;
+    @apply border-coral-dark bg-coral text-white;
   }
   :where(.route-root.route-events) .event-card {
-    @apply flex items-stretch border-b border-solid border-b-line cursor-pointer min-h-24;
+    @apply flex min-h-24 cursor-pointer items-stretch border-b border-solid border-b-line;
     transition: background 0.15s;
   }
   :where(.route-root.route-events) .event-card:last-child {
@@ -4552,13 +4508,13 @@
   :where(.route-root.route-events) .event-modal {
     @apply fixed inset-0 cursor-pointer;
     background: rgba(0, 0, 0, 0.3);
-    @apply z-200 opacity-0 invisible;
+    @apply invisible z-200 opacity-0;
     transition:
       opacity 0.25s ease,
       visibility 0.25s ease;
   }
   :where(.route-root.route-events) .event-modal.open {
-    @apply opacity-100 visible;
+    @apply visible opacity-100;
   }
   :where(.route-root.route-events) .event-modal-inner {
     @apply w-full max-w-lg;
@@ -4569,7 +4525,7 @@
     transform: translateX(0);
   }
   :where(.route-root.route-events) .modal-title {
-    @apply text-3xl sm:text-3xl lg:text-4xl xl:text-4xl;
+    @apply text-3xl lg:text-4xl;
   }
   :where(.route-root.route-events) .detail-value {
     @apply text-ink;
@@ -4581,7 +4537,7 @@
     @apply underline;
   }
   :where(.route-root.route-events) .modal-share-url {
-    @apply text-ellipsis flex-1;
+    @apply flex-1 text-ellipsis;
   }
   @variant max-md {
     :where(.route-root.route-events) .event-card-date-col,
@@ -4591,60 +4547,60 @@
   }
   @variant max-sm {
     :where(.route-root.route-events) .site-container {
-      @apply py-0 px-5;
+      @apply px-5 py-0;
     }
   }
   :where(.route-root.route-learn) .page-hero {
-    @apply pt-16 pr-0 pb-14 pl-0 bg-paper;
+    @apply bg-paper pt-16 pr-0 pb-14 pl-0;
   }
   :where(.route-root.route-learn) .page-hero .site-container,
   :where(.route-root.route-learn) .guide-section > .site-container {
     @apply max-w-6xl;
   }
   :where(.route-root.route-learn) .page-title {
-    @apply max-w-none leading-none text-left text-5xl sm:text-5xl lg:text-7xl xl:text-7xl opacity-100;
+    @apply max-w-none text-left text-5xl leading-none opacity-100 lg:text-7xl;
     animation: none;
   }
   :where(.route-root.route-learn) .guide-intro {
     @apply max-w-xl;
-    @apply text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply text-lg xl:text-xl;
   }
   :where(.route-root.route-learn) .guide-section {
     @apply pt-14 pr-0 pb-24 pl-0;
   }
   :where(.route-root.route-learn) .guide-layout {
-    @apply grid gap-16 items-start;
+    @apply grid items-start gap-16;
     @apply grid-cols-1 lg:grid-cols-12;
   }
   :where(.route-root.route-learn) .guide-sidebar {
     @apply sticky top-28 overflow-y-auto pr-4;
     @apply max-h-180;
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--color-line) transparent;
   }
   :where(.route-root.route-learn) .guide-main {
     @apply min-w-0;
   }
   :where(.route-root.route-learn) .contents-toggle {
-    @apply pt-0 pr-0 pb-4 pl-0 border-b-2 border-solid border-b-ink font-display font-extrabold text-2xl leading-tight;
+    @apply border-b-2 border-solid border-b-ink pt-0 pr-0 pb-4 pl-0 font-display text-2xl leading-tight font-extrabold;
   }
   :where(.route-root.route-learn) .toc {
-    @apply py-1 px-0;
+    @apply px-0 py-1;
   }
   :where(.route-root.route-learn) .toc-group-header {
-    @apply mt-5 mr-0 mb-1.5 ml-0 pt-4 border-t border-solid border-t-line;
+    @apply mt-5 mr-0 mb-1.5 ml-0 border-t border-solid border-t-line pt-4;
   }
   :where(.route-root.route-learn) .toc-group-header:first-child {
-    @apply mt-3 pt-0 border-t-0;
+    @apply mt-3 border-t-0 pt-0;
   }
   :where(.route-root.route-learn) .toc a {
-    @apply text-ink no-underline border-0 wrap-anywhere;
+    @apply border-0 wrap-anywhere text-ink no-underline;
   }
   :where(.route-root.route-learn) .toc-group-header a {
-    @apply block p-2 uppercase font-display font-extrabold text-xl leading-tight;
+    @apply block p-2 font-display text-xl leading-tight font-extrabold uppercase;
   }
   :where(.route-root.route-learn) .toc-h2-link {
-    @apply min-w-0 pt-2.5 pr-2 pb-2.5 pl-8 text-base leading-snug flex-1;
+    @apply min-w-0 flex-1 pt-2.5 pr-2 pb-2.5 pl-8 text-base leading-snug;
   }
   :where(.route-root.route-learn) .toc-chevron + .toc-h2-link {
     padding-left: 0;
@@ -4658,20 +4614,20 @@
     background: none;
     border: 0;
     cursor: pointer;
-    color: var(--ink);
+    color: var(--color-ink);
     font-size: 24px;
   }
   :where(.route-root.route-learn) .toc-chevron.open {
     transform: rotate(90deg);
   }
   :where(.route-root.route-learn) .toc-h3-list {
-    @apply list-none pt-0 pr-0 pb-2 pl-8 m-0 hidden;
+    @apply m-0 hidden list-none pt-0 pr-0 pb-2 pl-8;
   }
   :where(.route-root.route-learn) .toc-h3-list.open {
     @apply block;
   }
   :where(.route-root.route-learn) .toc-h3-list a {
-    @apply block py-2 px-2 text-sm leading-normal;
+    @apply block px-2 py-2 text-sm leading-normal;
   }
   :where(.route-root.route-learn) .toc a:hover,
   :where(.route-root.route-learn) .toc a.toc-active {
@@ -4683,33 +4639,33 @@
   :where(.route-root.route-learn) main a:focus-visible,
   :where(.route-root.route-learn) .contents-toggle:focus-visible,
   :where(.route-root.route-learn) .toc-chevron:focus-visible {
-    outline: 3px solid var(--blue);
+    outline: 3px solid var(--color-brand-blue);
     outline-offset: 3px;
   }
   :where(.route-root.route-learn) .doc-body {
-    @apply text-ink font-body font-normal text-lg sm:text-lg lg:text-lg xl:text-lg leading-relaxed wrap-anywhere;
+    @apply font-body text-lg leading-relaxed font-normal wrap-anywhere text-ink;
   }
   :where(.route-root.route-learn) .doc-body h1,
   :where(.route-root.route-learn) .doc-body h2,
   :where(.route-root.route-learn) .doc-body h3,
   :where(.route-root.route-learn) .doc-body h4 {
-    @apply max-w-none text-ink text-balance scroll-mt-28;
+    @apply max-w-none scroll-mt-28 text-balance text-ink;
   }
   :where(.route-root.route-learn) .doc-body h1 {
-    @apply tracking-tight uppercase mt-20 mr-0 mb-7 ml-0 pt-10 font-display font-extrabold text-4xl sm:text-4xl lg:text-4xl xl:text-5xl leading-tight;
-    border-top: 3px solid var(--ink);
+    @apply mt-20 mr-0 mb-7 ml-0 pt-10 font-display text-4xl leading-tight font-extrabold tracking-tight uppercase xl:text-5xl;
+    border-top: 3px solid var(--color-ink);
   }
   :where(.route-root.route-learn) .doc-body h1:first-of-type {
-    @apply mt-0 pt-0 border-t-0;
+    @apply mt-0 border-t-0 pt-0;
   }
   :where(.route-root.route-learn) .doc-body h2 {
-    @apply tracking-normal uppercase mt-12 mr-0 mb-6 ml-0 font-display font-extrabold text-3xl sm:text-3xl lg:text-3xl xl:text-4xl leading-tight;
+    @apply mt-12 mr-0 mb-6 ml-0 font-display text-3xl leading-tight font-extrabold tracking-normal uppercase xl:text-4xl;
   }
   :where(.route-root.route-learn) .doc-body h3 {
-    @apply uppercase mt-9 mr-0 mb-4 ml-0 font-display font-bold text-2xl sm:text-2xl lg:text-2xl xl:text-3xl leading-tight;
+    @apply mt-9 mr-0 mb-4 ml-0 font-display text-2xl leading-tight font-bold uppercase xl:text-3xl;
   }
   :where(.route-root.route-learn) .doc-body h4 {
-    @apply mt-7 mr-0 mb-3.5 ml-0 font-body font-bold text-lg leading-snug;
+    @apply mt-7 mr-0 mb-3.5 ml-0 font-body text-lg leading-snug font-bold;
   }
   :where(.route-root.route-learn) .doc-body p {
     @apply mt-0 mr-0 mb-6 ml-0;
@@ -4748,12 +4704,12 @@
     @apply mt-3 mr-0 mb-0 ml-0;
   }
   :where(.route-root.route-learn) .doc-body a {
-    @apply underline underline-offset-4 text-inherit;
-    text-decoration-color: var(--red);
+    @apply text-inherit underline underline-offset-4;
+    text-decoration-color: var(--color-coral);
     text-decoration-thickness: 2px;
   }
   :where(.route-root.route-learn) .doc-body a:hover {
-    text-decoration-color: var(--ink);
+    text-decoration-color: var(--color-ink);
   }
   :where(.route-root.route-learn) .doc-body strong {
     @apply font-bold;
@@ -4762,14 +4718,14 @@
     @apply italic;
   }
   :where(.route-root.route-learn) .doc-body img {
-    @apply max-w-full h-auto;
+    @apply h-auto max-w-full;
   }
   :where(.route-root.route-learn) .doc-body table {
-    @apply block max-w-full w-full overflow-x-auto my-7 mx-0 border-collapse;
+    @apply mx-0 my-7 block w-full max-w-full border-collapse overflow-x-auto;
   }
   :where(.route-root.route-learn) .doc-body td,
   :where(.route-root.route-learn) .doc-body th {
-    @apply border border-solid border-line py-3.5 px-4 text-base leading-relaxed;
+    @apply border border-solid border-line px-4 py-3.5 text-base leading-relaxed;
     vertical-align: top;
   }
   :where(.route-root.route-learn) .doc-body tr:first-child td,
@@ -4779,36 +4735,36 @@
   }
   :where(.route-root.route-learn) .loading-state,
   :where(.route-root.route-learn) .empty-state {
-    @apply p-8 border-2 border-solid border-ink text-lg leading-relaxed text-left normal-case;
+    @apply border-2 border-solid border-ink p-8 text-left text-lg leading-relaxed normal-case;
     letter-spacing: normal;
   }
   @variant max-lg {
     :where(.route-root.route-learn) .guide-layout {
-      @apply gap-9 grid-cols-1;
+      @apply grid-cols-1 gap-9;
     }
     :where(.route-root.route-learn) .guide-sidebar {
-      @apply max-h-none p-0 overflow-visible static;
+      @apply static max-h-none overflow-visible p-0;
     }
     :where(.route-root.route-learn) .guide-contents {
-      @apply border-2 border-solid border-ink py-4 px-5;
+      @apply border-2 border-solid border-ink px-5 py-4;
     }
     :where(.route-root.route-learn) .contents-toggle {
-      @apply p-0 border-0;
+      @apply border-0 p-0;
     }
     :where(.route-root.route-learn) .guide-contents[open] .contents-toggle {
-      @apply pb-4 border-b border-solid border-b-line;
+      @apply border-b border-solid border-b-line pb-4;
     }
     :where(.route-root.route-learn) .guide-contents .toc {
-      @apply overflow-y-auto mt-3;
+      @apply mt-3 overflow-y-auto;
       max-height: 55dvh;
     }
   }
   @variant max-sm {
     :where(.route-root.route-learn) .page-hero {
-      @apply py-10 px-0;
+      @apply px-0 py-10;
     }
     :where(.route-root.route-learn) .page-title {
-      @apply text-5xl sm:text-6xl lg:text-6xl xl:text-6xl;
+      @apply text-5xl sm:text-6xl;
     }
     :where(.route-root.route-learn) .guide-section {
       @apply pt-7 pr-0 pb-16 pl-0;
@@ -4823,46 +4779,46 @@
     }
   }
   :where(.route-root.route-campaigns) .section {
-    @apply py-20 px-0 bg-white;
+    @apply bg-white px-0 py-20;
   }
   :where(.route-root.route-campaigns) .section-compact {
-    @apply py-16 px-0;
+    @apply px-0 py-16;
   }
   :where(.route-root.route-campaigns) #campaigns {
-    @apply bg-paper py-20 px-0;
+    @apply bg-paper px-0 py-20;
   }
   :where(.route-root.route-campaigns) .section-label {
-    @apply font-display leading-none tracking-tight text-left text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
+    @apply text-left font-display text-4xl leading-none tracking-tight lg:text-5xl xl:text-6xl;
     -webkit-text-stroke: 0;
   }
   :where(.route-root.route-campaigns) .section-label .title {
     @apply text-ink;
   }
   :where(.route-root.route-campaigns) .body-large {
-    @apply leading-normal font-medium text-left mt-0 mr-0 mb-5 ml-0 text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply mt-0 mr-0 mb-5 ml-0 text-left text-lg leading-normal font-medium xl:text-xl;
     @apply max-w-4xl;
   }
   :where(.route-root.route-campaigns) .body-large:last-child {
     @apply mb-0;
   }
   :where(.route-root.route-campaigns) .text-link {
-    @apply text-ink border-b-2 border-solid border-b-ink;
+    @apply border-b-2 border-solid border-b-ink text-ink;
   }
   :where(.route-root.route-campaigns) .text-link:hover {
-    @apply text-coral-dark border-coral-dark;
+    @apply border-coral-dark text-coral-dark;
   }
   @variant max-md {
     :where(.route-root.route-campaigns) .section,
     :where(.route-root.route-campaigns) .section-compact,
     :where(.route-root.route-campaigns) #campaigns {
-      @apply py-12 px-0;
+      @apply px-0 py-12;
     }
   }
   :where(.route-root.route-campaigns) .campaign-grid {
     --campaign-panel-bg: #fff;
   }
   :where(.route-root.route-campaigns) .campaign-tab {
-    @apply border-2 border-solid border-ink bg-white w-full cursor-pointer py-5 px-6 flex items-center justify-center gap-3.5 text-left;
+    @apply flex w-full cursor-pointer items-center justify-center gap-3.5 border-2 border-solid border-ink bg-white px-6 py-5 text-left;
     grid-row: 1;
     border-top: 8px solid var(--campaign-color);
     @apply text-inherit;
@@ -4872,15 +4828,15 @@
   }
   :where(.route-root.route-campaigns) .campaign-tab:nth-of-type(1) {
     grid-column: 1;
-    --campaign-color: var(--red);
+    --campaign-color: var(--color-coral);
   }
   :where(.route-root.route-campaigns) .campaign-tab:nth-of-type(2) {
     grid-column: 2;
-    --campaign-color: var(--green);
+    --campaign-color: var(--color-brand-purple);
   }
   :where(.route-root.route-campaigns) .campaign-tab:nth-of-type(3) {
     grid-column: 3;
-    --campaign-color: var(--blue);
+    --campaign-color: var(--color-brand-blue);
   }
   :where(.route-root.route-campaigns) .campaign-tab:hover {
     @apply bg-paper;
@@ -4893,16 +4849,16 @@
     @apply flex-1;
   }
   :where(.route-root.route-campaigns) .campaign-tab .card-title {
-    @apply text-ink mb-2 font-display font-extrabold uppercase leading-none tracking-normal text-3xl sm:text-3xl lg:text-3xl xl:text-4xl;
+    @apply mb-2 font-display text-3xl leading-none font-extrabold tracking-normal text-ink uppercase xl:text-4xl;
   }
   :where(.route-root.route-campaigns) .campaign-chevron {
     --accordion-chevron-size: 11px;
     --accordion-chevron-weight: 2px;
     --accordion-chevron-opacity: 1;
-    border-color: var(--ink);
+    border-color: var(--color-ink);
   }
   :where(.route-root.route-campaigns) .campaign-panel {
-    @apply border-2 border-solid border-ink border-t-0;
+    @apply border-2 border-t-0 border-solid border-ink;
     grid-column: 1 / -1;
     grid-row: 2;
     background: var(--campaign-panel-bg);
@@ -4917,7 +4873,7 @@
     @apply p-0;
   }
   :where(.route-root.route-campaigns) .campaign-list li {
-    @apply text-lg leading-normal text-ink font-medium pl-4 relative;
+    @apply relative pl-4 text-lg leading-normal font-medium text-ink;
   }
   :where(.route-root.route-campaigns) .campaign-list li::before {
     @apply absolute left-0 text-coral;
@@ -4926,12 +4882,12 @@
   }
   @variant max-md {
     :where(.route-root.route-campaigns) .campaign-tab {
-      @apply py-5 px-5;
+      @apply px-5 py-5;
     }
   }
   @variant max-sm {
     :where(.route-root.route-campaigns) .campaign-tab.is-active {
-      border-bottom-color: var(--ink);
+      border-bottom-color: var(--color-ink);
     }
     :where(.route-root.route-campaigns) .campaign-panel {
       @apply border-t-2 border-solid border-t-ink;
@@ -4943,7 +4899,7 @@
     }
   }
   :where(.route-root.route-policy) .guide-main .body-large {
-    @apply text-left max-w-none mt-0 mr-0 mb-4 ml-0 leading-normal font-medium text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply mt-0 mr-0 mb-4 ml-0 max-w-none text-left text-lg leading-normal font-medium xl:text-xl;
   }
   :where(.route-root.route-policy) .guide-main .body-large:last-child {
     @apply mb-0;
@@ -4954,22 +4910,22 @@
     @apply list-disc;
   }
   :where(.route-root.route-policy) .guide-main .overview-list li {
-    @apply font-body leading-normal text-ink text-lg sm:text-lg lg:text-lg xl:text-xl;
+    @apply font-body text-lg leading-normal text-ink xl:text-xl;
   }
   :where(.route-root.route-policy) .guide-main .overview-list li::marker {
     @apply text-coral-dark;
   }
   :where(.route-root.route-policy) .guide-section {
-    @apply pt-20 pr-0 pb-24 pl-0 bg-white;
+    @apply bg-white pt-20 pr-0 pb-24 pl-0;
   }
   :where(.route-root.route-policy) .guide-layout {
-    @apply flex gap-14 items-start;
+    @apply flex items-start gap-14;
   }
   :where(.route-root.route-policy) .guide-sidebar {
-    @apply w-60 shrink-0 sticky top-24 overflow-y-auto;
+    @apply sticky top-24 w-60 shrink-0 overflow-y-auto;
     @apply max-h-180;
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--color-line) transparent;
   }
   :where(.route-root.route-policy) .guide-main {
     @apply min-w-0 flex-1;
@@ -4979,63 +4935,63 @@
       @apply flex-col gap-8;
     }
     :where(.route-root.route-policy) .guide-sidebar {
-      @apply w-full max-h-none static;
+      @apply static max-h-none w-full;
       overflow-y: visible;
     }
   }
   :where(.route-root.route-policy) .toc-label {
-    @apply block pb-2.5 border-b border-solid border-b-line mb-1;
+    @apply mb-1 block border-b border-solid border-b-line pb-2.5;
   }
   :where(.route-root.route-policy) .toc-group-header {
-    @apply mt-4 mr-0 mb-0.5 ml-0 pt-3.5 border-t border-solid border-t-line;
+    @apply mt-4 mr-0 mb-0.5 ml-0 border-t border-solid border-t-line pt-3.5;
   }
   :where(.route-root.route-policy) .toc-group-header:first-of-type {
-    @apply mt-1.5 pt-0 border-t-0;
+    @apply mt-1.5 border-t-0 pt-0;
   }
   :where(.route-root.route-policy) .toc-group-header a {
-    @apply font-display font-bold text-sm tracking-widest uppercase text-ink no-underline border-b-0 block py-0.5 px-2;
+    @apply block border-b-0 px-2 py-0.5 font-display text-sm font-bold tracking-widest text-ink uppercase no-underline;
     transition: color 0.15s;
   }
   :where(.route-root.route-policy) .toc-group-header a:hover {
     @apply text-coral-dark;
   }
   :where(.route-root.route-policy) .toc-item-link {
-    @apply block py-1.5 px-2 my-px mx-0 font-body text-sm font-medium text-ink no-underline border-b-0 leading-snug;
+    @apply mx-0 my-px block border-b-0 px-2 py-1.5 font-body text-sm leading-snug font-medium text-ink no-underline;
     transition: color 0.15s;
   }
   :where(.route-root.route-policy) .toc-item-link:hover,
   :where(.route-root.route-policy) .toc-item-link.toc-active {
-    @apply text-coral-dark border-b-0;
+    @apply border-b-0 text-coral-dark;
   }
   :where(.route-root.route-policy) .toc-item-link.toc-active {
     @apply font-semibold;
   }
   @variant max-lg {
     :where(.route-root.route-policy) .toc {
-      @apply border border-solid border-line pt-4 pr-5 pb-3.5 pl-5 mb-2;
+      @apply mb-2 border border-solid border-line pt-4 pr-5 pb-3.5 pl-5;
     }
     :where(.route-root.route-policy) .toc-label {
       @apply mb-2;
     }
     :where(.route-root.route-policy) .toc-item-link {
-      @apply text-base p-2;
+      @apply p-2 text-base;
     }
   }
   :where(.route-root.route-policy) .policy-pillar {
     @apply mt-0 mr-0 mb-16 ml-0 border-b-0;
-    --pillar-color: var(--red);
+    --pillar-color: var(--color-coral);
   }
   :where(.route-root.route-policy) #common-prosperity {
-    --pillar-color: var(--blue);
+    --pillar-color: var(--color-brand-blue);
   }
   :where(.route-root.route-policy) #a-secure-future {
-    --pillar-color: var(--green);
+    --pillar-color: var(--color-brand-purple);
   }
   :where(.route-root.route-policy) .policy-pillar:last-of-type {
     @apply mb-0;
   }
   :where(.route-root.route-policy) .guide-main .section-label {
-    @apply text-left mt-0 mr-0 mb-3.5 ml-0 font-display font-extrabold leading-none tracking-normal pb-4 text-4xl sm:text-4xl lg:text-5xl xl:text-6xl;
+    @apply mt-0 mr-0 mb-3.5 ml-0 pb-4 text-left font-display text-4xl leading-none font-extrabold tracking-normal lg:text-5xl xl:text-6xl;
     -webkit-text-stroke: 0;
     border-bottom: 6px solid var(--pillar-color);
   }
@@ -5058,39 +5014,39 @@
     @apply bg-paper;
   }
   :where(.route-root.route-policy) .policy-card .accordion-chevron {
-    border-color: var(--ink);
+    border-color: var(--color-ink);
   }
   :where(.route-root.route-policy) .policy-card .accordion-toggle {
     border-left: 6px solid var(--pillar-color);
   }
   :where(.route-root.route-policy) .toc-label {
-    @apply text-ink font-extrabold;
+    @apply font-extrabold text-ink;
   }
   :where(.route-root.route-policy) .toc-item-link.toc-active {
-    @apply text-ink bg-brand-yellow;
+    @apply bg-brand-yellow text-ink;
   }
   :where(.route-root.route-policy) .policy-card-title {
-    @apply font-extrabold text-ink text-2xl sm:text-2xl lg:text-2xl xl:text-3xl;
+    @apply text-2xl font-extrabold text-ink xl:text-3xl;
     letter-spacing: 0;
   }
   :where(.route-root.route-policy) .policy-card-title::before {
-    @apply mr-3 text-ink font-bold tracking-wide;
+    @apply mr-3 font-bold tracking-wide text-ink;
     content: counter(policy-num, decimal-leading-zero);
   }
   :where(.route-root.route-policy) .policy-card-body h4 {
-    @apply font-body font-semibold text-sm tracking-widest uppercase text-ink mt-6 mr-0 mb-2.5 ml-0;
+    @apply mt-6 mr-0 mb-2.5 ml-0 font-body text-sm font-semibold tracking-widest text-ink uppercase;
   }
   :where(.route-root.route-policy) .policy-card-body h4:first-child {
     @apply mt-5;
   }
   :where(.route-root.route-policy) .policy-card-body p {
-    @apply font-body text-lg text-ink leading-relaxed mt-0 mr-0 mb-3.5 ml-0;
+    @apply mt-0 mr-0 mb-3.5 ml-0 font-body text-lg leading-relaxed text-ink;
   }
   :where(.route-root.route-policy) .policy-card-body p:last-child {
     @apply mb-0;
   }
   :where(.route-root.route-policy) .policy-card-body ul {
-    @apply font-body text-lg text-ink leading-normal mt-0 mr-0 mb-3.5 ml-0 pl-5 list-disc;
+    @apply mt-0 mr-0 mb-3.5 ml-0 list-disc pl-5 font-body text-lg leading-normal text-ink;
   }
   :where(.route-root.route-policy) .policy-card-body li {
     @apply mb-1.5;

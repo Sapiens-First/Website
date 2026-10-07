@@ -25,15 +25,14 @@ export default function Page() {
 
       <div className="page-hero">
         <Container>
-          <Label tone="coral">{"Policy Brief — Sapiens First"}</Label>
+          <Label tone="coral">Policy Brief — Sapiens First</Label>
           <h1 className="page-title">
-            {"A People's Agenda"}
+            A People&apos;s Agenda
             <br />
-            {"for the "}
-            <span className="ink-underline blue">{"Age of AI."}</span>
+            for the <span className="ink-underline blue">Age of AI.</span>
           </h1>
           <p className="policy-meta mt-7 mr-0 mb-0 ml-0 text-xs font-bold tracking-wider uppercase">
-            {"3 Pillars · 12 Policies · Updated July 2026"}
+            3 Pillars · 12 Policies · Updated July 2026
           </p>
         </Container>
       </div>
@@ -48,60 +47,63 @@ export default function Page() {
                 <div id="policy-content">
                   <section className="policy-pillar" id="overview">
                     <div className="section-label reveal">
-                      <span className="title">{"Overview"}</span>
+                      <span className="title">Overview</span>
                     </div>
                     <p className="body-large reveal">
-                      {
-                        "Broadly, Sapiens First advocates for democracy, prosperity, and a secure future in the age of AI."
-                      }
+                      Broadly, Sapiens First advocates for democracy,
+                      prosperity, and a secure future in the age of AI.
                     </p>
                     <p className="body-large reveal">
-                      {"Our approach to policy advocacy is:"}
+                      Our approach to policy advocacy is:
                     </p>
                     <ul className="overview-list reveal">
                       <li>
-                        {
-                          "Run campaigns that are politically feasible and allow us to mobilize a broad coalition."
-                        }
+                        Run campaigns that are politically feasible and allow us
+                        to mobilize a broad coalition.
                       </li>
                       <li>
-                        {
-                          "Concurrently, do activism that expands the Overton window and raises social awareness about AI-related issues."
-                        }
+                        Concurrently, do activism that expands the Overton
+                        window and raises social awareness about AI-related
+                        issues.
                       </li>
                     </ul>
                     <p className="body-large reveal">
-                      {
-                        "This page represents an early draft of policies, which we share in the spirit of transparency and collaboration. We'd like to develop policies in collaboration with experts in social, economic, and tech policy. If you'd like to contribute, please reach out to rohan@sapiensfirst.org."
-                      }
+                      This page represents an early draft of policies, which we
+                      share in the spirit of transparency and collaboration.
+                      We&apos;d like to develop policies in collaboration with
+                      experts in social, economic, and tech policy. If
+                      you&apos;d like to contribute, please reach out to
+                      rohan@sapiensfirst.org.
                     </p>
                     <p className="policy-colophon-meta reveal mt-1 text-left font-body text-sm tracking-wider text-ink">
-                      {
-                        "This page is a living document, last updated in July 2026."
-                      }
+                      This page is a living document, last updated in July 2026.
                     </p>
                   </section>
                   <section className="policy-pillar" id="democratic-renewal">
                     <div className="section-label reveal">
-                      <span className="title">{"Democratic Renewal"}</span>
+                      <span className="title">Democratic Renewal</span>
                     </div>
                     <p className="pillar-lead body-large reveal">
-                      {
-                        "AI could give governments and corporations unprecedented power to watch people, manipulate public debate, and shape policy behind closed doors. We should use this moment to strengthen democracy instead: defending civil liberties, breaking corporate control over policymaking, and giving ordinary people a direct role in decisions about our future."
-                      }
+                      AI could give governments and corporations unprecedented
+                      power to watch people, manipulate public debate, and shape
+                      policy behind closed doors. We should use this moment to
+                      strengthen democracy instead: defending civil liberties,
+                      breaking corporate control over policymaking, and giving
+                      ordinary people a direct role in decisions about our
+                      future.
                     </p>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="ban-ai-enabled-mass-surveillance"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="ban-ai-enabled-mass-surveillance-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Ban AI-Enabled Mass Surveillance"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Ban AI-Enabled Mass Surveillance
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -118,17 +120,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="end-big-tech-s-influence-on-elections"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="end-big-tech-s-influence-on-elections-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"End Big Tech's Influence on Elections"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          End Big Tech&apos;s Influence on Elections
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -145,17 +147,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="citizens-assemblies-for-ai-policy"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="citizens-assemblies-for-ai-policy-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Citizens' Assemblies for AI Policy"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Citizens&apos; Assemblies for AI Policy
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -172,17 +174,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="upgrade-our-democratic-process"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="upgrade-our-democratic-process-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Upgrade Our Democratic Process"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Upgrade Our Democratic Process
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -201,25 +203,29 @@ export default function Page() {
                   </section>
                   <section className="policy-pillar" id="common-prosperity">
                     <div className="section-label reveal">
-                      <span className="title">{"Common Prosperity"}</span>
+                      <span className="title">Common Prosperity</span>
                     </div>
                     <p className="pillar-lead body-large reveal">
-                      {
-                        "AI could create immense wealth while eliminating jobs, weakening workers' bargaining power, and concentrating ownership in a small number of companies. The gains should instead be shared broadly through dividends, public ownership, creator compensation, worker protections, and renewed investment in public institutions."
-                      }
+                      AI could create immense wealth while eliminating jobs,
+                      weakening workers&apos; bargaining power, and
+                      concentrating ownership in a small number of companies.
+                      The gains should instead be shared broadly through
+                      dividends, public ownership, creator compensation, worker
+                      protections, and renewed investment in public
+                      institutions.
                     </p>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="benefits-for-communities-affected-by-data-centers"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="benefits-for-communities-affected-by-data-centers-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Benefits for Communities Affected by Data Centers"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Benefits for Communities Affected by Data Centers
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -236,17 +242,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="enhance-our-government-institutions"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="enhance-our-government-institutions-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Enhance Our Government Institutions"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Enhance Our Government Institutions
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -263,17 +269,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="build-a-sovereign-wealth-fund-for-ai"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="build-a-sovereign-wealth-fund-for-ai-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Build a Sovereign Wealth Fund for AI"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Build a Sovereign Wealth Fund for AI
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -290,17 +296,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="citizens-dividend"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="citizens-dividend-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Citizen's Dividend"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Citizen&apos;s Dividend
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -319,25 +325,27 @@ export default function Page() {
                   </section>
                   <section className="policy-pillar" id="a-secure-future">
                     <div className="section-label reveal">
-                      <span className="title">{"A Secure Future"}</span>
+                      <span className="title">A Secure Future</span>
                     </div>
                     <p className="pillar-lead body-large reveal">
-                      {
-                        "Cutting-edge AI systems could create catastrophic risks if developed through an uncontrolled race among companies and nations. Governments need independent scientific capacity, enforceable transparency, and international agreements that keep advanced AI under meaningful human control."
-                      }
+                      Cutting-edge AI systems could create catastrophic risks if
+                      developed through an uncontrolled race among companies and
+                      nations. Governments need independent scientific capacity,
+                      enforceable transparency, and international agreements
+                      that keep advanced AI under meaningful human control.
                     </p>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="lead-a-treaty-with-china-to-stop-the-ai-arms-race"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="lead-a-treaty-with-china-to-stop-the-ai-arms-race-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {"Lead a Treaty with China to Stop the AI Arms Race"}
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Lead a Treaty with China to Stop the AI Arms Race
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -354,19 +362,18 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="mandate-that-all-frontier-ai-development-be-done-in-the-open"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="mandate-that-all-frontier-ai-development-be-done-in-the-open-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {
-                            "Mandate That All Frontier AI Development Be Done in the Open"
-                          }
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Mandate That All Frontier AI Development Be Done in
+                          the Open
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -383,19 +390,18 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="institute-strict-liability-and-punitive-damages-for-ai-harms"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="institute-strict-liability-and-punitive-damages-for-ai-harms-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {
-                            "Institute Strict Liability and Punitive Damages for AI Harms"
-                          }
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Institute Strict Liability and Punitive Damages for AI
+                          Harms
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -412,19 +418,17 @@ export default function Page() {
                       </div>
                     </div>
                     <div
-                      className="policy-card accordion--rule border-t-2 border-solid border-t-ink mt-0"
+                      className="policy-card accordion--rule mt-0 border-t-2 border-solid border-t-ink"
                       id="build-a-powerful-and-independent-ai-safety-institute"
                     >
                       <button
-                        className="policy-card-toggle accordion-toggle max-sm:py-4 max-sm:px-4"
+                        className="policy-card-toggle accordion-toggle max-sm:px-4 max-sm:py-4"
                         type="button"
                         aria-expanded="false"
                         aria-controls="build-a-powerful-and-independent-ai-safety-institute-body"
                       >
-                        <span className="policy-card-title font-display uppercase leading-tight">
-                          {
-                            "Build a Powerful and Independent AI Safety Institute"
-                          }
+                        <span className="policy-card-title font-display leading-tight uppercase">
+                          Build a Powerful and Independent AI Safety Institute
                         </span>
                         <span
                           className="policy-chevron accordion-chevron"
@@ -442,9 +446,8 @@ export default function Page() {
                     </div>
                   </section>
                   <p className="policy-colophon-meta reveal mt-1 text-left font-body text-sm tracking-wider text-ink">
-                    {
-                      "Sapiens First — A People's Agenda for the Age of AI · Updated July 2026"
-                    }
+                    Sapiens First — A People&apos;s Agenda for the Age of AI ·
+                    Updated July 2026
                   </p>
                 </div>
               </div>

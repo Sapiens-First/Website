@@ -21,7 +21,7 @@ export default function Alignment({
   const { rows, cols, cells } = alignmentMatrix(data, rowType);
   return (
     <div id="atlas-alignment-matrix">
-      <div className="atlas-alignment-toolbar flex mb-3">
+      <div className="atlas-alignment-toolbar mb-3 flex">
         <div
           className="atlas-alignment-switch inline-flex gap-0.5"
           role="group"
@@ -43,7 +43,7 @@ export default function Alignment({
         </div>
       </div>
       {!cols.length ? (
-        <div className="atlas-alignment-empty py-8 px-2 max-w-2xl">
+        <div className="atlas-alignment-empty max-w-2xl px-2 py-8">
           <p>No cross-cutting relationships are recorded yet.</p>
           <p className="atlas-alignment-empty-detail mt-2.5 text-xs text-ink">
             This view connects projects and programs to the goals they support.
@@ -52,13 +52,13 @@ export default function Alignment({
       ) : (
         <>
           <div
-            className="atlas-alignment-scroll overflow-auto border border-solid border-line rounded-lg"
+            className="atlas-alignment-scroll overflow-auto rounded-lg border border-solid border-line"
             tabIndex={0}
             role="region"
             aria-label="Alignment matrix"
           >
             <table className="atlas-alignment-table">
-              <caption className="atlas-sr-only absolute w-px h-px overflow-hidden">
+              <caption className="atlas-sr-only absolute h-px w-px overflow-hidden">
                 {rowType}s and what they support
               </caption>
               <thead>
@@ -73,7 +73,7 @@ export default function Alignment({
                       }
                     >
                       <button
-                        className="atlas-alignment-col-header text-xs font-bold uppercase tracking-wide border-0 cursor-pointer whitespace-nowrap"
+                        className="atlas-alignment-col-header cursor-pointer border-0 text-xs font-bold tracking-wide whitespace-nowrap uppercase"
                         type="button"
                         aria-pressed={col.ID === highlighted}
                         onClick={() =>
@@ -130,7 +130,7 @@ export default function Alignment({
               </tbody>
             </table>
           </div>
-          <p className="atlas-alignment-hint text-xs leading-relaxed mt-3 text-ink">
+          <p className="atlas-alignment-hint mt-3 text-xs leading-relaxed text-ink">
             Select a name to read its details. Select a column to highlight
             everything supporting that priority.
           </p>

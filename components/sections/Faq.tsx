@@ -1,4 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
+import { cn } from "@/lib/cn";
 
 const numberColors = [
   "text-coral",
@@ -11,7 +12,7 @@ export function FaqList(props: ComponentProps<"div">) {
   return (
     <div
       {...props}
-      className={`faq-acc mt-11 border-t-2 border-ink ${props.className ?? ""}`}
+      className={cn("faq-acc mt-11 border-t-2 border-ink", props.className)}
     />
   );
 }
@@ -35,7 +36,7 @@ export function FaqItem({
         >
           {String(number).padStart(2, "0")}
         </span>
-        <span className="faq-q font-display text-xl font-bold uppercase tracking-tight sm:text-2xl">
+        <span className="faq-q font-display text-xl font-bold tracking-tight uppercase sm:text-2xl">
           {question}
         </span>
         <span
@@ -43,7 +44,7 @@ export function FaqItem({
           aria-hidden="true"
         />
       </summary>
-      <div className="faq-body pb-8 pl-6 pr-6 sm:pr-12">{children}</div>
+      <div className="faq-body pr-6 pb-8 pl-6 sm:pr-12">{children}</div>
     </details>
   );
 }

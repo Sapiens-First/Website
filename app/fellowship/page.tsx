@@ -1,5 +1,5 @@
-import { TextLink } from "@/components/ui/Action";
-import { FactPill } from "@/components/ui/Label";
+import type { Metadata } from "next";
+import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import {
   SplitHero,
@@ -7,11 +7,9 @@ import {
   ClosingCopy,
   SignupPanel,
 } from "@/components/sections/SplitSection";
-import { ActionLink } from "@/components/ui/Action";
-import { Label } from "@/components/ui/Label";
-import { Container } from "@/components/layout/Container";
-import type { Metadata } from "next";
 import SignupForm from "@/components/SignupForm";
+import { ActionLink, TextLink } from "@/components/ui/Action";
+import { FactPill, Label } from "@/components/ui/Label";
 
 export const metadata: Metadata = {
   title: "AI Advocacy Fellowship — Sapiens First",
@@ -33,21 +31,19 @@ export default function Page() {
       <main className="route-fellowship">
         <SplitHero>
           <div className="hero-copy">
-            <div className="kicker">{"Fellowship · Rolling Cohorts"}</div>
+            <div className="kicker">Fellowship · Rolling Cohorts</div>
             <h1>
-              {"Become a "}
-              <span className="marker">{"Fellow."}</span>
+              Become a <span className="marker">Fellow.</span>
             </h1>
             <p>
-              {
-                "As a Fellow, you'll get hands-on experience, mentorship, and play a key role in our movement."
-              }
+              As a Fellow, you&apos;ll get hands-on experience, mentorship, and
+              play a key role in our movement.
             </p>
             <div className="fact-pills">
-              <FactPill>{"Rolling admissions"}</FactPill>
-              <FactPill>{"12 weeks"}</FactPill>
-              <FactPill>{"3–5 hrs / week"}</FactPill>
-              <FactPill>{"Volunteer"}</FactPill>
+              <FactPill>Rolling admissions</FactPill>
+              <FactPill>12 weeks</FactPill>
+              <FactPill>3–5 hrs / week</FactPill>
+              <FactPill>Volunteer</FactPill>
             </div>
             <SignupForm
               interest="fellowship"
@@ -55,9 +51,8 @@ export default function Page() {
               id="signup"
             />
             <p className="hero-note">
-              {
-                "You'll work directly with the founder and a growing team of Fellows from across the country."
-              }
+              You&apos;ll work directly with the founder and a growing team of
+              Fellows from across the country.
             </p>
           </div>
           <div className="hero-art" aria-hidden="true">
@@ -65,46 +60,42 @@ export default function Page() {
             <div className="burst"></div>
             <div className="face"></div>
             <div className="poster">
-              {"Join the"}
+              Join the
               <br />
-              {"fellowship"}
+              fellowship
             </div>
             <div className="poster alt">
-              {"Be the"}
+              Be the
               <br />
-              {"change"}
+              change
             </div>
             <div className="confetti c1"></div>
             <div className="confetti c2"></div>
             <div className="confetti c3"></div>
             <div className="confetti c4"></div>
             <i
-              style={
-                {
-                  position: "absolute",
-                  left: "10%",
-                  top: "8%",
-                  zIndex: "2",
-                  color: "var(--ink)",
-                  transform: "rotate(-6deg)",
-                } as React.CSSProperties
-              }
+              style={{
+                position: "absolute",
+                left: "10%",
+                top: "8%",
+                zIndex: "2",
+                color: "var(--color-ink)",
+                transform: "rotate(-6deg)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
               </svg>
             </i>
             <i
-              style={
-                {
-                  position: "absolute",
-                  left: "20%",
-                  top: "16%",
-                  zIndex: "2",
-                  color: "var(--ink)",
-                  transform: "rotate(4deg) scale(.7)",
-                } as React.CSSProperties
-              }
+              style={{
+                position: "absolute",
+                left: "20%",
+                top: "16%",
+                zIndex: "2",
+                color: "var(--color-ink)",
+                transform: "rotate(4deg) scale(.7)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
@@ -115,85 +106,78 @@ export default function Page() {
         <section className="factbar bg-ink">
           <div className="stats">
             <div className="stat">
-              <strong>{"Rolling"}</strong>
-              <span>{"Program dates"}</span>
+              <strong>Rolling</strong>
+              <span>Program dates</span>
             </div>
             <div className="stat">
-              <strong>{"12 weeks"}</strong>
-              <span>{"Program length"}</span>
+              <strong>12 weeks</strong>
+              <span>Program length</span>
             </div>
             <div className="stat">
-              <strong>{"3–5 hrs"}</strong>
-              <span>{"Time per week"}</span>
+              <strong>3–5 hrs</strong>
+              <span>Time per week</span>
             </div>
             <div className="stat">
-              <strong>{"Ongoing"}</strong>
-              <span>{"Applications"}</span>
+              <strong>Ongoing</strong>
+              <span>Applications</span>
             </div>
           </div>
         </section>
         <section className="about" id="about">
           <Container className="about-grid">
             <div className="about-copy">
-              <Label tone="coral">{"About"}</Label>
+              <Label tone="coral">About</Label>
               <h2 className="mt-5">
-                {"We imagine tech that serves the "}
-                <span className="ink-underline blue">{"common good."}</span>
+                We imagine tech that serves the{" "}
+                <span className="ink-underline blue">common good.</span>
               </h2>
               <p className="deck">
-                {
-                  "Our mission is to achieve revolutionary political change for technology before the arrival of superintelligence."
-                }
+                Our mission is to achieve revolutionary political change for
+                technology before the arrival of superintelligence.
               </p>
-              <TextLink href="/learn">{"Learn more →"}</TextLink>
+              <TextLink href="/learn">Learn more →</TextLink>
             </div>
             <div className="about-art">
               <div className="circle"></div>
-              <div className="tag t1">{"Political change"}</div>
-              <div className="tag t2">{"AI safety"}</div>
-              <div className="tag t3">{"Democracy"}</div>
+              <div className="tag t1">Political change</div>
+              <div className="tag t2">AI safety</div>
+              <div className="tag t3">Democracy</div>
             </div>
           </Container>
         </section>
         <section className="about-you" id="about-you">
           <div className="fun-layer" aria-hidden="true">
             <i
-              style={
-                {
-                  left: "5%",
-                  top: "8%",
-                  transform: "rotate(-8deg)",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
+              style={{
+                left: "5%",
+                top: "8%",
+                transform: "rotate(-8deg)",
+                color: "var(--color-ink)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
               </svg>
             </i>
             <i
-              style={
-                {
-                  left: "13%",
-                  top: "16%",
-                  transform: "rotate(6deg) scale(.7)",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
+              style={{
+                left: "13%",
+                top: "16%",
+                transform: "rotate(6deg) scale(.7)",
+                color: "var(--color-ink)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
               </svg>
             </i>
             <i
-              style={
-                {
-                  right: "6%",
-                  bottom: "12%",
-                  width: "56px",
-                  color: "var(--yellow)",
-                } as React.CSSProperties
-              }
+              style={{
+                right: "6%",
+                bottom: "12%",
+                width: "56px",
+                color: "var(--color-brand-yellow)",
+              }}
             >
               <svg className="moon" viewBox="0 0 40 40" width="56" height="56">
                 <mask id="aboutyou-moon-mask">
@@ -212,32 +196,32 @@ export default function Page() {
           </div>
           <Container className="you-grid">
             <div>
-              <Label tone="yellow">{"About you"}</Label>
+              <Label tone="yellow">About you</Label>
               <h2 className="mt-5">
-                {"We're looking for people who "}
-                <span className="ink-underline yellow">{"care deeply."}</span>
+                We&apos;re looking for people who{" "}
+                <span className="ink-underline yellow">care deeply.</span>
               </h2>
-              <p className="you-note mt-6 italic font-semibold text-ink">
-                {"We look for enthusiasm, dedication, and a desire to grow."}
+              <p className="you-note mt-6 font-semibold text-ink italic">
+                We look for enthusiasm, dedication, and a desire to grow.
               </p>
             </div>
             <div className="focus">
               <div className="focus-row">
-                <span className="n">{"01"}</span>
+                <span className="n">01</span>
                 <span className="name">
-                  {"Care deeply about technology and society"}
+                  Care deeply about technology and society
                 </span>
               </div>
               <div className="focus-row">
-                <span className="n">{"02"}</span>
+                <span className="n">02</span>
                 <span className="name">
-                  {"Are inspired by activism as a tool for social change"}
+                  Are inspired by activism as a tool for social change
                 </span>
               </div>
               <div className="focus-row">
-                <span className="n">{"03"}</span>
+                <span className="n">03</span>
                 <span className="name">
-                  {"Can work consistently for 3-5 hours a week"}
+                  Can work consistently for 3-5 hours a week
                 </span>
               </div>
             </div>
@@ -246,16 +230,14 @@ export default function Page() {
         <section className="roles bg-white" id="roles">
           <Container>
             <div className="roles-head">
-              <Label tone="coral">{"Roles"}</Label>
+              <Label tone="coral">Roles</Label>
               <h2 className="mt-5">
-                {"Four "}
-                <span className="ink-underline green">{"workstreams,"}</span>
-                {" one movement."}
+                Four <span className="ink-underline green">workstreams,</span>{" "}
+                one movement.
               </h2>
               <p className="deck">
-                {
-                  "We are currently looking for people to work on four primary workstreams."
-                }
+                We are currently looking for people to work on four primary
+                workstreams.
               </p>
             </div>
             <div className="role-acc mt-11 border-t-2 border-solid border-t-ink">
@@ -264,135 +246,133 @@ export default function Page() {
                 open={true}
               >
                 <summary>
-                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
-                    {"Community Organizing"}
+                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
+                    Community Organizing
                   </span>
-                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
-                    {"Remote-friendly"}
+                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                    Remote-friendly
                   </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
                 <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
-                    {
-                      "You enjoy talking to new people, are a great listener, and care deeply about community. You're great at making people feel empowered, with the goal of them joining the movement."
-                    }
+                    You enjoy talking to new people, are a great listener, and
+                    care deeply about community. You&apos;re great at making
+                    people feel empowered, with the goal of them joining the
+                    movement.
                   </p>
-                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
-                    {"Example activities"}
+                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                    Example activities
                   </span>
                   <ul className="role-list">
-                    <li>{"Designing events for people"}</li>
-                    <li>{"Door-to-door conversations with people"}</li>
+                    <li>Designing events for people</li>
+                    <li>Door-to-door conversations with people</li>
                     <li>
-                      {
-                        "Creating curriculum and documentation for volunteers to train up"
-                      }
+                      Creating curriculum and documentation for volunteers to
+                      train up
                     </li>
                   </ul>
-                  <p className="role-note mt-4 italic font-semibold text-ink">
-                    {
-                      "Community Fellows help grow and support Circles forming across the country."
-                    }
+                  <p className="role-note mt-4 font-semibold text-ink italic">
+                    Community Fellows help grow and support Circles forming
+                    across the country.
                   </p>
                 </div>
               </details>
               <details className="role border-b-2 border-solid border-b-ink">
                 <summary>
-                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
-                    {"Campaign Automations"}
+                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
+                    Campaign Automations
                   </span>
-                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
-                    {"Remote-friendly"}
+                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                    Remote-friendly
                   </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
                 <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
-                    {
-                      "You enjoy building scalable systems and automations to empower communities. You're a fast learner and excellent at incorporating AI to assist you in the process, with the goal of streamlining our supporter and membership onboarding and retention processes."
-                    }
+                    You enjoy building scalable systems and automations to
+                    empower communities. You&apos;re a fast learner and
+                    excellent at incorporating AI to assist you in the process,
+                    with the goal of streamlining our supporter and membership
+                    onboarding and retention processes.
                   </p>
-                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
-                    {"Example activities"}
+                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                    Example activities
                   </span>
                   <ul className="role-list">
                     <li>
-                      {
-                        "Rigging up an open-source CRM to our membership sign-up page"
-                      }
+                      Rigging up an open-source CRM to our membership sign-up
+                      page
                     </li>
                     <li>
-                      {
-                        "Creating an email automation protocol for sign-ups, event attendees, and supporters"
-                      }
+                      Creating an email automation protocol for sign-ups, event
+                      attendees, and supporters
                     </li>
-                    <li>{"Automating member onboarding on Discord"}</li>
+                    <li>Automating member onboarding on Discord</li>
                   </ul>
                 </div>
               </details>
               <details className="role border-b-2 border-solid border-b-ink">
                 <summary>
-                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
-                    {"Digital Marketing"}
+                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
+                    Digital Marketing
                   </span>
-                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
-                    {"Remote-friendly"}
+                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                    Remote-friendly
                   </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
                 <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
-                    {
-                      "You enjoy communicating big ideas clearly and learning what inspires people to take action. You will test messaging and branding, with the goal of expanding our digital reach."
-                    }
+                    You enjoy communicating big ideas clearly and learning what
+                    inspires people to take action. You will test messaging and
+                    branding, with the goal of expanding our digital reach.
                   </p>
-                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
-                    {"Example activities"}
+                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                    Example activities
                   </span>
                   <ul className="role-list">
-                    <li>{"Refining our brand marketing strategy"}</li>
+                    <li>Refining our brand marketing strategy</li>
                     <li>
-                      {"Designing and executing our digital marketing strategy"}
+                      Designing and executing our digital marketing strategy
                     </li>
                     <li>
-                      {
-                        "Designing materials like business cards, banners, and lawn signs"
-                      }
+                      Designing materials like business cards, banners, and lawn
+                      signs
                     </li>
                   </ul>
                 </div>
               </details>
               <details className="role border-b-2 border-solid border-b-ink">
                 <summary>
-                  <span className="role-title font-display font-extrabold uppercase tracking-normal pl-3.5 max-sm:text-xl max-sm:pl-2.5">
-                    {"Policy & Coalitions"}
+                  <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
+                    Policy &amp; Coalitions
                   </span>
-                  <span className="role-tag text-xs font-black tracking-wider uppercase py-1 px-2 border-2 border-solid border-ink whitespace-nowrap">
-                    {"Remote-friendly"}
+                  <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                    Remote-friendly
                   </span>
                   <span className="role-chevron" aria-hidden="true"></span>
                 </summary>
                 <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
                   <p>
-                    {
-                      "You enjoy diving deep into policy and AI safety. You're good at putting yourself in other people's shoes. You enjoy building relationships, with the goal of building coalitional support for Sapiens First's campaigns nationally."
-                    }
+                    You enjoy diving deep into policy and AI safety. You&apos;re
+                    good at putting yourself in other people&apos;s shoes. You
+                    enjoy building relationships, with the goal of building
+                    coalitional support for Sapiens First&apos;s campaigns
+                    nationally.
                   </p>
-                  <span className="role-activities-label block mt-5 mr-0 mb-2.5 ml-0 text-xs font-black tracking-widest uppercase text-coral-dark">
-                    {"Example activities"}
+                  <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                    Example activities
                   </span>
                   <ul className="role-list">
-                    <li>{"Crafting achievable campaign objectives"}</li>
+                    <li>Crafting achievable campaign objectives</li>
                     <li>
-                      {
-                        "Collaborating with other movements like YDSA and the Sunrise Movement"
-                      }
+                      Collaborating with other movements like YDSA and the
+                      Sunrise Movement
                     </li>
                     <li>
-                      {
-                        "Reaching out and building relationships with mainstream orgs like the ACLU"
-                      }
+                      Reaching out and building relationships with mainstream
+                      orgs like the ACLU
                     </li>
                   </ul>
                 </div>
@@ -400,234 +380,209 @@ export default function Page() {
             </div>
           </Container>
         </section>
-        <section className="commitment bg-coral py-14 px-0 overflow-hidden">
+        <section className="commitment overflow-hidden bg-coral px-0 py-14">
           <div className="fun-layer" aria-hidden="true">
             <i
-              style={
-                {
-                  left: "4%",
-                  top: "22%",
-                  width: "30px",
-                  color: "var(--ink)",
-                  transform: "rotate(-6deg)",
-                } as React.CSSProperties
-              }
+              style={{
+                left: "4%",
+                top: "22%",
+                width: "30px",
+                color: "var(--color-ink)",
+                transform: "rotate(-6deg)",
+              }}
             >
               <svg className="zap" viewBox="0 0 24 40" width="30" height="30">
                 <path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"></path>
               </svg>
             </i>
             <i
-              style={
-                {
-                  right: "8%",
-                  bottom: "18%",
-                  width: "60px",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
+              style={{
+                right: "8%",
+                bottom: "18%",
+                width: "60px",
+                color: "var(--color-ink)",
+              }}
             >
               <svg className="pow" viewBox="0 0 24 24" width="60" height="60">
                 <rect width="24" height="24" fill="currentColor"></rect>
               </svg>
             </i>
           </div>
-          <Container className="commitment-inner flex items-center justify-between gap-6 flex-wrap max-sm:flex-col max-sm:items-start">
-            <p>{"Find your voice, find some friends, and fight like hell."}</p>
-            <div className="commitment-pills flex gap-2.5 flex-wrap">
-              <span>{"Rolling cohorts"}</span>
-              <span>{"12 weeks"}</span>
-              <span>{"3–5 hrs / week"}</span>
+          <Container className="commitment-inner flex flex-wrap items-center justify-between gap-6 max-sm:flex-col max-sm:items-start">
+            <p>Find your voice, find some friends, and fight like hell.</p>
+            <div className="commitment-pills flex flex-wrap gap-2.5">
+              <span>Rolling cohorts</span>
+              <span>12 weeks</span>
+              <span>3–5 hrs / week</span>
             </div>
           </Container>
         </section>
-        <section className="benefits bg-paper overflow-hidden" id="benefits">
+        <section className="benefits overflow-hidden bg-paper" id="benefits">
           <div className="fun-layer" aria-hidden="true">
             <i
-              style={
-                {
-                  right: "10%",
-                  top: "20%",
-                  transform: "rotate(8deg)",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
+              style={{
+                right: "10%",
+                top: "20%",
+                transform: "rotate(8deg)",
+                color: "var(--color-ink)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
               </svg>
             </i>
             <i
-              style={
-                {
-                  right: "4%",
-                  bottom: "16%",
-                  width: "14px",
-                  color: "var(--red)",
-                  transform: "rotate(-10deg)",
-                } as React.CSSProperties
-              }
+              style={{
+                right: "4%",
+                bottom: "16%",
+                width: "14px",
+                color: "var(--color-coral)",
+                transform: "rotate(-10deg)",
+              }}
             >
               <svg className="star" viewBox="0 0 24 24" width="14" height="14">
                 <rect width="24" height="24" fill="currentColor"></rect>
               </svg>
             </i>
           </div>
-          <Container className="benefits-grid grid gap-16 items-start">
+          <Container className="benefits-grid grid items-start gap-16">
             <div>
-              <Label tone="coral">{"Benefits"}</Label>
+              <Label tone="coral">Benefits</Label>
               <h2 className="mt-5">
-                {"What you "}
-                <span className="ink-underline blue">{"receive."}</span>
+                What you <span className="ink-underline blue">receive.</span>
               </h2>
             </div>
             <div>
               <p className="deck">
-                {
-                  "This is a volunteer program, but we provide support (travel, meals) for in-person activities, and will reimburse organizational expenses. Strong fellows may be invited to extend after the initial term."
-                }
+                This is a volunteer program, but we provide support (travel,
+                meals) for in-person activities, and will reimburse
+                organizational expenses. Strong fellows may be invited to extend
+                after the initial term.
               </p>
             </div>
           </Container>
         </section>
         <section className="faq" id="faq">
           <Container>
-            <Label tone="coral">{"FAQ"}</Label>
+            <Label tone="coral">FAQ</Label>
             <h2 className="mt-5">
-              {"Questions, "}
-              <span className="ink-underline green">{"answered."}</span>
+              Questions, <span className="ink-underline green">answered.</span>
             </h2>
             <FaqList>
-              <FaqItem
-                number={1}
-                question={<>{"What is the Fellowship?"}</>}
-                open
-              >
+              <FaqItem number={1} question={<>What is the Fellowship?</>} open>
                 <p>
-                  {
-                    "Each Fellow will own a priority project, and sync with a team working on a similar project. There'll also be programming to connect, learn about social change, politics, and hang out."
-                  }
+                  Each Fellow will own a priority project, and sync with a team
+                  working on a similar project. There&apos;ll also be
+                  programming to connect, learn about social change, politics,
+                  and hang out.
                 </p>
               </FaqItem>
-              <FaqItem number={2} question={<>{"Why join the Fellowship?"}</>}>
+              <FaqItem number={2} question={<>Why join the Fellowship?</>}>
                 <ul>
                   <li>
-                    {
-                      "Be a founding member of the movement to save the future of humanity"
-                    }
+                    Be a founding member of the movement to save the future of
+                    humanity
                   </li>
                   <li>
-                    {
-                      "Build skills like strategic analysis, project planning, and leadership"
-                    }
+                    Build skills like strategic analysis, project planning, and
+                    leadership
                   </li>
-                  <li>
-                    {"Make professional connections in AI safety / policy"}
-                  </li>
-                  <li>{"Have fun!"}</li>
+                  <li>Make professional connections in AI safety / policy</li>
+                  <li>Have fun!</li>
                 </ul>
               </FaqItem>
               <FaqItem
                 number={3}
-                question={<>{"What does the process look like?"}</>}
+                question={<>What does the process look like?</>}
               >
                 <ol>
                   <li>
-                    {"Express interest at "}
+                    Express interest at{" "}
                     <TextLink href="#signup">
-                      {"sapiensfirst.org/fellowship"}
+                      sapiensfirst.org/fellowship
                     </TextLink>
                   </li>
                   <li>
-                    {
-                      "Meet with the Executive Director to discuss your interests"
-                    }
+                    Meet with the Executive Director to discuss your interests
                   </li>
                   <li>
-                    {
-                      "Receive an initial priority project. Accept by signing the Fellowship agreement."
-                    }
+                    Receive an initial priority project. Accept by signing the
+                    Fellowship agreement.
                   </li>
-                  <li>{"Join the Discord and get started!"}</li>
+                  <li>Join the Discord and get started!</li>
                 </ol>
               </FaqItem>
               <FaqItem
                 number={4}
                 question={
                   <>
-                    {
-                      "What does the program look like week by week, month by month?"
-                    }
+                    What does the program look like week by week, month by
+                    month?
                   </>
                 }
               >
-                <div className="faq-table-wrap overflow-x-auto mb-3.5">
+                <div className="faq-table-wrap mb-3.5 overflow-x-auto">
                   <table className="faq-table w-full">
                     <thead>
                       <tr>
-                        <th>{"Activity"}</th>
-                        <th>{"Content"}</th>
-                        <th>{"Timing"}</th>
-                        <th>{"Priority"}</th>
+                        <th>Activity</th>
+                        <th>Content</th>
+                        <th>Timing</th>
+                        <th>Priority</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>{"Department Sync"}</td>
+                        <td>Department Sync</td>
                         <td>
                           {
                             "Synchronous meeting or written memo sharing progress & reflections on your project"
                           }
                         </td>
-                        <td>{"Weekly or biweekly (45 min)"}</td>
-                        <td>{"Required"}</td>
+                        <td>Weekly or biweekly (45 min)</td>
+                        <td>Required</td>
                       </tr>
                       <tr>
-                        <td>{"1-1s with Rohan"}</td>
+                        <td>1-1s with Rohan</td>
                         <td>
-                          {
-                            "Chat about the movement, strategy, or future project direction"
-                          }
+                          Chat about the movement, strategy, or future project
+                          direction
                         </td>
-                        <td>{"Weekly or biweekly (30 min)"}</td>
-                        <td>{"Required"}</td>
+                        <td>Weekly or biweekly (30 min)</td>
+                        <td>Required</td>
                       </tr>
                       <tr>
-                        <td>{"General Meetings"}</td>
+                        <td>General Meetings</td>
                         <td>
-                          {
-                            "Discussions with Fellows about social change, leadership, and your current work."
-                          }
+                          Discussions with Fellows about social change,
+                          leadership, and your current work.
                         </td>
-                        <td>{"Tuesdays, 6:30–7:30pm PT"}</td>
-                        <td>{"Optional"}</td>
+                        <td>Tuesdays, 6:30–7:30pm PT</td>
+                        <td>Optional</td>
                       </tr>
                       <tr>
-                        <td>{"Socials in SF / Oakland"}</td>
-                        <td>{"Bowling, karaoke, or pizza"}</td>
-                        <td>{"Monthly or spontaneous"}</td>
-                        <td>{"Optional"}</td>
+                        <td>Socials in SF / Oakland</td>
+                        <td>Bowling, karaoke, or pizza</td>
+                        <td>Monthly or spontaneous</td>
+                        <td>Optional</td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-                <p>{"By week, the program will roughly be:"}</p>
+                <p>By week, the program will roughly be:</p>
                 <ul>
                   <li>
-                    <strong>{"Weeks 1–2:"}</strong>
-                    {" Research, strategy, create success metrics"}
+                    <strong>Weeks 1–2:</strong> Research, strategy, create
+                    success metrics
                   </li>
                   <li>
-                    <strong>{"Weeks 3–5:"}</strong>
-                    {" Design & build a prototype"}
+                    <strong>Weeks 3–5:</strong> Design &amp; build a prototype
                   </li>
                   <li>
-                    <strong>{"Weeks 6–9:"}</strong>
-                    {" Iterate and evolve the prototype"}
+                    <strong>Weeks 6–9:</strong> Iterate and evolve the prototype
                   </li>
                   <li>
-                    <strong>{"Weeks 10–12:"}</strong>
-                    {" Document and present"}
+                    <strong>Weeks 10–12:</strong> Document and present
                   </li>
                 </ul>
               </FaqItem>
@@ -636,64 +591,58 @@ export default function Page() {
         </section>
         <ClosingSection id="apply">
           <ClosingCopy>
-            <Label tone="purple">{"Apply"}</Label>
+            <Label tone="purple">Apply</Label>
             <h2 className="mt-5">
-              {"We're excited to "}
-              <span className="marker">{"hear from you."}</span>
+              We&apos;re excited to{" "}
+              <span className="marker">hear from you.</span>
             </h2>
             <p className="deck">
-              {
-                "Interested in the fellowship? Leave your email and we'll be in touch about opportunities and next steps."
-              }
+              Interested in the fellowship? Leave your email and we&apos;ll be
+              in touch about opportunities and next steps.
             </p>
             <ActionLink variant="primary" href="#signup">
-              {"Express interest →"}
+              Express interest →
             </ActionLink>
             <p className="apply-note">
-              {"Questions? Email rohan@sapiensfirst.org"}
+              Questions? Email rohan@sapiensfirst.org
             </p>
           </ClosingCopy>
           <SignupPanel>
             <div className="fun-layer" aria-hidden="true">
               <i
-                style={
-                  {
-                    left: "8%",
-                    top: "10%",
-                    transform: "rotate(-6deg)",
-                    color: "#fff",
-                  } as React.CSSProperties
-                }
+                style={{
+                  left: "8%",
+                  top: "10%",
+                  transform: "rotate(-6deg)",
+                  color: "#fff",
+                }}
               >
                 <svg className="bird" viewBox="0 0 24 12">
                   <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
                 </svg>
               </i>
               <i
-                style={
-                  {
-                    left: "20%",
-                    top: "20%",
-                    transform: "rotate(6deg) scale(.65)",
-                    color: "#fff",
-                  } as React.CSSProperties
-                }
+                style={{
+                  left: "20%",
+                  top: "20%",
+                  transform: "rotate(6deg) scale(.65)",
+                  color: "#fff",
+                }}
               >
                 <svg className="bird" viewBox="0 0 24 12">
                   <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
                 </svg>
               </i>
             </div>
-            <Label tone="coral">{"Rolling Cohorts"}</Label>
+            <Label tone="coral">Rolling Cohorts</Label>
             <div className="apply-deadline">
-              {"Always"}
+              Always
               <br />
-              {"Open"}
+              Open
             </div>
             <p>
-              {
-                "Leave your email to hear about fellowship opportunities and next steps."
-              }
+              Leave your email to hear about fellowship opportunities and next
+              steps.
             </p>
             <SignupForm interest="fellowship" buttonText="Keep me posted →" />
           </SignupPanel>

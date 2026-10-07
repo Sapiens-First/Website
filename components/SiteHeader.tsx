@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import SignupForm from "./SignupForm";
 import { navigation } from "@/lib/site";
+import { cn } from "@/lib/cn";
 
 export default function SiteHeader() {
   const path = usePathname();
@@ -106,7 +107,7 @@ export default function SiteHeader() {
                       }}
                     >
                       <Link
-                        className={`nav-fellowship${active ? " current" : ""}`}
+                        className={cn("nav-fellowship", active && "current")}
                         href={item.href}
                         onClick={() => setDropdownOpen(false)}
                       >
@@ -152,7 +153,7 @@ export default function SiteHeader() {
                   );
                 return (
                   <Link
-                    className={`nav-fellowship${active ? " current" : ""}`}
+                    className={cn("nav-fellowship", active && "current")}
                     href={item.href}
                     key={item.href}
                   >
@@ -161,13 +162,19 @@ export default function SiteHeader() {
                 );
               })}
               <Link
-                className={`nav-cta donate${path === "/donate" ? " current" : ""}`}
+                className={cn(
+                  "nav-cta donate",
+                  path === "/donate" && "current",
+                )}
                 href="/donate"
               >
                 Donate
               </Link>
               <Link
-                className={`nav-cta join${path === "/join" || path === "/membership" ? " current" : ""}`}
+                className={cn(
+                  "nav-cta join",
+                  (path === "/join" || path === "/membership") && "current",
+                )}
                 href="/join"
               >
                 Join
@@ -178,7 +185,7 @@ export default function SiteHeader() {
       </header>
       <dialog
         ref={dialogRef}
-        className="join-dialog mx-4 my-auto w-auto max-w-xl max-h-dvh sm:mx-auto"
+        className="join-dialog mx-4 my-auto max-h-dvh w-auto max-w-xl sm:mx-auto"
         aria-labelledby="join-dialog-title"
         aria-describedby="join-dialog-description"
         onClose={() => setJoinOpen(false)}

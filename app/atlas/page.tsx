@@ -21,7 +21,7 @@ export default function Page() {
     <div className="route-root route-atlas">
       <main className="atlas">
         <section
-          className="atlas-hero site-container relative z-2 mx-auto w-full max-w-2xl px-3 pt-20 pb-10 sm:px-6 max-sm:pt-12 max-sm:pb-7"
+          className="atlas-hero site-container relative z-2 mx-auto w-full max-w-2xl px-3 pt-20 pb-10 max-sm:pt-12 max-sm:pb-7 sm:px-6"
           aria-labelledby="atlas-title"
         >
           <div className="kicker">Atlas</div>

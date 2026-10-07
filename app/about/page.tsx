@@ -25,21 +25,20 @@ export default function Page() {
       <main className="route-about">
         <SplitHero>
           <div className="hero-copy">
-            <div className="kicker">{"About Sapiens First"}</div>
+            <div className="kicker">About Sapiens First</div>
             <h1>
-              {"We are the human "}
-              <span className="ink-underline yellow">{"movement."}</span>
+              We are the human{" "}
+              <span className="ink-underline yellow">movement.</span>
             </h1>
             <p>
-              {
-                "We build political power to make sure artificial intelligence benefits the common good."
-              }
+              We build political power to make sure artificial intelligence
+              benefits the common good.
             </p>
             <a className="hero-read-more" href="#vision">
-              {"Read more →"}
+              Read more →
             </a>
             <p className="hero-note">
-              {"Non-profit · Founded 2026 · Volunteer-powered"}
+              Non-profit · Founded 2026 · Volunteer-powered
             </p>
           </div>
           <div className="hero-art" aria-hidden="true">
@@ -51,32 +50,28 @@ export default function Page() {
             <div className="confetti c3"></div>
             <div className="confetti c4"></div>
             <i
-              style={
-                {
-                  position: "absolute",
-                  left: "10%",
-                  top: "8%",
-                  zIndex: "2",
-                  color: "var(--ink)",
-                  transform: "rotate(-6deg)",
-                } as React.CSSProperties
-              }
+              style={{
+                position: "absolute",
+                left: "10%",
+                top: "8%",
+                zIndex: "2",
+                color: "var(--color-ink)",
+                transform: "rotate(-6deg)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
               </svg>
             </i>
             <i
-              style={
-                {
-                  position: "absolute",
-                  left: "20%",
-                  top: "16%",
-                  zIndex: "2",
-                  color: "var(--ink)",
-                  transform: "rotate(4deg) scale(.7)",
-                } as React.CSSProperties
-              }
+              style={{
+                position: "absolute",
+                left: "20%",
+                top: "16%",
+                zIndex: "2",
+                color: "var(--color-ink)",
+                transform: "rotate(4deg) scale(.7)",
+              }}
             >
               <svg className="bird" viewBox="0 0 24 12">
                 <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
@@ -87,56 +82,71 @@ export default function Page() {
         <section className="about" id="vision">
           <Container className="about-grid">
             <div className="about-copy">
-              <Label tone="coral">{"Vision"}</Label>
+              <Label tone="coral">Vision</Label>
               <h2 className="mt-5">
-                {"We imagine tech for the "}
-                <span className="ink-underline blue">{"common good."}</span>
+                We imagine tech for the{" "}
+                <span className="ink-underline blue">common good.</span>
               </h2>
               <p className="deck">
-                {
-                  "AI will reshape democracy, prosperity, and security. We're building the political power to make sure it reshapes them for the better."
-                }
+                AI will reshape democracy, prosperity, and security. We&apos;re
+                building the political power to make sure it reshapes them for
+                the better.
               </p>
-              <TextLink href="/policy">{"Read our Recommendations →"}</TextLink>
+              <TextLink href="/policy">Read our Recommendations →</TextLink>
             </div>
             <div className="about-art">
               <div className="circle"></div>
-              <div className="tag t1">{"Democratic Renewal"}</div>
-              <div className="tag t2">{"Common Prosperity"}</div>
-              <div className="tag t3">{"A Secure Future"}</div>
+              <div className="tag t1">Democratic Renewal</div>
+              <div className="tag t2">Common Prosperity</div>
+              <div className="tag t3">A Secure Future</div>
             </div>
           </Container>
           <Container>
             <details
-              className="focus-dropdown mt-11 border-t-2 border-solid border-t-ink border-b-2 border-b-ink"
+              className="focus-dropdown mt-11 border-t-2 border-b-2 border-solid border-t-ink border-b-ink"
               id="focus-areas"
             >
               <summary>
-                {"Our focus areas "}
+                Our focus areas{" "}
                 <span aria-hidden="true" className="focus-toggle"></span>
               </summary>
               <article className="focus-area pt-0 pr-0 pb-0 pl-5">
-                <h3>{"Democratic Renewal"}</h3>
+                <h3>Democratic Renewal</h3>
                 <p>
-                  {
-                    "AI will have profound impacts on our democratic institutions. Done wrong, AI could empower authoritarians to violate our civil liberties; corrupt politicians through rampant wealth inequality; sully public discourse with deepfakes, addictive technology, and sensationalist media. We believe that instead, AI should enhance democratic institutions, and empower ordinary citizens to have greater participation in public life."
-                  }
+                  AI will have profound impacts on our democratic institutions.
+                  Done wrong, AI could empower authoritarians to violate our
+                  civil liberties; corrupt politicians through rampant wealth
+                  inequality; sully public discourse with deepfakes, addictive
+                  technology, and sensationalist media. We believe that instead,
+                  AI should enhance democratic institutions, and empower
+                  ordinary citizens to have greater participation in public
+                  life.
                 </p>
               </article>
               <article className="focus-area pt-0 pr-0 pb-0 pl-5">
-                <h3>{"Common Prosperity"}</h3>
+                <h3>Common Prosperity</h3>
                 <p>
-                  {
-                    "The gains from AI will be vast, and must be shared broadly across society. Currently, wealth gains from AI have concentrated in the hands of the rich few. We believe that it should be instead used to uplift all people in society through redistribution and a reinvestment in public institutions. We also believe that AI should reduce dysfunction in government, and should be used to accelerate advances in science and technology."
-                  }
+                  The gains from AI will be vast, and must be shared broadly
+                  across society. Currently, wealth gains from AI have
+                  concentrated in the hands of the rich few. We believe that it
+                  should be instead used to uplift all people in society through
+                  redistribution and a reinvestment in public institutions. We
+                  also believe that AI should reduce dysfunction in government,
+                  and should be used to accelerate advances in science and
+                  technology.
                 </p>
               </article>
               <article className="focus-area pt-0 pr-0 pb-0 pl-5">
-                <h3>{"A Secure Future"}</h3>
+                <h3>A Secure Future</h3>
                 <p>
-                  {
-                    "Cutting-edge artificial intelligence has the potential to cause mass devastation if left unchecked. To combat this, major powers must cooperate to lead the development of safe superintelligence. Frontier AI must be developed transparently, and we should have the best scientists working to ensure AI remains under human control. Additionally, we must have civil society input on AI governance, so that the power of superintelligence benefits all of humanity."
-                  }
+                  Cutting-edge artificial intelligence has the potential to
+                  cause mass devastation if left unchecked. To combat this,
+                  major powers must cooperate to lead the development of safe
+                  superintelligence. Frontier AI must be developed
+                  transparently, and we should have the best scientists working
+                  to ensure AI remains under human control. Additionally, we
+                  must have civil society input on AI governance, so that the
+                  power of superintelligence benefits all of humanity.
                 </p>
               </article>
             </details>
@@ -144,17 +154,16 @@ export default function Page() {
         </section>
         <section className="roadmap-band" id="roadmap">
           <Container>
-            <Label tone="blue">{"Our Plan"}</Label>
+            <Label tone="blue">Our Plan</Label>
             <h2>
-              {"City by city, "}
-              <span className="ink-underline blue">{"state by state."}</span>
+              City by city,{" "}
+              <span className="ink-underline blue">state by state.</span>
             </h2>
             <p className="deck">
-              {
-                "We build local chapters, press city councils to act on AI, and bring that momentum together to win policy in California."
-              }
+              We build local chapters, press city councils to act on AI, and
+              bring that momentum together to win policy in California.
             </p>
-            <ol className="strategy-path list-none grid grid-cols-3 gap-12 p-0 max-sm:grid-cols-1 max-sm:gap-14">
+            <ol className="strategy-path grid list-none grid-cols-3 gap-12 p-0 max-sm:grid-cols-1 max-sm:gap-14">
               <li>
                 <span className="step-icon" aria-hidden="true">
                   <svg viewBox="0 0 36 36">
@@ -162,7 +171,7 @@ export default function Page() {
                     <path d="M10 26v-7c0-7 16-7 16 0v7M5 14v12M31 14v12M14 26v6M22 26v6"></path>
                   </svg>
                 </span>
-                <h3>{"Local chapters"}</h3>
+                <h3>Local chapters</h3>
               </li>
               <li>
                 <span className="step-icon" aria-hidden="true">
@@ -170,7 +179,7 @@ export default function Page() {
                     <path d="M5 14h8L29 7v22l-16-7H5zM11 22l3 10h6l-3-9M32 15h2M32 21h2"></path>
                   </svg>
                 </span>
-                <h3>{"City campaigns"}</h3>
+                <h3>City campaigns</h3>
               </li>
               <li>
                 <span className="step-icon" aria-hidden="true">
@@ -178,30 +187,29 @@ export default function Page() {
                     <path d="M3 13L18 4l15 9zM7 16v13M14 16v13M22 16v13M29 16v13M3 32h30"></path>
                   </svg>
                 </span>
-                <h3>{"Statewide movement"}</h3>
+                <h3>Statewide movement</h3>
               </li>
             </ol>
           </Container>
         </section>
         <section className="strategy" id="strategy">
           <Container>
-            <Label tone="purple">{"Strategy"}</Label>
+            <Label tone="purple">Strategy</Label>
             <h2 className="mt-5">
-              {"We build "}
-              <span className="ink-underline green">{"movement power."}</span>
+              We build{" "}
+              <span className="ink-underline green">movement power.</span>
             </h2>
             <p className="deck">
-              {
-                "We believe power comes from the bottom-up. We build movement power through a cycle of civic engagement."
-              }
+              We believe power comes from the bottom-up. We build movement power
+              through a cycle of civic engagement.
             </p>
             <div
-              className="cycle relative w-full max-w-md mt-12 mr-auto mb-3 ml-auto max-sm:max-w-xs max-sm:mt-10 max-sm:mr-auto max-sm:mb-2 max-sm:ml-auto"
+              className="cycle relative mt-12 mr-auto mb-3 ml-auto w-full max-w-md max-sm:mt-10 max-sm:mr-auto max-sm:mb-2 max-sm:ml-auto max-sm:max-w-xs"
               role="group"
               aria-label="Act, Recruit, Train cycle"
             >
               <svg
-                className="cycle-lines absolute inset-0 w-full h-full overflow-visible"
+                className="cycle-lines absolute inset-0 h-full w-full overflow-visible"
                 viewBox="0 0 380 330"
                 preserveAspectRatio="xMidYMid meet"
                 aria-hidden="true"
@@ -215,7 +223,7 @@ export default function Page() {
                     refY="3.5"
                     orient="auto"
                   >
-                    <path d="M0,0 L7,3.5 L0,7 Z" fill="var(--ink)"></path>
+                    <path d="M0,0 L7,3.5 L0,7 Z" fill="var(--color-ink)"></path>
                   </marker>
                 </defs>
                 <path
@@ -231,52 +239,49 @@ export default function Page() {
                   markerEnd="url(#cycle-arrowhead)"
                 ></path>
               </svg>
-              <div className="cycle-hub absolute bg-white border-2 border-solid border-ink py-2.5 px-4 font-display text-base font-extrabold tracking-wider uppercase text-center leading-tight whitespace-nowrap max-sm:text-sm max-sm:py-2 max-sm:px-3">
-                {"Movement"}
+              <div className="cycle-hub absolute border-2 border-solid border-ink bg-white px-4 py-2.5 text-center font-display text-base leading-tight font-extrabold tracking-wider whitespace-nowrap uppercase max-sm:px-3 max-sm:py-2 max-sm:text-sm">
+                Movement
                 <br />
-                {"power"}
+                power
               </div>
               <button
-                className="cycle-node cycle-node-act absolute rounded-full flex items-center justify-center cursor-pointer font-display font-extrabold uppercase text-ink max-sm:text-xl top-0 bg-coral"
+                className="cycle-node cycle-node-act absolute top-0 flex cursor-pointer items-center justify-center rounded-full bg-coral font-display font-extrabold text-ink uppercase max-sm:text-xl"
                 type="button"
                 data-step="act"
                 aria-pressed="false"
               >
-                <span>{"Act"}</span>
-                <span className="cycle-tip absolute bg-white text-ink border-2 border-solid border-ink py-2.5 px-3 font-body text-xs font-semibold leading-snug normal-case pointer-events-none">
-                  {
-                    "Visible, peaceful pressure makes AI governance impossible to ignore."
-                  }
+                <span>Act</span>
+                <span className="cycle-tip pointer-events-none absolute border-2 border-solid border-ink bg-white px-3 py-2.5 font-body text-xs leading-snug font-semibold text-ink normal-case">
+                  Visible, peaceful pressure makes AI governance impossible to
+                  ignore.
                 </span>
               </button>
               <button
-                className="cycle-node cycle-node-recruit absolute rounded-full flex items-center justify-center cursor-pointer font-display font-extrabold uppercase text-ink max-sm:text-xl bottom-0 bg-brand-yellow"
+                className="cycle-node cycle-node-recruit absolute bottom-0 flex cursor-pointer items-center justify-center rounded-full bg-brand-yellow font-display font-extrabold text-ink uppercase max-sm:text-xl"
                 type="button"
                 data-step="recruit"
                 aria-pressed="false"
               >
-                <span>{"Recruit"}</span>
-                <span className="cycle-tip absolute bg-white text-ink border-2 border-solid border-ink py-2.5 px-3 font-body text-xs font-semibold leading-snug normal-case pointer-events-none">
-                  {
-                    "Every public action creates conversations, gatherings, and local relationships."
-                  }
+                <span>Recruit</span>
+                <span className="cycle-tip pointer-events-none absolute border-2 border-solid border-ink bg-white px-3 py-2.5 font-body text-xs leading-snug font-semibold text-ink normal-case">
+                  Every public action creates conversations, gatherings, and
+                  local relationships.
                 </span>
               </button>
               <button
-                className="cycle-node cycle-node-train absolute rounded-full flex items-center justify-center cursor-pointer font-display font-extrabold uppercase text-ink max-sm:text-xl bottom-0 bg-brand-blue text-white"
+                className="cycle-node cycle-node-train absolute bottom-0 flex cursor-pointer items-center justify-center rounded-full bg-brand-blue font-display font-extrabold text-ink text-white uppercase max-sm:text-xl"
                 type="button"
                 data-step="train"
                 aria-pressed="false"
               >
-                <span>{"Train"}</span>
-                <span className="cycle-tip absolute bg-white text-ink border-2 border-solid border-ink py-2.5 px-3 font-body text-xs font-semibold leading-snug normal-case pointer-events-none">
-                  {
-                    "New advocates learn organizing skills and become leaders for the next action."
-                  }
+                <span>Train</span>
+                <span className="cycle-tip pointer-events-none absolute border-2 border-solid border-ink bg-white px-3 py-2.5 font-body text-xs leading-snug font-semibold text-ink normal-case">
+                  New advocates learn organizing skills and become leaders for
+                  the next action.
                 </span>
               </button>
             </div>
-            <TextLink href="/learn">{"Read the Guide →"}</TextLink>
+            <TextLink href="/learn">Read the Guide →</TextLink>
           </Container>
         </section>
         <section className="about" id="founder">
@@ -290,28 +295,30 @@ export default function Page() {
               />
             </div>
             <div className="about-copy">
-              <Label tone="yellow">{"Founder"}</Label>
+              <Label tone="yellow">Founder</Label>
               <h2 className="mt-5">
-                {"Rohan Prasad "}
+                Rohan Prasad{" "}
                 <span className="ink-underline yellow">
-                  {"Executive Director."}
+                  Executive Director.
                 </span>
               </h2>
               <p className="deck">
-                {
-                  "Rohan founded Sapiens First because he realized no one was doing anything about the AI Crisis. Previously, Rohan worked as an AI safety researcher at Constellation Institute, was an English teacher in Taiwan, and was a community organizer for animal rights. He likes to "
-                }
+                Rohan founded Sapiens First because he realized no one was doing
+                anything about the AI Crisis. Previously, Rohan worked as an AI
+                safety researcher at Constellation Institute, was an English
+                teacher in Taiwan, and was a community organizer for animal
+                rights. He likes to{" "}
                 <a
                   href="https://www.rohanprasad.org"
                   target="_blank"
                   rel="noopener"
                   className="underline"
                 >
-                  {"blog"}
+                  blog
                 </a>
-                {", play guitar, and run barefoot."}
+                , play guitar, and run barefoot.
               </p>
-              <div className="founder-socials flex gap-2.5 mt-6">
+              <div className="founder-socials mt-6 flex gap-2.5">
                 <a
                   className="social-icon"
                   href="https://x.com/rohantohab"

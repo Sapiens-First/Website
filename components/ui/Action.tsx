@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ComponentProps } from "react";
+import { cn } from "@/lib/cn";
 
 const variants = {
   primary: "primary bg-coral text-ink hover:bg-coral-dark hover:text-white",
@@ -19,9 +20,7 @@ export function ActionLink({
   className = "",
   ...props
 }: ActionLinkProps) {
-  return (
-    <Link className={`${actionClasses(variant)} ${className}`} {...props} />
-  );
+  return <Link className={cn(actionClasses(variant), className)} {...props} />;
 }
 
 type ButtonProps = ComponentProps<"button"> & {
@@ -37,7 +36,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={`${actionClasses(variant)} ${className}`}
+      className={cn(actionClasses(variant), className)}
       {...props}
     />
   );
@@ -50,11 +49,18 @@ export function TextLink({
 }: ComponentProps<typeof Link> & { variant?: "inline" | "block" }) {
   const layout =
     variant === "block"
-      ? "text-link--block block w-fit ml-auto mt-7 text-right"
+      ? "block w-fit ml-auto mt-7 text-right"
       : "inline-block";
+  // Legacy CSS hooks stay outside cn(): tailwind-merge reads "text-link" as a text color and would drop it.
+  const hooks =
+    variant === "block" ? "text-link text-link--block" : "text-link";
   return (
     <Link
-      className={`text-link ${layout} border-b-2 border-ink pb-0.5 font-body text-xs font-black uppercase tracking-wider text-ink no-underline transition-colors hover:border-coral-dark hover:text-coral-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink ${className}`}
+      className={`${hooks} ${cn(
+        layout,
+        "border-b-2 border-ink pb-0.5 font-body text-xs font-black tracking-wider text-ink uppercase no-underline transition-colors hover:border-coral-dark hover:text-coral-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink",
+        className,
+      )}`}
       {...props}
     />
   );

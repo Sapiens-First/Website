@@ -29,6 +29,7 @@ import Circles from "@/components/Circles";
 import DomainOutline from "@/components/DomainOutline";
 import Alignment from "@/components/Alignment";
 import { AtlasLookupsProvider } from "@/components/AtlasLookupsContext";
+import { cn } from "@/lib/cn";
 
 const getHash = () => window.location.hash;
 const getServerHash = () => "";
@@ -171,7 +172,7 @@ export default function AtlasExplorer({
         className="atlas-explorer site-container relative z-2 mx-auto w-full max-w-7xl px-3 pb-16 sm:px-6"
         aria-labelledby="view-title"
       >
-        <div className="atlas-toolbar sticky top-20 flex items-center flex-wrap gap-2.5 py-3.5 px-0 mb-1 border-b border-solid border-b-line max-lg:top-16 max-sm:flex-col max-sm:items-stretch">
+        <div className="atlas-toolbar sticky top-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line px-0 py-3.5 max-lg:top-16 max-sm:flex-col max-sm:items-stretch">
           <div className="atlas-switch" role="group" aria-label="Atlas view">
             {(["governance", "domains", "people"] as View[]).map((value) => (
               <button
@@ -190,7 +191,7 @@ export default function AtlasExplorer({
               </button>
             ))}
           </div>
-          <label className="atlas-search-field relative flex items-center min-w-0 max-w-sm max-sm:max-w-none">
+          <label className="atlas-search-field relative flex max-w-sm min-w-0 items-center max-sm:max-w-none">
             <svg
               className="atlas-search-icon"
               width="15"
@@ -213,7 +214,7 @@ export default function AtlasExplorer({
                 strokeLinecap="round"
               />
             </svg>
-            <span className="atlas-sr-only absolute w-px h-px overflow-hidden">
+            <span className="atlas-sr-only absolute h-px w-px overflow-hidden">
               Search this view
             </span>
             <input
@@ -232,7 +233,7 @@ export default function AtlasExplorer({
           </label>
           {view === "domains" && format === "table" && (
             <label id="atlas-filter-label" className="atlas-filter-field">
-              <span className="atlas-sr-only absolute w-px h-px overflow-hidden">
+              <span className="atlas-sr-only absolute h-px w-px overflow-hidden">
                 Show
               </span>
               <select
@@ -267,16 +268,16 @@ export default function AtlasExplorer({
             </div>
           )}
         </div>
-        <div className="atlas-view-heading flex items-baseline gap-3.5 flex-wrap pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1">
+        <div className="atlas-view-heading flex flex-wrap items-baseline gap-3.5 pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1">
           <p
             id="view-title"
-            className="atlas-view-label font-body text-xs font-extrabold tracking-wider uppercase text-ink"
+            className="atlas-view-label font-body text-xs font-extrabold tracking-wider text-ink uppercase"
           >
             {titles[view]}
           </p>
           <p id="view-description">{descriptions[view]}</p>
           <a
-            className="atlas-source ml-auto text-xs underline-offset-4 whitespace-nowrap max-sm:ml-0"
+            className="atlas-source ml-auto text-xs whitespace-nowrap underline-offset-4 max-sm:ml-0"
             href={`/data/atlas/${group}.csv`}
             download
           >
@@ -291,13 +292,16 @@ export default function AtlasExplorer({
           <>
             <div
               id="atlas-people"
-              className="atlas-people-grid flex flex-col rounded-lg overflow-hidden bg-white"
+              className="atlas-people-grid flex flex-col overflow-hidden rounded-lg bg-white"
             >
               {!matchingPeople.length && <p>No people match this search.</p>}
               {matchingPeople.map((person) => (
                 <article
                   key={person.id}
-                  className={`atlas-person${selected === person.id ? " is-selected" : ""}`}
+                  className={cn(
+                    "atlas-person",
+                    selected === person.id && "is-selected",
+                  )}
                   data-person-id={person.id}
                   tabIndex={-1}
                   aria-labelledby={`person-${person.id}`}
@@ -320,7 +324,7 @@ export default function AtlasExplorer({
                         <a href={`#governance/circles/${role.ID}`}>
                           <TypeIcon type={role.Type} />
                           {role.Name}
-                          <span className="atlas-person-role-type text-xs uppercase tracking-wide text-ink">
+                          <span className="atlas-person-role-type text-xs tracking-wide text-ink uppercase">
                             {role.Type}
                           </span>
                         </a>
@@ -332,7 +336,7 @@ export default function AtlasExplorer({
             </div>
             <p
               id="atlas-people-note"
-              className="atlas-people-note text-xs leading-relaxed mt-5 max-w-4xl text-ink"
+              className="atlas-people-note mt-5 max-w-4xl text-xs leading-relaxed text-ink"
             >
               Fellows can become Stewards after three months and graduation. A
               “Steward” role title is separate from this engagement level.
@@ -341,7 +345,7 @@ export default function AtlasExplorer({
         ) : format === "circles" ? (
           <div
             id="atlas-circles"
-            className={`atlas-circles-layout${selected ? " has-selection" : ""}`}
+            className={cn("atlas-circles-layout", selected && "has-selection")}
           >
             <Circles
               data={data}
@@ -354,7 +358,7 @@ export default function AtlasExplorer({
         ) : format === "outline" ? (
           <div
             id="atlas-outline"
-            className={`atlas-outline-layout${selected ? " has-selection" : ""}`}
+            className={cn("atlas-outline-layout", selected && "has-selection")}
           >
             <DomainOutline
               data={data}
@@ -370,7 +374,10 @@ export default function AtlasExplorer({
         ) : format === "alignment" ? (
           <div
             id="atlas-alignment"
-            className={`atlas-alignment-layout${selected ? " has-selection" : ""}`}
+            className={cn(
+              "atlas-alignment-layout",
+              selected && "has-selection",
+            )}
           >
             <Alignment
               data={data}
@@ -384,7 +391,7 @@ export default function AtlasExplorer({
           </div>
         ) : (
           <div
-            className="atlas-table-wrap overflow-x-auto border border-solid border-line rounded-lg"
+            className="atlas-table-wrap overflow-x-auto rounded-lg border border-solid border-line"
             id="atlas-results"
             hidden={!matches.length}
             tabIndex={0}
@@ -392,7 +399,7 @@ export default function AtlasExplorer({
             aria-label={`${titles[view]} table`}
           >
             <table id="atlas-table">
-              <caption className="atlas-sr-only absolute w-px h-px overflow-hidden">
+              <caption className="atlas-sr-only absolute h-px w-px overflow-hidden">
                 {titles[view]}
               </caption>
               <thead>
@@ -417,7 +424,7 @@ export default function AtlasExplorer({
                   <tr key={row.ID}>
                     <th scope="row">
                       <RecordLink id={row.ID} format="table" />
-                      <span className="atlas-level block ml-5 text-xs font-medium mt-0.5 uppercase tracking-wide text-ink">
+                      <span className="atlas-level mt-0.5 ml-5 block text-xs font-medium tracking-wide text-ink uppercase">
                         {row.Type} · {row.ID}
                       </span>
                       <details className="atlas-row-details">
@@ -450,7 +457,10 @@ export default function AtlasExplorer({
                     </td>
                     <td>
                       <span
-                        className={`atlas-badge${row.Status === "Active" ? " active" : ""}`}
+                        className={cn(
+                          "atlas-badge",
+                          row.Status === "Active" && "active",
+                        )}
                       >
                         {row.Status}
                       </span>
@@ -462,7 +472,7 @@ export default function AtlasExplorer({
                         <LinkedRecords ids={owners(row.ID)} />
                       )}
                       {row["Ownership note"] && (
-                        <p className="atlas-unresolved text-xs mt-2 text-coral-dark">
+                        <p className="atlas-unresolved mt-2 text-xs text-coral-dark">
                           {row["Ownership note"]}
                         </p>
                       )}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
+import { cn } from "@/lib/cn";
 
 type TocItem = { id: string; text: string };
 type TocSection = { heading: TocItem; children: TocItem[] };
@@ -347,7 +348,7 @@ export default function GuideClient() {
                 <div className="toc-h2-row flex items-center">
                   {section.children.length > 0 && (
                     <button
-                      className={`toc-chevron${open ? " open" : ""}`}
+                      className={cn("toc-chevron", open && "open")}
                       aria-label="Toggle subsections"
                       aria-expanded={Boolean(open)}
                       aria-controls={key}
@@ -359,7 +360,10 @@ export default function GuideClient() {
                     </button>
                   )}
                   <a
-                    className={`toc-h2-link${activeId === section.heading.id ? " toc-active" : ""}`}
+                    className={cn(
+                      "toc-h2-link",
+                      activeId === section.heading.id && "toc-active",
+                    )}
                     href={`#${section.heading.id}`}
                     onClick={(event) => {
                       event.preventDefault();
@@ -370,7 +374,7 @@ export default function GuideClient() {
                   </a>
                 </div>
                 {section.children.length > 0 && (
-                  <ul className={`toc-h3-list${open ? " open" : ""}`} id={key}>
+                  <ul className={cn("toc-h3-list", open && "open")} id={key}>
                     {section.children.map((child) => (
                       <li key={child.id}>
                         <a

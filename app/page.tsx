@@ -84,20 +84,17 @@ export default function Page() {
               ></path>
             </svg>
             <h1>
-              {"Revolt for our "}
-              <span className="jolt">{"future."}</span>
+              Revolt for our <span className="jolt">future.</span>
             </h1>
-            <p>
-              {"Defend humanity from the threats of artificial intelligence."}
-            </p>
+            <p>Defend humanity from the threats of artificial intelligence.</p>
             <SignupForm interest="membership" buttonText="Join →" />
             <a className="hero-read-more" href="#crisis">
-              {"Read more →"}
+              Read more →
             </a>
           </div>
           <div className="hero-art" aria-hidden="true">
             <Image
-              className="hero-photo absolute inset-0 w-full h-full object-cover"
+              className="hero-photo absolute inset-0 h-full w-full object-cover"
               src="/assets/homepage-hero-photo.jpg"
               alt=""
               fill
@@ -218,175 +215,151 @@ export default function Page() {
             </div>
             <div className="crisis-copy">
               <Label tone="coral" size="section">
-                {"Crisis"}
+                Crisis
               </Label>
               <div className="crisis-line">
-                {"Artificial intelligence is threatening the future of "}
+                Artificial intelligence is threatening the future of{" "}
                 <em>
-                  <span className="word-brush">{"humanity."}</span>
+                  <span className="word-brush">humanity.</span>
                 </em>
               </div>
               <div
-                className="crisis-stars -top-20 -bottom-16 left-0 pointer-events-none max-sm:-top-11 max-sm:-bottom-8 max-sm:right-60"
+                className="crisis-stars pointer-events-none -top-20 -bottom-16 left-0 max-sm:-top-11 max-sm:right-60 max-sm:-bottom-8"
                 aria-hidden="true"
               >
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "28%",
-                      top: "9%",
-                      width: "5.6px",
-                      height: "5.6px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "28%",
+                    top: "9%",
+                    width: "5.6px",
+                    height: "5.6px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "61%",
-                      top: "16%",
-                      width: "7.7px",
-                      height: "7.7px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "61%",
+                    top: "16%",
+                    width: "7.7px",
+                    height: "7.7px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "43%",
-                      top: "23%",
-                      width: "9.8px",
-                      height: "9.8px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "43%",
+                    top: "23%",
+                    width: "9.8px",
+                    height: "9.8px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "78%",
-                      top: "30%",
-                      width: "5.6px",
-                      height: "5.6px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "78%",
+                    top: "30%",
+                    width: "5.6px",
+                    height: "5.6px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "32%",
-                      top: "37%",
-                      width: "7.7px",
-                      height: "7.7px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "32%",
+                    top: "37%",
+                    width: "7.7px",
+                    height: "7.7px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "67%",
-                      top: "44%",
-                      width: "9.8px",
-                      height: "9.8px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "67%",
+                    top: "44%",
+                    width: "9.8px",
+                    height: "9.8px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "48%",
-                      top: "51%",
-                      width: "5.6px",
-                      height: "5.6px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "48%",
+                    top: "51%",
+                    width: "5.6px",
+                    height: "5.6px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "82%",
-                      top: "58%",
-                      width: "7.7px",
-                      height: "7.7px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "82%",
+                    top: "58%",
+                    width: "7.7px",
+                    height: "7.7px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "36%",
-                      top: "65%",
-                      width: "9.8px",
-                      height: "9.8px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "36%",
+                    top: "65%",
+                    width: "9.8px",
+                    height: "9.8px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "71%",
-                      top: "72%",
-                      width: "5.6px",
-                      height: "5.6px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "71%",
+                    top: "72%",
+                    width: "5.6px",
+                    height: "5.6px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "53%",
-                      top: "79%",
-                      width: "11.2px",
-                      height: "11.2px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "53%",
+                    top: "79%",
+                    width: "11.2px",
+                    height: "11.2px",
+                  }}
                 ></i>
                 <i
                   className="star"
-                  style={
-                    {
-                      left: "25%",
-                      top: "86%",
-                      width: "7px",
-                      height: "7px",
-                    } as React.CSSProperties
-                  }
+                  style={{
+                    left: "25%",
+                    top: "86%",
+                    width: "7px",
+                    height: "7px",
+                  }}
                 ></i>
               </div>
             </div>
             <div className="stats">
               <div className="stat">
-                <strong>{"300M"}</strong>
-                <span>{"Jobs exposed to AI automation"}</span>
+                <strong>300M</strong>
+                <span>Jobs exposed to AI automation</span>
               </div>
               <div className="stat">
-                <strong>{"73%"}</strong>
-                <span>{"Of Americans favor stronger AI oversight"}</span>
+                <strong>73%</strong>
+                <span>Of Americans favor stronger AI oversight</span>
               </div>
               <div className="stat">
-                <strong>{"$100M"}</strong>
-                <span>{"Raised by industry lobbyists in 2026"}</span>
+                <strong>$100M</strong>
+                <span>Raised by industry lobbyists in 2026</span>
               </div>
             </div>
           </div>
         </section>
 
         <section
-          className="vision bg-paper py-28 px-0 overflow-hidden max-sm:py-14 max-sm:px-0"
+          className="vision overflow-hidden bg-paper px-0 py-28 max-sm:px-0 max-sm:py-14"
           id="vision"
         >
           <svg
-            className="section-mark absolute w-20 h-14 top-5 pointer-events-none max-sm:w-14 max-sm:h-9 max-sm:right-5 max-sm:top-2.5"
+            className="section-mark pointer-events-none absolute top-5 h-14 w-20 max-sm:top-2.5 max-sm:right-5 max-sm:h-9 max-sm:w-14"
             viewBox="0 0 88 56"
             aria-hidden="true"
             focusable="false"
@@ -397,19 +370,18 @@ export default function Page() {
           <Container>
             <div className="vision-copy">
               <Label tone="yellow" size="section">
-                {"Vision"}
+                Vision
               </Label>
               <h2 className="mt-5">
-                {"Technology for the "}
-                <span className="ink-underline blue">{"common good."}</span>
+                Technology for the{" "}
+                <span className="ink-underline blue">common good.</span>
               </h2>
               <p className="deck">
-                {
-                  "We imagine a world where technology serves the people, not just a rich few."
-                }
+                We imagine a world where technology serves the people, not just
+                a rich few.
               </p>
               <svg
-                className="action-strokes block w-20 h-7 mt-7 text-coral"
+                className="action-strokes mt-7 block h-7 w-20 text-coral"
                 viewBox="0 0 76 30"
                 aria-hidden="true"
               >
@@ -418,7 +390,7 @@ export default function Page() {
             </div>
             <div className="campaigns mt-20 max-sm:mt-12">
               <div className="campaigns-head flex items-end justify-between gap-6 max-sm:items-center">
-                <h3>{"Our demands"}</h3>
+                <h3>Our demands</h3>
               </div>
               <CampaignCarousel />
             </div>
@@ -427,7 +399,7 @@ export default function Page() {
 
         <section className="strategy" id="strategy">
           <svg
-            className="section-mark absolute w-20 h-14 top-5 pointer-events-none max-sm:w-14 max-sm:h-9 max-sm:right-5 max-sm:top-2.5"
+            className="section-mark pointer-events-none absolute top-5 h-14 w-20 max-sm:top-2.5 max-sm:right-5 max-sm:h-9 max-sm:w-14"
             viewBox="0 0 88 56"
             aria-hidden="true"
             focusable="false"
@@ -435,38 +407,38 @@ export default function Page() {
             <path d="M10 46h20V32h20V18h24M64 8l10 10-10 10"></path>
             <circle cx="10" cy="46" r="3"></circle>
           </svg>
-          <Container className="strategy-grid grid gap-12 items-center max-lg:gap-8 max-sm:gap-5 max-sm:pb-8">
+          <Container className="strategy-grid grid items-center gap-12 max-lg:gap-8 max-sm:gap-5 max-sm:pb-8">
             <div>
               <Label tone="coral" size="section">
-                {"Strategy"}
+                Strategy
               </Label>
               <h2 className="mt-5">
-                {"We build movement "}
-                <span className="word-block text-white leading-none">
-                  {"power."}
+                We build movement{" "}
+                <span className="word-block leading-none text-white">
+                  power.
                 </span>
               </h2>
             </div>
             <div>
               <p className="deck">
-                {
-                  "We fight for revolutionary political change around technology. We start in our cities and schools, building towards state and federal action."
-                }
+                We fight for revolutionary political change around technology.
+                We start in our cities and schools, building towards state and
+                federal action.
               </p>
             </div>
           </Container>
-          <div className="process mt-12 grid border-t-2 border-solid border-t-ink isolate max-sm:mt-0">
+          <div className="process isolate mt-12 grid border-t-2 border-solid border-t-ink max-sm:mt-0">
             <div className="step">
-              <small>{"01"}</small>
-              <h3>{"Seed cities"}</h3>
+              <small>01</small>
+              <h3>Seed cities</h3>
             </div>
             <div className="step">
-              <small>{"02"}</small>
-              <h3>{"State campaigns"}</h3>
+              <small>02</small>
+              <h3>State campaigns</h3>
             </div>
             <div className="step">
-              <small>{"03"}</small>
-              <h3>{"Federal action"}</h3>
+              <small>03</small>
+              <h3>Federal action</h3>
             </div>
           </div>
         </section>
@@ -477,7 +449,7 @@ export default function Page() {
         >
           <div className="involved-copy overflow-hidden max-sm:pt-14 max-sm:pr-5 max-sm:pb-11 max-sm:pl-5">
             <svg
-              className="section-mark absolute w-20 h-14 top-5 pointer-events-none max-sm:w-14 max-sm:h-9 max-sm:right-5 max-sm:top-2.5"
+              className="section-mark pointer-events-none absolute top-5 h-14 w-20 max-sm:top-2.5 max-sm:right-5 max-sm:h-9 max-sm:w-14"
               viewBox="0 0 88 56"
               aria-hidden="true"
               focusable="false"
@@ -487,23 +459,23 @@ export default function Page() {
               <circle cx="66" cy="25" r="6"></circle>
               <path d="M33 32v-3a11 11 0 0 1 22 0v3M10 48v-4a12 12 0 0 1 24 0v4M54 48v-4a12 12 0 0 1 24 0v4M34 48h20"></path>
             </svg>
-            <Label tone="purple">{"Get involved"}</Label>
+            <Label tone="purple">Get involved</Label>
             <h2 className="mt-5">
-              {"Dare to "}
-              <em className="fight-highlight inline-block isolate text-ink not-italic">
-                {"fight"}
-              </em>
-              {" for a brighter future."}
+              Dare to{" "}
+              <em className="fight-highlight isolate inline-block text-ink not-italic">
+                fight
+              </em>{" "}
+              for a brighter future.
             </h2>
             <p className="deck">
-              <strong>{"Connect to your chapter today."}</strong>
+              <strong>Connect to your chapter today.</strong>
             </p>
             <SignupForm interest="membership" buttonText="Join →" />
           </div>
           <div className="quote">
             <blockquote>
-              {"“It always seems impossible until it is done.”"}
-              <cite>{"Nelson Mandela"}</cite>
+              “It always seems impossible until it is done.”
+              <cite>Nelson Mandela</cite>
             </blockquote>
           </div>
         </section>

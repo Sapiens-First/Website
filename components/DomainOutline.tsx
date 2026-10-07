@@ -9,6 +9,7 @@ import {
   type HierarchyNode,
 } from "@/lib/atlas/model";
 import { RecordLink, TypeIcon } from "@/components/RecordDetails";
+import { cn } from "@/lib/cn";
 
 const bands: Record<string, number> = {
   Mission: 0,
@@ -109,7 +110,7 @@ export default function DomainOutline({
     ) : (
       <>
         {name.slice(0, index)}
-        <mark className="atlas-outline-highlight rounded-xs py-0 px-px">
+        <mark className="atlas-outline-highlight rounded-xs px-px py-0">
           {name.slice(index, index + query.length)}
         </mark>
         {name.slice(index + query.length)}
@@ -129,7 +130,11 @@ export default function DomainOutline({
         aria-selected={selected === node.row.ID}
       >
         <div
-          className={`atlas-outline-row${selected === node.row.ID ? " is-selected" : ""}${query && matched.has(node.row.ID) ? " is-match" : ""}`}
+          className={cn(
+            "atlas-outline-row",
+            selected === node.row.ID && "is-selected",
+            query && matched.has(node.row.ID) && "is-match",
+          )}
           data-band={bands[node.row.Type] ?? 3}
           data-id={node.row.ID}
           tabIndex={0}
@@ -156,12 +161,12 @@ export default function DomainOutline({
           )}
           <a
             href={recordHref(node.row.ID, "outline")}
-            className="atlas-outline-title inline-flex items-center min-w-0 no-underline"
+            className="atlas-outline-title inline-flex min-w-0 items-center no-underline"
           >
             <TypeIcon type={node.row.Type} />
             {highlighted(node.row.Name)}
           </a>
-          <span className="atlas-outline-meta ml-auto text-xs font-semibold tracking-wide text-ink whitespace-nowrap pl-2.5">
+          <span className="atlas-outline-meta ml-auto pl-2.5 text-xs font-semibold tracking-wide whitespace-nowrap text-ink">
             {labels[node.row.Type] || node.row.Type}
             {!open && node.children.length ? ` · ${node.children.length}` : ""}
           </span>
@@ -178,19 +183,19 @@ export default function DomainOutline({
     <div id="atlas-outline-tree">
       {chain.length > 0 && (
         <nav
-          className="atlas-outline-breadcrumbs font-body text-xs font-bold leading-loose mt-1 mr-1 mb-0.5 ml-1 tracking-normal"
+          className="atlas-outline-breadcrumbs mt-1 mr-1 mb-0.5 ml-1 font-body text-xs leading-loose font-bold tracking-normal"
           aria-label="Domain hierarchy"
         >
           {chain.map((node, i) => (
             <Fragment key={node.row.ID}>
               {i > 0 && (
-                <span className="atlas-outline-crumb-sep my-0 mx-2 text-ink font-normal">
+                <span className="atlas-outline-crumb-sep mx-2 my-0 font-normal text-ink">
                   ›
                 </span>
               )}
               {i === chain.length - 1 ? (
                 <span
-                  className="atlas-outline-crumb-current text-ink font-extrabold"
+                  className="atlas-outline-crumb-current font-extrabold text-ink"
                   aria-current="page"
                 >
                   {node.row.Name}
@@ -233,7 +238,7 @@ export default function DomainOutline({
       ) : (
         <>
           {query && (
-            <p className="atlas-outline-hint text-xs leading-relaxed mt-2.5 mr-1 mb-1 ml-1 text-ink">
+            <p className="atlas-outline-hint mt-2.5 mr-1 mb-1 ml-1 text-xs leading-relaxed text-ink">
               {matches.length} search{" "}
               {matches.length === 1 ? "result" : "results"}
             </p>
@@ -258,7 +263,7 @@ export default function DomainOutline({
             </ul>
           )}
           {!query && (
-            <p className="atlas-outline-hint text-xs leading-relaxed mt-2.5 mr-1 mb-1 ml-1 text-ink">
+            <p className="atlas-outline-hint mt-2.5 mr-1 mb-1 ml-1 text-xs leading-relaxed text-ink">
               Select the chevron to expand a branch, or a name to read its
               purpose and responsibilities.
             </p>
@@ -269,7 +274,7 @@ export default function DomainOutline({
         <details className="atlas-unplaced">
           <summary>
             <span>Uncategorized</span>{" "}
-            <span className="atlas-badge atlas-unplaced-count font-bold bg-soft border-line text-ink">
+            <span className="atlas-badge atlas-unplaced-count border-line bg-soft font-bold text-ink">
               {unplaced.length}
             </span>
           </summary>

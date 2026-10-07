@@ -3,6 +3,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 
 import { campaignDetails as campaigns } from "@/content/campaigns";
+import { cn } from "@/lib/cn";
 
 export default function CampaignAccordion() {
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -58,17 +59,21 @@ export default function CampaignAccordion() {
   const panelPosition = panelId ?? campaigns.at(-1)?.id;
 
   return (
-    <div className="campaign-grid mt-7 mr-auto mb-0 ml-auto max-w-none grid grid-cols-3 gap-x-2.5 gap-y-0 max-md:max-w-full max-sm:flex max-sm:flex-col max-sm:gap-2.5">
+    <div className="campaign-grid mt-7 mr-auto mb-0 ml-auto grid max-w-none grid-cols-3 gap-x-2.5 gap-y-0 max-md:max-w-full max-sm:flex max-sm:flex-col max-sm:gap-2.5">
       {campaigns.map((campaign, index) => (
         <Fragment key={campaign.id}>
           <button
-            className={`campaign-tab accordion-toggle reveal${index ? ` reveal-d${index}` : ""}${activeId === campaign.id ? " is-active" : ""}`}
+            className={cn(
+              "campaign-tab accordion-toggle reveal",
+              index > 0 && `reveal-d${index}`,
+              activeId === campaign.id && "is-active",
+            )}
             type="button"
             aria-expanded={activeId === campaign.id}
             aria-controls="campaign-shared-panel"
             onClick={() => select(campaign.id)}
           >
-            <span className="campaign-header flex flex-col gap-1.5 min-w-0">
+            <span className="campaign-header flex min-w-0 flex-col gap-1.5">
               <span className="card-title">{campaign.title}</span>
               <span className="campaign-objective font-body text-lg font-medium text-ink">
                 {campaign.objective}
@@ -81,15 +86,21 @@ export default function CampaignAccordion() {
           </button>
           {panelPosition === campaign.id && (
             <div
-              className={`campaign-panel accordion-panel${activeId ? " is-open" : ""}`}
+              className={cn(
+                "campaign-panel accordion-panel",
+                activeId && "is-open",
+              )}
               id="campaign-shared-panel"
             >
               <div
-                className={`campaign-panel-inner accordion-panel-inner${fading ? " is-fading" : ""}`}
+                className={cn(
+                  "campaign-panel-inner accordion-panel-inner",
+                  fading && "is-fading",
+                )}
               >
                 {campaigns.map((item) => (
                   <div
-                    className="campaign-body py-6 px-7 max-md:p-5"
+                    className="campaign-body px-7 py-6 max-md:p-5"
                     id={`campaign-content-${item.id}`}
                     key={item.id}
                     hidden={panel?.id !== item.id}
@@ -97,15 +108,15 @@ export default function CampaignAccordion() {
                     <p className="campaign-desc card-text mt-0 mr-0 mb-4 ml-0">
                       {item.description}
                     </p>
-                    <span className="eyebrow eyebrow--accent campaign-metrics-label block mb-2">
+                    <span className="eyebrow eyebrow--accent campaign-metrics-label mb-2 block">
                       Metrics
                     </span>
-                    <ul className="campaign-list list-none m-0 flex flex-col gap-1.5">
+                    <ul className="campaign-list m-0 flex list-none flex-col gap-1.5">
                       {item.metrics.map((metric) => (
                         <li key={metric}>{metric}</li>
                       ))}
                     </ul>
-                    <p className="campaign-note card-text italic mt-3.5 mb-0">
+                    <p className="campaign-note card-text mt-3.5 mb-0 italic">
                       {item.resources}
                     </p>
                   </div>

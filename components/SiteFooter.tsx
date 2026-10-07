@@ -1,22 +1,19 @@
-"use client";
-import { Container } from "@/components/layout/Container";
-
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Container } from "@/components/layout/Container";
 import { footerGroups } from "@/lib/site";
+import { cn } from "@/lib/cn";
 
 export default function SiteFooter() {
-  const pathname = usePathname();
   return (
-    <footer className={`site-footer${pathname === "/" ? " footer-home" : ""}`}>
+    <footer className="site-footer">
       <div className="fun-layer" aria-hidden="true">
         <i
           style={{
             left: "38%",
             bottom: "14%",
             width: "34px",
-            color: "var(--paper)",
+            color: "var(--color-paper)",
           }}
         >
           <svg className="moon" viewBox="0 0 40 40" width="34" height="34">
@@ -38,7 +35,7 @@ export default function SiteFooter() {
             left: "45%",
             bottom: "36%",
             width: "9px",
-            color: "var(--yellow)",
+            color: "var(--color-brand-yellow)",
             transform: "rotate(10deg)",
           }}
         >
@@ -51,7 +48,7 @@ export default function SiteFooter() {
             left: "33%",
             bottom: "32%",
             width: "7px",
-            color: "var(--yellow)",
+            color: "var(--color-brand-yellow)",
             transform: "rotate(-14deg)",
           }}
         >
@@ -74,7 +71,10 @@ export default function SiteFooter() {
           <div className="foot-cols">
             {footerGroups.map((group) => (
               <div
-                className={`foot-col${group.title === "About" ? " foot-col-split" : ""}`}
+                className={cn(
+                  "foot-col",
+                  group.title === "About" && "foot-col-split",
+                )}
                 key={group.title}
               >
                 <span className="foot-col-title">{group.title}</span>

@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import { cn } from "@/lib/cn";
 
 const tones = {
   coral: "bg-coral text-ink",
@@ -22,7 +23,12 @@ export function Label({
       : "px-2.5 py-1.5 text-xs font-black";
   return (
     <span
-      className={`label inline-block font-body uppercase tracking-widest ${sizing} ${tones[tone]} ${className}`}
+      className={cn(
+        "label inline-block font-body tracking-widest uppercase",
+        sizing,
+        tones[tone],
+        className,
+      )}
       {...props}
     />
   );
@@ -31,7 +37,10 @@ export function Label({
 export function FactPill({ className = "", ...props }: ComponentProps<"span">) {
   return (
     <span
-      className={`fact-pill inline-block border-2 border-ink bg-white px-3 py-2 text-xs font-extrabold uppercase tracking-wider ${className}`}
+      className={cn(
+        "fact-pill inline-block border-2 border-ink bg-white px-3 py-2 text-xs font-extrabold tracking-wider uppercase",
+        className,
+      )}
       {...props}
     />
   );

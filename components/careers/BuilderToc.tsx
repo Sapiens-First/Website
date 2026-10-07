@@ -32,9 +32,9 @@ export default function BuilderToc() {
     const details = toc.current;
     if (details && !window.matchMedia(desktopQuery).matches) {
       // Collapse instantly so the jump lands on the heading, not mid-animation.
-      details.classList.add("is-navigating");
+      details.setAttribute("data-navigating", "");
       details.open = false;
-      requestAnimationFrame(() => details.classList.remove("is-navigating"));
+      requestAnimationFrame(() => details.removeAttribute("data-navigating"));
     }
     const target = document.getElementById(id);
     target?.setAttribute("tabindex", "-1");
@@ -44,16 +44,19 @@ export default function BuilderToc() {
   return (
     <details
       ref={toc}
-      className="job-toc max-lg:border-t max-lg:border-b max-lg:border-solid max-lg:border-t-rule max-lg:border-b-rule"
+      className="group/toc data-navigating:details-content:transition-none supports-[interpolate-size:allow-keywords]:[interpolate-size:allow-keywords] supports-[interpolate-size:allow-keywords]:details-content:h-0 supports-[interpolate-size:allow-keywords]:details-content:overflow-clip supports-[interpolate-size:allow-keywords]:details-content:transition-[height,content-visibility] supports-[interpolate-size:allow-keywords]:details-content:transition-discrete supports-[interpolate-size:allow-keywords]:details-content:duration-240 supports-[interpolate-size:allow-keywords]:open:details-content:h-auto motion-reduce:details-content:transition-none max-lg:border-t max-lg:border-b max-lg:border-solid max-lg:border-t-rule max-lg:border-b-rule max-lg:px-0 max-lg:py-1"
       open
     >
-      <summary>On this page</summary>
+      <summary className="cursor-pointer px-0 py-3 text-base font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink">
+        On this page
+      </summary>
       <nav aria-label="Job description sections">
-        <ul>
+        <ul className="mx-0 mt-2 mb-5 list-none p-0">
           {sections.map((section) => (
-            <li key={section.id}>
+            <li className="m-0 p-0 text-base leading-normal" key={section.id}>
               <a
                 href={`#${section.id}`}
+                className="block border-l-2 border-rule px-3 py-2 font-semibold text-ink no-underline transition-[background-color,border-color] duration-200 hover:bg-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-[current=location]:border-coral-dark aria-[current=location]:bg-soft motion-reduce:transition-none"
                 aria-current={activeId === section.id ? "location" : undefined}
                 onClick={() => navigate(section.id)}
               >

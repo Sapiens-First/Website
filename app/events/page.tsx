@@ -1,3 +1,4 @@
+import { PageHero, PageTitle } from "@/components/sections/SplitSection";
 import { pageMetadata } from "@/lib/site";
 import EmberField from "@/components/EmberField";
 import { TextLink } from "@/components/ui/Action";
@@ -13,22 +14,26 @@ export const metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <div className="route-root route-events">
-      <div className="page-hero">
+    <>
+      <PageHero>
         <EmberField />
         <Container>
-          <h1 className="page-title">
+          <PageTitle>
             Upcoming
             <br />
-            <span className="title-accent">Events</span>
-          </h1>
+            <span className="text-coral-dark">Events</span>
+          </PageTitle>
         </Container>
-      </div>
-      <main className="route-events">
-        <section className="events-section pt-16 pr-0 pb-24 pl-0">
+      </PageHero>
+      <main>
+        <section
+          className={
+            "border-b-2 border-ink pt-16 pr-0 pb-24 pl-0 max-sm:scroll-mt-20"
+          }
+        >
           <Container>
-            <div className="events-header mb-7 flex flex-wrap items-baseline justify-between gap-4 max-md:flex-col max-md:gap-2.5">
-              <h2 className="events-title font-display leading-none font-extrabold tracking-tight uppercase">
+            <div className="mb-7 flex flex-wrap items-baseline justify-between gap-4 max-md:flex-col max-md:gap-2.5">
+              <h2 className="font-display text-4xl leading-none font-extrabold tracking-tight uppercase lg:text-6xl">
                 All Events
               </h2>
               <TextLink href="/circle">Want to host? →</TextLink>
@@ -37,6 +42,6 @@ export default function Page() {
           </Container>
         </section>
       </main>
-    </div>
+    </>
   );
 }

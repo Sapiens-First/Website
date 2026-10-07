@@ -1,8 +1,10 @@
+import { HeroArt } from "@/components/sections/SplitSection";
+
 export default function CircleHeroArt() {
   return (
-    <div className="hero-art circle-hero-art" aria-hidden="true">
+    <HeroArt className="grid place-items-center px-3 py-7">
       <svg
-        className="circle-gathering"
+        className="block h-auto w-full max-w-[650px]"
         viewBox="0 0 600 640"
         xmlns="http://www.w3.org/2000/svg"
         focusable="false"
@@ -352,10 +354,20 @@ export default function CircleHeroArt() {
             stroke="var(--color-ink)"
             strokeWidth="3"
           ></path>
-          <text className="art-title" x="16" y="36" fill="var(--color-ink)">
+          <text
+            className="font-display text-[31px] font-extrabold tracking-[-0.5px]"
+            x="16"
+            y="36"
+            fill="var(--color-ink)"
+          >
             FIND YOUR PEOPLE.
           </text>
-          <text className="art-title" x="16" y="71" fill="var(--color-ink)">
+          <text
+            className="font-display text-[31px] font-extrabold tracking-[-0.5px]"
+            x="16"
+            y="71"
+            fill="var(--color-ink)"
+          >
             BUILD SOMETHING.
           </text>
           <path
@@ -366,7 +378,12 @@ export default function CircleHeroArt() {
         </g>
         <g transform="translate(342 536) rotate(6)">
           <rect width="202" height="58" fill="var(--color-ink)"></rect>
-          <text className="art-title" x="16" y="40" fill="var(--color-paper)">
+          <text
+            className="font-display text-[31px] font-extrabold tracking-[-0.5px]"
+            x="16"
+            y="40"
+            fill="var(--color-paper)"
+          >
             ROOM FOR YOU.
           </text>
         </g>
@@ -378,10 +395,15 @@ export default function CircleHeroArt() {
           strokeLinecap="round"
           strokeLinejoin="round"
         ></path>
-        <text className="art-note" x="135" y="586" fill="var(--color-ink)">
+        <text
+          className="font-body text-[13px] font-bold tracking-[2px]"
+          x="135"
+          y="586"
+          fill="var(--color-ink)"
+        >
           IT STARTS WITH US.
         </text>
       </svg>
-    </div>
+    </HeroArt>
   );
 }

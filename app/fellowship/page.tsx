@@ -7,10 +7,24 @@ import {
   ClosingSection,
   ClosingCopy,
   SignupPanel,
+  HeroCopy,
+  HeroLede,
+  HeroCollage,
+  FocusList,
 } from "@/components/sections/SplitSection";
 import SignupForm from "@/components/SignupForm";
 import { ActionLink, TextLink } from "@/components/ui/Action";
-import { FactPill, Label } from "@/components/ui/Label";
+import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
+import {
+  Bird,
+  Doodle,
+  FunLayer,
+  Moon,
+  Pow,
+  Star,
+  Zap,
+} from "@/components/ui/Doodles";
+import { cn } from "@/lib/cn";
 
 export const metadata = pageMetadata({
   title: "AI Advocacy Fellowship",
@@ -19,249 +33,256 @@ export const metadata = pageMetadata({
   path: "/fellowship",
 });
 
+const h2 = "mt-5 text-4xl lg:text-5xl xl:text-6xl max-sm:text-5xl";
+const section =
+  "relative overflow-hidden border-b-2 border-ink py-24 max-sm:py-14";
+const artTag =
+  "absolute border-2 border-ink bg-white px-[13px] py-2.5 text-xs font-black uppercase";
+
+const facts = [
+  { value: "Rolling", label: "Program dates", color: "text-coral" },
+  { value: "12 weeks", label: "Program length", color: "text-brand-yellow" },
+  { value: "3–5 hrs", label: "Time per week", color: "text-brand-blue" },
+  { value: "Ongoing", label: "Applications", color: "text-brand-purple" },
+];
+// Dividers between cells in the 4 / 2 / 1-column layouts.
+const factBorders = [
+  "border-r-2 max-lg:border-b-2 max-sm:border-r-0",
+  "border-r-2 max-lg:border-r-0 max-lg:border-b-2",
+  "border-r-2 max-lg:border-r-0 max-sm:border-b-2",
+  "",
+];
+const roleColors = [
+  "before:bg-coral",
+  "before:bg-brand-blue",
+  "before:bg-brand-purple",
+  "before:bg-brand-pink",
+];
+
 export default function Page() {
   return (
-    <div className="route-root route-fellowship">
-      <main className="route-fellowship">
+    <>
+      <main>
         <SplitHero>
-          <div className="hero-copy">
-            <div className="kicker">Fellowship · Rolling Cohorts</div>
-            <h1>
+          <HeroCopy>
+            <Kicker>Fellowship · Rolling Cohorts</Kicker>
+            <h1
+              className={
+                "relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl"
+              }
+            >
               Become a <span className="marker">Fellow.</span>
             </h1>
-            <p>
+            <HeroLede>
               As a Fellow, you&apos;ll get hands-on experience, mentorship, and
               play a key role in our movement.
-            </p>
-            <div className="fact-pills">
+            </HeroLede>
+            <div className="relative z-2 mb-7 flex flex-wrap gap-2">
               <FactPill>Rolling admissions</FactPill>
               <FactPill>12 weeks</FactPill>
               <FactPill>3–5 hrs / week</FactPill>
               <FactPill>Volunteer</FactPill>
             </div>
             <SignupForm
+              className={"relative z-2 scroll-mt-28"}
               interest="fellowship"
               buttonText="Keep me posted →"
               id="signup"
             />
-            <p className="hero-note">
+            <HeroLede className="text-ink italic">
               You&apos;ll work directly with the founder and a growing team of
               Fellows from across the country.
-            </p>
-          </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="sun"></div>
-            <div className="burst"></div>
-            <div className="face"></div>
-            <div className="poster">
-              Join the
-              <br />
-              fellowship
-            </div>
-            <div className="poster alt">
-              Be the
-              <br />
-              change
-            </div>
-            <div className="confetti c1"></div>
-            <div className="confetti c2"></div>
-            <div className="confetti c3"></div>
-            <div className="confetti c4"></div>
-            <i
-              style={{
-                position: "absolute",
-                left: "10%",
-                top: "8%",
-                zIndex: "2",
-                color: "var(--color-ink)",
-                transform: "rotate(-6deg)",
-              }}
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={{
-                position: "absolute",
-                left: "20%",
-                top: "16%",
-                zIndex: "2",
-                color: "var(--color-ink)",
-                transform: "rotate(4deg) scale(.7)",
-              }}
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-          </div>
+            </HeroLede>
+          </HeroCopy>
+          <HeroCollage
+            posters={[
+              <>
+                Join the
+                <br />
+                fellowship
+              </>,
+              <>
+                Be the
+                <br />
+                change
+              </>,
+            ]}
+          />
         </SplitHero>
-        <section className="factbar bg-ink">
-          <div className="stats">
-            <div className="stat">
-              <strong>Rolling</strong>
-              <span>Program dates</span>
-            </div>
-            <div className="stat">
-              <strong>12 weeks</strong>
-              <span>Program length</span>
-            </div>
-            <div className="stat">
-              <strong>3–5 hrs</strong>
-              <span>Time per week</span>
-            </div>
-            <div className="stat">
-              <strong>Ongoing</strong>
-              <span>Applications</span>
-            </div>
+        <section
+          className={"border-b-2 border-ink bg-ink p-0 max-sm:scroll-mt-20"}
+        >
+          <div className="grid grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+            {facts.map((fact, index) => (
+              <div
+                className={cn(
+                  "flex min-h-48 flex-col justify-between border-white/18 px-6 py-7 text-white max-sm:min-h-0 max-sm:px-5 max-sm:py-6",
+                  factBorders[index],
+                )}
+                key={fact.label}
+              >
+                <strong
+                  className={cn(
+                    "font-display text-3xl leading-none font-extrabold uppercase max-sm:text-4xl xl:text-4xl",
+                    fact.color,
+                  )}
+                >
+                  {fact.value}
+                </strong>
+                <span className="text-base font-bold tracking-wide text-white uppercase">
+                  {fact.label}
+                </span>
+              </div>
+            ))}
           </div>
         </section>
-        <section className="about" id="about">
-          <Container className="about-grid">
-            <div className="about-copy">
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="about"
+        >
+          <Container className="grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1">
+            <div>
               <Label tone="coral">About</Label>
-              <h2 className="mt-5">
+              <h2 className={cn(h2)}>
                 We imagine tech that serves the{" "}
-                <span className="ink-underline blue">common good.</span>
+                <span className="ink-underline ink-underline-brand-blue">
+                  common good.
+                </span>
               </h2>
-              <p className="deck">
+              <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-md">
                 Our mission is to achieve revolutionary political change for
                 technology before the arrival of superintelligence.
-              </p>
-              <TextLink href="/learn">Learn more →</TextLink>
+              </Deck>
+              <TextLink className="mt-4" href="/learn">
+                Learn more →
+              </TextLink>
             </div>
-            <div className="about-art">
-              <div className="circle"></div>
-              <div className="tag t1">Political change</div>
-              <div className="tag t2">AI safety</div>
-              <div className="tag t3">Democracy</div>
+            <div className="relative min-h-[400px] overflow-hidden border-2 border-ink bg-paper max-lg:min-h-[320px]">
+              <div className="absolute top-1/2 left-1/2 size-[220px] -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
+              <div className={cn(artTag, "top-[10%] left-[6%] -rotate-3")}>
+                Political change
+              </div>
+              <div className={cn(artTag, "top-[20%] right-[6%] rotate-3")}>
+                AI safety
+              </div>
+              <div className={cn(artTag, "bottom-[12%] left-[10%] rotate-2")}>
+                Democracy
+              </div>
             </div>
           </Container>
         </section>
-        <section className="about-you" id="about-you">
-          <div className="fun-layer" aria-hidden="true">
-            <i
-              style={{
-                left: "5%",
-                top: "8%",
-                transform: "rotate(-8deg)",
-                color: "var(--color-ink)",
-              }}
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={{
-                left: "13%",
-                top: "16%",
-                transform: "rotate(6deg) scale(.7)",
-                color: "var(--color-ink)",
-              }}
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={{
-                right: "6%",
-                bottom: "12%",
-                width: "56px",
-                color: "var(--color-brand-yellow)",
-              }}
-            >
-              <svg className="moon" viewBox="0 0 40 40" width="56" height="56">
-                <mask id="aboutyou-moon-mask">
-                  <rect width="40" height="40" fill="#fff"></rect>
-                  <circle cx="27" cy="27" r="14" fill="#000"></circle>
-                </mask>
-                <circle
-                  cx="20"
-                  cy="20"
-                  r="16"
-                  fill="currentColor"
-                  mask="url(#aboutyou-moon-mask)"
-                ></circle>
-              </svg>
-            </i>
-          </div>
-          <Container className="you-grid">
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-paper",
+          )}
+          id="about-you"
+        >
+          <FunLayer>
+            <Doodle className="top-[8%] left-[5%] -rotate-8 text-ink">
+              <Bird />
+            </Doodle>
+            <Doodle className="top-[16%] left-[13%] scale-70 rotate-6 text-ink">
+              <Bird />
+            </Doodle>
+            <Doodle className="right-[6%] bottom-[12%] w-14 text-brand-yellow">
+              <Moon size={56} />
+            </Doodle>
+          </FunLayer>
+          <Container className="grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1">
             <div>
               <Label tone="yellow">About you</Label>
-              <h2 className="mt-5">
+              <h2 className={cn(h2)}>
                 We&apos;re looking for people who{" "}
-                <span className="ink-underline yellow">care deeply.</span>
+                <span className="ink-underline ink-underline-brand-yellow">
+                  care deeply.
+                </span>
               </h2>
-              <p className="you-note mt-6 font-semibold text-ink italic">
+              <p className="mt-6 font-semibold text-ink italic">
                 We look for enthusiasm, dedication, and a desire to grow.
               </p>
             </div>
-            <div className="focus">
-              <div className="focus-row">
-                <span className="n">01</span>
-                <span className="name">
-                  Care deeply about technology and society
-                </span>
-              </div>
-              <div className="focus-row">
-                <span className="n">02</span>
-                <span className="name">
-                  Are inspired by activism as a tool for social change
-                </span>
-              </div>
-              <div className="focus-row">
-                <span className="n">03</span>
-                <span className="name">
-                  Can work consistently for 3-5 hours a week
-                </span>
-              </div>
-            </div>
+            <FocusList
+              items={[
+                { title: "Care deeply about technology and society" },
+                {
+                  title: "Are inspired by activism as a tool for social change",
+                },
+                { title: "Can work consistently for 3-5 hours a week" },
+              ]}
+            />
           </Container>
         </section>
-        <section className="roles bg-white" id="roles">
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="roles"
+        >
           <Container>
-            <div className="roles-head">
-              <Label tone="coral">Roles</Label>
-              <h2 className="mt-5">
-                Four <span className="ink-underline green">workstreams,</span>{" "}
-                one movement.
-              </h2>
-              <p className="deck">
-                We are currently looking for people to work on four primary
-                workstreams.
-              </p>
-            </div>
-            <div className="role-acc mt-11 border-t-2 border-solid border-t-ink">
+            <Label tone="coral">Roles</Label>
+            <h2 className={cn(h2)}>
+              Four{" "}
+              <span className="ink-underline ink-underline-brand-purple">
+                workstreams,
+              </span>{" "}
+              one movement.
+            </h2>
+            <Deck size="compact" className="mt-6 max-w-lg">
+              We are currently looking for people to work on four primary
+              workstreams.
+            </Deck>
+            <div className="mt-11 border-t-2 border-ink">
               {fellowshipRoles.map((role, index) => (
                 <details
-                  className="role border-b-2 border-solid border-b-ink"
+                  className={cn("group", "relative border-b-2 border-ink")}
                   key={role.title}
                   open={index === 0}
                 >
-                  <summary>
-                    <span className="role-title pl-3.5 font-display font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl">
+                  <summary
+                    className={cn(
+                      "relative flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-4 pt-6 pr-11 pb-6 pl-5 max-sm:pt-5 max-sm:pr-10 max-sm:pb-5 max-sm:pl-4 [&::-webkit-details-marker]:hidden",
+                      "before:absolute before:inset-y-0 before:left-0 before:w-2 before:content-['']",
+                      roleColors[index % roleColors.length],
+                    )}
+                  >
+                    <span className="pl-3.5 font-display text-2xl font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl xl:text-4xl">
                       {role.title}
                     </span>
-                    <span className="role-tag border-2 border-solid border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                    <span className="border-2 border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
                       Remote-friendly
                     </span>
-                    <span className="role-chevron" aria-hidden="true"></span>
+                    <span
+                      className="absolute top-7 right-[22px] grid size-[22px] place-items-center border-2 border-ink text-sm font-black after:content-['+'] group-open:after:content-['–'] max-sm:top-[22px] max-sm:right-[18px]"
+                      aria-hidden="true"
+                    ></span>
                   </summary>
-                  <div className="role-body pt-0 pr-5 pb-8 pl-11 max-sm:pt-0 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
-                    <p>{role.description}</p>
-                    <span className="role-activities-label mt-5 mr-0 mb-2.5 ml-0 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                  <div className="pt-0 pr-5 pb-8 pl-11 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
+                    <p className="max-w-3xl text-base leading-normal font-medium">
+                      {role.description}
+                    </p>
+                    <span className="mx-0 mt-5 mb-2.5 block text-xs font-black tracking-widest text-coral-dark uppercase">
                       Example activities
                     </span>
-                    <ul className="role-list">
+                    <ul className="m-0 flex list-none flex-col gap-2 p-0">
                       {role.activities.map((activity) => (
-                        <li key={activity}>{activity}</li>
+                        <li
+                          className="relative pl-4 text-base leading-normal font-semibold before:absolute before:left-0 before:text-ink before:opacity-50 before:content-['–']"
+                          key={activity}
+                        >
+                          {activity}
+                        </li>
                       ))}
                     </ul>
                     {role.note && (
-                      <p className="role-note mt-4 font-semibold text-ink italic">
+                      <p className="mt-4 max-w-3xl font-semibold text-ink italic">
                         {role.note}
                       </p>
                     )}
@@ -271,93 +292,86 @@ export default function Page() {
             </div>
           </Container>
         </section>
-        <section className="commitment overflow-hidden bg-coral px-0 py-14">
-          <div className="fun-layer" aria-hidden="true">
-            <i
-              style={{
-                left: "4%",
-                top: "22%",
-                width: "30px",
-                color: "var(--color-ink)",
-                transform: "rotate(-6deg)",
-              }}
-            >
-              <svg className="zap" viewBox="0 0 24 40" width="30" height="30">
-                <path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"></path>
-              </svg>
-            </i>
-            <i
-              style={{
-                right: "8%",
-                bottom: "18%",
-                width: "60px",
-                color: "var(--color-ink)",
-              }}
-            >
-              <svg className="pow" viewBox="0 0 24 24" width="60" height="60">
-                <rect width="24" height="24" fill="currentColor"></rect>
-              </svg>
-            </i>
-          </div>
-          <Container className="commitment-inner flex flex-wrap items-center justify-between gap-6 max-sm:flex-col max-sm:items-start">
-            <p>Find your voice, find some friends, and fight like hell.</p>
-            <div className="commitment-pills flex flex-wrap gap-2.5">
-              <span>Rolling cohorts</span>
-              <span>12 weeks</span>
-              <span>3–5 hrs / week</span>
+        <section
+          className={
+            "relative overflow-hidden border-b-2 border-ink bg-coral px-0 py-14 max-sm:scroll-mt-20"
+          }
+        >
+          <FunLayer>
+            <Doodle className="top-[22%] left-[4%] w-[30px] -rotate-6 text-ink">
+              <Zap size={30} />
+            </Doodle>
+            <Doodle className="right-[8%] bottom-[18%] w-[60px] text-ink">
+              <Pow size={60} />
+            </Doodle>
+          </FunLayer>
+          <Container className="flex flex-wrap items-center justify-between gap-6 max-sm:flex-col max-sm:items-start">
+            <p className="m-0 max-w-md font-display text-2xl leading-none font-extrabold uppercase xl:text-4xl">
+              Find your voice, find some friends, and fight like hell.
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              {["Rolling cohorts", "12 weeks", "3–5 hrs / week"].map((pill) => (
+                <span
+                  className="bg-ink px-3.5 py-2.5 text-xs font-black tracking-wider text-white uppercase"
+                  key={pill}
+                >
+                  {pill}
+                </span>
+              ))}
             </div>
           </Container>
         </section>
-        <section className="benefits overflow-hidden bg-paper" id="benefits">
-          <div className="fun-layer" aria-hidden="true">
-            <i
-              style={{
-                right: "10%",
-                top: "20%",
-                transform: "rotate(8deg)",
-                color: "var(--color-ink)",
-              }}
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={{
-                right: "4%",
-                bottom: "16%",
-                width: "14px",
-                color: "var(--color-coral)",
-                transform: "rotate(-10deg)",
-              }}
-            >
-              <svg className="star" viewBox="0 0 24 24" width="14" height="14">
-                <rect width="24" height="24" fill="currentColor"></rect>
-              </svg>
-            </i>
-          </div>
-          <Container className="benefits-grid grid items-start gap-16">
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-paper",
+          )}
+          id="benefits"
+        >
+          <FunLayer>
+            <Doodle className="top-[20%] right-[10%] rotate-8 text-ink">
+              <Bird />
+            </Doodle>
+            <Doodle className="right-[4%] bottom-[16%] w-3.5 -rotate-10 text-coral">
+              <Star size={14} />
+            </Doodle>
+          </FunLayer>
+          <Container className="grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1">
             <div>
               <Label tone="coral">Benefits</Label>
-              <h2 className="mt-5">
-                What you <span className="ink-underline blue">receive.</span>
+              <h2 className={cn(h2)}>
+                What you{" "}
+                <span className="ink-underline ink-underline-brand-blue">
+                  receive.
+                </span>
               </h2>
             </div>
             <div>
-              <p className="deck">
+              <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-xl">
                 This is a volunteer program, but we provide support (travel,
                 meals) for in-person activities, and will reimburse
                 organizational expenses. Strong fellows may be invited to extend
                 after the initial term.
-              </p>
+              </Deck>
             </div>
           </Container>
         </section>
-        <section className="faq" id="faq">
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="faq"
+        >
           <Container>
             <Label tone="coral">FAQ</Label>
-            <h2 className="mt-5">
-              Questions, <span className="ink-underline green">answered.</span>
+            <h2 className={cn(h2)}>
+              Questions,{" "}
+              <span className="ink-underline ink-underline-brand-purple">
+                answered.
+              </span>
             </h2>
             <FaqList>
               <FaqItem number={1} question={<>What is the Fellowship?</>} open>
@@ -412,8 +426,8 @@ export default function Page() {
                   </>
                 }
               >
-                <div className="faq-table-wrap mb-3.5 overflow-x-auto">
-                  <table className="faq-table w-full">
+                <div className="mb-3.5 overflow-x-auto">
+                  <table className="w-full border-collapse text-sm [&_:is(th,td)]:border-b [&_:is(th,td)]:border-rule [&_:is(th,td)]:py-2.5 [&_:is(th,td)]:pr-4 [&_:is(th,td)]:pl-0 [&_:is(th,td)]:text-left [&_:is(th,td)]:align-top [&_th]:text-xs [&_th]:font-black [&_th]:tracking-wider [&_th]:text-coral-dark [&_th]:uppercase">
                     <thead>
                       <tr>
                         <th>Activity</th>
@@ -483,62 +497,50 @@ export default function Page() {
         <ClosingSection id="apply">
           <ClosingCopy>
             <Label tone="purple">Apply</Label>
-            <h2 className="mt-5">
+            <h2 className={cn(h2)}>
               We&apos;re excited to{" "}
               <span className="marker">hear from you.</span>
             </h2>
-            <p className="deck">
+            <Deck size="compact" className="mx-0 mt-6 mb-7 max-w-md">
               Interested in the fellowship? Leave your email and we&apos;ll be
               in touch about opportunities and next steps.
-            </p>
+            </Deck>
             <ActionLink variant="primary" href="#signup">
               Express interest →
             </ActionLink>
-            <p className="apply-note">
+            <p className="mt-4 text-base font-semibold text-ink italic">
               Questions? Email rohan@sapiensfirst.org
             </p>
           </ClosingCopy>
           <SignupPanel>
-            <div className="fun-layer" aria-hidden="true">
-              <i
-                style={{
-                  left: "8%",
-                  top: "10%",
-                  transform: "rotate(-6deg)",
-                  color: "#fff",
-                }}
-              >
-                <svg className="bird" viewBox="0 0 24 12">
-                  <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-                </svg>
-              </i>
-              <i
-                style={{
-                  left: "20%",
-                  top: "20%",
-                  transform: "rotate(6deg) scale(.65)",
-                  color: "#fff",
-                }}
-              >
-                <svg className="bird" viewBox="0 0 24 12">
-                  <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-                </svg>
-              </i>
-            </div>
-            <Label tone="coral">Rolling Cohorts</Label>
-            <div className="apply-deadline">
+            <FunLayer>
+              <Doodle className="top-[10%] left-[8%] -rotate-6 text-white">
+                <Bird />
+              </Doodle>
+              <Doodle className="top-[20%] left-[20%] scale-65 rotate-6 text-white">
+                <Bird />
+              </Doodle>
+            </FunLayer>
+            <Label className="relative z-2 mb-6 w-max" tone="coral">
+              Rolling Cohorts
+            </Label>
+            <div className="relative z-2 font-display text-5xl leading-none font-extrabold text-coral uppercase max-sm:text-5xl lg:text-7xl xl:text-8xl">
               Always
               <br />
               Open
             </div>
-            <p>
+            <p className="relative z-2 mx-0 mt-4 mb-5 max-w-sm text-base leading-normal font-semibold text-white">
               Leave your email to hear about fellowship opportunities and next
               steps.
             </p>
-            <SignupForm interest="fellowship" buttonText="Keep me posted →" />
+            <SignupForm
+              className="relative z-2"
+              interest="fellowship"
+              buttonText="Keep me posted →"
+            />
           </SignupPanel>
         </ClosingSection>
       </main>
-    </div>
+    </>
   );
 }

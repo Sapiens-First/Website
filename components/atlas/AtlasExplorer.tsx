@@ -29,6 +29,7 @@ import Circles from "@/components/atlas/Circles";
 import DomainOutline from "@/components/atlas/DomainOutline";
 import Alignment from "@/components/atlas/Alignment";
 import { AtlasLookupsProvider } from "@/components/atlas/AtlasLookupsContext";
+import { AtlasTable, AtlasBadge } from "@/components/atlas/AtlasUi";
 import { cn } from "@/lib/cn";
 
 const getHash = () => window.location.hash;
@@ -164,16 +165,29 @@ export default function AtlasExplorer({
         format={format}
         group={group}
         today={today}
+        compact={format !== "table"}
       />
     ) : null;
   return (
     <AtlasLookupsProvider value={lookups}>
       <section
-        className="atlas-explorer site-container relative z-2 mx-auto w-full max-w-7xl px-3 pb-16 sm:px-6"
+        className={
+          "relative z-2 mx-auto w-full max-w-7xl border-b-2 border-ink px-3 pb-16 max-sm:scroll-mt-20 sm:px-6"
+        }
         aria-labelledby="view-title"
       >
-        <div className="atlas-toolbar sticky top-20 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-lg:top-16 max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch">
-          <div className="atlas-switch" role="group" aria-label="Atlas view">
+        <div
+          className={
+            "sticky top-20 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-lg:top-16 max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch"
+          }
+        >
+          <div
+            className={
+              'inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,_color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:px-2.5 max-md:[&_button]:py-2 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,_var(--color-ink)_6%,_transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(17,_17,_17,_0.12)]'
+            }
+            role="group"
+            aria-label="Atlas view"
+          >
             {(["governance", "domains", "people"] as View[]).map((value) => (
               <button
                 type="button"
@@ -191,9 +205,15 @@ export default function AtlasExplorer({
               </button>
             ))}
           </div>
-          <label className="atlas-search-field relative flex max-w-sm min-w-0 items-center max-sm:max-w-none">
+          <label
+            className={
+              "relative flex max-w-sm min-w-0 [flex:1_1_240px] items-center max-md:[order:-1] max-md:[flex:none] max-sm:max-w-none [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-solid [&_input]:border-line [&_input]:bg-white [&_input]:pt-2 [&_input]:pr-3 [&_input]:pb-2 [&_input]:pl-8 [&_input]:font-body [&_input]:text-sm [&_input]:text-ink [&_input]:[font:inherit] [&_input::placeholder]:text-ink [&_input:focus]:border-coral-dark [&_input:focus]:[box-shadow:0_0_0_3px_color-mix(in_srgb,_var(--color-coral)_22%,_transparent)] [&_input:focus]:outline-none"
+            }
+          >
             <svg
-              className="atlas-search-icon"
+              className={
+                "[pointer-events:none] [position:absolute] [left:11px] [color:var(--color-ink)]"
+              }
               width="15"
               height="15"
               viewBox="0 0 16 16"
@@ -214,7 +234,11 @@ export default function AtlasExplorer({
                 strokeLinecap="round"
               />
             </svg>
-            <span className="atlas-sr-only absolute h-px w-px overflow-hidden">
+            <span
+              className={
+                "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
+              }
+            >
               Search this view
             </span>
             <input
@@ -232,8 +256,17 @@ export default function AtlasExplorer({
             />
           </label>
           {view === "domains" && format === "table" && (
-            <label id="atlas-filter-label" className="atlas-filter-field">
-              <span className="atlas-sr-only absolute h-px w-px overflow-hidden">
+            <label
+              id="atlas-filter-label"
+              className={
+                "[&_select]:cursor-pointer [&_select]:rounded-md [&_select]:border [&_select]:border-solid [&_select]:border-line [&_select]:bg-white [&_select]:pt-2 [&_select]:pr-7 [&_select]:pb-2 [&_select]:pl-3 [&_select]:font-body [&_select]:text-xs [&_select]:font-semibold [&_select]:text-ink [&_select]:[font:inherit] [&_select:focus-visible]:[outline:3px_solid_var(--color-coral-dark)] [&_select:focus-visible]:outline-offset-2"
+              }
+            >
+              <span
+                className={
+                  "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
+                }
+              >
                 Show
               </span>
               <select
@@ -249,7 +282,9 @@ export default function AtlasExplorer({
           {view !== "people" && (
             <div
               id="atlas-format"
-              className="atlas-format ml-auto max-sm:ml-0"
+              className={
+                'ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between max-sm:ml-0 [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,_color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,_var(--color-ink)_6%,_transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(17,_17,_17,_0.12)]'
+              }
               role="group"
               aria-label="Display"
             >
@@ -268,16 +303,29 @@ export default function AtlasExplorer({
             </div>
           )}
         </div>
-        <div className="atlas-view-heading flex flex-wrap items-baseline gap-3.5 pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1">
+        <div
+          className={
+            "flex flex-wrap items-baseline gap-3.5 pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1"
+          }
+        >
           <p
             id="view-title"
-            className="atlas-view-label font-body text-xs font-extrabold tracking-wider text-ink uppercase"
+            className={
+              "font-body text-xs font-extrabold tracking-wider text-ink uppercase"
+            }
           >
             {titles[view]}
           </p>
-          <p id="view-description">{descriptions[view]}</p>
+          <p
+            id="view-description"
+            className="min-w-0 [flex:1_1_auto] text-xs leading-normal text-ink"
+          >
+            {descriptions[view]}
+          </p>
           <a
-            className="atlas-source ml-auto text-xs whitespace-nowrap underline-offset-4 max-sm:ml-0"
+            className={
+              "ml-auto text-xs whitespace-nowrap text-ink underline-offset-4 hover:text-coral-dark max-sm:ml-0"
+            }
             href={`/data/atlas/${group}.csv`}
             download
           >
@@ -285,46 +333,70 @@ export default function AtlasExplorer({
           </a>
         </div>
         {view !== "people" && format === "table" && detail}
-        <p id="atlas-status" role="status" aria-live="polite">
+        <p
+          id="atlas-status"
+          role="status"
+          aria-live="polite"
+          className="mb-3 text-xs text-ink"
+        >
           {status}
         </p>
         {view === "people" ? (
           <>
             <div
               id="atlas-people"
-              className="atlas-people-grid flex flex-col overflow-hidden rounded-lg bg-white"
+              className={
+                "flex flex-col overflow-hidden rounded-lg border border-line bg-white"
+              }
             >
               {!matchingPeople.length && <p>No people match this search.</p>}
               {matchingPeople.map((person) => (
                 <article
                   key={person.id}
                   className={cn(
-                    "atlas-person",
-                    selected === person.id && "is-selected",
+                    "border-b border-rule p-4 transition-colors duration-150 last:border-b-0 hover:bg-surface",
+                    selected === person.id &&
+                      "bg-[color-mix(in_srgb,var(--color-coral)_8%,white)] shadow-[inset_3px_0_0_var(--color-coral-dark)]",
                   )}
                   data-person-id={person.id}
                   tabIndex={-1}
                   aria-labelledby={`person-${person.id}`}
                 >
-                  <h3 id={`person-${person.id}`}>{person.name}</h3>
-                  <span className="atlas-badge">{person.level}</span>
+                  <h3
+                    className="inline-flex items-center gap-2 font-body text-base leading-tight font-bold"
+                    id={`person-${person.id}`}
+                  >
+                    <TypeIcon type="Person" />
+                    {person.name}
+                  </h3>
+                  <AtlasBadge className="ml-2 align-middle">
+                    {person.level}
+                  </AtlasBadge>
                   {people.filter((other) => other.name === person.name).length >
                     1 && (
-                    <p className="atlas-person-context">
+                    <p className={"mt-1.5 text-xs leading-normal text-ink"}>
                       {person.roles[0]?.Name}
                     </p>
                   )}
-                  <p className="atlas-person-count">
+                  <p className={"mt-1.5 text-xs leading-normal text-ink"}>
                     {person.roles.length}{" "}
                     {person.roles.length === 1 ? "assignment" : "assignments"}
                   </p>
-                  <ul className="atlas-links list-none">
+                  <ul
+                    className={
+                      "list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5"
+                    }
+                  >
                     {person.roles.map((role) => (
                       <li key={role.ID}>
                         <a href={`#governance/circles/${role.ID}`}>
                           <TypeIcon type={role.Type} />
                           {role.Name}
-                          <span className="atlas-person-role-type text-xs tracking-wide text-ink uppercase">
+                          <span
+                            className={
+                              "text-xs tracking-wide text-ink uppercase"
+                            }
+                          >
                             {role.Type}
                           </span>
                         </a>
@@ -336,7 +408,7 @@ export default function AtlasExplorer({
             </div>
             <p
               id="atlas-people-note"
-              className="atlas-people-note mt-5 max-w-4xl text-xs leading-relaxed text-ink"
+              className={"mt-5 max-w-4xl text-xs leading-relaxed text-ink"}
             >
               Fellows can become Stewards after three months and graduation. A
               “Steward” role title is separate from this engagement level.
@@ -345,7 +417,10 @@ export default function AtlasExplorer({
         ) : format === "circles" ? (
           <div
             id="atlas-circles"
-            className={cn("atlas-circles-layout", selected && "has-selection")}
+            className={cn(
+              "grid grid-cols-1 items-start gap-5",
+              selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
+            )}
           >
             <Circles
               data={data}
@@ -353,12 +428,18 @@ export default function AtlasExplorer({
               matches={matches}
               query={normalizedQuery}
             />
-            <div id="atlas-circle-detail">{detail}</div>
+            <div id="atlas-circle-detail" className={"min-w-0"}>
+              {detail}
+            </div>
           </div>
         ) : format === "outline" ? (
           <div
             id="atlas-outline"
-            className={cn("atlas-outline-layout", selected && "has-selection")}
+            data-selected={!!selected}
+            className={cn(
+              "grid grid-cols-1 items-start gap-5 data-[selected=true]:max-md:[&>:first-child]:hidden",
+              selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
+            )}
           >
             <DomainOutline
               data={data}
@@ -369,14 +450,16 @@ export default function AtlasExplorer({
               expanded={expanded}
               setExpanded={setExpanded}
             />
-            <div id="atlas-outline-detail">{detail}</div>
+            <div id="atlas-outline-detail" className={"min-w-0"}>
+              {detail}
+            </div>
           </div>
         ) : format === "alignment" ? (
           <div
             id="atlas-alignment"
             className={cn(
-              "atlas-alignment-layout",
-              selected && "has-selection",
+              "grid grid-cols-1 items-start gap-5",
+              selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
             )}
           >
             <Alignment
@@ -387,19 +470,27 @@ export default function AtlasExplorer({
               highlighted={highlighted}
               setHighlighted={setHighlighted}
             />
-            <div id="atlas-alignment-detail">{detail}</div>
+            <div id="atlas-alignment-detail" className={"min-w-0"}>
+              {detail}
+            </div>
           </div>
         ) : (
           <div
-            className="atlas-table-wrap overflow-x-auto rounded-lg border border-solid border-line"
+            className={
+              "overflow-x-auto rounded-lg border border-solid border-line"
+            }
             id="atlas-results"
             hidden={!matches.length}
             tabIndex={0}
             role="region"
             aria-label={`${titles[view]} table`}
           >
-            <table id="atlas-table">
-              <caption className="atlas-sr-only absolute h-px w-px overflow-hidden">
+            <AtlasTable id="atlas-table">
+              <caption
+                className={
+                  "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
+                }
+              >
                 {titles[view]}
               </caption>
               <thead>
@@ -424,10 +515,14 @@ export default function AtlasExplorer({
                   <tr key={row.ID}>
                     <th scope="row">
                       <RecordLink id={row.ID} format="table" />
-                      <span className="atlas-level mt-0.5 ml-5 block text-xs font-medium tracking-wide text-ink uppercase">
+                      <span
+                        className={
+                          "mt-0.5 ml-5 block text-xs font-medium tracking-wide text-ink uppercase"
+                        }
+                      >
                         {row.Type} · {row.ID}
                       </span>
-                      <details className="atlas-row-details">
+                      <details className="mt-2 text-xs font-normal [&_summary]:cursor-pointer [&_summary]:text-ink [&_summary]:underline [&_summary]:underline-offset-2 [&_summary:hover]:text-coral-dark">
                         <summary
                           aria-label={`${group === "domains" ? "More details" : "Responsibilities"}: ${row.Name}`}
                         >
@@ -439,7 +534,11 @@ export default function AtlasExplorer({
                       </details>
                     </th>
                     <td>
-                      <span className="atlas-cell-text overflow-hidden whitespace-normal text-ink">
+                      <span
+                        className={
+                          "[display:-webkit-box] max-w-lg overflow-hidden text-ellipsis whitespace-normal text-ink [-webkit-box-orient:vertical] [-webkit-line-clamp:1]"
+                        }
+                      >
                         {row.Purpose || "Not documented"}
                       </span>
                     </td>
@@ -456,14 +555,9 @@ export default function AtlasExplorer({
                       )}
                     </td>
                     <td>
-                      <span
-                        className={cn(
-                          "atlas-badge",
-                          row.Status === "Active" && "active",
-                        )}
-                      >
+                      <AtlasBadge active={row.Status === "Active"}>
                         {row.Status}
-                      </span>
+                      </AtlasBadge>
                     </td>
                     <td>
                       {group === "domains" ? (
@@ -472,7 +566,7 @@ export default function AtlasExplorer({
                         <LinkedRecords ids={owners(row.ID)} />
                       )}
                       {row["Ownership note"] && (
-                        <p className="atlas-unresolved mt-2 text-xs text-coral-dark">
+                        <p className={"mt-2 text-xs text-coral-dark"}>
                           {row["Ownership note"]}
                         </p>
                       )}
@@ -480,7 +574,7 @@ export default function AtlasExplorer({
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </AtlasTable>
           </div>
         )}
         <noscript>

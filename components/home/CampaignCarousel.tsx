@@ -4,6 +4,17 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { campaignTeasers as campaigns } from "@/content/campaigns";
+import { cn } from "@/lib/cn";
+
+/** Abstract poster art per campaign, drawn with the art layer and its two pseudo-elements. */
+const art: Record<string, string> = {
+  freeze:
+    "bg-brand-blue before:-top-[10%] before:left-[21%] before:aspect-square before:w-[58%] before:rounded-full before:border-[34px] before:border-white/70 before:shadow-[0_0_0_25px_rgba(255,255,255,0.15)] after:top-[44%] after:-left-[15%] after:h-[18px] after:w-[130%] after:-rotate-8 after:bg-ink",
+  surveillance:
+    "bg-coral before:top-[17%] before:left-[15%] before:h-[42%] before:w-[70%] before:rounded-full before:border-[26px] before:border-ink after:top-[calc(38%-55px)] after:left-[calc(50%-55px)] after:size-[110px] after:rounded-full after:border-[18px] after:border-ink after:bg-brand-yellow",
+  robots:
+    "bg-brand-purple before:top-[6%] before:left-[calc(50%-125px)] before:h-[300px] before:w-[250px] before:bg-ink before:[clip-path:polygon(20%_0,80%_0,100%_20%,85%_100%,15%_100%,0_20%)] after:top-[26%] after:left-[calc(50%-19px)] after:size-[38px] after:rounded-full after:bg-brand-pink after:shadow-[-68px_0_0_var(--color-brand-pink),68px_0_0_var(--color-brand-pink)]",
+};
 
 export default function CampaignCarousel() {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -73,39 +84,46 @@ export default function CampaignCarousel() {
   return (
     <>
       <div
-        className="campaign-viewport relative left-1/2 w-screen -translate-x-1/2 overflow-x-auto px-6 py-4 sm:px-20 lg:px-32"
+        className="relative left-1/2 w-screen -translate-x-1/2 snap-x snap-proximity [scrollbar-width:none] overflow-x-auto scroll-smooth px-6 py-4 sm:px-20 lg:px-32 [&::-webkit-scrollbar]:hidden"
         tabIndex={0}
         ref={viewportRef}
       >
-        <div
-          className="campaign-track flex w-max gap-5 max-sm:gap-3"
-          ref={trackRef}
-        >
+        <div className="flex w-max gap-5 max-sm:gap-3" ref={trackRef}>
           {[-1, 0, 1].flatMap((copy) =>
             campaigns.map((campaign) => (
               <article
                 key={`${copy}-${campaign.id}`}
-                className={`campaign-card ${campaign.id}`}
+                className="relative isolate min-h-112 flex-[0_0_min(68vw,760px)] snap-center overflow-hidden border-2 border-ink after:absolute after:inset-0 after:-z-1 after:bg-[linear-gradient(180deg,transparent_10%,rgba(0,0,0,0.78)_55%,rgba(0,0,0,0.95)_100%)] after:content-[''] max-sm:min-h-96 max-sm:basis-[84vw]"
                 aria-hidden={copy === 0 ? undefined : true}
                 inert={copy === 0 ? undefined : true}
               >
-                <div className="campaign-art" aria-hidden="true" />
-                <div className="campaign-copy absolute right-8 bottom-7 left-8 text-white max-sm:right-5 max-sm:bottom-5 max-sm:left-5">
-                  <h4>{campaign.title}</h4>
-                  <p>{campaign.description}</p>
+                <div
+                  className={cn(
+                    "absolute inset-0 -z-2 overflow-hidden before:absolute before:content-[''] after:absolute after:content-['']",
+                    art[campaign.id],
+                  )}
+                  aria-hidden="true"
+                />
+                <div className="absolute right-8 bottom-7 left-8 text-white max-sm:right-5 max-sm:bottom-5 max-sm:left-5">
+                  <h4 className="mx-0 mt-0 mb-2.5 font-display text-5xl leading-none font-extrabold tracking-tight uppercase max-sm:text-6xl lg:text-6xl xl:text-7xl">
+                    {campaign.title}
+                  </h4>
+                  <p className="m-0 max-w-lg text-lg leading-normal font-medium xl:text-xl">
+                    {campaign.description}
+                  </p>
                 </div>
               </article>
             )),
           )}
         </div>
       </div>
-      <div className="campaigns-footer mt-5 grid items-center gap-5 max-sm:grid-cols-1 max-sm:gap-5">
+      <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-5 max-sm:grid-cols-1 max-sm:gap-5">
         <div
-          className="campaign-controls flex gap-2 max-sm:justify-self-center"
+          className="col-start-2 flex gap-2 max-sm:col-start-1 max-sm:justify-self-center"
           aria-label="Campaign carousel controls"
         >
           <button
-            className="campaign-arrow campaign-prev h-12 w-12 cursor-pointer border-2 border-solid border-ink text-xl font-extrabold text-ink max-sm:h-10 max-sm:w-10"
+            className="h-12 w-12 cursor-pointer border-2 border-solid border-ink bg-paper text-xl font-extrabold text-ink hover:bg-brand-yellow max-sm:h-10 max-sm:w-10"
             type="button"
             aria-label="Previous campaign"
             onClick={() => move(-1)}
@@ -113,7 +131,7 @@ export default function CampaignCarousel() {
             ←
           </button>
           <button
-            className="campaign-arrow campaign-next h-12 w-12 cursor-pointer border-2 border-solid border-ink text-xl font-extrabold text-ink max-sm:h-10 max-sm:w-10"
+            className="h-12 w-12 cursor-pointer border-2 border-solid border-ink bg-paper text-xl font-extrabold text-ink hover:bg-brand-yellow max-sm:h-10 max-sm:w-10"
             type="button"
             aria-label="Next campaign"
             onClick={() => move(1)}
@@ -122,7 +140,7 @@ export default function CampaignCarousel() {
           </button>
         </div>
         <Link
-          className="campaigns-link m-0 block w-max justify-self-end border-b-2 border-solid border-b-ink pb-0.5 font-body text-base font-bold tracking-wider uppercase"
+          className="m-0 block w-max justify-self-end border-b-2 border-solid border-b-ink pb-0.5 font-body text-base font-bold tracking-wider uppercase hover:border-coral hover:text-coral"
           href="/campaigns"
         >
           See all campaigns →

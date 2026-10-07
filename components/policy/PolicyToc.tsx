@@ -29,7 +29,7 @@ export default function PolicyToc() {
     const toggle = (event: Event) => {
       const card = event.target;
       if (!(card instanceof HTMLDetailsElement) || !card.open) return;
-      if (!card.classList.contains("policy-card")) return;
+      if (!card.hasAttribute("data-policy-card")) return;
       window.clearTimeout(timer);
       timer = scrollToCard(card);
     };
@@ -53,7 +53,10 @@ export default function PolicyToc() {
     <a
       key={id}
       href={`#${id}`}
-      className={cn(className, activeId === id && "toc-active")}
+      className={cn(
+        className,
+        activeId === id && "bg-brand-yellow font-semibold text-ink",
+      )}
       onClick={(event) => goTo(event, id)}
     >
       {title}
@@ -61,13 +64,21 @@ export default function PolicyToc() {
   );
 
   return (
-    <nav className="toc">
-      <span className="toc-label eyebrow">Contents</span>
+    <nav className="max-lg:mb-2 max-lg:border max-lg:border-line max-lg:px-5 max-lg:pt-4 max-lg:pb-3.5">
+      <span className="mb-1 block border-b border-line pb-2.5 font-body text-sm font-extrabold tracking-widest text-ink uppercase max-lg:mb-2">
+        Contents
+      </span>
       {groups.map((group) => (
         <Fragment key={group.id}>
-          <div className="toc-group-header">{link(group.id, group.title)}</div>
+          <div className="mt-4 mb-0.5 border-t border-line pt-3.5 first-of-type:mt-1.5 first-of-type:border-t-0 first-of-type:pt-0 [&_a]:block [&_a]:px-2 [&_a]:py-0.5 [&_a]:font-display [&_a]:text-sm [&_a]:font-bold [&_a]:tracking-widest [&_a]:text-ink [&_a]:uppercase [&_a]:transition-colors [&_a:hover]:text-coral-dark">
+            {link(group.id, group.title)}
+          </div>
           {group.policies.map((policy) =>
-            link(policy.id, policy.title, "toc-item-link"),
+            link(
+              policy.id,
+              policy.title,
+              "my-px block px-2 py-1.5 font-body text-sm leading-snug font-medium text-ink transition-colors hover:text-coral-dark max-lg:p-2 max-lg:text-base",
+            ),
           )}
         </Fragment>
       ))}

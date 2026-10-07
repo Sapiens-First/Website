@@ -21,9 +21,11 @@ export default function Alignment({
   const { rows, cols, cells } = alignmentMatrix(data, rowType);
   return (
     <div id="atlas-alignment-matrix">
-      <div className="atlas-alignment-toolbar mb-3 flex">
+      <div className={"mb-3 flex"}>
         <div
-          className="atlas-alignment-switch inline-flex gap-0.5"
+          className={
+            'inline-flex gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(17,_17,_17,_0.12)]'
+          }
           role="group"
           aria-label="Alignment rows"
         >
@@ -43,22 +45,34 @@ export default function Alignment({
         </div>
       </div>
       {!cols.length ? (
-        <div className="atlas-alignment-empty max-w-2xl px-2 py-8">
+        <div
+          className={"max-w-2xl px-2 py-8 [&_p]:text-sm [&_p]:leading-relaxed"}
+        >
           <p>No cross-cutting relationships are recorded yet.</p>
-          <p className="atlas-alignment-empty-detail mt-2.5 text-xs text-ink">
+          <p className={"mt-2.5 text-xs text-ink"}>
             This view connects projects and programs to the goals they support.
           </p>
         </div>
       ) : (
         <>
           <div
-            className="atlas-alignment-scroll overflow-auto rounded-lg border border-solid border-line"
+            className={
+              "max-h-180 overflow-auto rounded-lg border border-solid border-line"
+            }
             tabIndex={0}
             role="region"
             aria-label="Alignment matrix"
           >
-            <table className="atlas-alignment-table">
-              <caption className="atlas-sr-only absolute h-px w-px overflow-hidden">
+            <table
+              className={
+                "w-full border-separate border-spacing-0 text-sm [&_:is(th,td)]:max-w-sm [&_:is(th,td)]:leading-normal [&_:is(th,td)]:wrap-anywhere [&_tbody_th]:sticky [&_tbody_th]:left-0 [&_tbody_th]:z-1 [&_tbody_th]:min-w-44 [&_tbody_th]:border-b [&_tbody_th]:border-rule [&_tbody_th]:bg-white [&_tbody_th]:p-3.5 [&_tbody_th]:text-left [&_tbody_th]:font-semibold [&_td]:min-w-24 [&_td]:border-b [&_td]:border-rule [&_td]:p-3.5 [&_td]:text-center [&_thead_th]:sticky [&_thead_th]:top-0 [&_thead_th]:z-2 [&_thead_th]:border-b [&_thead_th]:border-line [&_thead_th]:bg-white [&_thead_th]:px-3.5 [&_thead_th]:py-3 [&_thead_th]:align-bottom [&_thead_th]:text-xs [&_thead_th]:font-bold [&_thead_th]:tracking-wider [&_thead_th]:uppercase"
+              }
+            >
+              <caption
+                className={
+                  "absolute h-px w-px overflow-hidden [clip-path:inset(50%)]"
+                }
+              >
                 {rowType}s and what they support
               </caption>
               <thead>
@@ -69,11 +83,15 @@ export default function Alignment({
                       scope="col"
                       key={col.ID}
                       className={
-                        col.ID === highlighted ? "is-highlighted" : undefined
+                        col.ID === highlighted
+                          ? "bg-[color-mix(in_srgb,var(--color-coral)_6%,transparent)] [&_button]:text-coral-dark"
+                          : undefined
                       }
                     >
                       <button
-                        className="atlas-alignment-col-header cursor-pointer border-0 text-xs font-bold tracking-wide whitespace-nowrap uppercase"
+                        className={
+                          "cursor-pointer border-0 bg-transparent text-xs font-bold tracking-wide whitespace-nowrap text-ink uppercase [font:inherit] [writing-mode:horizontal-tb] hover:text-coral-dark"
+                        }
                         type="button"
                         aria-pressed={col.ID === highlighted}
                         onClick={() =>
@@ -96,7 +114,9 @@ export default function Alignment({
                       <th
                         scope="row"
                         className={
-                          selected === row.ID ? "is-selected" : undefined
+                          selected === row.ID
+                            ? "shadow-[inset_3px_0_0_var(--color-coral-dark)]"
+                            : undefined
                         }
                       >
                         <RecordLink id={row.ID} format="alignment" />
@@ -106,15 +126,11 @@ export default function Alignment({
                         return (
                           <td
                             key={col.ID}
-                            className={
-                              col.ID === highlighted
-                                ? "is-highlighted"
-                                : undefined
-                            }
+                            className={col.ID === highlighted ? "" : undefined}
                           >
                             {relation && (
                               <span
-                                className="atlas-alignment-mark text-sm text-coral-dark"
+                                className={"text-sm text-coral-dark"}
                                 role="img"
                                 aria-label={`${row.Name} supports ${col.Name}`}
                                 title={relation.Notes || undefined}
@@ -130,7 +146,7 @@ export default function Alignment({
               </tbody>
             </table>
           </div>
-          <p className="atlas-alignment-hint mt-3 text-xs leading-relaxed text-ink">
+          <p className={"mt-3 text-xs leading-relaxed text-ink"}>
             Select a name to read its details. Select a column to highlight
             everything supporting that priority.
           </p>

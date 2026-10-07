@@ -4,6 +4,7 @@ import CopyLinkButton from "@/components/join/CopyLinkButton";
 import { Container } from "@/components/layout/Container";
 import Image from "next/image";
 import Link from "next/link";
+import { Kicker } from "@/components/ui/Text";
 import SignupForm from "@/components/SignupForm";
 
 export const metadata = pageMetadata({
@@ -24,40 +25,66 @@ const shareLinks = {
 
 export default function Page() {
   return (
-    <div className="route-root route-join">
-      <main className="route-join">
+    <>
+      <main>
         <section
-          className="join-hero border-b border-solid border-b-rule px-0 py-16 max-sm:px-0 max-sm:py-9"
+          className={
+            "border-b border-solid border-ink border-b-rule px-0 py-16 max-sm:scroll-mt-20 max-sm:px-0 max-sm:py-9"
+          }
           aria-labelledby="join-heading"
         >
-          <Container className="join-grid grid grid-cols-2 items-center gap-16 max-lg:gap-8 max-sm:grid-cols-1 max-sm:gap-7">
-            <div className="join-copy">
-              <div className="kicker">Join Sapiens First</div>
-              <h1 id="join-heading">
+          <Container className="grid grid-cols-2 items-center gap-16 max-lg:gap-8 max-sm:grid-cols-1 max-sm:gap-7">
+            <div>
+              <Kicker>Join Sapiens First</Kicker>
+              <h1
+                className={
+                  "relative z-2 mx-0 mt-5 mb-6 max-w-xs font-display text-6xl leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl xl:text-7xl"
+                }
+                id="join-heading"
+              >
                 Build power.
                 <br />
-                Put people <span className="ink-underline yellow">first.</span>
+                Put people{" "}
+                <span className="ink-underline ink-underline-brand-yellow">
+                  first.
+                </span>
               </h1>
-              <p id="join-note">
+              <p
+                className="max-w-xl text-xl leading-relaxed max-sm:text-lg"
+                id="join-note"
+              >
                 We’ll be in touch to help you find a local community group and
                 get involved.
               </p>
-              <div className="join-signup">
-                <label htmlFor="join-email">Your email</label>
+              <div className="mt-8">
+                <label
+                  className="mb-2.5 block text-base font-bold"
+                  htmlFor="join-email"
+                >
+                  Your email
+                </label>
                 <SignupForm
+                  className={
+                    "m-0 scroll-mt-28 flex-wrap [&_input]:flex-[1_1_200px] max-sm:[&_input]:w-full max-sm:[&_input]:flex-auto"
+                  }
                   interest="membership"
                   buttonText="Keep me posted →"
                   id="signup"
                   inputId="join-email"
                   describedBy="join-note"
                 />
-                <p className="join-note">
-                  <Link href="/privacy">Privacy policy</Link>
+                <p className="mt-3.5 max-w-xl text-base leading-normal max-sm:text-lg">
+                  <Link
+                    className="underline underline-offset-2"
+                    href="/privacy"
+                  >
+                    Privacy policy
+                  </Link>
                 </p>
                 <noscript>Please enable JavaScript to send this form.</noscript>
               </div>
             </div>
-            <figure className="join-photo m-0">
+            <figure className="m-0">
               <Image
                 src="/assets/image.png"
                 alt="People raising clasped hands together at a demonstration"
@@ -65,17 +92,27 @@ export default function Page() {
                 height={683}
                 sizes="(max-width: 600px) calc(100vw - 24px), 50vw"
                 preload
+                className="block aspect-[4/5] h-auto w-full border-2 border-ink object-cover object-center max-sm:aspect-[3/2]"
               />
             </figure>
           </Container>
         </section>
         <section
-          className="join-share pt-10 pr-0 pb-14 pl-0"
+          className={
+            "border-b-2 border-ink pt-10 pr-0 pb-14 pl-0 max-sm:scroll-mt-20"
+          }
           aria-labelledby="share-heading"
         >
           <Container>
-            <h2 id="share-heading">Bring a friend.</h2>
-            <div className="share-buttons">
+            <h2
+              className={
+                "font-body text-2xl leading-tight font-extrabold tracking-tight normal-case"
+              }
+              id="share-heading"
+            >
+              Bring a friend.
+            </h2>
+            <div className="mt-5 flex flex-wrap justify-center gap-2.5 max-sm:flex-col">
               <ActionLink
                 variant="outline"
                 href={shareLinks.x}
@@ -125,8 +162,8 @@ export default function Page() {
                 WhatsApp
               </ActionLink>
             </div>
-            <div className="share-url-row">
-              <div className="share-url">
+            <div className="mt-4 flex items-center justify-center gap-2.5 max-sm:flex-wrap">
+              <div className="inline-block overflow-hidden border border-line bg-[color-mix(in_srgb,var(--color-surface)_60%,transparent)] px-4 py-3 font-body text-sm tracking-wider text-ellipsis whitespace-nowrap text-ink select-all">
                 {shareUrl.replace("https://", "")}
               </div>
               <CopyLinkButton url={shareUrl} />
@@ -134,6 +171,6 @@ export default function Page() {
           </Container>
         </section>
       </main>
-    </div>
+    </>
   );
 }

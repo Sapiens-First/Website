@@ -20,7 +20,8 @@ export default function EmberField() {
     const fragment = document.createDocumentFragment();
     for (let i = 0; i < 174; i++) {
       const ember = document.createElement("div");
-      ember.className = "ember";
+      ember.className =
+        "absolute animate-ember rounded-full opacity-0 shadow-[0_0_var(--eg,3px)_var(--ec,#f97316)]";
       const size = 1.5 + Math.random() * 2;
       const color = colors[Math.floor(Math.random() * colors.length)];
       const duration = (2.2 + Math.random() * 3.52).toFixed(2);
@@ -35,5 +36,11 @@ export default function EmberField() {
     element.appendChild(fragment);
     return () => element.replaceChildren();
   }, []);
-  return <div className="ember-field" aria-hidden="true" ref={field} />;
+  return (
+    <div
+      className="pointer-events-none absolute inset-0 z-1"
+      aria-hidden="true"
+      ref={field}
+    />
+  );
 }

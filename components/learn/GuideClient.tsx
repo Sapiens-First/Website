@@ -234,6 +234,12 @@ function buildGroups(body: HTMLElement): TocGroup[] {
   return groups;
 }
 
+const tocLink =
+  "border-0 text-ink no-underline wrap-anywhere hover:bg-brand-yellow focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand-blue";
+const tocActive = "bg-brand-yellow font-bold";
+const statusBox =
+  "border-2 border-ink p-8 text-left text-lg leading-relaxed tracking-normal text-ink normal-case";
+
 export default function GuideClient() {
   const [html, setHtml] = useState<string | null>(null);
   const [error, setError] = useState(false);
@@ -298,7 +304,7 @@ export default function GuideClient() {
     if (!target) return;
     if (!window.matchMedia("(min-width: 64rem)").matches && contentsRef.current)
       contentsRef.current.open = false;
-    const header = document.querySelector<HTMLElement>(".site-header");
+    const header = document.querySelector<HTMLElement>("[data-site-header]");
     const offset =
       header && getComputedStyle(header).position === "sticky"
         ? header.getBoundingClientRect().height + 24
@@ -312,16 +318,21 @@ export default function GuideClient() {
   }
 
   const toc = (
-    <nav className="toc" aria-label="Guide contents">
+    <nav
+      className="px-0 py-1 max-lg:mt-3 max-lg:max-h-[55dvh] max-lg:overflow-y-auto"
+      aria-label="Guide contents"
+    >
       {groups.map((group, groupIndex) => (
         <div key={groupIndex}>
           {group.header && (
-            <div className="toc-group-header">
+            <div className="mx-0 mt-3 mb-1.5">
               <a
                 href={`#${group.header.id}`}
-                className={
-                  activeId === group.header.id ? "toc-active" : undefined
-                }
+                className={cn(
+                  tocLink,
+                  "block p-2 font-display text-xl leading-tight font-extrabold uppercase",
+                  activeId === group.header.id && tocActive,
+                )}
                 onClick={(event) => {
                   event.preventDefault();
                   goTo(group.header!.id);
@@ -337,11 +348,14 @@ export default function GuideClient() {
               expanded[key] ||
               section.children.some((child) => child.id === activeId);
             return (
-              <div className="toc-h2-item" key={key}>
-                <div className="toc-h2-row flex items-center">
+              <div key={key}>
+                <div className="flex items-center">
                   {section.children.length > 0 && (
                     <button
-                      className={cn("toc-chevron", open && "open")}
+                      className={cn(
+                        "grid h-11 w-8 shrink-0 cursor-pointer place-items-center border-0 bg-none text-2xl text-ink focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand-blue",
+                        open && "rotate-90",
+                      )}
                       aria-label="Toggle subsections"
                       aria-expanded={Boolean(open)}
                       aria-controls={key}
@@ -354,8 +368,10 @@ export default function GuideClient() {
                   )}
                   <a
                     className={cn(
-                      "toc-h2-link",
-                      activeId === section.heading.id && "toc-active",
+                      tocLink,
+                      "min-w-0 flex-1 py-2.5 pr-2 text-base leading-snug",
+                      section.children.length > 0 ? "pl-0" : "pl-8",
+                      activeId === section.heading.id && tocActive,
                     )}
                     href={`#${section.heading.id}`}
                     onClick={(event) => {
@@ -367,13 +383,21 @@ export default function GuideClient() {
                   </a>
                 </div>
                 {section.children.length > 0 && (
-                  <ul className={cn("toc-h3-list", open && "open")} id={key}>
+                  <ul
+                    className={cn(
+                      "m-0 list-none pt-0 pr-0 pb-2 pl-8",
+                      open ? "block" : "hidden",
+                    )}
+                    id={key}
+                  >
                     {section.children.map((child) => (
                       <li key={child.id}>
                         <a
-                          className={
-                            activeId === child.id ? "toc-active" : undefined
-                          }
+                          className={cn(
+                            tocLink,
+                            "block p-2 text-sm leading-normal",
+                            activeId === child.id && tocActive,
+                          )}
                           href={`#${child.id}`}
                           onClick={(event) => {
                             event.preventDefault();
@@ -396,24 +420,28 @@ export default function GuideClient() {
 
   return (
     <>
-      <aside className="guide-sidebar">
+      <aside className="sticky top-28 max-h-180 [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] overflow-y-auto pr-4 max-lg:static max-lg:max-h-none max-lg:overflow-visible max-lg:p-0 lg:col-span-3">
         <details
-          className="guide-contents max-lg:bg-white"
+          className={cn(
+            "group",
+            "max-lg:border-2 max-lg:border-ink max-lg:bg-white max-lg:px-5 max-lg:py-4",
+          )}
           open
           ref={contentsRef}
         >
-          <summary className="contents-toggle cursor-pointer uppercase max-lg:text-xl">
+          <summary className="cursor-pointer border-b-2 border-ink pb-4 font-display text-2xl leading-tight font-extrabold uppercase focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand-blue max-lg:border-0 max-lg:p-0 max-lg:text-xl max-lg:group-open:border-b max-lg:group-open:border-line max-lg:group-open:pb-4">
             Contents
           </summary>
           <div id="toc-container">{toc}</div>
         </details>
       </aside>
-      <div className="guide-main">
+      <div className="min-w-0 lg:col-span-9">
         <div id="doc-content">
           {error ? (
-            <p className="empty-state">
+            <p className={statusBox}>
               Could not load the guide right now.{" "}
               <a
+                className="text-coral-dark"
                 href={`https://docs.google.com/document/d/${site.guideDocId}/edit`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -422,7 +450,7 @@ export default function GuideClient() {
               </a>
             </p>
           ) : html === null ? (
-            <div className="loading-state">Loading guide...</div>
+            <div className={cn(statusBox, "font-body")}>Loading guide...</div>
           ) : (
             <div
               className="doc-body"

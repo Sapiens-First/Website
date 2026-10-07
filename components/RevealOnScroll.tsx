@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
-/** Adds `.visible` to each `.reveal` element as it scrolls into view; re-runs per route. */
+/** Reveals each `.reveal` element as it scrolls into view; re-runs per route. */
 export default function RevealOnScroll() {
   const path = usePathname();
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function RevealOnScroll() {
       (entries) =>
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("visible");
+          entry.target.setAttribute("data-revealed", "");
           observer.unobserve(entry.target);
         }),
       { threshold: 0.12, rootMargin: "0px 0px -30px 0px" },

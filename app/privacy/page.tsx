@@ -10,27 +10,36 @@ export const metadata = pageMetadata({
 
 export default function Page() {
   return (
-    <div className="route-root route-privacy">
-      <main className="route-privacy">
+    <>
+      <main>
         <Container>
-          <div className="privacy-wrap mx-auto my-0 flex max-w-2xl flex-col gap-10 pt-24 pr-0 pb-28 pl-0 max-sm:pt-20 max-sm:pr-0 max-sm:pb-20 max-sm:pl-0">
-            <h1 className="privacy-heading font-display text-5xl leading-none font-extrabold tracking-tight uppercase sm:text-6xl lg:text-8xl">
+          <div className="mx-auto my-0 flex max-w-2xl flex-col gap-10 pt-24 pr-0 pb-28 pl-0 max-sm:pt-20 max-sm:pr-0 max-sm:pb-20 max-sm:pl-0">
+            <h1
+              className={
+                "relative z-2 max-w-xs font-display text-5xl leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md sm:text-6xl lg:max-w-xl lg:text-8xl"
+              }
+            >
               Privacy
             </h1>
-            <p className="privacy-text text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed text-ink">
               We collect your email address when you sign up. We use it to send
               you updates about Sapiens First — actions, calls, and news. We
               don&apos;t sell it, share it, or do anything sketchy with it. To
               opt out or request deletion, email{" "}
-              <a href="mailto:rohan@sapiensfirst.org">rohan@sapiensfirst.org</a>
+              <a
+                className="text-coral-dark"
+                href="mailto:rohan@sapiensfirst.org"
+              >
+                rohan@sapiensfirst.org
+              </a>
               .
             </p>
-            <p className="privacy-cookies border-t border-solid border-t-line pt-4 text-sm leading-relaxed text-ink">
+            <p className="border-t border-solid border-t-line pt-4 text-sm leading-relaxed text-ink">
               We do not use cookies or tracking software on this website.
             </p>
           </div>
         </Container>
       </main>
-    </div>
+    </>
   );
 }

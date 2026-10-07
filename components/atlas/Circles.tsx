@@ -10,6 +10,7 @@ import {
 } from "react";
 import { circleLayout } from "@/lib/atlas/circles";
 import type { AtlasData, AtlasRow, HierarchyNode } from "@/lib/atlas/model";
+import { TypeIcon } from "@/components/atlas/TypeIcon";
 import { RecordLink } from "@/components/atlas/RecordDetails";
 import { cn } from "@/lib/cn";
 
@@ -110,9 +111,11 @@ function CircleChart({
           tabIndex={decorative ? -1 : 0}
           aria-label={`${node.row.Type}: ${node.row.Name}${role ? ", view responsibilities" : ", explore circle"}`}
           className={cn(
-            role ? "atlas-node-role" : "atlas-node-circle",
-            query && matched.has(node.row.ID) && "atlas-circle-match",
-            selected === node.row.ID && "atlas-circle-selected",
+            "peer/node cursor-pointer focus:outline-none focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-coral-dark hover:[&>circle]:stroke-coral-dark hover:[&>circle]:stroke-[3.5] focus-visible:[&>circle]:stroke-coral-dark focus-visible:[&>circle]:stroke-[3.5] max-md:hover:[&>circle]:stroke-[4.5] max-md:focus-visible:[&>circle]:stroke-[4.5]",
+            role &&
+              "hover:[&>circle]:[stroke-dasharray:none] focus-visible:[&>circle]:[stroke-dasharray:none]",
+            ((query && matched.has(node.row.ID)) || selected === node.row.ID) &&
+              "[&>circle]:stroke-coral-dark [&>circle]:stroke-[3.5] max-md:[&>circle]:stroke-[4.5]",
           )}
         >
           <title>{node.row.Name}</title>
@@ -139,7 +142,9 @@ function CircleChart({
                 width={width}
                 height={lines.length * fontSize * 1.15 + 8}
                 rx={10}
-                className="atlas-circle-label-bg"
+                className={
+                  "fill-[color-mix(in_srgb,var(--color-ink)_88%,transparent)]"
+                }
                 fill="#29241f"
               />
             )}
@@ -150,7 +155,7 @@ function CircleChart({
               textAnchor="middle"
               pointerEvents="none"
               fontWeight={role ? 500 : 700}
-              className={role ? undefined : "atlas-circle-label"}
+              className={cn("font-body", role ? "fill-ink" : "fill-[#fffaf2]")}
             >
               {lines.map((value, i) => (
                 <tspan key={i} x={x} dy={i ? fontSize * 1.15 : 0}>
@@ -166,7 +171,9 @@ function CircleChart({
             textAnchor="middle"
             fontSize={11}
             pointerEvents="none"
-            className="atlas-circle-tip"
+            className={
+              "fill-ink stroke-paper stroke-3 font-body font-semibold opacity-0 transition-opacity duration-150 [paint-order:stroke] [stroke-linejoin:round] peer-hover/node:opacity-100 peer-focus-visible/node:opacity-100"
+            }
           >
             {node.row.Name}
           </text>
@@ -182,9 +189,11 @@ function CircleChart({
       aria-label={`${focus.row.Name}: nested governance circles`}
       aria-hidden={decorative || undefined}
       className={cn(
-        "atlas-circle-svg",
-        parent && "atlas-circle-zoomable",
+        "mx-auto my-1.5 block max-h-[780px] w-full origin-center overflow-visible transition-[opacity,transform] duration-420 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] motion-reduce:transition-none",
+        parent && "cursor-zoom-out",
         className,
+        "motion-reduce:scale-100 motion-reduce:opacity-100",
+        decorative && "motion-reduce:hidden",
       )}
       onClick={(event) => {
         if (
@@ -316,22 +325,22 @@ export default function Circles({
     </ul>
   );
   return (
-    <div id="atlas-circle-chart">
+    <div
+      id="atlas-circle-chart"
+      className="min-w-0 rounded-lg border border-solid border-line bg-white p-4 max-md:p-2.5"
+    >
       <nav
-        className="atlas-circle-breadcrumbs font-body text-xs leading-loose font-bold tracking-normal"
+        className={
+          "font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
+        }
         aria-label="Circle hierarchy"
       >
         <a href="#governance/circles">All circles</a>
         {chain.map((node, i) => (
           <Fragment key={node.row.ID}>
-            <span className="atlas-circle-crumb-sep mx-2 my-0 font-normal text-ink">
-              ›
-            </span>
+            <span className={"mx-2 my-0 font-normal text-ink"}>›</span>
             {i === chain.length - 1 ? (
-              <span
-                className="atlas-circle-crumb-current font-extrabold text-ink"
-                aria-current="page"
-              >
+              <span className={"font-extrabold text-ink"} aria-current="page">
                 {node.row.Name}
               </span>
             ) : (
@@ -342,10 +351,14 @@ export default function Circles({
       </nav>
       {layout.roots.length > 1 && (
         <nav
-          className="atlas-root-picker mt-2.5 mr-0 mb-1 ml-0 flex flex-wrap items-center gap-2"
+          className={
+            'mt-2.5 mr-0 mb-1 ml-0 flex flex-wrap items-center gap-2 [&_a]:rounded-full [&_a]:border [&_a]:border-solid [&_a]:border-line [&_a]:bg-white [&_a]:px-3 [&_a]:py-1 [&_a]:text-xs [&_a]:font-bold [&_a]:text-ink [&_a]:no-underline [&_a:hover]:border-coral-dark [&_a:hover]:text-coral-dark [&_a[aria-current="page"]]:border-ink [&_a[aria-current="page"]]:bg-ink [&_a[aria-current="page"]]:text-paper'
+          }
           aria-label="Root circles"
         >
-          <span className="atlas-root-picker-label text-xs font-bold tracking-wider text-ink uppercase">
+          <span
+            className={"text-xs font-bold tracking-wider text-ink uppercase"}
+          >
             Root circles:
           </span>
           {layout.roots.map((node) => (
@@ -354,10 +367,7 @@ export default function Circles({
               href={url(node.row.ID)}
               aria-current={chain[0] === node ? "page" : undefined}
             >
-              <span
-                className="atlas-icon atlas-icon--circle"
-                aria-hidden="true"
-              />
+              <TypeIcon type="Circle" />
               {node.row.Name}
             </a>
           ))}
@@ -366,12 +376,16 @@ export default function Circles({
       {data.governance.some(
         (row) => row.ID === selected && row.Status === "Retired",
       ) && (
-        <p className="atlas-circle-hint mt-3 mr-0 mb-4 ml-0 text-xs leading-relaxed text-ink">
+        <p className={"mt-3 mr-0 mb-4 ml-0 text-xs leading-relaxed text-ink"}>
           This record is retired. The map shows current roles and circles.
         </p>
       )}
       {query && (
-        <div className="atlas-circle-search">
+        <div
+          className={
+            "mt-3.5 rounded-lg bg-soft p-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_ul]:list-none [&_ul]:pl-0"
+          }
+        >
           <p>
             {matches.length} search{" "}
             {matches.length === 1 ? "result" : "results"}
@@ -387,7 +401,7 @@ export default function Circles({
       )}
       {focus ? (
         <>
-          <div className="atlas-circle-stage relative" ref={stage}>
+          <div className={"relative overflow-clip"} ref={stage}>
             <CircleChart
               {...layout}
               focus={focus}
@@ -397,8 +411,8 @@ export default function Circles({
               className={
                 transition.entering
                   ? transition.inward
-                    ? "atlas-circle-enter-in"
-                    : "atlas-circle-enter-out"
+                    ? "scale-82 opacity-0"
+                    : "scale-120 opacity-0"
                   : ""
               }
             />
@@ -410,16 +424,26 @@ export default function Circles({
                 matches={[]}
                 query=""
                 decorative
-                className={`atlas-circle-leaving ${transition.entering ? "" : transition.inward ? "atlas-circle-leave-in" : "atlas-circle-leave-out"}`}
+                className={cn(
+                  "pointer-events-none absolute inset-0",
+                  !transition.entering &&
+                    (transition.inward
+                      ? "scale-132 opacity-0"
+                      : "scale-72 opacity-0"),
+                )}
               />
             )}
           </div>
-          <p className="atlas-circle-hint mt-3 mr-0 mb-4 ml-0 text-xs leading-relaxed text-ink">
+          <p className={"mt-3 mr-0 mb-4 ml-0 text-xs leading-relaxed text-ink"}>
             {focus.children.length
               ? "Select a circle to explore it, or a role to read its responsibilities. Sizes show containment, not importance."
               : "No roles or subcircles are recorded inside this circle yet."}
           </p>
-          <details className="atlas-circle-children">
+          <details
+            className={
+              "border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0"
+            }
+          >
             <summary>
               Inside {focus.row.Name} ({focus.children.length})
             </summary>
@@ -433,10 +457,18 @@ export default function Circles({
         </p>
       )}
       {layout.unplaced.length > 0 && (
-        <details className="atlas-unplaced">
+        <details
+          className={
+            "border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_p]:mt-2.5 [&_p]:text-xs [&_p]:leading-relaxed [&_p]:text-ink [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0"
+          }
+        >
           <summary>
             <span>Circle not assigned</span>{" "}
-            <span className="atlas-badge atlas-unplaced-count border-line bg-soft font-bold text-ink">
+            <span
+              className={
+                "inline-block rounded-full border border-solid border-line bg-soft px-2 py-1 text-xs leading-none font-bold text-ink"
+              }
+            >
               {layout.unplaced.length}
             </span>
           </summary>
@@ -452,7 +484,11 @@ export default function Circles({
             )
             .map(([label, nodes]) => (
               <Fragment key={label}>
-                <h4 className="atlas-unplaced-group text-xs font-bold tracking-wider text-ink uppercase">
+                <h4
+                  className={
+                    "mt-3.5 text-xs font-bold tracking-wider text-ink uppercase [&:first-of-type]:mt-3"
+                  }
+                >
                   {label === "No likely match"
                     ? label
                     : `Possibly related to ${label}`}

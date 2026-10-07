@@ -88,7 +88,13 @@ function EventCard({
   const meta = [event.city, event.time].filter(Boolean);
   return (
     <article
-      className={cn("event-card", isPast(event) && "past")}
+      className={cn(
+        "group",
+        cn(
+          "flex min-h-24 cursor-pointer items-stretch border-b border-line transition-[background] duration-150 last:border-b-0 hover:bg-[rgba(20,18,14,0.04)]",
+          isPast(event) && "opacity-50",
+        ),
+      )}
       onClick={() => open(event)}
       onKeyDown={(key) => {
         if (key.key === "Enter" || key.key === " ") {
@@ -100,44 +106,47 @@ function EventCard({
       tabIndex={0}
     >
       {event.date ? (
-        <div className="event-card-date-col flex shrink-0 flex-col items-center justify-center gap-0.5 px-2 py-4">
-          <span className="event-card-month font-body text-xs tracking-widest uppercase">
+        <div
+          className={cn(
+            "flex w-20 shrink-0 flex-col items-center justify-center gap-0.5 px-2 py-4 group-hover:brightness-108 max-md:w-16",
+            isPast(event) ? "bg-ink" : "bg-coral",
+          )}
+        >
+          <span className="font-body text-xs tracking-widest text-white/75 uppercase">
             {months[event.date.getMonth()]}
           </span>
-          <span className="event-card-day font-display text-4xl leading-none font-extrabold tracking-tight text-white max-md:text-4xl">
+          <span className="font-display text-4xl leading-none font-extrabold tracking-tight text-white max-md:text-4xl">
             {event.date.getDate()}
           </span>
-          <span className="event-card-year font-body text-xs tracking-widest">
+          <span className="font-body text-xs tracking-widest text-white/55">
             {event.date.getFullYear()}
           </span>
         </div>
       ) : (
-        <div className="event-card-nodate-col flex shrink-0 items-center justify-center bg-line">
-          <span className="event-card-nodate-inner font-body text-xs tracking-widest uppercase">
+        <div className="flex w-20 shrink-0 items-center justify-center bg-line max-md:w-16">
+          <span className="rotate-180 font-body text-xs tracking-widest text-[rgba(20,18,14,0.35)] uppercase [text-orientation:mixed] [writing-mode:vertical-rl]">
             TBD
           </span>
         </div>
       )}
-      <div className="event-card-body flex flex-col justify-center gap-1 pt-4 pr-6 pb-4 pl-6 max-sm:pt-3.5 max-sm:pr-4 max-sm:pb-3 max-sm:pl-4">
-        <div className="event-card-title font-display text-xl leading-none font-bold tracking-normal text-ink uppercase max-sm:text-lg">
+      <div className="flex flex-1 flex-col justify-center gap-1 pt-4 pr-6 pb-4 pl-6 max-sm:pt-3.5 max-sm:pr-4 max-sm:pb-3 max-sm:pl-4">
+        <div className="font-display text-xl leading-none font-bold tracking-normal text-ink uppercase max-sm:text-lg">
           {event.title}
         </div>
         {meta.length > 0 && (
-          <div className="event-card-meta flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {meta.map((part, index) => (
               <Fragment key={`${part}-${index}`}>
-                <span className="event-card-meta-item font-body text-sm text-ink">
-                  {part}
-                </span>
+                <span className="font-body text-sm text-ink">{part}</span>
                 {index < meta.length - 1 && (
-                  <span className="event-card-meta-dot text-line">·</span>
+                  <span className="text-line">·</span>
                 )}
               </Fragment>
             ))}
           </div>
         )}
       </div>
-      <div className="event-card-arrow flex shrink-0 items-center pt-0 pr-5 pb-0 pl-2 font-body text-base max-sm:pt-0 max-sm:pr-3 max-sm:pb-0 max-sm:pl-1">
+      <div className="flex shrink-0 items-center pt-0 pr-5 pb-0 pl-2 font-body text-base text-line transition-[color,translate] duration-150 group-hover:translate-x-[3px] group-hover:text-coral-dark max-sm:pt-0 max-sm:pr-3 max-sm:pb-0 max-sm:pl-1">
         →
       </div>
     </article>
@@ -245,11 +254,16 @@ export default function EventsClient() {
     <>
       <div id="city-filter-wrap">
         {cities.length >= 2 && (
-          <div className="city-filter mb-7 flex flex-wrap gap-2">
+          <div className="mb-7 flex flex-wrap gap-2">
             {[["all", "All cities"], ...cities.map((name) => [name, name])].map(
               ([value, label]) => (
                 <button
-                  className={cn("city-btn", city === value && "active")}
+                  className={cn(
+                    "cursor-pointer border px-4 py-2 font-body text-sm tracking-widest uppercase transition-[background,color,border-color] duration-150",
+                    city === value
+                      ? "border-coral-dark bg-coral text-white"
+                      : "border-line bg-transparent text-ink hover:border-ink",
+                  )}
                   key={value}
                   onClick={() => setCity(value)}
                 >
@@ -262,17 +276,21 @@ export default function EventsClient() {
       </div>
       <div id="events-container">
         {loading ? (
-          <div className="loading-state">Loading events…</div>
+          <div className="px-0 py-10 font-body text-sm tracking-widest text-ink uppercase">
+            Loading events…
+          </div>
         ) : !events.length ? (
-          <p className="empty-state">
+          <p className="px-0 py-10 font-body text-xl leading-relaxed text-ink">
             Join our email list to hear about events when they come up.
           </p>
         ) : !filtered.length ? (
-          <p className="empty-state">No events in {city}.</p>
+          <p className="px-0 py-10 font-body text-xl leading-relaxed text-ink">
+            No events in {city}.
+          </p>
         ) : (
           <>
             {upcoming.length > 0 && (
-              <div className="events-list flex flex-col border border-solid border-line">
+              <div className="flex flex-col border border-solid border-line">
                 {upcoming.map((event) => (
                   <EventCard
                     key={`${event.title}-${event.date?.toISOString()}`}
@@ -284,10 +302,10 @@ export default function EventsClient() {
             )}
             {past.length > 0 && (
               <>
-                <p className="eyebrow past-label mt-12 mr-0 mb-4 ml-0">
+                <p className="mt-12 mr-0 mb-4 ml-0 font-body text-sm tracking-widest text-ink uppercase">
                   Past Events
                 </p>
-                <div className="events-list flex flex-col border border-solid border-line">
+                <div className="flex flex-col border border-solid border-line">
                   {past.map((event) => (
                     <EventCard
                       key={`${event.title}-${event.date?.toISOString()}`}
@@ -303,7 +321,10 @@ export default function EventsClient() {
       </div>
       <div
         id="event-modal"
-        className={cn("event-modal", selected && "open")}
+        className={cn(
+          "group/modal fixed inset-0 z-200 cursor-pointer bg-black/30 transition-[opacity,visibility] duration-250",
+          selected ? "visible opacity-100" : "invisible opacity-0",
+        )}
         role="dialog"
         aria-modal="true"
         aria-label={selected?.title ?? "Event details"}
@@ -313,12 +334,12 @@ export default function EventsClient() {
       >
         {selected && (
           <div
-            className="event-modal-inner absolute top-0 right-0 bottom-0 flex cursor-default flex-col gap-5 overflow-y-auto bg-paper px-10 py-12"
+            className="absolute top-0 right-0 bottom-0 flex w-full max-w-lg translate-x-full cursor-default flex-col gap-5 overflow-y-auto bg-paper px-10 py-12 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-[.visible]/modal:translate-x-0"
             id="event-modal-inner"
           >
-            <div className="modal-date-row flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5">
               {selected.date && (
-                <span className="modal-date font-body text-sm font-medium tracking-widest text-coral-dark uppercase">
+                <span className="font-body text-sm font-medium tracking-widest text-coral-dark uppercase">
                   {selected.date.toLocaleDateString("en-US", {
                     weekday: "short",
                     month: "short",
@@ -328,28 +349,30 @@ export default function EventsClient() {
                 </span>
               )}
               {selected.date && selected.time && (
-                <span className="modal-dot h-0.5 w-0.5 shrink-0 rounded-full bg-line" />
+                <span className="h-0.5 w-0.5 shrink-0 rounded-full bg-line" />
               )}
               {selected.time && (
-                <span className="modal-time font-body text-sm text-ink">
+                <span className="font-body text-sm text-ink">
                   {selected.time}
                 </span>
               )}
             </div>
-            <div className="modal-title font-display leading-none font-extrabold tracking-normal text-ink uppercase">
+            <div className="font-display text-3xl leading-none font-extrabold tracking-normal text-ink uppercase lg:text-4xl">
               {selected.title}
             </div>
             {selected.desc && (
-              <p className="modal-desc border-t border-solid border-t-line pt-5 font-body text-base leading-relaxed text-ink">
+              <p className="border-t border-solid border-t-line pt-5 font-body text-base leading-relaxed text-ink">
                 {selected.desc}
               </p>
             )}
             {(selected.address || selected.bring || selected.orgName) && (
-              <div className="modal-details flex flex-col gap-3.5 border-t border-solid border-t-line pt-5">
+              <div className="flex flex-col gap-3.5 border-t border-solid border-t-line pt-5">
                 {selected.address && (
-                  <div className="detail-row flex flex-col gap-1">
-                    <span className="eyebrow">Location</span>
-                    <span className="detail-value font-body text-sm leading-normal">
+                  <div className="flex flex-col gap-1">
+                    <span className="font-body text-sm tracking-widest text-ink uppercase">
+                      Location
+                    </span>
+                    <span className="font-body text-sm leading-normal text-ink [&_a]:text-coral-dark [&_a]:no-underline [&_a:hover]:underline">
                       {mapQuery ? (
                         <a
                           href={`https://maps.google.com/?q=${encodeURIComponent(mapQuery)}`}
@@ -366,17 +389,21 @@ export default function EventsClient() {
                   </div>
                 )}
                 {selected.bring && (
-                  <div className="detail-row flex flex-col gap-1">
-                    <span className="eyebrow">What to bring</span>
-                    <span className="detail-value font-body text-sm leading-normal">
+                  <div className="flex flex-col gap-1">
+                    <span className="font-body text-sm tracking-widest text-ink uppercase">
+                      What to bring
+                    </span>
+                    <span className="font-body text-sm leading-normal text-ink [&_a]:text-coral-dark [&_a]:no-underline [&_a:hover]:underline">
                       {selected.bring}
                     </span>
                   </div>
                 )}
                 {selected.orgName && (
-                  <div className="detail-row flex flex-col gap-1">
-                    <span className="eyebrow">Organizer</span>
-                    <span className="detail-value font-body text-sm leading-normal">
+                  <div className="flex flex-col gap-1">
+                    <span className="font-body text-sm tracking-widest text-ink uppercase">
+                      Organizer
+                    </span>
+                    <span className="font-body text-sm leading-normal text-ink [&_a]:text-coral-dark [&_a]:no-underline [&_a:hover]:underline">
                       {selected.orgName}
                       {selected.orgPhone && ` · ${selected.orgPhone}`}
                     </span>
@@ -384,12 +411,12 @@ export default function EventsClient() {
                 )}
               </div>
             )}
-            <div className="modal-share-row flex items-center gap-2.5 border-t border-solid border-t-line pt-5">
-              <span className="modal-share-url min-w-0 overflow-hidden font-body text-sm whitespace-nowrap text-ink">
+            <div className="flex items-center gap-2.5 border-t border-solid border-t-line pt-5">
+              <span className="min-w-0 flex-1 overflow-hidden font-body text-sm text-ellipsis whitespace-nowrap text-ink">
                 {shareUrl}
               </span>
               <Button
-                className={copied ? "copied" : ""}
+                className={cn(copied && "border-success text-success")}
                 onClick={async () => {
                   await navigator.clipboard.writeText(shareUrl);
                   setCopied(true);
@@ -399,7 +426,7 @@ export default function EventsClient() {
                 {copied ? "Copied!" : "Copy link"}
               </Button>
             </div>
-            <p className="modal-close-hint mt-auto pt-2 text-center font-body text-xs font-medium tracking-widest text-ink uppercase">
+            <p className="mt-auto pt-2 text-center font-body text-xs font-medium tracking-widest text-ink uppercase">
               Click outside to close
             </p>
           </div>

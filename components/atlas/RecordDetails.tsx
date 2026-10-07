@@ -1,3 +1,4 @@
+import { cn } from "@/lib/cn";
 import { Fragment } from "react";
 import {
   isCurrent,
@@ -9,25 +10,9 @@ import {
 } from "@/lib/atlas/model";
 import { useAtlasLookups } from "@/components/atlas/AtlasLookupsContext";
 
-export function TypeIcon({ type }: { type: string }) {
-  const icons: Record<string, string> = {
-    Mission: "mission",
-    Pillar: "pillar",
-    Objective: "pillar",
-    Program: "program",
-    Domain: "product",
-    "Product/Service": "product",
-    Project: "project",
-    Circle: "circle",
-    Role: "role",
-  };
-  return (
-    <span
-      className={`atlas-icon atlas-icon--${icons[type] || "role"}`}
-      aria-hidden="true"
-    />
-  );
-}
+export { TypeIcon } from "@/components/atlas/TypeIcon";
+import { TypeIcon } from "@/components/atlas/TypeIcon";
+
 export function RecordLink({
   id,
   format,
@@ -65,7 +50,11 @@ export function LinkedRecords({
 }) {
   if (!ids.length) return <span>Not recorded</span>;
   return (
-    <ul className="atlas-links list-none">
+    <ul
+      className={
+        "list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5"
+      }
+    >
       {ids.map((id) => (
         <li key={id}>
           <RecordLink id={id} format={format} />
@@ -85,33 +74,30 @@ export function Ownership({ row, format }: { row: AtlasRow; format?: Format }) {
       {result.ids.map((id) => {
         const owner = rowsById.get(id);
         return owner?.["Person ID"] ? (
-          <p
-            key={id}
-            className="atlas-coverage mt-2 text-xs leading-relaxed text-ink"
-          >
+          <p key={id} className={"mt-2 text-xs leading-relaxed text-ink"}>
             Energized by <Assignee row={owner} />
           </p>
         ) : null;
       })}
       {result.kind === "undelegated" && (
-        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
+        <p className={"mt-2 text-xs leading-relaxed text-ink"}>
           Held by this circle; not delegated to a role.
         </p>
       )}
       {result.kind === "unfilled" && (
-        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
+        <p className={"mt-2 text-xs leading-relaxed text-ink"}>
           The role retains responsibility for this work. Circle Lead coverage
           applies while the role is unfilled.
         </p>
       )}
       {result.kind === "unknown" && (
-        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
+        <p className={"mt-2 text-xs leading-relaxed text-ink"}>
           Containing circle not recorded; default responsibility cannot be
           resolved.
         </p>
       )}
       {coverage && (
-        <p className="atlas-coverage mt-2 text-xs leading-relaxed text-ink">
+        <p className={"mt-2 text-xs leading-relaxed text-ink"}>
           {coverage.circleId && (
             <>
               Coverage through <RecordLink id={coverage.circleId} />:{" "}
@@ -155,15 +141,17 @@ export function extraFields(row: AtlasRow) {
 }
 export function FieldsList({ fields }: { fields: string[][] }) {
   return (
-    <dl>
+    <dl className="mt-3">
       {fields.map(([key, value]) => (
         <Fragment key={key}>
-          <dt>{key}</dt>
-          <dd>
+          <dt className="mt-2.5 text-xs font-bold tracking-wider text-ink uppercase">
+            {key}
+          </dt>
+          <dd className="mt-0.5 whitespace-pre-wrap">
             {key === "Circle ID" && value ? (
               <RecordLink id={value} />
             ) : ["Accountabilities", "Privileges"].includes(key) && value ? (
-              <ul className="atlas-field-list pl-5">
+              <ul className={"m-0 list-disc pl-5 [&_li_+_li]:mt-1.5"}>
                 {value
                   .split(/[;\n]+/)
                   .map((s) => s.trim())
@@ -191,12 +179,14 @@ export default function RecordDetails({
   format,
   today,
   group,
+  compact = false,
 }: {
   id: string;
   data: AtlasData;
   format: Format;
   today: string;
   group: "domains" | "governance";
+  compact?: boolean;
 }) {
   const { rowsById, domainsByOwner } = useAtlasLookups();
   const row = rowsById.get(id);
@@ -228,10 +218,18 @@ export default function RecordDetails({
   return (
     <section
       id="atlas-record"
-      className="atlas-record rounded-lg border border-solid border-line bg-white max-sm:rounded-none"
+      className={cn(
+        "mb-5 scroll-mt-36 rounded-lg border border-t-[3px] border-line border-t-coral-dark bg-white p-6 max-md:p-4 max-sm:rounded-none [&_dd]:m-0 [&_dd]:wrap-anywhere [&_dl]:mt-5 [&_dl]:grid [&_dl]:gap-x-5 [&_dl]:gap-y-2.5 [&_dl]:text-sm [&_dt]:m-0 [&_dt]:wrap-anywhere [&_h3]:mt-5 [&_h3]:mb-1.5 [&_h3]:text-xs [&_h3]:font-bold [&_h3]:tracking-wider [&_h3]:text-ink [&_h3]:uppercase",
+        compact
+          ? "max-h-200 overflow-y-auto p-5 max-md:max-h-none [&_dd]:mb-2.5 [&_dl]:grid-cols-1 [&_dl]:gap-1.5"
+          : "max-md:[&_dd]:mb-2.5 [&_dl]:grid-cols-2 max-md:[&_dl]:grid-cols-1 max-md:[&_dl]:gap-1.5",
+      )}
       aria-labelledby="record-title"
     >
-      <a className="atlas-record-close" href={`#${group}/${format}`}>
+      <a
+        className="text-xs font-bold tracking-wide text-ink hover:text-coral-dark"
+        href={`#${group}/${format}`}
+      >
         {format === "circles"
           ? "← All circles"
           : format === "outline"
@@ -240,7 +238,11 @@ export default function RecordDetails({
               ? "← Alignment matrix"
               : "← Back to list"}
       </a>
-      <h2 id="record-title" tabIndex={-1}>
+      <h2
+        id="record-title"
+        tabIndex={-1}
+        className="mt-4 font-display text-2xl leading-none font-bold tracking-normal wrap-anywhere normal-case"
+      >
         {row && <TypeIcon type={row.Type} />}
         {row?.Name || "Record not found"}
       </h2>
@@ -248,7 +250,7 @@ export default function RecordDetails({
         <p>No record exists for {id}.</p>
       ) : (
         <>
-          <p className="atlas-record-meta text-xs tracking-wide text-ink">
+          <p className={"text-xs tracking-wide text-ink"}>
             {row.ID} · {row.Type} · {row.Status}
           </p>
           {parents.length > 0 && (
@@ -257,7 +259,7 @@ export default function RecordDetails({
               <LinkedRecords ids={parents} format={format} />
             </>
           )}
-          <p className="atlas-record-purpose mt-4 text-base leading-relaxed">
+          <p className={"mt-4 text-base leading-relaxed"}>
             {row.Purpose || "Purpose not documented."}
           </p>
           {group === "domains" ? (
@@ -289,10 +291,20 @@ export default function RecordDetails({
             </>
           )}
           {(history.length > 0 || notes.length > 0) && (
-            <details className="atlas-record-history mt-5 border-t border-solid border-t-line pt-3.5">
-              <summary>History &amp; notes</summary>
+            <details
+              className={
+                "mt-5 border-t border-solid border-t-line pt-3.5 [&_summary]:cursor-pointer [&_summary]:font-semibold"
+              }
+            >
+              <summary className="cursor-pointer text-ink underline underline-offset-2 hover:text-coral-dark">
+                History &amp; notes
+              </summary>
               {notes.length > 0 && <FieldsList fields={notes} />}
-              <ul className="atlas-history list-none leading-normal">
+              <ul
+                className={
+                  "list-none pl-0 text-sm leading-normal [&_li]:mb-2.5 [&_li]:border-l-2 [&_li]:border-solid [&_li]:border-l-line [&_li]:pl-3.5 [&_small]:block [&_small]:text-xs [&_small]:text-ink"
+                }
+              >
                 {history.map((relation) => {
                   const outgoing = relation["From ID"] === id;
                   const state = isCurrent(relation, today)

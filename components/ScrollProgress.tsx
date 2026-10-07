@@ -16,5 +16,12 @@ export default function ScrollProgress() {
     window.addEventListener("scroll", update, { passive: true });
     return () => window.removeEventListener("scroll", update);
   }, []);
-  return <div className="progress-bar" ref={bar} />;
+  return (
+    <div
+      className={
+        "pointer-events-none fixed top-0 left-0 z-10001 h-0.5 w-full [transform-origin:left_center] [transform:scaleX(0)] bg-coral"
+      }
+      ref={bar}
+    />
+  );
 }

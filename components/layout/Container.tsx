@@ -15,7 +15,7 @@ export function Container({
   return (
     <div
       className={cn(
-        "site-container relative z-2 mx-auto w-full px-3 sm:px-6",
+        "relative z-2 mx-auto w-full px-3 sm:px-6",
         widths[width],
         className,
       )}

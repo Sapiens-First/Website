@@ -207,7 +207,7 @@ export function FocusList({
   );
 }
 
-/** Plain full-width page header used by content pages (campaigns, policy, learn, events, membership). */
+/** Plain full-width page header used by content pages (campaigns, policy, learn). */
 export function PageHero({ className = "", ...props }: ComponentProps<"div">) {
   return (
     <div

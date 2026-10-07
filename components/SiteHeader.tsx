@@ -191,11 +191,7 @@ export default function SiteHeader() {
                 className={cn(navCta, "rotate-2 bg-[#bcd8ff]")}
                 href="/join"
                 data-nav-join
-                aria-current={
-                  path === "/join" || path === "/membership"
-                    ? "page"
-                    : undefined
-                }
+                aria-current={path === "/join" ? "page" : undefined}
               >
                 Join
               </Link>

@@ -1,6 +1,5 @@
 import { PageHero, PageTitle } from "@/components/sections/SplitSection";
 import { pageMetadata } from "@/lib/site";
-import ScrollProgress from "@/components/ScrollProgress";
 import { TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
@@ -14,13 +13,11 @@ export const metadata = pageMetadata({
 });
 
 const bodyLarge =
-  "reveal mx-0 mt-0 mb-5 max-w-4xl text-left text-lg leading-normal font-medium text-ink last:mb-0 xl:text-xl";
+  "mx-0 mt-0 mb-5 max-w-4xl text-left text-lg leading-normal font-medium text-ink last:mb-0 xl:text-xl";
 
 export default function Page() {
   return (
     <>
-      <ScrollProgress />
-
       <PageHero className="px-0 pt-20 pb-20 max-md:pt-20 max-md:pb-20 max-sm:pt-14 max-sm:pb-12">
         <Container>
           <Label className="mb-[26px]" tone="coral">
@@ -76,7 +73,7 @@ export default function Page() {
           <Container>
             <div
               className={
-                "mb-4 reveal text-left font-display text-4xl leading-none font-extrabold tracking-tight uppercase lg:text-5xl xl:text-6xl"
+                "mb-4 text-left font-display text-4xl leading-none font-extrabold tracking-tight uppercase lg:text-5xl xl:text-6xl"
               }
             >
               Current Campaigns

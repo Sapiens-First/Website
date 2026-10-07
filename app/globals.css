@@ -21,20 +21,6 @@
   --font-body: var(--font-dm-sans), sans-serif;
   --font-quote: Georgia, "Times New Roman", serif;
   --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
-  --animate-ember: ember-flicker var(--ed, 3s) ease-in-out var(--ey, 0s)
-    infinite;
-  @keyframes ember-flicker {
-    0%,
-    100% {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-    45%,
-    55% {
-      opacity: var(--ep, 0.75);
-      transform: scale(1.3);
-    }
-  }
   @keyframes fade-up {
     from {
       opacity: 0;
@@ -240,20 +226,6 @@
   }
 }
 
-/* IntersectionObserver toggles a data attribute; no hiding without scripting. */
-@utility reveal {
-  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-    &[data-revealed] {
-      opacity: 1;
-      transform: none;
-    }
-  }
-}
 @utility jolt {
   @apply inline-block -rotate-2 bg-brand-yellow px-[0.08em];
 }

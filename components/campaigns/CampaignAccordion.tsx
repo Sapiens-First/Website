@@ -72,7 +72,7 @@ export default function CampaignAccordion() {
         <Fragment key={campaign.id}>
           <button
             className={cn(
-              "group row-start-1 flex w-full reveal cursor-pointer items-center justify-center gap-3.5 border-2 border-t-8 border-ink bg-white px-6 py-5 text-left font-[inherit] text-inherit transition-[background,border-color] duration-220 hover:bg-paper focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-[color-mix(in_srgb,var(--color-coral)_40%,transparent)] max-md:px-5",
+              "group row-start-1 flex w-full cursor-pointer items-center justify-center gap-3.5 border-2 border-t-8 border-ink bg-white px-6 py-5 text-left font-[inherit] text-inherit transition-[background,border-color] duration-220 hover:bg-paper focus-visible:outline-3 focus-visible:-outline-offset-2 focus-visible:outline-[color-mix(in_srgb,var(--color-coral)_40%,transparent)] max-md:px-5",
               tabColors[index],
               index > 0 && (index === 1 ? "delay-150" : "delay-300"),
               activeId === campaign.id &&

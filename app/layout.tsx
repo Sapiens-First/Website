@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import RevealOnScroll from "@/components/RevealOnScroll";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -47,7 +46,6 @@ export default function RootLayout({
         <SiteHeader />
         {children}
         <SiteFooter />
-        <RevealOnScroll />
       </body>
     </html>
   );

@@ -2,7 +2,6 @@ import { pageMetadata } from "@/lib/site";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
 import PolicyToc from "@/components/policy/PolicyToc";
-import ScrollProgress from "@/components/ScrollProgress";
 import { Accordion, AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
 import { policyPillars } from "@/content/policies";
@@ -21,15 +20,13 @@ const pillarColors = [
 ];
 const pillarClass = "mb-16 scroll-mt-[100px] last:mb-0";
 const headingClass =
-  "reveal mb-3.5 border-b-[6px] border-[var(--pillar-color)] pb-4 text-left font-display text-4xl leading-none font-extrabold tracking-normal uppercase text-ink lg:text-5xl xl:text-6xl";
+  "mb-3.5 border-b-[6px] border-[var(--pillar-color)] pb-4 text-left font-display text-4xl leading-none font-extrabold tracking-normal uppercase text-ink lg:text-5xl xl:text-6xl";
 const bodyClass =
-  "reveal mb-4 text-left text-lg leading-normal font-medium text-ink last:mb-0 xl:text-xl [&_strong]:font-[638]";
+  "mb-4 text-left text-lg leading-normal font-medium text-ink last:mb-0 xl:text-xl [&_strong]:font-[638]";
 
 export default function Page() {
   return (
     <>
-      <ScrollProgress />
-
       <div className="relative flex flex-col justify-center overflow-hidden border-b-2 border-ink bg-paper py-20 max-sm:pt-14 max-sm:pb-12">
         <Container>
           <Label tone="coral" className="mb-[26px]">
@@ -74,7 +71,7 @@ export default function Page() {
                     <p className={bodyClass}>
                       Our approach to policy advocacy is:
                     </p>
-                    <ul className="mb-4 flex reveal list-disc flex-col gap-2 pl-[1.3em] [&_li]:font-body [&_li]:text-lg [&_li]:leading-normal [&_li]:text-ink [&_li]:xl:text-xl [&_li::marker]:text-coral-dark">
+                    <ul className="mb-4 flex list-disc flex-col gap-2 pl-[1.3em] [&_li]:font-body [&_li]:text-lg [&_li]:leading-normal [&_li]:text-ink [&_li]:xl:text-xl [&_li::marker]:text-coral-dark">
                       <li>
                         Run campaigns that are politically feasible and allow us
                         to mobilize a broad coalition.
@@ -93,7 +90,7 @@ export default function Page() {
                       you&apos;d like to contribute, please reach out to
                       rohan@sapiensfirst.org.
                     </p>
-                    <p className="mt-1 reveal text-left font-body text-sm tracking-wider text-ink opacity-60">
+                    <p className="mt-1 text-left font-body text-sm tracking-wider text-ink opacity-60">
                       This page is a living document, last updated in July 2026.
                     </p>
                   </section>
@@ -128,7 +125,7 @@ export default function Page() {
                       ))}
                     </section>
                   ))}
-                  <p className="mt-1 reveal text-left font-body text-sm tracking-wider text-ink opacity-60">
+                  <p className="mt-1 text-left font-body text-sm tracking-wider text-ink opacity-60">
                     Sapiens First — A People&apos;s Agenda for the Age of AI ·
                     Updated July 2026
                   </p>

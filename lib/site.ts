@@ -7,7 +7,6 @@ export const site = {
   strategyDocUrl:
     "https://docs.google.com/document/d/1sBlALbzX4fwvEJcFtc4OSpAnceozyV3_chMaFNUIhJg/edit?usp=sharing",
   guideDocId: "1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs",
-  eventsSheetId: "1mkPKC7MmmKhW8PS2K-7lqmjreQOln6zz9t5C-lSDqOU",
   signupScriptUrl:
     "https://script.google.com/macros/s/AKfycbyXZdjPHlsgHyuklLQmJ2JNFjVZorzcdhUY-wkv3h5vTJuXxtqOveAK4JnIXVdwwSU0/exec",
 } as const;
@@ -63,12 +62,10 @@ export const routes = [
   "/campaigns",
   "/join",
   "/donate",
-  "/events",
   "/learn",
   "/policy",
   "/human-charter",
   "/privacy",
-  "/membership",
   "/careers",
   "/careers/builder",
 ] as const;

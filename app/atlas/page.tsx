@@ -30,10 +30,7 @@ export default function Page() {
           </h1>
           <p className="max-w-xl text-lg leading-normal text-ink">
             Goals, circles, roles, projects, and the people behind them.
-            <span
-              id="mission-text"
-              className="mt-2.5 block text-sm font-medium text-ink"
-            >
+            <span className="mt-2.5 block text-sm font-medium text-ink">
               Our mission:{" "}
               {data.domains.find((row) => row.Type === "Mission")?.Purpose}
             </span>

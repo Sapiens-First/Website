@@ -213,7 +213,6 @@ export default function RecordDetails({
   };
   return (
     <section
-      id="atlas-record"
       className={cn(
         "mb-5 scroll-mt-36 rounded-lg border border-t-[3px] border-line border-t-coral-dark bg-white p-6 max-md:p-4 max-sm:rounded-none [&_dd]:m-0 [&_dd]:wrap-anywhere [&_dl]:mt-5 [&_dl]:grid [&_dl]:gap-x-5 [&_dl]:gap-y-2.5 [&_dl]:text-sm [&_dt]:m-0 [&_dt]:wrap-anywhere [&_h3]:mt-5 [&_h3]:mb-1.5 [&_h3]:text-xs [&_h3]:font-bold [&_h3]:tracking-wider [&_h3]:text-ink [&_h3]:uppercase",
         compact

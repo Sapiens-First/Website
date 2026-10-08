@@ -60,7 +60,7 @@ export default function Page() {
           <Label className="mb-[26px]" tone="coral">
             Take action
           </Label>
-          <PageTitle className="m-0 max-w-xl animate-none text-left text-6xl leading-[0.9] tracking-[-0.025em] opacity-100 lg:text-8xl">
+          <PageTitle className="m-0 max-w-xl text-6xl leading-[0.9] tracking-[-0.025em] lg:text-8xl">
             Our{" "}
             <span className="ink-underline ink-underline-brand-blue">
               Campaigns.

@@ -59,23 +59,6 @@ export function Kicker({ className = "", ...props }: ComponentProps<"div">) {
   );
 }
 
-export function Eyebrow({
-  accent = false,
-  className = "",
-  ...props
-}: ComponentProps<"span"> & { accent?: boolean }) {
-  return (
-    <span
-      className={cn(
-        "font-body text-sm tracking-widest uppercase",
-        accent ? "text-coral-dark" : "text-ink",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
 const deckSizes = {
   default: "text-xl leading-snug lg:text-2xl xl:text-3xl",
   compact: "text-lg leading-normal font-medium xl:text-xl",

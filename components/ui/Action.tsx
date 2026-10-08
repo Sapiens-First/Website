@@ -8,7 +8,7 @@ const variants = {
   donation: "bg-brand-yellow text-ink hover:bg-brand-yellow/80",
 } as const;
 
-export const actionClasses = (variant: keyof typeof variants = "outline") =>
+const actionClasses = (variant: keyof typeof variants = "outline") =>
   `inline-flex items-center justify-center gap-2 border-2 border-ink px-4 py-3 font-body text-sm font-black uppercase no-underline transition-colors motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink disabled:cursor-wait disabled:opacity-60 ${variants[variant]}`;
 
 type ActionLinkProps = ComponentProps<typeof Link> & {
@@ -43,19 +43,13 @@ export function Button({
 }
 
 export function TextLink({
-  variant = "inline",
   className = "",
   ...props
-}: ComponentProps<typeof Link> & { variant?: "inline" | "block" }) {
-  const layout =
-    variant === "block"
-      ? "block w-fit ml-auto mt-7 text-right"
-      : "inline-block";
+}: ComponentProps<typeof Link>) {
   return (
     <Link
       className={cn(
-        layout,
-        "border-b-2 border-ink pb-0.5 font-body text-xs font-black tracking-wider text-ink uppercase no-underline transition-colors hover:border-coral-dark hover:text-coral-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink",
+        "inline-block border-b-2 border-ink pb-0.5 font-body text-xs font-black tracking-wider text-ink uppercase no-underline transition-colors hover:border-coral-dark hover:text-coral-dark focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink",
         className,
       )}
       {...props}

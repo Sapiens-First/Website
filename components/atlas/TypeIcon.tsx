@@ -13,8 +13,6 @@ const masks = {
     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2.5' y='2.5' width='11' height='11' rx='2' fill='none' stroke='%23000' stroke-width='1.4'/%3E%3Cpath d='M5 8.2l2 2 4-4.4' fill='none' stroke='%23000' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E\")",
   product:
     "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 1.5l6 3.3v6.4L8 14.5l-6-3.3V4.8z' fill='none' stroke='%23000' stroke-width='1.4' stroke-linejoin='round'/%3E%3Cpath d='M2 4.8L8 8l6-3.2M8 8v6.5' fill='none' stroke='%23000' stroke-width='1.2'/%3E%3C/svg%3E\")",
-  person:
-    "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='5.4' r='2.6' fill='none' stroke='%23000' stroke-width='1.5'/%3E%3Cpath d='M2.6 14c.7-3 2.8-4.6 5.4-4.6s4.7 1.6 5.4 4.6' fill='none' stroke='%23000' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E\")\n",
 };
 const types: Record<string, keyof typeof masks> = {
   Mission: "mission",
@@ -26,7 +24,7 @@ const types: Record<string, keyof typeof masks> = {
   Project: "project",
   Circle: "circle",
   Role: "role",
-  Person: "person",
+  Person: "role",
 };
 
 /** Masked glyphs keep labels' text content intact. */

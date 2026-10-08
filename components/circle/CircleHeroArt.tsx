@@ -1,5 +1,15 @@
 import { HeroArt } from "@/components/sections/SplitSection";
 
+/** Six figures around the table: rotation (deg), shirt colour, skin tone. */
+const figures = [
+  { rotate: -15, body: "var(--color-brand-blue)", skin: "#efb98e" },
+  { rotate: 45, body: "var(--color-paper)", skin: "#794b38" },
+  { rotate: 105, body: "var(--color-brand-purple)", skin: "#d89266" },
+  { rotate: 165, body: "var(--color-brand-pink)", skin: "#efb98e" },
+  { rotate: 225, body: "var(--color-paper)", skin: "#ad7050" },
+  { rotate: 285, body: "var(--color-brand-blue)", skin: "#794b38" },
+];
+
 export default function CircleHeroArt() {
   return (
     <HeroArt className="grid place-items-center px-3 py-7">
@@ -28,240 +38,47 @@ export default function CircleHeroArt() {
           fill="var(--color-paper)"
         ></path>
         <g strokeLinecap="round" strokeLinejoin="round">
-          <g transform="translate(300 332) rotate(-15)">
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-ink)"
-              transform="translate(5 6)"
-            ></rect>
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-brand-blue)"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></rect>
-            <path
-              d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            ></path>
-            <circle
-              cy="-182"
-              r="26"
-              fill="#efb98e"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></circle>
-            <path
-              d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-              fill="var(--color-ink)"
-            ></path>
-          </g>
-          <g transform="translate(300 332) rotate(45)">
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-ink)"
-              transform="translate(5 6)"
-            ></rect>
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-paper)"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></rect>
-            <path
-              d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            ></path>
-            <circle
-              cy="-182"
-              r="26"
-              fill="#794b38"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></circle>
-            <path
-              d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-              fill="var(--color-ink)"
-            ></path>
-          </g>
-          <g transform="translate(300 332) rotate(105)">
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-ink)"
-              transform="translate(5 6)"
-            ></rect>
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-brand-purple)"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></rect>
-            <path
-              d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            ></path>
-            <circle
-              cy="-182"
-              r="26"
-              fill="#d89266"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></circle>
-            <path
-              d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-              fill="var(--color-ink)"
-            ></path>
-          </g>
-          <g transform="translate(300 332) rotate(165)">
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-ink)"
-              transform="translate(5 6)"
-            ></rect>
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-brand-pink)"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></rect>
-            <path
-              d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            ></path>
-            <circle
-              cy="-182"
-              r="26"
-              fill="#efb98e"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></circle>
-            <path
-              d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-              fill="var(--color-ink)"
-            ></path>
-          </g>
-          <g transform="translate(300 332) rotate(225)">
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-ink)"
-              transform="translate(5 6)"
-            ></rect>
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-paper)"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></rect>
-            <path
-              d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            ></path>
-            <circle
-              cy="-182"
-              r="26"
-              fill="#ad7050"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></circle>
-            <path
-              d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-              fill="var(--color-ink)"
-            ></path>
-          </g>
-          <g transform="translate(300 332) rotate(285)">
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-ink)"
-              transform="translate(5 6)"
-            ></rect>
-            <rect
-              x="-43"
-              y="-168"
-              width="86"
-              height="94"
-              rx="32"
-              fill="var(--color-brand-blue)"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></rect>
-            <path
-              d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-              fill="none"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-              strokeLinecap="round"
-            ></path>
-            <circle
-              cy="-182"
-              r="26"
-              fill="#794b38"
-              stroke="var(--color-ink)"
-              strokeWidth="3"
-            ></circle>
-            <path
-              d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-              fill="var(--color-ink)"
-            ></path>
-          </g>
+          {figures.map(({ rotate, body, skin }) => (
+            <g key={rotate} transform={`translate(300 332) rotate(${rotate})`}>
+              <rect
+                x="-43"
+                y="-168"
+                width="86"
+                height="94"
+                rx="32"
+                fill="var(--color-ink)"
+                transform="translate(5 6)"
+              ></rect>
+              <rect
+                x="-43"
+                y="-168"
+                width="86"
+                height="94"
+                rx="32"
+                fill={body}
+                stroke="var(--color-ink)"
+                strokeWidth="3"
+              ></rect>
+              <path
+                d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
+                fill="none"
+                stroke="var(--color-ink)"
+                strokeWidth="3"
+                strokeLinecap="round"
+              ></path>
+              <circle
+                cy="-182"
+                r="26"
+                fill={skin}
+                stroke="var(--color-ink)"
+                strokeWidth="3"
+              ></circle>
+              <path
+                d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
+                fill="var(--color-ink)"
+              ></path>
+            </g>
+          ))}
           <circle cx="305" cy="340" r="116" fill="var(--color-ink)"></circle>
           <circle
             cx="300"

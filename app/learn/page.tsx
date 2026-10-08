@@ -17,7 +17,7 @@ export default function Page() {
       <PageHero className="pt-16 pb-14 max-md:pt-16 max-md:pb-14 max-sm:pt-14 max-sm:pb-12">
         <Container className="max-w-6xl">
           <Kicker>Learn · Organize · Act</Kicker>
-          <PageTitle className="max-w-none animate-none text-left text-5xl leading-none opacity-100 max-sm:text-5xl lg:text-7xl">
+          <PageTitle className="max-w-none text-5xl leading-none tracking-tighter lg:text-7xl">
             Sapiens&apos; Guide to
             <br />
             <span className="text-coral-dark">Revolution</span>

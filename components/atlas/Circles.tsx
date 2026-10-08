@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Fragment,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
+import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
 import { circleLayout } from "@/lib/atlas/circles";
 import type { AtlasData, AtlasRow, HierarchyNode } from "@/lib/atlas/model";
 import { TypeIcon } from "@/components/atlas/TypeIcon";
@@ -101,11 +94,7 @@ function CircleChart({
     const width =
       Math.max(...lines.map((value) => value.length)) * fontSize * 0.6 + 16;
     return (
-      <g
-        key={node.row.ID}
-        data-node-id={node.row.ID}
-        data-parent-id={node.row["Parent Circle ID"] || ""}
-      >
+      <g key={node.row.ID}>
         <a
           href={decorative ? undefined : url(node.row.ID)}
           tabIndex={decorative ? -1 : 0}
@@ -242,7 +231,6 @@ export default function Circles({
       entering: true,
       inward: chain.length >= chainFor(transition.focus, layout.nodes).length,
     });
-  const stage = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!transition.entering) return;
     let frame2 = 0;
@@ -321,10 +309,7 @@ export default function Circles({
     </ul>
   );
   return (
-    <div
-      id="atlas-circle-chart"
-      className="min-w-0 rounded-lg border border-solid border-line bg-white p-4 max-md:p-2.5"
-    >
+    <div className="min-w-0 rounded-lg border border-solid border-line bg-white p-4 max-md:p-2.5">
       <nav
         className="font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
         aria-label="Circle hierarchy"
@@ -391,7 +376,7 @@ export default function Circles({
       )}
       {focus ? (
         <>
-          <div className={"relative overflow-clip"} ref={stage}>
+          <div className={"relative overflow-clip"}>
             <CircleChart
               {...layout}
               focus={focus}

@@ -20,17 +20,6 @@
   --font-display: var(--font-barlow-condensed), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
   --font-quote: Georgia, "Times New Roman", serif;
-  --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(22px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 }
 
 @layer base {
@@ -224,8 +213,4 @@
     background: var(--color-brand-yellow);
     transform: rotate(-1.5deg);
   }
-}
-
-@utility jolt {
-  @apply inline-block -rotate-2 bg-brand-yellow px-[0.08em];
 }

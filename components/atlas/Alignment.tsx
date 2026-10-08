@@ -20,7 +20,7 @@ export default function Alignment({
 }) {
   const { rows, cols, cells } = alignmentMatrix(data, rowType);
   return (
-    <div id="atlas-alignment-matrix">
+    <div>
       <div className={"mb-3 flex"}>
         <div
           className={

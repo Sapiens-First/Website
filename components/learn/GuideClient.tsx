@@ -432,11 +432,11 @@ export default function GuideClient() {
           <summary className="cursor-pointer border-b-2 border-ink pb-4 font-display text-2xl leading-tight font-extrabold uppercase focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand-blue max-lg:border-0 max-lg:p-0 max-lg:text-xl max-lg:group-open:border-b max-lg:group-open:border-line max-lg:group-open:pb-4">
             Contents
           </summary>
-          <div id="toc-container">{toc}</div>
+          <div>{toc}</div>
         </details>
       </aside>
       <div className="min-w-0 lg:col-span-9">
-        <div id="doc-content">
+        <div>
           {error ? (
             <p className={statusBox}>
               Could not load the guide right now.{" "}

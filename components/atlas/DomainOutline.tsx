@@ -141,10 +141,8 @@ export default function DomainOutline({
             "flex cursor-default items-baseline gap-2 rounded-md px-2 py-1.5 transition-colors duration-150 hover:bg-surface focus-visible:outline-[3px] focus-visible:-outline-offset-1 focus-visible:outline-coral-dark",
             selected === node.row.ID &&
               "bg-[color-mix(in_srgb,var(--color-coral)_8%,white)] shadow-[inset_3px_0_0_var(--color-coral-dark)]",
-            query && matched.has(node.row.ID) && "",
           )}
           data-outline-row
-          data-band={bands[node.row.Type] ?? 3}
           data-id={node.row.ID}
           tabIndex={0}
           onKeyDown={(event) => {
@@ -198,10 +196,7 @@ export default function DomainOutline({
     );
   }
   return (
-    <div
-      id="atlas-outline-tree"
-      className="min-w-0 rounded-lg border border-solid border-line bg-white px-2.5 py-1.5"
-    >
+    <div className="min-w-0 rounded-lg border border-solid border-line bg-white px-2.5 py-1.5">
       {chain.length > 0 && (
         <nav
           className="mt-1 mr-1 mb-0.5 ml-1 font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"

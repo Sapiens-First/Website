@@ -224,8 +224,7 @@ export function PageTitle({ className = "", ...props }: ComponentProps<"h1">) {
   return (
     <h1
       className={cn(
-        "relative z-2 font-display leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter",
-        "relative z-2 max-w-xs animate-fade-up text-center font-display text-6xl leading-none font-extrabold tracking-tighter text-ink uppercase opacity-0 motion-reduce:animate-none motion-reduce:opacity-100 sm:max-w-md lg:max-w-xl lg:text-8xl",
+        "relative z-2 text-left font-display font-extrabold text-ink uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl",
         className,
       )}
       {...props}

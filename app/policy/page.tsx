@@ -121,7 +121,7 @@ export default function Page() {
                 <PolicyToc pillars={pillars} />
               </aside>
               <div className="min-w-0 flex-1">
-                <div id="policy-content" className="[counter-reset:policy-num]">
+                <div className="[counter-reset:policy-num]">
                   <section
                     className={cn(
                       pillarClass,

@@ -227,7 +227,6 @@ export default function AtlasExplorer({
             </span>
             <input
               type="search"
-              id="atlas-search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder={
@@ -240,15 +239,11 @@ export default function AtlasExplorer({
             />
           </label>
           {view === "domains" && format === "table" && (
-            <label
-              id="atlas-filter-label"
-              className="[&_select]:cursor-pointer [&_select]:rounded-md [&_select]:border [&_select]:border-solid [&_select]:border-line [&_select]:bg-white [&_select]:pt-2 [&_select]:pr-7 [&_select]:pb-2 [&_select]:pl-3 [&_select]:font-body [&_select]:text-xs [&_select]:font-semibold [&_select]:text-ink [&_select]:[font:inherit] [&_select:focus-visible]:[outline:3px_solid_var(--color-coral-dark)] [&_select:focus-visible]:outline-offset-2"
-            >
+            <label className="[&_select]:cursor-pointer [&_select]:rounded-md [&_select]:border [&_select]:border-solid [&_select]:border-line [&_select]:bg-white [&_select]:pt-2 [&_select]:pr-7 [&_select]:pb-2 [&_select]:pl-3 [&_select]:font-body [&_select]:text-xs [&_select]:font-semibold [&_select]:text-ink [&_select]:[font:inherit] [&_select:focus-visible]:[outline:3px_solid_var(--color-coral-dark)] [&_select:focus-visible]:outline-offset-2">
               <span className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
                 Show
               </span>
               <select
-                id="atlas-filter"
                 value={filter}
                 onChange={(event) => setFilter(event.target.value)}
               >
@@ -259,7 +254,6 @@ export default function AtlasExplorer({
           )}
           {view !== "people" && (
             <div
-              id="atlas-format"
               className={
                 'ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between max-sm:ml-0 [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,_color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,_var(--color-ink)_6%,_transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(17,_17,_17,_0.12)]'
               }
@@ -288,10 +282,7 @@ export default function AtlasExplorer({
           >
             {titles[view]}
           </p>
-          <p
-            id="view-description"
-            className="min-w-0 [flex:1_1_auto] text-xs leading-normal text-ink"
-          >
+          <p className="min-w-0 [flex:1_1_auto] text-xs leading-normal text-ink">
             {descriptions[view]}
           </p>
           <a
@@ -303,20 +294,12 @@ export default function AtlasExplorer({
           </a>
         </div>
         {view !== "people" && format === "table" && detail}
-        <p
-          id="atlas-status"
-          role="status"
-          aria-live="polite"
-          className="mb-3 text-xs text-ink"
-        >
+        <p role="status" aria-live="polite" className="mb-3 text-xs text-ink">
           {status}
         </p>
         {view === "people" ? (
           <>
-            <div
-              id="atlas-people"
-              className="flex flex-col overflow-hidden rounded-lg border border-line bg-white"
-            >
+            <div className="flex flex-col overflow-hidden rounded-lg border border-line bg-white">
               {!matchingPeople.length && <p>No people match this search.</p>}
               {matchingPeople.map((person) => (
                 <article
@@ -366,17 +349,13 @@ export default function AtlasExplorer({
                 </article>
               ))}
             </div>
-            <p
-              id="atlas-people-note"
-              className={"mt-5 max-w-4xl text-xs leading-relaxed text-ink"}
-            >
+            <p className={"mt-5 max-w-4xl text-xs leading-relaxed text-ink"}>
               Fellows can become Stewards after three months and graduation. A
               “Steward” role title is separate from this engagement level.
             </p>
           </>
         ) : format === "circles" ? (
           <div
-            id="atlas-circles"
             className={cn(
               "grid grid-cols-1 items-start gap-5",
               selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
@@ -388,13 +367,10 @@ export default function AtlasExplorer({
               matches={matches}
               query={normalizedQuery}
             />
-            <div id="atlas-circle-detail" className={"min-w-0"}>
-              {detail}
-            </div>
+            <div className={"min-w-0"}>{detail}</div>
           </div>
         ) : format === "outline" ? (
           <div
-            id="atlas-outline"
             data-selected={!!selected}
             className={cn(
               "grid grid-cols-1 items-start gap-5 data-[selected=true]:max-md:[&>:first-child]:hidden",
@@ -410,13 +386,10 @@ export default function AtlasExplorer({
               expanded={expanded}
               setExpanded={setExpanded}
             />
-            <div id="atlas-outline-detail" className={"min-w-0"}>
-              {detail}
-            </div>
+            <div className={"min-w-0"}>{detail}</div>
           </div>
         ) : format === "alignment" ? (
           <div
-            id="atlas-alignment"
             className={cn(
               "grid grid-cols-1 items-start gap-5",
               selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
@@ -430,20 +403,17 @@ export default function AtlasExplorer({
               highlighted={highlighted}
               setHighlighted={setHighlighted}
             />
-            <div id="atlas-alignment-detail" className={"min-w-0"}>
-              {detail}
-            </div>
+            <div className={"min-w-0"}>{detail}</div>
           </div>
         ) : (
           <div
             className="overflow-x-auto rounded-lg border border-solid border-line"
-            id="atlas-results"
             hidden={!matches.length}
             tabIndex={0}
             role="region"
             aria-label={`${titles[view]} table`}
           >
-            <AtlasTable id="atlas-table">
+            <AtlasTable>
               <caption className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
                 {titles[view]}
               </caption>

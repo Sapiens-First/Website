@@ -231,6 +231,7 @@ export default function Circles({
       entering: true,
       inward: chain.length >= chainFor(transition.focus, layout.nodes).length,
     });
+  // Wait two frames so the entering chart paints at its start scale before transitioning.
   useEffect(() => {
     if (!transition.entering) return;
     let frame2 = 0;
@@ -239,21 +240,12 @@ export default function Circles({
         setTransition((state) => ({ ...state, entering: false })),
       );
     });
-    const timer = setTimeout(
-      () =>
-        setTransition((state) => ({
-          ...state,
-          previous: undefined,
-          entering: false,
-        })),
-      500,
-    );
     return () => {
       cancelAnimationFrame(frame1);
       cancelAnimationFrame(frame2);
-      clearTimeout(timer);
     };
   }, [transition.focus, transition.entering]);
+  // Drop the outgoing chart once its 420ms transition has finished.
   useEffect(() => {
     if (!transition.previous || transition.entering) return;
     const timer = setTimeout(
@@ -262,42 +254,6 @@ export default function Circles({
     );
     return () => clearTimeout(timer);
   }, [transition.previous, transition.entering]);
-  const unplacedGroups = new Map<string, HierarchyNode[]>();
-  const words = (name: string) =>
-    name
-      .toLowerCase()
-      .split(/[^a-z0-9]+/)
-      .filter(
-        (word) =>
-          word.length > 2 &&
-          ![
-            "and",
-            "the",
-            "of",
-            "for",
-            "circle",
-            "a",
-            "an",
-            "to",
-            "in",
-            "program",
-          ].includes(word),
-      );
-  for (const node of layout.unplaced) {
-    let label = "No likely match",
-      best = 0;
-    for (const candidate of layout.nodes.values())
-      if (candidate.row.Type === "Circle") {
-        const score = words(candidate.row.Name).filter((word) =>
-          words(node.row.Name).includes(word),
-        ).length;
-        if (score > best) {
-          best = score;
-          label = candidate.row.Name;
-        }
-      }
-    unplacedGroups.set(label, [...(unplacedGroups.get(label) || []), node]);
-  }
   const links = (nodes: HierarchyNode[]) => (
     <ul>
       {nodes.map((node) => (
@@ -435,26 +391,8 @@ export default function Circles({
               {layout.unplaced.length}
             </span>
           </summary>
-          <p>
-            These roles have no assigned circle. Suggested groups are shown
-            below.
-          </p>
-          {[...unplacedGroups]
-            .sort(
-              ([a], [b]) =>
-                Number(a === "No likely match") -
-                  Number(b === "No likely match") || a.localeCompare(b),
-            )
-            .map(([label, nodes]) => (
-              <Fragment key={label}>
-                <h4 className="mt-3.5 text-xs font-bold tracking-wider text-ink uppercase [&:first-of-type]:mt-3">
-                  {label === "No likely match"
-                    ? label
-                    : `Possibly related to ${label}`}
-                </h4>
-                {links(nodes)}
-              </Fragment>
-            ))}
+          <p>These roles have no assigned circle.</p>
+          {links(layout.unplaced)}
         </details>
       )}
     </div>

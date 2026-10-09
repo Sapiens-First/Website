@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useState } from "react";
 import { CardText } from "@/components/ui/Card";
 import { AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
@@ -24,57 +24,17 @@ export default function CampaignAccordion({
 }: {
   campaigns: Campaign[];
 }) {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  // The panel keeps its last campaign while collapsing, so `panelId` outlives `open`.
   const [panelId, setPanelId] = useState<string | null>(null);
-  const [shownId, setShownId] = useState<string | null>(null);
-  const [fading, setFading] = useState(false);
-  const timerRef = useRef<number | null>(null);
-  const frameRef = useRef<number | null>(null);
-
-  function clearPendingTransition() {
-    if (timerRef.current) window.clearTimeout(timerRef.current);
-    if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-    timerRef.current = null;
-    frameRef.current = null;
-  }
+  const [open, setOpen] = useState(false);
+  const activeId = open ? panelId : null;
+  const panel = campaigns.find((campaign) => campaign.id === panelId);
+  const panelPosition = panelId ?? campaigns.at(-1)?.id;
 
   function select(id: string) {
-    clearPendingTransition();
-    if (activeId === id) {
-      setActiveId(null);
-      setFading(false);
-      return;
-    }
-
-    setActiveId(id);
+    setOpen(activeId !== id);
     setPanelId(id);
-    if (!shownId || shownId === id) {
-      setShownId(id);
-      setFading(false);
-      return;
-    }
-
-    setFading(true);
-    timerRef.current = window.setTimeout(() => {
-      timerRef.current = null;
-      setShownId(id);
-      frameRef.current = requestAnimationFrame(() => {
-        frameRef.current = null;
-        setFading(false);
-      });
-    }, 150);
   }
-
-  useEffect(
-    () => () => {
-      if (timerRef.current) window.clearTimeout(timerRef.current);
-      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-    },
-    [],
-  );
-
-  const panel = campaigns.find((campaign) => campaign.id === shownId);
-  const panelPosition = panelId ?? campaigns.at(-1)?.id;
 
   return (
     <div className="mt-7 mr-auto mb-0 ml-auto grid max-w-none grid-cols-3 gap-x-2.5 gap-y-0 max-md:max-w-full max-sm:flex max-sm:flex-col max-sm:gap-2.5">
@@ -113,27 +73,21 @@ export default function CampaignAccordion({
               )}
               id="campaign-shared-panel"
             >
-              <div
-                className={cn(
-                  "min-h-0 overflow-hidden transition-opacity duration-150",
-                  fading && "opacity-0",
-                )}
-              >
-                {campaigns.map((item) => (
+              <div className="min-h-0 overflow-hidden">
+                {panel && (
+                  // Keyed by campaign so each switch fades the new copy in.
                   <div
-                    className="px-7 py-6 max-md:p-5"
-                    id={`campaign-content-${item.id}`}
-                    key={item.id}
-                    hidden={panel?.id !== item.id}
+                    className="px-7 py-6 transition-opacity duration-150 max-md:p-5 starting:opacity-0"
+                    key={panel.id}
                   >
                     <CardText className="mt-0 mr-0 mb-4 ml-0">
-                      {item.description}
+                      {panel.description}
                     </CardText>
                     <span className="mb-2 block font-body text-sm tracking-widest text-coral-dark uppercase">
                       Metrics
                     </span>
                     <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
-                      {item.metrics.map((metric) => (
+                      {panel.metrics.map((metric) => (
                         <li
                           className="relative pl-4 text-lg leading-normal font-medium text-ink before:absolute before:left-0 before:text-coral before:opacity-60 before:content-['–']"
                           key={metric}
@@ -146,7 +100,7 @@ export default function CampaignAccordion({
                       Resources: forthcoming
                     </CardText>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           )}

@@ -1,25 +1,6 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
-
-const paths = [
-  "/",
-  "/about",
-  "/atlas",
-  "/fellowship",
-  "/circle",
-  "/campaigns",
-  "/join",
-  "/donate",
-  "/events",
-  "/learn",
-  "/policy",
-  "/human-charter",
-  "/privacy",
-  "/membership",
-  "/careers",
-  "/careers/builder",
-];
+import { routes, site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return paths.map((path) => ({ url: `${site.url}${path}` }));
+  return routes.map((path) => ({ url: `${site.url}${path}` }));
 }

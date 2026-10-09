@@ -1,44 +1,41 @@
-import type { Metadata } from "next";
-import "./page.css";
+import { pageMetadata } from "@/lib/site";
+import { Container } from "@/components/layout/Container";
 
-export const metadata: Metadata = {
-  title: "Privacy — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Privacy",
   description:
     "Learn how Sapiens First uses your email address for updates, and how to opt out or request deletion.",
-  alternates: { canonical: "/privacy" },
-  openGraph: {
-    title: "Privacy — Sapiens First",
-    description:
-      "Learn how Sapiens First uses your email address for updates, and how to opt out or request deletion.",
-    url: "/privacy",
-    type: "website",
-  },
-};
+  path: "/privacy",
+});
 
 export default function Page() {
   return (
-    <div className="route-root route-privacy">
-      <main className="route-privacy">
-        <div className="container">
-          <div className="privacy-wrap">
-            <h1 className="privacy-heading">{"Privacy"}</h1>
-            <p className="privacy-text">
-              {
-                "\n          We collect your email address when you sign up. We use it to send you updates about Sapiens First — actions, calls, and news. We don't sell it, share it, or do anything sketchy with it. To opt out or request deletion, email "
-              }
-              <a href="mailto:rohan@sapiensfirst.org">
-                {"rohan@sapiensfirst.org"}
+    <>
+      <main>
+        <Container>
+          <div className="mx-auto my-0 flex max-w-2xl flex-col gap-10 pt-24 pr-0 pb-28 pl-0 max-sm:pt-20 max-sm:pr-0 max-sm:pb-20 max-sm:pl-0">
+            <h1 className="relative z-2 max-w-xs font-display text-5xl leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md sm:text-6xl lg:max-w-xl lg:text-8xl">
+              Privacy
+            </h1>
+            <p className="text-lg leading-relaxed text-ink">
+              We collect your email address when you sign up. We use it to send
+              you updates about Sapiens First — actions, calls, and news. We
+              don&apos;t sell it, share it, or do anything sketchy with it. To
+              opt out or request deletion, email{" "}
+              <a
+                className="text-coral-dark"
+                href="mailto:rohan@sapiensfirst.org"
+              >
+                rohan@sapiensfirst.org
               </a>
-              {".\n        "}
+              .
             </p>
-            <p className="privacy-cookies">
-              {
-                "\n          We do not use cookies or tracking software on this website.\n        "
-              }
+            <p className="border-t border-solid border-t-line pt-4 text-sm leading-relaxed text-ink">
+              We do not use cookies or tracking software on this website.
             </p>
           </div>
-        </div>
+        </Container>
       </main>
-    </div>
+    </>
   );
 }

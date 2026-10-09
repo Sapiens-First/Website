@@ -1,11 +1,10 @@
+import type { Metadata } from "next";
+
 export const site = {
   url: "https://sapiensfirst.org",
   donationUrl:
     "https://www.zeffy.com/en-US/donation-form/support-sapiens-first",
-  strategyDocUrl:
-    "https://docs.google.com/document/d/1sBlALbzX4fwvEJcFtc4OSpAnceozyV3_chMaFNUIhJg/edit?usp=sharing",
   guideDocId: "1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs",
-  eventsSheetId: "1mkPKC7MmmKhW8PS2K-7lqmjreQOln6zz9t5C-lSDqOU",
   signupScriptUrl:
     "https://script.google.com/macros/s/AKfycbyXZdjPHlsgHyuklLQmJ2JNFjVZorzcdhUY-wkv3h5vTJuXxtqOveAK4JnIXVdwwSU0/exec",
 } as const;
@@ -51,3 +50,45 @@ export const footerGroups = [
     ],
   },
 ] as const;
+
+export const routes = [
+  "/",
+  "/about",
+  "/atlas",
+  "/fellowship",
+  "/circle",
+  "/campaigns",
+  "/join",
+  "/donate",
+  "/learn",
+  "/policy",
+  "/human-charter",
+  "/privacy",
+  "/careers",
+  "/careers/builder",
+] as const;
+
+export function pageMetadata({
+  title,
+  description,
+  path,
+  ogDescription = description,
+}: {
+  title: string | { absolute: string };
+  description: string;
+  path: string;
+  ogDescription?: string;
+}): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title:
+        typeof title === "string" ? `${title} — Sapiens First` : title.absolute,
+      description: ogDescription,
+      url: path,
+      type: "website",
+    },
+  };
+}

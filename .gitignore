@@ -1,14 +1,6 @@
-design-tests/
-playground/
-docs/*
-!docs/atlas.md
-!docs/atlas-migration.md
-CLAUDE.md
-prose/
-__pycache__/
-*.py[cod]
 node_modules/
 .next/
 out/
 *.tsbuildinfo
 .env*.local
+next-env.d.ts

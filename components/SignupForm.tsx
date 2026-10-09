@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { site } from "@/lib/site";
+import { Button } from "@/components/ui/Action";
+import { cn } from "@/lib/cn";
 
 type Interest = "membership" | "fellowship" | "start-a-circle";
 
@@ -11,7 +13,8 @@ type SignupFormProps = {
   id?: string;
   inputId?: string;
   describedBy?: string;
-  variant?: "row" | "dialog";
+  buttonClassName?: string;
+  className?: string;
 };
 
 export default function SignupForm({
@@ -20,7 +23,8 @@ export default function SignupForm({
   id,
   inputId,
   describedBy,
-  variant = "row",
+  buttonClassName,
+  className,
 }: SignupFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
     "idle",
@@ -63,7 +67,12 @@ export default function SignupForm({
 
   if (status === "done") {
     return (
-      <div className="signup-done" role="status" tabIndex={-1} ref={doneRef}>
+      <div
+        className="block px-0 py-3.5 font-body text-sm font-black tracking-wider text-coral-dark uppercase"
+        role="status"
+        tabIndex={-1}
+        ref={doneRef}
+      >
         Thanks for your interest — we&apos;ll be in touch.
       </div>
     );
@@ -73,13 +82,18 @@ export default function SignupForm({
     <>
       <form
         id={id}
-        className={variant === "dialog" ? "sf sf--light" : "signup-row"}
+        className={cn(
+          "flex w-full max-w-xl items-stretch gap-2 max-sm:flex-col",
+          id === "signup" && "scroll-mt-28",
+          className,
+        )}
         action="#"
         method="post"
         onSubmit={submit}
         aria-busy={status === "sending"}
       >
         <input
+          className="min-w-0 flex-1 rounded-none border-2 border-ink bg-white px-4 py-3 font-body text-base leading-tight font-medium text-ink focus:outline-2 focus:outline-offset-1 focus:outline-brand-yellow"
           ref={inputRef}
           id={inputId}
           type="email"
@@ -90,16 +104,17 @@ export default function SignupForm({
           aria-describedby={describedBy}
           required
         />
-        <button
-          className={variant === "dialog" ? undefined : "btn primary"}
+        <Button
+          variant="primary"
           type="submit"
+          className={cn("cursor-pointer max-sm:w-full", buttonClassName)}
           disabled={status === "sending"}
         >
           {status === "sending" ? "Sending…" : buttonText}
-        </button>
+        </Button>
       </form>
       {status === "error" && (
-        <div className="signup-status" role="status">
+        <div className="mt-3 text-base" role="status">
           We couldn&apos;t send your email. Please try again.
         </div>
       )}

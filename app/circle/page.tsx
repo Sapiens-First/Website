@@ -1,846 +1,422 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
+import Link from "next/link";
+import CircleHeroArt from "@/components/circle/CircleHeroArt";
+import { Container } from "@/components/layout/Container";
+import { FaqItem, FaqList } from "@/components/sections/Faq";
+import {
+  SplitHero,
+  ClosingSection,
+  ClosingCopy,
+  SignupPanel,
+  HeroCopy,
+  HeroLede,
+  FocusList,
+} from "@/components/sections/SplitSection";
+import { Bird, Doodle, FunLayer, Zap } from "@/components/ui/Doodles";
+import { cn } from "@/lib/cn";
 import SignupForm from "@/components/SignupForm";
-import "../shared-about-circle-fellowship.css";
-import "./page.css";
+import { ActionLink } from "@/components/ui/Action";
+import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 
-export const metadata: Metadata = {
-  title: "Start a Circle — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Start a Circle",
   description:
     "Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.",
-  alternates: { canonical: "/circle" },
-  openGraph: {
-    title: "Start a Circle — Sapiens First",
-    description:
-      "Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.",
-    url: "/circle",
-    type: "website",
+  path: "/circle",
+});
+
+const h2 = "mt-5 text-4xl lg:text-5xl xl:text-6xl max-sm:text-5xl";
+const section =
+  "relative overflow-hidden border-b-2 border-ink py-24 max-sm:py-14";
+const grid =
+  "grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1 max-sm:gap-9";
+
+const steps = [
+  {
+    title: "Join Sapiens First",
+    color: "text-coral-dark",
+    text: (
+      <>
+        <a href="#signup">Tell us you’re interested</a> in starting a Circle.
+        We’ll help you take the next step toward membership and connect you with
+        support from the Global team.
+      </>
+    ),
   },
-};
+  {
+    title: "Invite two friends",
+    color: "text-brand-blue",
+    text: "Start with people who care about the issue and can share the work. Two friends is a good starting point, not a requirement. You can find your people along the way.",
+  },
+  {
+    title: "Plan your first gathering",
+    color: "text-brand-purple",
+    text: "Pick a time and a welcoming place: a library, park, classroom, or someone’s home. Make space to connect, then choose one thing you’d like to do together.",
+  },
+];
+
+const leadership = [
+  {
+    title: "Help someone take their first step",
+    text: "Invite a member to host a gathering, welcome someone new, or try an idea they care about. Give them encouragement and room to make it their own.",
+  },
+  {
+    title: "Build it together",
+    text: "Share the work as people find their feet. A Circle gets stronger when more people feel able to contribute and lead.",
+  },
+  {
+    title: "Pass it on",
+    text: "You can get a Circle going, help someone else grow into leading it, then hand it over. The community you helped build can keep going when you step back.",
+  },
+];
 
 export default function Page() {
   return (
-    <div className="route-root route-circle">
-      <main className="route-circle">
-        <section className="hero">
-          <div className="hero-copy">
-            <div className="kicker">{"Local people. Shared purpose."}</div>
-            <h1>
-              {"Start a "}
-              <span className="marker">{"Circle."}</span>
+    <>
+      <main>
+        <SplitHero>
+          <HeroCopy>
+            <Kicker>Local people. Shared purpose.</Kicker>
+            <h1 className="relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl">
+              Start a <span className="marker">Circle.</span>
             </h1>
-            <p>{"Create a home for action on Big Tech and democracy."}</p>
-            <div className="fact-pills" aria-label="Time commitment">
-              <span className="fact-pill">{"3–5 hours a week"}</span>
-              <span className="fact-pill">{"try for 3 months"}</span>
+            <HeroLede>
+              Create a home for action on Big Tech and democracy.
+            </HeroLede>
+            <div
+              className="relative z-2 mb-7 flex flex-wrap gap-2"
+              aria-label="Time commitment"
+            >
+              <FactPill>3–5 hours a week</FactPill>
+              <FactPill>try for 3 months</FactPill>
             </div>
             <SignupForm
+              className={"relative z-2 scroll-mt-28"}
               interest="start-a-circle"
               buttonText="I’m interested →"
               id="signup"
             />
-            <p className="hero-note">
-              {
-                "Start with a conversation. Expressing interest doesn’t commit you to running a Circle."
-              }
+            <p className="relative z-2 mx-0 mt-3.5 mb-0 max-w-lg text-sm font-medium text-ink italic">
+              Start with a conversation. Expressing interest doesn’t commit you
+              to running a Circle.
             </p>
-          </div>
-          <div className="hero-art circle-hero-art" aria-hidden="true">
-            <svg
-              className="circle-gathering"
-              viewBox="0 0 600 640"
-              xmlns="http://www.w3.org/2000/svg"
-              focusable="false"
-            >
-              <circle
-                cx="300"
-                cy="332"
-                r="239"
-                fill="none"
-                stroke="var(--ink)"
-                strokeWidth="2"
-                strokeDasharray="3 11"
-                opacity=".35"
-              ></circle>
-              <path
-                d="M50 190l9-21 9 21 22 9-22 9-9 21-9-21-22-9Z"
-                fill="var(--yellow)"
-              ></path>
-              <path
-                d="M520 440l7-17 7 17 17 7-17 7-7 17-7-17-17-7Z"
-                fill="var(--paper)"
-              ></path>
-              <g strokeLinecap="round" strokeLinejoin="round">
-                <g transform="translate(300 332) rotate(-15)">
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--ink)"
-                    transform="translate(5 6)"
-                  ></rect>
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--blue)"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></rect>
-                  <path
-                    d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  ></path>
-                  <circle
-                    cy="-182"
-                    r="26"
-                    fill="#efb98e"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></circle>
-                  <path
-                    d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-                    fill="var(--ink)"
-                  ></path>
-                </g>
-                <g transform="translate(300 332) rotate(45)">
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--ink)"
-                    transform="translate(5 6)"
-                  ></rect>
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--paper)"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></rect>
-                  <path
-                    d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  ></path>
-                  <circle
-                    cy="-182"
-                    r="26"
-                    fill="#794b38"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></circle>
-                  <path
-                    d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-                    fill="var(--ink)"
-                  ></path>
-                </g>
-                <g transform="translate(300 332) rotate(105)">
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--ink)"
-                    transform="translate(5 6)"
-                  ></rect>
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--green)"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></rect>
-                  <path
-                    d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  ></path>
-                  <circle
-                    cy="-182"
-                    r="26"
-                    fill="#d89266"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></circle>
-                  <path
-                    d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-                    fill="var(--ink)"
-                  ></path>
-                </g>
-                <g transform="translate(300 332) rotate(165)">
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--ink)"
-                    transform="translate(5 6)"
-                  ></rect>
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--pink)"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></rect>
-                  <path
-                    d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  ></path>
-                  <circle
-                    cy="-182"
-                    r="26"
-                    fill="#efb98e"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></circle>
-                  <path
-                    d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-                    fill="var(--ink)"
-                  ></path>
-                </g>
-                <g transform="translate(300 332) rotate(225)">
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--ink)"
-                    transform="translate(5 6)"
-                  ></rect>
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--paper)"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></rect>
-                  <path
-                    d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  ></path>
-                  <circle
-                    cy="-182"
-                    r="26"
-                    fill="#ad7050"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></circle>
-                  <path
-                    d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-                    fill="var(--ink)"
-                  ></path>
-                </g>
-                <g transform="translate(300 332) rotate(285)">
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--ink)"
-                    transform="translate(5 6)"
-                  ></rect>
-                  <rect
-                    x="-43"
-                    y="-168"
-                    width="86"
-                    height="94"
-                    rx="32"
-                    fill="var(--blue)"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></rect>
-                  <path
-                    d="M-29-136L-38-110L-25-92M29-136L38-110L25-92"
-                    fill="none"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  ></path>
-                  <circle
-                    cy="-182"
-                    r="26"
-                    fill="#794b38"
-                    stroke="var(--ink)"
-                    strokeWidth="3"
-                  ></circle>
-                  <path
-                    d="M-25-187Q-22-217 3-208Q27-207 26-182Q10-182 1-194Q-9-182-25-187Z"
-                    fill="var(--ink)"
-                  ></path>
-                </g>
-                <circle cx="305" cy="340" r="116" fill="var(--ink)"></circle>
-                <circle
-                  cx="300"
-                  cy="332"
-                  r="116"
-                  fill="var(--yellow)"
-                  stroke="var(--ink)"
-                  strokeWidth="3"
-                ></circle>
-                <circle
-                  cx="300"
-                  cy="332"
-                  r="101"
-                  fill="none"
-                  stroke="var(--ink)"
-                  strokeWidth="1.5"
-                  opacity=".25"
-                ></circle>
-                <g transform="translate(266 306) rotate(-12)">
-                  <rect
-                    x="4"
-                    y="5"
-                    width="58"
-                    height="76"
-                    fill="var(--ink)"
-                  ></rect>
-                  <rect
-                    width="58"
-                    height="76"
-                    fill="var(--paper)"
-                    stroke="var(--ink)"
-                    strokeWidth="2"
-                  ></rect>
-                  <path
-                    d="M12 19h31M12 28h24M12 37h28"
-                    stroke="var(--ink)"
-                    strokeWidth="2"
-                  ></path>
-                  <path
-                    d="M13 55l6 6 13-15"
-                    fill="none"
-                    stroke="var(--red-dark)"
-                    strokeWidth="4"
-                  ></path>
-                </g>
-                <g transform="translate(340 306) rotate(16)">
-                  <rect
-                    width="36"
-                    height="44"
-                    fill="var(--pink)"
-                    stroke="var(--ink)"
-                    strokeWidth="2"
-                  ></rect>
-                  <path
-                    d="M8 13h20M8 21h15"
-                    stroke="var(--ink)"
-                    strokeWidth="2"
-                  ></path>
-                </g>
-                <g fill="var(--paper)" stroke="var(--ink)" strokeWidth="2.5">
-                  <path d="M237 300c-19-13-26 13-7 16" fill="none"></path>
-                  <circle cx="242" cy="313" r="14"></circle>
-                  <path d="M345 380c19 13 26-13 7-16" fill="none"></path>
-                  <circle cx="340" cy="367" r="14"></circle>
-                </g>
-                <g fill="var(--ink)">
-                  <circle cx="242" cy="313" r="8"></circle>
-                  <circle cx="340" cy="367" r="8"></circle>
-                </g>
-                <path
-                  d="M277 405l43-8"
-                  stroke="var(--blue)"
-                  strokeWidth="7"
-                ></path>
-                <path
-                  d="M320 397l7-2"
-                  stroke="var(--ink)"
-                  strokeWidth="4"
-                ></path>
-              </g>
-              <g transform="translate(57 43) rotate(-5)">
-                <path d="M7 7H249V94H7Z" fill="var(--ink)"></path>
-                <path
-                  d="M0 0H242V87H0Z"
-                  fill="var(--paper)"
-                  stroke="var(--ink)"
-                  strokeWidth="3"
-                ></path>
-                <text className="art-title" x="16" y="36" fill="var(--ink)">
-                  {"FIND YOUR PEOPLE."}
-                </text>
-                <text className="art-title" x="16" y="71" fill="var(--ink)">
-                  {"BUILD SOMETHING."}
-                </text>
-                <path
-                  d="M88-8h64v17H88Z"
-                  fill="var(--yellow)"
-                  opacity=".85"
-                ></path>
-              </g>
-              <g transform="translate(342 536) rotate(6)">
-                <rect width="202" height="58" fill="var(--ink)"></rect>
-                <text className="art-title" x="16" y="40" fill="var(--paper)">
-                  {"ROOM FOR YOU."}
-                </text>
-              </g>
-              <path
-                d="M70 527q-23 42 47 50M103 565l16 12-17 9"
-                fill="none"
-                stroke="var(--ink)"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
-              <text className="art-note" x="135" y="586" fill="var(--ink)">
-                {"IT STARTS WITH US."}
-              </text>
-            </svg>
-          </div>
-        </section>
-        <p className="circle-rally">
-          <svg className="zap" viewBox="0 0 24 40" aria-hidden="true">
-            <path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"></path>
-          </svg>
-          <span>
-            {"Find your voice, find some friends, and fight like hell."}
-          </span>
+          </HeroCopy>
+          <CircleHeroArt />
+        </SplitHero>
+        <p className="m-0 flex items-center gap-[22px] border-b-2 border-ink bg-coral px-[max(28px,7vw)] py-[30px] font-display text-[clamp(1.6rem,2.7vw,2.7rem)] leading-[1.1] font-extrabold text-ink uppercase max-sm:gap-4 max-sm:px-5 max-sm:py-6">
+          <Zap className="h-10 w-[26px] shrink-0" />
+          <span>Find your voice, find some friends, and fight like hell.</span>
         </p>
-        <section className="about-you" id="why">
-          <div className="container you-grid">
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-paper",
+          )}
+          id="why"
+        >
+          <Container className={grid}>
             <div>
-              <div className="label alt-yellow">{"What you get"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-                {"Find your people."}
+              <Label tone="yellow">What you get</Label>
+              <h2 className={cn(h2)}>
+                Find your people.
                 <br />
-                <span className="underline yellow">{"Make a difference."}</span>
+                <span className="ink-underline ink-underline-brand-yellow">
+                  Make a difference.
+                </span>
               </h2>
-              <p className="deck section-intro">
+              <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-xl">
+                A Circle is a small local group with a shared purpose. It’s a
+                place to turn concern about technology into connection,
+                learning, and action.
+              </Deck>
+            </div>
+            <FocusList
+              items={[
                 {
-                  "A Circle is a small local group with a shared purpose. It’s a place to turn concern about technology into connection, learning, and action."
-                }
-              </p>
-            </div>
-            <div className="focus">
-              <div className="focus-row">
-                <span className="n">{"01"}</span>
-                <div>
-                  <h3 className="name">{"A voice in the future of tech"}</h3>
-                  <p>
-                    {
-                      "Bring your community’s concerns into a wider movement. Help shape campaigns and build public pressure for technology that serves people."
-                    }
-                  </p>
-                </div>
-              </div>
-              <div className="focus-row">
-                <span className="n">{"02"}</span>
-                <div>
-                  <h3 className="name">{"Mentorship and guidance"}</h3>
-                  <p>
-                    {
-                      "Get support from the Sapiens First Global team and advice from other people starting Circles. You don’t have to figure it all out alone."
-                    }
-                  </p>
-                </div>
-              </div>
-              <div className="focus-row">
-                <span className="n">{"03"}</span>
-                <div>
-                  <h3 className="name">
-                    {"Leadership skills, built by doing"}
-                  </h3>
-                  <p>
-                    {
-                      "Learn to bring people together, facilitate a good conversation, and turn an idea into a plan. Help others take on responsibility as you go."
-                    }
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+                  title: "A voice in the future of tech",
+                  text: "Bring your community’s concerns into a wider movement. Help shape campaigns and build public pressure for technology that serves people.",
+                },
+                {
+                  title: "Mentorship and guidance",
+                  text: "Get support from the Sapiens First Global team and advice from other people starting Circles. You don’t have to figure it all out alone.",
+                },
+                {
+                  title: "Leadership skills, built by doing",
+                  text: "Learn to bring people together, facilitate a good conversation, and turn an idea into a plan. Help others take on responsibility as you go.",
+                },
+              ]}
+            />
+          </Container>
         </section>
-        <section className="getting-started" id="getting-started">
-          <div className="container">
-            <div className="label alt-blue">{"Getting started"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-              {"Start small."}
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="getting-started"
+        >
+          <Container>
+            <Label tone="blue">Getting started</Label>
+            <h2 className={cn(h2)}>
+              Start small.
               <br />
-              <span className="underline blue">{"Build together."}</span>
+              <span className="ink-underline ink-underline-brand-blue">
+                Build together.
+              </span>
             </h2>
-            <ol className="steps">
-              <li className="step">
-                <span className="step-number" aria-hidden="true">
-                  {"01"}
-                </span>
-                <h3>{"Join Sapiens First"}</h3>
-                <p>
-                  <a href="#signup">{"Tell us you’re interested"}</a>
-                  {
-                    " in starting a Circle. We’ll help you take the next step toward membership and connect you with support from the Global team."
-                  }
-                </p>
-              </li>
-              <li className="step">
-                <span className="step-number" aria-hidden="true">
-                  {"02"}
-                </span>
-                <h3>{"Invite two friends"}</h3>
-                <p>
-                  {
-                    "Start with people who care about the issue and can share the work. Two friends is a good starting point, not a requirement. You can find your people along the way."
-                  }
-                </p>
-              </li>
-              <li className="step">
-                <span className="step-number" aria-hidden="true">
-                  {"03"}
-                </span>
-                <h3>{"Plan your first gathering"}</h3>
-                <p>
-                  {
-                    "Pick a time and a welcoming place: a library, park, classroom, or someone’s home. Make space to connect, then choose one thing you’d like to do together."
-                  }
-                </p>
-              </li>
+            <ol className="mx-0 mt-11 mb-0 grid list-none grid-cols-3 gap-8 p-0 max-sm:grid-cols-1 max-sm:gap-7">
+              {steps.map((step, index) => (
+                <li className="border-t-3 border-ink pt-6" key={step.title}>
+                  <span
+                    className={cn(
+                      "font-display text-5xl leading-none font-extrabold",
+                      step.color,
+                    )}
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mx-0 mt-4 mb-3 text-xl">{step.title}</h3>
+                  <p className="m-0 text-base leading-relaxed">{step.text}</p>
+                </li>
+              ))}
             </ol>
-          </div>
+          </Container>
         </section>
-        <section className="shared-leadership" id="shared-leadership">
-          <div className="container you-grid">
+        <section
+          className="border-b-2 border-ink bg-ink px-0 py-20 text-white max-sm:scroll-mt-20 max-sm:py-14"
+          id="shared-leadership"
+        >
+          <Container className={grid}>
             <div>
-              <div className="label alt-yellow">
-                {"Room for everyone to lead"}
-              </div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-                {"Start a Circle."}
+              <Label tone="yellow">Room for everyone to lead</Label>
+              <h2 className={cn(h2)}>
+                Start a Circle.
                 <br />
-                {"Grow more leaders."}
+                Grow more leaders.
               </h2>
-              <p className="deck">
-                {
-                  "We’re building a movement with abundant leadership. Starting a Circle means helping others find their confidence, bring their ideas, and take the lead alongside you."
-                }
-              </p>
+              <Deck
+                size="compact"
+                className="mx-0 mt-6 mb-0 max-w-lg text-white"
+              >
+                We’re building a movement with abundant leadership. Starting a
+                Circle means helping others find their confidence, bring their
+                ideas, and take the lead alongside you.
+              </Deck>
             </div>
-            <ul className="role-list">
-              <li>
-                <strong>{"Help someone take their first step"}</strong>
-                <span>
-                  {
-                    "Invite a member to host a gathering, welcome someone new, or try an idea they care about. Give them encouragement and room to make it their own."
-                  }
-                </span>
-              </li>
-              <li>
-                <strong>{"Build it together"}</strong>
-                <span>
-                  {
-                    "Share the work as people find their feet. A Circle gets stronger when more people feel able to contribute and lead."
-                  }
-                </span>
-              </li>
-              <li>
-                <strong>{"Pass it on"}</strong>
-                <span>
-                  {
-                    "You can get a Circle going, help someone else grow into leading it, then hand it over. The community you helped build can keep going when you step back."
-                  }
-                </span>
-              </li>
+            <ul className="m-0 list-none border-t border-[#777] p-0">
+              {leadership.map((item) => (
+                <li
+                  className="border-b border-[#777] px-0 py-5"
+                  key={item.title}
+                >
+                  <strong className="mb-1.5 block text-lg text-brand-yellow">
+                    {item.title}
+                  </strong>
+                  <span className="text-base leading-relaxed">{item.text}</span>
+                </li>
+              ))}
             </ul>
-          </div>
+          </Container>
         </section>
-        <section className="faq" id="faq">
-          <div className="container">
-            <div className="label alt-green">{"FAQ"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-              {"Before you "}
-              <span className="underline yellow">{"begin."}</span>
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="faq"
+        >
+          <Container>
+            <Label tone="purple">FAQ</Label>
+            <h2 className={cn(h2)}>
+              Before you{" "}
+              <span className="ink-underline ink-underline-brand-yellow">
+                begin.
+              </span>
             </h2>
-            <div className="faq-acc">
-              <details className="faq-item" open={true}>
-                <summary>
-                  <span className="faq-n">{"01"}</span>
-                  <span className="faq-q">
-                    {"How much time am I committing?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {"Starting a Circle takes about "}
-                    <strong>{"3–5 hours a week"}</strong>
-                    {", with an initial commitment of "}
-                    <strong>{"three months"}</strong>
-                    {
-                      ". After that, you decide whether to continue every six months."
-                    }
-                  </p>
-                  <p>
-                    {
-                      "Keep the first few months manageable: bring people together, share the work, and find a rhythm that fits your life."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"02"}</span>
-                  <span className="faq-q">
-                    {"Do I need experience or a group already?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {
-                      "No. You can learn as you go, with mentorship and guidance from Sapiens First Global and other Circle organizers. Bringing two reliable friends is recommended, but you can start without them."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"03"}</span>
-                  <span className="faq-q">
-                    {"Does my Circle have to organize protests or advocacy?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {
-                      "No. You can host a space for thoughtful conversation about technology and democracy. Building trust and connection is a worthwhile place to begin."
-                    }
-                  </p>
-                  <p>
-                    {
-                      "Choose a format that fits your community. You can explore advocacy together when it feels right."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"04"}</span>
-                  <span className="faq-q">
-                    {"What might a Circle do week to week?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {
-                      "For a Circle focused on advocacy, we suggest three simple habits:"
-                    }
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>{"Meet regularly."}</strong>
-                      {
-                        " Make gatherings welcoming, meaningful, and easy to participate in."
-                      }
-                    </li>
-                    <li>
-                      <strong>{"Invite new people."}</strong>
-                      {
-                        " Choose one repeatable way to reach them, such as personal invitations, local outreach, or door-knocking."
-                      }
-                    </li>
-                    <li>
-                      <strong>{"Work toward a shared goal."}</strong>
-                      {
-                        " You might invite people to sign a campaign’s open letter, then join your next meeting."
-                      }
-                    </li>
-                  </ul>
-                  <p>
-                    {
-                      "Start with what your group can sustain. You can add activities as more people take on roles."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"05"}</span>
-                  <span className="faq-q">
-                    {"Can we propose our own campaign?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {"Yes. You can join a "}
-                    <a href="/campaigns">{"priority campaign"}</a>
-                    {" or propose a different campaign that falls within "}
-                    <a href="/about">{"Sapiens First’s focus areas"}</a>
-                    {
-                      ". Bring your idea to the Global team so you can explore how it fits and what support would help."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"06"}</span>
-                  <span className="faq-q">
-                    {"Can I start a Circle and hand it over later?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {
-                      "Yes. You can start a Circle, help others gain confidence, and hand it over when someone is ready to take the lead. You might stay involved as a member or step back."
-                    }
-                  </p>
-                  <p>
-                    {
-                      "Share opportunities to lead from the beginning. When you’re ready to move on, talk with your Circle and the Global team about a handover. Helping someone else become a leader is a lasting contribution to the movement."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"07"}</span>
-                  <span className="faq-q">
-                    {"Can a Circle grow into something bigger?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {
-                      "Yes. As membership grows, a Circle can develop into a Hub, Chapter, or Alliance:"
-                    }
-                  </p>
-                  <ul>
-                    <li>
-                      <strong>{"Circle:"}</strong>
-                      {" up to 10 members"}
-                    </li>
-                    <li>
-                      <strong>{"Hub:"}</strong>
-                      {" up to 50 members"}
-                    </li>
-                    <li>
-                      <strong>{"Chapter:"}</strong>
-                      {" up to 150 members"}
-                    </li>
-                    <li>
-                      <strong>{"Alliance:"}</strong>
-                      {" up to 500 members"}
-                    </li>
-                  </ul>
-                  <p>
-                    {
-                      "As more people grow into leadership, your group can take on more together. Staying small is fine, too: growth should serve your community and the work you want to do together."
-                    }
-                  </p>
-                </div>
-              </details>
-            </div>
-          </div>
-        </section>
-        <section className="apply" id="apply">
-          <div className="apply-copy">
-            <div className="label alt-green">{"Start"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-              {"Make room for "}
-              <span className="marker">{"your people."}</span>
-            </h2>
-            <p className="deck">
-              {
-                "You don’t need a full team or a perfect plan. Bring your interest, and we’ll help you take the first step."
-              }
-            </p>
-            <a className="btn primary" href="#signup">
-              {"Express interest →"}
-            </a>
-            <p className="apply-note">
-              {"Questions? "}
-              <a href="mailto:rohan@sapiensfirst.org">{"Email Rohan"}</a>
-              {"."}
-            </p>
-          </div>
-          <div className="apply-panel">
-            <div className="fun-layer" aria-hidden="true">
-              <i
-                style={
-                  {
-                    left: "8%",
-                    top: "10%",
-                    transform: "rotate(-6deg)",
-                    color: "#fff",
-                  } as React.CSSProperties
+            <FaqList>
+              <FaqItem
+                number={1}
+                question={<>How much time am I committing?</>}
+                open
+              >
+                <p>
+                  Starting a Circle takes about{" "}
+                  <strong>3–5 hours a week</strong>, with an initial commitment
+                  of <strong>three months</strong>. After that, you decide
+                  whether to continue every six months.
+                </p>
+                <p>
+                  Keep the first few months manageable: bring people together,
+                  share the work, and find a rhythm that fits your life.
+                </p>
+              </FaqItem>
+              <FaqItem
+                number={2}
+                question={<>Do I need experience or a group already?</>}
+              >
+                <p>
+                  No. You can learn as you go, with mentorship and guidance from
+                  Sapiens First Global and other Circle organizers. Bringing two
+                  reliable friends is recommended, but you can start without
+                  them.
+                </p>
+              </FaqItem>
+              <FaqItem
+                number={3}
+                question={
+                  <>Does my Circle have to organize protests or advocacy?</>
                 }
               >
-                <svg className="bird" viewBox="0 0 24 12">
-                  <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-                </svg>
-              </i>
-              <i
-                style={
-                  {
-                    left: "20%",
-                    top: "20%",
-                    transform: "rotate(6deg) scale(.65)",
-                    color: "#fff",
-                  } as React.CSSProperties
-                }
+                <p>
+                  No. You can host a space for thoughtful conversation about
+                  technology and democracy. Building trust and connection is a
+                  worthwhile place to begin.
+                </p>
+                <p>
+                  Choose a format that fits your community. You can explore
+                  advocacy together when it feels right.
+                </p>
+              </FaqItem>
+              <FaqItem
+                number={4}
+                question={<>What might a Circle do week to week?</>}
               >
-                <svg className="bird" viewBox="0 0 24 12">
-                  <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-                </svg>
-              </i>
-            </div>
-            <div className="label">{"Start a Circle"}</div>
-            <div className="apply-deadline">
-              {"Small start."}
+                <p>
+                  For a Circle focused on advocacy, we suggest three simple
+                  habits:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Meet regularly.</strong> Make gatherings welcoming,
+                    meaningful, and easy to participate in.
+                  </li>
+                  <li>
+                    <strong>Invite new people.</strong> Choose one repeatable
+                    way to reach them, such as personal invitations, local
+                    outreach, or door-knocking.
+                  </li>
+                  <li>
+                    <strong>Work toward a shared goal.</strong> You might invite
+                    people to sign a campaign’s open letter, then join your next
+                    meeting.
+                  </li>
+                </ul>
+                <p>
+                  Start with what your group can sustain. You can add activities
+                  as more people take on roles.
+                </p>
+              </FaqItem>
+              <FaqItem
+                number={5}
+                question={<>Can we propose our own campaign?</>}
+              >
+                <p>
+                  Yes. You can join a{" "}
+                  <Link href="/campaigns">priority campaign</Link> or propose a
+                  different campaign that falls within{" "}
+                  <Link href="/about">Sapiens First’s focus areas</Link>. Bring
+                  your idea to the Global team so you can explore how it fits
+                  and what support would help.
+                </p>
+              </FaqItem>
+              <FaqItem
+                number={6}
+                question={<>Can I start a Circle and hand it over later?</>}
+              >
+                <p>
+                  Yes. You can start a Circle, help others gain confidence, and
+                  hand it over when someone is ready to take the lead. You might
+                  stay involved as a member or step back.
+                </p>
+                <p>
+                  Share opportunities to lead from the beginning. When you’re
+                  ready to move on, talk with your Circle and the Global team
+                  about a handover. Helping someone else become a leader is a
+                  lasting contribution to the movement.
+                </p>
+              </FaqItem>
+              <FaqItem
+                number={7}
+                question={<>Can a Circle grow into something bigger?</>}
+              >
+                <p>
+                  Yes. As membership grows, a Circle can develop into a Hub,
+                  Chapter, or Alliance:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Circle:</strong> up to 10 members
+                  </li>
+                  <li>
+                    <strong>Hub:</strong> up to 50 members
+                  </li>
+                  <li>
+                    <strong>Chapter:</strong> up to 150 members
+                  </li>
+                  <li>
+                    <strong>Alliance:</strong> up to 500 members
+                  </li>
+                </ul>
+                <p>
+                  As more people grow into leadership, your group can take on
+                  more together. Staying small is fine, too: growth should serve
+                  your community and the work you want to do together.
+                </p>
+              </FaqItem>
+            </FaqList>
+          </Container>
+        </section>
+        <ClosingSection id="apply">
+          <ClosingCopy>
+            <Label tone="purple">Start</Label>
+            <h2 className={cn(h2)}>
+              Make room for <span className="marker">your people.</span>
+            </h2>
+            <Deck size="compact" className="mx-0 mt-6 mb-7 max-w-md">
+              You don’t need a full team or a perfect plan. Bring your interest,
+              and we’ll help you take the first step.
+            </Deck>
+            <ActionLink variant="primary" href="#signup">
+              Express interest →
+            </ActionLink>
+            <p className="mt-4 text-base font-semibold text-ink italic">
+              Questions? <a href="mailto:rohan@sapiensfirst.org">Email Rohan</a>
+              .
+            </p>
+          </ClosingCopy>
+          <SignupPanel>
+            <FunLayer>
+              <Doodle className="top-[10%] left-[8%] -rotate-6 text-white">
+                <Bird />
+              </Doodle>
+              <Doodle className="top-[20%] left-[20%] scale-65 rotate-6 text-white">
+                <Bird />
+              </Doodle>
+            </FunLayer>
+            <Label className="relative z-2 mb-6 w-max" tone="coral">
+              Start a Circle
+            </Label>
+            <div className="relative z-2 font-display text-5xl leading-none font-extrabold text-coral uppercase max-sm:text-7xl xl:text-6xl">
+              Small start.
               <br />
-              {"Shared purpose."}
+              Shared purpose.
             </div>
-            <p>
-              {
-                "Leave your email and we'll be in touch about starting a Circle in your community."
-              }
+            <p className="relative z-2 mx-0 mt-4 mb-0 max-w-sm text-base leading-normal font-semibold text-white">
+              Leave your email and we&apos;ll be in touch about starting a
+              Circle in your community.
             </p>
             <SignupForm
+              className="relative z-2 mt-5"
               interest="start-a-circle"
               buttonText="I’m interested →"
             />
-          </div>
-        </section>
+          </SignupPanel>
+        </ClosingSection>
       </main>
-    </div>
+    </>
   );
 }

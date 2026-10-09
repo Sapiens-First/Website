@@ -1,78 +1,111 @@
-import type { Metadata } from "next";
+import { pageMetadata, site } from "@/lib/site";
+import { ActionLink } from "@/components/ui/Action";
+import CopyLinkButton from "@/components/join/CopyLinkButton";
+import { Container } from "@/components/layout/Container";
+import Image from "next/image";
+import Link from "next/link";
+import { Kicker } from "@/components/ui/Text";
 import SignupForm from "@/components/SignupForm";
-import "./page.css";
 
-export const metadata: Metadata = {
-  title: "Join — Sapiens First",
+export const metadata = pageMetadata({
+  title: "Join",
   description:
     "We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.",
-  alternates: { canonical: "/join" },
-  openGraph: {
-    title: "Join — Sapiens First",
-    description:
-      "We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.",
-    url: "/join",
-    type: "website",
-  },
+  path: "/join",
+});
+
+const shareUrl = `${site.url}/join`;
+const shareText =
+  "Help build political power so technology serves the common good. Get involved with Sapiens First: ";
+const shareLinks = {
+  x: `https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+  whatsapp: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
 };
 
 export default function Page() {
   return (
-    <div className="route-root route-join">
-      <main className="route-join">
-        <section className="join-hero" aria-labelledby="join-heading">
-          <div className="container join-grid">
-            <div className="join-copy">
-              <div className="kicker">{"Join Sapiens First"}</div>
-              <h1 id="join-heading">
-                {"Build power."}
+    <>
+      <main>
+        <section
+          className="border-b border-solid border-ink border-b-rule px-0 py-16 max-sm:scroll-mt-20 max-sm:px-0 max-sm:py-9"
+          aria-labelledby="join-heading"
+        >
+          <Container className="grid grid-cols-2 items-center gap-16 max-lg:gap-8 max-sm:grid-cols-1 max-sm:gap-7">
+            <div>
+              <Kicker>Join Sapiens First</Kicker>
+              <h1
+                className="relative z-2 mx-0 mt-5 mb-6 max-w-xs font-display text-6xl leading-none font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl xl:text-7xl"
+                id="join-heading"
+              >
+                Build power.
                 <br />
-                {"Put people "}
-                <span className="underline yellow">{"first."}</span>
+                Put people{" "}
+                <span className="ink-underline ink-underline-brand-yellow">
+                  first.
+                </span>
               </h1>
-              <p id="join-note">
-                {
-                  "We’ll be in touch to help you find a local community group and get involved."
-                }
+              <p
+                className="max-w-xl text-xl leading-relaxed max-sm:text-lg"
+                id="join-note"
+              >
+                We’ll be in touch to help you find a local community group and
+                get involved.
               </p>
-              <div className="join-signup">
-                <label htmlFor="join-email">{"Your email"}</label>
+              <div className="mt-8">
+                <label
+                  className="mb-2.5 block text-base font-bold"
+                  htmlFor="join-email"
+                >
+                  Your email
+                </label>
                 <SignupForm
+                  className="m-0 scroll-mt-28 flex-wrap [&_input]:flex-[1_1_200px] max-sm:[&_input]:w-full max-sm:[&_input]:flex-auto"
                   interest="membership"
                   buttonText="Keep me posted →"
                   id="signup"
                   inputId="join-email"
                   describedBy="join-note"
                 />
-                <p className="join-note">
-                  <a href="/privacy">{"Privacy policy"}</a>
+                <p className="mt-3.5 max-w-xl text-base leading-normal max-sm:text-lg">
+                  <Link
+                    className="underline underline-offset-2"
+                    href="/privacy"
+                  >
+                    Privacy policy
+                  </Link>
                 </p>
-                <noscript>
-                  {
-                    '<p class="join-note">Please enable JavaScript to send this form.</p>'
-                  }
-                </noscript>
+                <noscript>Please enable JavaScript to send this form.</noscript>
               </div>
             </div>
-            <figure className="join-photo">
-              <img
+            <figure className="m-0">
+              <Image
                 src="/assets/image.png"
                 alt="People raising clasped hands together at a demonstration"
-                width="1024"
-                height="683"
-                fetchPriority="high"
+                width={1024}
+                height={683}
+                sizes="(max-width: 600px) calc(100vw - 24px), 50vw"
+                preload
+                className="block aspect-[4/5] h-auto w-full border-2 border-ink object-cover object-center max-sm:aspect-[3/2]"
               />
             </figure>
-          </div>
+          </Container>
         </section>
-        <section className="join-share" aria-labelledby="share-heading">
-          <div className="container">
-            <h2 id="share-heading">{"Bring a friend."}</h2>
-            <div className="share-buttons">
-              <a
-                className="btn"
-                id="share-x"
-                href="#"
+        <section
+          className="border-b-2 border-ink pt-10 pr-0 pb-14 pl-0 max-sm:scroll-mt-20"
+          aria-labelledby="share-heading"
+        >
+          <Container>
+            <h2
+              className="font-body text-2xl leading-tight font-extrabold tracking-tight normal-case"
+              id="share-heading"
+            >
+              Bring a friend.
+            </h2>
+            <div className="mt-5 flex flex-wrap justify-center gap-2.5 max-sm:flex-col">
+              <ActionLink
+                variant="outline"
+                href={shareLinks.x}
                 target="_blank"
                 rel="noopener"
               >
@@ -84,12 +117,11 @@ export default function Page() {
                 >
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
                 </svg>
-                {"\n          X / Twitter\n        "}
-              </a>
-              <a
-                className="btn"
-                id="share-fb"
-                href="#"
+                X / Twitter
+              </ActionLink>
+              <ActionLink
+                variant="outline"
+                href={shareLinks.facebook}
                 target="_blank"
                 rel="noopener"
               >
@@ -101,12 +133,11 @@ export default function Page() {
                 >
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
                 </svg>
-                {"\n          Facebook\n        "}
-              </a>
-              <a
-                className="btn"
-                id="share-wa"
-                href="#"
+                Facebook
+              </ActionLink>
+              <ActionLink
+                variant="outline"
+                href={shareLinks.whatsapp}
                 target="_blank"
                 rel="noopener"
               >
@@ -118,35 +149,18 @@ export default function Page() {
                 >
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
                 </svg>
-                {"\n          WhatsApp\n        "}
-              </a>
+                WhatsApp
+              </ActionLink>
             </div>
-            <div className="share-url-row">
-              <div className="share-url" id="share-url-display"></div>
-              <button
-                className="btn copy-btn"
-                id="copy-link"
-                title="Copy link"
-                style={{ padding: "13px 16px" } as React.CSSProperties}
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2"></rect>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
-                </svg>
-              </button>
+            <div className="mt-4 flex items-center justify-center gap-2.5 max-sm:flex-wrap">
+              <div className="inline-block overflow-hidden border border-line bg-[color-mix(in_srgb,var(--color-surface)_60%,transparent)] px-4 py-3 font-body text-sm tracking-wider text-ellipsis whitespace-nowrap text-ink select-all">
+                {shareUrl.replace("https://", "")}
+              </div>
+              <CopyLinkButton url={shareUrl} />
             </div>
-          </div>
+          </Container>
         </section>
       </main>
-    </div>
+    </>
   );
 }

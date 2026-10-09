@@ -1,12 +1,28 @@
 import type { Metadata } from "next";
+import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import PageInteractions from "@/components/PageInteractions";
+import { site } from "@/lib/site";
 import "./globals.css";
 
+const displayFont = Barlow_Condensed({
+  weight: ["400", "600", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-barlow-condensed",
+});
+
+const bodyFont = DM_Sans({
+  weight: "variable",
+  subsets: ["latin"],
+  axes: ["opsz"],
+  display: "swap",
+  variable: "--font-dm-sans",
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sapiensfirst.org"),
-  title: "Sapiens First",
+  metadataBase: new URL(site.url),
+  title: { default: "Sapiens First", template: "%s — Sapiens First" },
   icons: {
     icon: [
       { url: "/favicons/favicon.ico" },
@@ -21,24 +37,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="js">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Special+Elite&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${displayFont.variable} ${bodyFont.variable}`}
+    >
       <body>
         <SiteHeader />
         {children}
         <SiteFooter />
-        <PageInteractions />
       </body>
     </html>
   );

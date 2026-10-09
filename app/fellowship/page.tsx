@@ -1,699 +1,580 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/site";
+import { Container } from "@/components/layout/Container";
+import { FaqItem, FaqList } from "@/components/sections/Faq";
+import {
+  SplitHero,
+  ClosingSection,
+  ClosingCopy,
+  SignupPanel,
+  HeroCopy,
+  HeroLede,
+  HeroCollage,
+  FocusList,
+} from "@/components/sections/SplitSection";
 import SignupForm from "@/components/SignupForm";
-import "../shared-about-circle-fellowship.css";
-import "./page.css";
+import { ActionLink, TextLink } from "@/components/ui/Action";
+import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
+import {
+  Bird,
+  Doodle,
+  FunLayer,
+  Moon,
+  Pow,
+  Star,
+  Zap,
+} from "@/components/ui/Doodles";
+import { cn } from "@/lib/cn";
 
-export const metadata: Metadata = {
-  title: "AI Advocacy Fellowship — Sapiens First",
+export const metadata = pageMetadata({
+  title: "AI Advocacy Fellowship",
   description:
     "Become a Sapiens First Fellow — hands-on experience, mentorship, and a key role in our movement to build political power over AI.",
-  alternates: { canonical: "/fellowship" },
-  openGraph: {
-    title: "AI Advocacy Fellowship — Sapiens First",
+  path: "/fellowship",
+});
+
+const h2 = "mt-5 text-4xl lg:text-5xl xl:text-6xl max-sm:text-5xl";
+const section =
+  "relative overflow-hidden border-b-2 border-ink py-24 max-sm:py-14";
+const artTag =
+  "absolute border-2 border-ink bg-white px-[13px] py-2.5 text-xs font-black uppercase";
+
+const facts = [
+  { value: "Rolling", label: "Program dates", color: "text-coral" },
+  { value: "12 weeks", label: "Program length", color: "text-brand-yellow" },
+  { value: "3–5 hrs", label: "Time per week", color: "text-brand-blue" },
+  { value: "Ongoing", label: "Applications", color: "text-brand-purple" },
+];
+// Dividers between cells in the 4 / 2 / 1-column layouts.
+const factBorders = [
+  "border-r-2 max-lg:border-b-2 max-sm:border-r-0",
+  "border-r-2 max-lg:border-r-0 max-lg:border-b-2",
+  "border-r-2 max-lg:border-r-0 max-sm:border-b-2",
+  "",
+];
+const roles = [
+  {
+    title: "Community Organizing",
     description:
-      "Become a Sapiens First Fellow — hands-on experience, mentorship, and a key role in our movement to build political power over AI.",
-    url: "/fellowship",
-    type: "website",
+      "You enjoy talking to new people, are a great listener, and care deeply about community. You're great at making people feel empowered, with the goal of them joining the movement.",
+    activities: [
+      "Designing events for people",
+      "Door-to-door conversations with people",
+      "Creating curriculum and documentation for volunteers to train up",
+    ],
+    note: "Community Fellows help grow and support Circles forming across the country.",
   },
-};
+  {
+    title: "Campaign Automations",
+    description:
+      "You enjoy building scalable systems and automations to empower communities. You're a fast learner and excellent at incorporating AI to assist you in the process, with the goal of streamlining our supporter and membership onboarding and retention processes.",
+    activities: [
+      "Rigging up an open-source CRM to our membership sign-up page",
+      "Creating an email automation protocol for sign-ups, event attendees, and supporters",
+      "Automating member onboarding on Discord",
+    ],
+  },
+  {
+    title: "Digital Marketing",
+    description:
+      "You enjoy communicating big ideas clearly and learning what inspires people to take action. You will test messaging and branding, with the goal of expanding our digital reach.",
+    activities: [
+      "Refining our brand marketing strategy",
+      "Designing and executing our digital marketing strategy",
+      "Designing materials like business cards, banners, and lawn signs",
+    ],
+  },
+  {
+    title: "Policy & Coalitions",
+    description:
+      "You enjoy diving deep into policy and AI safety. You're good at putting yourself in other people's shoes. You enjoy building relationships, with the goal of building coalitional support for Sapiens First's campaigns nationally.",
+    activities: [
+      "Crafting achievable campaign objectives",
+      "Collaborating with other movements like YDSA and the Sunrise Movement",
+      "Reaching out and building relationships with mainstream orgs like the ACLU",
+    ],
+  },
+];
+const roleColors = [
+  "before:bg-coral",
+  "before:bg-brand-blue",
+  "before:bg-brand-purple",
+  "before:bg-brand-pink",
+];
 
 export default function Page() {
   return (
-    <div className="route-root route-fellowship">
-      <main className="route-fellowship">
-        <section className="hero">
-          <div className="hero-copy">
-            <div className="kicker">{"Fellowship · Rolling Cohorts"}</div>
-            <h1>
-              {"Become a "}
-              <span className="marker">{"Fellow."}</span>
+    <>
+      <main>
+        <SplitHero>
+          <HeroCopy>
+            <Kicker>Fellowship · Rolling Cohorts</Kicker>
+            <h1 className="relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl">
+              Become a <span className="marker">Fellow.</span>
             </h1>
-            <p>
-              {
-                "As a Fellow, you'll get hands-on experience, mentorship, and play a key role in our movement."
-              }
-            </p>
-            <div className="fact-pills">
-              <span className="fact-pill">{"Rolling admissions"}</span>
-              <span className="fact-pill">{"12 weeks"}</span>
-              <span className="fact-pill">{"3–5 hrs / week"}</span>
-              <span className="fact-pill">{"Volunteer"}</span>
+            <HeroLede>
+              As a Fellow, you&apos;ll get hands-on experience, mentorship, and
+              play a key role in our movement.
+            </HeroLede>
+            <div className="relative z-2 mb-7 flex flex-wrap gap-2">
+              <FactPill>Rolling admissions</FactPill>
+              <FactPill>12 weeks</FactPill>
+              <FactPill>3–5 hrs / week</FactPill>
+              <FactPill>Volunteer</FactPill>
             </div>
             <SignupForm
+              className={"relative z-2 scroll-mt-28"}
               interest="fellowship"
               buttonText="Keep me posted →"
               id="signup"
             />
-            <p className="hero-note">
-              {
-                "You'll work directly with the founder and a growing team of Fellows from across the country."
-              }
-            </p>
-          </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="sun"></div>
-            <div className="burst"></div>
-            <div className="face"></div>
-            <div className="poster">
-              {"Join the"}
-              <br />
-              {"fellowship"}
-            </div>
-            <div className="poster alt">
-              {"Be the"}
-              <br />
-              {"change"}
-            </div>
-            <div className="confetti c1"></div>
-            <div className="confetti c2"></div>
-            <div className="confetti c3"></div>
-            <div className="confetti c4"></div>
-            <i
-              style={
-                {
-                  position: "absolute",
-                  left: "10%",
-                  top: "8%",
-                  zIndex: "2",
-                  color: "var(--ink)",
-                  transform: "rotate(-6deg)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={
-                {
-                  position: "absolute",
-                  left: "20%",
-                  top: "16%",
-                  zIndex: "2",
-                  color: "var(--ink)",
-                  transform: "rotate(4deg) scale(.7)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-          </div>
-        </section>
-        <section className="factbar">
-          <div className="stats">
-            <div className="stat">
-              <strong>{"Rolling"}</strong>
-              <span>{"Program dates"}</span>
-            </div>
-            <div className="stat">
-              <strong>{"12 weeks"}</strong>
-              <span>{"Program length"}</span>
-            </div>
-            <div className="stat">
-              <strong>{"3–5 hrs"}</strong>
-              <span>{"Time per week"}</span>
-            </div>
-            <div className="stat">
-              <strong>{"Ongoing"}</strong>
-              <span>{"Applications"}</span>
-            </div>
-          </div>
-        </section>
-        <section className="about" id="about">
-          <div className="container about-grid">
-            <div className="about-copy">
-              <div className="label">{"About"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-                {"We imagine tech that serves the "}
-                <span className="underline blue">{"common good."}</span>
-              </h2>
-              <p className="deck">
-                {
-                  "Our mission is to achieve revolutionary political change for technology before the arrival of superintelligence."
-                }
-              </p>
-              <a className="text-link" href="/learn">
-                {"Learn more →"}
-              </a>
-            </div>
-            <div className="about-art">
-              <div className="circle"></div>
-              <div className="tag t1">{"Political change"}</div>
-              <div className="tag t2">{"AI safety"}</div>
-              <div className="tag t3">{"Democracy"}</div>
-            </div>
-          </div>
-        </section>
-        <section className="about-you" id="about-you">
-          <div className="fun-layer" aria-hidden="true">
-            <i
-              style={
-                {
-                  left: "5%",
-                  top: "8%",
-                  transform: "rotate(-8deg)",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={
-                {
-                  left: "13%",
-                  top: "16%",
-                  transform: "rotate(6deg) scale(.7)",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={
-                {
-                  right: "6%",
-                  bottom: "12%",
-                  width: "56px",
-                  color: "var(--yellow)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="moon" viewBox="0 0 40 40" width="56" height="56">
-                <mask id="aboutyou-moon-mask">
-                  <rect width="40" height="40" fill="#fff"></rect>
-                  <circle cx="27" cy="27" r="14" fill="#000"></circle>
-                </mask>
-                <circle
-                  cx="20"
-                  cy="20"
-                  r="16"
-                  fill="currentColor"
-                  mask="url(#aboutyou-moon-mask)"
-                ></circle>
-              </svg>
-            </i>
-          </div>
-          <div className="container you-grid">
-            <div>
-              <div className="label alt-yellow">{"About you"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-                {"We're looking for people who "}
-                <span className="underline yellow">{"care deeply."}</span>
-              </h2>
-              <p className="you-note">
-                {"We look for enthusiasm, dedication, and a desire to grow."}
-              </p>
-            </div>
-            <div className="focus">
-              <div className="focus-row">
-                <span className="n">{"01"}</span>
-                <span className="name">
-                  {"Care deeply about technology and society"}
+            <HeroLede className="text-ink italic">
+              You&apos;ll work directly with the founder and a growing team of
+              Fellows from across the country.
+            </HeroLede>
+          </HeroCopy>
+          <HeroCollage
+            posters={[
+              <>
+                Join the
+                <br />
+                fellowship
+              </>,
+              <>
+                Be the
+                <br />
+                change
+              </>,
+            ]}
+          />
+        </SplitHero>
+        <section
+          className={"border-b-2 border-ink bg-ink p-0 max-sm:scroll-mt-20"}
+        >
+          <div className="grid grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
+            {facts.map((fact, index) => (
+              <div
+                className={cn(
+                  "flex min-h-48 flex-col justify-between border-white/18 px-6 py-7 text-white max-sm:min-h-0 max-sm:px-5 max-sm:py-6",
+                  factBorders[index],
+                )}
+                key={fact.label}
+              >
+                <strong
+                  className={cn(
+                    "font-display text-3xl leading-none font-extrabold uppercase max-sm:text-4xl xl:text-4xl",
+                    fact.color,
+                  )}
+                >
+                  {fact.value}
+                </strong>
+                <span className="text-base font-bold tracking-wide text-white uppercase">
+                  {fact.label}
                 </span>
               </div>
-              <div className="focus-row">
-                <span className="n">{"02"}</span>
-                <span className="name">
-                  {"Are inspired by activism as a tool for social change"}
-                </span>
-              </div>
-              <div className="focus-row">
-                <span className="n">{"03"}</span>
-                <span className="name">
-                  {"Can work consistently for 3-5 hours a week"}
-                </span>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
-        <section className="roles" id="roles">
-          <div className="container">
-            <div className="roles-head">
-              <div className="label">{"Roles"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-                {"Four "}
-                <span className="underline green">{"workstreams,"}</span>
-                {" one movement."}
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="about"
+        >
+          <Container className="grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1">
+            <div>
+              <Label tone="coral">About</Label>
+              <h2 className={cn(h2)}>
+                We imagine tech that serves the{" "}
+                <span className="ink-underline ink-underline-brand-blue">
+                  common good.
+                </span>
               </h2>
-              <p className="deck">
-                {
-                  "We are currently looking for people to work on four primary workstreams."
-                }
+              <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-md">
+                Our mission is to achieve revolutionary political change for
+                technology before the arrival of superintelligence.
+              </Deck>
+              <TextLink className="mt-4" href="/learn">
+                Learn more →
+              </TextLink>
+            </div>
+            <div className="relative min-h-[400px] overflow-hidden border-2 border-ink bg-paper max-lg:min-h-[320px]">
+              <div className="absolute top-1/2 left-1/2 size-[220px] -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
+              <div className={cn(artTag, "top-[10%] left-[6%] -rotate-3")}>
+                Political change
+              </div>
+              <div className={cn(artTag, "top-[20%] right-[6%] rotate-3")}>
+                AI safety
+              </div>
+              <div className={cn(artTag, "bottom-[12%] left-[10%] rotate-2")}>
+                Democracy
+              </div>
+            </div>
+          </Container>
+        </section>
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-paper",
+          )}
+          id="about-you"
+        >
+          <FunLayer>
+            <Doodle className="top-[8%] left-[5%] -rotate-8 text-ink">
+              <Bird />
+            </Doodle>
+            <Doodle className="top-[16%] left-[13%] scale-70 rotate-6 text-ink">
+              <Bird />
+            </Doodle>
+            <Doodle className="right-[6%] bottom-[12%] w-14 text-brand-yellow">
+              <Moon size={56} />
+            </Doodle>
+          </FunLayer>
+          <Container className="grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1">
+            <div>
+              <Label tone="yellow">About you</Label>
+              <h2 className={cn(h2)}>
+                We&apos;re looking for people who{" "}
+                <span className="ink-underline ink-underline-brand-yellow">
+                  care deeply.
+                </span>
+              </h2>
+              <p className="mt-6 font-semibold text-ink italic">
+                We look for enthusiasm, dedication, and a desire to grow.
               </p>
             </div>
-            <div className="role-acc">
-              <details className="role" open={true}>
-                <summary>
-                  <span className="role-title">{"Community Organizing"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body">
-                  <p>
-                    {
-                      "You enjoy talking to new people, are a great listener, and care deeply about community. You're great at making people feel empowered, with the goal of them joining the movement."
-                    }
-                  </p>
-                  <span className="role-activities-label">
-                    {"Example activities"}
-                  </span>
-                  <ul className="role-list">
-                    <li>{"Designing events for people"}</li>
-                    <li>{"Door-to-door conversations with people"}</li>
-                    <li>
-                      {
-                        "Creating curriculum and documentation for volunteers to train up"
-                      }
-                    </li>
-                  </ul>
-                  <p className="role-note">
-                    {
-                      "Community Fellows help grow and support Circles forming across the country."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="role">
-                <summary>
-                  <span className="role-title">{"Campaign Automations"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body">
-                  <p>
-                    {
-                      "You enjoy building scalable systems and automations to empower communities. You're a fast learner and excellent at incorporating AI to assist you in the process, with the goal of streamlining our supporter and membership onboarding and retention processes."
-                    }
-                  </p>
-                  <span className="role-activities-label">
-                    {"Example activities"}
-                  </span>
-                  <ul className="role-list">
-                    <li>
-                      {
-                        "Rigging up an open-source CRM to our membership sign-up page"
-                      }
-                    </li>
-                    <li>
-                      {
-                        "Creating an email automation protocol for sign-ups, event attendees, and supporters"
-                      }
-                    </li>
-                    <li>{"Automating member onboarding on Discord"}</li>
-                  </ul>
-                </div>
-              </details>
-              <details className="role">
-                <summary>
-                  <span className="role-title">{"Digital Marketing"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body">
-                  <p>
-                    {
-                      "You enjoy communicating big ideas clearly and learning what inspires people to take action. You will test messaging and branding, with the goal of expanding our digital reach."
-                    }
-                  </p>
-                  <span className="role-activities-label">
-                    {"Example activities"}
-                  </span>
-                  <ul className="role-list">
-                    <li>{"Refining our brand marketing strategy"}</li>
-                    <li>
-                      {"Designing and executing our digital marketing strategy"}
-                    </li>
-                    <li>
-                      {
-                        "Designing materials like business cards, banners, and lawn signs"
-                      }
-                    </li>
-                  </ul>
-                </div>
-              </details>
-              <details className="role">
-                <summary>
-                  <span className="role-title">{"Policy & Coalitions"}</span>
-                  <span className="role-tag">{"Remote-friendly"}</span>
-                  <span className="role-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="role-body">
-                  <p>
-                    {
-                      "You enjoy diving deep into policy and AI safety. You're good at putting yourself in other people's shoes. You enjoy building relationships, with the goal of building coalitional support for Sapiens First's campaigns nationally."
-                    }
-                  </p>
-                  <span className="role-activities-label">
-                    {"Example activities"}
-                  </span>
-                  <ul className="role-list">
-                    <li>{"Crafting achievable campaign objectives"}</li>
-                    <li>
-                      {
-                        "Collaborating with other movements like YDSA and the Sunrise Movement"
-                      }
-                    </li>
-                    <li>
-                      {
-                        "Reaching out and building relationships with mainstream orgs like the ACLU"
-                      }
-                    </li>
-                  </ul>
-                </div>
-              </details>
-            </div>
-          </div>
+            <FocusList
+              items={[
+                { title: "Care deeply about technology and society" },
+                {
+                  title: "Are inspired by activism as a tool for social change",
+                },
+                { title: "Can work consistently for 3-5 hours a week" },
+              ]}
+            />
+          </Container>
         </section>
-        <section className="commitment">
-          <div className="fun-layer" aria-hidden="true">
-            <i
-              style={
-                {
-                  left: "4%",
-                  top: "22%",
-                  width: "30px",
-                  color: "var(--ink)",
-                  transform: "rotate(-6deg)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="zap" viewBox="0 0 24 40" width="30" height="30">
-                <path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z"></path>
-              </svg>
-            </i>
-            <i
-              style={
-                {
-                  right: "8%",
-                  bottom: "18%",
-                  width: "60px",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="pow" viewBox="0 0 24 24" width="60" height="60">
-                <rect width="24" height="24" fill="currentColor"></rect>
-              </svg>
-            </i>
-          </div>
-          <div className="container commitment-inner">
-            <p>{"Find your voice, find some friends, and fight like hell."}</p>
-            <div className="commitment-pills">
-              <span>{"Rolling cohorts"}</span>
-              <span>{"12 weeks"}</span>
-              <span>{"3–5 hrs / week"}</span>
-            </div>
-          </div>
-        </section>
-        <section className="benefits" id="benefits">
-          <div className="fun-layer" aria-hidden="true">
-            <i
-              style={
-                {
-                  right: "10%",
-                  top: "20%",
-                  transform: "rotate(8deg)",
-                  color: "var(--ink)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="bird" viewBox="0 0 24 12">
-                <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-              </svg>
-            </i>
-            <i
-              style={
-                {
-                  right: "4%",
-                  bottom: "16%",
-                  width: "14px",
-                  color: "var(--red)",
-                  transform: "rotate(-10deg)",
-                } as React.CSSProperties
-              }
-            >
-              <svg className="star" viewBox="0 0 24 24" width="14" height="14">
-                <rect width="24" height="24" fill="currentColor"></rect>
-              </svg>
-            </i>
-          </div>
-          <div className="container benefits-grid">
-            <div>
-              <div className="label">{"Benefits"}</div>
-              <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-                {"What you "}
-                <span className="underline blue">{"receive."}</span>
-              </h2>
-            </div>
-            <div>
-              <p className="deck">
-                {
-                  "This is a volunteer program, but we provide support (travel, meals) for in-person activities, and will reimburse organizational expenses. Strong fellows may be invited to extend after the initial term."
-                }
-              </p>
-            </div>
-          </div>
-        </section>
-        <section className="faq" id="faq">
-          <div className="container">
-            <div className="label">{"FAQ"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-              {"Questions, "}
-              <span className="underline green">{"answered."}</span>
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="roles"
+        >
+          <Container>
+            <Label tone="coral">Roles</Label>
+            <h2 className={cn(h2)}>
+              Four{" "}
+              <span className="ink-underline ink-underline-brand-purple">
+                workstreams,
+              </span>{" "}
+              one movement.
             </h2>
-            <div className="faq-acc">
-              <details className="faq-item" open={true}>
-                <summary>
-                  <span className="faq-n">{"01"}</span>
-                  <span className="faq-q">{"What is the Fellowship?"}</span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <p>
-                    {
-                      "Each Fellow will own a priority project, and sync with a team working on a similar project. There'll also be programming to connect, learn about social change, politics, and hang out."
-                    }
-                  </p>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"02"}</span>
-                  <span className="faq-q">{"Why join the Fellowship?"}</span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <ul>
-                    <li>
-                      {
-                        "Be a founding member of the movement to save the future of humanity"
-                      }
-                    </li>
-                    <li>
-                      {
-                        "Build skills like strategic analysis, project planning, and leadership"
-                      }
-                    </li>
-                    <li>
-                      {"Make professional connections in AI safety / policy"}
-                    </li>
-                    <li>{"Have fun!"}</li>
-                  </ul>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"03"}</span>
-                  <span className="faq-q">
-                    {"What does the process look like?"}
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <ol>
-                    <li>
-                      {"Express interest at "}
-                      <a
-                        className="text-link"
-                        style={{ marginTop: "0" } as React.CSSProperties}
-                        href="#signup"
-                      >
-                        {"sapiensfirst.org/fellowship"}
-                      </a>
-                    </li>
-                    <li>
-                      {
-                        "Meet with the Executive Director to discuss your interests"
-                      }
-                    </li>
-                    <li>
-                      {
-                        "Receive an initial priority project. Accept by signing the Fellowship agreement."
-                      }
-                    </li>
-                    <li>{"Join the Discord and get started!"}</li>
-                  </ol>
-                </div>
-              </details>
-              <details className="faq-item">
-                <summary>
-                  <span className="faq-n">{"04"}</span>
-                  <span className="faq-q">
-                    {
-                      "What does the program look like week by week, month by month?"
-                    }
-                  </span>
-                  <span className="faq-chevron" aria-hidden="true"></span>
-                </summary>
-                <div className="faq-body">
-                  <div className="faq-table-wrap">
-                    <table className="faq-table">
-                      <thead>
-                        <tr>
-                          <th>{"Activity"}</th>
-                          <th>{"Content"}</th>
-                          <th>{"Timing"}</th>
-                          <th>{"Priority"}</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{"Department Sync"}</td>
-                          <td>
-                            {
-                              "Synchronous meeting or written memo sharing progress & reflections on your project"
-                            }
-                          </td>
-                          <td>{"Weekly or biweekly (45 min)"}</td>
-                          <td>{"Required"}</td>
-                        </tr>
-                        <tr>
-                          <td>{"1-1s with Rohan"}</td>
-                          <td>
-                            {
-                              "Chat about the movement, strategy, or future project direction"
-                            }
-                          </td>
-                          <td>{"Weekly or biweekly (30 min)"}</td>
-                          <td>{"Required"}</td>
-                        </tr>
-                        <tr>
-                          <td>{"General Meetings"}</td>
-                          <td>
-                            {
-                              "Discussions with Fellows about social change, leadership, and your current work."
-                            }
-                          </td>
-                          <td>{"Tuesdays, 6:30–7:30pm PT"}</td>
-                          <td>{"Optional"}</td>
-                        </tr>
-                        <tr>
-                          <td>{"Socials in SF / Oakland"}</td>
-                          <td>{"Bowling, karaoke, or pizza"}</td>
-                          <td>{"Monthly or spontaneous"}</td>
-                          <td>{"Optional"}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+            <Deck size="compact" className="mt-6 max-w-lg">
+              We are currently looking for people to work on four primary
+              workstreams.
+            </Deck>
+            <div className="mt-11 border-t-2 border-ink">
+              {roles.map((role, index) => (
+                <details
+                  className={cn("group", "relative border-b-2 border-ink")}
+                  key={role.title}
+                  open={index === 0}
+                >
+                  <summary
+                    className={cn(
+                      "relative flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-x-6 gap-y-4 pt-6 pr-11 pb-6 pl-5 max-sm:pt-5 max-sm:pr-10 max-sm:pb-5 max-sm:pl-4 [&::-webkit-details-marker]:hidden",
+                      "before:absolute before:inset-y-0 before:left-0 before:w-2 before:content-['']",
+                      roleColors[index % roleColors.length],
+                    )}
+                  >
+                    <span className="pl-3.5 font-display text-2xl font-extrabold tracking-normal uppercase max-sm:pl-2.5 max-sm:text-xl xl:text-4xl">
+                      {role.title}
+                    </span>
+                    <span className="border-2 border-ink px-2 py-1 text-xs font-black tracking-wider whitespace-nowrap uppercase">
+                      Remote-friendly
+                    </span>
+                    <span
+                      className="absolute top-7 right-[22px] grid size-[22px] place-items-center border-2 border-ink text-sm font-black after:content-['+'] group-open:after:content-['–'] max-sm:top-[22px] max-sm:right-[18px]"
+                      aria-hidden="true"
+                    ></span>
+                  </summary>
+                  <div className="pt-0 pr-5 pb-8 pl-11 max-sm:pr-4 max-sm:pb-6 max-sm:pl-8">
+                    <p className="max-w-3xl text-base leading-normal font-medium">
+                      {role.description}
+                    </p>
+                    <span className="mx-0 mt-5 mb-2.5 block text-xs font-black tracking-widest text-coral-dark uppercase">
+                      Example activities
+                    </span>
+                    <ul className="m-0 flex list-none flex-col gap-2 p-0">
+                      {role.activities.map((activity) => (
+                        <li
+                          className="relative pl-4 text-base leading-normal font-semibold before:absolute before:left-0 before:text-ink before:opacity-50 before:content-['–']"
+                          key={activity}
+                        >
+                          {activity}
+                        </li>
+                      ))}
+                    </ul>
+                    {role.note && (
+                      <p className="mt-4 max-w-3xl font-semibold text-ink italic">
+                        {role.note}
+                      </p>
+                    )}
                   </div>
-                  <p>{"By week, the program will roughly be:"}</p>
-                  <ul>
-                    <li>
-                      <strong>{"Weeks 1–2:"}</strong>
-                      {" Research, strategy, create success metrics"}
-                    </li>
-                    <li>
-                      <strong>{"Weeks 3–5:"}</strong>
-                      {" Design & build a prototype"}
-                    </li>
-                    <li>
-                      <strong>{"Weeks 6–9:"}</strong>
-                      {" Iterate and evolve the prototype"}
-                    </li>
-                    <li>
-                      <strong>{"Weeks 10–12:"}</strong>
-                      {" Document and present"}
-                    </li>
-                  </ul>
-                </div>
-              </details>
+                </details>
+              ))}
             </div>
-          </div>
+          </Container>
         </section>
-        <section className="apply" id="apply">
-          <div className="apply-copy">
-            <div className="label alt-green">{"Apply"}</div>
-            <h2 style={{ marginTop: "18px" } as React.CSSProperties}>
-              {"We're excited to "}
-              <span className="marker">{"hear from you."}</span>
+        <section className="relative overflow-hidden border-b-2 border-ink bg-coral px-0 py-14 max-sm:scroll-mt-20">
+          <FunLayer>
+            <Doodle className="top-[22%] left-[4%] w-[30px] -rotate-6 text-ink">
+              <Zap size={30} />
+            </Doodle>
+            <Doodle className="right-[8%] bottom-[18%] w-[60px] text-ink">
+              <Pow size={60} />
+            </Doodle>
+          </FunLayer>
+          <Container className="flex flex-wrap items-center justify-between gap-6 max-sm:flex-col max-sm:items-start">
+            <p className="m-0 max-w-md font-display text-2xl leading-none font-extrabold uppercase xl:text-4xl">
+              Find your voice, find some friends, and fight like hell.
+            </p>
+            <div className="flex flex-wrap gap-2.5">
+              {["Rolling cohorts", "12 weeks", "3–5 hrs / week"].map((pill) => (
+                <span
+                  className="bg-ink px-3.5 py-2.5 text-xs font-black tracking-wider text-white uppercase"
+                  key={pill}
+                >
+                  {pill}
+                </span>
+              ))}
+            </div>
+          </Container>
+        </section>
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-paper",
+          )}
+          id="benefits"
+        >
+          <FunLayer>
+            <Doodle className="top-[20%] right-[10%] rotate-8 text-ink">
+              <Bird />
+            </Doodle>
+            <Doodle className="right-[4%] bottom-[16%] w-3.5 -rotate-10 text-coral">
+              <Star size={14} />
+            </Doodle>
+          </FunLayer>
+          <Container className="grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1">
+            <div>
+              <Label tone="coral">Benefits</Label>
+              <h2 className={cn(h2)}>
+                What you{" "}
+                <span className="ink-underline ink-underline-brand-blue">
+                  receive.
+                </span>
+              </h2>
+            </div>
+            <div>
+              <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-xl">
+                This is a volunteer program, but we provide support (travel,
+                meals) for in-person activities, and will reimburse
+                organizational expenses. Strong fellows may be invited to extend
+                after the initial term.
+              </Deck>
+            </div>
+          </Container>
+        </section>
+        <section
+          className={cn(
+            "border-b-2 border-ink max-sm:scroll-mt-20",
+            section,
+            "bg-white",
+          )}
+          id="faq"
+        >
+          <Container>
+            <Label tone="coral">FAQ</Label>
+            <h2 className={cn(h2)}>
+              Questions,{" "}
+              <span className="ink-underline ink-underline-brand-purple">
+                answered.
+              </span>
             </h2>
-            <p className="deck">
-              {
-                "Interested in the fellowship? Leave your email and we'll be in touch about opportunities and next steps."
-              }
-            </p>
-            <a className="btn primary" href="#signup">
-              {"Express interest →"}
-            </a>
-            <p className="apply-note">
-              {"Questions? Email rohan@sapiensfirst.org"}
-            </p>
-          </div>
-          <div className="apply-panel">
-            <div className="fun-layer" aria-hidden="true">
-              <i
-                style={
-                  {
-                    left: "8%",
-                    top: "10%",
-                    transform: "rotate(-6deg)",
-                    color: "#fff",
-                  } as React.CSSProperties
+            <FaqList>
+              <FaqItem number={1} question={<>What is the Fellowship?</>} open>
+                <p>
+                  Each Fellow will own a priority project, and sync with a team
+                  working on a similar project. There&apos;ll also be
+                  programming to connect, learn about social change, politics,
+                  and hang out.
+                </p>
+              </FaqItem>
+              <FaqItem number={2} question={<>Why join the Fellowship?</>}>
+                <ul>
+                  <li>
+                    Be a founding member of the movement to save the future of
+                    humanity
+                  </li>
+                  <li>
+                    Build skills like strategic analysis, project planning, and
+                    leadership
+                  </li>
+                  <li>Make professional connections in AI safety / policy</li>
+                  <li>Have fun!</li>
+                </ul>
+              </FaqItem>
+              <FaqItem
+                number={3}
+                question={<>What does the process look like?</>}
+              >
+                <ol>
+                  <li>
+                    Express interest at{" "}
+                    <TextLink href="#signup">
+                      sapiensfirst.org/fellowship
+                    </TextLink>
+                  </li>
+                  <li>
+                    Meet with the Executive Director to discuss your interests
+                  </li>
+                  <li>
+                    Receive an initial priority project. Accept by signing the
+                    Fellowship agreement.
+                  </li>
+                  <li>Join the Discord and get started!</li>
+                </ol>
+              </FaqItem>
+              <FaqItem
+                number={4}
+                question={
+                  <>
+                    What does the program look like week by week, month by
+                    month?
+                  </>
                 }
               >
-                <svg className="bird" viewBox="0 0 24 12">
-                  <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-                </svg>
-              </i>
-              <i
-                style={
-                  {
-                    left: "20%",
-                    top: "20%",
-                    transform: "rotate(6deg) scale(.65)",
-                    color: "#fff",
-                  } as React.CSSProperties
-                }
-              >
-                <svg className="bird" viewBox="0 0 24 12">
-                  <path d="M1 9C4 2 8 2 12 7C16 2 20 2 23 9"></path>
-                </svg>
-              </i>
-            </div>
-            <div className="label">{"Rolling Cohorts"}</div>
-            <div className="apply-deadline">
-              {"Always"}
-              <br />
-              {"Open"}
-            </div>
-            <p>
-              {
-                "Leave your email to hear about fellowship opportunities and next steps."
-              }
-            </p>
-            <SignupForm interest="fellowship" buttonText="Keep me posted →" />
-          </div>
+                <div className="mb-3.5 overflow-x-auto">
+                  <table className="w-full border-collapse text-sm [&_:is(th,td)]:border-b [&_:is(th,td)]:border-rule [&_:is(th,td)]:py-2.5 [&_:is(th,td)]:pr-4 [&_:is(th,td)]:pl-0 [&_:is(th,td)]:text-left [&_:is(th,td)]:align-top [&_th]:text-xs [&_th]:font-black [&_th]:tracking-wider [&_th]:text-coral-dark [&_th]:uppercase">
+                    <thead>
+                      <tr>
+                        <th>Activity</th>
+                        <th>Content</th>
+                        <th>Timing</th>
+                        <th>Priority</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Department Sync</td>
+                        <td>
+                          {
+                            "Synchronous meeting or written memo sharing progress & reflections on your project"
+                          }
+                        </td>
+                        <td>Weekly or biweekly (45 min)</td>
+                        <td>Required</td>
+                      </tr>
+                      <tr>
+                        <td>1-1s with Rohan</td>
+                        <td>
+                          Chat about the movement, strategy, or future project
+                          direction
+                        </td>
+                        <td>Weekly or biweekly (30 min)</td>
+                        <td>Required</td>
+                      </tr>
+                      <tr>
+                        <td>General Meetings</td>
+                        <td>
+                          Discussions with Fellows about social change,
+                          leadership, and your current work.
+                        </td>
+                        <td>Tuesdays, 6:30–7:30pm PT</td>
+                        <td>Optional</td>
+                      </tr>
+                      <tr>
+                        <td>Socials in SF / Oakland</td>
+                        <td>Bowling, karaoke, or pizza</td>
+                        <td>Monthly or spontaneous</td>
+                        <td>Optional</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <p>By week, the program will roughly be:</p>
+                <ul>
+                  <li>
+                    <strong>Weeks 1–2:</strong> Research, strategy, create
+                    success metrics
+                  </li>
+                  <li>
+                    <strong>Weeks 3–5:</strong> Design &amp; build a prototype
+                  </li>
+                  <li>
+                    <strong>Weeks 6–9:</strong> Iterate and evolve the prototype
+                  </li>
+                  <li>
+                    <strong>Weeks 10–12:</strong> Document and present
+                  </li>
+                </ul>
+              </FaqItem>
+            </FaqList>
+          </Container>
         </section>
+        <ClosingSection id="apply">
+          <ClosingCopy>
+            <Label tone="purple">Apply</Label>
+            <h2 className={cn(h2)}>
+              We&apos;re excited to{" "}
+              <span className="marker">hear from you.</span>
+            </h2>
+            <Deck size="compact" className="mx-0 mt-6 mb-7 max-w-md">
+              Interested in the fellowship? Leave your email and we&apos;ll be
+              in touch about opportunities and next steps.
+            </Deck>
+            <ActionLink variant="primary" href="#signup">
+              Express interest →
+            </ActionLink>
+            <p className="mt-4 text-base font-semibold text-ink italic">
+              Questions? Email rohan@sapiensfirst.org
+            </p>
+          </ClosingCopy>
+          <SignupPanel>
+            <FunLayer>
+              <Doodle className="top-[10%] left-[8%] -rotate-6 text-white">
+                <Bird />
+              </Doodle>
+              <Doodle className="top-[20%] left-[20%] scale-65 rotate-6 text-white">
+                <Bird />
+              </Doodle>
+            </FunLayer>
+            <Label className="relative z-2 mb-6 w-max" tone="coral">
+              Rolling Cohorts
+            </Label>
+            <div className="relative z-2 font-display text-5xl leading-none font-extrabold text-coral uppercase max-sm:text-5xl lg:text-7xl xl:text-8xl">
+              Always
+              <br />
+              Open
+            </div>
+            <p className="relative z-2 mx-0 mt-4 mb-5 max-w-sm text-base leading-normal font-semibold text-white">
+              Leave your email to hear about fellowship opportunities and next
+              steps.
+            </p>
+            <SignupForm
+              className="relative z-2"
+              interest="fellowship"
+              buttonText="Keep me posted →"
+            />
+          </SignupPanel>
+        </ClosingSection>
       </main>
-    </div>
+    </>
   );
 }

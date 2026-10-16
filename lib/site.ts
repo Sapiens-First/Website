@@ -75,6 +75,7 @@ export const routes = [
   "/campaigns/no-killer-robots",
   "/join",
   "/calendar",
+  "/journey",
   "/donate",
   "/learn",
   "/policy",

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
-import { footerGroups } from "@/lib/site";
+import { footerGroups, site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 export default function SiteFooter() {
@@ -21,7 +21,7 @@ export default function SiteFooter() {
       </FunLayer>
       <Container>
         <div className="flex flex-wrap justify-between gap-x-14 gap-y-10 border-b border-white/22 pb-10 max-sm:flex-col max-sm:gap-7 max-sm:pb-7">
-          <Link className="flex items-center gap-2.5" href="/">
+          <Link className="flex items-center gap-2.5" href={site.url}>
             <Image
               className="block size-8"
               src="/favicons/android-chrome-192x192.png"
@@ -49,7 +49,7 @@ export default function SiteFooter() {
                   {group.links.map((link) => (
                     <Link
                       className="font-body text-sm leading-normal font-bold text-white hover:text-coral"
-                      href={link.href}
+                      href={new URL(link.href, site.url).href}
                       key={link.href}
                     >
                       {link.label}

@@ -33,4 +33,6 @@ The Google Apps Script response is opaque to the browser because the existing en
 
 ## Atlas
 
-`/atlas` ports the upstream organization explorer into React and TypeScript. Its public CSV source lives in `public/data/atlas/`. Production builds validate the data automatically.
+Atlas is served at `https://atlas.sapiensfirst.org/` by the same Vercel project. Its root rewrites to the existing Atlas page; `/atlas` and `/atlas.html` permanently redirect to the canonical address. Query strings and record fragments survive the redirect. Shared navigation returns readers to the main website, and other website pages on the Atlas host redirect to their main-site URLs.
+
+The explorer's code and public CSV source remain in this repository under `app/atlas/`, `components/atlas/`, `lib/atlas/`, and `public/data/atlas/`. Production builds validate the data automatically. Attach `atlas.sapiensfirst.org` to the existing Vercel project and apply its exact recommended DNS record before publishing this routing change; verify HTTPS, the root page, legacy record links and CSV downloads after deployment.

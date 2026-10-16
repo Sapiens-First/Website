@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 export const site = {
   url: "https://sapiensfirst.org",
+  atlasUrl: "https://atlas.sapiensfirst.org/",
   donationUrl:
     "https://www.zeffy.com/en-US/donation-form/support-sapiens-first",
   guideDocId: "1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs",
@@ -15,7 +16,7 @@ export const navigation = [
     href: "/about",
     children: [
       { label: "Careers", href: "/careers" },
-      { label: "Atlas", href: "/atlas" },
+      { label: "Atlas", href: site.atlasUrl },
       { label: "Campaigns", href: "/campaigns" },
     ],
   },
@@ -29,7 +30,7 @@ export const footerGroups = [
     links: [
       { label: "About", href: "/about" },
       { label: "Careers", href: "/careers" },
-      { label: "Atlas", href: "/atlas" },
+      { label: "Atlas", href: site.atlasUrl },
       { label: "Privacy", href: "/privacy" },
       { label: "Donate", href: "/donate" },
     ],

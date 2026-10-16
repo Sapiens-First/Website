@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout/Container";
-import { navigation } from "@/lib/site";
+import { navigation, site } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 const navLink =
@@ -40,7 +40,7 @@ export default function SiteHeader() {
         <nav className="grid min-h-20 grid-cols-[auto_1fr] items-center gap-7 max-lg:min-h-16 max-lg:grid-cols-1 max-lg:gap-2 max-lg:py-2.5">
           <Link
             className="inline-flex w-max -rotate-1 items-center gap-2.5 border-2 border-ink bg-[color-mix(in_srgb,var(--color-coral)_75%,var(--color-paper))] px-3.5 py-2.5 font-body text-2xl leading-none font-black tracking-tighter whitespace-nowrap uppercase shadow-[3px_3px_0_var(--color-ink)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink max-sm:gap-2 max-sm:px-2.5 max-sm:py-2 max-sm:text-xl"
-            href="/"
+            href={site.url}
           >
             <Image
               className="block size-[0.82em] shrink-0 -translate-y-[0.035em] brightness-0"
@@ -55,8 +55,7 @@ export default function SiteHeader() {
             {navigation.map((item) => {
               const active =
                 path === item.href ||
-                (item.href === "/about" &&
-                  (path.startsWith("/careers") || path === "/atlas"));
+                (item.href === "/about" && path.startsWith("/careers"));
               if ("children" in item)
                 return (
                   <div
@@ -74,7 +73,7 @@ export default function SiteHeader() {
                     <Link
                       className={navLink}
                       aria-current={active ? "page" : undefined}
-                      href={item.href}
+                      href={new URL(item.href, site.url).href}
                       onClick={() => setDropdownOpen(false)}
                     >
                       {item.label}
@@ -106,7 +105,7 @@ export default function SiteHeader() {
                             "group",
                             "flex items-center justify-between gap-6 px-2.5 py-3.5 font-body text-lg leading-snug font-bold tracking-wider uppercase focus-visible:outline-offset-0!",
                           )}
-                          href={child.href}
+                          href={new URL(child.href, site.url).href}
                           key={child.href}
                           onClick={() => setDropdownOpen(false)}
                         >
@@ -128,7 +127,7 @@ export default function SiteHeader() {
                 <Link
                   className={navLink}
                   aria-current={active ? "page" : undefined}
-                  href={item.href}
+                  href={new URL(item.href, site.url).href}
                   key={item.href}
                 >
                   {item.label}
@@ -137,14 +136,14 @@ export default function SiteHeader() {
             })}
             <Link
               className={cn(navCta, "-rotate-2 bg-brand-yellow")}
-              href="/donate"
+              href={`${site.url}/donate`}
               aria-current={path === "/donate" ? "page" : undefined}
             >
               Donate
             </Link>
             <Link
               className={cn(navCta, "rotate-2 bg-[#bcd8ff]")}
-              href="/join"
+              href={`${site.url}/join`}
               aria-current={path === "/join" ? "page" : undefined}
             >
               Join

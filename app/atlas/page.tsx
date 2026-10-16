@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 import { Kicker } from "@/components/ui/Text";
-import { pageMetadata } from "@/lib/site";
+import { pageMetadata, site } from "@/lib/site";
 import { loadAtlasData } from "@/lib/atlas/data";
 import AtlasExplorer from "@/components/atlas/AtlasExplorer";
 
@@ -8,7 +8,7 @@ export const metadata = pageMetadata({
   title: "Atlas",
   description:
     "Explore Sapiens First’s domains of work, purpose, roles, and responsibilities.",
-  path: "/atlas",
+  path: site.atlasUrl,
   ogDescription: "A shared map of our work and the people responsible for it.",
 });
 

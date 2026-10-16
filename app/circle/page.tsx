@@ -103,7 +103,7 @@ export default function Page() {
           </HeroCopy>
           <CircleHeroArt />
         </SplitHero>
-        <p className="m-0 flex items-center gap-[22px] border-b-2 border-ink bg-coral px-[max(28px,7vw)] py-[30px] font-display text-[clamp(1.6rem,2.7vw,2.7rem)] leading-[1.1] font-extrabold text-ink uppercase max-sm:gap-4 max-sm:px-5 max-sm:py-6">
+        <p className="m-0 flex items-center gap-[22px] border-b-2 border-ink bg-coral-soft px-[max(28px,7vw)] py-[30px] font-display text-[clamp(1.6rem,2.7vw,2.7rem)] leading-[1.1] font-extrabold text-ink uppercase max-sm:gap-4 max-sm:px-5 max-sm:py-6">
           <Zap className="h-10 w-[26px] shrink-0" />
           <span>Find your voice, find some friends, and fight like hell.</span>
         </p>

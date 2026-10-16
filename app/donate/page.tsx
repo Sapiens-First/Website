@@ -113,7 +113,12 @@ export default function Page() {
                     r="48"
                     fill="var(--color-brand-yellow)"
                   ></circle>
-                  <circle cx="210" cy="82" r="48" fill="#bcd8ff"></circle>
+                  <circle
+                    cx="210"
+                    cy="82"
+                    r="48"
+                    className="fill-brand-blue-soft"
+                  ></circle>
                   <circle
                     cx="135"
                     cy="206"
@@ -170,7 +175,7 @@ export default function Page() {
               <div className={cn(rowClass, "max-w-5xl items-center gap-x-10")}>
                 <figure className="mx-auto mt-7 mb-0 w-60 max-sm:w-48">
                   <span
-                    className="block aspect-[85.42/143.5] h-auto w-full -rotate-4 [background:radial-gradient(circle,rgba(17,17,17,0.55)_1px,transparent_1.3px)_0_0/6px_6px,rgba(17,17,17,0.1)] [mask:url(/assets/usa-ca.svg)_center/contain_no-repeat]"
+                    className="block aspect-[85.42/143.5] h-auto w-full -rotate-4 [background:radial-gradient(circle,rgba(24,37,31,0.55)_1px,transparent_1.3px)_0_0/6px_6px,rgba(24,37,31,0.1)] [mask:url(/assets/usa-ca.svg)_center/contain_no-repeat]"
                     role="img"
                     aria-label="Map of California, where we're building our seed chapters."
                   ></span>
@@ -257,7 +262,7 @@ export default function Page() {
           className={cn(
             "border-b-2 border-ink max-sm:scroll-mt-20",
             sectionClass,
-            "bg-[#ffe4dc]",
+            "bg-coral-soft",
           )}
           aria-labelledby="giving-heading"
         >

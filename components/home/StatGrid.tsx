@@ -4,12 +4,12 @@ const stats = [
   {
     value: "300M",
     text: "Jobs exposed to AI automation",
-    className: "bg-coral text-ink",
+    className: "bg-coral-soft text-ink",
   },
   {
     value: "73%",
     text: "Of Americans favor stronger AI oversight",
-    className: "bg-[#bcd8ff] text-ink",
+    className: "bg-brand-blue-soft text-ink",
   },
   {
     value: "$100M",

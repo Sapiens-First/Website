@@ -41,7 +41,7 @@ const artTag =
 const facts = [
   { value: "Rolling", label: "Program dates", color: "text-coral" },
   { value: "12 weeks", label: "Program length", color: "text-brand-yellow" },
-  { value: "3–5 hrs", label: "Time per week", color: "text-brand-blue" },
+  { value: "3–5 hrs", label: "Time per week", color: "text-brand-blue-light" },
   { value: "Ongoing", label: "Applications", color: "text-brand-purple" },
 ];
 // Dividers between cells in the 4 / 2 / 1-column layouts.
@@ -330,7 +330,7 @@ export default function Page() {
             </div>
           </Container>
         </section>
-        <section className="relative overflow-hidden border-b-2 border-ink bg-coral px-0 py-14 max-sm:scroll-mt-20">
+        <section className="relative overflow-hidden border-b-2 border-ink bg-coral-soft px-0 py-14 max-sm:scroll-mt-20">
           <FunLayer>
             <Doodle className="top-[22%] left-[4%] w-[30px] -rotate-6 text-ink">
               <Zap size={30} />

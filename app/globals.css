@@ -3,20 +3,28 @@
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 @theme static {
-  --color-paper: #f8f3eb;
-  --color-soft: #f0e8dc;
-  --color-surface: rgba(17, 17, 17, 0.05);
-  --color-ink: #111111;
+  --color-paper: #fffdf5;
+  --color-soft: #fff3d6;
+  --color-surface: rgba(24, 37, 31, 0.05);
+  --color-ink: #18251f;
   /* Coral fills pair with ink; deep red text pairs with paper or white. */
   --color-coral: #ff7870;
   --color-coral-dark: #b53236;
-  --color-line: rgba(17, 17, 17, 0.22);
-  --color-rule: #c9c1b4;
-  --color-brand-blue: #3a86ff;
-  --color-brand-yellow: #ffd60a;
-  --color-brand-purple: #8338ec;
-  --color-brand-pink: #ff006e;
-  --color-success: #22c55e;
+  --color-line: rgba(24, 37, 31, 0.22);
+  --color-rule: #dbd7c7;
+  --color-brand-blue: #1678ee;
+  --color-brand-yellow: #ffc928;
+  --color-brand-purple: #8b4dff;
+  --color-brand-pink: #ed3b91;
+  --color-success: #00a878;
+  --color-brand-blue-soft: #d8ebff;
+  --color-brand-blue-dark: #1557a4;
+  --color-brand-purple-dark: #6b32c9;
+  --color-brand-blue-light: #79b7ff;
+  --color-coral-soft: #ffe8e3;
+  --color-brand-peach: #ffd5b5;
+  --color-muted: #59665e;
+  --color-success-dark: #006c4b;
   --font-display: var(--font-barlow-condensed), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
   --font-quote: Georgia, "Times New Roman", serif;
@@ -157,7 +165,7 @@
   .doc-body tr:first-child td,
   .doc-body th {
     @apply font-bold;
-    background: #e5efff;
+    background: var(--color-brand-blue-soft);
   }
   @variant max-sm {
     .doc-body h1 {
@@ -212,5 +220,25 @@
     border-radius: calc(infinity* 1px);
     background: var(--color-brand-yellow);
     transform: rotate(-1.5deg);
+  }
+}
+
+/* Shared four-color accent below the footer wordmark. */
+@utility brand-stripe {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    inset-inline: 0;
+    bottom: 0;
+    height: 4px;
+    background: linear-gradient(
+      to right,
+      var(--color-brand-blue) 0 25%,
+      var(--color-coral) 25% 50%,
+      var(--color-brand-yellow) 50% 75%,
+      var(--color-success) 75% 100%
+    );
   }
 }

@@ -7,7 +7,7 @@
     </radialGradient>
     <mask id="edge"><path fill="url(#fade)" d="M0 0h900v900H0z"/></mask>
   </defs>
-  <g mask="url(#edge)" stroke="#9e8064" stroke-opacity=".2" stroke-width="1">
+  <g mask="url(#edge)" stroke="#1678ee" stroke-opacity=".2" stroke-width="1">
     <circle cx="450" cy="450" r="185"/>
     <circle cx="450" cy="450" r="205"/>
     <circle cx="450" cy="450" r="230"/>

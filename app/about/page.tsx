@@ -58,7 +58,7 @@ const strategySteps = [
   },
   {
     title: "City campaigns",
-    color: "bg-[#bcd8ff]",
+    color: "bg-brand-blue-soft",
     icon: (
       <path d="M5 14h8L29 7v22l-16-7H5zM11 22l3 10h6l-3-9M32 15h2M32 21h2"></path>
     ),
@@ -184,7 +184,7 @@ export default function Page() {
           </Container>
         </section>
         <section
-          className="border-b-2 border-ink bg-[#e5efff] py-[100px] max-sm:scroll-mt-20 max-sm:py-16"
+          className="border-b-2 border-ink bg-brand-blue-soft py-[100px] max-sm:scroll-mt-20 max-sm:py-16"
           id="roadmap"
         >
           <Container>
@@ -344,7 +344,7 @@ export default function Page() {
               <div className="mt-6 flex gap-2.5">
                 {socials.map((social) => (
                   <a
-                    className="inline-flex size-[42px] items-center justify-center border-2 border-ink bg-white text-ink transition-[background-color,color,translate] duration-150 hover:-translate-y-0.5 hover:bg-coral hover:text-white"
+                    className="inline-flex size-[42px] items-center justify-center border-2 border-ink bg-white text-ink transition-[background-color,color,translate] duration-150 hover:-translate-y-0.5 hover:bg-coral hover:text-ink"
                     href={social.href}
                     target="_blank"
                     rel="noopener"

@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
 const variants = {
-  primary: "bg-coral text-ink hover:bg-coral-dark hover:text-white",
+  primary: "bg-coral text-ink hover:bg-coral-soft hover:text-ink",
   outline: "bg-transparent text-ink hover:bg-ink hover:text-paper",
   donation: "bg-brand-yellow text-ink hover:bg-brand-yellow/80",
 } as const;

@@ -7,7 +7,7 @@ const steps = [
   {
     id: "act",
     label: "Act",
-    className: "top-0 left-1/2 -ml-[17%] bg-coral",
+    className: "top-0 left-1/2 -ml-[17%] bg-coral text-ink",
     tip: "left-1/2 -translate-x-1/2",
     text: "Visible, peaceful pressure makes AI governance impossible to ignore.",
   },

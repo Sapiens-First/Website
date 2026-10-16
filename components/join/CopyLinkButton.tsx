@@ -14,7 +14,7 @@ export default function CopyLinkButton({ url }: { url: string }) {
 
   return (
     <Button
-      className={cn(copied && "border-success text-success")}
+      className={cn(copied && "border-success-dark text-success-dark")}
       title="Copy link"
       onClick={() =>
         navigator.clipboard.writeText(url).then(

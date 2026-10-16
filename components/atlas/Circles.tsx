@@ -8,14 +8,14 @@ import { RecordLink } from "@/components/atlas/RecordDetails";
 import { cn } from "@/lib/cn";
 
 const palette = [
-  "#efe5d4",
-  "#f4c9ad",
-  "#d5e1bd",
-  "#d4dff0",
-  "#e5cde2",
-  "#f4df9a",
-  "#bfe3d8",
-  "#e8c2c6",
+  "#ffd0e3",
+  "#ffd5b5",
+  "#dfeca6",
+  "#c3deff",
+  "#dec8ff",
+  "#ffe99a",
+  "#ade5d1",
+  "#ffc6bb",
 ];
 const url = (id: string) => `#governance/circles/${id}`;
 function lighten(hex: string, amount: number) {
@@ -72,10 +72,10 @@ function CircleChart({
     const color =
       palette[Math.max(0, order.indexOf(topId || "")) % palette.length];
     const fill = role
-      ? "#fffaf2"
+      ? "#fffdf5"
       : topId
         ? lighten(color, Math.min(0.5, (lineage.length - 2) * 0.16))
-        : "#f7f2e8";
+        : "#fff3d6";
     const fontSize = depth === 0 ? 19 : Math.max(11, Math.min(17, r / 4.4));
     const limit = Math.max(10, Math.floor((r * 1.55) / (fontSize * 0.58)));
     const lines: string[] = [];
@@ -114,7 +114,7 @@ function CircleChart({
             r={r}
             fill={fill}
             strokeWidth={depth === 0 ? 2 : 1.5}
-            stroke={role ? (topId ? color : "#8a8272") : "#29241f"}
+            stroke={role ? (topId ? color : "#59665e") : "#18251f"}
             strokeDasharray={role ? "5 4" : undefined}
           />
         </a>
@@ -132,7 +132,7 @@ function CircleChart({
                 height={lines.length * fontSize * 1.15 + 8}
                 rx={10}
                 className="fill-[color-mix(in_srgb,var(--color-ink)_88%,transparent)]"
-                fill="#29241f"
+                fill="#18251f"
               />
             )}
             <text
@@ -142,7 +142,7 @@ function CircleChart({
               textAnchor="middle"
               pointerEvents="none"
               fontWeight={role ? 500 : 700}
-              className={cn("font-body", role ? "fill-ink" : "fill-[#fffaf2]")}
+              className={cn("font-body", role ? "fill-ink" : "fill-paper")}
             >
               {lines.map((value, i) => (
                 <tspan key={i} x={x} dy={i ? fontSize * 1.15 : 0}>

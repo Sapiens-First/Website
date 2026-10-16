@@ -81,7 +81,7 @@ export default function Page() {
           <HeroCopy
             circle={false}
             className={cn(
-              "before:pointer-events-none before:absolute before:top-[16%] before:-right-[20%] before:z-0 before:aspect-[1000/589] before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,rgba(244,0,0,0.25)_1px,transparent_1.3px)_0_0/5px_5px,rgba(244,0,0,0.055)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:-right-[26%] max-sm:before:w-[120%]",
+              "before:pointer-events-none before:absolute before:top-[16%] before:-right-[20%] before:z-0 before:aspect-[1000/589] before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:-right-[26%] max-sm:before:w-[120%]",
               "after:mt-8 after:h-2 after:w-24 after:-rotate-2 after:rounded-full after:bg-brand-yellow after:content-[''] max-sm:after:mt-6 max-sm:after:h-1.5 max-sm:after:w-16",
             )}
           >
@@ -110,7 +110,7 @@ export default function Page() {
               Read more →
             </a>
           </HeroCopy>
-          <HeroArt className="bg-[#f40000] after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_38%),linear-gradient(0deg,rgba(244,0,0,0.18),transparent_48%)] after:mix-blend-screen after:content-[''] max-lg:min-h-[520px] max-sm:min-h-[390px] sm:max-md:min-h-[460px]">
+          <HeroArt className="bg-coral after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_38%),linear-gradient(0deg,color-mix(in_srgb,var(--color-coral)_18%,transparent),transparent_48%)] after:mix-blend-screen after:content-[''] max-lg:min-h-[520px] max-sm:min-h-[390px] sm:max-md:min-h-[460px]">
             <Image
               className="absolute inset-0 h-full w-full object-cover object-[55%_68%] brightness-108 contrast-93 saturate-108 max-sm:object-[54%_72%]"
               src="/assets/homepage-hero-photo.jpg"
@@ -267,7 +267,7 @@ export default function Page() {
               </Label>
               <h2 className={cn(h2, "font-bold tracking-tight")}>
                 We build movement{" "}
-                <span className="relative inline-block -rotate-2 bg-[#1647a8] px-[0.09em] pt-[0.02em] pb-[0.04em] leading-none text-white shadow-[0.045em_0.045em_0_var(--color-ink)]">
+                <span className="relative inline-block -rotate-2 bg-brand-blue-dark px-[0.09em] pt-[0.02em] pb-[0.04em] leading-none text-white shadow-[0.045em_0.045em_0_var(--color-ink)]">
                   power.
                 </span>
               </h2>
@@ -280,7 +280,7 @@ export default function Page() {
               </Deck>
             </div>
           </Container>
-          <div className="relative isolate mt-12 grid grid-cols-3 border-t-2 border-ink bg-[url(/assets/homepage-process-texture.png)] bg-cover bg-position-[center_48%] bg-no-repeat before:absolute before:inset-0 before:-z-1 before:bg-[linear-gradient(90deg,rgba(246,223,211,0.91),rgba(248,243,235,0.84),rgba(255,255,255,0.68))] before:content-[''] after:absolute after:inset-0 after:-z-1 after:bg-[radial-gradient(var(--color-ink)_0.8px,transparent_0.8px)] after:bg-size-[5px_5px] after:opacity-15 after:content-[''] max-lg:grid-cols-1 max-sm:mt-0 max-sm:bg-position-[50%_center] max-sm:before:bg-[linear-gradient(180deg,rgba(246,223,211,0.9),rgba(248,243,235,0.82),rgba(255,255,255,0.7))]">
+          <div className="relative isolate mt-12 grid grid-cols-3 border-t-2 border-ink bg-[url(/assets/homepage-process-texture.png)] bg-cover bg-position-[center_48%] bg-no-repeat before:absolute before:inset-0 before:-z-1 before:bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-coral-soft)_91%,transparent),color-mix(in_srgb,var(--color-paper)_84%,transparent),rgba(255,255,255,0.68))] before:content-[''] after:absolute after:inset-0 after:-z-1 after:bg-[radial-gradient(var(--color-ink)_0.8px,transparent_0.8px)] after:bg-size-[5px_5px] after:opacity-15 after:content-[''] max-lg:grid-cols-1 max-sm:mt-0 max-sm:bg-position-[50%_center] max-sm:before:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-coral-soft)_90%,transparent),color-mix(in_srgb,var(--color-paper)_82%,transparent),rgba(255,255,255,0.7))]">
             {steps.map((step, index) => (
               <div
                 className={cn(
@@ -322,7 +322,7 @@ export default function Page() {
             </Label>
             <h2 className={cn(h2, "relative z-2 leading-none tracking-tight")}>
               Dare to{" "}
-              <em className="relative isolate inline-block text-ink not-italic before:pointer-events-none before:absolute before:inset-[-5%_-0.1em_-7%] before:-z-1 before:-rotate-3 before:bg-[color-mix(in_srgb,var(--color-coral)_75%,var(--color-paper))] before:content-[''] before:[clip-path:polygon(0_12%,16%_5%,37%_9%,63%_0,84%_6%,100%_2%,97%_35%,100%_69%,97%_91%,76%_96%,53%_90%,28%_100%,3%_92%,5%_60%)]">
+              <em className="relative isolate inline-block text-ink not-italic before:pointer-events-none before:absolute before:inset-[-5%_-0.1em_-7%] before:-z-1 before:-rotate-3 before:bg-coral-soft before:content-[''] before:[clip-path:polygon(0_12%,16%_5%,37%_9%,63%_0,84%_6%,100%_2%,97%_35%,100%_69%,97%_91%,76%_96%,53%_90%,28%_100%,3%_92%,5%_60%)]">
                 fight
               </em>{" "}
               for a brighter future.
@@ -337,8 +337,8 @@ export default function Page() {
               buttonText="Join →"
             />
           </div>
-          <div className="relative flex min-h-128 flex-col justify-end overflow-hidden border-ink bg-[linear-gradient(180deg,rgba(17,17,17,0.08)_15%,rgba(17,17,17,0.9)_100%),url(/assets/homepage-quote-texture.png)] bg-cover bg-position-[48%_center] bg-no-repeat px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-[rgba(244,0,0,0.92)] before:content-['\201C'] before:text-shadow-[0_2px_0_var(--color-ink)] after:absolute after:right-8 after:bottom-9 after:h-2.5 after:w-24 after:-rotate-3 after:rounded-full after:bg-brand-yellow after:content-[''] max-lg:border-t-2 max-sm:min-h-72 max-sm:bg-position-[51%_center] max-sm:px-5 max-sm:py-10 max-sm:before:-top-12 max-sm:before:left-3 max-sm:after:right-5 max-sm:after:bottom-6 max-sm:after:h-1.5 max-sm:after:w-16 sm:max-md:min-h-120 lg:border-l-2">
-            <blockquote className="relative z-2 m-0 border-l-8 border-coral bg-ink/76 p-6 font-quote text-3xl leading-none shadow-[14px_14px_0_rgba(244,0,0,0.24)] text-shadow-[0_2px_18px_rgba(0,0,0,0.75)] max-sm:border-l-6 max-sm:p-4 max-sm:text-3xl max-sm:shadow-[9px_9px_0_rgba(244,0,0,0.24)] lg:text-4xl xl:text-5xl">
+          <div className="relative flex min-h-128 flex-col justify-end overflow-hidden border-ink bg-[linear-gradient(180deg,rgba(24,37,31,0.08)_15%,rgba(24,37,31,0.9)_100%),url(/assets/homepage-quote-texture.png)] bg-cover bg-position-[48%_center] bg-no-repeat px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-[color-mix(in_srgb,var(--color-coral)_92%,transparent)] before:content-['\201C'] before:text-shadow-[0_2px_0_var(--color-ink)] after:absolute after:right-8 after:bottom-9 after:h-2.5 after:w-24 after:-rotate-3 after:rounded-full after:bg-brand-yellow after:content-[''] max-lg:border-t-2 max-sm:min-h-72 max-sm:bg-position-[51%_center] max-sm:px-5 max-sm:py-10 max-sm:before:-top-12 max-sm:before:left-3 max-sm:after:right-5 max-sm:after:bottom-6 max-sm:after:h-1.5 max-sm:after:w-16 sm:max-md:min-h-120 lg:border-l-2">
+            <blockquote className="relative z-2 m-0 border-l-8 border-coral bg-ink/76 p-6 font-quote text-3xl leading-none shadow-[14px_14px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] text-shadow-[0_2px_18px_rgba(0,0,0,0.75)] max-sm:border-l-6 max-sm:p-4 max-sm:text-3xl max-sm:shadow-[9px_9px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] lg:text-4xl xl:text-5xl">
               “It always seems impossible until it is done.”
               <cite className="mt-6 block font-body text-base leading-normal font-bold tracking-wider text-white uppercase not-italic">
                 Nelson Mandela

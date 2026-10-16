@@ -2,9 +2,9 @@ import type { ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
 const tones = {
-  coral: "bg-coral text-ink",
+  coral: "bg-coral-soft text-coral-dark",
   yellow: "bg-brand-yellow text-ink",
-  blue: "bg-brand-blue text-white",
+  blue: "bg-brand-blue-dark text-white",
   purple: "bg-brand-purple text-white",
 } as const;
 

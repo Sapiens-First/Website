@@ -16,12 +16,12 @@ const stats = [
   {
     value: "III",
     text: "Founding pillars — Life, Liberty, and the pursuit of Happiness",
-    className: "bg-coral text-ink",
+    className: "bg-coral-soft text-ink",
   },
   {
     value: "VIII",
     text: "Principles for a populist AI movement",
-    className: "bg-brand-blue text-ink",
+    className: "bg-brand-blue-dark text-white",
   },
   {
     value: "V0.1",

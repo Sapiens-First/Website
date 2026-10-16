@@ -126,7 +126,7 @@ export function HeroCollage({
     "absolute -rotate-5 border-2 border-ink px-4 py-[13px] font-body text-[clamp(0.95rem,1.7vw,1.4rem)] leading-[0.95] font-[950] uppercase max-sm:px-[11px] max-sm:py-[9px] max-sm:text-[0.85rem]";
   return (
     <HeroArt className="before:absolute before:-top-[42px] before:-right-[42px] before:z-2 before:size-[150px] before:rounded-full before:border-2 before:border-ink before:bg-brand-yellow before:mix-blend-multiply before:content-[''] max-sm:before:-top-7 max-sm:before:-right-8 max-sm:before:size-[94px]">
-      <div className="absolute top-[72px] -right-[100px] size-[390px] rounded-full border-2 border-ink bg-[#f2c9b6] max-sm:top-10 max-sm:-right-[70px] max-sm:size-[230px]" />
+      <div className="absolute top-[72px] -right-[100px] size-[390px] rounded-full border-2 border-ink bg-brand-peach max-sm:top-10 max-sm:-right-[70px] max-sm:size-[230px]" />
       <div
         className={cn(
           "absolute top-[11%] left-[8%] size-[190px] bg-paper max-sm:size-[120px]",
@@ -165,9 +165,9 @@ export function HeroCollage({
 }
 
 const focusNumberColors = [
-  "text-coral",
-  "text-brand-blue",
-  "text-brand-purple",
+  "text-coral-dark",
+  "text-brand-blue-dark",
+  "text-brand-purple-dark",
 ];
 
 /** Numbered list of short points with a ruled divider between rows. */

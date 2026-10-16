@@ -18,7 +18,7 @@ export function Accordion({
 }
 
 const numberColors = [
-  "text-coral",
+  "text-coral-dark",
   "text-brand-blue",
   "text-brand-purple",
   "text-brand-pink",

@@ -203,7 +203,7 @@ export default function Page() {
         </Container>
       </section>
 
-      <section className="border-b-2 border-ink bg-coral py-16 sm:py-24">
+      <section className="border-b-2 border-ink bg-coral-soft py-16 sm:py-24">
         <Container>
           <Label>Get involved</Label>
           <h2 className={`${heading} max-w-3xl`}>

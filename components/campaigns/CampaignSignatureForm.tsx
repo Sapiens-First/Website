@@ -6,7 +6,7 @@ import { campaigns, type CampaignId } from "@/lib/campaigns";
 import { Button } from "@/components/ui/Action";
 
 const field =
-  "mt-2 block w-full rounded-none border-2 border-ink bg-white px-4 py-3 text-base text-ink focus:outline-2 focus:outline-offset-2 focus:outline-brand-blue";
+  "mt-2 block w-full rounded-none border-2 border-ink bg-white px-3 py-2 text-base text-ink focus:outline-2 focus:outline-offset-2 focus:outline-brand-blue";
 
 export default function CampaignSignatureForm({
   campaignId,
@@ -144,7 +144,7 @@ export default function CampaignSignatureForm({
               />
             </label>
           </div>
-          <details className="group mt-3 border-y border-rule">
+          <details open className="group mt-3 border-y border-rule">
             <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-4">
               Name, ZIP code or phone (optional)
               <span aria-hidden="true" className="text-xl group-open:hidden">
@@ -157,7 +157,7 @@ export default function CampaignSignatureForm({
                 −
               </span>
             </summary>
-            <div className="grid gap-4 pb-5 sm:grid-cols-2">
+            <div className="grid gap-3 pb-4 sm:grid-cols-2">
               <label className="font-bold" htmlFor={`${prefix}-name`}>
                 Name (optional)
                 <input

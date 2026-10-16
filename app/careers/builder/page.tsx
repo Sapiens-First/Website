@@ -226,8 +226,8 @@ export default function Page() {
                 </h2>
                 <p>
                   Email{" "}
-                  <a href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder">
-                    <strong>rohan@sapiensfirst.org</strong>
+                  <a href="mailto:hr@sapiensfirst.org?subject=AI-Native%20Builder">
+                    <strong>hr@sapiensfirst.org</strong>
                   </a>{" "}
                   with the subject <strong>“AI-Native Builder”</strong> and
                   answers to these four questions:
@@ -266,7 +266,7 @@ export default function Page() {
               <ActionLink
                 className="mt-7 print:hidden"
                 variant="primary"
-                href="mailto:rohan@sapiensfirst.org?subject=AI-Native%20Builder"
+                href="mailto:hr@sapiensfirst.org?subject=AI-Native%20Builder"
               >
                 Email your application →
               </ActionLink>

@@ -1,14 +1,9 @@
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
-import {
-  HeroCopy,
-  HeroLede,
-  SplitHero,
-} from "@/components/sections/SplitSection";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
-import CampaignSignatureForm from "@/components/campaigns/CampaignSignatureForm";
+import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
 
 export const metadata = pageMetadata({
   title: "Citizens’ Dividend",
@@ -19,7 +14,7 @@ export const metadata = pageMetadata({
 
 const heading =
   "mt-5 mb-6 font-display text-4xl leading-none font-extrabold tracking-tight uppercase sm:text-5xl lg:text-6xl";
-const body = "mb-5 max-w-2xl text-lg leading-relaxed font-medium";
+const body = "mb-6 max-w-2xl text-lg leading-[1.7]";
 
 const questions = [
   {
@@ -39,45 +34,11 @@ const questions = [
 export default function Page() {
   return (
     <main>
-      <SplitHero className="min-h-0">
-        <HeroCopy circle={false}>
-          <TextLink className="mb-8 w-max" href="/campaigns">
-            ← All campaigns
-          </TextLink>
-          <Label tone="coral" className="w-fit">
-            Citizens’ Dividend
-          </Label>
-          <h1 className="mt-6 mb-0 max-w-xl font-display text-6xl leading-[0.9] font-extrabold tracking-tight uppercase sm:text-7xl xl:text-8xl">
-            We deserve a share of the AI future.
-          </h1>
-          <HeroLede>
-            If AI makes the economy richer, that wealth should make ordinary
-            people’s lives better.
-          </HeroLede>
-          <ActionLink href="#the-call" variant="primary" className="w-fit">
-            Read our call ↓
-          </ActionLink>
-        </HeroCopy>
-        <div className="flex flex-col justify-center border-t-2 border-ink bg-brand-yellow px-7 py-16 sm:px-12 lg:border-t-0 lg:border-l-2 lg:px-16">
-          <Label className="w-fit">The proposal</Label>
-          <h2 className={heading}>
-            A Citizens’ Dividend.
-            <span className="block">For all of us.</span>
-          </h2>
-          <p className={body}>
-            A regular, unconditional cash payment: a public stake in the wealth
-            this new economy creates.
-          </p>
-          <p className={body}>
-            More security. More freedom to care for family, learn something new
-            or build something useful.
-          </p>
-          <p className="mt-6 max-w-lg border-t-2 border-ink pt-5 text-sm leading-relaxed font-semibold">
-            This is a campaign proposal. Funding, eligibility and delivery need
-            a credible, costed plan. No current benefit or payment is offered.
-          </p>
-        </div>
-      </SplitHero>
+      <CampaignActionHero
+        campaignId="citizens-dividend"
+        headline="We deserve a share of the AI future."
+        description="If AI makes the economy richer, that wealth should make ordinary people’s lives better."
+      />
 
       <section className="border-b-2 border-ink bg-white py-16 sm:py-24">
         <Container className="grid gap-8 lg:grid-cols-2 lg:gap-16">
@@ -86,6 +47,15 @@ export default function Page() {
             <h2 className={heading}>Security should be shared.</h2>
           </div>
           <div className="lg:pt-12">
+            <p className={body}>
+              A Citizens’ Dividend would be a regular, unconditional cash
+              payment: a public stake in the wealth this new economy creates.
+            </p>
+            <p className="mb-6 border-l-4 border-coral pl-4 text-base leading-relaxed">
+              This is a campaign proposal. Funding, eligibility and delivery
+              need a credible, costed plan. No current benefit or payment is
+              offered.
+            </p>
             <p className={body}>
               AI could change the work people depend on. We should decide how
               its gains are shared before communities are left carrying the
@@ -138,15 +108,15 @@ export default function Page() {
 
       <section
         id="the-call"
-        className="scroll-mt-24 border-b-2 border-ink bg-ink py-16 text-paper sm:py-24"
+        className="scroll-mt-24 border-b-2 border-ink bg-soft py-12 sm:py-16"
       >
         <Container className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div>
             <Label tone="yellow">The public letter</Label>
-            <h2 className={heading}>Read the call.</h2>
+            <h2 className={heading}>Our open letter.</h2>
           </div>
-          <article className="border-2 border-paper/30 p-6 sm:p-10">
-            <h3 className="mt-0 mb-8 font-display text-4xl leading-none font-extrabold text-brand-yellow uppercase sm:text-5xl">
+          <article className="max-w-[65ch] border-2 border-ink bg-white p-6 sm:p-10">
+            <h3 className="mt-0 mb-8 font-display text-4xl leading-none font-extrabold text-coral-dark uppercase sm:text-5xl">
               Give the public a stake in the AI economy.
             </h3>
             <p className={body}>To our elected representatives:</p>
@@ -177,10 +147,13 @@ export default function Page() {
               We do not want an AI economy in which a few collect the rewards
               and everyone else carries the risk.
             </p>
-            <p className="m-0 text-xl leading-relaxed font-bold text-brand-yellow">
+            <p className="m-0 text-xl leading-relaxed font-bold text-coral-dark">
               Put a Citizens’ Dividend on the agenda. Give the public a stake in
               the future.
             </p>
+            <ActionLink href="#sign" variant="primary" className="mt-8">
+              Add my signature ↑
+            </ActionLink>
           </article>
         </Container>
       </section>
@@ -245,9 +218,6 @@ export default function Page() {
               Join the movement →
             </ActionLink>
             <ActionLink href="/circle">Start a Circle →</ActionLink>
-          </div>
-          <div className="mt-10">
-            <CampaignSignatureForm campaignId="citizens-dividend" />
           </div>
         </Container>
       </section>

@@ -82,14 +82,17 @@ export default function CampaignSignatureForm({
   return (
     <div
       id="sign"
-      className="scroll-mt-24 border-2 border-ink bg-paper p-6 text-ink sm:p-10"
+      className="scroll-mt-24 border-2 border-ink bg-white p-5 text-ink shadow-[6px_6px_0_0_var(--color-ink)] sm:p-7"
     >
-      <h2 className="mt-0 mb-4 font-display text-4xl leading-none font-extrabold uppercase sm:text-5xl">
-        Sign the call.
+      <h2 className="mt-0 mb-3 font-display text-3xl leading-none font-extrabold uppercase sm:text-4xl">
+        <span aria-hidden="true">✍️</span> Sign the open letter.
       </h2>
-      <p className="mb-6 max-w-2xl text-lg leading-relaxed font-medium">
-        {campaign.demand}
-      </p>
+      <p className="mb-5 text-base leading-relaxed">{campaign.demand}</p>
+      {campaignId === "citizens-dividend" && (
+        <p className="mb-5 border-l-4 border-coral pl-3 text-sm leading-relaxed">
+          Campaign proposal. No current payment is offered.
+        </p>
+      )}
       {status === "done" && receipt ? (
         <div
           ref={resultRef}
@@ -117,11 +120,17 @@ export default function CampaignSignatureForm({
           </p>
         </div>
       ) : (
-        <form onSubmit={submit} aria-busy={status === "sending"}>
-          <p className="mb-5 text-sm">
-            Email is required. All other contact fields are optional.
-          </p>
-          <div className="grid gap-5 sm:grid-cols-2">
+        <form
+          onSubmit={submit}
+          onInvalidCapture={(event) => {
+            if (event.target instanceof HTMLInputElement) {
+              const details = event.target.closest("details");
+              if (details) details.open = true;
+            }
+          }}
+          aria-busy={status === "sending"}
+        >
+          <div>
             <label className="font-bold" htmlFor={`${prefix}-email`}>
               Email address (required)
               <input
@@ -134,41 +143,57 @@ export default function CampaignSignatureForm({
                 required
               />
             </label>
-            <label className="font-bold" htmlFor={`${prefix}-name`}>
-              Name (optional)
-              <input
-                className={field}
-                id={`${prefix}-name`}
-                name="name"
-                autoComplete="name"
-                maxLength={120}
-              />
-            </label>
-            <label className="font-bold" htmlFor={`${prefix}-zip`}>
-              ZIP code — US (optional)
-              <input
-                className={field}
-                id={`${prefix}-zip`}
-                name="zip"
-                autoComplete="postal-code"
-                inputMode="numeric"
-                pattern="[0-9]{5}(-[0-9]{4})?"
-                maxLength={10}
-                title="A five-digit US ZIP code, optionally followed by a four-digit extension"
-              />
-            </label>
-            <label className="font-bold" htmlFor={`${prefix}-phone`}>
-              Phone number (optional)
-              <input
-                className={field}
-                id={`${prefix}-phone`}
-                name="phone"
-                type="tel"
-                autoComplete="tel"
-                maxLength={30}
-              />
-            </label>
           </div>
+          <details className="group mt-3 border-y border-rule">
+            <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 py-3 text-sm font-bold focus-visible:outline-2 focus-visible:outline-offset-4">
+              Name, ZIP code or phone (optional)
+              <span aria-hidden="true" className="text-xl group-open:hidden">
+                +
+              </span>
+              <span
+                aria-hidden="true"
+                className="hidden text-xl group-open:inline"
+              >
+                −
+              </span>
+            </summary>
+            <div className="grid gap-4 pb-5 sm:grid-cols-2">
+              <label className="font-bold" htmlFor={`${prefix}-name`}>
+                Name (optional)
+                <input
+                  className={field}
+                  id={`${prefix}-name`}
+                  name="name"
+                  autoComplete="name"
+                  maxLength={120}
+                />
+              </label>
+              <label className="font-bold" htmlFor={`${prefix}-zip`}>
+                ZIP code — US (optional)
+                <input
+                  className={field}
+                  id={`${prefix}-zip`}
+                  name="zip"
+                  autoComplete="postal-code"
+                  inputMode="numeric"
+                  pattern="[0-9]{5}(-[0-9]{4})?"
+                  maxLength={10}
+                  title="A five-digit US ZIP code, optionally followed by a four-digit extension"
+                />
+              </label>
+              <label className="font-bold" htmlFor={`${prefix}-phone`}>
+                Phone number (optional)
+                <input
+                  className={field}
+                  id={`${prefix}-phone`}
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  maxLength={30}
+                />
+              </label>
+            </div>
+          </details>
           <div className="hidden" aria-hidden="true">
             <label htmlFor={`${prefix}-website`}>
               Leave this empty
@@ -180,7 +205,7 @@ export default function CampaignSignatureForm({
               />
             </label>
           </div>
-          <label className="mt-6 flex items-start gap-3 text-base leading-relaxed">
+          <label className="mt-4 flex min-h-11 items-start gap-3 text-sm leading-relaxed">
             <input
               className="mt-1 size-5 shrink-0 accent-ink"
               type="checkbox"
@@ -192,7 +217,7 @@ export default function CampaignSignatureForm({
               signature recorded in Sapiens First’s Supporter List.
             </span>
           </label>
-          <label className="mt-4 flex items-start gap-3 text-base leading-relaxed">
+          <label className="mt-3 flex min-h-11 items-start gap-3 text-sm leading-relaxed">
             <input
               className="mt-1 size-5 shrink-0 accent-ink"
               type="checkbox"
@@ -202,7 +227,17 @@ export default function CampaignSignatureForm({
               Email me campaign updates and ways to take action. (Optional)
             </span>
           </label>
-          <p className="mt-5 text-sm leading-relaxed">
+          <Button
+            className="mt-4 min-h-12 w-full cursor-pointer"
+            variant="primary"
+            type="submit"
+            disabled={status === "sending"}
+          >
+            {status === "sending"
+              ? "Recording your signature…"
+              : "Add my signature →"}
+          </Button>
+          <p className="mt-4 text-sm leading-relaxed">
             Your signature and contact details are kept in our private supporter
             records. We won’t publish your name or send your details to
             officials through this form. Providing a phone number does not opt
@@ -212,16 +247,6 @@ export default function CampaignSignatureForm({
             </Link>
             .
           </p>
-          <Button
-            className="mt-6 w-full cursor-pointer sm:w-auto"
-            variant="primary"
-            type="submit"
-            disabled={status === "sending"}
-          >
-            {status === "sending"
-              ? "Recording your signature…"
-              : "Add my signature →"}
-          </Button>
           {status === "error" && (
             <div
               ref={resultRef}

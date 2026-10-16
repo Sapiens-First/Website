@@ -2,14 +2,9 @@ import { notFound } from "next/navigation";
 import { campaigns, type CampaignId } from "@/lib/campaigns";
 import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
-import {
-  HeroCopy,
-  HeroLede,
-  SplitHero,
-} from "@/components/sections/SplitSection";
 import { ActionLink, TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
-import CampaignSignatureForm from "@/components/campaigns/CampaignSignatureForm";
+import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -48,34 +43,16 @@ export default async function Page({
   const campaign = getCampaign(slug);
   return (
     <main>
-      <SplitHero className="min-h-0">
-        <HeroCopy circle={false}>
-          <TextLink className="mb-8 w-max" href="/campaigns">
-            ← All campaigns
-          </TextLink>
-          <Label tone="coral" className="w-fit">
-            {campaign.title}
-          </Label>
-          <h1 className="mt-6 mb-0 max-w-xl font-display text-6xl leading-[0.9] font-extrabold tracking-tight uppercase sm:text-7xl xl:text-8xl">
-            {campaign.headline}
-          </h1>
-          <HeroLede>{campaign.description}</HeroLede>
-          <ActionLink href="#sign" variant="primary" className="w-fit">
-            Sign the call ↓
-          </ActionLink>
-        </HeroCopy>
-        <div className="flex flex-col justify-center border-t-2 border-ink bg-brand-blue px-7 py-16 text-paper sm:px-12 lg:border-t-0 lg:border-l-2 lg:px-16">
-          <p className="text-sm font-black tracking-widest text-brand-yellow uppercase">
-            Our demand
-          </p>
-          <h2 className={heading}>{campaign.demand}</h2>
-          <p className="text-lg leading-relaxed">{campaign.intro}</p>
-        </div>
-      </SplitHero>
+      <CampaignActionHero
+        campaignId={slug as CampaignId}
+        headline={campaign.headline}
+        description={campaign.description}
+      />
       <section className="border-b-2 border-ink bg-paper py-16 sm:py-24">
         <Container>
           <Label tone="yellow">What we are calling for</Label>
           <h2 className={heading}>Make it happen.</h2>
+          <p className="max-w-3xl text-lg leading-relaxed">{campaign.intro}</p>
           <div className="mt-10 grid gap-8 lg:grid-cols-3">
             {campaign.points.map((point, index) => (
               <article className="border-t-8 border-ink pt-6" key={point.title}>
@@ -91,25 +68,31 @@ export default async function Page({
           </div>
         </Container>
       </section>
-      <section className="border-b-2 border-ink bg-ink py-16 text-paper sm:py-24">
+      <section
+        id="the-call"
+        className="scroll-mt-24 border-b-2 border-ink bg-soft py-12 sm:py-16"
+      >
         <Container className="grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
           <div>
             <Label tone="yellow">The public letter</Label>
-            <h2 className={heading}>Read the call.</h2>
+            <h2 className={heading}>Our open letter.</h2>
           </div>
-          <article className="border-2 border-paper/30 p-6 sm:p-10">
+          <article className="max-w-[65ch] border-2 border-ink bg-white p-6 sm:p-10">
             {campaign.letter.map((paragraph, index) => (
               <p
                 className={
                   index === campaign.letter.length - 1
-                    ? "m-0 text-xl leading-relaxed font-bold text-brand-yellow"
-                    : "mb-5 text-lg leading-relaxed"
+                    ? "m-0 text-xl leading-relaxed font-bold text-coral-dark"
+                    : "mb-6 text-lg leading-[1.7]"
                 }
                 key={paragraph}
               >
                 {paragraph}
               </p>
             ))}
+            <ActionLink href="#sign" variant="primary" className="mt-8">
+              Add my signature ↑
+            </ActionLink>
           </article>
         </Container>
       </section>
@@ -144,11 +127,6 @@ export default async function Page({
           </Container>
         </section>
       )}
-      <section className="border-b-2 border-ink bg-coral py-16 sm:py-24">
-        <Container>
-          <CampaignSignatureForm campaignId={slug as CampaignId} />
-        </Container>
-      </section>
     </main>
   );
 }

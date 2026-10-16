@@ -17,6 +17,7 @@ const campaigns = [
     id: "stop-1984",
     title: "Stop 1984",
     objective: "Ban AI-enabled mass surveillance.",
+    href: "/campaigns/stop-1984",
     description:
       "Mass surveillance is a threat to our civil liberties and free speech. AI-enabled surveillance could mean unprecedented concentration of power. We believe that a variety of coalition groups and civil society organizations could support a ban on AI-enabled mass surveillance.",
     metrics: [
@@ -28,6 +29,7 @@ const campaigns = [
     id: "no-killer-robots",
     title: "No Killer Robots",
     objective: "Regulate autonomous weapons in the military.",
+    href: "/campaigns/no-killer-robots",
     description:
       "Militaries around the world are racing to deploy autonomous weapons that can select and kill targets without human oversight. However, most people are unaware this is already happening, or don't grasp how quickly it's becoming normalized. Increasing awareness of this threat expands the Overton window, and builds political will for regulation.",
     metrics: [
@@ -37,9 +39,9 @@ const campaigns = [
   },
   {
     id: "save-our-future",
-    title: "AI Freeze",
-    objective:
-      "Negotiate a coordinated slowdown on the development of artificial intelligence.",
+    title: "Freeze AI",
+    href: "/campaigns/freeze-ai",
+    objective: "Freeze the frontier AI race through an international treaty.",
     description:
       "Experts in artificial intelligence, including those at frontier AI labs, have warned for years about the dangers of superintelligence. However, most people are unaware of these risks, or are not acting appropriately given their severity. Increasing awareness of existential risk expands the Overton window, and builds political will for AI safety.",
     metrics: [

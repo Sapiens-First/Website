@@ -1,6 +1,6 @@
 # Sapiens First website
 
-The public site is a Next.js App Router application using React and TypeScript. Every page is statically generated; styling is Tailwind CSS v4.
+The public site is a Next.js App Router application using React and TypeScript. Content pages are statically generated; campaign signatures use a server-side API route. Styling is Tailwind CSS v4.
 
 ## Local development
 
@@ -26,6 +26,8 @@ Open `http://localhost:3000`. Run `npm run build` for a production build, `npm r
 Styling is written as Tailwind classes in each component. `app/globals.css` only holds the design tokens, a small base reset, the `.doc-body` typography for the Learn guide, and a few custom utilities (`ink-underline`, `marker`); `npm run format` sorts those classes through `prettier-plugin-tailwindcss`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
 
 ## Current data sources
+
+Campaign detail pages collect signatures through a same-origin API and the existing Supporter List connection. See [campaign intake](docs/campaign-intake.md) for fields, consent, CRM handoff, duplicate handling and deployment checks. Run `npm run test:campaigns` for the signature contract/storage tests.
 
 Signup submissions go to the Google Apps Script endpoint in `lib/site.ts`. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 

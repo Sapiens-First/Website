@@ -8,6 +8,7 @@ import {
 import { ActionLink, TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
+import CampaignSignatureForm from "@/components/campaigns/CampaignSignatureForm";
 
 export const metadata = pageMetadata({
   title: "Citizens’ Dividend",
@@ -245,10 +246,9 @@ export default function Page() {
             </ActionLink>
             <ActionLink href="/circle">Start a Circle →</ActionLink>
           </div>
-          <p className="mt-6 mb-0 text-sm font-medium">
-            Joining the movement is separate from signing the letter. Signature
-            collection for this campaign is not yet open.
-          </p>
+          <div className="mt-10">
+            <CampaignSignatureForm campaignId="citizens-dividend" />
+          </div>
         </Container>
       </section>
     </main>

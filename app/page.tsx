@@ -42,16 +42,19 @@ const campaigns = [
     title: "Freeze AI.",
     description:
       "Call on the US to slow the development of frontier intelligence.",
+    href: "/campaigns/freeze-ai",
   },
   {
     id: "surveillance",
     title: "Stop 1984.",
     description: "End AI-enabled mass surveillance.",
+    href: "/campaigns/stop-1984",
   },
   {
     id: "robots",
     title: "No Killer Robots.",
     description: "Regulate deadly, autonomous weapons.",
+    href: "/campaigns/no-killer-robots",
   },
   {
     id: "dividend",

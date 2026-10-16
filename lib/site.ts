@@ -14,13 +14,22 @@ export const navigation = [
     label: "About",
     href: "/about",
     children: [
+      { label: "Our Story", href: "/about" },
       { label: "Careers", href: "/careers" },
       { label: "Atlas", href: "/atlas" },
-      { label: "Campaigns", href: "/campaigns" },
     ],
   },
-  { label: "Fellowship", href: "/fellowship" },
-  { label: "Start a Circle", href: "/circle" },
+  { label: "Calendar", href: "/calendar" },
+  {
+    label: "Campaigns",
+    href: "/campaigns",
+    children: [
+      { label: "Freeze AI", href: "/campaigns/freeze-ai" },
+      { label: "Stop 1984", href: "/campaigns/stop-1984" },
+      { label: "No Killer Robots", href: "/campaigns/no-killer-robots" },
+      { label: "Citizens’ Dividend", href: "/campaigns/citizens-dividend" },
+    ],
+  },
 ] as const;
 
 export const footerGroups = [

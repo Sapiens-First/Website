@@ -4,11 +4,12 @@ import { TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
 import CampaignAccordion from "@/components/campaigns/CampaignAccordion";
+import DividendFeature from "@/components/campaigns/DividendFeature";
 
 export const metadata = pageMetadata({
   title: "Campaigns for AI Accountability",
   description:
-    "Sapiens First's active campaigns to protect civil liberties in the age of AI.",
+    "Explore Sapiens First’s campaigns for AI accountability, civil liberties and shared prosperity, including a Citizens’ Dividend.",
   path: "/campaigns",
 });
 
@@ -106,6 +107,7 @@ export default function Page() {
               Current Campaigns
             </div>
             <CampaignAccordion campaigns={campaigns} />
+            <DividendFeature />
           </Container>
         </section>
       </main>

@@ -4,10 +4,17 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
-type Campaign = { id: string; title: string; description: string };
+type Campaign = {
+  id: string;
+  title: string;
+  description: string;
+  href?: string;
+};
 
 /** Abstract poster art per campaign, drawn with the art layer and its two pseudo-elements. */
 const art: Record<string, string> = {
+  dividend:
+    "bg-brand-yellow before:-top-[20%] before:left-[15%] before:aspect-square before:w-[70%] before:rounded-full before:border-[40px] before:border-ink after:top-[25%] after:left-[8%] after:h-[20px] after:w-[85%] after:-rotate-12 after:bg-coral",
   freeze:
     "bg-brand-blue before:-top-[10%] before:left-[21%] before:aspect-square before:w-[58%] before:rounded-full before:border-[34px] before:border-white/70 before:shadow-[0_0_0_25px_rgba(255,255,255,0.15)] after:top-[44%] after:-left-[15%] after:h-[18px] after:w-[130%] after:-rotate-8 after:bg-ink",
   surveillance:
@@ -115,6 +122,14 @@ export default function CampaignCarousel({
                   <p className="m-0 max-w-lg text-lg leading-normal font-medium xl:text-xl">
                     {campaign.description}
                   </p>
+                  {campaign.href && (
+                    <Link
+                      href={campaign.href}
+                      className="mt-5 inline-block border-b-2 border-brand-yellow pb-1 text-sm font-black tracking-wider text-brand-yellow uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                    >
+                      Explore the campaign →
+                    </Link>
+                  )}
                 </div>
               </article>
             )),

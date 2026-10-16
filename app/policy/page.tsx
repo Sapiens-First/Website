@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/Container";
 import PolicyToc from "@/components/policy/PolicyToc";
 import { Accordion, AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
+import { TextLink } from "@/components/ui/Action";
 
 export const metadata = pageMetadata({
   title: "Policy",
@@ -53,7 +54,7 @@ const pillars = [
         id: "build-a-sovereign-wealth-fund-for-ai",
         title: "Build a Sovereign Wealth Fund for AI",
       },
-      { id: "citizens-dividend", title: "Citizen's Dividend" },
+      { id: "citizens-dividend", title: "Citizens’ Dividend" },
     ],
   },
   {
@@ -188,7 +189,22 @@ export default function Page() {
                             </span>
                             <AccordionChevron className="size-[9px] border-r-[1.5px] border-b-[1.5px] opacity-55 group-open:opacity-100" />
                           </summary>
-                          <div className="border-t border-[color-mix(in_srgb,var(--color-coral)_20%,var(--color-line))] px-6 pt-1 pb-7 max-sm:px-4 max-sm:pb-5" />
+                          <div className="border-t border-[color-mix(in_srgb,var(--color-coral)_20%,var(--color-line))] px-6 pt-1 pb-7 max-sm:px-4 max-sm:pb-5">
+                            {policy.id === "citizens-dividend" && (
+                              <div className="pt-5">
+                                <p className={bodyClass}>
+                                  A regular, unconditional cash payment funded
+                                  by a fair public share of AI-driven gains. We
+                                  call on lawmakers to publish a costed plan
+                                  that explains funding, eligibility, delivery
+                                  and how it works alongside existing support.
+                                </p>
+                                <TextLink href="/campaigns/citizens-dividend">
+                                  Explore the Citizens’ Dividend campaign →
+                                </TextLink>
+                              </div>
+                            )}
+                          </div>
                         </Accordion>
                       ))}
                     </section>

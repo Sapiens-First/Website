@@ -16,6 +16,7 @@ export const navigation = [
     children: [
       { label: "Careers", href: "/careers" },
       { label: "Atlas", href: "/atlas" },
+      { label: "Campaigns", href: "/campaigns" },
     ],
   },
   { label: "Fellowship", href: "/fellowship" },
@@ -47,6 +48,7 @@ export const footerGroups = [
       { label: "Learn", href: "/learn" },
       { label: "Policy", href: "/policy" },
       { label: "Campaigns", href: "/campaigns" },
+      { label: "Citizens’ Dividend", href: "/campaigns/citizens-dividend" },
     ],
   },
 ] as const;
@@ -58,6 +60,7 @@ export const routes = [
   "/fellowship",
   "/circle",
   "/campaigns",
+  "/campaigns/citizens-dividend",
   "/join",
   "/donate",
   "/learn",

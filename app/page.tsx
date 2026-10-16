@@ -11,6 +11,7 @@ import { Doodle, FunLayer, Moon, starClip } from "@/components/ui/Doodles";
 import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
 import CampaignCarousel from "@/components/home/CampaignCarousel";
+import DividendFeature from "@/components/campaigns/DividendFeature";
 import SignupForm from "@/components/SignupForm";
 import { cn } from "@/lib/cn";
 
@@ -52,6 +53,12 @@ const campaigns = [
     id: "robots",
     title: "No Killer Robots.",
     description: "Regulate deadly, autonomous weapons.",
+  },
+  {
+    id: "dividend",
+    title: "Citizens’ Dividend.",
+    description: "Give the public a stake in the wealth AI creates.",
+    href: "/campaigns/citizens-dividend",
   },
 ];
 
@@ -239,6 +246,7 @@ export default function Page() {
                 </h3>
               </div>
               <CampaignCarousel campaigns={campaigns} />
+              <DividendFeature />
             </div>
           </Container>
         </section>

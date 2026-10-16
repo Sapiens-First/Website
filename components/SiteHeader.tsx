@@ -9,9 +9,9 @@ import { navigation } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 const navLink =
-  "relative inline-flex min-h-12 items-center justify-center border-b-[3px] border-transparent px-2 py-2 font-body text-lg font-bold tracking-normal uppercase transition-colors hover:border-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-[current=page]:border-coral motion-reduce:transition-none max-sm:px-1 max-sm:text-sm";
+  "relative inline-flex min-h-12 items-center justify-center border-b-[3px] border-transparent px-2 py-2 font-body text-[17px] font-bold tracking-normal uppercase transition-colors hover:border-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-[current=page]:border-coral motion-reduce:transition-none max-sm:px-1 max-sm:text-sm";
 const navCta =
-  "inline-flex min-h-12 min-w-22 items-center justify-center border-2 border-ink px-4 py-2.5 font-display text-xl leading-none font-extrabold uppercase shadow-[2px_2px_0_var(--color-ink)] transition-[background-color,color,transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[3px_4px_0_var(--color-ink)] active:translate-y-px active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink motion-reduce:transition-none motion-reduce:hover:translate-none motion-reduce:active:translate-none max-sm:min-w-0 max-sm:px-1.5";
+  "inline-flex min-h-12 min-w-22 items-center justify-center border-2 border-ink px-4 py-2.5 font-display text-xl leading-none font-extrabold uppercase shadow-[2px_2px_0_var(--color-ink)] transition-[background-color,color,transform,box-shadow] duration-150 hover:-translate-y-0.5 hover:shadow-[3px_4px_0_var(--color-ink)] active:translate-y-px active:shadow-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink motion-reduce:transition-none motion-reduce:hover:translate-none motion-reduce:active:translate-none max-sm:min-w-0 max-sm:px-1.5 max-sm:text-[17px] max-sm:whitespace-nowrap";
 
 export default function SiteHeader() {
   const path = usePathname();
@@ -42,20 +42,20 @@ export default function SiteHeader() {
           className="grid min-h-22 grid-cols-[auto_1fr_auto] items-center gap-8 py-3 max-lg:grid-cols-[1fr_auto] max-lg:gap-x-3 max-lg:gap-y-1 max-sm:gap-x-2 max-sm:py-2.5"
         >
           <Link
-            className="inline-flex w-max items-center gap-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink max-sm:gap-0.5"
+            className="inline-flex w-max items-center gap-3 font-display text-[1.8rem] leading-none font-extrabold tracking-[0.02em] whitespace-nowrap uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink max-sm:gap-2.5 max-sm:text-2xl"
             href="/"
             aria-label="Sapiens First home"
           >
             <Image
-              className="block size-12 shrink-0 max-sm:size-9"
+              className="block size-[42px] shrink-0 object-contain max-sm:size-[36px]"
               src="/assets/brand/dinosaur-purple.png"
               alt=""
-              width={48}
-              height={48}
+              width={42}
+              height={42}
               priority
             />
-            <span className="font-display text-[32px] leading-none font-extrabold tracking-tight whitespace-nowrap uppercase max-sm:text-xl">
-              Sapiens <span className="border-b-4 border-coral">First</span>
+            <span className="inline-block -rotate-[1.5deg] border border-ink bg-brand-yellow px-[0.22em] py-[0.12em] leading-none shadow-[2px_2px_0_var(--color-ink)]">
+              Sapiens First
             </span>
           </Link>
           <div
@@ -131,7 +131,7 @@ export default function SiteHeader() {
                   >
                     {item.children.map((child) => (
                       <Link
-                        className="flex min-h-11 items-center justify-between gap-4 px-3 py-3 font-body text-sm leading-snug font-bold hover:bg-brand-blue-soft focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-ink aria-[current=page]:bg-brand-blue-soft"
+                        className="flex min-h-11 items-center justify-between gap-4 px-3 py-3 font-body text-sm leading-snug font-bold uppercase hover:bg-brand-blue-soft focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-ink aria-[current=page]:bg-brand-blue-soft"
                         href={child.href}
                         key={child.href}
                         aria-current={path === child.href ? "page" : undefined}

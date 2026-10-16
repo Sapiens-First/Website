@@ -25,10 +25,14 @@ export const metadata: Metadata = {
   title: { default: "Sapiens First", template: "%s — Sapiens First" },
   icons: {
     icon: [
-      { url: "/favicons/favicon.ico" },
-      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicons/favicon.ico?v=20261016-dino-purple" },
+      {
+        url: "/favicons/favicon-32x32.png?v=20261016-dino-purple",
+        sizes: "32x32",
+        type: "image/png",
+      },
     ],
-    apple: "/favicons/apple-touch-icon.png",
+    apple: "/favicons/apple-touch-icon.png?v=20261016-dino-purple",
   },
   manifest: "/favicons/site.webmanifest",
 };

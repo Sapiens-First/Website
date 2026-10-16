@@ -41,10 +41,6 @@ export const footerGroups = [
       { label: "Start a Circle", href: "/circle" },
       { label: "Join", href: "/join" },
       { label: "Calendar", href: "/calendar" },
-      {
-        label: "Instagram",
-        href: "https://www.instagram.com/sapiensfirst.global/",
-      },
     ],
   },
   {

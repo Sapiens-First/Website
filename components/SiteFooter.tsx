@@ -21,13 +21,16 @@ export default function SiteFooter() {
       </FunLayer>
       <Container>
         <div className="flex flex-wrap justify-between gap-x-14 gap-y-10 border-b border-white/22 pb-10 max-sm:flex-col max-sm:gap-7 max-sm:pb-7">
-          <Link className="flex items-center gap-2.5" href="/">
+          <Link
+            className="brand-stripe flex items-center gap-2.5 self-start pb-2.5"
+            href="/"
+          >
             <Image
-              className="block size-8"
-              src="/favicons/android-chrome-192x192.png"
+              className="block size-10"
+              src="/assets/brand/dinosaur-purple.png"
               alt=""
-              width={32}
-              height={32}
+              width={40}
+              height={40}
             />
             <span className="font-display text-xl font-extrabold tracking-normal text-white uppercase">
               Sapiens First

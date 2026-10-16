@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -32,6 +32,8 @@ export const metadata: Metadata = {
   },
   manifest: "/favicons/site.webmanifest",
 };
+
+export const viewport: Viewport = { themeColor: "#fffdf5" };
 
 export default function RootLayout({
   children,

@@ -11,7 +11,6 @@ import { Doodle, FunLayer, Moon, starClip } from "@/components/ui/Doodles";
 import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
 import CampaignCarousel from "@/components/home/CampaignCarousel";
-import DividendFeature from "@/components/campaigns/DividendFeature";
 import SignupForm from "@/components/SignupForm";
 import { cn } from "@/lib/cn";
 
@@ -246,7 +245,6 @@ export default function Page() {
                 </h3>
               </div>
               <CampaignCarousel campaigns={campaigns} />
-              <DividendFeature />
             </div>
           </Container>
         </section>

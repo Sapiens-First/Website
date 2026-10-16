@@ -4,7 +4,6 @@ import { TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
 import CampaignAccordion from "@/components/campaigns/CampaignAccordion";
-import DividendFeature from "@/components/campaigns/DividendFeature";
 
 export const metadata = pageMetadata({
   title: "Campaigns for AI Accountability",
@@ -47,6 +46,18 @@ const campaigns = [
       "Get mainstream media to write positively about activism against existential risk posed by AI",
       "Increase awareness through social media",
     ],
+  },
+  {
+    id: "citizens-dividend",
+    title: "Citizens’ Dividend",
+    objective: "Give the public a stake in the wealth AI creates.",
+    description:
+      "A regular, unconditional cash payment would give people a public stake in the AI economy. We call on lawmakers to publish a costed Citizens’ Dividend plan that makes funding, eligibility and delivery clear, and explains how it would work alongside existing support.",
+    metrics: [
+      "Put a Citizens’ Dividend on the legislative agenda",
+      "Get lawmakers to publish a credible, costed plan",
+    ],
+    href: "/campaigns/citizens-dividend",
   },
 ];
 
@@ -107,7 +118,6 @@ export default function Page() {
               Current Campaigns
             </div>
             <CampaignAccordion campaigns={campaigns} />
-            <DividendFeature />
           </Container>
         </section>
       </main>

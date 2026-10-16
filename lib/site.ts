@@ -48,7 +48,6 @@ export const footerGroups = [
       { label: "Learn", href: "/learn" },
       { label: "Policy", href: "/policy" },
       { label: "Campaigns", href: "/campaigns" },
-      { label: "Citizens’ Dividend", href: "/campaigns/citizens-dividend" },
     ],
   },
 ] as const;

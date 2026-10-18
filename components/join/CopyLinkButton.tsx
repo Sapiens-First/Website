@@ -20,7 +20,6 @@ export default function CopyLinkButton({ url }: { url: string }) {
         navigator.clipboard.writeText(url).then(
           () => setCopied(true),
           () => {
-            /* Clipboard access may be unavailable. */
           },
         )
       }

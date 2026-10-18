@@ -11,7 +11,6 @@ export const metadata = pageMetadata({
   path: "/careers/builder",
 });
 
-/** Long-form job description typography, applied to every paragraph and list in the page. */
 const prose =
   "[&_:is(p,li)]:text-lg [&_:is(p,li)]:leading-relaxed [&_:is(ul,ol)]:mx-0 [&_:is(ul,ol)]:mt-0 [&_:is(ul,ol)]:mb-5 [&_:is(ul,ol)]:pl-6 [&_a:hover]:text-coral-dark [&_li]:mb-3 [&_li]:pl-0.5 [&_p]:mx-0 [&_p]:mt-0 [&_p]:mb-4";
 

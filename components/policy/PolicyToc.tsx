@@ -7,7 +7,6 @@ import { cn } from "@/lib/cn";
 type Link = { id: string; title: string };
 type Pillar = Link & { policies: Link[] };
 
-// Opening a card collapses its sibling, so re-align once the 0.4s panel transition settles.
 function scrollToCard(card: Element) {
   card.scrollIntoView({ behavior: "smooth" });
   return window.setTimeout(
@@ -40,7 +39,6 @@ export default function PolicyToc({ pillars }: { pillars: Pillar[] }) {
       window.clearTimeout(timer);
       timer = scrollToCard(card);
     };
-    // `toggle` doesn't bubble, so listen in the capture phase.
     document.addEventListener("toggle", toggle, true);
     return () => {
       document.removeEventListener("toggle", toggle, true);

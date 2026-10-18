@@ -94,7 +94,6 @@ const pillars = [
     ],
   },
 ] as const;
-// Principles are numbered 01–08 across all pillars.
 const principleTitles: string[] = pillars.flatMap((pillar) =>
   pillar.principles.map((principle) => principle.title),
 );

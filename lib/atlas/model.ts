@@ -1,4 +1,3 @@
-/** CSV field names intentionally match the downloadable public source. */
 export type AtlasRow = Record<string, string> & {
   ID: string;
   Name: string;

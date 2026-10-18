@@ -44,7 +44,6 @@ const facts = [
   { value: "3–5 hrs", label: "Time per week", color: "text-brand-blue-light" },
   { value: "Ongoing", label: "Applications", color: "text-brand-purple" },
 ];
-// Dividers between cells in the 4 / 2 / 1-column layouts.
 const factBorders = [
   "border-r-2 max-lg:border-b-2 max-sm:border-r-0",
   "border-r-2 max-lg:border-r-0 max-lg:border-b-2",

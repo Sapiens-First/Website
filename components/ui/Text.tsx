@@ -46,7 +46,6 @@ export function FactPill({ className = "", ...props }: ComponentProps<"span">) {
   );
 }
 
-/** Small black tag above a hero title. */
 export function Kicker({ className = "", ...props }: ComponentProps<"div">) {
   return (
     <div
@@ -64,7 +63,6 @@ const deckSizes = {
   compact: "text-lg leading-normal font-medium xl:text-xl",
 } as const;
 
-/** Lead paragraph under a section heading. */
 export function Deck({
   size = "default",
   className = "",

@@ -1,7 +1,6 @@
 import { useId, type ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
-/** Decorative hand-drawn marks scattered over sections. All are aria-hidden. */
 
 export function FunLayer({ className = "", ...props }: ComponentProps<"div">) {
   return (
@@ -16,7 +15,6 @@ export function FunLayer({ className = "", ...props }: ComponentProps<"div">) {
   );
 }
 
-/** Absolutely positioned wrapper; position, size, colour and tilt come from `className`. */
 export function Doodle({ className = "", ...props }: ComponentProps<"i">) {
   return (
     <i className={cn("absolute block leading-none", className)} {...props} />
@@ -37,7 +35,6 @@ export function Bird({ className = "" }: { className?: string }) {
   );
 }
 
-/** Crescent: a disc with a circle cut out at (`cutX`, `cutY`) in a 40×40 box. */
 export function Moon({
   size,
   cutX = 27,

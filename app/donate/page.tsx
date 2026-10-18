@@ -11,7 +11,6 @@ export const metadata = pageMetadata({
   path: "/donate",
 });
 
-/** Tilted sticker-style donate button; hover lifts it, press pushes it into its shadow. */
 const donateButton =
   "min-h-12 text-center leading-tight tracking-wide -rotate-2 shadow-[6px_6px_0_var(--color-ink)] hover:shadow-[8px_8px_0_var(--color-ink)] active:shadow-[2px_2px_0_var(--color-ink)] motion-safe:hover:rotate-1 motion-safe:hover:-translate-y-[3px] motion-safe:active:rotate-0";
 const rowClass =

@@ -1,4 +1,3 @@
-/* Keep the existing reset rather than changing the site's layout with Preflight. */
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
@@ -7,7 +6,6 @@
   --color-soft: #fff3d6;
   --color-surface: rgba(24, 37, 31, 0.05);
   --color-ink: #18251f;
-  /* Coral fills pair with ink; deep red text pairs with paper or white. */
   --color-coral: #ff7870;
   --color-coral-dark: #b53236;
   --color-line: rgba(24, 37, 31, 0.22);
@@ -74,7 +72,6 @@
   }
 }
 
-/* Rich content supplied by the guide keeps its document typography here. */
 @layer components {
   .doc-body {
     @apply font-body text-lg leading-relaxed font-normal wrap-anywhere text-ink;
@@ -223,7 +220,6 @@
   }
 }
 
-/* Shared four-color accent below the footer wordmark. */
 @utility brand-stripe {
   position: relative;
   &::after {

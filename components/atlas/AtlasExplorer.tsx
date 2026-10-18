@@ -124,7 +124,6 @@ export default function AtlasExplorer({
       nextView === "people"
         ? `#people${id ? `/${id}` : ""}`
         : `#${nextView}/${nextFormat}${id ? `/${id}` : ""}`;
-    // Fragment-only navigation drives hashchange and native Back/Forward, not a Next route transition.
     window.location.assign(hash);
   }
   useEffect(() => {

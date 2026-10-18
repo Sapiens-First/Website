@@ -27,7 +27,6 @@ export default function CampaignAccordion({
 }: {
   campaigns: Campaign[];
 }) {
-  // The panel keeps its last campaign while collapsing, so `panelId` outlives `open`.
   const [panelId, setPanelId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const activeId = open ? panelId : null;
@@ -78,7 +77,6 @@ export default function CampaignAccordion({
             >
               <div className="min-h-0 overflow-hidden">
                 {panel && (
-                  // Keyed by campaign so each switch fades the new copy in.
                   <div
                     className="px-7 py-6 transition-opacity duration-150 max-md:p-5 starting:opacity-0"
                     key={panel.id}

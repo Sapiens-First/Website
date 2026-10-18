@@ -1,7 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-/** Native details motion is shared by FAQ and policy cards. */
 export function Accordion({
   className = "",
   ...props
@@ -67,7 +66,6 @@ export function FaqItem({
   );
 }
 
-/** Rotating corner chevron; points down when the nearest `group` is open or expanded. */
 export function AccordionChevron({ className = "" }: { className?: string }) {
   return (
     <span

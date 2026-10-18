@@ -65,7 +65,6 @@ export function SignupPanel({
   );
 }
 
-/** Left half of a SplitHero. The dashed circle behind the copy is the default decoration. */
 export function HeroCopy({
   circle = true,
   className = "",
@@ -96,7 +95,6 @@ export function HeroLede({ className = "", ...props }: ComponentProps<"p">) {
   );
 }
 
-/** Right half of a SplitHero: paper cut-outs (sun, burst, face, confetti, birds) on coral. */
 export function HeroArt({ className = "", ...props }: ComponentProps<"div">) {
   return (
     <div
@@ -170,7 +168,6 @@ const focusNumberColors = [
   "text-brand-purple-dark",
 ];
 
-/** Numbered list of short points with a ruled divider between rows. */
 export function FocusList({
   items,
 }: {
@@ -207,7 +204,6 @@ export function FocusList({
   );
 }
 
-/** Plain full-width page header used by content pages (campaigns, policy, learn). */
 export function PageHero({ className = "", ...props }: ComponentProps<"div">) {
   return (
     <div

@@ -11,7 +11,6 @@ type Campaign = {
   href?: string;
 };
 
-/** Abstract poster art per campaign, drawn with the art layer and its two pseudo-elements. */
 const art: Record<string, string> = {
   dividend:
     "bg-brand-yellow before:-top-[20%] before:left-[15%] before:aspect-square before:w-[70%] before:rounded-full before:border-[40px] before:border-ink after:top-[25%] after:left-[8%] after:h-[20px] after:w-[85%] after:-rotate-12 after:bg-coral",

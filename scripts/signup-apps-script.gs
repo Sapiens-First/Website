@@ -1,5 +1,3 @@
-// Update the EXISTING Supporter List Connection web app deployment.
-// Existing Sheet1 rows/headers are never rewritten. Signatures are append-only.
 const SHEET_ID = '1tFA7hIPKjgxoKBRgRaP5L360DzKW5u2IJGo4yNQRqmE';
 const CONSENT_VERSION = '2026-10-15.1';
 const CAMPAIGN_VERSION = '2026-10-15.1';
@@ -64,14 +62,11 @@ function doPost(e) {
       saved = [Utilities.getUuid(), new Date().toISOString(), plainText(email), plainText(data.name), data.zip ? "'" + data.zip : '', plainText(data.phone), data.campaignId, CAMPAIGN_VERSION, CONSENT_VERSION, data.updatesOptIn, 'https://sapiensfirst.org/campaigns/' + data.campaignId];
       signatures.appendRow(saved);
     }
-    // A retry repairs a partial save before returning the original receipt.
-    // Never edit a prior supporter/profile/consent row for a new signature.
     const emails = supporters.getLastRow() > 1 ? supporters.getRange(2, 2, supporters.getLastRow() - 1, 1).getValues() : [];
     if (!emails.some(function(row) { return canonicalEmail(row[0]) === email; })) supporters.appendRow([saved[1], plainText(email), 'campaign:' + data.campaignId]);
     SpreadsheetApp.flush();
     return jsonResponse({ result: 'success', receiptId: saved[0], signedAt: saved[1], campaignId: saved[6], demandVersion: saved[7], consentVersion: saved[8], updatesOptIn: saved[9] === true || saved[9] === 'TRUE' });
   } catch (error) {
-    // Do not log or echo personal information. Ambiguous saves are safe to retry.
     return jsonResponse({ result: 'error' });
   } finally {
     if (lock) lock.releaseLock();

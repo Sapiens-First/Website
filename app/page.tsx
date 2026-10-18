@@ -14,7 +14,6 @@ import CampaignCarousel from "@/components/home/CampaignCarousel";
 import SignupForm from "@/components/SignupForm";
 import { cn } from "@/lib/cn";
 
-/** Crisis-section stars: [left, top, size]. */
 const stars = [
   ["28%", "9%", "5.6px"],
   ["61%", "16%", "7.7px"],
@@ -351,7 +350,6 @@ export default function Page() {
   );
 }
 
-/** Small line icon pinned to the top-right corner of a section. */
 function SectionMark({
   className = "",
   children,

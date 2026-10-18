@@ -27,7 +27,6 @@ const types: Record<string, keyof typeof masks> = {
   Person: "role",
 };
 
-/** Masked glyphs keep labels' text content intact. */
 export function TypeIcon({ type }: { type: string }) {
   return (
     <span

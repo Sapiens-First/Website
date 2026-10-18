@@ -217,7 +217,6 @@ export default function Circles({
       : layout.nodes.get(picked?.row["Parent Circle ID"] || "") ||
         layout.roots[0];
   const chain = chainFor(focus, layout.nodes);
-  // Keep the outgoing chart as React state during a focus transition. Never clone DOM.
   const [transition, setTransition] = useState<{
     focus: HierarchyNode | undefined;
     previous?: HierarchyNode;
@@ -231,7 +230,6 @@ export default function Circles({
       entering: true,
       inward: chain.length >= chainFor(transition.focus, layout.nodes).length,
     });
-  // Wait two frames so the entering chart paints at its start scale before transitioning.
   useEffect(() => {
     if (!transition.entering) return;
     let frame2 = 0;
@@ -245,7 +243,6 @@ export default function Circles({
       cancelAnimationFrame(frame2);
     };
   }, [transition.focus, transition.entering]);
-  // Drop the outgoing chart once its 420ms transition has finished.
   useEffect(() => {
     if (!transition.previous || transition.entering) return;
     const timer = setTimeout(

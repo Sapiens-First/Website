@@ -1,6 +1,5 @@
 import type { AtlasRow, HierarchyNode } from "./model";
 
-/* Deterministic nested layout. Circle area is not an organizational metric. */
 export function circleLayout(records: AtlasRow[]) {
   const nodes = new Map<string, HierarchyNode>(
     records.map((row) => [row.ID, { row, children: [], x: 0, y: 0, r: 0 }]),
@@ -50,7 +49,6 @@ export function circleLayout(records: AtlasRow[]) {
         );
         if (!best || score < best.score) best = { ...point, score };
       }
-      // Tangent candidates always leave room outside the existing cluster.
       child.x =
         best?.x ??
         placed.reduce((right, other) => Math.max(right, other.x + other.r), 0) +

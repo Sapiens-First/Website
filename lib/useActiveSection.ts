@@ -2,11 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-/**
- * Scroll-spy shared by the policy, guide and builder tables of contents.
- * A section is active once its top reaches `offset` (default: its own scroll-margin-top);
- * the last section wins at the bottom of the page.
- */
 export function useActiveSection(ids: readonly string[], offset?: number) {
   const [activeId, setActiveId] = useState<string>();
 

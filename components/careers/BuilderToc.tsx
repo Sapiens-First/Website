@@ -11,7 +11,6 @@ const sections = [
   { id: "apply", title: "Apply" },
 ];
 const ids = sections.map((section) => section.id);
-// Tailwind's `lg` breakpoint, matching the page's max-lg: layout.
 const desktopQuery = "(min-width: 64rem)";
 
 export default function BuilderToc() {
@@ -31,7 +30,6 @@ export default function BuilderToc() {
   function navigate(id: string) {
     const details = toc.current;
     if (details && !window.matchMedia(desktopQuery).matches) {
-      // Collapse instantly so the jump lands on the heading, not mid-animation.
       details.setAttribute("data-navigating", "");
       details.open = false;
       requestAnimationFrame(() => details.removeAttribute("data-navigating"));

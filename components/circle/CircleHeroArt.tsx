@@ -1,6 +1,5 @@
 import { HeroArt } from "@/components/sections/SplitSection";
 
-/** Six figures around the table: rotation (deg), shirt colour, skin tone. */
 const figures = [
   { rotate: -15, body: "var(--color-brand-blue)", skin: "#efb98e" },
   { rotate: 45, body: "var(--color-paper)", skin: "#794b38" },

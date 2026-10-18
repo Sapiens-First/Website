@@ -40,7 +40,6 @@ const privateValues = [
   /\bBearer\s+[A-Za-z0-9._-]{20,}\b/,
 ];
 
-/** RFC 4180 quoted fields, escaped quotes, embedded newlines, BOM and CRLF. */
 export function parseCSV(
   source: string,
   file: string,
@@ -265,7 +264,6 @@ export function validateAtlas(data: AtlasData) {
 export function loadAtlasData(
   directory = join(process.cwd(), "public/data/atlas"),
 ): AtlasData {
-  // Additional CSVs in this public directory receive the same privacy guard.
   for (const file of readdirSync(directory)) {
     if (
       file.toLowerCase().endsWith(".csv") &&

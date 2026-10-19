@@ -35,8 +35,8 @@ Campaign detail pages collect signatures through a same-origin API and the exist
 
 Signup submissions go to the Google Apps Script endpoint in `lib/site.ts`. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 
-The Google Apps Script response is opaque to the browser because the existing endpoint uses a cross origin `no-cors` request. A resolved fetch confirms that the request was sent; it does not prove the spreadsheet saved a row. The guide shows a fallback link to the Google Doc if it cannot be loaded.
+## Supabase connection
 
-## Atlas
+The connection uses the Website project in the SapiensFirst organization. Its public Atlas tables contain the initial CSV snapshot.
 
-`/atlas` ports the upstream organization explorer into React and TypeScript. Its public CSV source lives in `public/data/atlas/`. Production builds validate the data automatically.
+Copy `.env.example` to `.env.local` and fill in `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` from the project's Connect dialog. `.env.local` is Git-ignored. Add the same variables to the appropriate Vercel environment before deploying database-dependent changes.

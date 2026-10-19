@@ -12,8 +12,10 @@ export const metadata = pageMetadata({
   ogDescription: "A shared map of our work and the people responsible for it.",
 });
 
-export default function Page() {
-  const data = loadAtlasData();
+export const revalidate = 60;
+
+export default async function Page() {
+  const data = await loadAtlasData();
   return (
     <>
       <main className="[&_:focus-visible]:outline-[3px] [&_:focus-visible]:outline-offset-2 [&_:focus-visible]:outline-coral-dark [&_a]:underline-offset-2">

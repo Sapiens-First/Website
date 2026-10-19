@@ -284,13 +284,6 @@ export default function AtlasExplorer({
           <p className="min-w-0 [flex:1_1_auto] text-xs leading-normal text-ink">
             {descriptions[view]}
           </p>
-          <a
-            className="ml-auto text-xs whitespace-nowrap text-ink underline-offset-4 hover:text-coral-dark max-sm:ml-0"
-            href={`/data/atlas/${group}.csv`}
-            download
-          >
-            Download {group} CSV ↓
-          </a>
         </div>
         {view !== "people" && format === "table" && detail}
         <p role="status" aria-live="polite" className="mb-3 text-xs text-ink">

@@ -40,3 +40,13 @@ The Google Apps Script response is opaque to the browser because the existing en
 ## Atlas
 
 `/atlas` ports the upstream organization explorer into React and TypeScript. Its public CSV source lives in `public/data/atlas/`. Production builds validate the data automatically.
+
+## Supabase connection
+
+The connection foundation uses the Website project in the SapiensFirst organization. Atlas still reads its CSVs until its separate database migration.
+
+Copy `.env.example` to `.env.local` and fill in `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` from the project's Connect dialog. `.env.local` is Git-ignored. Add the same variables to the appropriate Vercel environment before deploying database-dependent changes.
+
+`lib/supabase/server.ts` exports `createPublicSupabaseClient()` for public database reads from server code. It uses the publishable key and disables session persistence and refresh. Database grants and RLS policies will define access during the Atlas migration; the key alone does not make a client read-only. Keep secret/service-role keys out of this helper.
+
+`@supabase/ssr` is installed for the upcoming member portal. Cookie-based sessions and member authentication are not configured yet; public Atlas reads use the session-free client above.

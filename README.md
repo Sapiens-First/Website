@@ -40,3 +40,15 @@ Signup submissions go to the Google Apps Script endpoint in `lib/site.ts`. The L
 The connection uses the Website project in the SapiensFirst organization. Its public Atlas tables contain the initial CSV snapshot.
 
 Copy `.env.example` to `.env.local` and fill in `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` from the project's Connect dialog. `.env.local` is Git-ignored. Add the same variables to the appropriate Vercel environment before deploying database-dependent changes.
+
+## Google sign-in
+
+Set `APP_URL` to the exact website origin: `http://localhost:3000` locally, the chosen Preview origin for testing, or `https://sapiensfirst.org` in Production. The callback uses this configured origin, never a request-supplied destination. These variables are server-only; no Google secret or privileged Supabase key is required in the website environment.
+
+Enable Google in Supabase Authentication using the organization's Google OAuth client ID and secret. In Google Cloud, register the callback URL shown by Supabase (`https://egdgizyyhiqtxonehzlt.supabase.co/auth/v1/callback`), with only basic OpenID, email and profile scopes. In Supabase URL Configuration, set the production Site URL and allow `<APP_URL>/auth/callback` for every environment used. Localhost hostnames and ports must match the browser URL.
+
+Apply the versioned `create_profiles` migration on new databases; it is already applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Profile onboarding and payments follow separately. Other signup forms and campaign intake still use the existing spreadsheet connection.
+
+Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; account responses must remain dynamic and private. Atlas keeps its independent public client and cache. Before publication, test real Google sign-in, returning sessions, sign-out, callback failures and two-account isolation on localhost and Preview. Never commit credentials or publish before the localhost review.
+
+Run `npm run test:auth` for the auth guard, callback, cookie-refresh and redirect regression checks, alongside `npm run test:campaigns`, lint, type checking and the production build.

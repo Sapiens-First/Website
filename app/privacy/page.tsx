@@ -24,6 +24,23 @@ export default function Page() {
             </p>
             <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
               <h2 className="font-display text-3xl font-extrabold uppercase">
+                Member accounts
+              </h2>
+              <p>
+                Google sign-in shares your basic account identity, including
+                your email and name, with our authentication provider, Supabase.
+                We store your account and private member profile in Supabase.
+                Signing in does not subscribe you to marketing emails or publish
+                your details in Atlas.
+              </p>
+              <p>
+                We use authentication cookies to maintain your session. Signing
+                out ends your current website session. You can request access,
+                correction or deletion of your account using the contact below.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
+              <h2 className="font-display text-3xl font-extrabold uppercase">
                 Campaign signatures
               </h2>
               <p>
@@ -73,7 +90,9 @@ export default function Page() {
               .
             </p>
             <p className="border-t border-solid border-t-line pt-4 text-sm leading-relaxed text-ink">
-              We do not use cookies or tracking software on this website.
+              We use authentication cookies for account access and Vercel
+              Analytics and Speed Insights to understand website usage and
+              performance.
             </p>
           </div>
         </Container>

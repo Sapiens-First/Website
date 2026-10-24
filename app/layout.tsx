@@ -52,7 +52,7 @@ export default function RootLayout({
     >
       <body>
         <SiteHeader />
-        {children}
+        <div className="flex min-w-0 flex-1 flex-col">{children}</div>
         <SiteFooter />
         <Analytics />
         <SpeedInsights />

@@ -14,9 +14,11 @@ import {
 export default function ProfileForm({
   initialValues,
   countries,
+  submitLabel = "Save and continue",
 }: {
   initialValues: ProfileValues;
   countries: { code: string; name: string }[];
+  submitLabel?: string;
 }) {
   const initialState: ProfileFormState = {
     values: initialValues,
@@ -118,7 +120,7 @@ export default function ProfileForm({
         disabled={pending}
         className="mt-8"
       >
-        {pending ? "Saving…" : "Save and continue"}
+        {pending ? "Saving…" : submitLabel}
       </Button>
     </form>
   );

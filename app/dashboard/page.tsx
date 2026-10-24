@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { signOut } from "@/app/auth/actions";
 import { Container } from "@/components/layout/Container";
-import { ActionLink, Button } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/Action";
 import { Kicker } from "@/components/ui/Text";
-import { requireMember } from "@/lib/members/access";
+import { getMembershipAccess } from "@/lib/members/access";
+import { getProfileCountries } from "@/lib/members/profile";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -14,10 +14,13 @@ export const metadata: Metadata = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; updated?: string }>;
 }) {
-  const { user, profile } = await requireMember();
-  const { error } = await searchParams;
+  const { user, profile, membership } = await getMembershipAccess();
+  const { error, updated } = await searchParams;
+  const country = getProfileCountries().find(
+    ({ code }) => code === profile.country_code,
+  )?.name;
   return (
     <main className="py-16 sm:py-24">
       <Container width="content">
@@ -27,14 +30,29 @@ export default async function DashboardPage({
             ? `Welcome, ${profile.full_name}.`
             : "Welcome to Sapiens First."}
         </h1>
-        <dl className="mt-10 grid gap-6 border-2 border-ink bg-white p-6 sm:p-8">
+        {updated === "profile" && (
+          <p role="status" className="mt-6 border-l-4 border-ink p-3">
+            Your profile has been saved.
+          </p>
+        )}
+        <dl className="mt-10 grid gap-6 border-2 border-ink bg-white p-6 sm:grid-cols-2 sm:p-8">
           <div>
             <dt className="text-sm font-bold uppercase">Email</dt>
             <dd className="mt-2 text-lg break-all">{user.email}</dd>
           </div>
           <div>
             <dt className="text-sm font-bold uppercase">Membership</dt>
-            <dd className="mt-2 text-lg">Free account</dd>
+            <dd className="mt-2 text-lg capitalize">
+              {membership.tier} member
+            </dd>
+          </div>
+          <div>
+            <dt className="text-sm font-bold uppercase">Location</dt>
+            <dd className="mt-2 text-lg break-words">
+              {[profile.city, profile.region, country]
+                .filter(Boolean)
+                .join(", ")}
+            </dd>
           </div>
         </dl>
         {error === "signout" && (
@@ -43,13 +61,20 @@ export default async function DashboardPage({
           </p>
         )}
         <div className="mt-8 flex flex-wrap gap-4">
+          <ActionLink href="/dashboard/profile" variant="outline">
+            Edit your profile
+          </ActionLink>
           <ActionLink href="/calendar" variant="primary">
             Explore open events
           </ActionLink>
-          <form action={signOut}>
-            <Button type="submit">Sign out</Button>
-          </form>
+          <ActionLink href="/learn" variant="outline">
+            Explore learning resources
+          </ActionLink>
         </div>
+        <p className="mt-6 text-lg">
+          Your free membership includes open events and public learning
+          resources.
+        </p>
       </Container>
     </main>
   );

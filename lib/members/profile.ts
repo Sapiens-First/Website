@@ -46,6 +46,13 @@ export const countryCodes =
   );
 const countrySet = new Set(countryCodes);
 
+export function getProfileCountries() {
+  const names = new Intl.DisplayNames(["en"], { type: "region" });
+  return countryCodes
+    .map((code) => ({ code, name: names.of(code) ?? code }))
+    .sort((a, b) => a.name.localeCompare(b.name, "en"));
+}
+
 export function validateProfile(input: ProfileInput): ProfileFormState {
   const values = {} as ProfileValues;
   const errors: ProfileFormState["errors"] = {};

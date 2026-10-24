@@ -54,3 +54,11 @@ export async function requireMember() {
   if (!isProfileComplete(account.profile)) redirect("/onboarding");
   return account;
 }
+
+export const getMembershipAccess = cache(async () => {
+  const account = await requireMember();
+  return {
+    ...account,
+    membership: { tier: "free" as const, premium: false },
+  };
+});

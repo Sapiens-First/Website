@@ -55,5 +55,5 @@ export async function saveProfile(
         "We couldn’t save your profile. Your details are still here; please try again.",
     };
   }
-  redirect("/dashboard");
+  redirect("/dashboard?updated=profile");
 }

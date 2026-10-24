@@ -41,7 +41,8 @@ export default function Page() {
               </p>
               <p>
                 We use authentication cookies to maintain your session. Signing
-                out ends your current website session. You can request access,
+                out ends your current website session. You can view and correct
+                your profile in the member dashboard. You can request access,
                 correction or deletion of your account using the contact below.
               </p>
             </div>

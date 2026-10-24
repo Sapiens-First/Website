@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Action";
 import { Kicker } from "@/components/ui/Text";
 import { requireAccountProfile } from "@/lib/members/access";
 import {
-  countryCodes,
+  getProfileCountries,
   initialProfileValues,
   isProfileComplete,
 } from "@/lib/members/profile";
@@ -22,10 +22,7 @@ export const metadata: Metadata = {
 export default async function OnboardingPage() {
   const { user, profile } = await requireAccountProfile();
   if (isProfileComplete(profile)) redirect("/dashboard");
-  const names = new Intl.DisplayNames(["en"], { type: "region" });
-  const countries = countryCodes
-    .map((code) => ({ code, name: names.of(code) ?? code }))
-    .sort((a, b) => a.name.localeCompare(b.name, "en"));
+  const countries = getProfileCountries();
   return (
     <main className="py-14 sm:py-20">
       <Container width="content" className="max-w-3xl">

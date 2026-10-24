@@ -7,6 +7,7 @@ import {
 } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
+import { isProfileComplete, type ProfileField } from "./profile";
 
 export const getCurrentAccount = cache(async () => {
   const supabase = await createAuthSupabaseClient(true);
@@ -30,18 +31,26 @@ export async function ensureProfile(supabase: SupabaseClient, userId: string) {
   if (error) throw new Error("Your account profile could not be prepared.");
 }
 
-export async function requireMember() {
+export async function requireAccountProfile() {
   const account = await getCurrentAccount();
   if (!account) redirect("/join");
   const { data: profile, error } = await account.supabase
     .from("profiles")
-    .select("id, full_name")
+    .select(
+      "id,full_name,country_code,city,region,postal_code,phone,address_line_1,address_line_2",
+    )
     .eq("id", account.user.id)
     .maybeSingle();
   if (error) throw new Error("Your account profile could not be loaded.");
   if (!profile) redirect("/join?error=profile");
   return {
     user: account.user,
-    profile: profile as { id: string; full_name: string | null },
+    profile: profile as { id: string } & Record<ProfileField, string | null>,
   };
+}
+
+export async function requireMember() {
+  const account = await requireAccountProfile();
+  if (!isProfileComplete(account.profile)) redirect("/onboarding");
+  return account;
 }

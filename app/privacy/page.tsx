@@ -34,6 +34,12 @@ export default function Page() {
                 your details in Atlas.
               </p>
               <p>
+                When you complete your profile, we collect your confirmed name,
+                country and locality for membership and local organizing.
+                Region, postal code, phone and street address are optional.
+                Providing a phone number does not opt you into calls or texts.
+              </p>
+              <p>
                 We use authentication cookies to maintain your session. Signing
                 out ends your current website session. You can request access,
                 correction or deletion of your account using the contact below.

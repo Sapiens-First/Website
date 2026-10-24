@@ -224,6 +224,7 @@ test("callback provisions only verified user ID, ignores external next URL and h
 
 const accessModule = (client) =>
   compile("lib/members/access.ts", {
+    "./profile": compile("lib/members/profile.ts"),
     "@/lib/supabase/auth-server": {
       createAuthSupabaseClient: async () => client,
     },
@@ -280,7 +281,12 @@ test("profile creation never sends saved fields, ownership or timestamp updates"
 });
 
 test("account reads are scoped to verified UUID; missing profiles have a recovery destination", async () => {
-  let profile = { id: "verified-id", full_name: "Saved name" };
+  let profile = {
+    id: "verified-id",
+    full_name: "Saved name",
+    country_code: "US",
+    city: "Boston",
+  };
   const client = {
     auth: {
       getUser: async () => ({
@@ -300,11 +306,235 @@ test("account reads are scoped to verified UUID; missing profiles have a recover
   };
   const access = accessModule(client);
   assert.equal((await access.requireMember()).profile.full_name, "Saved name");
+  profile = {
+    id: "verified-id",
+    full_name: "Saved name",
+    country_code: "ZZ",
+    city: "Boston",
+  };
+  await assert.rejects(access.requireMember(), /redirect:\/onboarding/);
+  assert.equal(
+    (await access.requireAccountProfile()).profile.full_name,
+    "Saved name",
+  );
   profile = null;
   await assert.rejects(
     access.requireMember(),
     /redirect:\/join\?error=profile/,
   );
+});
+
+const profileModule = compile("lib/members/profile.ts");
+const validProfile = {
+  full_name: "Test Member",
+  country_code: "US",
+  city: "Boston",
+  region: "",
+  postal_code: "",
+  phone: "",
+  address_line_1: "",
+  address_line_2: "",
+};
+const formProfile = (changes = {}) => {
+  const data = new FormData();
+  for (const [field, value] of Object.entries({ ...validProfile, ...changes }))
+    data.append(field, value);
+  return data;
+};
+
+test("completion uses required stored values and recognized countries; optional details may be blank", () => {
+  assert.equal(profileModule.countryCodes.length, 249);
+  assert.equal(new Set(profileModule.countryCodes).size, 249);
+  assert.equal(profileModule.isProfileComplete(validProfile), true);
+  for (const changes of [
+    { full_name: " " },
+    { city: null },
+    { country_code: "ZZ" },
+    { country_code: "UK" },
+  ]) {
+    assert.equal(
+      profileModule.isProfileComplete({ ...validProfile, ...changes }),
+      false,
+    );
+  }
+  const parsed = profileModule.validateProfile({
+    ...validProfile,
+    full_name: "  李 明  ",
+    country_code: " in ",
+    postal_code: "00123",
+  });
+  assert.deepEqual(parsed.errors, {});
+  assert.equal(parsed.values.full_name, "李 明");
+  assert.equal(parsed.values.country_code, "IN");
+  assert.equal(profileModule.profileUpdate(parsed.values).postal_code, "00123");
+  assert.equal(profileModule.profileUpdate(parsed.values).phone, null);
+});
+
+test("profile validation enforces every field limit and rejects files, duplicate values, controls and phone text", () => {
+  for (const [field, { limit }] of Object.entries(
+    profileModule.profileFields,
+  )) {
+    const result = profileModule.validateProfile({
+      ...validProfile,
+      [field]: "x".repeat(limit + 1),
+    });
+    assert.ok(result.errors[field], field);
+  }
+  for (const changes of [
+    { full_name: ["first", "second"] },
+    { phone: "call me" },
+    { city: "two\nlines" },
+    { postal_code: new File(["text"], "upload.txt") },
+  ]) {
+    assert.ok(
+      Object.keys(
+        profileModule.validateProfile({ ...validProfile, ...changes }).errors,
+      ).length,
+    );
+  }
+  assert.deepEqual(
+    profileModule.validateProfile({
+      ...validProfile,
+      phone: "+1 (202) 555-0123",
+      postal_code: "SW1A 1AA",
+      country_code: "GB",
+    }).errors,
+    {},
+  );
+});
+
+test("Google name is only a suggestion and never overwrites an existing name", () => {
+  assert.equal(
+    profileModule.initialProfileValues({ full_name: "Saved" }, "Google name")
+      .full_name,
+    "Saved",
+  );
+  assert.equal(
+    profileModule.initialProfileValues({}, "Google name").full_name,
+    "Google name",
+  );
+  assert.equal(
+    profileModule.initialProfileValues({}, { name: "unexpected" }).full_name,
+    "",
+  );
+});
+
+const onboardingAction = (client) =>
+  compile("app/onboarding/actions.ts", {
+    "@/lib/supabase/auth-server": {
+      createAuthSupabaseClient: async (readOnly) => {
+        assert.notEqual(readOnly, true);
+        return client;
+      },
+    },
+    "@/lib/members/profile": profileModule,
+    "@supabase/supabase-js": {
+      isAuthSessionMissingError: (error) => error.code === "missing",
+    },
+  });
+
+test("onboarding reauthenticates, whitelists fields and saves only the verified account", async () => {
+  let updated = 0;
+  const client = {
+    auth: {
+      getUser: async () => ({
+        data: { user: { id: "verified-id" } },
+        error: null,
+      }),
+    },
+    from: (table) => {
+      assert.equal(table, "profiles");
+      return {
+        update: (payload) => {
+          updated++;
+          assert.equal(payload.full_name, "Test Member");
+          assert.equal(payload.phone, null);
+          for (const forbidden of [
+            "id",
+            "is_paid",
+            "role",
+            "created_at",
+            "onboarding_completed_at",
+          ])
+            assert.equal(Object.hasOwn(payload, forbidden), false);
+          return {
+            eq: (field, value) => {
+              assert.equal(field, "id");
+              assert.equal(value, "verified-id");
+              return {
+                select: () => ({
+                  single: async () => ({ data: payload, error: null }),
+                }),
+              };
+            },
+          };
+        },
+      };
+    },
+  };
+  const form = formProfile();
+  form.append("id", "victim-id");
+  form.append("is_paid", "true");
+  form.append("role", "admin");
+  await assert.rejects(
+    onboardingAction(client).saveProfile({ values: { id: "victim-id" } }, form),
+    /redirect:\/dashboard/,
+  );
+  assert.equal(updated, 1);
+  client.auth.getUser = async () => ({
+    data: { user: null },
+    error: { code: "missing" },
+  });
+  await assert.rejects(
+    onboardingAction(client).saveProfile({}, form),
+    /redirect:\/join$/,
+  );
+  assert.equal(updated, 1);
+});
+
+test("onboarding preserves submitted values on validation, Auth outage, database errors and zero-row saves", async () => {
+  let error = null;
+  let saved = null;
+  const client = {
+    auth: {
+      getUser: async () => ({
+        data: { user: { id: "verified-id" } },
+        error: null,
+      }),
+    },
+    from: () => ({
+      update: () => ({
+        eq: () => ({
+          select: () => ({ single: async () => ({ data: saved, error }) }),
+        }),
+      }),
+    }),
+  };
+  const action = onboardingAction(client);
+  const invalid = formProfile({ city: " " });
+  let state = await action.saveProfile({}, invalid);
+  assert.ok(state.errors.city);
+  assert.equal(state.values.full_name, "Test Member");
+  const duplicates = formProfile();
+  duplicates.append("city", "Other town");
+  state = await action.saveProfile({}, duplicates);
+  assert.ok(state.errors.city);
+  state = await action.saveProfile({}, formProfile());
+  assert.match(state.message, /couldn’t save/);
+  error = { message: "database unavailable" };
+  state = await action.saveProfile({}, formProfile());
+  assert.equal(state.values.city, "Boston");
+  assert.match(state.message, /couldn’t save/);
+  saved = { ...validProfile, city: null };
+  error = null;
+  state = await action.saveProfile({}, formProfile());
+  assert.match(state.message, /couldn’t save/);
+  client.auth.getUser = async () => ({
+    data: { user: null },
+    error: { status: 503 },
+  });
+  state = await action.saveProfile({}, formProfile());
+  assert.match(state.message, /temporarily unavailable/);
 });
 
 test("sign-in uses configured callback; sign-out explicitly targets current session", async () => {

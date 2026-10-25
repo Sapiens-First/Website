@@ -1,16 +1,20 @@
 import { pageMetadata, site } from "@/lib/site";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink, Button } from "@/components/ui/Action";
 import CopyLinkButton from "@/components/join/CopyLinkButton";
 import { Container } from "@/components/layout/Container";
 import Image from "next/image";
 import Link from "next/link";
 import { Kicker } from "@/components/ui/Text";
-import SignupForm from "@/components/SignupForm";
+import { signInWithGoogle } from "@/app/auth/actions";
+import { getCurrentAccount } from "@/lib/members/access";
+import { redirect } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = pageMetadata({
   title: "Join",
   description:
-    "We’re building our membership program. Leave your email and we’ll be in touch to help you find a local community group.",
+    "Create your free Sapiens First account with Google and connect with the movement.",
   path: "/join",
 });
 
@@ -23,7 +27,20 @@ const shareLinks = {
   whatsapp: `https://wa.me/?text=${encodeURIComponent(`${shareText} ${shareUrl}`)}`,
 };
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
+  const messages: Record<string, string> = {
+    signin: "We couldn’t start Google sign-in. Please try again.",
+    callback: "Sign-in wasn’t completed. Please try again in this browser.",
+    profile: "We couldn’t prepare your profile. Please try signing in again.",
+  };
+  const message =
+    error && Object.hasOwn(messages, error) ? messages[error] : null;
+  if (!message && (await getCurrentAccount())) redirect("/dashboard");
   return (
     <>
       <main>
@@ -49,24 +66,28 @@ export default function Page() {
                 className="max-w-xl text-xl leading-relaxed max-sm:text-lg"
                 id="join-note"
               >
-                We’ll be in touch to help you find a local community group and
-                get involved.
+                Create your free account to connect with Sapiens First and get
+                involved.
               </p>
               <div className="mt-8">
-                <label
-                  className="mb-2.5 block text-base font-bold"
-                  htmlFor="join-email"
-                >
-                  Your email
-                </label>
-                <SignupForm
-                  className="m-0 scroll-mt-28 flex-wrap [&_input]:flex-[1_1_200px] max-sm:[&_input]:w-full max-sm:[&_input]:flex-auto"
-                  interest="membership"
-                  buttonText="Keep me posted →"
+                <form
+                  action={signInWithGoogle}
                   id="signup"
-                  inputId="join-email"
-                  describedBy="join-note"
-                />
+                  className="scroll-mt-28"
+                >
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="min-h-12 bg-white normal-case"
+                  >
+                    Continue with Google
+                  </Button>
+                </form>
+                {message && (
+                  <p role="alert" className="mt-4">
+                    {message}
+                  </p>
+                )}
                 <p className="mt-3.5 max-w-xl text-base leading-normal max-sm:text-lg">
                   <Link
                     className="underline underline-offset-2"
@@ -75,7 +96,6 @@ export default function Page() {
                     Privacy policy
                   </Link>
                 </p>
-                <noscript>Please enable JavaScript to send this form.</noscript>
               </div>
             </div>
             <figure className="m-0">

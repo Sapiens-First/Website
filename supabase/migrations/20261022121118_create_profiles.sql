@@ -6,8 +6,7 @@ create table public.profiles (
   region text check (char_length(region) <= 120),
   postal_code text check (char_length(postal_code) <= 32),
   phone text check (char_length(phone) <= 32),
-  address_line_1 text check (char_length(address_line_1) <= 250),
-  address_line_2 text check (char_length(address_line_2) <= 250),
+  address text check (char_length(address) <= 500),
   created_at timestamptz not null default statement_timestamp(),
   updated_at timestamptz not null default statement_timestamp()
 );
@@ -25,8 +24,7 @@ begin
   new.region := nullif(regexp_replace(new.region, '^[[:space:]]+|[[:space:]]+$', '', 'g'), '');
   new.postal_code := nullif(regexp_replace(new.postal_code, '^[[:space:]]+|[[:space:]]+$', '', 'g'), '');
   new.phone := nullif(regexp_replace(new.phone, '^[[:space:]]+|[[:space:]]+$', '', 'g'), '');
-  new.address_line_1 := nullif(regexp_replace(new.address_line_1, '^[[:space:]]+|[[:space:]]+$', '', 'g'), '');
-  new.address_line_2 := nullif(regexp_replace(new.address_line_2, '^[[:space:]]+|[[:space:]]+$', '', 'g'), '');
+  new.address := nullif(regexp_replace(new.address, '^[[:space:]]+|[[:space:]]+$', '', 'g'), '');
 
   if tg_op = 'UPDATE' then
     if new.id is distinct from old.id then
@@ -51,9 +49,9 @@ alter table public.profiles enable row level security;
 
 revoke all on table public.profiles from public, anon, authenticated;
 grant select on table public.profiles to authenticated;
-grant insert (id, full_name, country_code, city, region, postal_code, phone, address_line_1, address_line_2)
+grant insert (id, full_name, country_code, city, region, postal_code, phone, address)
   on public.profiles to authenticated;
-grant update (full_name, country_code, city, region, postal_code, phone, address_line_1, address_line_2)
+grant update (full_name, country_code, city, region, postal_code, phone, address)
   on public.profiles to authenticated;
 grant select, insert, update, delete on table public.profiles to service_role;
 

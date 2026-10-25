@@ -13,15 +13,10 @@ export const profileFields = {
   },
   postal_code: { label: "Postal code", limit: 32, autoComplete: "postal-code" },
   phone: { label: "Phone number", limit: 32, autoComplete: "tel" },
-  address_line_1: {
-    label: "Street address",
-    limit: 250,
-    autoComplete: "address-line1",
-  },
-  address_line_2: {
-    label: "Apartment, building or additional address",
-    limit: 250,
-    autoComplete: "address-line2",
+  address: {
+    label: "Address",
+    limit: 500,
+    autoComplete: "street-address",
   },
 } as const;
 

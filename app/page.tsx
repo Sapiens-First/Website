@@ -229,24 +229,12 @@ export default function Page() {
                   common good.
                 </span>
               </h2>
-              <Deck className="mx-0 mt-8 mb-0 max-w-sm leading-normal max-sm:mt-5">
+              <Deck className="mx-0 mt-8 mb-0 leading-normal max-sm:mt-5">
                 We imagine a world where technology serves the people, not just
                 a rich few.
               </Deck>
-              <svg
-                className="mt-7 block h-7 w-20 fill-none stroke-current stroke-3 text-coral [stroke-linecap:round]"
-                viewBox="0 0 76 30"
-                aria-hidden="true"
-              >
-                <path d="M4 25L19 7M28 25L43 7M52 25L67 7"></path>
-              </svg>
             </div>
-            <div className="mt-20 max-sm:mt-12">
-              <div className="mb-6 flex items-end justify-between gap-6 max-sm:mb-4 max-sm:items-center">
-                <h3 className="m-0 font-display text-4xl leading-none font-bold tracking-tight uppercase max-sm:max-w-xs max-sm:text-3xl xl:text-5xl">
-                  Our demands
-                </h3>
-              </div>
+            <div className="mt-5 max-sm:mt-4">
               <CampaignCarousel campaigns={campaigns} />
             </div>
           </Container>

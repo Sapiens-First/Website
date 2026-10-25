@@ -72,7 +72,7 @@ export default function ProfileForm({
             <div
               key={field}
               className={
-                field === "full_name" || field.startsWith("address_")
+                field === "full_name" || field === "address"
                   ? "sm:col-span-2"
                   : undefined
               }

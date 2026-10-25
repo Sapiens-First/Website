@@ -37,7 +37,7 @@ export async function requireAccountProfile() {
   const { data: profile, error } = await account.supabase
     .from("profiles")
     .select(
-      "id,full_name,country_code,city,region,postal_code,phone,address_line_1,address_line_2",
+      "id,full_name,country_code,city,region,postal_code,phone,address",
     )
     .eq("id", account.user.id)
     .maybeSingle();

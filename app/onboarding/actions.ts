@@ -45,7 +45,7 @@ export async function saveProfile(
     .update(profileUpdate(state.values))
     .eq("id", identity.user.id)
     .select(
-      "full_name,country_code,city,region,postal_code,phone,address_line_1,address_line_2",
+      "full_name,country_code,city,region,postal_code,phone,address",
     )
     .single();
   if (error || !saved || !isProfileComplete(saved)) {

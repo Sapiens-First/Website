@@ -114,7 +114,7 @@ function CircleChart({
             r={r}
             fill={fill}
             strokeWidth={depth === 0 ? 2 : 1.5}
-            stroke={role ? (topId ? color : "#59665e") : "#18251f"}
+            stroke={role ? (topId ? color : "var(--color-muted)") : "#18251f"}
             strokeDasharray={role ? "5 4" : undefined}
           />
         </a>

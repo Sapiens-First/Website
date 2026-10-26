@@ -5,15 +5,12 @@ import { site } from "@/lib/site";
 import { Button } from "@/components/ui/Action";
 import { cn } from "@/lib/cn";
 
-type Interest = "membership" | "fellowship" | "start-a-circle";
+type Interest = "fellowship" | "start-a-circle";
 
 type SignupFormProps = {
   interest: Interest;
   buttonText?: string;
   id?: string;
-  inputId?: string;
-  describedBy?: string;
-  buttonClassName?: string;
   className?: string;
 };
 
@@ -21,9 +18,6 @@ export default function SignupForm({
   interest,
   buttonText = "Keep me posted →",
   id,
-  inputId,
-  describedBy,
-  buttonClassName,
   className,
 }: SignupFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
@@ -95,19 +89,17 @@ export default function SignupForm({
         <input
           className="min-w-0 flex-1 rounded-none border-2 border-ink bg-white px-4 py-3 font-body text-base leading-tight font-medium text-ink focus:outline-2 focus:outline-offset-1 focus:outline-brand-yellow"
           ref={inputRef}
-          id={inputId}
           type="email"
           name="email"
           autoComplete="email"
           placeholder="Email address"
           aria-label="Email address"
-          aria-describedby={describedBy}
           required
         />
         <Button
           variant="primary"
           type="submit"
-          className={cn("cursor-pointer max-sm:w-full", buttonClassName)}
+          className="cursor-pointer max-sm:w-full"
           disabled={status === "sending"}
         >
           {status === "sending" ? "Sending…" : buttonText}

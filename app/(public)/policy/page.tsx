@@ -96,12 +96,12 @@ const bodyClass =
 export default function Page() {
   return (
     <>
-      <div className="relative flex flex-col justify-center overflow-hidden border-b-2 border-ink bg-paper py-20 max-sm:pt-14 max-sm:pb-12">
+      <div className="relative flex flex-col justify-center overflow-hidden border-b-2 border-ink bg-paper py-10">
         <Container>
           <Label tone="coral" className="mb-[26px]">
             Policy Brief — Sapiens First
           </Label>
-          <h1 className="relative z-2 m-0 max-w-xl text-left text-6xl leading-[0.9] tracking-[-0.025em] lg:text-8xl">
+          <h1 className="relative z-2 m-0 text-left text-6xl lg:text-8xl">
             A People&apos;s Agenda
             <br />
             for the{" "}
@@ -158,9 +158,6 @@ export default function Page() {
                       experts in social, economic, and tech policy. If
                       you&apos;d like to contribute, please reach out to
                       rohan@sapiensfirst.org.
-                    </p>
-                    <p className="mt-1 text-left font-body text-sm tracking-wider text-ink opacity-60">
-                      This page is a living document, last updated in July 2026.
                     </p>
                   </section>
                   {pillars.map((pillar, index) => (

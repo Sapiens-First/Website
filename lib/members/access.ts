@@ -49,7 +49,7 @@ export async function requireAccountProfile() {
   };
 }
 
-export async function requireMember() {
+async function requireMember() {
   const account = await requireAccountProfile();
   if (!isProfileComplete(account.profile)) redirect("/onboarding");
   return account;

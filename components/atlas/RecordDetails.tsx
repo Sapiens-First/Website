@@ -31,7 +31,7 @@ export function RecordLink({
     </a>
   );
 }
-export function Assignee({ row }: { row: AtlasRow }) {
+function Assignee({ row }: { row: AtlasRow }) {
   return row["Person ID"] ? (
     <>
       <a href={`#people/${row["Person ID"]}`}>{row["Lead Link"]}</a>

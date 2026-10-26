@@ -16,11 +16,11 @@ Open `http://localhost:3000`. Run `npm run build` for a production build, `npm r
 - `app/layout.tsx`, `app/globals.css`: shared document, fonts, design tokens, and the only stylesheet. Design tokens live in the `@theme` block as `--color-*` and `--font-*` variables.
 - `app/<route>/page.tsx`: each page. The homepage is `app/page.tsx`; `app/not-found.tsx` and `app/error.tsx` are the site-wide 404 and error pages.
 - `components/`: shared navigation, footer, signup form, and interactive page behavior. The guide has a dedicated client component because it reads external data.
-- `lib/site.ts`: site URLs, current external integrations, and navigation/footer links.
+- `lib/site.ts`: site URLs, current external integrations, and page metadata. Navigation and footer links live in `components/SiteHeader.tsx` and `components/SiteFooter.tsx`.
 - `lib/cn.ts`: `cn()` joins class names with `clsx` and resolves conflicting Tailwind utilities with `tailwind-merge`, so a `className` override always wins over a component default.
 - `public/assets/` and `public/favicons/`: original images, SVGs, and favicon files with unchanged names.
-- `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery.
-- `next.config.ts`: redirects for the former `.html` URLs.
+- `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery. The public route list lives in `app/sitemap.ts`.
+- `next.config.ts`: default Next.js configuration without custom redirects.
 - `scripts/signup-apps-script.gs`: the existing spreadsheet handler. Keep it until signup moves to Supabase.
 
 Styling is written as Tailwind classes in each component. `app/globals.css` only holds the design tokens, a small base reset, the `.doc-body` typography for the Learn guide, and a few custom utilities (`ink-underline`, `marker`); `npm run format` sorts those classes through `prettier-plugin-tailwindcss`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
@@ -57,7 +57,7 @@ Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; ac
 
 Dynamic routes use `app/loading.tsx` while server data is pending. The dashboard reuses that fallback inside its account layout, preserving account navigation. The root layout reserves a growing content area so the footer does not jump beneath the header during streamed responses. These fallbacks improve navigation feedback; authentication and profile reads still run on the server.
 
-Run `npm run test:auth` for the auth guard, callback, cookie-refresh and redirect regression checks, alongside `npm run test:campaigns`, lint, type checking and the production build.
+Run `npm run test:campaigns` for campaign validation and storage regression checks, alongside lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
 
 ## Member release checks
 

@@ -250,12 +250,14 @@ test("bad campaign/version/consent and formula-like strings cannot corrupt the w
   assert.equal(saved[5].startsWith("'+"), true);
 });
 
-test("legacy membership signup still works and preserves the existing header/history", () => {
+test("non-campaign submissions are rejected without changing supporter records", () => {
   const b = backend();
-  assert.equal(
-    b.submit({ email: "join@example.org", interest: "membership" }).result,
-    "success",
-  );
-  assert.deepEqual(b.sheets.get("Sheet1").rows.slice(0, 2), b.existing);
-  assert.equal(b.sheets.get("Sheet1").rows.length, 3);
+  for (const interest of ["membership", "start-a-circle", "fellowship"])
+    assert.equal(
+      b.submit({ email: "join@example.org", interest }).result,
+      "error",
+    );
+  assert.equal(b.submit({ email: "join@example.org" }).result, "error");
+  assert.deepEqual(b.sheets.get("Sheet1").rows, b.existing);
+  assert.equal(b.sheets.size, 1);
 });

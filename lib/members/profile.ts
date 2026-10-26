@@ -22,7 +22,7 @@ export const profileFields = {
 
 export type ProfileField = keyof typeof profileFields;
 export type ProfileValues = Record<ProfileField, string>;
-export type ProfileInput = Partial<Record<ProfileField, unknown>>;
+type ProfileInput = Partial<Record<ProfileField, unknown>>;
 export type ProfileFormState = {
   values: ProfileValues;
   errors: Partial<Record<ProfileField, string>>;

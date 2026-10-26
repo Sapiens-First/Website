@@ -18,53 +18,6 @@ export function SplitHero({
   );
 }
 
-export function ClosingSection({
-  className = "",
-  ...props
-}: ComponentProps<"section">) {
-  return (
-    <section
-      className={cn(
-        "border-b-2 border-ink max-sm:scroll-mt-20",
-        "grid grid-cols-1 border-b-2 border-ink bg-paper lg:grid-cols-2",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-export function ClosingCopy({
-  className = "",
-  ...props
-}: ComponentProps<"div">) {
-  return (
-    <div
-      className={cn(
-        "px-7 py-20 max-sm:px-5 max-sm:pt-14 max-sm:pb-12 sm:px-12 lg:px-20 lg:py-24",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-export function SignupPanel({
-  className = "",
-  ...props
-}: ComponentProps<"div">) {
-  return (
-    <div
-      className={cn(
-        "relative flex min-h-96 flex-col justify-center overflow-hidden border-t-2 border-ink bg-ink px-7 py-16 text-white sm:px-12 lg:border-t-0 lg:border-l-2",
-        "after:absolute after:right-8 after:bottom-9 after:h-2.5 after:w-24 after:-rotate-3 after:rounded-full after:bg-brand-yellow after:content-['']",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
 export function HeroCopy({
   circle = true,
   className = "",

@@ -3,7 +3,6 @@ import { Container } from "@/components/layout/Container";
 import { ActionLink } from "@/components/ui/Action";
 import { Kicker } from "@/components/ui/Text";
 import { getMembershipAccess } from "@/lib/members/access";
-import { getProfileCountries } from "@/lib/members/profile";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -16,11 +15,8 @@ export default async function DashboardPage({
 }: {
   searchParams: Promise<{ error?: string; updated?: string }>;
 }) {
-  const { user, profile, membership } = await getMembershipAccess();
+  const { profile } = await getMembershipAccess();
   const { error, updated } = await searchParams;
-  const country = getProfileCountries().find(
-    ({ code }) => code === profile.country_code,
-  )?.name;
   return (
     <main className="py-16 sm:py-24">
       <Container width="content">
@@ -35,26 +31,6 @@ export default async function DashboardPage({
             Your profile has been saved.
           </p>
         )}
-        <dl className="mt-10 grid gap-6 border-2 border-ink bg-white p-6 sm:grid-cols-2 sm:p-8">
-          <div>
-            <dt className="text-sm font-bold uppercase">Email</dt>
-            <dd className="mt-2 text-lg break-all">{user.email}</dd>
-          </div>
-          <div>
-            <dt className="text-sm font-bold uppercase">Membership</dt>
-            <dd className="mt-2 text-lg capitalize">
-              {membership.tier} member
-            </dd>
-          </div>
-          <div>
-            <dt className="text-sm font-bold uppercase">Location</dt>
-            <dd className="mt-2 text-lg break-words">
-              {[profile.city, profile.region, country]
-                .filter(Boolean)
-                .join(", ")}
-            </dd>
-          </div>
-        </dl>
         {error === "signout" && (
           <p role="alert" className="mt-6">
             We couldn&apos;t sign you out. Please try again.

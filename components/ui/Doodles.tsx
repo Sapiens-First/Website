@@ -1,7 +1,6 @@
 import { useId, type ComponentProps } from "react";
 import { cn } from "@/lib/cn";
 
-
 export function FunLayer({ className = "", ...props }: ComponentProps<"div">) {
   return (
     <div
@@ -82,28 +81,4 @@ function Shape({ size, clip }: { size: number; clip: string }) {
 
 export function Star({ size }: { size: number }) {
   return <Shape size={size} clip={starClip} />;
-}
-
-export function Pow({ size }: { size: number }) {
-  return <Shape size={size} clip={burstClip} />;
-}
-
-export function Zap({
-  size,
-  className = "",
-}: {
-  size?: number;
-  className?: string;
-}) {
-  return (
-    <svg
-      className={cn("block fill-current", className)}
-      viewBox="0 0 24 40"
-      width={size}
-      height={size}
-      aria-hidden="true"
-    >
-      <path d="M14 1L2 22h8l-4 17 16-24h-9l5-14z" />
-    </svg>
-  );
 }

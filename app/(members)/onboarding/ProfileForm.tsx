@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { Button } from "@/components/ui/Action";
-import { saveProfile } from "./actions";
+import { saveProfile } from "@/app/(members)/actions";
 import {
   profileFields,
   requiredProfileFields,
@@ -22,11 +22,13 @@ export default function ProfileForm({
   initialValues,
   countries,
   submitLabel = "Save and continue",
+  next = "/dashboard",
   children,
 }: {
   initialValues: ProfileValues;
   countries: { code: string; name: string }[];
   submitLabel?: string;
+  next?: string;
   children?: ReactNode;
 }) {
   const formId = useId();
@@ -54,6 +56,7 @@ export default function ProfileForm({
         aria-busy={pending}
         className="mt-8"
       >
+        <input type="hidden" name="next" value={next} />
         {state.message && (
           <p
             ref={summary}

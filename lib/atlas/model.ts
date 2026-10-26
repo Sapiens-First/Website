@@ -13,7 +13,7 @@ export type Relationship = Record<string, string> & {
   "Valid from": string;
   "Valid until": string;
 };
-export type Group = "domains" | "governance";
+type Group = "domains" | "governance";
 export type View = Group | "people";
 export type Format = "circles" | "outline" | "table" | "alignment";
 export interface AtlasData {
@@ -21,7 +21,7 @@ export interface AtlasData {
   governance: AtlasRow[];
   relationships: Relationship[];
 }
-export interface Location {
+interface Location {
   view: View;
   format: Format;
   selected: string;

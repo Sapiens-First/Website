@@ -109,7 +109,7 @@ export const campaigns = {
 
 export type CampaignId = keyof typeof campaigns;
 
-export type SignatureInput = {
+type SignatureInput = {
   campaignId: CampaignId;
   email: string;
   name: string;

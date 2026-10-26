@@ -5,17 +5,12 @@ import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import {
   SplitHero,
-  ClosingSection,
-  ClosingCopy,
-  SignupPanel,
   HeroCopy,
   HeroLede,
   FocusList,
 } from "@/components/sections/SplitSection";
-import { Bird, Doodle, FunLayer, Zap } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";
-import SignupForm from "@/components/SignupForm";
-import { ActionLink } from "@/components/ui/Action";
+import InterestCTA from "@/components/members/InterestCTA";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 
 export const metadata = pageMetadata({
@@ -35,16 +30,10 @@ const steps = [
   {
     title: "Join Sapiens First",
     color: "text-coral-dark",
-    text: (
-      <>
-        <a href="#signup">Tell us you’re interested</a> in starting a Circle.
-        We’ll help you take the next step toward membership and connect you with
-        support from the Global team.
-      </>
-    ),
+    text: "Tell us you're interested in starting a Circle. Sign in and become a member of Sapiens First, then confirm your interest. We'll connect you with support from the team.",
   },
   {
-    title: "Invite two friends",
+    title: "Invite your friends",
     color: "text-brand-blue",
     text: "Start with people who care about the issue and can share the work. Two friends is a good starting point, not a requirement. You can find your people along the way.",
   },
@@ -70,7 +59,12 @@ const leadership = [
   },
 ];
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ interest?: string }>;
+}) {
+  const confirm = (await searchParams).interest === "confirm";
   return (
     <>
       <main>
@@ -90,12 +84,7 @@ export default function Page() {
               <FactPill>3–5 hours a week</FactPill>
               <FactPill>try for 3 months</FactPill>
             </div>
-            <SignupForm
-              className={"relative z-2 scroll-mt-28"}
-              interest="start-a-circle"
-              buttonText="I’m interested →"
-              id="signup"
-            />
+            <InterestCTA confirm={confirm} interest="start-a-circle" />
             <p className="relative z-2 mx-0 mt-3.5 mb-0 max-w-lg text-sm font-medium text-ink italic">
               Start with a conversation. Expressing interest doesn’t commit you
               to running a Circle.
@@ -103,10 +92,6 @@ export default function Page() {
           </HeroCopy>
           <CircleHeroArt />
         </SplitHero>
-        <p className="m-0 flex items-center gap-[22px] border-b-2 border-ink bg-coral-soft px-[max(28px,7vw)] py-[30px] font-display text-[clamp(1.6rem,2.7vw,2.7rem)] leading-[1.1] font-extrabold text-ink uppercase max-sm:gap-4 max-sm:px-5 max-sm:py-6">
-          <Zap className="h-10 w-[26px] shrink-0" />
-          <span>Find your voice, find some friends, and fight like hell.</span>
-        </p>
         <section
           className={cn(
             "border-b-2 border-ink max-sm:scroll-mt-20",
@@ -159,13 +144,7 @@ export default function Page() {
         >
           <Container>
             <Label tone="blue">Getting started</Label>
-            <h2 className={cn(h2)}>
-              Start small.
-              <br />
-              <span className="ink-underline ink-underline-brand-blue">
-                Build together.
-              </span>
-            </h2>
+            <h2 className={cn(h2)}>Start small. Build together.</h2>
             <ol className="mx-0 mt-11 mb-0 grid list-none grid-cols-3 gap-8 p-0 max-sm:grid-cols-1 max-sm:gap-7">
               {steps.map((step, index) => (
                 <li className="border-t-3 border-ink pt-6" key={step.title}>
@@ -370,52 +349,6 @@ export default function Page() {
             </FaqList>
           </Container>
         </section>
-        <ClosingSection id="apply">
-          <ClosingCopy>
-            <Label tone="purple">Start</Label>
-            <h2 className={cn(h2)}>
-              Make room for <span className="marker">your people.</span>
-            </h2>
-            <Deck size="compact" className="mx-0 mt-6 mb-7 max-w-md">
-              You don’t need a full team or a perfect plan. Bring your interest,
-              and we’ll help you take the first step.
-            </Deck>
-            <ActionLink variant="primary" href="#signup">
-              Express interest →
-            </ActionLink>
-            <p className="mt-4 text-base font-semibold text-ink italic">
-              Questions? <a href="mailto:rohan@sapiensfirst.org">Email Rohan</a>
-              .
-            </p>
-          </ClosingCopy>
-          <SignupPanel>
-            <FunLayer>
-              <Doodle className="top-[10%] left-[8%] -rotate-6 text-white">
-                <Bird />
-              </Doodle>
-              <Doodle className="top-[20%] left-[20%] scale-65 rotate-6 text-white">
-                <Bird />
-              </Doodle>
-            </FunLayer>
-            <Label className="relative z-2 mb-6 w-max" tone="coral">
-              Start a Circle
-            </Label>
-            <div className="relative z-2 font-display text-5xl leading-none font-extrabold text-coral uppercase max-sm:text-7xl xl:text-6xl">
-              Small start.
-              <br />
-              Shared purpose.
-            </div>
-            <p className="relative z-2 mx-0 mt-4 mb-0 max-w-sm text-base leading-normal font-semibold text-white">
-              Leave your email and we&apos;ll be in touch about starting a
-              Circle in your community.
-            </p>
-            <SignupForm
-              className="relative z-2 mt-5"
-              interest="start-a-circle"
-              buttonText="I’m interested →"
-            />
-          </SignupPanel>
-        </ClosingSection>
       </main>
     </>
   );

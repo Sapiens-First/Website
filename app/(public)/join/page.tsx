@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { Kicker } from "@/components/ui/Text";
 import { signInWithGoogle } from "@/app/auth/actions";
-import { getCurrentAccount } from "@/lib/members/access";
+import { getPublicAccount } from "@/lib/members/access";
 import { redirect } from "next/navigation";
+import { memberReturnPath } from "@/lib/members/interests";
 
 export const dynamic = "force-dynamic";
 
@@ -19,17 +20,29 @@ export const metadata = pageMetadata({
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 }) {
-  const { error } = await searchParams;
+  const { error, next: requestedNext } = await searchParams;
+  const next = memberReturnPath(requestedNext);
   const messages: Record<string, string> = {
     signin: "We couldn’t start Google sign-in. Please try again.",
     callback: "Sign-in wasn’t completed. Please try again.",
     profile: "We couldn’t prepare your profile. Please try signing in again.",
   };
-  const message =
+  let message =
     error && Object.hasOwn(messages, error) ? messages[error] : null;
-  if (!message && (await getCurrentAccount())) redirect("/dashboard");
+  const { account, unavailable } = message
+    ? { account: null, unavailable: false }
+    : await getPublicAccount();
+  if (unavailable)
+    message =
+      "We couldn’t check your existing session. Please try signing in again.";
+  if (!message && account)
+    redirect(
+      next === "/dashboard"
+        ? next
+        : `/onboarding?next=${encodeURIComponent(next)}`,
+    );
   return (
     <main
       className="grid border-b-2 border-ink md:min-h-[calc(100svh-112px)] md:grid-cols-2"
@@ -53,6 +66,16 @@ export default async function Page({
           involved.
         </p>
         <form action={signInWithGoogle} id="signup" className="mt-8">
+          <input type="hidden" name="next" value={next} />
+          {next !== "/dashboard" && (
+            <p className="mb-4 text-base">
+              Sign in to register your interest in{" "}
+              {next.startsWith("/circle")
+                ? "starting a Circle"
+                : "fellowship opportunities"}
+              . You’ll confirm after signing in.
+            </p>
+          )}
           <Button
             type="submit"
             variant="outline"

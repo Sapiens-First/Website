@@ -32,7 +32,6 @@ export default async function OnboardingPage() {
         </h1>
         <p className="mt-6 text-lg">
           Tell us where you’re based so we can understand our local communities.
-          Your profile stays private.
         </p>
         <p className="mt-5 break-all">
           Signed in as <strong>{user.email}</strong>
@@ -43,15 +42,14 @@ export default async function OnboardingPage() {
             user.user_metadata?.full_name ?? user.user_metadata?.name,
           )}
           countries={countries}
-        />
-        <div className="mt-8 flex flex-wrap items-center gap-5 border-t-2 border-ink pt-6">
+        >
           <form action={signOut}>
             <Button type="submit">Sign out</Button>
           </form>
           <Link href="/privacy" className="underline underline-offset-4">
             How we use your details
           </Link>
-        </div>
+        </ProfileForm>
       </Container>
     </main>
   );

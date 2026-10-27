@@ -22,11 +22,11 @@ export default function Page() {
             <br />
             <span className="text-coral-dark">Revolution</span>
           </PageTitle>
-          <p className="mt-7 max-w-xl text-lg leading-normal max-sm:mt-6 xl:text-xl">
+          <p className="mt-7 text-lg leading-normal max-sm:mt-6 xl:text-xl">
             A practical guide to AI, people power, and organizing for change.
           </p>
         </Container>
-      </PageHero>
+      </PageHero> 
       <main>
         <section className="border-b-2 border-ink px-0 pt-14 pb-24 max-sm:scroll-mt-20 max-sm:pt-7 max-sm:pb-16">
           <Container className="max-w-6xl">

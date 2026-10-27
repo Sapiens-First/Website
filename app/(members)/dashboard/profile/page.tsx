@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { Kicker } from "@/components/ui/Text";
-import ProfileForm from "@/app/onboarding/ProfileForm";
+import ProfileForm from "@/app/(members)/onboarding/ProfileForm";
 import { getMembershipAccess } from "@/lib/members/access";
 import {
   getProfileCountries,

@@ -1,6 +1,6 @@
 # Campaign signature intake
 
-All campaign detail pages use `CampaignSignatureForm`. Email and agreement to the stated call are required; name, US ZIP and phone are optional. Campaign email updates start unchecked and are separate from signing. Phone entry does not authorize calls or SMS. Names are not published, and signing here does not send a message to an official or sign another organization’s petition.
+All campaign detail pages use `CampaignSignatureForm`. The Apps Script source accepts campaign signatures only; retired membership, Circle and Fellowship signup payloads are rejected. Email and agreement to the stated call are required; name, US ZIP and phone are optional. Campaign email updates start unchecked and are separate from signing. Phone entry does not authorize calls or SMS. Names are not published, and signing here does not send a message to an official or sign another organization’s petition.
 
 ## Save path
 

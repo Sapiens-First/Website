@@ -4,11 +4,19 @@ import {
   getAppUrl,
 } from "@/lib/supabase/auth-server";
 import { ensureProfile } from "@/lib/members/access";
+import { cookies } from "next/headers";
+import { memberReturnPath } from "@/lib/members/interests";
 
 export async function GET(request: NextRequest) {
   const origin = getAppUrl();
+  const cookieStore = await cookies();
+  const next = memberReturnPath(cookieStore.get("member-return")?.value);
+  cookieStore.delete("member-return");
   const respond = (path: string) => {
-    const response = NextResponse.redirect(new URL(path, origin), 303);
+    const destination = path.startsWith("/join?")
+      ? `${path}&next=${encodeURIComponent(next)}`
+      : path;
+    const response = NextResponse.redirect(new URL(destination, origin), 303);
     response.headers.set("Cache-Control", "private, no-store");
     response.headers.set("Referrer-Policy", "no-referrer");
     return response;
@@ -27,5 +35,9 @@ export async function GET(request: NextRequest) {
   } catch {
     return respond("/join?error=profile");
   }
-  return respond("/dashboard");
+  return respond(
+    next === "/dashboard"
+      ? next
+      : `/onboarding?next=${encodeURIComponent(next)}`,
+  );
 }

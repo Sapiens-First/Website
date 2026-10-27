@@ -5,8 +5,30 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout/Container";
-import { navigation } from "@/lib/site";
 import { cn } from "@/lib/cn";
+
+const navigation = [
+  {
+    label: "About",
+    href: "/about",
+    children: [
+      { label: "Our Story", href: "/about" },
+      { label: "Careers", href: "/careers" },
+      { label: "Atlas", href: "/atlas" },
+    ],
+  },
+  { label: "Calendar", href: "/calendar" },
+  {
+    label: "Campaigns",
+    href: "/campaigns",
+    children: [
+      { label: "Freeze AI", href: "/campaigns/freeze-ai" },
+      { label: "Stop 1984", href: "/campaigns/stop-1984" },
+      { label: "No Killer Robots", href: "/campaigns/no-killer-robots" },
+      { label: "Citizens’ Dividend", href: "/campaigns/citizens-dividend" },
+    ],
+  },
+] as const;
 
 const navLink =
   "relative inline-flex min-h-12 items-center justify-center border-b-[3px] border-transparent px-2 py-2 font-body text-[17px] font-bold tracking-normal uppercase transition-colors hover:border-coral focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-[current=page]:border-coral motion-reduce:transition-none max-sm:px-1 max-sm:text-sm";

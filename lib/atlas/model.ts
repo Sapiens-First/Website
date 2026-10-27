@@ -13,7 +13,7 @@ export type Relationship = Record<string, string> & {
   "Valid from": string;
   "Valid until": string;
 };
-export type Group = "domains" | "governance";
+type Group = "domains" | "governance";
 export type View = Group | "people";
 export type Format = "circles" | "outline" | "table" | "alignment";
 export interface AtlasData {
@@ -21,7 +21,7 @@ export interface AtlasData {
   governance: AtlasRow[];
   relationships: Relationship[];
 }
-export interface Location {
+interface Location {
   view: View;
   format: Format;
   selected: string;
@@ -72,13 +72,13 @@ export function recordHref(id: string, format?: Format) {
 export const isCurrent = (row: Relationship, today: string) =>
   (!row["Valid from"] || row["Valid from"] <= today) &&
   (!row["Valid until"] || today < row["Valid until"]);
-export interface Coverage {
+interface Coverage {
   circleId: string;
   reason: "policy" | "anchor" | "assigned" | "unknown";
   note?: string;
   names?: string;
 }
-export interface Responsibility {
+interface Responsibility {
   ids: string[];
   kind: "circle" | "unfilled" | "explicit" | "undelegated" | "unknown";
   coverage?: Coverage;
@@ -88,7 +88,7 @@ export interface AtlasLookups {
   responsibilityByDomain: ReadonlyMap<string, Responsibility>;
   domainsByOwner: ReadonlyMap<string, readonly string[]>;
 }
-export function createOwnership(data: AtlasData, today: string) {
+function createOwnership(data: AtlasData, today: string) {
   const governance = new Map(data.governance.map((row) => [row.ID, row]));
   function circleCoverage(circleId: string): Coverage {
     const visited = new Set<string>();

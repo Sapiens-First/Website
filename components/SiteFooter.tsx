@@ -2,8 +2,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
-import { footerGroups } from "@/lib/site";
 import { cn } from "@/lib/cn";
+
+const footerGroups = [
+  {
+    title: "About",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Careers", href: "/careers" },
+      { label: "Atlas", href: "/atlas" },
+      { label: "Privacy", href: "/privacy" },
+      { label: "Donate", href: "/donate" },
+    ],
+  },
+  {
+    title: "Get Involved",
+    links: [
+      { label: "Fellowship", href: "/fellowship" },
+      { label: "Start a Circle", href: "/circle" },
+      { label: "Join", href: "/join" },
+      { label: "Calendar", href: "/calendar" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Learn", href: "/learn" },
+      { label: "Policy", href: "/policy" },
+      { label: "Campaigns", href: "/campaigns" },
+    ],
+  },
+] as const;
 
 export default function SiteFooter() {
   return (

@@ -16,12 +16,12 @@ Open `http://localhost:3000`. Run `npm run build` for a production build, `npm r
 - `app/layout.tsx`, `app/globals.css`: shared document, fonts, design tokens, and the only stylesheet. Design tokens live in the `@theme` block as `--color-*` and `--font-*` variables.
 - `app/<route>/page.tsx`: each page. The homepage is `app/page.tsx`; `app/not-found.tsx` and `app/error.tsx` are the site-wide 404 and error pages.
 - `components/`: shared navigation, footer, signup form, and interactive page behavior. The guide has a dedicated client component because it reads external data.
-- `lib/site.ts`: site URLs, current external integrations, and navigation/footer links.
+- `lib/site.ts`: site URLs, current external integrations, and page metadata. Navigation and footer links live in `components/SiteHeader.tsx` and `components/SiteFooter.tsx`.
 - `lib/cn.ts`: `cn()` joins class names with `clsx` and resolves conflicting Tailwind utilities with `tailwind-merge`, so a `className` override always wins over a component default.
 - `public/assets/` and `public/favicons/`: original images, SVGs, and favicon files with unchanged names.
-- `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery.
-- `next.config.ts`: redirects for the former `.html` URLs.
-- `scripts/signup-apps-script.gs`: the existing spreadsheet handler. Keep it until signup moves to Supabase.
+- `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery. The public route list lives in `app/sitemap.ts`.
+- `next.config.ts`: default Next.js configuration without custom redirects.
+- `scripts/signup-apps-script.gs`: the remaining campaign spreadsheet handler. Keep it until campaign signatures move to Supabase.
 
 Styling is written as Tailwind classes in each component. `app/globals.css` only holds the design tokens, a small base reset, the `.doc-body` typography for the Learn guide, and a few custom utilities (`ink-underline`, `marker`); `npm run format` sorts those classes through `prettier-plugin-tailwindcss`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
 
@@ -33,7 +33,7 @@ Palette C and the logo/favicons share the [brand color guide](docs/brand-colors.
 
 Campaign detail pages collect signatures through a same-origin API and the existing Supporter List connection. See [campaign intake](docs/campaign-intake.md) for fields, consent, CRM handoff, duplicate handling and deployment checks. Run `npm run test:campaigns` for the signature contract/storage tests.
 
-Signup submissions go to the Google Apps Script endpoint in `lib/site.ts`. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
+Circle and Fellowship interests are member-only and stored in Supabase. Campaign signatures still use the Google Apps Script endpoint in `lib/site.ts`. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 
 ## Supabase connection
 
@@ -47,17 +47,19 @@ Set `APP_URL` to the exact website origin: `http://localhost:3000` locally, the 
 
 Enable Google in Supabase Authentication using the organization's Google OAuth client ID and secret. In Google Cloud, register the callback URL shown by Supabase, with only basic OpenID, email and profile scopes. In Supabase URL Configuration, set the production Site URL and allow `<APP_URL>/auth/callback` for every environment used. Localhost hostnames and ports must match the browser URL.
 
-Apply the versioned `create_profiles` migration on new databases; it is already applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Fellowship/circle enquiries and campaign intake still use the existing spreadsheet connection.
+Apply the versioned `create_profiles` and `member_interests` migrations on new databases; both are applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Campaign intake still uses the existing spreadsheet connection.
+
+Circle/Fellowship pages stay public, each with one hero CTA: sign in, complete the profile, confirm interest. `InterestCTA` reads state through `lib/members/access.ts`; writes live in `app/(members)/actions.ts`. Login and onboarding preserve an allowlisted return destination; signing in alone never records interest. `member_interests` stores one row per Auth UUID with verified email, `circle`/`fellowship` booleans (default false), and `created_at`. Confirmation sets only the selected flag to true, preserving the other flag and creation date. The page then shows a saved status. Interests have no account-page controls. RLS restricts access to the member's own row and validates their email; anonymous writes and timestamp edits are denied. No automatic email or marketing subscription is created.
 
 Onboarding requires full name, a recognized ISO country code and city/town/locality. Region, postal code, phone and street address are optional. Profile completion is derived from the stored fields using the same server validation as submission; there is no completion flag or new migration. Name is suggested from Google only when no saved name exists. Country names come from `Intl.DisplayNames`; the shared country-code list controls accepted values. Postal codes use length checks rather than US-only formats. Phone syntax is checked but numbers/addresses are not verified and never imply outreach consent.
 
-The free member portal has an account overview at `/dashboard` and personal-detail editing at `/dashboard/profile`, with shared account navigation and sign-out. Editing reuses onboarding's form and server action: identity is verified on each save, only profile fields are accepted, and the database update is scoped to the signed-in UUID under RLS. Successful saves return to the dashboard. Google email stays in Auth and cannot be edited through this form. `getMembershipAccess()` in `lib/members/access.ts` is the single server source for membership access, currently free with premium access disabled. Stripe can supply verified subscription state there later. `/learn` and `/calendar` remain public; protecting future premium content requires private delivery of its source data.
+The free member portal has an account overview at `/dashboard` and personal-detail editing at `/dashboard/profile`, with shared account navigation and sign-out. Editing reuses onboarding's form and server action: identity is verified on each save, only profile fields are accepted, and the database update is scoped to the signed-in UUID under RLS. Successful saves return to the dashboard. Google email stays in Auth and cannot be edited through this form. `getMembershipAccess()` in `lib/members/access.ts` verifies authentication and a completed profile. `/learn` and `/calendar` remain public; protecting future premium content requires private delivery of its source data.
 
 Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; account responses must remain dynamic and private. Atlas keeps its independent public client and cache. Before publication, test real Google sign-in, returning sessions, sign-out, callback failures and two-account isolation on localhost and Preview. Never commit credentials or publish before the localhost review.
 
 Dynamic routes use `app/loading.tsx` while server data is pending. The dashboard reuses that fallback inside its account layout, preserving account navigation. The root layout reserves a growing content area so the footer does not jump beneath the header during streamed responses. These fallbacks improve navigation feedback; authentication and profile reads still run on the server.
 
-Run `npm run test:auth` for the auth guard, callback, cookie-refresh and redirect regression checks, alongside `npm run test:campaigns`, lint, type checking and the production build.
+Run `npm run test:campaigns` for campaign validation and storage regression checks, alongside lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
 
 ## Member release checks
 

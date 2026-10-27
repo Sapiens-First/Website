@@ -3,26 +3,15 @@ import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import {
   SplitHero,
-  ClosingSection,
-  ClosingCopy,
-  SignupPanel,
   HeroCopy,
   HeroLede,
   HeroCollage,
   FocusList,
 } from "@/components/sections/SplitSection";
-import SignupForm from "@/components/SignupForm";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import InterestCTA from "@/components/members/InterestCTA";
+import { TextLink } from "@/components/ui/Action";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
-import {
-  Bird,
-  Doodle,
-  FunLayer,
-  Moon,
-  Pow,
-  Star,
-  Zap,
-} from "@/components/ui/Doodles";
+import { Bird, Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";
 
 export const metadata = pageMetadata({
@@ -100,7 +89,12 @@ const roleColors = [
   "before:bg-brand-pink",
 ];
 
-export default function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ interest?: string }>;
+}) {
+  const confirm = (await searchParams).interest === "confirm";
   return (
     <>
       <main>
@@ -120,12 +114,7 @@ export default function Page() {
               <FactPill>3–5 hrs / week</FactPill>
               <FactPill>Volunteer</FactPill>
             </div>
-            <SignupForm
-              className={"relative z-2 scroll-mt-28"}
-              interest="fellowship"
-              buttonText="Keep me posted →"
-              id="signup"
-            />
+            <InterestCTA confirm={confirm} interest="fellowship" />
             <HeroLede className="text-ink italic">
               You&apos;ll work directly with the founder and a growing team of
               Fellows from across the country.
@@ -329,31 +318,6 @@ export default function Page() {
             </div>
           </Container>
         </section>
-        <section className="relative overflow-hidden border-b-2 border-ink bg-coral-soft px-0 py-14 max-sm:scroll-mt-20">
-          <FunLayer>
-            <Doodle className="top-[22%] left-[4%] w-[30px] -rotate-6 text-ink">
-              <Zap size={30} />
-            </Doodle>
-            <Doodle className="right-[8%] bottom-[18%] w-[60px] text-ink">
-              <Pow size={60} />
-            </Doodle>
-          </FunLayer>
-          <Container className="flex flex-wrap items-center justify-between gap-6 max-sm:flex-col max-sm:items-start">
-            <p className="m-0 max-w-md font-display text-2xl leading-none font-extrabold uppercase xl:text-4xl">
-              Find your voice, find some friends, and fight like hell.
-            </p>
-            <div className="flex flex-wrap gap-2.5">
-              {["Rolling cohorts", "12 weeks", "3–5 hrs / week"].map((pill) => (
-                <span
-                  className="bg-ink px-3.5 py-2.5 text-xs font-black tracking-wider text-white uppercase"
-                  key={pill}
-                >
-                  {pill}
-                </span>
-              ))}
-            </div>
-          </Container>
-        </section>
         <section
           className={cn(
             "border-b-2 border-ink max-sm:scroll-mt-20",
@@ -527,52 +491,6 @@ export default function Page() {
             </FaqList>
           </Container>
         </section>
-        <ClosingSection id="apply">
-          <ClosingCopy>
-            <Label tone="purple">Apply</Label>
-            <h2 className={cn(h2)}>
-              We&apos;re excited to{" "}
-              <span className="marker">hear from you.</span>
-            </h2>
-            <Deck size="compact" className="mx-0 mt-6 mb-7 max-w-md">
-              Interested in the fellowship? Leave your email and we&apos;ll be
-              in touch about opportunities and next steps.
-            </Deck>
-            <ActionLink variant="primary" href="#signup">
-              Express interest →
-            </ActionLink>
-            <p className="mt-4 text-base font-semibold text-ink italic">
-              Questions? Email rohan@sapiensfirst.org
-            </p>
-          </ClosingCopy>
-          <SignupPanel>
-            <FunLayer>
-              <Doodle className="top-[10%] left-[8%] -rotate-6 text-white">
-                <Bird />
-              </Doodle>
-              <Doodle className="top-[20%] left-[20%] scale-65 rotate-6 text-white">
-                <Bird />
-              </Doodle>
-            </FunLayer>
-            <Label className="relative z-2 mb-6 w-max" tone="coral">
-              Rolling Cohorts
-            </Label>
-            <div className="relative z-2 font-display text-5xl leading-none font-extrabold text-coral uppercase max-sm:text-5xl lg:text-7xl xl:text-8xl">
-              Always
-              <br />
-              Open
-            </div>
-            <p className="relative z-2 mx-0 mt-4 mb-5 max-w-sm text-base leading-normal font-semibold text-white">
-              Leave your email to hear about fellowship opportunities and next
-              steps.
-            </p>
-            <SignupForm
-              className="relative z-2"
-              interest="fellowship"
-              buttonText="Keep me posted →"
-            />
-          </SignupPanel>
-        </ClosingSection>
       </main>
     </>
   );

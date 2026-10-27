@@ -2,7 +2,6 @@ import { pageMetadata } from "@/lib/site";
 import { Label } from "@/components/ui/Text";
 import { ActionLink } from "@/components/ui/Action";
 import { Container } from "@/components/layout/Container";
-import SignupForm from "@/components/SignupForm";
 import { cn } from "@/lib/cn";
 
 export const metadata = pageMetadata({
@@ -238,11 +237,9 @@ export default function Page() {
             <p className="mx-0 mt-6 mb-7 max-w-sm font-body text-xl leading-snug text-ink lg:text-2xl xl:text-3xl">
               <strong>Join the movement fighting for these principles.</strong>
             </p>
-            <SignupForm
-              interest="membership"
-              buttonText="Join →"
-              buttonClassName="tracking-wide"
-            />
+            <ActionLink href="/join" variant="primary" className="tracking-wide">
+              Join →
+            </ActionLink>
           </div>
           <div className="relative flex min-h-112 flex-col justify-end overflow-hidden border-l-2 border-solid border-l-ink bg-ink px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-coral before:content-['\201C'] max-lg:border-t-2 max-lg:border-l-0 max-lg:border-t-ink">
             <blockquote className="relative z-2 m-0 font-quote text-3xl leading-none xl:text-4xl">

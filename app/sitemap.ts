@@ -4,6 +4,8 @@ import { site } from "@/lib/site";
 const routes = [
   "/",
   "/about",
+  "/human-charter",
+  "/journey",
   "/atlas",
   "/fellowship",
   "/circle",

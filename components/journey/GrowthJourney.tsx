@@ -180,16 +180,18 @@ function GrowthChart({
   const largest = Math.max(1, ...modelValues, ...targetLineValues);
   const smallest = Math.min(0, ...modelValues, ...targetLineValues);
   const maxExponent = Math.max(5, Math.ceil(Math.log10(largest)));
-  const x = (month: number) => left + (month / 12) * plotWidth;
+  // SVG attributes must serialize identically across server and browser math engines.
+  const coordinate = (value: number) => Number(value.toFixed(3));
+  const x = (month: number) => coordinate(left + (month / 12) * plotWidth);
   const y = (value: number) => {
     if (mode === "cumulative") {
-      return (
+      return coordinate(
         top +
-        (1 - Math.log10(Math.max(10, value)) / maxExponent) * (plotHeight - 4)
+          (1 - Math.log10(Math.max(10, value)) / maxExponent) * (plotHeight - 4),
       );
     }
     const range = Math.max(1, largest - smallest);
-    return top + ((largest - value) / range) * (plotHeight - 4);
+    return coordinate(top + ((largest - value) / range) * (plotHeight - 4));
   };
   const visiblePoints = mode === "monthly" ? points.slice(1) : points;
   const targetPath = visiblePoints

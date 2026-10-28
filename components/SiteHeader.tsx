@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout/Container";
 import { cn } from "@/lib/cn";
+import { site, siteHref } from "@/lib/site";
 
 const navigation = [
   {
@@ -65,7 +66,7 @@ export default function SiteHeader() {
         >
           <Link
             className="inline-flex w-max items-center gap-3 font-display text-[1.8rem] leading-none font-extrabold tracking-[0.02em] whitespace-nowrap uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink max-sm:gap-2.5 max-sm:text-2xl"
-            href="/"
+            href={site.url}
             aria-label="Sapiens First home"
           >
             <Image
@@ -98,7 +99,7 @@ export default function SiteHeader() {
                   <Link
                     className={navLink}
                     aria-current={active ? "page" : undefined}
-                    href={item.href}
+                    href={siteHref(item.href)}
                     key={item.href}
                     onClick={() => setOpenMenu(null)}
                   >
@@ -125,7 +126,7 @@ export default function SiteHeader() {
                   <Link
                     className={navLink}
                     aria-current={active ? "page" : undefined}
-                    href={item.href}
+                    href={siteHref(item.href)}
                     onClick={() => setOpenMenu(null)}
                   >
                     {item.label}
@@ -154,7 +155,7 @@ export default function SiteHeader() {
                     {item.children.map((child) => (
                       <Link
                         className="flex min-h-11 items-center justify-between gap-4 px-3 py-3 font-body text-sm leading-snug font-bold uppercase hover:bg-brand-blue-soft focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-ink aria-[current=page]:bg-brand-blue-soft"
-                        href={child.href}
+                        href={siteHref(child.href)}
                         key={child.href}
                         aria-current={path === child.href ? "page" : undefined}
                         onClick={() => setOpenMenu(null)}
@@ -171,7 +172,7 @@ export default function SiteHeader() {
           <div className="flex items-center gap-3 max-lg:col-start-2 max-lg:row-start-1 max-sm:gap-1.5">
             <Link
               className={cn(navCta, "bg-brand-yellow hover:bg-soft")}
-              href="/donate"
+              href={siteHref("/donate")}
               aria-current={path === "/donate" ? "page" : undefined}
             >
               Donate
@@ -181,7 +182,7 @@ export default function SiteHeader() {
                 navCta,
                 "bg-brand-blue text-white hover:bg-brand-blue-dark",
               )}
-              href="/join"
+              href={siteHref("/join")}
               aria-current={path === "/join" ? "page" : undefined}
             >
               Join

@@ -25,5 +25,7 @@ const routes = [
 ] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((path) => ({ url: `${site.url}${path}` }));
+  return routes.map((path) => ({
+    url: path === "/atlas" ? site.atlasUrl : `${site.url}${path}`,
+  }));
 }

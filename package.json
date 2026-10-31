@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
+    "test:atlas-routing": "node --test scripts/tests/atlas-routing.test.mjs",
     "format": "prettier --write app components lib next.config.ts eslint.config.mjs"
   },
   "dependencies": {

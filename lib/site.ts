@@ -2,10 +2,16 @@ import type { Metadata } from "next";
 
 export const site = {
   url: "https://sapiensfirst.org",
+  atlasUrl: "https://atlas.sapiensfirst.org/",
   donationUrl:
     "https://www.zeffy.com/en-US/donation-form/support-sapiens-first",
   guideDocId: "1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs",
 } as const;
+
+// Shared navigation must leave the Atlas host for main-site pages.
+export function siteHref(path: string) {
+  return path === "/atlas" ? site.atlasUrl : new URL(path, site.url).href;
+}
 
 export function pageMetadata({
   title,

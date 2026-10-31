@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";
+import { site, siteHref } from "@/lib/site";
 
 const footerGroups = [
   {
@@ -52,7 +53,7 @@ export default function SiteFooter() {
         <div className="flex flex-wrap justify-between gap-x-14 gap-y-10 border-b border-white/22 pb-10 max-sm:flex-col max-sm:gap-7 max-sm:pb-7">
           <Link
             className="brand-stripe flex items-center gap-2.5 self-start pb-2.5"
-            href="/"
+            href={site.url}
           >
             <Image
               className="block size-10"
@@ -81,7 +82,7 @@ export default function SiteFooter() {
                   {group.links.map((link) => (
                     <Link
                       className="font-body text-sm leading-normal font-bold text-white hover:text-coral"
-                      href={link.href}
+                      href={siteHref(link.href)}
                       key={link.href}
                     >
                       {link.label}

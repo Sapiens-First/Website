@@ -1,73 +1,79 @@
+import { campaigns } from "@/lib/campaigns";
+import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import {
-  campaigns,
-  consentVersion,
-  isSignatureReceipt,
-  parseSignature,
-} from "@/lib/campaigns";
-import { site } from "@/lib/site";
+  createAuthSupabaseClient,
+  getAppUrl,
+} from "@/lib/supabase/auth-server";
+import { isProfileComplete } from "@/lib/members/profile";
 
 export const runtime = "nodejs";
-
 export async function POST(request: Request) {
-  const headers = { "Cache-Control": "no-store" };
-  const error = (message: string, status: number) =>
-    Response.json({ error: message }, { status, headers });
+  const headers = { "Cache-Control": "private, no-store" };
+  const fail = (error: string, status: number) =>
+    Response.json({ error }, { status, headers });
   const origin = request.headers.get("origin");
-  const requestOrigin = `${new URL(request.url).protocol}//${request.headers.get("host")}`;
-  if (
-    origin &&
-    origin !== requestOrigin &&
-    origin !== site.url &&
-    origin !== "https://www.sapiensfirst.org"
-  )
-    return error("Please sign from the Sapiens First website.", 403);
+  if (origin !== new URL(request.url).origin && origin !== getAppUrl())
+    return fail("Please sign from this website.", 403);
   if (!request.headers.get("content-type")?.includes("application/json"))
-    return error("Invalid request.", 415);
-  if (Number(request.headers.get("content-length")) > 8192)
-    return error("Your submission is too large.", 413);
-  const body = await request.text();
-  if (body.length > 8192) return error("Your submission is too large.", 413);
-  let value: unknown;
+    return fail("Invalid request.", 415);
+  if (Number(request.headers.get("content-length")) > 2048)
+    return fail("Submission too large.", 413);
+  let value: Record<string, unknown>;
   try {
-    value = JSON.parse(body);
+    const body = await request.text();
+    if (body.length > 2048) return fail("Submission too large.", 413);
+    const parsed: unknown = JSON.parse(body);
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+      return fail("Invalid request.", 400);
+    value = parsed as Record<string, unknown>;
   } catch {
-    return error("Invalid request.", 400);
+    return fail("Invalid request.", 400);
   }
-  const signature = parseSignature(value);
-  if (!signature)
-    return error(
-      "Check your email and optional contact details, and confirm your support.",
-      400,
-    );
+  if (
+    typeof value.campaignId !== "string" ||
+    !Object.hasOwn(campaigns, value.campaignId) ||
+    value.agreed !== true ||
+    typeof value.updatesOptIn !== "boolean"
+  )
+    return fail("Choose a valid campaign and confirm your support.", 400);
   try {
-    const response = await fetch(site.signupScriptUrl, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=UTF-8" },
-      body: JSON.stringify({
-        ...signature,
-        action: "campaign-signature",
-        demandVersion: campaigns[signature.campaignId].demandVersion,
-        consentVersion,
-      }),
-      signal: AbortSignal.timeout(25000),
-      cache: "no-store",
-      redirect: "follow",
+    const supabase = await createAuthSupabaseClient();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+    if (error)
+      return fail(
+        "Please sign in again, or retry if authentication is unavailable.",
+        isAuthSessionMissingError(error) ||
+          error.status === 401 ||
+          error.status === 403
+          ? 401
+          : 503,
+      );
+    if (!user || user.is_anonymous || !user.email || !user.email_confirmed_at)
+      return fail("Please sign in with a confirmed account email.", 401);
+    const { data: profile, error: profileError } = await supabase
+      .from("profiles")
+      .select("full_name,country_code,city")
+      .eq("id", user.id)
+      .maybeSingle();
+    if (profileError)
+      return fail("Your membership could not be checked. Please retry.", 503);
+    if (!profile || !isProfileComplete(profile))
+      return fail("Complete your member profile before signing.", 403);
+    const { data, error: saveError } = await supabase.rpc("sign_campaign", {
+      campaign: value.campaignId,
+      agreed: true,
+      updates: value.updatesOptIn,
     });
-    const receipt: unknown = await response.json();
-    if (!response.ok || !isSignatureReceipt(receipt, signature.campaignId))
-      throw new Error("Unconfirmed receipt");
-    return Response.json(
-      {
-        receiptId: receipt.receiptId,
-        signedAt: receipt.signedAt,
-        updatesOptIn: receipt.updatesOptIn,
-      },
-      { headers },
-    );
+    if (saveError || !data?.[0])
+      return fail(
+        "We couldn’t confirm your signature. Please retry; a retry won’t add a duplicate.",
+        503,
+      );
+    return Response.json(data[0], { headers });
   } catch {
-    return error(
-      "We couldn’t confirm your signature. Please try again; a retry won’t add a duplicate signature.",
-      503,
-    );
+    return fail("Signing is temporarily unavailable. Please retry.", 503);
   }
 }

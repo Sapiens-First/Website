@@ -29,7 +29,9 @@ export default async function InterestCTA({
     <div id="signup" className="relative z-2 scroll-mt-28">
       {state === "registered" ? (
         <p role="status" className="font-bold">
-          Interest registered ✓
+          {interest === "start-a-circle"
+            ? "Your Circle interest is registered ✓"
+            : "Your Fellowship interest is registered ✓"}
           <span className="mt-3 block text-sm leading-relaxed font-normal">
             We’ll contact you about next steps.
           </span>

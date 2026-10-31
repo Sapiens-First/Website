@@ -13,6 +13,7 @@ type Campaign = {
   description: string;
   metrics: string[];
   href?: string;
+  signed?: boolean;
 };
 
 const tabColors = [
@@ -58,6 +59,11 @@ export default function CampaignAccordion({
             <span className="flex min-w-0 flex-1 flex-col gap-1.5">
               <span className="mb-2 font-display text-3xl leading-none font-extrabold tracking-normal text-ink uppercase xl:text-4xl">
                 {campaign.title}
+                {campaign.signed && (
+                  <span className="mt-2 block font-body text-sm font-bold normal-case">
+                    You’ve signed this campaign ✓
+                  </span>
+                )}
               </span>
               <span className="font-body text-lg font-medium text-ink">
                 {campaign.objective}

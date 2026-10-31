@@ -51,12 +51,11 @@ export default function Page() {
                 Campaign signatures
               </h2>
               <p>
-                Signing a campaign records your email, the campaign and demand
-                version, the time of signing, a receipt identifier and your
-                consent choices in our Supporter List. Name, US ZIP code and
-                phone number are optional. We use these records to keep track of
-                campaign support and, where you choose to provide them,
-                understand local support and maintain contact details.
+                Signing a campaign requires a member account and records your
+                member ID, account email at signing time, campaign, signing time
+                and optional campaign-email choice. We use these
+                records to track campaign support and honor your communication
+                choices.
               </p>
               <p>
                 Your signature and contact details are private supporter
@@ -72,12 +71,11 @@ export default function Page() {
                 preferences.
               </p>
               <p>
-                Supporter information is stored in Sapiens First&apos;s Google
-                Workspace spreadsheet and processed by the services that host
-                this website and its signup connection. It may be used in our
-                internal contact-management work for the purposes you agreed to.
-                Access is restricted to the people and systems authorized to
-                manage these records.
+                Campaign signatures and Circle or Fellowship interests are
+                stored in Supabase and processed by the services that host this
+                website. Access is restricted to authorized people and systems.
+                Deleting your member profile also deletes its linked interests
+                and campaign signatures.
               </p>
               <p>
                 We retain supporter and consent records while they are needed

@@ -5,8 +5,6 @@ export const site = {
   donationUrl:
     "https://www.zeffy.com/en-US/donation-form/support-sapiens-first",
   guideDocId: "1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs",
-  signupScriptUrl:
-    "https://script.google.com/macros/s/AKfycbyXZdjPHlsgHyuklLQmJ2JNFjVZorzcdhUY-wkv3h5vTJuXxtqOveAK4JnIXVdwwSU0/exec",
 } as const;
 
 export function pageMetadata({

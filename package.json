@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:campaigns": "node --test --test-isolation=none scripts/tests/campaign-signatures.test.mjs",
     "format": "prettier --write app components lib next.config.ts eslint.config.mjs"
   },
   "dependencies": {

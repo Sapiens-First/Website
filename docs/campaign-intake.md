@@ -6,7 +6,7 @@ The form collects required support confirmation and an optional, unchecked campa
 
 ## Storage and security
 
-The website posts to `/api/campaign-signatures`. The route validates the origin, payload, account and profile before calling Supabase `sign_campaign`.
+The form calls `saveCampaignSignature` in `app/(members)/actions.ts`. The Server Action validates the campaign, confirmation, account and profile before calling Supabase `sign_campaign`. Successful saves revalidate the campaign pages and return to the recorded signature.
 
 The database independently checks account identity, confirmed email, profile completeness, campaign ID and confirmation. Its restricted function derives the member ID and email; callers cannot supply them. Members can read their own signatures through RLS. Direct table inserts, updates and deletes are denied.
 

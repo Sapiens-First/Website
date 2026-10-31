@@ -1,5 +1,6 @@
 "use server";
 
+import { campaigns } from "@/lib/campaigns";
 import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -116,4 +117,56 @@ export async function saveInterest(
     };
   revalidatePath(interests[interest].path);
   redirect(`${interests[interest].path}?interest=saved#signup`);
+}
+
+export async function saveCampaignSignature(
+  _state: { message: string },
+  formData: FormData,
+) {
+  const campaign = formData.get("campaignId");
+  if (
+    typeof campaign !== "string" ||
+    !Object.hasOwn(campaigns, campaign) ||
+    formData.get("agreed") !== "on"
+  )
+    return { message: "Choose a valid campaign and confirm your support." };
+  const next = `/campaigns/${campaign}#sign`;
+  const supabase = await createAuthSupabaseClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (
+    error &&
+    !isAuthSessionMissingError(error) &&
+    error.status !== 401 &&
+    error.status !== 403
+  )
+    return { message: "Sign-in is temporarily unavailable. Please retry." };
+  if (error || !user || user.is_anonymous)
+    redirect(`/join?next=${encodeURIComponent(next)}`);
+  if (!user.email || !user.email_confirmed_at)
+    return { message: "Please sign in with a confirmed account email." };
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("full_name,country_code,city")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (profileError)
+    return { message: "Your membership could not be checked. Please retry." };
+  if (!profile || !isProfileComplete(profile))
+    redirect(`/onboarding?next=${encodeURIComponent(next)}`);
+  const { data, error: saveError } = await supabase.rpc("sign_campaign", {
+    campaign,
+    agreed: true,
+    updates: formData.get("updates") === "on",
+  });
+  if (saveError || !data?.[0])
+    return {
+      message:
+        "We couldn’t confirm your signature. Please retry; a retry won’t add a duplicate.",
+    };
+  revalidatePath("/campaigns");
+  revalidatePath(`/campaigns/${campaign}`);
+  redirect(next);
 }

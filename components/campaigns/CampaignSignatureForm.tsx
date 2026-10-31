@@ -1,7 +1,7 @@
 "use client";
-import { useState, type FormEvent } from "react";
+import { useActionState } from "react";
+import { saveCampaignSignature } from "@/app/(members)/actions";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { campaigns, type CampaignId } from "@/lib/campaigns";
 import type { getCampaignSignatureState } from "@/lib/campaign-signatures";
 import { Button } from "@/components/ui/Action";
@@ -13,52 +13,11 @@ export default function CampaignSignatureForm({
   campaignId: CampaignId;
   access: Awaited<ReturnType<typeof getCampaignSignatureState>>;
 }) {
-  const router = useRouter();
-  const [signature, setSignature] = useState(
-    access.state === "member" ? access.signature : null,
-  );
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState("");
+  const [state, action, sending] = useActionState(saveCampaignSignature, {
+    message: "",
+  });
+  const signature = access.state === "member" ? access.signature : null;
   const next = `/campaigns/${campaignId}#sign`;
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (sending) return;
-    const data = new FormData(event.currentTarget);
-    setSending(true);
-    setError("");
-    try {
-      const response = await fetch("/api/campaign-signatures", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          campaignId,
-          agreed: data.get("agreed") === "on",
-          updatesOptIn: data.get("updates") === "on",
-        }),
-        signal: AbortSignal.timeout(30000),
-      });
-      const result = await response.json();
-      if (!response.ok)
-        throw new Error(
-          result.error || "Your signature could not be confirmed.",
-        );
-      if (
-        typeof result.signed_at !== "string" ||
-        typeof result.email_updates !== "boolean"
-      )
-        throw new Error("Your signature could not be confirmed.");
-      setSignature(result);
-      router.refresh();
-    } catch (error) {
-      setError(
-        error instanceof Error && error.name !== "TimeoutError"
-          ? error.message
-          : "We couldn’t confirm your signature. Please retry; a retry won’t add a duplicate.",
-      );
-    } finally {
-      setSending(false);
-    }
-  }
   return (
     <div
       id="sign"
@@ -109,7 +68,8 @@ export default function CampaignSignatureForm({
           </Link>
         </>
       ) : (
-        <form onSubmit={submit} aria-busy={sending}>
+        <form action={action} aria-busy={sending}>
+          <input type="hidden" name="campaignId" value={campaignId} />
           <p className="mb-4 break-words">
             Signing with <strong>{access.email}</strong>
           </p>
@@ -153,9 +113,9 @@ export default function CampaignSignatureForm({
             </Link>
             .
           </p>
-          {error && (
+          {state.message && (
             <p className="mt-4 font-semibold" role="alert">
-              {error}
+              {state.message}
             </p>
           )}
         </form>

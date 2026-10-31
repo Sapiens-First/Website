@@ -1,6 +1,6 @@
 # Sapiens First website
 
-The public site is a Next.js App Router application using React and TypeScript. Content pages are statically generated; campaign signatures use a server-side API route. Styling is Tailwind CSS v4.
+The public site is a Next.js App Router application using React and TypeScript. Content pages are statically generated; campaign signatures use a Server Action. Styling is Tailwind CSS v4.
 
 ## Local development
 
@@ -30,7 +30,7 @@ Palette C and the logo/favicons share the [brand color guide](docs/brand-colors.
 
 ## Current data sources
 
-Campaign detail pages collect member signatures through a same-origin API and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification. Database regression checks are in `supabase/tests/campaign_signatures.sql`.
+Campaign detail pages collect member signatures through a Server Action and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification. Database regression checks are in `supabase/tests/campaign_signatures.sql`.
 
 Circle and Fellowship interests are member-only and stored in Supabase. Campaign signatures are member-only and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 

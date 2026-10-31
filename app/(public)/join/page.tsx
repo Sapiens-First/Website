@@ -69,11 +69,12 @@ export default async function Page({
           <input type="hidden" name="next" value={next} />
           {next !== "/dashboard" && (
             <p className="mb-4 text-base">
-              Sign in to register your interest in{" "}
-              {next.startsWith("/circle")
-                ? "starting a Circle"
-                : "fellowship opportunities"}
-              . You’ll confirm after signing in.
+              {next.startsWith("/campaigns/")
+                ? "Sign in to support this campaign."
+                : next.startsWith("/circle")
+                  ? "Sign in to register your interest in starting a Circle."
+                  : "Sign in to register your interest in fellowship opportunities."}{" "}
+              You’ll confirm after signing in.
             </p>
           )}
           <Button

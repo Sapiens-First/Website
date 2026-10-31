@@ -44,5 +44,6 @@ export const config = {
     "/dashboard/:path*",
     "/circle",
     "/fellowship",
+    "/campaigns/:path*",
   ],
 };

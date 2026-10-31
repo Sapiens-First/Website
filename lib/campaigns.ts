@@ -1,5 +1,3 @@
-export const consentVersion = "2026-10-15.1";
-
 export const campaigns = {
   "freeze-ai": {
     title: "Freeze AI",
@@ -8,7 +6,6 @@ export const campaigns = {
       "Freeze the race to build ever more powerful AI. Put people in control.",
     demand:
       "Negotiate an international AI treaty that freezes the race toward more powerful frontier systems until enforceable safety limits and public oversight are in place.",
-    demandVersion: "2026-10-15.1",
     intro:
       "A handful of companies should not get to gamble with everyone’s future. We need governments to act together, set enforceable limits and give the public a real say in what comes next.",
     points: [
@@ -42,7 +39,6 @@ export const campaigns = {
       "Ban AI-enabled mass surveillance. Protect our freedom to live, speak and organize.",
     demand:
       "Ban AI-enabled mass surveillance and protect civil liberties, free speech and the right to organize.",
-    demandVersion: "2026-10-15.1",
     intro:
       "AI can make it easier for governments and companies to track people at scale. A free society needs limits on surveillance and public power to enforce them.",
     points: [
@@ -74,7 +70,6 @@ export const campaigns = {
       "Regulate deadly autonomous weapons. Decisions about human lives must remain accountable.",
     demand:
       "Regulate autonomous weapons and require meaningful human oversight and accountability for the use of lethal force.",
-    demandVersion: "2026-10-15.1",
     intro:
       "The use of lethal force must come with human responsibility. We are building public pressure for regulation of autonomous weapons.",
     points: [
@@ -103,75 +98,7 @@ export const campaigns = {
     title: "Citizens’ Dividend",
     demand:
       "Publish a costed Citizens’ Dividend bill: a regular, unconditional cash payment funded by a fair public share of AI-driven gains, with funding, eligibility, delivery and its relationship to existing support made clear.",
-    demandVersion: "2026-10-15.1",
   },
 } as const;
 
 export type CampaignId = keyof typeof campaigns;
-
-type SignatureInput = {
-  campaignId: CampaignId;
-  email: string;
-  name: string;
-  zip: string;
-  phone: string;
-  updatesOptIn: boolean;
-  agreed: true;
-};
-
-export function parseSignature(value: unknown): SignatureInput | null {
-  if (!value || typeof value !== "object") return null;
-  const data = value as Record<string, unknown>;
-  if (
-    typeof data.campaignId !== "string" ||
-    !Object.hasOwn(campaigns, data.campaignId)
-  )
-    return null;
-  if (data.agreed !== true || typeof data.updatesOptIn !== "boolean")
-    return null;
-  if (data.website) return null;
-  for (const key of ["email", "name", "zip", "phone"]) {
-    if (typeof data[key] !== "string") return null;
-  }
-  const email = (data.email as string).trim().toLowerCase();
-  const name = (data.name as string).trim();
-  const zip = (data.zip as string).trim();
-  const phone = (data.phone as string).trim();
-  if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
-    return null;
-  if (name.length > 120 || /[\r\n\u0000]/.test(name)) return null;
-  if (zip && !/^\d{5}(-\d{4})?$/.test(zip)) return null;
-  if (
-    phone &&
-    (!/^[+\d().\s-]{7,30}$/.test(phone) || phone.replace(/\D/g, "").length < 7)
-  )
-    return null;
-  return {
-    campaignId: data.campaignId as CampaignId,
-    email,
-    name,
-    zip,
-    phone,
-    updatesOptIn: data.updatesOptIn,
-    agreed: true,
-  };
-}
-
-export function isSignatureReceipt(
-  value: unknown,
-  campaignId: CampaignId,
-): value is { receiptId: string; signedAt: string; updatesOptIn: boolean } {
-  if (!value || typeof value !== "object") return false;
-  const result = value as Record<string, unknown>;
-  return (
-    result.result === "success" &&
-    result.campaignId === campaignId &&
-    typeof result.receiptId === "string" &&
-    result.receiptId.length > 10 &&
-    typeof result.signedAt === "string" &&
-    !Number.isNaN(Date.parse(result.signedAt)) &&
-    result.demandVersion === campaigns[campaignId].demandVersion &&
-    result.consentVersion === consentVersion &&
-    typeof result.updatesOptIn === "boolean"
-  );
-}

@@ -3,7 +3,9 @@ import { FaqItem, FaqList } from "@/components/sections/Faq";
 import { ActionLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
-import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
+import CampaignActionHero, {
+  CampaignSignatureLink,
+} from "@/components/campaigns/CampaignActionHero";
 
 export const metadata = pageMetadata({
   title: "Citizens’ Dividend",
@@ -151,9 +153,7 @@ export default function Page() {
               Put a Citizens’ Dividend on the agenda. Give the public a stake in
               the future.
             </p>
-            <ActionLink href="#sign" variant="primary" className="mt-8">
-              Add my signature ↑
-            </ActionLink>
+            <CampaignSignatureLink campaignId={"citizens-dividend"} />
           </article>
         </Container>
       </section>

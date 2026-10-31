@@ -1,6 +1,6 @@
 # Sapiens First website
 
-The public site is a Next.js App Router application using React and TypeScript. Content pages are statically generated; campaign signatures use a server-side API route. Styling is Tailwind CSS v4.
+The public site is a Next.js App Router application using React and TypeScript. Content pages are statically generated; campaign signatures use a Server Action. Styling is Tailwind CSS v4.
 
 ## Local development
 
@@ -21,7 +21,6 @@ Open `http://localhost:3000`. Run `npm run build` for a production build, `npm r
 - `public/assets/` and `public/favicons/`: original images, SVGs, and favicon files with unchanged names.
 - `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery. The public route list lives in `app/sitemap.ts`.
 - `next.config.ts`: Atlas subdomain rewrite and permanent redirects from old Atlas URLs.
-- `scripts/signup-apps-script.gs`: the remaining campaign spreadsheet handler. Keep it until campaign signatures move to Supabase.
 
 Styling is written as Tailwind classes in each component. `app/globals.css` only holds the design tokens, a small base reset, the `.doc-body` typography for the Learn guide, and a few custom utilities (`ink-underline`, `marker`); `npm run format` sorts those classes through `prettier-plugin-tailwindcss`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
 
@@ -31,13 +30,13 @@ Palette C and the logo/favicons share the [brand color guide](docs/brand-colors.
 
 ## Current data sources
 
+Campaign detail pages collect member signatures through a Server Action and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification.
+
 Atlas's canonical address is `https://atlas.sapiensfirst.org/`. The same Vercel project serves the root by rewriting it internally to `/atlas`; `/atlas` and `/atlas.html` permanently redirect to the new address, preserving query strings and browser record fragments. Shared navigation links to the main website, and other page requests on the Atlas host redirect there. Static assets and API routes stay on the requested origin. Atlas metadata and the sitemap use the new address. No database or authentication configuration changes are required.
 
 Before release, confirm `atlas.sapiensfirst.org` is attached to the existing Vercel project's Production environment with working DNS and HTTPS. Follow the branch/PR and local review workflow; after the approved squash merge, verify the Atlas root, legacy record links, assets, main-site navigation and sign-in on Production. Run `npm run test:atlas-routing` for the routing checks.
 
-Campaign detail pages collect signatures through a same-origin API and the existing Supporter List connection. See [campaign intake](docs/campaign-intake.md) for fields, consent, CRM handoff, duplicate handling and deployment checks. Run `npm run test:campaigns` for the signature contract/storage tests.
-
-Circle and Fellowship interests are member-only and stored in Supabase. Campaign signatures still use the Google Apps Script endpoint in `lib/site.ts`. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
+Circle and Fellowship interests are member-only and stored in Supabase. Campaign signatures are member-only and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 
 ## Supabase connection
 
@@ -51,7 +50,7 @@ Set `APP_URL` to the exact website origin: `http://localhost:3000` locally, the 
 
 Enable Google in Supabase Authentication using the organization's Google OAuth client ID and secret. In Google Cloud, register the callback URL shown by Supabase, with only basic OpenID, email and profile scopes. In Supabase URL Configuration, set the production Site URL and allow `<APP_URL>/auth/callback` for every environment used. Localhost hostnames and ports must match the browser URL.
 
-Apply the versioned `create_profiles` and `member_interests` migrations on new databases; both are applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Campaign intake still uses the existing spreadsheet connection.
+Apply all versioned Supabase migrations on new databases, including `campaign_signatures`; they are applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Campaign intake uses the authenticated `sign_campaign` database function.
 
 Circle/Fellowship pages stay public, each with one hero CTA: sign in, complete the profile, confirm interest. `InterestCTA` reads state through `lib/members/access.ts`; writes live in `app/(members)/actions.ts`. Login and onboarding preserve an allowlisted return destination; signing in alone never records interest. `member_interests` stores one row per Auth UUID with verified email, `circle`/`fellowship` booleans (default false), and `created_at`. Confirmation sets only the selected flag to true, preserving the other flag and creation date. The page then shows a saved status. Interests have no account-page controls. RLS restricts access to the member's own row and validates their email; anonymous writes and timestamp edits are denied. No automatic email or marketing subscription is created.
 
@@ -63,7 +62,7 @@ Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; ac
 
 Dynamic routes use `app/loading.tsx` while server data is pending. The dashboard reuses that fallback inside its account layout, preserving account navigation. The root layout reserves a growing content area so the footer does not jump beneath the header during streamed responses. These fallbacks improve navigation feedback; authentication and profile reads still run on the server.
 
-Run `npm run test:campaigns` for campaign validation and storage regression checks, alongside lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
+Run the rollback-only SQL regression checks in `supabase/tests/campaign_signatures.sql`, alongside lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
 
 ## Member release checks
 

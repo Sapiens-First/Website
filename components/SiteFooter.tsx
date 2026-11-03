@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import flameLogo from "@/public/favicons/android-chrome-192x192.png";
 import { Container } from "@/components/layout/Container";
 import { Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";
@@ -57,7 +58,7 @@ export default function SiteFooter() {
           >
             <Image
               className="block size-10"
-              src="/assets/brand/dinosaur-purple.png"
+              src={flameLogo}
               alt=""
               width={40}
               height={40}

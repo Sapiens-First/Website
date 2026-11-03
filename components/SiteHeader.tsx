@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import flameLogo from "@/public/favicons/android-chrome-192x192.png";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Container } from "@/components/layout/Container";
@@ -71,7 +72,7 @@ export default function SiteHeader() {
           >
             <Image
               className="block size-[42px] shrink-0 object-contain max-sm:size-[36px]"
-              src="/assets/brand/dinosaur-purple.png"
+              src={flameLogo}
               alt=""
               width={42}
               height={42}

@@ -3,24 +3,8 @@ import { ActionLink, TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { campaigns, type CampaignId } from "@/lib/campaigns";
 import CampaignSignatureForm from "./CampaignSignatureForm";
-import { getCampaignSignatureState } from "@/lib/campaign-signatures";
 
-export async function CampaignSignatureLink({
-  campaignId,
-}: {
-  campaignId: CampaignId;
-}) {
-  const access = await getCampaignSignatureState(campaignId);
-  return (
-    <ActionLink href="#sign" variant="primary" className="mt-8">
-      {access.state === "member" && access.signature
-        ? "You’ve signed this campaign ✓"
-        : "Add my signature ↑"}
-    </ActionLink>
-  );
-}
-
-export default async function CampaignActionHero({
+export default function CampaignActionHero({
   campaignId,
   headline,
   description,
@@ -29,7 +13,7 @@ export default async function CampaignActionHero({
   headline: string;
   description: string;
 }) {
-  const access = await getCampaignSignatureState(campaignId);
+  const { title, demand } = campaigns[campaignId];
   return (
     <section className="border-b-2 border-ink bg-paper py-5 sm:py-10">
       <Container className="grid items-start gap-7 px-5 sm:gap-10 lg:grid-cols-[1fr_1fr] lg:gap-14">
@@ -39,7 +23,7 @@ export default async function CampaignActionHero({
               ← All campaigns
             </TextLink>
             <div>
-              <Label tone="coral">{campaigns[campaignId].title}</Label>
+              <Label tone="coral">{title}</Label>
             </div>
           </div>
           <h1 className="max-w-xl text-[2.5rem] leading-[0.98] text-balance sm:text-6xl xl:text-7xl">
@@ -54,9 +38,7 @@ export default async function CampaignActionHero({
               variant="primary"
               className="text-xs sm:text-sm"
             >
-              {access.state === "member" && access.signature
-                ? "You’ve signed this campaign ✓"
-                : "Sign the letter ↓"}
+              Sign the letter ↓
             </ActionLink>
             <TextLink
               href="#the-call"
@@ -66,15 +48,14 @@ export default async function CampaignActionHero({
             </TextLink>
           </div>
           <p className="mt-6 hidden max-w-sm border-t-2 border-ink pt-4 text-sm leading-relaxed lg:block">
-            {access.state === "member" && access.signature
-              ? "Thank you for supporting this campaign. Your signature is recorded."
-              : "Your voice belongs in the debate. Add your support for the call, or read the full letter below."}
+            Your voice belongs in the debate. Add your support for the call, or
+            read the full letter below.
           </p>
         </div>
         <CampaignSignatureForm
-          key={`${campaignId}:${access.state === "member" ? access.email : access.state}`}
           campaignId={campaignId}
-          access={access}
+          title={title}
+          demand={demand}
         />
       </Container>
     </section>

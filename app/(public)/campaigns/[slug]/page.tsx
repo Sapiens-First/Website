@@ -2,11 +2,9 @@ import { notFound } from "next/navigation";
 import { campaigns, type CampaignId } from "@/lib/campaigns";
 import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
-import { TextLink } from "@/components/ui/Action";
+import { ActionLink, TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
-import CampaignActionHero, {
-  CampaignSignatureLink,
-} from "@/components/campaigns/CampaignActionHero";
+import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -92,7 +90,9 @@ export default async function Page({
                 {paragraph}
               </p>
             ))}
-            <CampaignSignatureLink campaignId={slug as CampaignId} />
+            <ActionLink href="#sign" variant="primary" className="mt-8">
+              Add my signature ↑
+            </ActionLink>
           </article>
         </Container>
       </section>

@@ -4,8 +4,6 @@ import { TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
 import CampaignAccordion from "@/components/campaigns/CampaignAccordion";
-import { getCampaignSignatureState } from "@/lib/campaign-signatures";
-import type { CampaignId } from "@/lib/campaigns";
 
 export const metadata = pageMetadata({
   title: "Campaigns for AI Accountability",
@@ -68,17 +66,7 @@ const campaigns = [
 const bodyLarge =
   "mx-0 mt-0 mb-5 max-w-4xl text-left text-lg leading-normal font-medium text-ink last:mb-0 xl:text-xl";
 
-export default async function Page() {
-  const memberCampaigns = await Promise.all(
-    campaigns.map(async (campaign) => {
-      const id = campaign.href.split("/").pop() as CampaignId;
-      const access = await getCampaignSignatureState(id);
-      return {
-        ...campaign,
-        signed: access.state === "member" && !!access.signature,
-      };
-    }),
-  );
+export default function Page() {
   return (
     <>
       <PageHero className="px-0 pt-20 pb-20 max-md:pt-20 max-md:pb-20 max-sm:pt-14 max-sm:pb-12">
@@ -131,7 +119,7 @@ export default async function Page() {
             <div className="mb-4 text-left font-display text-4xl leading-none font-extrabold tracking-tight uppercase lg:text-5xl xl:text-6xl">
               Current Campaigns
             </div>
-            <CampaignAccordion campaigns={memberCampaigns} />
+            <CampaignAccordion campaigns={campaigns} />
           </Container>
         </section>
       </main>

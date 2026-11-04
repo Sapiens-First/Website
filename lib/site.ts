@@ -10,7 +10,7 @@ export const site = {
 
 // Shared navigation must leave the Atlas host for main-site pages.
 export function siteHref(path: string) {
-  return path === "/atlas" ? site.atlasUrl : new URL(path, site.url).href;
+  return path === "/atlas" ? site.atlasUrl : path;
 }
 
 export function pageMetadata({

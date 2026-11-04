@@ -30,13 +30,13 @@ Palette C and the logo/favicons share the [brand color guide](docs/brand-colors.
 
 ## Current data sources
 
-Campaign detail pages collect member signatures through a Server Action and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification.
+Campaign detail pages collect public signatures through a Server Action and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification.
 
 Atlas's canonical address is `https://atlas.sapiensfirst.org/`. The same Vercel project serves the root by rewriting it internally to `/atlas`; `/atlas` and `/atlas.html` permanently redirect to the new address, preserving query strings and browser record fragments. Shared navigation links to the main website, and other page requests on the Atlas host redirect there. Static assets and API routes stay on the requested origin. Atlas metadata and the sitemap use the new address. No database or authentication configuration changes are required.
 
 Before release, confirm `atlas.sapiensfirst.org` is attached to the existing Vercel project's Production environment with working DNS and HTTPS. Follow the branch/PR and local review workflow; after the approved squash merge, verify the Atlas root, legacy record links, assets, main-site navigation and sign-in on Production. Run `npm run test:atlas-routing` for the routing checks.
 
-Circle and Fellowship interests are member-only and stored in Supabase. Campaign signatures are member-only and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
+Circle and Fellowship interests are member-only and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 
 ## Supabase connection
 
@@ -50,7 +50,7 @@ Set `APP_URL` to the exact website origin: `http://localhost:3000` locally, the 
 
 Enable Google in Supabase Authentication using the organization's Google OAuth client ID and secret. In Google Cloud, register the callback URL shown by Supabase, with only basic OpenID, email and profile scopes. In Supabase URL Configuration, set the production Site URL and allow `<APP_URL>/auth/callback` for every environment used. Localhost hostnames and ports must match the browser URL.
 
-Apply all versioned Supabase migrations on new databases, including `campaign_signatures`; they are applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Campaign intake uses the authenticated `sign_campaign` database function.
+Apply all versioned Supabase migrations on new databases, including `campaign_signatures`; they are applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Campaign intake uses the write-only `sign_campaign` database function.
 
 Circle/Fellowship pages stay public, each with one hero CTA: sign in, complete the profile, confirm interest. `InterestCTA` reads state through `lib/members/access.ts`; writes live in `app/(members)/actions.ts`. Login and onboarding preserve an allowlisted return destination; signing in alone never records interest. `member_interests` stores one row per Auth UUID with verified email, `circle`/`fellowship` booleans (default false), and `created_at`. Confirmation sets only the selected flag to true, preserving the other flag and creation date. The page then shows a saved status. Interests have no account-page controls. RLS restricts access to the member's own row and validates their email; anonymous writes and timestamp edits are denied. No automatic email or marketing subscription is created.
 
@@ -62,7 +62,7 @@ Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; ac
 
 Dynamic routes use `app/loading.tsx` while server data is pending. The dashboard reuses that fallback inside its account layout, preserving account navigation. The root layout reserves a growing content area so the footer does not jump beneath the header during streamed responses. These fallbacks improve navigation feedback; authentication and profile reads still run on the server.
 
-Run the rollback-only SQL regression checks in `supabase/tests/campaign_signatures.sql`, alongside lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
+Run lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
 
 ## Member release checks
 

@@ -1,16 +1,9 @@
 "use server";
 
-import { campaigns } from "@/lib/campaigns";
 import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
-import {
-  memberReturnPath,
-  interests,
-  isInterest,
-  interestReturnPath,
-} from "@/lib/members/interests";
+import { memberReturnPath } from "@/lib/members/interests";
 import {
   isProfileComplete,
   profileFields,
@@ -64,109 +57,4 @@ export async function saveProfile(
     };
   }
   redirect(next === "/dashboard" ? "/dashboard?updated=profile" : next);
-}
-
-export async function saveInterest(
-  _state: { message: string },
-  formData: FormData,
-) {
-  const interest = formData.get("interest");
-  if (!isInterest(interest))
-    return { message: "Choose a valid interest and try again." };
-  if (formData.get("confirmed") !== "yes")
-    return { message: "Confirm your interest to continue." };
-  const next = interestReturnPath(interest);
-  const supabase = await createAuthSupabaseClient();
-  const { data: identity, error: authError } = await supabase.auth.getUser();
-  if (
-    authError &&
-    authError.status !== 401 &&
-    authError.status !== 403 &&
-    !isAuthSessionMissingError(authError)
-  )
-    return { message: "Sign-in is temporarily unavailable. Please try again." };
-  if (authError || !identity.user || identity.user.is_anonymous)
-    redirect(`/join?next=${encodeURIComponent(next)}`);
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("full_name,country_code,city")
-    .eq("id", identity.user.id)
-    .maybeSingle();
-  if (profileError)
-    return {
-      message: "Your membership could not be checked. Please try again.",
-    };
-  if (!profile || !isProfileComplete(profile))
-    redirect(`/onboarding?next=${encodeURIComponent(next)}`);
-  if (!identity.user.email)
-    return {
-      message: "Your account needs an email address before saving interests.",
-    };
-  // Write only the selected flag; preserve the other interest and original date.
-  const { error } = await supabase.from("member_interests").upsert(
-    {
-      member_id: identity.user.id,
-      email: identity.user.email,
-      [interests[interest].column]: true,
-    },
-    { onConflict: "member_id", defaultToNull: false },
-  );
-  if (error)
-    return {
-      message: "Your interest could not be saved. Please try again.",
-    };
-  revalidatePath(interests[interest].path);
-  redirect(`${interests[interest].path}?interest=saved#signup`);
-}
-
-export async function saveCampaignSignature(
-  _state: { message: string },
-  formData: FormData,
-) {
-  const campaign = formData.get("campaignId");
-  if (
-    typeof campaign !== "string" ||
-    !Object.hasOwn(campaigns, campaign) ||
-    formData.get("agreed") !== "on"
-  )
-    return { message: "Choose a valid campaign and confirm your support." };
-  const next = `/campaigns/${campaign}#sign`;
-  const supabase = await createAuthSupabaseClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-  if (
-    error &&
-    !isAuthSessionMissingError(error) &&
-    error.status !== 401 &&
-    error.status !== 403
-  )
-    return { message: "Sign-in is temporarily unavailable. Please retry." };
-  if (error || !user || user.is_anonymous)
-    redirect(`/join?next=${encodeURIComponent(next)}`);
-  if (!user.email || !user.email_confirmed_at)
-    return { message: "Please sign in with a confirmed account email." };
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("full_name,country_code,city")
-    .eq("id", user.id)
-    .maybeSingle();
-  if (profileError)
-    return { message: "Your membership could not be checked. Please retry." };
-  if (!profile || !isProfileComplete(profile))
-    redirect(`/onboarding?next=${encodeURIComponent(next)}`);
-  const { data, error: saveError } = await supabase.rpc("sign_campaign", {
-    campaign,
-    agreed: true,
-    updates: formData.get("updates") === "on",
-  });
-  if (saveError || !data?.[0])
-    return {
-      message:
-        "We couldn’t confirm your signature. Please retry; a retry won’t add a duplicate.",
-    };
-  revalidatePath("/campaigns");
-  revalidatePath(`/campaigns/${campaign}`);
-  redirect(next);
 }

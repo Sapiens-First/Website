@@ -1,22 +1,8 @@
 # Campaign signatures
 
-Campaign pages are public. Members sign in, complete their profile, and return to the campaign to explicitly confirm support. Login and onboarding do not submit a signature.
+Anyone can sign with an email address and explicit support confirmation. Name, ZIP or postal code, phone and campaign email updates are optional.
 
-The form collects required support confirmation and an optional, unchecked campaign-email choice. Identity and email come from the authenticated account; the form does not collect editable contact fields.
+The Server Action calls the write-only Supabase `sign_campaign` function. The table keeps one signature per campaign and normalized email. Retries preserve the original entry and return the same confirmation. RLS and grants block direct public table access.
 
-## Storage and security
-
-The form calls `saveCampaignSignature` in `app/(members)/actions.ts`. The Server Action validates the campaign, confirmation, account and profile before calling Supabase `sign_campaign`. Successful saves revalidate the campaign pages and return to the recorded signature.
-
-The database independently checks account identity, confirmed email, profile completeness, campaign ID and confirmation. Its restricted function derives the member ID and email; callers cannot supply them. Members can read their own signatures through RLS. Direct table inserts, updates and deletes are denied.
-
-`campaign_signatures` contains `member_id`, `campaign_id`, `email`, `email_updates` and database-generated `signed_at`. Its primary key is `(member_id, campaign_id)`. Retries preserve the original email, date and email preference. Profile deletion cascades to signatures.
-
-One signature is stored per campaign, without demand or consent version history. Materially changing a campaign demand requires reviewing how existing support is represented.
-
-## Verification
-
-Run lint, typecheck and a production build. Database regression checks live in `supabase/tests/campaign_signatures.sql`; run them against a test database or within their rollback transaction. Test signed-out navigation, onboarding returns, explicit confirmation, both email choices, duplicate submissions, separate campaigns, unauthorized access and service failures.
-
-Campaign email consent is recorded per campaign. No email delivery or CRM synchronization is enabled by signing. Contact preference and deletion requests use the contact on the privacy page.
+Verify signed-out submission, duplicate handling, and blocked public reads.
 

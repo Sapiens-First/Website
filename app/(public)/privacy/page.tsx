@@ -51,11 +51,9 @@ export default function Page() {
                 Campaign signatures
               </h2>
               <p>
-                Signing a campaign requires a member account and records your
-                member ID, account email at signing time, campaign, signing time
-                and optional campaign-email choice. We use these
-                records to track campaign support and honor your communication
-                choices.
+                Signing a campaign records your email address, any optional
+                contact details, the campaign, signing time and optional
+                campaign-email choice in Supabase.
               </p>
               <p>
                 Your signature and contact details are private supporter
@@ -74,8 +72,6 @@ export default function Page() {
                 Campaign signatures and Circle or Fellowship interests are
                 stored in Supabase and processed by the services that host this
                 website. Access is restricted to authorized people and systems.
-                Deleting your member profile also deletes its linked interests
-                and campaign signatures.
               </p>
               <p>
                 We retain supporter and consent records while they are needed

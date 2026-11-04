@@ -10,7 +10,7 @@ import {
   FocusList,
 } from "@/components/sections/SplitSection";
 import { cn } from "@/lib/cn";
-import InterestCTA from "@/components/members/InterestCTA";
+import InterestForm from "@/components/members/InterestForm";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 
 export const metadata = pageMetadata({
@@ -28,9 +28,9 @@ const grid =
 
 const steps = [
   {
-    title: "Join Sapiens First",
+    title: "Register your interest",
     color: "text-coral-dark",
-    text: "Tell us you're interested in starting a Circle. Sign in and become a member of Sapiens First, then confirm your interest. We'll connect you with support from the team.",
+    text: "Leave your email and we’ll follow up about starting a Circle and getting support from the team.",
   },
   {
     title: "Invite your friends",
@@ -59,12 +59,7 @@ const leadership = [
   },
 ];
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ interest?: string }>;
-}) {
-  const confirm = (await searchParams).interest === "confirm";
+export default function Page() {
   return (
     <>
       <main>
@@ -84,7 +79,7 @@ export default async function Page({
               <FactPill>3–5 hours a week</FactPill>
               <FactPill>try for 3 months</FactPill>
             </div>
-            <InterestCTA confirm={confirm} interest="start-a-circle" />
+            <InterestForm interest="start-a-circle" />
             <p className="relative z-2 mx-0 mt-3.5 mb-0 max-w-lg text-sm font-medium text-ink italic">
               Start with a conversation. Expressing interest doesn’t commit you
               to running a Circle.

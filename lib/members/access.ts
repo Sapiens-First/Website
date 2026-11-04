@@ -8,7 +8,7 @@ import {
 import { redirect } from "next/navigation";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
 import { isProfileComplete, type ProfileField } from "./profile";
-import { interests, memberReturnPath, type Interest } from "./interests";
+import { memberReturnPath } from "./interests";
 
 class AccountAuthenticationError extends Error {}
 
@@ -40,30 +40,6 @@ export async function getPublicAccount() {
     if (!(error instanceof AccountAuthenticationError)) throw error;
     return { account: null, unavailable: true };
   }
-}
-
-export async function getInterestState(
-  interest: Interest,
-): Promise<
-  "signed-out" | "incomplete" | "member" | "registered" | "unavailable"
-> {
-  const { account, unavailable } = await getPublicAccount();
-  if (unavailable) return "unavailable";
-  if (!account) return "signed-out";
-  const { data: profile, error } = await account.supabase
-    .from("profiles")
-    .select("full_name,country_code,city")
-    .eq("id", account.user.id)
-    .maybeSingle();
-  if (error) return "unavailable";
-  if (!profile || !isProfileComplete(profile)) return "incomplete";
-  const { data, error: interestError } = await account.supabase
-    .from("member_interests")
-    .select("circle,fellowship")
-    .eq("member_id", account.user.id)
-    .maybeSingle();
-  if (interestError) return "unavailable";
-  return data?.[interests[interest].column] ? "registered" : "member";
 }
 
 export async function ensureProfile(supabase: SupabaseClient, userId: string) {

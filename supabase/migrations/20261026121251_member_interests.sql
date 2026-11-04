@@ -1,44 +1,31 @@
 create table public.member_interests (
-  member_id uuid primary key references public.profiles(id) on delete cascade,
-  email text not null check (length(btrim(email)) > 0),
-  circle boolean not null default false,
-  fellowship boolean not null default false,
-  created_at timestamptz not null default statement_timestamp()
+  interest text not null check (interest in ('start-a-circle', 'fellowship')),
+  email text not null check (char_length(email) <= 254 and email = lower(btrim(email)) and email ~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+$'),
+  created_at timestamptz not null default statement_timestamp(),
+  primary key (interest, email)
 );
-comment on table public.member_interests is 'Member Interests: explicit requests for Circle or Fellowship follow-up; not applications or marketing subscriptions.';
-alter table public.member_interests enable row level security;
-revoke all on table public.member_interests from public, anon, authenticated;
-grant select on table public.member_interests to authenticated;
-grant insert (member_id, email, circle, fellowship),
-  update (member_id, email, circle, fellowship)
-  on public.member_interests to authenticated;
-grant all on table public.member_interests to service_role;
 
-create policy member_interests_select_own on public.member_interests
-for select to authenticated using ((select auth.uid()) = member_id);
-create policy member_interests_insert_own on public.member_interests
-for insert to authenticated with check (
-  (select auth.uid()) = member_id
-  and email = (select auth.jwt() ->> 'email')
-  and coalesce((select auth.jwt() ->> 'is_anonymous'), 'false') = 'false'
-  and exists (
-    select 1 from public.profiles p where p.id = (select auth.uid())
-      and length(btrim(p.full_name)) > 0
-      and p.country_code ~ '^[A-Z]{2}$'
-      and length(btrim(p.city)) > 0
-  )
-);
-create policy member_interests_update_own on public.member_interests
-for update to authenticated
-using ((select auth.uid()) = member_id)
-with check (
-  (select auth.uid()) = member_id
-  and email = (select auth.jwt() ->> 'email')
-  and coalesce((select auth.jwt() ->> 'is_anonymous'), 'false') = 'false'
-  and exists (
-    select 1 from public.profiles p where p.id = (select auth.uid())
-      and length(btrim(p.full_name)) > 0
-      and p.country_code ~ '^[A-Z]{2}$'
-      and length(btrim(p.city)) > 0
-  )
-);
+alter table public.member_interests enable row level security;
+revoke all on public.member_interests from public, anon, authenticated;
+grant all on public.member_interests to service_role;
+
+create schema if not exists interest_private;
+grant usage on schema interest_private to anon, authenticated;
+
+create function interest_private.register_interest(topic text, contact_email text)
+returns void
+language sql security definer set search_path = ''
+as $$
+  insert into public.member_interests (interest, email)
+  values (topic, lower(btrim(contact_email)))
+  on conflict (interest, email) do nothing;
+$$;
+revoke all on function interest_private.register_interest(text, text) from public;
+grant execute on function interest_private.register_interest(text, text) to anon, authenticated;
+
+create function public.register_interest(topic text, contact_email text)
+returns void
+language sql security invoker set search_path = ''
+as $$ select interest_private.register_interest(topic, contact_email); $$;
+revoke all on function public.register_interest(text, text) from public;
+grant execute on function public.register_interest(text, text) to anon, authenticated;

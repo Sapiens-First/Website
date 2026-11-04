@@ -1,56 +1,41 @@
 create table public.campaign_signatures (
-  member_id uuid not null references public.profiles(id) on delete cascade,
+  id uuid primary key default gen_random_uuid(),
   campaign_id text not null check (campaign_id in ('freeze-ai', 'stop-1984', 'no-killer-robots', 'citizens-dividend')),
-  email text not null check (length(btrim(email)) between 3 and 254),
+  email text not null check (char_length(email) <= 254 and email ~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+$' and email = lower(btrim(email))),
+  name text check (char_length(name) <= 120),
+  zip text check (char_length(zip) <= 20),
+  phone text check (char_length(phone) <= 30),
   email_updates boolean not null default false,
   signed_at timestamptz not null default statement_timestamp(),
-  primary key (member_id, campaign_id)
+  unique (campaign_id, email)
 );
+
 alter table public.campaign_signatures enable row level security;
 revoke all on public.campaign_signatures from public, anon, authenticated;
-grant select on public.campaign_signatures to authenticated;
 grant all on public.campaign_signatures to service_role;
-create policy campaign_signatures_select_own on public.campaign_signatures
-for select to authenticated using ((select auth.uid()) = member_id);
 
--- Keep privileged implementation outside the Data API's exposed schema.
-create schema if not exists private;
-revoke all on schema private from public, anon;
-grant usage on schema private to authenticated;
-create function private.sign_campaign(campaign text, agreed boolean, updates boolean)
-returns table (signed_at timestamptz, email_updates boolean)
+create schema if not exists campaign_private;
+grant usage on schema campaign_private to anon, authenticated;
+
+create function campaign_private.sign_campaign(campaign text, signer_email text, signer_name text, signer_zip text, signer_phone text, agreed boolean, updates boolean)
+returns void
 language plpgsql security definer set search_path = ''
 as $$
-declare
-  signer uuid := auth.uid();
-  signer_email text;
 begin
-  if signer is null or agreed is distinct from true or updates is null then
-    raise exception 'Explicit member confirmation required' using errcode = '42501';
+  if agreed is distinct from true then
+    raise exception 'Explicit confirmation required' using errcode = '22023';
   end if;
-  select u.email into signer_email from auth.users u
-    where u.id = signer and u.email_confirmed_at is not null
-      and not coalesce(u.is_anonymous, false);
-  if signer_email is null or not exists (
-    select 1 from public.profiles p where p.id = signer
-      and length(btrim(p.full_name)) > 0 and p.country_code ~ '^[A-Z]{2}$'
-      and length(btrim(p.city)) > 0
-  ) then
-    raise exception 'Complete confirmed member account required' using errcode = '42501';
-  end if;
-  insert into public.campaign_signatures (member_id, campaign_id, email, email_updates)
-    values (signer, campaign, signer_email, updates)
-    on conflict (member_id, campaign_id) do nothing;
-  return query select s.signed_at, s.email_updates from public.campaign_signatures s
-    where s.member_id = signer and s.campaign_id = campaign;
+  insert into public.campaign_signatures (campaign_id, email, name, zip, phone, email_updates)
+    values (campaign, lower(btrim(signer_email)), nullif(btrim(signer_name), ''), nullif(btrim(signer_zip), ''), nullif(btrim(signer_phone), ''), coalesce(updates, false))
+    on conflict (campaign_id, email) do nothing;
 end;
 $$;
-revoke all on function private.sign_campaign(text, boolean, boolean) from public, anon;
-grant execute on function private.sign_campaign(text, boolean, boolean) to authenticated;
+revoke all on function campaign_private.sign_campaign(text, text, text, text, text, boolean, boolean) from public;
+grant execute on function campaign_private.sign_campaign(text, text, text, text, text, boolean, boolean) to anon, authenticated;
 
-create function public.sign_campaign(campaign text, agreed boolean, updates boolean)
-returns table (signed_at timestamptz, email_updates boolean)
+create function public.sign_campaign(campaign text, signer_email text, signer_name text, signer_zip text, signer_phone text, agreed boolean, updates boolean)
+returns void
 language sql security invoker set search_path = ''
-as $$ select * from private.sign_campaign(campaign, agreed, updates); $$;
-revoke all on function public.sign_campaign(text, boolean, boolean) from public, anon;
-grant execute on function public.sign_campaign(text, boolean, boolean) to authenticated;
+as $$ select campaign_private.sign_campaign(campaign, signer_email, signer_name, signer_zip, signer_phone, agreed, updates); $$;
+revoke all on function public.sign_campaign(text, text, text, text, text, boolean, boolean) from public;
+grant execute on function public.sign_campaign(text, text, text, text, text, boolean, boolean) to anon, authenticated;

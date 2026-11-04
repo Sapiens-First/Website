@@ -1,23 +1,23 @@
 "use client";
 import { useActionState } from "react";
-import { saveCampaignSignature } from "@/app/(members)/actions";
+import { saveCampaignSignature } from "@/app/(public)/campaigns/actions";
 import Link from "next/link";
-import { campaigns, type CampaignId } from "@/lib/campaigns";
-import type { getCampaignSignatureState } from "@/lib/campaign-signatures";
+import type { CampaignId } from "@/lib/campaigns";
 import { Button } from "@/components/ui/Action";
 
 export default function CampaignSignatureForm({
   campaignId,
-  access,
+  title,
+  demand,
 }: {
   campaignId: CampaignId;
-  access: Awaited<ReturnType<typeof getCampaignSignatureState>>;
+  title: string;
+  demand: string;
 }) {
   const [state, action, sending] = useActionState(saveCampaignSignature, {
     message: "",
   });
-  const signature = access.state === "member" ? access.signature : null;
-  const next = `/campaigns/${campaignId}#sign`;
+  const signature = state.signed;
   return (
     <div
       id="sign"
@@ -26,7 +26,7 @@ export default function CampaignSignatureForm({
       <h2 className="mb-3 font-display text-3xl font-extrabold uppercase sm:text-4xl">
         {signature ? "You’ve signed this campaign ✓" : "Sign the open letter."}
       </h2>
-      <p className="mb-5 leading-relaxed">{campaigns[campaignId].demand}</p>
+      <p className="mb-5 leading-relaxed">{demand}</p>
       {campaignId === "citizens-dividend" && (
         <p className="mb-5 text-sm">
           Campaign proposal. No current payment is offered.
@@ -35,11 +35,6 @@ export default function CampaignSignatureForm({
       {signature ? (
         <div role="status">
           <h3 className="text-xl font-bold">Your support is recorded.</h3>
-          <p className="mt-3">
-            {signature.email_updates
-              ? "You chose to receive updates for this campaign."
-              : "You have not opted in to emails for this campaign."}
-          </p>
           <p className="mt-3 text-sm">
             For contact preferences or deletion requests, email{" "}
             <a className="underline" href="mailto:rohan@sapiensfirst.org">
@@ -48,31 +43,39 @@ export default function CampaignSignatureForm({
             .
           </p>
         </div>
-      ) : access.state === "unavailable" ? (
-        <p role="status">
-          Signing is temporarily unavailable. Please refresh and try again.
-        </p>
-      ) : access.state !== "member" ? (
-        <>
-          <p className="mb-4">
-            Sign in as a member to add your support. You’ll return here to
-            confirm your signature.
-          </p>
-          <Link
-            className="inline-block border-2 border-ink bg-brand-blue px-5 py-3 font-bold text-white"
-            href={`${access.state === "incomplete" ? "/onboarding" : "/join"}?next=${encodeURIComponent(next)}`}
-          >
-            {access.state === "incomplete"
-              ? "Complete your profile to sign →"
-              : "Join or sign in to sign →"}
-          </Link>
-        </>
       ) : (
         <form action={action} aria-busy={sending}>
           <input type="hidden" name="campaignId" value={campaignId} />
-          <p className="mb-4 break-words">
-            Signing with <strong>{access.email}</strong>
-          </p>
+          <div className="mb-4 grid gap-4 sm:grid-cols-2">
+            <label className="block">
+              Email address *
+              <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                maxLength={254}
+                required
+                className="block w-full border-2 border-ink p-2"
+              />
+            </label>
+            {(
+              [
+                ["name", "Name", 120],
+                ["zip", "ZIP / postal code", 20],
+                ["phone", "Phone", 30],
+              ] as const
+            ).map(([field, label, maxLength]) => (
+              <label key={field} className="block">
+                {label}
+                <input
+                  name={field}
+                  type={field === "phone" ? "tel" : "text"}
+                  maxLength={maxLength}
+                  className="block w-full border-2 border-ink p-2"
+                />
+              </label>
+            ))}
+          </div>
           <label className="flex min-h-11 items-start gap-3 text-sm leading-relaxed">
             <input
               className="mt-1 size-5 shrink-0 accent-ink"
@@ -81,8 +84,8 @@ export default function CampaignSignatureForm({
               required
             />
             <span>
-              I support the {campaigns[campaignId].title} call above and agree
-              to have my signature recorded by Sapiens First.
+              I support the {title} call above and agree to have my signature
+              recorded by Sapiens First. *
             </span>
           </label>
           <label className="mt-3 flex min-h-11 items-start gap-3 text-sm leading-relaxed">
@@ -105,7 +108,7 @@ export default function CampaignSignatureForm({
             {sending ? "Recording your signature…" : "Add my signature →"}
           </Button>
           <p className="mt-4 text-sm">
-            Your signature and account email are private supporter records. We
+            Your signature and contact details are private supporter records. We
             won’t publish your name or send your details to officials through
             this form.{" "}
             <Link className="underline" href="/privacy">

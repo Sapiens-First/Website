@@ -72,8 +72,6 @@ export default function Page() {
                 Campaign signatures and Circle or Fellowship interests are
                 stored in Supabase and processed by the services that host this
                 website. Access is restricted to authorized people and systems.
-                Deleting your member profile also deletes its linked interests
-                and campaign signatures.
               </p>
               <p>
                 We retain supporter and consent records while they are needed

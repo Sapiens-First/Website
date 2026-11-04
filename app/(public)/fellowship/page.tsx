@@ -8,7 +8,7 @@ import {
   HeroCollage,
   FocusList,
 } from "@/components/sections/SplitSection";
-import InterestCTA from "@/components/members/InterestCTA";
+import InterestForm from "@/components/members/InterestForm";
 import { TextLink } from "@/components/ui/Action";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 import { Bird, Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
@@ -89,12 +89,7 @@ const roleColors = [
   "before:bg-brand-pink",
 ];
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ interest?: string }>;
-}) {
-  const confirm = (await searchParams).interest === "confirm";
+export default function Page() {
   return (
     <>
       <main>
@@ -114,7 +109,7 @@ export default async function Page({
               <FactPill>3–5 hrs / week</FactPill>
               <FactPill>Volunteer</FactPill>
             </div>
-            <InterestCTA confirm={confirm} interest="fellowship" />
+            <InterestForm interest="fellowship" />
             <HeroLede className="text-ink italic">
               You&apos;ll work directly with the founder and a growing team of
               Fellows from across the country.

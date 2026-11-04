@@ -2,14 +2,8 @@
 
 import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
-import {
-  memberReturnPath,
-  interests,
-  isInterest,
-  interestReturnPath,
-} from "@/lib/members/interests";
+import { memberReturnPath } from "@/lib/members/interests";
 import {
   isProfileComplete,
   profileFields,
@@ -63,57 +57,4 @@ export async function saveProfile(
     };
   }
   redirect(next === "/dashboard" ? "/dashboard?updated=profile" : next);
-}
-
-export async function saveInterest(
-  _state: { message: string },
-  formData: FormData,
-) {
-  const interest = formData.get("interest");
-  if (!isInterest(interest))
-    return { message: "Choose a valid interest and try again." };
-  if (formData.get("confirmed") !== "yes")
-    return { message: "Confirm your interest to continue." };
-  const next = interestReturnPath(interest);
-  const supabase = await createAuthSupabaseClient();
-  const { data: identity, error: authError } = await supabase.auth.getUser();
-  if (
-    authError &&
-    authError.status !== 401 &&
-    authError.status !== 403 &&
-    !isAuthSessionMissingError(authError)
-  )
-    return { message: "Sign-in is temporarily unavailable. Please try again." };
-  if (authError || !identity.user || identity.user.is_anonymous)
-    redirect(`/join?next=${encodeURIComponent(next)}`);
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("full_name,country_code,city")
-    .eq("id", identity.user.id)
-    .maybeSingle();
-  if (profileError)
-    return {
-      message: "Your membership could not be checked. Please try again.",
-    };
-  if (!profile || !isProfileComplete(profile))
-    redirect(`/onboarding?next=${encodeURIComponent(next)}`);
-  if (!identity.user.email)
-    return {
-      message: "Your account needs an email address before saving interests.",
-    };
-  // Write only the selected flag; preserve the other interest and original date.
-  const { error } = await supabase.from("member_interests").upsert(
-    {
-      member_id: identity.user.id,
-      email: identity.user.email,
-      [interests[interest].column]: true,
-    },
-    { onConflict: "member_id", defaultToNull: false },
-  );
-  if (error)
-    return {
-      message: "Your interest could not be saved. Please try again.",
-    };
-  revalidatePath(interests[interest].path);
-  redirect(`${interests[interest].path}?interest=saved#signup`);
 }

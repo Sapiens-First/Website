@@ -67,16 +67,6 @@ export default async function Page({
         </p>
         <form action={signInWithGoogle} id="signup" className="mt-8">
           <input type="hidden" name="next" value={next} />
-          {next !== "/dashboard" && (
-            <p className="mb-4 text-base">
-              {next.startsWith("/campaigns/")
-                ? "Sign in to support this campaign."
-                : next.startsWith("/circle")
-                  ? "Sign in to register your interest in starting a Circle."
-                  : "Sign in to register your interest in fellowship opportunities."}{" "}
-              You’ll confirm after signing in.
-            </p>
-          )}
           <Button
             type="submit"
             variant="outline"

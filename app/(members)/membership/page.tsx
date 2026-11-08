@@ -4,8 +4,16 @@ import Link from "next/link";
 import { Container } from "@/components/layout/Container";
 import { Kicker } from "@/components/ui/Text";
 import { getMembershipState } from "@/lib/members/access";
-import CheckoutForm from "./CheckoutForm";
-import BillingForm from "./BillingForm";
+import { getMembershipPrices } from "@/lib/stripe";
+import {
+  amountForPrice,
+  isEndedSubscription,
+  TRIAL_DAYS,
+} from "@/lib/members/plans";
+import CheckoutForm, {
+  CheckoutConfirmation,
+  BillingManagement,
+} from "./CheckoutForm";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -18,32 +26,19 @@ export default async function MembershipPage({
 }: {
   searchParams: Promise<{
     checkout?: string;
-    error?: string;
     billing?: string;
   }>;
 }) {
+  const { checkout, billing } = await searchParams;
   const {
-    account: { user, supabase },
+    account: { user },
     allowed,
-    unavailable,
-  } = await getMembershipState(true);
-  const { data, error } = await supabase
-    .from("memberships")
-    .select(
-      "status,stripe_customer_id,stripe_price_id,trial_started_at,trial_end,current_period_end,paid_until,cancel_at_period_end,scheduled_price_id,scheduled_change_at",
-    )
-    .eq("member_id", user.id)
-    .maybeSingle();
-  if (error) throw new Error("Your membership could not be loaded.");
-  const { checkout, error: accessError, billing } = await searchParams;
+    membership: data,
+  } = await getMembershipState("/membership");
   if (checkout === "returned" && allowed)
     redirect("/dashboard?membership=confirmed");
   const ongoing =
-    data && !["none", "canceled", "incomplete_expired"].includes(data.status);
-  const contribution = (price: string | null | undefined) =>
-    ["1", "10", "20"].find(
-      (value) => process.env[`STRIPE_PRICE_MONTHLY_${value}`] === price,
-    ) ?? null;
+    data && data.status !== "none" && !isEndedSubscription(data.status);
   const date = (value: string | null) =>
     value
       ? new Intl.DateTimeFormat("en", {
@@ -52,7 +47,7 @@ export default async function MembershipPage({
           timeZone: "UTC",
         }).format(new Date(value)) + " UTC"
       : "Awaiting confirmation";
-  const amount = contribution(data?.stripe_price_id);
+  const amount = amountForPrice(data?.stripe_price_id, getMembershipPrices());
   return (
     <main className="py-14 sm:py-20">
       <Container width="content" className="max-w-3xl">
@@ -63,27 +58,17 @@ export default async function MembershipPage({
         <p className="mt-6">
           Subscribing as <strong>{user.email}</strong>.
         </p>
-        {(unavailable || accessError === "verification") && (
-          <p role="alert" className="mt-5">
-            We couldn’t confirm your membership right now. You can manage
-            billing below or try opening the dashboard again.
-          </p>
-        )}
-        {checkout === "returned" && (
-          <p role="status" className="mt-5 border-l-4 border-ink p-3">
-            We’re waiting for payment or trial confirmation. Refresh this page
-            to check again. Dashboard access opens only after confirmation.
-          </p>
-        )}
+        {checkout === "returned" && <CheckoutConfirmation />}
         {checkout === "canceled" && (
           <p role="status" className="mt-5">
             You left Checkout. You can resume or choose another contribution
             below.
           </p>
         )}
-        {billing === "updated" && !unavailable && (
+        {(billing === "updated" || billing === "returned") && (
           <p role="status" className="mt-5">
-            Your billing settings have been refreshed.
+            Billing changes may take a moment to appear after Stripe confirms
+            them.
           </p>
         )}
         {ongoing && (
@@ -103,7 +88,7 @@ export default async function MembershipPage({
                 <dd>
                   {allowed
                     ? data.status === "trialing"
-                      ? "14-day trial"
+                      ? `${TRIAL_DAYS}-day trial`
                       : "Active"
                     : "Payment or confirmation needed"}
                 </dd>
@@ -137,34 +122,13 @@ export default async function MembershipPage({
                 </dd>
               </div>
             </dl>
-            {data.scheduled_price_id && (
-              <p className="mt-5">
-                Pending contribution: $
-                {contribution(data.scheduled_price_id) ?? "unknown"} USD/month,
-                starting {date(data.scheduled_change_at)}.
-              </p>
-            )}
-            <BillingForm
-              editable={
-                ["active", "trialing"].includes(data.status) && !unavailable
-              }
-              canceling={data.cancel_at_period_end}
-              pendingChange={Boolean(data.scheduled_price_id)}
-              currentAmount={amount}
-            />
+            <BillingManagement />
           </section>
         )}
         {!ongoing && (
           <CheckoutForm trialUsed={Boolean(data?.trial_started_at)} />
         )}
-        {!ongoing && data?.stripe_customer_id && (
-          <BillingForm
-            editable={false}
-            canceling={false}
-            pendingChange={false}
-            currentAmount={amount}
-          />
-        )}
+        {!ongoing && data?.stripe_customer_id && <BillingManagement />}
         <Link href="/dashboard" className="mt-6 inline-block underline">
           Back to your account
         </Link>

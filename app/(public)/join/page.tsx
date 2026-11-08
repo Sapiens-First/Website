@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Kicker } from "@/components/ui/Text";
 import { signInWithGoogle } from "@/app/auth/actions";
-import { getPublicAccount } from "@/lib/members/access";
+import { getPublicAccount, getMembershipState } from "@/lib/members/access";
 import { redirect } from "next/navigation";
 import { memberReturnPath } from "@/lib/members/interests";
-import { getMembershipState, ensureProfile } from "@/lib/members/access";
+import { TRIAL_DAYS } from "@/lib/members/plans";
 
 export const dynamic = "force-dynamic";
 
@@ -39,15 +39,11 @@ export default async function Page({
     message =
       "We couldn’t check your existing session. Please try signing in again.";
   if (!message && account) {
-    await ensureProfile(account.supabase, account.user.id);
+    // Onboarding returns to `next` immediately when the profile is complete.
+    if (next !== "/dashboard" && next !== "/membership")
+      redirect(`/onboarding?next=${encodeURIComponent(next)}`);
     const { allowed } = await getMembershipState();
-    redirect(
-      next === "/dashboard/profile"
-        ? next
-        : allowed
-          ? "/dashboard"
-          : "/membership",
-    );
+    redirect(allowed ? "/dashboard" : "/membership");
   }
   return (
     <main
@@ -70,8 +66,8 @@ export default async function Page({
         <p className="mt-6 max-w-lg text-lg leading-relaxed sm:text-xl">
           Join from $1, $10 or $20 USD per month, with the same benefits at
           every amount. Sign in, complete your profile and choose your
-          contribution. New members can start a 14-day trial with a payment
-          card.
+          contribution. New members can start a {TRIAL_DAYS}-day trial with a
+          payment card.
         </p>
         <form action={signInWithGoogle} id="signup" className="mt-8">
           <input type="hidden" name="next" value={next} />

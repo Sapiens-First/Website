@@ -2,7 +2,40 @@
 
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/Action";
-import { startCheckout } from "./actions";
+import { startCheckout, confirmCheckout, manageBilling } from "./actions";
+import { CONTRIBUTIONS, TRIAL_DAYS } from "@/lib/members/plans";
+
+export function BillingManagement() {
+  const [state, action, pending] = useActionState(manageBilling, {
+    error: null,
+  });
+  return (
+    <form action={action} className="mt-6 space-y-3">
+      <Button type="submit" disabled={pending}>
+        {pending ? "Opening billing…" : "Manage billing"}
+      </Button>
+      {state.error && <p role="alert">{state.error}</p>}
+    </form>
+  );
+}
+
+export function CheckoutConfirmation() {
+  const [state, action, pending] = useActionState(confirmCheckout, {
+    error: null,
+  });
+  return (
+    <form action={action} className="mt-5 space-y-3">
+      <p>
+        Payment or trial confirmation is pending. Dashboard access opens only
+        after confirmation.
+      </p>
+      <Button type="submit" disabled={pending}>
+        {pending ? "Checking…" : "Check confirmation"}
+      </Button>
+      {state.error && <p role="status">{state.error}</p>}
+    </form>
+  );
+}
 
 export default function CheckoutForm({ trialUsed }: { trialUsed: boolean }) {
   const [state, action, pending] = useActionState(startCheckout, {
@@ -17,7 +50,7 @@ export default function CheckoutForm({ trialUsed }: { trialUsed: boolean }) {
           Choose your monthly contribution (USD)
         </legend>
         <div className="mt-3 flex flex-wrap gap-4">
-          {["1", "10", "20"].map((value) => (
+          {CONTRIBUTIONS.map((value) => (
             <label
               key={value}
               className="flex cursor-pointer items-center gap-3 border-2 border-ink bg-white px-5 py-4"
@@ -48,7 +81,7 @@ export default function CheckoutForm({ trialUsed }: { trialUsed: boolean }) {
               onChange={() => setPayment("trial")}
               required
             />
-            Start my eligible 14-day trial
+            Start my eligible {TRIAL_DAYS}-day trial
           </label>
         )}
         <label className="flex items-center gap-3">
@@ -65,7 +98,7 @@ export default function CheckoutForm({ trialUsed }: { trialUsed: boolean }) {
       </fieldset>
       <p className="max-w-xl leading-relaxed">
         {payment === "trial"
-          ? `A payment method is required. Your 14-day trial starts when you complete Checkout, followed by $${amount} USD per month automatically. Stripe shows the exact first charge date before you confirm.`
+          ? `A payment method is required. Your ${TRIAL_DAYS}-day trial starts when you complete Checkout, followed by $${amount} USD per month automatically. Stripe shows the exact first charge date before you confirm.`
           : `You’ll pay $${amount} USD now, then automatically each month.`}{" "}
         Cancel renewal anytime in billing management. Access continues through
         your trial or paid period.

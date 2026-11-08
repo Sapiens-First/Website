@@ -9,8 +9,6 @@ import { redirect } from "next/navigation";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
 import { isProfileComplete, type ProfileField } from "./profile";
 import { memberReturnPath } from "./interests";
-import { billingServerClients } from "./checkout";
-import { reconcileMembership } from "./webhook";
 
 class AccountAuthenticationError extends Error {}
 
@@ -55,63 +53,60 @@ export async function requireAccountProfile(returnTo: string = "/dashboard") {
   const next = memberReturnPath(returnTo);
   const account = await getCurrentAccount();
   if (!account) redirect(`/join?next=${encodeURIComponent(next)}`);
-  const { data: profile, error } = await account.supabase
+  return {
+    ...account,
+    profile: await readProfile(account.supabase, account.user.id, next),
+  };
+}
+
+async function readProfile(
+  supabase: SupabaseClient,
+  userId: string,
+  next: string,
+) {
+  const { data: profile, error } = await supabase
     .from("profiles")
     .select("id,full_name,country_code,city,region,postal_code,phone,address")
-    .eq("id", account.user.id)
+    .eq("id", userId)
     .maybeSingle();
   if (error) throw new Error("Your account profile could not be loaded.");
   if (!profile)
     redirect(`/join?error=profile&next=${encodeURIComponent(next)}`);
-  return {
-    ...account,
-    profile: profile as { id: string } & Record<ProfileField, string | null>,
-  };
+  return profile as { id: string } & Record<ProfileField, string | null>;
 }
 
-export const getMembershipState = cache(async (refresh = false) => {
-  const account = await requireAccountProfile();
-  if (!isProfileComplete(account.profile)) redirect("/onboarding");
-  const readAccess = async () => {
-    const { data, error } = await account.supabase
-      .rpc("membership_access")
-      .maybeSingle();
-    if (error) throw new Error("Your membership access could not be verified.");
-    return data as {
-      allowed: boolean;
-      stripe_customer_id: string | null;
-    } | null;
-  };
-  let membership = await readAccess();
-  let unavailable = false;
-  if ((refresh || !membership?.allowed) && membership?.stripe_customer_id) {
-    try {
-      const { stripe, database, prices } = billingServerClients();
-      await reconcileMembership(
-        membership.stripe_customer_id,
-        stripe,
-        database,
-        Object.values(prices) as string[],
-      );
-      membership = await readAccess();
-    } catch (error) {
-      console.error("Membership access reconciliation failed", {
-        type: error instanceof Error ? error.name : "database_error",
-      });
-      // An outage must not extend expired access. Account/billing remain usable.
-      unavailable = true;
-    }
-  }
+export type MembershipRow = {
+  allowed: boolean;
+  status: string;
+  stripe_customer_id: string | null;
+  stripe_price_id: string | null;
+  trial_started_at: string | null;
+  trial_end: string | null;
+  current_period_end: string | null;
+  cancel_at_period_end: boolean;
+};
+
+// One read returns both the database-clock access decision and display fields.
+export const getMembershipState = cache(async (returnTo = "/dashboard") => {
+  const next = memberReturnPath(returnTo);
+  const account = await getCurrentAccount();
+  if (!account) redirect(`/join?next=${encodeURIComponent(next)}`);
+  const [profile, { data, error }] = await Promise.all([
+    readProfile(account.supabase, account.user.id, next),
+    account.supabase.rpc("membership_access").maybeSingle<MembershipRow>(),
+  ]);
+  if (!isProfileComplete(profile))
+    redirect(`/onboarding?next=${encodeURIComponent(next)}`);
+  if (error) throw new Error("Your membership access could not be verified.");
   return {
-    account,
-    allowed: !unavailable && Boolean(membership?.allowed),
-    unavailable,
+    account: { ...account, profile },
+    allowed: Boolean(data?.allowed),
+    membership: data,
   };
 });
 
 export const getMembershipAccess = cache(async () => {
-  const { account, allowed, unavailable } = await getMembershipState();
-  if (!allowed)
-    redirect(unavailable ? "/membership?error=verification" : "/membership");
+  const { account, allowed } = await getMembershipState();
+  if (!allowed) redirect("/membership");
   return account;
 });

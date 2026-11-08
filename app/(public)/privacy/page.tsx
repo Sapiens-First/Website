@@ -48,6 +48,34 @@ export default function Page() {
             </div>
             <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
               <h2 className="font-display text-3xl font-extrabold uppercase">
+                Membership billing
+              </h2>
+              <p>
+                Membership costs $1, $10 or $20 USD per month, with the same
+                benefits at every amount. Eligible accounts can begin a 14-day
+                trial with a payment card. After the trial, the selected monthly
+                contribution is charged automatically unless you cancel renewal.
+              </p>
+              <p>
+                Stripe processes membership payments. We share your account
+                email and name with Stripe and store billing identifiers,
+                membership status and billing dates in Supabase. We do not store
+                your full card number. Stripe handles payment details under its{" "}
+                <a className="underline" href="https://stripe.com/privacy">
+                  Privacy Policy
+                </a>
+                .
+              </p>
+              <p>
+                Cancel renewal anytime through billing management. Access
+                continues through your trial or paid period. We don’t offer
+                routine partial-month refunds, except where required by law.
+                Failed renewal payments end member access until payment
+                recovers.
+              </p>
+            </div>
+            <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
+              <h2 className="font-display text-3xl font-extrabold uppercase">
                 Campaign signatures
               </h2>
               <p>

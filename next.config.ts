@@ -4,6 +4,22 @@ import { site } from "./lib/site";
 const atlasHost = new URL(site.atlasUrl).hostname.replaceAll(".", "\\.");
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      "/join",
+      "/auth/:path*",
+      "/onboarding/:path*",
+      "/membership/:path*",
+      "/dashboard/:path*",
+    ].map((source) => ({
+      source,
+      headers: [
+        { key: "X-Frame-Options", value: "DENY" },
+        { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+        { key: "X-Content-Type-Options", value: "nosniff" },
+      ],
+    }));
+  },
   async redirects() {
     return [
       ...["/atlas", "/atlas.html"].map((source) => ({

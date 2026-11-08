@@ -1,5 +1,5 @@
 import StripeClient from "stripe";
-import { billingServerClients } from "@/lib/members/checkout";
+import { getServerBillingClients } from "@/lib/stripe";
 import { synchronizeMembership } from "@/lib/members/webhook";
 
 export const runtime = "nodejs";
@@ -14,27 +14,16 @@ export async function POST(request: Request) {
   let event: StripeClient.Event;
   try {
     const body = await request.text();
-    if (Buffer.byteLength(body) > 1_048_576)
-      return new Response("Payload too large", { status: 413 });
-    event = new StripeClient(key).webhooks.constructEvent(
-      body,
-      signature,
-      secret,
-    );
+    event = StripeClient.webhooks.constructEvent(body, signature, secret);
   } catch {
     return new Response("Invalid signature or payload", { status: 400 });
   }
   try {
-    const { stripe, database, prices, livemode } = billingServerClients();
+    const { stripe, database, prices, livemode } = getServerBillingClients();
     if (event.livemode !== livemode || event.account) {
       return new Response("Wrong Stripe environment", { status: 400 });
     }
-    await synchronizeMembership(
-      event,
-      stripe,
-      database,
-      Object.values(prices) as string[],
-    );
+    await synchronizeMembership(event, stripe, database, Object.values(prices));
     return Response.json({ received: true });
   } catch (error) {
     console.error("Stripe webhook synchronization failed", {

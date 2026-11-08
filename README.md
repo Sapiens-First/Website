@@ -57,9 +57,3 @@ Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; ac
 Dynamic routes use `app/loading.tsx` while server data is pending. The dashboard reuses that fallback inside its account layout, preserving account navigation. The root layout reserves a growing content area so the footer does not jump beneath the header during streamed responses. These fallbacks improve navigation feedback; authentication and profile reads still run on the server.
 
 Run lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.
-
-## Member release checks
-
-Before publishing the reviewed batch, configure all three variables in `.env.example` for the target Vercel environment and redeploy. Match `APP_URL` and the Supabase redirect allowlist to that exact deployment origin. Publish the Google OAuth app for public sign-in when ready; Testing mode only permits the configured test audience. For Google-only accounts, disable unused email/password sign-in in Supabase. If passwords are offered later, enable the appropriate password protections.
-
-Verify first and returning Google sign-in, cancellation, expired callbacks, sign-out, browser refresh, incomplete-profile routing and editing on the target environment. Confirm signed-out dashboard/profile requests return no member details, account responses are private/no-store, two authenticated accounts cannot read or modify each other's profiles, and ID/timestamp fields cannot be edited. Test narrow screens, keyboard navigation, field errors, Atlas, public Learn/calendar and the remaining campaign/fellowship/circle forms. No member marketing opt-in, payments or private course delivery is implemented yet.

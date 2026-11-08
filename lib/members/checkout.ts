@@ -6,13 +6,10 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 export class CheckoutError extends Error {}
 
-export function billingClients() {
+export function billingServerClients() {
   const key = process.env.STRIPE_SECRET_KEY;
   const url = process.env.SUPABASE_URL;
   const secret = process.env.SUPABASE_SECRET_KEY;
-  const portalConfigurationId = process.env.STRIPE_PORTAL_CONFIGURATION_ID;
-  const paymentMethodConfigurationId =
-    process.env.STRIPE_PAYMENT_METHOD_CONFIGURATION_ID;
   const prices = {
     "1": process.env.STRIPE_PRICE_MONTHLY_1,
     "10": process.env.STRIPE_PRICE_MONTHLY_10,
@@ -23,8 +20,6 @@ export function billingClients() {
     !/^(rk|sk)_(test|live)_/.test(key) ||
     !url ||
     !secret ||
-    !portalConfigurationId ||
-    !paymentMethodConfigurationId ||
     Object.values(prices).some((price) => !price) ||
     new Set(Object.values(prices)).size !== 3
   )
@@ -39,9 +34,20 @@ export function billingClients() {
       },
     }),
     prices,
+    livemode: /^(rk|sk)_live_/.test(key),
+  };
+}
+
+export function billingClients() {
+  const portalConfigurationId = process.env.STRIPE_PORTAL_CONFIGURATION_ID;
+  const paymentMethodConfigurationId =
+    process.env.STRIPE_PAYMENT_METHOD_CONFIGURATION_ID;
+  if (!portalConfigurationId || !paymentMethodConfigurationId)
+    throw new CheckoutError("Membership checkout is not configured yet.");
+  return {
+    ...billingServerClients(),
     portalConfigurationId,
     paymentMethodConfigurationId,
-    livemode: /^(rk|sk)_live_/.test(key),
   };
 }
 

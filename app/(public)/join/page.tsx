@@ -7,13 +7,14 @@ import { signInWithGoogle } from "@/app/auth/actions";
 import { getPublicAccount } from "@/lib/members/access";
 import { redirect } from "next/navigation";
 import { memberReturnPath } from "@/lib/members/interests";
+import { getMembershipState, ensureProfile } from "@/lib/members/access";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMetadata({
   title: "Join",
   description:
-    "Create your free Sapiens First account with Google and connect with the movement.",
+    "Join Sapiens First from $1 USD per month. Every contribution includes the same membership.",
   path: "/join",
 });
 
@@ -37,12 +38,17 @@ export default async function Page({
   if (unavailable)
     message =
       "We couldn’t check your existing session. Please try signing in again.";
-  if (!message && account)
+  if (!message && account) {
+    await ensureProfile(account.supabase, account.user.id);
+    const { allowed } = await getMembershipState();
     redirect(
-      next === "/dashboard"
+      next === "/dashboard/profile"
         ? next
-        : `/onboarding?next=${encodeURIComponent(next)}`,
+        : allowed
+          ? "/dashboard"
+          : "/membership",
     );
+  }
   return (
     <main
       className="grid border-b-2 border-ink md:min-h-[calc(100svh-112px)] md:grid-cols-2"
@@ -62,8 +68,10 @@ export default async function Page({
           </span>
         </h1>
         <p className="mt-6 max-w-lg text-lg leading-relaxed sm:text-xl">
-          Create your free account to connect with Sapiens First and get
-          involved.
+          Join from $1, $10 or $20 USD per month, with the same benefits at
+          every amount. Sign in, complete your profile and choose your
+          contribution. New members can start a 14-day trial with a payment
+          card.
         </p>
         <form action={signInWithGoogle} id="signup" className="mt-8">
           <input type="hidden" name="next" value={next} />

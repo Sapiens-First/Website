@@ -9,6 +9,37 @@ import {
   CheckoutError,
   createMembershipCheckout,
 } from "@/lib/members/checkout";
+import { updateMembershipBilling } from "@/lib/members/billing";
+import { revalidatePath } from "next/cache";
+
+export async function manageBilling(
+  _previous: { error: string | null },
+  form: FormData,
+): Promise<{ error: string | null }> {
+  const { user } = await requireAccountProfile("/membership");
+  let destination: string | null;
+  try {
+    if (
+      form.getAll("operation").length !== 1 ||
+      form.getAll("amount").length > 1
+    )
+      throw new CheckoutError("Choose a valid billing action.");
+    destination = await updateMembershipBilling(
+      user.id,
+      String(form.get("operation")),
+      String(form.get("amount")),
+    );
+  } catch (error) {
+    return {
+      error:
+        error instanceof CheckoutError
+          ? error.message
+          : "Billing couldn’t be updated. Please refresh and try again.",
+    };
+  }
+  revalidatePath("/membership");
+  redirect(destination ?? "/membership?billing=updated");
+}
 
 export async function startCheckout(
   _previous: { error: string | null },

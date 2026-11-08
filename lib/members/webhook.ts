@@ -27,6 +27,10 @@ export const membershipEvents = new Set([
   "charge.dispute.closed",
   "radar.early_fraud_warning.created",
   "radar.early_fraud_warning.updated",
+  "subscription_schedule.updated",
+  "subscription_schedule.released",
+  "subscription_schedule.completed",
+  "subscription_schedule.canceled",
 ]);
 
 const id = (value: string | { id: string } | null | undefined) =>
@@ -36,7 +40,11 @@ const date = (seconds: number | null | undefined) =>
 
 async function eventCustomer(stripe: Stripe, event: Stripe.Event) {
   const object = event.data.object;
-  if (object.object === "subscription" || object.object === "checkout.session")
+  if (
+    object.object === "subscription" ||
+    object.object === "checkout.session" ||
+    object.object === "subscription_schedule"
+  )
     return id(object.customer);
   if (object.object === "invoice") {
     const invoice = await stripe.invoices.retrieve(object.id);
@@ -164,6 +172,20 @@ export async function reconcileMembership(
     const subscription = subscriptions[0];
     if (!subscription) return "ignored";
     const item = subscription.items.data[0];
+    const scheduleId = id(subscription.schedule);
+    const schedule = scheduleId
+      ? await stripe.subscriptionSchedules.retrieve(scheduleId)
+      : null;
+    const nextPhase =
+      schedule?.status === "active"
+        ? schedule.phases.find(
+            (phase) =>
+              phase.start_date >= item.current_period_end &&
+              phase.items.length === 1 &&
+              id(phase.items[0].price) !== item.price.id &&
+              prices.includes(id(phase.items[0].price)!),
+          )
+        : null;
     const approved =
       subscription.items.data.length === 1 &&
       item.quantity === 1 &&
@@ -238,6 +260,8 @@ export async function reconcileMembership(
           paid_until: date(paidUntil),
           cancel_at_period_end: subscription.cancel_at_period_end,
           stripe_schedule_id: id(subscription.schedule) ?? null,
+          scheduled_price_id: nextPhase ? id(nextPhase.items[0].price) : null,
+          scheduled_change_at: date(nextPhase?.start_date),
         },
       },
     );

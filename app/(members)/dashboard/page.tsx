@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink, Button } from "@/components/ui/Action";
 import { Kicker } from "@/components/ui/Text";
 import { getMembershipAccess } from "@/lib/members/access";
 
@@ -13,10 +13,14 @@ export const metadata: Metadata = {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; updated?: string }>;
+  searchParams: Promise<{
+    error?: string;
+    updated?: string;
+    membership?: string;
+  }>;
 }) {
   const { profile } = await getMembershipAccess();
-  const { error, updated } = await searchParams;
+  const { error, updated, membership } = await searchParams;
   return (
     <main className="py-16 sm:py-24">
       <Container width="content">
@@ -26,6 +30,11 @@ export default async function DashboardPage({
             ? `Welcome, ${profile.full_name}.`
             : "Welcome to Sapiens First."}
         </h1>
+        {membership === "confirmed" && (
+          <p role="status" className="mt-6 border-l-4 border-ink p-3">
+            Your membership is confirmed. Welcome in.
+          </p>
+        )}
         {updated === "profile" && (
           <p role="status" className="mt-6 border-l-4 border-ink p-3">
             Your profile has been saved.
@@ -37,6 +46,9 @@ export default async function DashboardPage({
           </p>
         )}
         <div className="mt-8 flex flex-wrap gap-4">
+          <ActionLink href="/membership" variant="primary">
+            Manage membership
+          </ActionLink>
           <ActionLink href="/dashboard/profile" variant="outline">
             Edit your profile
           </ActionLink>
@@ -47,6 +59,13 @@ export default async function DashboardPage({
             Explore learning resources
           </ActionLink>
         </div>
+        <Button
+          type="button"
+          disabled
+          className="mt-6 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          Connect with Discord — Coming soon
+        </Button>
         <p className="mt-6 text-lg">
           Your membership is active. Open events and learning resources remain
           available to everyone.

@@ -69,7 +69,7 @@ export async function requireAccountProfile(returnTo: string = "/dashboard") {
   };
 }
 
-export const getMembershipAccess = cache(async () => {
+export const getMembershipState = cache(async (refresh = false) => {
   const account = await requireAccountProfile();
   if (!isProfileComplete(account.profile)) redirect("/onboarding");
   const readAccess = async () => {
@@ -83,7 +83,8 @@ export const getMembershipAccess = cache(async () => {
     } | null;
   };
   let membership = await readAccess();
-  if (!membership?.allowed && membership?.stripe_customer_id) {
+  let unavailable = false;
+  if ((refresh || !membership?.allowed) && membership?.stripe_customer_id) {
     try {
       const { stripe, database, prices } = billingServerClients();
       await reconcileMembership(
@@ -98,9 +99,19 @@ export const getMembershipAccess = cache(async () => {
         type: error instanceof Error ? error.name : "database_error",
       });
       // An outage must not extend expired access. Account/billing remain usable.
-      redirect("/membership?error=verification");
+      unavailable = true;
     }
   }
-  if (!membership?.allowed) redirect("/membership");
+  return {
+    account,
+    allowed: !unavailable && Boolean(membership?.allowed),
+    unavailable,
+  };
+});
+
+export const getMembershipAccess = cache(async () => {
+  const { account, allowed, unavailable } = await getMembershipState();
+  if (!allowed)
+    redirect(unavailable ? "/membership?error=verification" : "/membership");
   return account;
 });

@@ -25,7 +25,7 @@ export default async function OnboardingPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const next = memberReturnPath((await searchParams).next);
+  const next = memberReturnPath((await searchParams).next ?? "/membership");
   const { user, profile } = await requireAccountProfile(next);
   if (isProfileComplete(profile)) redirect(next);
   const countries = getProfileCountries();

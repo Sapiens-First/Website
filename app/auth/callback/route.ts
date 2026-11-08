@@ -36,8 +36,8 @@ export async function GET(request: NextRequest) {
     return respond("/join?error=profile");
   }
   return respond(
-    next === "/dashboard"
-      ? next
+    next === "/dashboard" || next === "/membership"
+      ? "/join"
       : `/onboarding?next=${encodeURIComponent(next)}`,
   );
 }

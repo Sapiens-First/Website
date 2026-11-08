@@ -38,12 +38,6 @@ Before release, confirm `atlas.sapiensfirst.org` is attached to the existing Ver
 
 Circle and Fellowship interests are open to everyone and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
 
-## Supabase connection
-
-The connection uses the Website project in the SapiensFirst organization. Its public Atlas tables contain the initial CSV snapshot.
-
-Copy `.env.example` to `.env.local` and fill in `SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` from the project's Connect dialog. `.env.local` is Git-ignored. Add the same variables to the appropriate Vercel environment before deploying database-dependent changes.
-
 ## Google sign-in
 
 Set `APP_URL` to the exact website origin: `http://localhost:3000` locally, the chosen Preview origin for testing, or `https://sapiensfirst.org` in Production. The callback uses this configured origin, never a request-supplied destination. These variables are server-only; no Google secret or privileged Supabase key is required in the website environment.

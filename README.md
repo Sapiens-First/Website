@@ -37,23 +37,3 @@ Atlas's canonical address is `https://atlas.sapiensfirst.org/`. The same Vercel 
 Before release, confirm `atlas.sapiensfirst.org` is attached to the existing Vercel project's Production environment with working DNS and HTTPS. Follow the branch/PR and local review workflow; after the approved squash merge, verify the Atlas root, legacy record links, assets, main-site navigation and sign-in on Production. Run `npm run test:atlas-routing` for the routing checks.
 
 Circle and Fellowship interests are open to everyone and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
-
-## Google sign-in
-
-Set `APP_URL` to the exact website origin: `http://localhost:3000` locally, the chosen Preview origin for testing, or `https://sapiensfirst.org` in Production. The callback uses this configured origin, never a request-supplied destination. These variables are server-only; no Google secret or privileged Supabase key is required in the website environment.
-
-Enable Google in Supabase Authentication using the organization's Google OAuth client ID and secret. In Google Cloud, register the callback URL shown by Supabase, with only basic OpenID, email and profile scopes. In Supabase URL Configuration, set the production Site URL and allow `<APP_URL>/auth/callback` for every environment used. Localhost hostnames and ports must match the browser URL.
-
-Apply all versioned Supabase migrations on new databases, including `campaign_signatures`; they are applied to Website. `/join` starts Google sign-in, `/auth/callback` exchanges the PKCE code and creates a missing profile without overwriting existing details, and `/dashboard` provides a protected account landing and current-session sign-out. Incomplete profiles go to `/onboarding`; completed profiles go to the dashboard. Membership entry points on the homepage link to `/join`. Campaign intake uses the write-only `sign_campaign` database function.
-
-Circle and Fellowship each have one public email form. The Server Action calls Supabase’s write-only `register_interest` function. `member_interests` stores one row per program and normalized email.
-
-Onboarding requires full name, a recognized ISO country code and city/town/locality. Region, postal code, phone and street address are optional. Profile completion is derived from the stored fields using the same server validation as submission; there is no completion flag or new migration. Name is suggested from Google only when no saved name exists. Country names come from `Intl.DisplayNames`; the shared country-code list controls accepted values. Postal codes use length checks rather than US-only formats. Phone syntax is checked but numbers/addresses are not verified and never imply outreach consent.
-
-The free member portal has an account overview at `/dashboard` and personal-detail editing at `/dashboard/profile`, with shared account navigation and sign-out. Editing reuses onboarding's form and server action: identity is verified on each save, only profile fields are accepted, and the database update is scoped to the signed-in UUID under RLS. Successful saves return to the dashboard. Google email stays in Auth and cannot be edited through this form. `getMembershipAccess()` in `lib/members/access.ts` verifies authentication and a completed profile. `/learn` and `/calendar` remain public; protecting future premium content requires private delivery of its source data.
-
-Authentication uses `@supabase/ssr` cookies and a narrowly scoped `proxy.ts`; account responses must remain dynamic and private. Atlas keeps its independent public client and cache. Before publication, test real Google sign-in, returning sessions, sign-out, callback failures and two-account isolation on localhost and Preview. Never commit credentials or publish before the localhost review.
-
-Dynamic routes use `app/loading.tsx` while server data is pending. The dashboard reuses that fallback inside its account layout, preserving account navigation. The root layout reserves a growing content area so the footer does not jump beneath the header during streamed responses. These fallbacks improve navigation feedback; authentication and profile reads still run on the server.
-
-Run lint, type checking and the production build. Verify authentication and profile flows using the member release checks below.

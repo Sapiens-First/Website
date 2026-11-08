@@ -48,8 +48,8 @@ export default async function DashboardPage({
           </ActionLink>
         </div>
         <p className="mt-6 text-lg">
-          Your free membership includes open events and public learning
-          resources.
+          Your membership is active. Open events and learning resources remain
+          available to everyone.
         </p>
       </Container>
     </main>

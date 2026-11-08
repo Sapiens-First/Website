@@ -9,6 +9,8 @@ import { redirect } from "next/navigation";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
 import { isProfileComplete, type ProfileField } from "./profile";
 import { memberReturnPath } from "./interests";
+import { billingServerClients } from "./checkout";
+import { reconcileMembership } from "./webhook";
 
 class AccountAuthenticationError extends Error {}
 
@@ -62,7 +64,7 @@ export async function requireAccountProfile(returnTo: string = "/dashboard") {
   if (!profile)
     redirect(`/join?error=profile&next=${encodeURIComponent(next)}`);
   return {
-    user: account.user,
+    ...account,
     profile: profile as { id: string } & Record<ProfileField, string | null>,
   };
 }
@@ -70,5 +72,35 @@ export async function requireAccountProfile(returnTo: string = "/dashboard") {
 export const getMembershipAccess = cache(async () => {
   const account = await requireAccountProfile();
   if (!isProfileComplete(account.profile)) redirect("/onboarding");
+  const readAccess = async () => {
+    const { data, error } = await account.supabase
+      .rpc("membership_access")
+      .maybeSingle();
+    if (error) throw new Error("Your membership access could not be verified.");
+    return data as {
+      allowed: boolean;
+      stripe_customer_id: string | null;
+    } | null;
+  };
+  let membership = await readAccess();
+  if (!membership?.allowed && membership?.stripe_customer_id) {
+    try {
+      const { stripe, database, prices } = billingServerClients();
+      await reconcileMembership(
+        membership.stripe_customer_id,
+        stripe,
+        database,
+        Object.values(prices) as string[],
+      );
+      membership = await readAccess();
+    } catch (error) {
+      console.error("Membership access reconciliation failed", {
+        type: error instanceof Error ? error.name : "database_error",
+      });
+      // An outage must not extend expired access. Account/billing remain usable.
+      redirect("/membership?error=verification");
+    }
+  }
+  if (!membership?.allowed) redirect("/membership");
   return account;
 });

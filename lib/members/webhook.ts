@@ -124,7 +124,17 @@ export async function synchronizeMembership(
   if (receipt) return "duplicate";
   const customer = await eventCustomer(stripe, event);
   if (!customer) return "ignored";
+  return reconcileMembership(customer, stripe, database, prices, event);
+}
 
+// Expiry recovery uses the same reconciliation, without inventing Stripe events.
+export async function reconcileMembership(
+  customer: string,
+  stripe: Stripe,
+  database: SupabaseClient,
+  prices: string[],
+  event?: Stripe.Event,
+) {
   for (let attempt = 0; attempt < 3; attempt++) {
     // Read BEFORE Stripe. A concurrent commit invalidates this snapshot and
     // forces another Stripe read, rather than committing stale network results.
@@ -205,9 +215,9 @@ export async function synchronizeMembership(
     const { data: result, error: commitError } = await database.rpc(
       "sync_membership_event",
       {
-        p_event_id: event.id,
-        p_event_type: event.type,
-        p_event_created_at: date(event.created),
+        p_event_id: event?.id ?? null,
+        p_event_type: event?.type ?? null,
+        p_event_created_at: date(event?.created),
         p_customer_id: customer,
         p_expected_updated_at: member.updated_at,
         p_state: {

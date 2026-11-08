@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function MembershipPage({
   searchParams,
 }: {
-  searchParams: Promise<{ checkout?: string }>;
+  searchParams: Promise<{ checkout?: string; error?: string }>;
 }) {
   const { user, profile } = await requireAccountProfile("/membership");
   if (!isProfileComplete(profile)) redirect("/onboarding?next=%2Fmembership");
@@ -28,7 +28,7 @@ export default async function MembershipPage({
     .eq("member_id", user.id)
     .maybeSingle();
   if (error) throw new Error("Your membership could not be loaded.");
-  const { checkout } = await searchParams;
+  const { checkout, error: accessError } = await searchParams;
   return (
     <main className="py-14 sm:py-20">
       <Container width="content" className="max-w-3xl">
@@ -39,6 +39,12 @@ export default async function MembershipPage({
         <p className="mt-6">
           Subscribing as <strong>{user.email}</strong>.
         </p>
+        {accessError === "verification" && (
+          <p role="alert" className="mt-5">
+            We couldn’t confirm your membership right now. You can manage
+            billing below or try opening the dashboard again.
+          </p>
+        )}
         {checkout === "returned" && (
           <p role="status" className="mt-5 border-l-4 border-ink p-3">
             You’ve returned from Stripe. Membership access requires separate
@@ -58,6 +64,12 @@ export default async function MembershipPage({
         <CheckoutForm trialUsed={Boolean(data?.trial_started_at)} />
         <Link href="/dashboard" className="mt-6 inline-block underline">
           Back to your account
+        </Link>
+        <Link
+          href="/dashboard/profile"
+          className="mt-6 ml-6 inline-block underline"
+        >
+          Edit your profile
         </Link>
       </Container>
     </main>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { Kicker } from "@/components/ui/Text";
 import ProfileForm from "@/app/(members)/onboarding/ProfileForm";
-import { getMembershipAccess } from "@/lib/members/access";
+import { requireAccountProfile } from "@/lib/members/access";
 import {
   getProfileCountries,
   initialProfileValues,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProfilePage() {
-  const { user, profile } = await getMembershipAccess();
+  const { user, profile } = await requireAccountProfile("/dashboard/profile");
   return (
     <main className="py-14 sm:py-20">
       <Container width="content" className="max-w-3xl">

@@ -25,14 +25,14 @@ export default async function OnboardingPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const next = memberReturnPath((await searchParams).next);
+  const next = memberReturnPath((await searchParams).next ?? "/membership");
   const { user, profile } = await requireAccountProfile(next);
   if (isProfileComplete(profile)) redirect(next);
   const countries = getProfileCountries();
   return (
     <main className="py-14 sm:py-20">
       <Container width="content" className="max-w-3xl">
-        <Kicker>Your free account</Kicker>
+        <Kicker>Your account</Kicker>
         <h1 className="mt-5 font-display text-5xl leading-none font-extrabold uppercase sm:text-7xl">
           Let’s get to know you.
         </h1>

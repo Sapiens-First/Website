@@ -4,16 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { Kicker } from "@/components/ui/Text";
 import { signInWithGoogle } from "@/app/auth/actions";
-import { getPublicAccount } from "@/lib/members/access";
+import { getPublicAccount, getMembershipState } from "@/lib/members/access";
 import { redirect } from "next/navigation";
 import { memberReturnPath } from "@/lib/members/interests";
+import { TRIAL_DAYS } from "@/lib/members/plans";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = pageMetadata({
   title: "Join",
   description:
-    "Create your free Sapiens First account with Google and connect with the movement.",
+    "Join Sapiens First from $1 USD per month. Every contribution includes the same membership.",
   path: "/join",
 });
 
@@ -37,12 +38,13 @@ export default async function Page({
   if (unavailable)
     message =
       "We couldn’t check your existing session. Please try signing in again.";
-  if (!message && account)
-    redirect(
-      next === "/dashboard"
-        ? next
-        : `/onboarding?next=${encodeURIComponent(next)}`,
-    );
+  if (!message && account) {
+    // Onboarding returns to `next` immediately when the profile is complete.
+    if (next !== "/dashboard" && next !== "/membership")
+      redirect(`/onboarding?next=${encodeURIComponent(next)}`);
+    const { allowed } = await getMembershipState();
+    redirect(allowed ? "/dashboard" : "/membership");
+  }
   return (
     <main
       className="grid border-b-2 border-ink md:min-h-[calc(100svh-112px)] md:grid-cols-2"
@@ -62,8 +64,10 @@ export default async function Page({
           </span>
         </h1>
         <p className="mt-6 max-w-lg text-lg leading-relaxed sm:text-xl">
-          Create your free account to connect with Sapiens First and get
-          involved.
+          Join from $1, $10 or $20 USD per month, with the same benefits at
+          every amount. Sign in, complete your profile and choose your
+          contribution. New members can start a {TRIAL_DAYS}-day trial with a
+          payment card.
         </p>
         <form action={signInWithGoogle} id="signup" className="mt-8">
           <input type="hidden" name="next" value={next} />

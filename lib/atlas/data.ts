@@ -8,20 +8,15 @@ const atlasColumns = {
     ID: "id",
     Name: "name",
     Type: "type",
-    "Program category": "program_category",
     Purpose: "purpose",
     "Parent ID": "parent_id",
     "Circle ID": "circle_id",
     Status: "status",
     Stage: "stage",
-    "Started on": "started_on",
-    "Ended on": "ended_on",
     "Key Features": "key_features",
     User: "target_user",
     "Value Proposition": "value_proposition",
-    "SOP URL": "sop_url",
     "SOP Notes": "sop_notes",
-    "Ownership note": "ownership_note",
   },
   governance: {
     ID: "id",
@@ -33,8 +28,7 @@ const atlasColumns = {
     Scope: "scope",
     Privileges: "privileges",
     Status: "status",
-    "Lead Link": "lead_link",
-    "Person ID": "person_id",
+    "Display initials": "display_initials",
     "Definition note": "definition_note",
     "Engagement level": "engagement_level",
     "Assignment basis": "assignment_basis",
@@ -58,16 +52,16 @@ export async function loadAtlasData(): Promise<AtlasData> {
   const client = createPublicSupabaseClient();
 
   async function read(group: AtlasDataset) {
-    const fields: Record<string, string | readonly string[]> =
-      atlasColumns[group];
-    const columns = Object.values(fields).flat().join(",");
+    const columns: string[] = Object.values(atlasColumns[group]).flat();
+    if (group === "governance") columns.push("profile_id");
+    const selection = columns.join(",");
     const rows: DatabaseRow[] = [];
     let total: number | null = null;
 
     do {
       const { data, error, count } = await client
         .from("atlas_" + group)
-        .select(columns, { count: "exact" })
+        .select(selection, { count: "exact" })
         .order("id")
         .range(rows.length, rows.length + 999)
         .overrideTypes<DatabaseRow[], { merge: false }>();
@@ -85,6 +79,12 @@ export async function loadAtlasData(): Promise<AtlasData> {
       rows.push(...data);
     } while (rows.length < total);
 
+    return rows;
+  }
+
+  function mapRows(group: AtlasDataset, rows: DatabaseRow[]) {
+    const fields: Record<string, string | readonly string[]> =
+      atlasColumns[group];
     return rows.map((row) =>
       Object.fromEntries(
         Object.entries(fields).map(([header, column]) => {
@@ -108,9 +108,44 @@ export async function loadAtlasData(): Promise<AtlasData> {
     read("governance"),
     read("relationships"),
   ]);
+
+  const governanceRows = mapRows("governance", governance) as AtlasRow[];
+  const rolesByProfile = new Map<string, AtlasRow[]>();
+  for (const [index, row] of governance.entries()) {
+    if (
+      !row.profile_id ||
+      !row.id ||
+      !row.display_initials ||
+      row.status === "Retired" ||
+      row.status === "Completed"
+    )
+      continue;
+    const role = governanceRows[index];
+    const roles = rolesByProfile.get(row.profile_id);
+    if (roles) roles.push(role);
+    else rolesByProfile.set(row.profile_id, [role]);
+  }
+
+  const people = [...rolesByProfile.values()].map((roles) => {
+    const [first] = roles.sort((a, b) => a.Name.localeCompare(b.Name));
+    return {
+      id: first.ID,
+      name: first["Display initials"],
+      level: first["Engagement level"],
+      roles,
+    };
+  });
+  people.sort(
+    (a, b) =>
+      Number(b.level === "Staff") - Number(a.level === "Staff") ||
+      a.name.localeCompare(b.name) ||
+      a.id.localeCompare(b.id),
+  );
+
   return {
-    domains: domains as AtlasRow[],
-    governance: governance as AtlasRow[],
-    relationships: relationships as Relationship[],
+    domains: mapRows("domains", domains) as AtlasRow[],
+    governance: governanceRows,
+    relationships: mapRows("relationships", relationships) as Relationship[],
+    people,
   };
 }

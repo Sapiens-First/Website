@@ -20,6 +20,7 @@ export interface AtlasData {
   domains: AtlasRow[];
   governance: AtlasRow[];
   relationships: Relationship[];
+  people: { id: string; name: string; level: string; roles: AtlasRow[] }[];
 }
 interface Location {
   view: View;
@@ -42,7 +43,8 @@ export function parseLocation(hash: string, data: AtlasData): Location {
   const hasFormat = ["circles", "outline", "table", "alignment"].includes(
     marker,
   );
-  const selected = (hasFormat ? parts[2] : parts[1]) || "";
+  const selected =
+    view === "people" ? "" : (hasFormat ? parts[2] : parts[1]) || "";
   if (view !== "people") {
     if (data.domains.some((row) => row.ID === selected)) view = "domains";
     if (data.governance.some((row) => row.ID === selected)) view = "governance";
@@ -57,12 +59,7 @@ export function parseLocation(hash: string, data: AtlasData): Location {
   return { view, format, selected };
 }
 export function recordHref(id: string, format?: Format) {
-  const group = id.startsWith("D-")
-    ? "domains"
-    : id.startsWith("P-")
-      ? "people"
-      : "governance";
-  if (group === "people") return `#people/${id}`;
+  const group = id.startsWith("D-") ? "domains" : "governance";
   const compatible =
     group === "domains"
       ? format !== "circles"
@@ -100,10 +97,8 @@ function createOwnership(data: AtlasData, today: string) {
         return { circleId, reason: "policy", note: circle["Coverage policy"] };
       if (!circle["Parent Circle ID"] && !circle["Circle Lead policy"])
         return { circleId, reason: "anchor" };
-      const names = (circle["Lead Link"] || "").trim();
-      if (names && names.toLowerCase() !== "unassigned")
-        return { circleId, reason: "assigned", names };
-      if (!names) return { circleId, reason: "unknown" };
+      const names = circle["Display initials"];
+      if (names) return { circleId, reason: "assigned", names };
       circleId = circle["Parent Circle ID"];
     }
     return { circleId: "", reason: "unknown" };
@@ -121,7 +116,7 @@ function createOwnership(data: AtlasData, today: string) {
       const owner = governance.get(ids[0]);
       if (owner?.Type === "Circle")
         return { ids, kind: "circle", coverage: circleCoverage(owner.ID) };
-      if (owner?.["Lead Link"]?.trim().toLowerCase() === "unassigned")
+      if (owner && !owner["Display initials"])
         return {
           ids,
           kind: "unfilled",
@@ -161,32 +156,6 @@ export function createAtlasLookups(
   }
 
   return { rowsById, responsibilityByDomain, domainsByOwner };
-}
-export function atlasPeople(records: AtlasRow[]) {
-  const people = new Map<
-    string,
-    { id: string; name: string; level: string; roles: AtlasRow[] }
-  >();
-  for (const row of records) {
-    const id = row["Person ID"];
-    if (!id || ["Retired", "Completed"].includes(row.Status)) continue;
-    if (!people.has(id))
-      people.set(id, {
-        id,
-        name: row["Lead Link"],
-        level: row["Engagement level"],
-        roles: [],
-      });
-    people.get(id)!.roles.push(row);
-  }
-  for (const person of people.values())
-    person.roles.sort((a, b) => a.Name.localeCompare(b.Name));
-  return [...people.values()].sort(
-    (a, b) =>
-      Number(b.level === "Staff") - Number(a.level === "Staff") ||
-      a.name.localeCompare(b.name) ||
-      a.id.localeCompare(b.id),
-  );
 }
 export function alignmentMatrix(data: AtlasData, type: string) {
   const domains = data.domains.filter((row) => row.Status !== "Retired");

@@ -32,13 +32,13 @@ export function RecordLink({
   );
 }
 function Assignee({ row }: { row: AtlasRow }) {
-  return row["Person ID"] ? (
+  return row["Display initials"] ? (
     <>
-      <a href={`#people/${row["Person ID"]}`}>{row["Lead Link"]}</a>
+      {row["Display initials"]}
       {row["Engagement level"] && ` · ${row["Engagement level"]}`}
     </>
   ) : (
-    <>{row["Lead Link"] || "Not recorded"}</>
+    <>Unassigned</>
   );
 }
 export function LinkedRecords({
@@ -69,7 +69,7 @@ export function Ownership({ row, format }: { row: AtlasRow; format?: Format }) {
       <LinkedRecords ids={result.ids} format={format} />
       {result.ids.map((id) => {
         const owner = rowsById.get(id);
-        return owner?.["Person ID"] ? (
+        return owner?.["Display initials"] ? (
           <p key={id} className={"mt-2 text-xs leading-relaxed text-ink"}>
             Energized by <Assignee row={owner} />
           </p>
@@ -120,8 +120,7 @@ export function extraFields(row: AtlasRow) {
     "Parent ID",
     "Parent Circle ID",
     "Status",
-    "Lead Link",
-    "Person ID",
+    "Display initials",
     "Engagement level",
     "Definition note",
     "Assignment basis",

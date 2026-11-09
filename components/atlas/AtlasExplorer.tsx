@@ -8,7 +8,6 @@ import {
   useSyncExternalStore,
 } from "react";
 import {
-  atlasPeople,
   createAtlasLookups,
   defaultFormat,
   parentField,
@@ -47,7 +46,8 @@ const titles = {
 const descriptions = {
   governance: "Explore roles, responsibilities, and access.",
   domains: "See how our work connects to the mission.",
-  people: "See who fills each role. Fellows use two-letter public names.",
+  people:
+    "See who fills each role. Contributors are listed by their public initials.",
 };
 export default function AtlasExplorer({
   data,
@@ -107,7 +107,7 @@ export default function AtlasExplorer({
         .toLowerCase()
         .includes(normalizedQuery),
   );
-  const people = useMemo(() => atlasPeople(data.governance), [data]);
+  const { people } = data;
   const matchingPeople = people.filter((person) =>
     [person.name, person.level, ...person.roles.map((role) => role.Name)]
       .join(" ")
@@ -122,19 +122,13 @@ export default function AtlasExplorer({
     setQuery("");
     const hash =
       nextView === "people"
-        ? `#people${id ? `/${id}` : ""}`
+        ? "#people"
         : `#${nextView}/${nextFormat}${id ? `/${id}` : ""}`;
     window.location.assign(hash);
   }
   useEffect(() => {
     if (!selected) return;
-    const element =
-      view === "people"
-        ? document.querySelector<HTMLElement>(
-            `[data-person-id="${CSS.escape(selected)}"]`,
-          )
-        : document.getElementById("record-title");
-    element?.focus();
+    document.getElementById("record-title")?.focus();
   }, [selected, view, format]);
   const formats: Format[] =
     view === "domains"
@@ -292,17 +286,17 @@ export default function AtlasExplorer({
         {view === "people" ? (
           <>
             <div className="flex flex-col overflow-hidden rounded-lg border border-line bg-white">
-              {!matchingPeople.length && <p>No people match this search.</p>}
+              {!matchingPeople.length && (
+                <p>
+                  {people.length
+                    ? "No people match this search."
+                    : "No contributors have been assigned yet."}
+                </p>
+              )}
               {matchingPeople.map((person) => (
                 <article
                   key={person.id}
-                  className={cn(
-                    "border-b border-rule p-4 transition-colors duration-150 last:border-b-0 hover:bg-surface",
-                    selected === person.id &&
-                      "bg-[color-mix(in_srgb,var(--color-coral)_8%,white)] shadow-[inset_3px_0_0_var(--color-coral-dark)]",
-                  )}
-                  data-person-id={person.id}
-                  tabIndex={-1}
+                  className="border-b border-rule p-4 transition-colors duration-150 last:border-b-0 hover:bg-surface"
                   aria-labelledby={`person-${person.id}`}
                 >
                   <h3
@@ -472,11 +466,6 @@ export default function AtlasExplorer({
                         <Ownership row={row} format="table" />
                       ) : (
                         <LinkedRecords ids={owners(row.ID)} />
-                      )}
-                      {row["Ownership note"] && (
-                        <p className={"mt-2 text-xs text-coral-dark"}>
-                          {row["Ownership note"]}
-                        </p>
                       )}
                     </td>
                   </tr>

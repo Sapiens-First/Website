@@ -1,7 +1,7 @@
 create table public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   full_name text check (char_length(full_name) <= 200),
-  country_code text check (country_code is null or country_code ~ '^[A-Z]{2}$'),
+  country_code text check (country_code ~ '^[A-Z]{2}$'),
   city text check (char_length(city) <= 120),
   region text check (char_length(region) <= 120),
   postal_code text check (char_length(postal_code) <= 32),
@@ -67,3 +67,52 @@ create policy profiles_update_own on public.profiles
 for update to authenticated
 using ((select auth.uid()) = id)
 with check ((select auth.uid()) = id);
+
+alter table public.atlas_governance
+  add constraint atlas_governance_profile_id_fkey
+  foreign key (profile_id) references public.profiles(id) on delete set null;
+
+create function atlas_private.prepare_assignment()
+returns trigger
+language plpgsql
+security invoker
+set search_path = ''
+as $$
+begin
+  if new.profile_id is null then
+    new.display_initials := null;
+    new.engagement_level := null;
+    return new;
+  end if;
+
+  if tg_op = 'UPDATE' and new.profile_id = old.profile_id then
+    new.display_initials := old.display_initials;
+    return new;
+  end if;
+
+  select g.display_initials into new.display_initials
+  from public.atlas_governance g
+  where g.profile_id = new.profile_id
+  order by g.id
+  limit 1;
+
+  if new.display_initials is null then
+    select left(upper(regexp_replace(
+      substring(p.full_name from '[^[:space:]]+'), '[^[:alpha:]]', '', 'g'
+    )), 2) into new.display_initials
+    from public.profiles p where p.id = new.profile_id;
+
+    if coalesce(new.display_initials, '') = '' then
+      raise exception 'Atlas assignments require a profile with a name containing letters'
+        using errcode = '23514';
+    end if;
+  end if;
+  return new;
+end;
+$$;
+revoke all on function atlas_private.prepare_assignment() from public, anon, authenticated;
+grant execute on function atlas_private.prepare_assignment() to service_role;
+
+create trigger atlas_governance_prepare_assignment
+before insert or update of profile_id, display_initials on public.atlas_governance
+for each row execute function atlas_private.prepare_assignment();

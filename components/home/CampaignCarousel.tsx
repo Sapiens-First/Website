@@ -13,13 +13,13 @@ type Campaign = {
 
 const art: Record<string, string> = {
   dividend:
-    "bg-brand-yellow before:-top-[20%] before:left-[15%] before:aspect-square before:w-[70%] before:rounded-full before:border-[40px] before:border-ink after:top-[25%] after:left-[8%] after:h-[20px] after:w-[85%] after:-rotate-12 after:bg-coral",
+    "bg-brand-yellow before:top-[-20%] before:left-[15%] before:aspect-square before:w-[70%] before:rounded-full before:border-40 before:border-ink after:top-[25%] after:left-[8%] after:h-5 after:w-[85%] after:-rotate-12 after:bg-coral",
   freeze:
-    "bg-brand-blue before:-top-[10%] before:left-[21%] before:aspect-square before:w-[58%] before:rounded-full before:border-[34px] before:border-white/70 before:shadow-[0_0_0_25px_rgba(255,255,255,0.15)] after:top-[44%] after:-left-[15%] after:h-[18px] after:w-[130%] after:-rotate-8 after:bg-ink",
+    "bg-brand-blue before:top-[-10%] before:left-[21%] before:aspect-square before:w-[58%] before:rounded-full before:border-34 before:border-white/70 before:shadow-[0_0_0_25px_rgba(255,255,255,0.15)] after:top-[44%] after:left-[-15%] after:h-4.5 after:w-[130%] after:-rotate-8 after:bg-ink",
   surveillance:
-    "bg-coral before:top-[17%] before:left-[15%] before:h-[42%] before:w-[70%] before:rounded-full before:border-[26px] before:border-ink after:top-[calc(38%-55px)] after:left-[calc(50%-55px)] after:size-[110px] after:rounded-full after:border-[18px] after:border-ink after:bg-brand-yellow",
+    "bg-coral before:top-[17%] before:left-[15%] before:h-[42%] before:w-[70%] before:rounded-full before:border-26 before:border-ink after:top-[calc(38%-55px)] after:left-[calc(50%-55px)] after:size-27.5 after:rounded-full after:border-18 after:border-ink after:bg-brand-yellow",
   robots:
-    "bg-brand-purple before:top-[6%] before:left-[calc(50%-125px)] before:h-[300px] before:w-[250px] before:bg-ink before:[clip-path:polygon(20%_0,80%_0,100%_20%,85%_100%,15%_100%,0_20%)] after:top-[26%] after:left-[calc(50%-19px)] after:size-[38px] after:rounded-full after:bg-brand-pink after:shadow-[-68px_0_0_var(--color-brand-pink),68px_0_0_var(--color-brand-pink)]",
+    "bg-brand-purple before:top-[6%] before:left-[calc(50%-125px)] before:h-75 before:w-62.5 before:bg-ink before:[clip-path:polygon(20%_0,80%_0,100%_20%,85%_100%,15%_100%,0_20%)] after:top-[26%] after:left-[calc(50%-19px)] after:size-9.5 after:rounded-full after:bg-brand-pink after:shadow-[-68px_0_0_var(--color-brand-pink),68px_0_0_var(--color-brand-pink)]",
 };
 
 export default function CampaignCarousel({
@@ -94,7 +94,7 @@ export default function CampaignCarousel({
   return (
     <>
       <div
-        className="relative left-1/2 w-screen -translate-x-1/2 snap-x snap-proximity [scrollbar-width:none] overflow-x-auto scroll-smooth px-6 py-4 sm:px-20 lg:px-32 [&::-webkit-scrollbar]:hidden"
+        className="relative left-1/2 w-screen -translate-x-1/2 snap-x snap-proximity scrollbar-none overflow-x-auto scroll-smooth px-6 py-4 sm:px-20 lg:px-32 [&::-webkit-scrollbar]:hidden"
         tabIndex={0}
         ref={viewportRef}
       >

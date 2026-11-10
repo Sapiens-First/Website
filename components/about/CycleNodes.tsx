@@ -7,7 +7,7 @@ const steps = [
   {
     id: "act",
     label: "Act",
-    className: "top-0 left-1/2 -ml-[17%] bg-coral text-ink",
+    className: "top-0 left-1/2 ml-[-17%] bg-coral text-ink",
     tip: "left-1/2 -translate-x-1/2",
     text: "Visible, peaceful pressure makes AI governance impossible to ignore.",
   },
@@ -36,7 +36,7 @@ export default function CycleNodes() {
         "group",
         cn(
           "absolute z-2 box-border flex aspect-square w-[34%] cursor-pointer items-center justify-center rounded-full border-3 border-ink p-[6%] font-display text-[clamp(1.235rem,2.34vw,1.56rem)] font-extrabold text-ink uppercase shadow-[6px_6px_0_var(--color-ink)] transition-transform duration-160 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ink max-sm:text-xl",
-          "motion-safe:hover:-translate-y-[5px] motion-safe:focus-visible:-translate-y-[5px] motion-safe:aria-pressed:-translate-y-[5px] motion-reduce:transition-none",
+          "motion-safe:hover:-translate-y-1.25 motion-safe:focus-visible:-translate-y-1.25 motion-safe:aria-pressed:-translate-y-1.25 motion-reduce:transition-none",
           step.className,
         ),
       )}

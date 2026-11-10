@@ -31,7 +31,7 @@ export function TypeIcon({ type }: { type: string }) {
   return (
     <span
       aria-hidden="true"
-      className="mr-[7px] inline-block size-[15px] flex-none bg-current [mask-image:var(--icon)] [mask-size:contain] [mask-position:center] [mask-repeat:no-repeat] align-[-3px] opacity-82"
+      className="mr-1.75 inline-block size-3.75 flex-none bg-current mask-(--icon) mask-contain mask-center mask-no-repeat align-[-3px] opacity-82"
       style={{ "--icon": masks[types[type] || "role"] } as CSSProperties}
     />
   );

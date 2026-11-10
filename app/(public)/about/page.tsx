@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import CycleNodes from "@/components/about/CycleNodes";
 import { TextLink } from "@/components/ui/Action";
@@ -12,7 +13,7 @@ import { Container } from "@/components/layout/Container";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "Learn about Sapiens First — who we are, what we do, and the values that guide our fight for humanity's future.",
@@ -23,9 +24,9 @@ const h2 = "text-4xl lg:text-5xl xl:text-6xl max-sm:text-5xl";
 const aboutSection = "border-b-2 border-ink bg-white px-0 py-24 max-sm:py-14";
 const aboutGrid = "grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1";
 const aboutArt =
-  "relative min-h-[400px] overflow-hidden border-2 border-ink bg-paper max-lg:min-h-[320px]";
+  "relative min-h-100 overflow-hidden border-2 border-ink bg-paper max-lg:min-h-80";
 const artTag =
-  "absolute border-2 border-ink bg-white px-[13px] py-2.5 text-xs font-black uppercase";
+  "absolute border-2 border-ink bg-white px-3.25 py-2.5 text-xs font-black uppercase";
 
 const focusAreas = [
   {
@@ -140,7 +141,7 @@ export default function Page() {
               </TextLink>
             </div>
             <div className={aboutArt}>
-              <div className="absolute top-1/2 left-1/2 size-[220px] -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
+              <div className="absolute top-1/2 left-1/2 size-55 -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
               <div className={cn(artTag, "top-[10%] left-[6%] -rotate-3")}>
                 Democratic Renewal
               </div>
@@ -184,12 +185,12 @@ export default function Page() {
           </Container>
         </section>
         <section
-          className="border-b-2 border-ink bg-brand-blue-soft py-[100px] max-sm:scroll-mt-20 max-sm:py-16"
+          className="border-b-2 border-ink bg-brand-blue-soft py-25 max-sm:scroll-mt-20 max-sm:py-16"
           id="roadmap"
         >
           <Container>
             <Label tone="blue">Our Plan</Label>
-            <h2 className={cn(h2, "mt-[18px]")}>
+            <h2 className={cn(h2, "mt-4.5")}>
               City by city,{" "}
               <span className="ink-underline ink-underline-brand-blue">
                 state by state.
@@ -211,13 +212,13 @@ export default function Page() {
                 >
                   <span
                     className={cn(
-                      "mx-auto mt-0 mb-6 grid size-[100px] place-items-center rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)]",
+                      "mx-auto mt-0 mb-6 grid size-25 place-items-center rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)]",
                       step.color,
                     )}
                     aria-hidden="true"
                   >
                     <svg
-                      className="size-[54px] fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]"
+                      className="size-13.5 fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]"
                       viewBox="0 0 36 36"
                     >
                       {step.icon}
@@ -248,7 +249,7 @@ export default function Page() {
               through a cycle of civic engagement.
             </Deck>
             <div
-              className="relative mx-auto mt-12 mb-3 aspect-[380/330] w-full max-w-md max-sm:mt-10 max-sm:mb-2 max-sm:max-w-xs"
+              className="relative mx-auto mt-12 mb-3 aspect-380/330 w-full max-w-md max-sm:mt-10 max-sm:mb-2 max-sm:max-w-xs"
               role="group"
               aria-label="Act, Recruit, Train cycle"
             >
@@ -306,7 +307,7 @@ export default function Page() {
             <div
               className={cn(
                 aboutArt,
-                "aspect-[4/5] min-h-0 w-[min(100%,320px)] justify-self-center max-lg:min-h-0 max-sm:aspect-square",
+                "aspect-4/5 min-h-0 w-[min(100%,320px)] justify-self-center max-lg:min-h-0 max-sm:aspect-square",
               )}
             >
               <Image
@@ -344,7 +345,7 @@ export default function Page() {
               <div className="mt-6 flex gap-2.5">
                 {socials.map((social) => (
                   <a
-                    className="inline-flex size-[42px] items-center justify-center border-2 border-ink bg-white text-ink transition-[background-color,color,translate] duration-150 hover:-translate-y-0.5 hover:bg-coral hover:text-ink"
+                    className="inline-flex size-10.5 items-center justify-center border-2 border-ink bg-white text-ink transition-[background-color,color,translate] duration-150 hover:-translate-y-0.5 hover:bg-coral hover:text-ink"
                     href={social.href}
                     target="_blank"
                     rel="noopener"
@@ -352,7 +353,7 @@ export default function Page() {
                     key={social.label}
                   >
                     <svg
-                      className="block size-[18px]"
+                      className="block size-4.5"
                       viewBox="0 0 24 24"
                       fill="currentColor"
                     >

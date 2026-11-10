@@ -1,10 +1,11 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { ActionLink, TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
 import { publicCalendar } from "@/lib/calendar";
 import { pageMetadata } from "@/lib/site";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Public Calendar",
   description:
     "Join Sapiens First’s organizer call on Tuesdays at 10am Pacific. See upcoming events and subscribe in Google Calendar, Apple Calendar, or Outlook.",
@@ -74,7 +75,7 @@ export default function CalendarPage() {
               src={publicCalendar.embedUrl}
               title="Sapiens First public events calendar"
               aria-describedby="calendar-timezone"
-              className="block h-[600px] w-full min-w-[500px] border-0 sm:h-[700px]"
+              className="block h-150 w-full min-w-125 border-0 sm:h-175"
             />
           </div>
           <p className="mt-4 text-sm leading-relaxed">

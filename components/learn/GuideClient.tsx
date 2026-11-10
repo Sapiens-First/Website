@@ -420,7 +420,7 @@ export default function GuideClient() {
 
   return (
     <>
-      <aside className="sticky top-28 max-h-180 [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] overflow-y-auto pr-4 max-lg:static max-lg:max-h-none max-lg:overflow-visible max-lg:p-0 lg:col-span-3">
+      <aside className="sticky top-28 max-h-180 scrollbar-thin [scrollbar-color:var(--color-line)_transparent] overflow-y-auto pr-4 max-lg:static max-lg:max-h-none max-lg:overflow-visible max-lg:p-0 lg:col-span-3">
         <details
           className={cn(
             "group",

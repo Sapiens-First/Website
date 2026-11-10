@@ -222,7 +222,7 @@ function GrowthChart({
   return (
     <div className="overflow-x-auto">
       <svg
-        className="h-auto w-full min-w-[680px]"
+        className="h-auto w-full min-w-170"
         viewBox={`0 0 ${width} ${height}`}
         role="img"
         aria-labelledby="growth-chart-title growth-chart-description"

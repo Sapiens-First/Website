@@ -1,7 +1,8 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Privacy",
   description:
     "How Sapiens First handles signups, campaign signatures, optional contact details and communication preferences.",

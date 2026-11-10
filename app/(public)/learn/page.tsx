@@ -1,10 +1,11 @@
+import type { Metadata } from "next";
 import { PageHero, PageTitle } from "@/components/sections/SplitSection";
 import { Kicker } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
 import GuideClient from "@/components/learn/GuideClient";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Guide",
   description:
     "The Sapiens First guide to AI, people power, and how to make change.",

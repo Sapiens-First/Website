@@ -13,7 +13,7 @@ export default function CircleHeroArt() {
   return (
     <HeroArt className="grid place-items-center px-3 py-7">
       <svg
-        className="block h-auto w-full max-w-[650px]"
+        className="block h-auto w-full max-w-162.5"
         viewBox="0 0 600 640"
         xmlns="http://www.w3.org/2000/svg"
         focusable="false"

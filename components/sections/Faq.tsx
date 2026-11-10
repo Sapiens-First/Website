@@ -59,7 +59,7 @@ export function FaqItem({
           aria-hidden="true"
         />
       </summary>
-      <div className="pr-6 pb-8 pl-6 sm:pr-12 [&_:is(p,ul,ol)]:mb-3.5 [&_:is(p,ul,ol)]:max-w-3xl [&_:is(p,ul,ol)]:text-base [&_:is(p,ul,ol)]:leading-relaxed [&_:is(p,ul,ol)]:font-medium [&_:is(ul,ol)]:pl-5 [&_:last-child]:mb-0 [&_li]:mb-1.5">
+      <div className="pr-6 pb-8 pl-6 **:last:mb-0 sm:pr-12 [&_:is(p,ul,ol)]:mb-3.5 [&_:is(p,ul,ol)]:max-w-3xl [&_:is(p,ul,ol)]:text-base [&_:is(p,ul,ol)]:leading-relaxed [&_:is(p,ul,ol)]:font-medium [&_:is(ul,ol)]:pl-5 [&_li]:mb-1.5">
         {children}
       </div>
     </Accordion>
@@ -71,7 +71,7 @@ export function AccordionChevron({ className = "" }: { className?: string }) {
     <span
       aria-hidden="true"
       className={cn(
-        "size-[11px] flex-none origin-[60%_60%] rotate-45 border-r-2 border-b-2 border-ink transition-[rotate,opacity] duration-280 ease-[cubic-bezier(0.22,1,0.36,1)] group-open:rotate-225 group-aria-expanded:rotate-225",
+        "size-2.75 flex-none origin-[60%_60%] rotate-45 border-r-2 border-b-2 border-ink transition-[rotate,opacity] duration-280 ease-[cubic-bezier(0.22,1,0.36,1)] group-open:rotate-225 group-aria-expanded:rotate-225",
         className,
       )}
     />

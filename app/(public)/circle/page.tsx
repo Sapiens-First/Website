@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 import CircleHeroArt from "@/components/circle/CircleHeroArt";
@@ -13,7 +14,7 @@ import { cn } from "@/lib/cn";
 import InterestForm from "@/components/members/InterestForm";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Start a Circle",
   description:
     "Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.",

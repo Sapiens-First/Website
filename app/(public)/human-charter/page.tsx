@@ -1,10 +1,11 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Label } from "@/components/ui/Text";
 import { ActionLink } from "@/components/ui/Action";
 import { Container } from "@/components/layout/Container";
 import { cn } from "@/lib/cn";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "The Human Charter",
   description:
     "The Human Charter — eight principles for a brighter future, organized around Life, Liberty, and the pursuit of Happiness in the age of AI.",

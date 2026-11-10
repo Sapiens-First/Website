@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { pageMetadata } from "@/lib/site";
 import {
@@ -65,7 +66,7 @@ const campaigns = [
 
 const h2 = "mt-5 text-5xl lg:text-6xl xl:text-7xl";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: { absolute: "Sapiens First — A Movement for AI Accountability" },
   description:
     "Join Sapiens First to defend humanity from the threats of superintelligence. Explore our campaigns, fellowship, and local organizing groups.",
@@ -80,13 +81,13 @@ export default function Page() {
           <HeroCopy
             circle={false}
             className={cn(
-              "before:pointer-events-none before:absolute before:top-[16%] before:-right-[20%] before:z-0 before:aspect-[1000/589] before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:-right-[26%] max-sm:before:w-[120%]",
+              "before:pointer-events-none before:absolute before:top-[16%] before:right-[-20%] before:z-0 before:aspect-1000/589 before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:right-[-26%] max-sm:before:w-[120%]",
               "after:mt-8 after:h-2 after:w-24 after:-rotate-2 after:rounded-full after:bg-brand-yellow after:content-[''] max-sm:after:mt-6 max-sm:after:h-1.5 max-sm:after:w-16",
             )}
           >
-            <Confetti className="top-5 right-7 h-[90px] w-[160px] -rotate-8 max-sm:top-0.5 max-sm:right-5 max-sm:h-[45px] max-sm:w-20 sm:max-lg:top-1 sm:max-lg:h-12 sm:max-lg:w-[110px]" />
-            <Confetti className="right-8 bottom-[18px] h-[60px] w-[130px] rotate-14 max-sm:right-5 max-sm:bottom-2.5 max-sm:h-10 max-sm:w-20" />
-            <Confetti className="top-[22px] left-7 h-14 w-[100px] rotate-12 max-sm:top-1.5 max-sm:left-5 max-sm:h-10 max-sm:w-[76px] sm:max-lg:top-2 sm:max-lg:h-10 sm:max-lg:w-[90px]" />
+            <Confetti className="top-5 right-7 h-22.5 w-40 -rotate-8 max-sm:top-0.5 max-sm:right-5 max-sm:h-11.25 max-sm:w-20 sm:max-lg:top-1 sm:max-lg:h-12 sm:max-lg:w-27.5" />
+            <Confetti className="right-8 bottom-4.5 h-15 w-32.5 rotate-14 max-sm:right-5 max-sm:bottom-2.5 max-sm:h-10 max-sm:w-20" />
+            <Confetti className="top-5.5 left-7 h-14 w-25 rotate-12 max-sm:top-1.5 max-sm:left-5 max-sm:h-10 max-sm:w-19 sm:max-lg:top-2 sm:max-lg:h-10 sm:max-lg:w-22.5" />
             <h1 className="relative z-2 max-w-xs font-display text-7xl font-extrabold tracking-tight uppercase max-sm:text-6xl max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl xl:text-9xl">
               Revolt for our{" "}
               <span className="inline-block -rotate-2 bg-brand-yellow px-[0.08em] leading-none text-ink">
@@ -110,7 +111,7 @@ export default function Page() {
               Read more →
             </a>
           </HeroCopy>
-          <HeroArt className="bg-coral after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_38%),linear-gradient(0deg,color-mix(in_srgb,var(--color-coral)_18%,transparent),transparent_48%)] after:mix-blend-screen after:content-[''] max-lg:min-h-[520px] max-sm:min-h-[390px] sm:max-md:min-h-[460px]">
+          <HeroArt className="bg-coral after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_38%),linear-gradient(0deg,color-mix(in_srgb,var(--color-coral)_18%,transparent),transparent_48%)] after:mix-blend-screen after:content-[''] max-lg:min-h-130 max-sm:min-h-97.5 sm:max-md:min-h-115">
             <Image
               className="absolute inset-0 h-full w-full object-cover object-[55%_68%] brightness-108 contrast-93 saturate-108 max-sm:object-[54%_72%]"
               src="/assets/homepage-hero-photo.jpg"
@@ -119,8 +120,8 @@ export default function Page() {
               sizes="(max-width: 900px) 100vw, 46vw"
               preload
             />
-            <Confetti className="top-[7%] left-[7%] h-[110px] w-[190px] -rotate-12 max-sm:h-20 max-sm:w-[140px]" />
-            <Confetti className="top-[34%] right-[5%] h-20 w-[140px] rotate-18 max-sm:h-[60px] max-sm:w-[100px]" />
+            <Confetti className="top-[7%] left-[7%] h-27.5 w-47.5 -rotate-12 max-sm:h-20 max-sm:w-35" />
+            <Confetti className="top-[34%] right-[5%] h-20 w-35 rotate-18 max-sm:h-15 max-sm:w-25" />
           </HeroArt>
         </SplitHero>
 
@@ -130,7 +131,7 @@ export default function Page() {
         >
           <div className="relative overflow-hidden bg-ink px-7 py-20 font-display text-4xl leading-none tracking-tighter text-white max-sm:px-5 max-sm:py-11 max-sm:text-4xl sm:px-12 lg:px-20 lg:py-24 lg:text-5xl xl:text-6xl">
             <svg
-              className="pointer-events-none absolute top-[100px] right-[5%] z-0 h-auto w-[clamp(300px,39vw,560px)] -rotate-12 text-brand-blue opacity-42 max-sm:top-[68px] max-sm:-right-[110px] max-sm:w-[320px] max-sm:opacity-18"
+              className="pointer-events-none absolute top-25 right-[5%] z-0 h-auto w-[clamp(300px,39vw,560px)] -rotate-12 text-brand-blue opacity-42 max-sm:top-17 max-sm:-right-27.5 max-sm:w-[320px] max-sm:opacity-18"
               viewBox="0 0 400 400"
               aria-hidden="true"
               focusable="false"
@@ -188,7 +189,7 @@ export default function Page() {
               <div className="relative z-2 max-w-xl font-extrabold uppercase">
                 Artificial intelligence is threatening the future of{" "}
                 <em className="text-coral not-italic">
-                  <span className="relative inline-block after:absolute after:-right-[0.02em] after:-bottom-[0.07em] after:left-0 after:h-[0.12em] after:-rotate-2 after:bg-coral after:content-[''] after:[clip-path:polygon(0_25%,96%_0,100%_65%,4%_100%)]">
+                  <span className="relative inline-block after:absolute after:right-[-0.02em] after:bottom-[-0.07em] after:left-0 after:h-[0.12em] after:-rotate-2 after:bg-coral after:content-[''] after:[clip-path:polygon(0_25%,96%_0,100%_65%,4%_100%)]">
                     humanity.
                   </span>
                 </em>

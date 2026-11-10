@@ -30,10 +30,8 @@ Palette C and the logo/favicons share the [brand color guide](docs/brand-colors.
 
 ## Current data sources
 
+Use the [Atlas editing guide](docs/database.md) for the Supabase schema, staff permissions, and agent-assisted edits.
+
 Campaign detail pages collect public signatures through a Server Action and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification.
 
-Atlas's canonical address is `https://atlas.sapiensfirst.org/`. The same Vercel project serves the root by rewriting it internally to `/atlas`; `/atlas` and `/atlas.html` permanently redirect to the new address, preserving query strings and browser record fragments. Shared navigation links to the main website, and other page requests on the Atlas host redirect there. Static assets and API routes stay on the requested origin. Atlas metadata and the sitemap use the new address. No database or authentication configuration changes are required.
-
-Before release, confirm `atlas.sapiensfirst.org` is attached to the existing Vercel project's Production environment with working DNS and HTTPS. Follow the branch/PR and local review workflow; after the approved squash merge, verify the Atlas root, legacy record links, assets, main-site navigation and sign-in on Production.
-
-Circle and Fellowship interests are open to everyone and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
+The public [Atlas](https://sapiensfirst.org/atlas) reads from Supabase. Circle and Fellowship interests are open to everyone and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.

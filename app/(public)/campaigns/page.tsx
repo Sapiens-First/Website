@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { PageHero, PageTitle } from "@/components/sections/SplitSection";
 import { pageMetadata } from "@/lib/site";
 import { TextLink } from "@/components/ui/Action";
@@ -5,7 +6,7 @@ import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
 import CampaignAccordion from "@/components/campaigns/CampaignAccordion";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Campaigns for AI Accountability",
   description:
     "Explore Sapiens First’s campaigns for AI accountability, civil liberties and shared prosperity, including a Citizens’ Dividend.",
@@ -71,10 +72,10 @@ export default function Page() {
     <>
       <PageHero className="px-0 pt-20 pb-20 max-md:pt-20 max-md:pb-20 max-sm:pt-14 max-sm:pb-12">
         <Container>
-          <Label className="mb-[26px]" tone="coral">
+          <Label className="mb-6.5" tone="coral">
             Take action
           </Label>
-          <PageTitle className="m-0 max-w-xl text-6xl leading-[0.9] tracking-[-0.025em] lg:text-8xl">
+          <PageTitle className="m-0 max-w-xl text-6xl leading-[0.9] tracking-tight lg:text-8xl">
             Our{" "}
             <span className="ink-underline ink-underline-brand-blue">
               Campaigns.

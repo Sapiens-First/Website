@@ -174,7 +174,7 @@ function CircleChart({
       aria-label={`${focus.row.Name}: nested governance circles`}
       aria-hidden={decorative || undefined}
       className={cn(
-        "mx-auto my-1.5 block max-h-[780px] w-full origin-center overflow-visible transition-[opacity,transform] duration-420 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] motion-reduce:transition-none",
+        "mx-auto my-1.5 block max-h-195 w-full origin-center overflow-visible transition-[opacity,transform] duration-420 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] motion-reduce:transition-none",
         parent && "cursor-zoom-out",
         className,
         "motion-reduce:scale-100 motion-reduce:opacity-100",

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Button } from "@/components/ui/Action";
 import Image from "next/image";
@@ -11,7 +12,7 @@ import { TRIAL_DAYS } from "@/lib/members/plans";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Join",
   description:
     "Join Sapiens First from $1 USD per month. Every contribution includes the same membership.",

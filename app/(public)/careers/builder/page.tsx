@@ -1,10 +1,11 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { ActionLink } from "@/components/ui/Action";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import BuilderToc from "@/components/careers/BuilderToc";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "AI-Native Builder (Contract) — Careers",
   description:
     "Sapiens First is hiring an AI-native builder on a paid contract to turn messy organizational problems into useful software, automations, and systems. Remote, India preferred.",

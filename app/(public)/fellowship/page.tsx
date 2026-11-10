@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
@@ -14,7 +15,7 @@ import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 import { Bird, Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "AI Advocacy Fellowship",
   description:
     "Become a Sapiens First Fellow — hands-on experience, mentorship, and a key role in our movement to build political power over AI.",
@@ -25,7 +26,7 @@ const h2 = "mt-5 text-4xl lg:text-5xl xl:text-6xl max-sm:text-5xl";
 const section =
   "relative overflow-hidden border-b-2 border-ink py-24 max-sm:py-14";
 const artTag =
-  "absolute border-2 border-ink bg-white px-[13px] py-2.5 text-xs font-black uppercase";
+  "absolute border-2 border-ink bg-white px-3.25 py-2.5 text-xs font-black uppercase";
 
 const facts = [
   { value: "Rolling", label: "Program dates", color: "text-coral" },
@@ -182,8 +183,8 @@ export default function Page() {
                 Learn more →
               </TextLink>
             </div>
-            <div className="relative min-h-[400px] overflow-hidden border-2 border-ink bg-paper max-lg:min-h-[320px]">
-              <div className="absolute top-1/2 left-1/2 size-[220px] -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
+            <div className="relative min-h-100 overflow-hidden border-2 border-ink bg-paper max-lg:min-h-80">
+              <div className="absolute top-1/2 left-1/2 size-55 -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
               <div className={cn(artTag, "top-[10%] left-[6%] -rotate-3")}>
                 Political change
               </div>
@@ -281,7 +282,7 @@ export default function Page() {
                       Remote-friendly
                     </span>
                     <span
-                      className="absolute top-7 right-[22px] grid size-[22px] place-items-center border-2 border-ink text-sm font-black after:content-['+'] group-open:after:content-['–'] max-sm:top-[22px] max-sm:right-[18px]"
+                      className="absolute top-7 right-5.5 grid size-5.5 place-items-center border-2 border-ink text-sm font-black after:content-['+'] group-open:after:content-['–'] max-sm:top-5.5 max-sm:right-4.5"
                       aria-hidden="true"
                     ></span>
                   </summary>

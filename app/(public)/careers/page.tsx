@@ -1,8 +1,9 @@
+import type { Metadata } from "next";
 import { cn } from "@/lib/cn";
 import { pageMetadata } from "@/lib/site";
 import Link from "next/link";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Careers",
   description:
     "Explore open roles at Sapiens First. Help build political power to ensure technology serves the common good.",

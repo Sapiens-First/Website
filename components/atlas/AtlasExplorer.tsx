@@ -170,7 +170,7 @@ export default function AtlasExplorer({
         <div className="sticky top-24 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-lg:top-32 max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch">
           <div
             className={
-              'inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,_color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:px-2.5 max-md:[&_button]:py-2 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,_var(--color-ink)_6%,_transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(24,_37,_31,_0.12)]'
+              'inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:px-2.5 max-md:[&_button]:py-2 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,var(--color-ink)_6%,transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(24,37,31,0.12)]'
             }
             role="group"
             aria-label="Atlas view"
@@ -192,9 +192,9 @@ export default function AtlasExplorer({
               </button>
             ))}
           </div>
-          <label className="relative flex max-w-sm min-w-0 [flex:1_1_240px] items-center max-md:[order:-1] max-md:[flex:none] max-sm:max-w-none [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-solid [&_input]:border-line [&_input]:bg-white [&_input]:pt-2 [&_input]:pr-3 [&_input]:pb-2 [&_input]:pl-8 [&_input]:font-body [&_input]:text-sm [&_input]:text-ink [&_input]:[font:inherit] [&_input::placeholder]:text-ink [&_input:focus]:border-coral-dark [&_input:focus]:[box-shadow:0_0_0_3px_color-mix(in_srgb,_var(--color-coral)_22%,_transparent)] [&_input:focus]:outline-none">
+          <label className="relative flex max-w-sm min-w-0 flex-[1_1_240px] items-center max-md:-order-1 max-md:flex-none max-sm:max-w-none [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-solid [&_input]:border-line [&_input]:bg-white [&_input]:pt-2 [&_input]:pr-3 [&_input]:pb-2 [&_input]:pl-8 [&_input]:font-body [&_input]:text-sm [&_input]:text-ink [&_input]:[font:inherit] [&_input::placeholder]:text-ink [&_input:focus]:border-coral-dark [&_input:focus]:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--color-coral)_22%,transparent)] [&_input:focus]:outline-none">
             <svg
-              className="[pointer-events:none] [position:absolute] [left:11px] [color:var(--color-ink)]"
+              className="pointer-events-none absolute left-2.75 text-ink"
               width="15"
               height="15"
               viewBox="0 0 16 16"
@@ -248,7 +248,7 @@ export default function AtlasExplorer({
           {view !== "people" && (
             <div
               className={
-                'ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between max-sm:ml-0 [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,_color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,_var(--color-ink)_6%,_transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(24,_37,_31,_0.12)]'
+                'ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between max-sm:ml-0 [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,var(--color-ink)_6%,transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(24,37,31,0.12)]'
               }
               role="group"
               aria-label="Display"
@@ -275,7 +275,7 @@ export default function AtlasExplorer({
           >
             {titles[view]}
           </p>
-          <p className="min-w-0 [flex:1_1_auto] text-xs leading-normal text-ink">
+          <p className="min-w-0 flex-[1_1_auto] text-xs leading-normal text-ink">
             {descriptions[view]}
           </p>
         </div>
@@ -319,7 +319,7 @@ export default function AtlasExplorer({
                     {person.roles.length}{" "}
                     {person.roles.length === 1 ? "assignment" : "assignments"}
                   </p>
-                  <ul className="list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5">
+                  <ul className="list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li+li]:mt-1.5">
                     {person.roles.map((role) => (
                       <li key={role.ID}>
                         <a href={`#governance/circles/${role.ID}`}>
@@ -344,7 +344,7 @@ export default function AtlasExplorer({
           <div
             className={cn(
               "grid grid-cols-1 items-start gap-5",
-              selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
+              selected && "xl:grid-cols-3 xl:*:first:col-span-2",
             )}
           >
             <Circles
@@ -359,8 +359,8 @@ export default function AtlasExplorer({
           <div
             data-selected={!!selected}
             className={cn(
-              "grid grid-cols-1 items-start gap-5 data-[selected=true]:max-md:[&>:first-child]:hidden",
-              selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
+              "grid grid-cols-1 items-start gap-5 data-[selected=true]:max-md:*:first:hidden",
+              selected && "xl:grid-cols-3 xl:*:first:col-span-2",
             )}
           >
             <DomainOutline
@@ -378,7 +378,7 @@ export default function AtlasExplorer({
           <div
             className={cn(
               "grid grid-cols-1 items-start gap-5",
-              selected && "xl:grid-cols-3 xl:[&>:first-child]:col-span-2",
+              selected && "xl:grid-cols-3 xl:*:first:col-span-2",
             )}
           >
             <Alignment

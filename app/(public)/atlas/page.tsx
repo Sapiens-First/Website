@@ -1,14 +1,15 @@
+import type { Metadata } from "next";
 import { cn } from "@/lib/cn";
 import { Kicker } from "@/components/ui/Text";
-import { pageMetadata, site } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
 import { loadAtlasData } from "@/lib/atlas/data";
 import AtlasExplorer from "@/components/atlas/AtlasExplorer";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Atlas",
   description:
     "Explore Sapiens First’s domains of work, purpose, roles, and responsibilities.",
-  path: site.atlasUrl,
+  path: "/atlas",
   ogDescription: "A shared map of our work and the people responsible for it.",
 });
 
@@ -18,7 +19,7 @@ export default async function Page() {
   const data = await loadAtlasData();
   return (
     <>
-      <main className="[&_:focus-visible]:outline-[3px] [&_:focus-visible]:outline-offset-2 [&_:focus-visible]:outline-coral-dark [&_a]:underline-offset-2">
+      <main className="**:focus-visible:outline-[3px] **:focus-visible:outline-offset-2 **:focus-visible:outline-coral-dark [&_a]:underline-offset-2">
         <section
           className="relative z-2 mx-auto w-full max-w-2xl border-b-2 border-ink px-3 pt-20 pb-10 max-sm:pt-12 max-sm:pb-7 sm:px-6"
           aria-labelledby="atlas-title"

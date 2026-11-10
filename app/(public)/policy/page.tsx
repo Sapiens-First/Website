@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
@@ -6,7 +7,7 @@ import { Accordion, AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
 import { TextLink } from "@/components/ui/Action";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Policy",
   description:
     "A People's Agenda for the Age of AI — Sapiens First's policy recommendations for democratic renewal, common prosperity, and a secure future.",
@@ -87,9 +88,9 @@ const pillarColors = [
   "[--pillar-color:var(--color-brand-blue)]",
   "[--pillar-color:var(--color-brand-purple)]",
 ];
-const pillarClass = "mb-16 scroll-mt-[100px] last:mb-0";
+const pillarClass = "mb-16 scroll-mt-25 last:mb-0";
 const headingClass =
-  "mb-3.5 border-b-[6px] border-[var(--pillar-color)] pb-4 text-left font-display text-4xl leading-none font-extrabold tracking-normal uppercase text-ink lg:text-5xl xl:text-6xl";
+  "mb-3.5 border-b-[6px] border-(--pillar-color) pb-4 text-left font-display text-4xl leading-none font-extrabold tracking-normal uppercase text-ink lg:text-5xl xl:text-6xl";
 const bodyClass =
   "mb-4 text-left text-lg leading-normal font-medium text-ink last:mb-0 xl:text-xl [&_strong]:font-[638]";
 
@@ -98,7 +99,7 @@ export default function Page() {
     <>
       <div className="relative flex flex-col justify-center overflow-hidden border-b-2 border-ink bg-paper py-10">
         <Container>
-          <Label tone="coral" className="mb-[26px]">
+          <Label tone="coral" className="mb-6.5">
             Policy Brief — Sapiens First
           </Label>
           <h1 className="relative z-2 m-0 text-left text-6xl lg:text-8xl">
@@ -118,7 +119,7 @@ export default function Page() {
         <section className="border-b-2 border-ink bg-white pt-20 pb-24 max-sm:pt-12 max-sm:pb-16">
           <Container>
             <div className="flex items-start gap-14 max-lg:flex-col max-lg:gap-8">
-              <aside className="sticky top-24 max-h-180 w-60 shrink-0 [scrollbar-width:thin] [scrollbar-color:var(--color-line)_transparent] overflow-y-auto max-lg:static max-lg:max-h-none max-lg:w-full max-lg:overflow-visible">
+              <aside className="sticky top-24 max-h-180 w-60 shrink-0 scrollbar-thin [scrollbar-color:var(--color-line)_transparent] overflow-y-auto max-lg:static max-lg:max-h-none max-lg:w-full max-lg:overflow-visible">
                 <PolicyToc pillars={pillars} />
               </aside>
               <div className="min-w-0 flex-1">
@@ -174,17 +175,17 @@ export default function Page() {
                       </p>
                       {pillar.policies.map((policy) => (
                         <Accordion
-                          className="scroll-mt-[100px] border-t-2 border-ink transition-colors duration-350 [counter-increment:policy-num] last:border-b-2 open:bg-paper"
+                          className="scroll-mt-25 border-t-2 border-ink transition-colors duration-350 [counter-increment:policy-num] last:border-b-2 open:bg-paper"
                           id={policy.id}
                           key={policy.id}
                           name="policy"
                           data-policy-card
                         >
-                          <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-4 border-l-[6px] border-[var(--pillar-color)] bg-transparent px-6 py-5 text-left focus-visible:outline-[3px] focus-visible:-outline-offset-2 focus-visible:outline-coral/40 max-sm:px-4 max-sm:py-4 [&::-webkit-details-marker]:hidden">
+                          <summary className="flex w-full cursor-pointer list-none items-center justify-between gap-4 border-l-[6px] border-(--pillar-color) bg-transparent px-6 py-5 text-left focus-visible:outline-[3px] focus-visible:-outline-offset-2 focus-visible:outline-coral/40 max-sm:px-4 max-sm:py-4 [&::-webkit-details-marker]:hidden">
                             <span className="font-display text-2xl leading-tight font-extrabold tracking-normal text-ink uppercase before:mr-3 before:font-bold before:tracking-wide before:content-[counter(policy-num,decimal-leading-zero)] xl:text-3xl">
                               {policy.title}
                             </span>
-                            <AccordionChevron className="size-[9px] border-r-[1.5px] border-b-[1.5px] opacity-55 group-open:opacity-100" />
+                            <AccordionChevron className="size-2.25 border-r-[1.5px] border-b-[1.5px] opacity-55 group-open:opacity-100" />
                           </summary>
                           <div className="border-t border-[color-mix(in_srgb,var(--color-coral)_20%,var(--color-line))] px-6 pt-1 pb-7 max-sm:px-4 max-sm:pb-5">
                             {policy.id === "citizens-dividend" && (

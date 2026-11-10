@@ -50,7 +50,7 @@ export function LinkedRecords({
 }) {
   if (!ids.length) return <span>Not recorded</span>;
   return (
-    <ul className="list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li_+_li]:mt-1.5">
+    <ul className="list-none p-0 [&_a]:inline-flex [&_a]:items-center [&_a]:gap-1.5 [&_a:hover]:text-coral-dark [&_li+li]:mt-1.5">
       {ids.map((id) => (
         <li key={id}>
           <RecordLink id={id} format={format} />
@@ -146,7 +146,7 @@ export function FieldsList({ fields }: { fields: string[][] }) {
             {key === "Circle ID" && value ? (
               <RecordLink id={value} />
             ) : ["Accountabilities", "Privileges"].includes(key) && value ? (
-              <ul className={"m-0 list-disc pl-5 [&_li_+_li]:mt-1.5"}>
+              <ul className={"m-0 list-disc pl-5 [&_li+li]:mt-1.5"}>
                 {value
                   .split(/[;\n]+/)
                   .map((s) => s.trim())

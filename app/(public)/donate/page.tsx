@@ -1,9 +1,10 @@
+import type { Metadata } from "next";
 import { pageMetadata, site } from "@/lib/site";
 import { ActionLink } from "@/components/ui/Action";
 import { Container } from "@/components/layout/Container";
 import Link from "next/link";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Donate",
   description:
     "Help Sapiens First build political power for AI safety. Fund local chapters, organizer training, and campaigns for a future where AI serves humanity.",

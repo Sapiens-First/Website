@@ -1,5 +1,3 @@
-"use client";
-
 import { Fragment, useMemo, useRef, type KeyboardEvent } from "react";
 import {
   domainHierarchy,
@@ -117,7 +115,7 @@ export default function DomainOutline({
     ) : (
       <>
         {name.slice(0, index)}
-        <mark className="rounded-xs px-px py-0 text-inherit [background:color-mix(in_srgb,_var(--color-coral)_45%,_transparent)]">
+        <mark className="rounded-xs px-px py-0 text-inherit [background:color-mix(in_srgb,var(--color-coral)_45%,transparent)]">
           {name.slice(index, index + query.length)}
         </mark>
         {name.slice(index + query.length)}
@@ -153,7 +151,7 @@ export default function DomainOutline({
           {node.children.length ? (
             <button
               className={cn(
-                "inline-flex size-[18px] flex-none cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-ink transition-transform duration-150 before:text-base before:leading-none before:content-['›'] motion-reduce:transition-none",
+                "inline-flex size-4.5 flex-none cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-ink transition-transform duration-150 before:text-base before:leading-none before:content-['›'] motion-reduce:transition-none",
                 open && "rotate-90",
               )}
               type="button"
@@ -165,7 +163,7 @@ export default function DomainOutline({
             />
           ) : (
             <span
-              className="inline-flex h-4 w-4 flex-none items-center justify-center before:h-1 before:w-1 before:rounded-full before:content-[''] before:[background:color-mix(in_srgb,_var(--color-ink)_40%,_transparent)]"
+              className="inline-flex h-4 w-4 flex-none items-center justify-center before:h-1 before:w-1 before:rounded-full before:content-[''] before:[background:color-mix(in_srgb,var(--color-ink)_40%,transparent)]"
               aria-hidden="true"
             />
           )}
@@ -220,7 +218,7 @@ export default function DomainOutline({
       )}
       <div className={"flex justify-end pt-1 pr-1 pb-0.5 pl-1"}>
         <details
-          className="relative [&_button]:cursor-pointer [&_button]:rounded-md [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-2 [&_button]:text-left [&_button]:text-xs [&_button]:font-semibold [&_button]:whitespace-nowrap [&_button]:text-ink [&_button]:[font:inherit] [&_button:hover]:bg-surface [&_button:hover]:text-coral-dark [&_summary]:flex [&_summary]:h-7 [&_summary]:w-7 [&_summary]:cursor-pointer [&_summary]:list-none [&_summary]:items-center [&_summary]:justify-center [&_summary]:rounded-md [&_summary]:text-base [&_summary]:leading-none [&_summary]:text-ink [&_summary::-webkit-details-marker]:hidden [&_summary:hover]:bg-surface [&_summary:hover]:text-ink [&[open]_button]:absolute [&[open]_button]:right-0 [&[open]_button]:z-5 [&[open]_button]:w-max [&[open]_button]:min-w-36 [&[open]_button]:border [&[open]_button]:border-solid [&[open]_button]:border-line [&[open]_button]:bg-white [&[open]_button]:[box-shadow:0_4px_14px_rgba(24,_37,_31,_0.1)] [&[open]_button:first-of-type]:top-8 [&[open]_button:last-of-type]:top-20 [&[open]_summary]:bg-surface [&[open]_summary]:text-ink"
+          className="relative [&_button]:cursor-pointer [&_button]:rounded-md [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-2 [&_button]:text-left [&_button]:text-xs [&_button]:font-semibold [&_button]:whitespace-nowrap [&_button]:text-ink [&_button]:[font:inherit] [&_button:hover]:bg-surface [&_button:hover]:text-coral-dark [&_summary]:flex [&_summary]:h-7 [&_summary]:w-7 [&_summary]:cursor-pointer [&_summary]:list-none [&_summary]:items-center [&_summary]:justify-center [&_summary]:rounded-md [&_summary]:text-base [&_summary]:leading-none [&_summary]:text-ink [&_summary::-webkit-details-marker]:hidden [&_summary:hover]:bg-surface [&_summary:hover]:text-ink [&[open]_button]:absolute [&[open]_button]:right-0 [&[open]_button]:z-5 [&[open]_button]:w-max [&[open]_button]:min-w-36 [&[open]_button]:border [&[open]_button]:border-solid [&[open]_button]:border-line [&[open]_button]:bg-white [&[open]_button]:[box-shadow:0_4px_14px_rgba(24,37,31,0.1)] [&[open]_button:first-of-type]:top-8 [&[open]_button:last-of-type]:top-20 [&[open]_summary]:bg-surface [&[open]_summary]:text-ink"
           ref={menu}
         >
           <summary aria-label="More actions">⋯</summary>

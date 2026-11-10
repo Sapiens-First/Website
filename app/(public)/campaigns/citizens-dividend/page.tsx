@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import { ActionLink } from "@/components/ui/Action";
@@ -5,7 +6,7 @@ import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
 import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
 
-export const metadata = pageMetadata({
+export const metadata: Metadata = pageMetadata({
   title: "Citizens’ Dividend",
   description:
     "We deserve a share of the AI future. Explore our campaign for a Citizens’ Dividend: a public stake in AI-driven wealth, with a credible, costed plan.",

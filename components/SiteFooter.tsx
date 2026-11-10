@@ -4,7 +4,6 @@ import flameLogo from "@/public/favicons/android-chrome-192x192.png";
 import { Container } from "@/components/layout/Container";
 import { Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";
-import { site, siteHref } from "@/lib/site";
 
 const footerGroups = [
   {
@@ -40,13 +39,13 @@ export default function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t-2 border-ink bg-ink pt-16 pb-7 text-xs text-white max-sm:pt-11 max-sm:pb-6">
       <FunLayer>
-        <Doodle className="bottom-[14%] left-[38%] w-[34px] text-paper">
+        <Doodle className="bottom-[14%] left-[38%] w-8.5 text-paper">
           <Moon size={34} cutY={13} />
         </Doodle>
-        <Doodle className="bottom-[36%] left-[45%] w-[9px] rotate-10 text-brand-yellow">
+        <Doodle className="bottom-[36%] left-[45%] w-2.25 rotate-10 text-brand-yellow">
           <Star size={9} />
         </Doodle>
-        <Doodle className="bottom-[32%] left-[33%] w-[7px] -rotate-14 text-brand-yellow">
+        <Doodle className="bottom-[32%] left-[33%] w-1.75 -rotate-14 text-brand-yellow">
           <Star size={7} />
         </Doodle>
       </FunLayer>
@@ -54,7 +53,7 @@ export default function SiteFooter() {
         <div className="flex flex-wrap justify-between gap-x-14 gap-y-10 border-b border-white/22 pb-10 max-sm:flex-col max-sm:gap-7 max-sm:pb-7">
           <Link
             className="brand-stripe flex items-center gap-2.5 self-start pb-2.5"
-            href={site.url}
+            href="/"
           >
             <Image
               className="block size-10"
@@ -83,7 +82,7 @@ export default function SiteFooter() {
                   {group.links.map((link) => (
                     <Link
                       className="font-body text-sm leading-normal font-bold text-white hover:text-coral"
-                      href={siteHref(link.href)}
+                      href={link.href}
                       key={link.href}
                     >
                       {link.label}

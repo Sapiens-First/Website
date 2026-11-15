@@ -9,12 +9,18 @@ export default function InterestForm({ interest }: { interest: Interest }) {
   const [state, action, pending] = useActionState(saveInterest, {
     message: "",
   });
+  const membership = interest === "membership";
 
   return (
-    <div id="signup" className="relative z-2 scroll-mt-28">
+    <div
+      id={membership ? "membership-interest" : "signup"}
+      className="relative z-2 scroll-mt-28"
+    >
       {state.saved ? (
         <p role="status" className="font-bold">
-          Interest registered. We’ll email you about next steps.
+          {membership
+            ? "Interest registered. We’ll email you about membership."
+            : "Interest registered. We’ll email you about next steps."}
         </p>
       ) : (
         <form
@@ -45,7 +51,7 @@ export default function InterestForm({ interest }: { interest: Interest }) {
             </Button>
           </div>
           <p className="text-sm">
-            We’ll use your email to follow up about this opportunity.
+            We&apos;ll email you about ways to get involved.
           </p>
           {state.message && (
             <p role="alert" className="text-sm font-semibold">

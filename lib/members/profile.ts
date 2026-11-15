@@ -33,6 +33,8 @@ export const requiredProfileFields: readonly ProfileField[] = [
   "full_name",
   "country_code",
   "city",
+  "postal_code",
+  "phone",
 ];
 
 const countryCodes =

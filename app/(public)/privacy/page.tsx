@@ -98,9 +98,9 @@ export default function Page() {
                 preferences.
               </p>
               <p>
-                Campaign signatures and Circle or Fellowship interests are
-                stored in Supabase and processed by the services that host this
-                website. Access is restricted to authorized people and systems.
+                Campaign signatures and interests are stored in Supabase and
+                processed by the services that host this website. Access is
+                restricted to authorized people and systems.
               </p>
               <p>
                 We retain supporter and consent records while they are needed

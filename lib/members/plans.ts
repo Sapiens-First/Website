@@ -1,5 +1,6 @@
 export const CONTRIBUTIONS = ["1", "10", "20"] as const;
 export type Contribution = (typeof CONTRIBUTIONS)[number];
+export const DEFAULT_CONTRIBUTION = "10" satisfies Contribution;
 export const TRIAL_DAYS = 14;
 
 export function isContribution(value: unknown): value is Contribution {

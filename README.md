@@ -34,4 +34,4 @@ Use the [Atlas editing guide](docs/database.md) for the Supabase schema, staff p
 
 Campaign detail pages collect public signatures through a Server Action and Supabase. See [campaign intake](docs/campaign-intake.md) for storage, consent, duplicate handling and verification.
 
-The public [Atlas](https://sapiensfirst.org/atlas) reads from Supabase. Circle and Fellowship interests are open to everyone and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.
+The public [Atlas](https://sapiensfirst.org/atlas) reads from Supabase. Membership, Fellowship, and Start a Circle interest forms are open to everyone and stored in Supabase. Campaign signatures are open to everyone and stored in Supabase. The Learn guide loads from a public Google Doc in the browser. Donations go to Zeffy.

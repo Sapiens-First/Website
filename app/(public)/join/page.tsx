@@ -15,7 +15,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = pageMetadata({
   title: "Join",
   description:
-    "Join Sapiens First from $1 USD per month. Every contribution includes the same membership.",
+    `Join Sapiens First with a monthly contribution. Every contribution includes the same features.`,
   path: "/join",
 });
 
@@ -65,10 +65,10 @@ export default async function Page({
           </span>
         </h1>
         <p className="mt-6 max-w-lg text-lg leading-relaxed sm:text-xl">
-          Join from $1, $10 or $20 USD per month, with the same benefits at
-          every amount. Sign in, complete your profile and choose your
-          contribution. New members can start a {TRIAL_DAYS}-day trial with a
-          payment card.
+          The suggested contribution is $10 USD per month.
+          You can also choose $1 or $20 for the same membership. Sign in,
+          complete your profile and choose your contribution. Eligible members
+          can start a {TRIAL_DAYS}-day trial with a payment card.
         </p>
         <form action={signInWithGoogle} id="signup" className="mt-8">
           <input type="hidden" name="next" value={next} />

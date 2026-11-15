@@ -1,5 +1,5 @@
 create table public.member_interests (
-  interest text not null check (interest in ('start-a-circle', 'fellowship')),
+  interest text not null check (interest in ('start-a-circle', 'fellowship', 'membership')),
   email text not null check (char_length(email) <= 254 and email = lower(btrim(email)) and email ~ '^[^[:space:]@]+@[^[:space:]@]+[.][^[:space:]@]+$'),
   created_at timestamptz not null default statement_timestamp(),
   primary key (interest, email)

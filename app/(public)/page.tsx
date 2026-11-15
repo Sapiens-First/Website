@@ -12,7 +12,8 @@ import { Doodle, FunLayer, Moon, starClip } from "@/components/ui/Doodles";
 import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
 import CampaignCarousel from "@/components/home/CampaignCarousel";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink, TextLink } from "@/components/ui/Action";
+import InterestForm from "@/components/members/InterestForm";
 import { cn } from "@/lib/cn";
 
 const stars = [
@@ -80,10 +81,7 @@ export default function Page() {
         <SplitHero>
           <HeroCopy
             circle={false}
-            className={cn(
-              "before:pointer-events-none before:absolute before:top-[16%] before:right-[-20%] before:z-0 before:aspect-1000/589 before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:right-[-26%] max-sm:before:w-[120%]",
-              "after:mt-8 after:h-2 after:w-24 after:-rotate-2 after:rounded-full after:bg-brand-yellow after:content-[''] max-sm:after:mt-6 max-sm:after:h-1.5 max-sm:after:w-16",
-            )}
+            className="before:pointer-events-none before:absolute before:top-[16%] before:right-[-20%] before:z-0 before:aspect-1000/589 before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:right-[-26%] max-sm:before:w-[120%]"
           >
             <Confetti className="top-5 right-7 h-22.5 w-40 -rotate-8 max-sm:top-0.5 max-sm:right-5 max-sm:h-11.25 max-sm:w-20 sm:max-lg:top-1 sm:max-lg:h-12 sm:max-lg:w-27.5" />
             <Confetti className="right-8 bottom-4.5 h-15 w-32.5 rotate-14 max-sm:right-5 max-sm:bottom-2.5 max-sm:h-10 max-sm:w-20" />
@@ -100,16 +98,16 @@ export default function Page() {
             <ActionLink
               href="/join"
               variant="primary"
-              className="relative z-2 w-max bg-paper"
+              className="relative z-2 w-max"
             >
-              Join →
+              Join as a Member →
             </ActionLink>
-            <a
-              className="relative z-2 mt-4 inline-block w-max border-b-2 border-ink pb-0.5 font-body text-sm font-black tracking-widest uppercase"
-              href="#crisis"
+            <TextLink
+              href="#involved"
+              className="relative z-2 mt-4 w-max"
             >
-              Read more →
-            </a>
+              Or register your interest ↓
+            </TextLink>
           </HeroCopy>
           <HeroArt className="bg-coral after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_38%),linear-gradient(0deg,color-mix(in_srgb,var(--color-coral)_18%,transparent),transparent_48%)] after:mix-blend-screen after:content-[''] max-lg:min-h-130 max-sm:min-h-97.5 sm:max-md:min-h-115">
             <Image
@@ -125,10 +123,7 @@ export default function Page() {
           </HeroArt>
         </SplitHero>
 
-        <section
-          className={"border-b-2 border-ink bg-white max-sm:scroll-mt-20"}
-          id="crisis"
-        >
+        <section className="border-b-2 border-ink bg-white">
           <div className="relative overflow-hidden bg-ink px-7 py-20 font-display text-4xl leading-none tracking-tighter text-white max-sm:px-5 max-sm:py-11 max-sm:text-4xl sm:px-12 lg:px-20 lg:py-24 lg:text-5xl xl:text-6xl">
             <svg
               className="pointer-events-none absolute top-25 right-[5%] z-0 h-auto w-[clamp(300px,39vw,560px)] -rotate-12 text-brand-blue opacity-42 max-sm:top-17 max-sm:-right-27.5 max-sm:w-[320px] max-sm:opacity-18"
@@ -316,16 +311,10 @@ export default function Page() {
               </em>{" "}
               for a brighter future.
             </h2>
-            <Deck className="relative z-2 mx-0 mt-9 mb-7 max-w-sm leading-normal max-sm:my-5">
+            <Deck className="relative z-2 mx-0 mt-2 mb-5 leading-normal lg:text-xl xl:text-2xl">
               <strong>Connect to your chapter today.</strong>
             </Deck>
-            <ActionLink
-              href="/join"
-              variant="primary"
-              className="relative z-2 w-max"
-            >
-              Join →
-            </ActionLink>
+            <InterestForm interest="membership" />
           </div>
           <div className="relative flex min-h-128 flex-col justify-end overflow-hidden border-ink bg-[linear-gradient(180deg,rgba(24,37,31,0.08)_15%,rgba(24,37,31,0.9)_100%),url(/assets/homepage-quote-texture.png)] bg-cover bg-position-[48%_center] bg-no-repeat px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-[color-mix(in_srgb,var(--color-coral)_92%,transparent)] before:content-['\201C'] before:text-shadow-[0_2px_0_var(--color-ink)] after:absolute after:right-8 after:bottom-9 after:h-2.5 after:w-24 after:-rotate-3 after:rounded-full after:bg-brand-yellow after:content-[''] max-lg:border-t-2 max-sm:min-h-72 max-sm:bg-position-[51%_center] max-sm:px-5 max-sm:py-10 max-sm:before:-top-12 max-sm:before:left-3 max-sm:after:right-5 max-sm:after:bottom-6 max-sm:after:h-1.5 max-sm:after:w-16 sm:max-md:min-h-120 lg:border-l-2">
             <blockquote className="relative z-2 m-0 border-l-8 border-coral bg-ink/76 p-6 font-quote text-3xl leading-none shadow-[14px_14px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] text-shadow-[0_2px_18px_rgba(0,0,0,0.75)] max-sm:border-l-6 max-sm:p-4 max-sm:text-3xl max-sm:shadow-[9px_9px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] lg:text-4xl xl:text-5xl">

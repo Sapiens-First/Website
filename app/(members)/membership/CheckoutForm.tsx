@@ -3,7 +3,12 @@
 import { useActionState, useState } from "react";
 import { Button } from "@/components/ui/Action";
 import { startCheckout, confirmCheckout, manageBilling } from "./actions";
-import { CONTRIBUTIONS, TRIAL_DAYS } from "@/lib/members/plans";
+import {
+  CONTRIBUTIONS,
+  DEFAULT_CONTRIBUTION,
+  TRIAL_DAYS,
+  type Contribution,
+} from "@/lib/members/plans";
 
 export function BillingManagement() {
   const [state, action, pending] = useActionState(manageBilling, {
@@ -41,7 +46,7 @@ export default function CheckoutForm({ trialUsed }: { trialUsed: boolean }) {
   const [state, action, pending] = useActionState(startCheckout, {
     error: null,
   });
-  const [amount, setAmount] = useState("1");
+  const [amount, setAmount] = useState<Contribution>(DEFAULT_CONTRIBUTION);
   const [payment, setPayment] = useState(trialUsed ? "pay" : "trial");
   return (
     <form action={action} className="mt-8 space-y-6">

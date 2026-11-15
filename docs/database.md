@@ -11,7 +11,7 @@ Supabase is the source for all data in Sapiens First. Staff can maintain Atlas's
 | `atlas_relationships` | Ownership, support, and succession between Atlas records, with optional dates and notes. | Approved edits |
 | `profiles` and `auth.users` | Profile and sign-in data. `profiles.id` is the Auth user UUID. | Use only a verified profile UUID for an assignment. Account changes go through the account workflow. |
 | `memberships` and `stripe_webhook_events` | Subscription state and Stripe webhook processing. | Billing workflow only |
-| `campaign_signatures` and `member_interests` | Campaign signatures and Circle or Fellowship submissions. | Intake workflows only |
+| `campaign_signatures` and `member_interests` | Campaign signatures and interest in membership, Fellowship, or starting a Circle. | Intake workflows only |
 
 Atlas is public read-only through Supabase, including its raw columns and any linked profile UUIDs. Keep personal contact details, private notes, and secrets out of Atlas. The profile and Auth tables have separate access rules. Atlas roles and the `Staff` engagement label describe contributions and grant no database or billing permissions.
 

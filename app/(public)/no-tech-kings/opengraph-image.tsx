@@ -10,6 +10,7 @@ async function barlowExtraBold(): Promise<ArrayBuffer | null> {
     const css = await fetch(
       "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&display=swap",
       {
+        signal: AbortSignal.timeout(4000),
         headers: {
           // An older user agent makes Google Fonts return a TTF, which Satori can load.
           "User-Agent":

@@ -23,8 +23,16 @@
   --color-brand-peach: #ffd5b5;
   --color-muted: #59665e;
   --color-success-dark: #006c4b;
+  /* No Tech Kings campaign sheet. Brick is that page's primary action only. */
+  --color-navy: #16344a;
+  --color-navy-soft: #e6eef3;
+  --color-brick: #8d3a32;
+  --color-brick-soft: #f8e8e4;
+  --color-sage: #2f6a4f;
+  --color-sage-soft: #e6f2ea;
   --font-display: var(--font-barlow-condensed), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
+  --font-colonial: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-quote: Georgia, "Times New Roman", serif;
 }
 

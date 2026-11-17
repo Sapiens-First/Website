@@ -1,26 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import { CampaignChrome } from "@/components/redesign/CampaignChrome";
+import { SkipLink } from "@/components/redesign/SkipLink";
 import { site } from "@/lib/site";
 import "./globals.css";
-
-const displayFont = Barlow_Condensed({
-  weight: ["400", "600", "700", "800"],
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-barlow-condensed",
-});
-
-const bodyFont = DM_Sans({
-  weight: "variable",
-  subsets: ["latin"],
-  axes: ["opsz"],
-  display: "swap",
-  variable: "--font-dm-sans",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -45,15 +31,20 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      data-scroll-behavior="smooth"
-      className={`${displayFont.variable} ${bodyFont.variable}`}
-    >
+    <html lang="en" data-scroll-behavior="smooth">
       <body>
-        <SiteHeader />
-        <div className="flex min-w-0 flex-1 flex-col">{children}</div>
-        <SiteFooter />
+        <SkipLink />
+        <CampaignChrome>
+          <SiteHeader />
+          <div
+            id="main"
+            tabIndex={-1}
+            className="flex min-w-0 flex-1 flex-col focus:outline-none"
+          >
+            {children}
+          </div>
+          <SiteFooter />
+        </CampaignChrome>
         <Analytics />
         <SpeedInsights />
       </body>

@@ -1,6 +1,57 @@
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
+
+/* Self-hosted cuts of the live families. Files live in public/fonts. */
+@font-face {
+  font-family: "Barlow Condensed";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/barlow-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow Condensed";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/barlow-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/barlow-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Barlow Condensed";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/barlow-800.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url("/fonts/dmsans-variable.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/dmsans-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("/fonts/fraunces-italic.woff2") format("woff2");
+}
 @theme static {
   --color-paper: #fffdf5;
   --color-soft: #fff3d6;
@@ -48,7 +99,18 @@
     border-color: currentColor;
   }
   html {
+    --font-barlow-condensed: "Barlow Condensed", Impact, sans-serif;
+    --font-dm-sans: "DM Sans", system-ui, sans-serif;
+    --font-fraunces: "Fraunces", Georgia, "Times New Roman", serif;
     scroll-behavior: smooth;
+  }
+  #main,
+  #signup,
+  #declaration,
+  #event,
+  #tea-party,
+  #demands {
+    scroll-margin-top: 5.5rem;
   }
   body {
     @apply flex min-h-screen flex-col overflow-x-hidden bg-paper font-body text-ink;

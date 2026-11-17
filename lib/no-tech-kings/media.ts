@@ -21,6 +21,19 @@ export const declaration = {
   license: "Public domain. Work of the United States federal government.",
 };
 
+export const heroPhoto = {
+  src: "/assets/homepage-hero-photo.jpg",
+  alt: "",
+  width: 1800,
+  height: 1198,
+} as const;
+
+export const bostonTeaParty = {
+  src: "/no-tech-kings/boston-tea-party-currier.jpg",
+  width: 1789,
+  height: 1091,
+} as const;
+
 export const gallery = [
   {
     src: "/no-tech-kings/tea-party.svg",
@@ -53,3 +66,7 @@ export const gallery = [
     license: "Original artwork for this campaign.",
   },
 ] as const satisfies readonly GalleryImage[];
+
+export const teaPartyIllustration = gallery[0];
+export const parkPhoto = gallery[1];
+export const dinosaurIllustration = gallery[2];

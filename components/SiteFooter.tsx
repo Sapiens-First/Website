@@ -1,112 +1,117 @@
 import Image from "next/image";
 import Link from "next/link";
 import flameLogo from "@/public/favicons/android-chrome-192x192.png";
-import { Container } from "@/components/layout/Container";
-import { Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
+import { ExternalLink } from "@/components/redesign/ExternalLink";
+import { focusRing, wrap } from "@/components/redesign/styles";
+import { campaignConfig } from "@/lib/no-tech-kings/config";
 import { cn } from "@/lib/cn";
 
 const footerGroups = [
   {
     title: "About",
     links: [
-      { label: "About", href: "/about" },
+      { label: "Our Story", href: "/about" },
       { label: "Careers", href: "/careers" },
+      { label: "Human Charter", href: "/human-charter" },
+      { label: "Journey", href: "/journey" },
       { label: "Atlas", href: "/atlas" },
-      { label: "Privacy", href: "/privacy" },
-      { label: "Donate", href: "/donate" },
     ],
   },
   {
     title: "Get Involved",
     links: [
+      {
+        label: "Host a Tea Party ↗",
+        href: campaignConfig.hostForm,
+        external: true,
+      },
+      { label: "Membership", href: "/join" },
+      { label: "Calendar", href: "/calendar" },
       { label: "Fellowship", href: "/fellowship" },
       { label: "Start a Circle", href: "/circle" },
-      { label: "Join", href: "/join" },
-      { label: "Calendar", href: "/calendar" },
+      { label: "Donate", href: "/donate" },
     ],
   },
   {
     title: "Resources",
     links: [
+      { label: "No Tech Kings", href: "/no-tech-kings" },
+      { label: "Campaigns", href: "/campaigns" },
       { label: "Learn", href: "/learn" },
       { label: "Policy", href: "/policy" },
-      { label: "Campaigns", href: "/campaigns" },
-      { label: "No Tech Kings", href: "/no-tech-kings" },
+      { label: "Privacy", href: "/privacy" },
     ],
   },
 ] as const;
 
+const footerLink = cn(
+  focusRing,
+  "text-[0.9375rem] font-[650] text-ink no-underline hover:underline",
+);
+
 export default function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden border-t-2 border-ink bg-ink pt-16 pb-7 text-xs text-white max-sm:pt-11 max-sm:pb-6">
-      <FunLayer>
-        <Doodle className="bottom-[14%] left-[38%] w-8.5 text-paper">
-          <Moon size={34} cutY={13} />
-        </Doodle>
-        <Doodle className="bottom-[36%] left-[45%] w-2.25 rotate-10 text-brand-yellow">
-          <Star size={9} />
-        </Doodle>
-        <Doodle className="bottom-[32%] left-[33%] w-1.75 -rotate-14 text-brand-yellow">
-          <Star size={7} />
-        </Doodle>
-      </FunLayer>
-      <Container>
-        <div className="flex flex-wrap justify-between gap-x-14 gap-y-10 border-b border-white/22 pb-10 max-sm:flex-col max-sm:gap-7 max-sm:pb-7">
+    <footer className="border-t border-rule bg-soft pt-10 pb-6 text-ink">
+      <div className={wrap}>
+        <div className="flex flex-wrap justify-between gap-x-12 gap-y-8">
           <Link
-            className="brand-stripe flex items-center gap-2.5 self-start pb-2.5"
             href="/"
+            className={cn(
+              focusRing,
+              "inline-flex items-center gap-2 font-display text-[1.35rem] leading-none font-extrabold text-ink no-underline",
+            )}
           >
             <Image
-              className="block size-10"
               src={flameLogo}
               alt=""
               width={40}
               height={40}
+              className="size-10"
             />
-            <span className="font-display text-xl font-extrabold tracking-normal text-white uppercase">
-              Sapiens First
-            </span>
+            <span>Sapiens First</span>
           </Link>
-          <div className="flex flex-wrap gap-14 max-sm:gap-8">
+          <div className="flex flex-wrap gap-x-12 gap-y-8">
             {footerGroups.map((group) => (
-              <div className="flex flex-col gap-2.5" key={group.title}>
-                <span className="mb-0.5 block font-body text-sm font-black tracking-widest text-brand-yellow uppercase">
+              <div key={group.title} className="flex min-w-36 flex-col gap-1.5">
+                <h2 className="mb-1 font-display text-[1.05rem] leading-none font-extrabold tracking-[0.08em] uppercase">
                   {group.title}
-                </span>
-                <div
-                  className={cn(
-                    "flex flex-col gap-2.5",
-                    group.title === "About" &&
-                      "grid grid-flow-col grid-rows-[repeat(3,auto)] gap-x-6 gap-y-2.5 max-sm:grid-flow-row max-sm:grid-rows-none",
-                  )}
-                >
-                  {group.links.map((link) => (
-                    <Link
-                      className="font-body text-sm leading-normal font-bold text-white hover:text-coral"
-                      href={link.href}
+                </h2>
+                {group.links.map((link) =>
+                  "external" in link && link.external ? (
+                    <ExternalLink
                       key={link.href}
+                      href={link.href}
+                      className={footerLink}
+                    >
+                      {link.label}
+                    </ExternalLink>
+                  ) : (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={footerLink}
                     >
                       {link.label}
                     </Link>
-                  ))}
-                </div>
+                  ),
+                )}
               </div>
             ))}
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-5 text-sm max-sm:flex-col max-sm:items-start max-sm:gap-2">
-          <span className="before:mr-2 before:inline-block before:size-2 before:rounded-full before:bg-coral before:content-['']">
+        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-4">
+          <span className="text-sm text-muted">
             © {new Date().getFullYear()} Sapiens First. All rights reserved.
           </span>
-          <nav aria-label="Social media" className="flex items-center gap-3">
-            <Link
+          <nav aria-label="Social media" className="flex gap-2">
+            <a
               href="https://www.instagram.com/sapiensfirst.global/"
               aria-label="Sapiens First on Instagram"
-              className="inline-flex size-11 items-center justify-center border border-white/30 text-white transition-colors hover:border-coral hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-ink text-ink focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand-blue"
             >
               <svg
                 viewBox="0 0 24 24"
-                className="size-6"
+                className="size-[1.15rem]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.8"
@@ -122,24 +127,24 @@ export default function SiteFooter() {
                   stroke="none"
                 />
               </svg>
-            </Link>
-            <Link
+            </a>
+            <a
               href="https://www.linkedin.com/company/sapiens-first/"
               aria-label="Sapiens First on LinkedIn"
-              className="inline-flex size-11 items-center justify-center border border-white/30 text-white transition-colors hover:border-coral hover:text-coral focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="inline-flex size-10 items-center justify-center rounded-full border border-ink text-ink focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-brand-blue"
             >
               <svg
                 viewBox="0 0 24 24"
-                className="size-6"
+                className="size-[1.15rem]"
                 fill="currentColor"
                 aria-hidden="true"
               >
                 <path d="M20.45 2H3.55C2.69 2 2 2.68 2 3.52v16.96c0 .84.69 1.52 1.55 1.52h16.9c.86 0 1.55-.68 1.55-1.52V3.52c0-.84-.69-1.52-1.55-1.52ZM7.93 18.74H4.98V9.19h2.95v9.55ZM6.45 7.89a1.71 1.71 0 1 1 0-3.42 1.71 1.71 0 0 1 0 3.42Zm12.29 10.85h-2.95v-4.65c0-1.11-.02-2.54-1.55-2.54-1.55 0-1.79 1.21-1.79 2.46v4.73H9.5V9.19h2.83v1.3h.04c.39-.74 1.36-1.52 2.8-1.52 3 0 3.57 1.97 3.57 4.53v5.24Z" />
               </svg>
-            </Link>
+            </a>
           </nav>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }

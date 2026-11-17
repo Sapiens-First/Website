@@ -32,3 +32,47 @@ export const pageCopy = {
   manifestoBody:
     "We are the Human Revolution. We are fighting the tech oligarchy and bringing Big Tech under human control. Humans, not dinosaurs.",
 } as const;
+
+/** Verbatim first-draft copy. Do not rewrite. */
+export const redesignCopy = {
+  homeTagline: "Defend humanity from the threats of artificial intelligence.",
+  ntkTagline: "No Tech Kings is a campaign of Sapiens First.",
+  headline: "No Tech Kings.",
+  deck: "Big Tech have been taking our jobs, harming our children, and now they are threatening humanity itself.",
+  punch: "Enough! It’s time the People had a say.",
+  signupButton: "Sign up for the mass action →",
+  signupPrivacy: "We’ll email you about ways to get involved.",
+  signupSuccess:
+    "You’re signed up for the mass action. We’ll email you about ways to get involved.",
+  joinCommunity: "Join the community.",
+  readDeclaration: "Read the declaration",
+  campaignBefore: "No Tech Kings is a campaign of ",
+  campaignName: "Sapiens First",
+  demandLead: "We demand the California Governor:",
+  truthTitle: "TELL THE TRUTH.",
+  truthBody:
+    "Call AI for what it is: an existential threat to humanity that threatens life, liberty, and the pursuit of happiness in our Republic.",
+  actTitle: "ACT NOW.",
+  actBody:
+    "Declare a State of Emergency and halt the development of superintelligence until it is under human control.",
+  event:
+    "To launch, we’re holding a tea party outside of Anthropic on December 14th. Come drink, mingle, and declare revolution against the Tech Oligarchy!",
+  hostTitle: "Host a Tea Party",
+  hostBody:
+    "We build power by empowering ordinary people to take action on Big Tech. This starts with tea parties: a chance to socialize, share your concerns about AI, learn about how we can make change together.",
+  humans: "Humans, not dinosaurs.",
+  sanFrancisco: "San Francisco",
+  declarationTitle: "We believe in a pro-human future.",
+  declarationDate: "December 14th",
+  declarationLaunch: "On December 14th, we are launching No Tech Kings.",
+  parallelKicker: "Boston, then San Francisco",
+  heroCredit: "Photograph from sapiensfirst.org (homepage).",
+  parkCredit:
+    "Rob Bye, “Hanging Out in the Park,” London Fields, London, September 26, 2016. CC0 1.0. Wikimedia Commons: “Hanging Out in the Park (Unsplash).jpg”. Tea party and dinosaur illustrations made for No Tech Kings.",
+  declarationCredit:
+    "Engrossed Declaration of Independence, August 2, 1776. U.S. National Archives and Records Administration, NAID 1419123. Wikimedia Commons: “Engrossed Declaration of Independence, front.jpg”. Public domain.",
+  currierCredit:
+    "Nathaniel Currier, The Destruction of Tea at Boston Harbor, 1846. Public domain. Wikimedia Commons: “Boston Tea Party Currier colored.jpg”.",
+  currierAlt:
+    "The Destruction of Tea at Boston Harbor, an 1846 lithograph by Nathaniel Currier, showing colonists throwing tea chests from ships into the water.",
+} as const;

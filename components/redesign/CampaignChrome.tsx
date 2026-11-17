@@ -9,17 +9,6 @@ import { ProgressMeter } from "@/components/redesign/ProgressMeter";
 import { btnCta, wrap } from "@/components/redesign/styles";
 import { cn } from "@/lib/cn";
 
-function readDismissedUntil() {
-  try {
-    const raw = localStorage.getItem(campaignConfig.popup.storageKey);
-    if (!raw) return 0;
-    const data = JSON.parse(raw) as { until?: unknown };
-    return typeof data.until === "number" ? data.until : 0;
-  } catch {
-    return 0;
-  }
-}
-
 function persistDismissal() {
   const until =
     Date.now() + campaignConfig.popup.expireDays * 24 * 60 * 60 * 1000;
@@ -34,7 +23,7 @@ function persistDismissal() {
 }
 
 function isCampaignPath(pathname: string) {
-  return pathname === "/" || pathname === "/no-tech-kings";
+  return pathname === "/no-tech-kings";
 }
 
 export function CampaignChrome({ children }: { children: ReactNode }) {
@@ -46,19 +35,6 @@ export function CampaignChrome({ children }: { children: ReactNode }) {
     setPath(pathname);
     if (!isCampaignPath(pathname)) setOpen(false);
   }
-
-  useEffect(() => {
-    if (pathname !== "/") return;
-    const wide = window.matchMedia(
-      `(min-width: ${campaignConfig.popup.autoOpenMinWidth}px)`,
-    );
-    if (!wide.matches || Date.now() < readDismissedUntil()) return;
-    const id = window.setTimeout(() => {
-      if (!wide.matches || Date.now() < readDismissedUntil()) return;
-      setOpen(true);
-    }, campaignConfig.popup.autoOpenDelayMs);
-    return () => window.clearTimeout(id);
-  }, [pathname]);
 
   return (
     <>

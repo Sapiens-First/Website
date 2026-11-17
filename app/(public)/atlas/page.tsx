@@ -16,6 +16,20 @@ export const metadata: Metadata = pageMetadata({
 export const revalidate = 60;
 
 export default async function Page() {
+  if (!process.env.SUPABASE_URL || !process.env.SUPABASE_PUBLISHABLE_KEY) {
+    return (
+      <main className="mx-auto w-full max-w-2xl px-3 pt-20 pb-16 sm:px-6">
+        <Kicker className="mb-4">Atlas</Kicker>
+        <h1 className="mb-3.5 max-w-xl text-4xl tracking-tight normal-case sm:text-5xl">
+          See how the movement works.
+        </h1>
+        <p className="max-w-xl text-lg leading-normal text-ink">
+          Atlas is unavailable until Supabase is configured for this
+          environment.
+        </p>
+      </main>
+    );
+  }
   const data = await loadAtlasData();
   return (
     <>

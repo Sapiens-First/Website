@@ -31,6 +31,7 @@ const footerGroups = [
       { label: "Learn", href: "/learn" },
       { label: "Policy", href: "/policy" },
       { label: "Campaigns", href: "/campaigns" },
+      { label: "No Tech Kings", href: "/no-tech-kings" },
     ],
   },
 ] as const;

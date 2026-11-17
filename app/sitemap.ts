@@ -14,6 +14,7 @@ const routes = [
   "/campaigns/freeze-ai",
   "/campaigns/stop-1984",
   "/campaigns/no-killer-robots",
+  "/no-tech-kings",
   "/join",
   "/calendar",
   "/donate",

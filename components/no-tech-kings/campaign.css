@@ -1,0 +1,54 @@
+.ntk-harbor-crate {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transition: transform 0.7s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.ntk-harbor-splash {
+  opacity: 0;
+  transition: opacity 0.2s ease 0.18s;
+}
+
+.group:hover .ntk-harbor-crate,
+.group:focus-visible .ntk-harbor-crate {
+  transform: translate(86px, 14px) rotate(34deg);
+}
+
+.group:hover .ntk-harbor-splash,
+.group:focus-visible .ntk-harbor-splash {
+  opacity: 1;
+}
+
+.ntk-card-icon {
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.group:hover .ntk-card-icon,
+.group:focus-visible .ntk-card-icon {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.ntk-on-dark :focus-visible {
+  outline-color: var(--color-brand-yellow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ntk-harbor-crate,
+  .ntk-harbor-splash,
+  .ntk-card-icon {
+    transition: none;
+  }
+
+  .group:hover .ntk-harbor-crate,
+  .group:focus-visible .ntk-harbor-crate,
+  .group:hover .ntk-card-icon,
+  .group:focus-visible .ntk-card-icon {
+    transform: none;
+  }
+
+  .group:hover .ntk-harbor-splash,
+  .group:focus-visible .ntk-harbor-splash {
+    opacity: 0;
+  }
+}

@@ -27,6 +27,7 @@ const navigation = [
       { label: "Stop 1984", href: "/campaigns/stop-1984" },
       { label: "No Killer Robots", href: "/campaigns/no-killer-robots" },
       { label: "Citizens’ Dividend", href: "/campaigns/citizens-dividend" },
+      { label: "No Tech Kings", href: "/no-tech-kings" },
     ],
   },
 ] as const;

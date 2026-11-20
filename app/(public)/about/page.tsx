@@ -328,9 +328,9 @@ export default function Page() {
               </h2>
               <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-md">
                 Rohan founded Sapiens First because he realized no one was doing
-                anything about the AI Crisis. Previously, Rohan worked as an AI
-                safety researcher at Constellation Institute, was an English
-                teacher in Taiwan, and was a community organizer for animal
+                anything about the AI Crisis. Previously, Rohan worked at
+                Constellation, an AI safety organization, was an English teacher
+                in Taiwan, and was a community organizer for animal
                 rights. He likes to{" "}
                 <a
                   href="https://www.rohanprasad.org"

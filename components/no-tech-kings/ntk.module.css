@@ -247,7 +247,7 @@
 .barNav a:hover {
   color: var(--ink);
 }
-.barDonate {
+.barCta {
   display: inline-flex;
   align-items: center;
   min-height: 2.25rem;
@@ -259,14 +259,14 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.barDonate:hover {
+.barCta:hover {
   filter: brightness(1.06);
 }
 @media (max-width: 699px) {
   .barNav {
     display: none;
   }
-  .barDonate {
+  .barCta {
     margin-left: auto;
   }
 }

@@ -190,7 +190,7 @@ function Header() {
       <nav className={styles.barNav} aria-label="On this page">
         <a href="#demand">Demand</a>
       </nav>
-      <a href="#involved" className={styles.barDonate}>
+      <a href="#involved" className={styles.barCta}>
         Get Involved
       </a>
     </header>

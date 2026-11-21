@@ -5,7 +5,8 @@ import { links } from "@/lib/no-tech-kings/links";
  * `hostForm` is the live Google host form (`links.hostTeaParty`), not a second URL.
  */
 export const campaignConfig = {
-  eventStart: "2026-12-14T08:00:00Z",
+  /** Mass action starts Dec 14, 2026 at 11:00 AM Pacific (PST, UTC−8). */
+  eventStart: "2026-12-14T19:00:00Z",
   hideCountdownAfter: "2026-12-16T08:00:00Z",
   teaParties: { done: 5, goal: 10 },
   popup: {
@@ -16,6 +17,7 @@ export const campaignConfig = {
   },
   hostForm: links.hostTeaParty.href,
   eventDateLabel: "December 14, 2026",
+  eventTimeLabel: "11 AM PT",
 } as const;
 
 export function meterLabel(

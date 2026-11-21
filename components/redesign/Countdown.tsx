@@ -22,21 +22,33 @@ function subscribe(onChange: () => void) {
   return () => window.clearInterval(id);
 }
 
-export function Countdown() {
+export type CountdownState =
+  | { kind: "hidden" }
+  | { kind: "date" }
+  | { kind: "live"; days: string; hours: string; minutes: string };
+
+/** Countdown to the mass action. Renders the date on the server, then ticks every 30s. */
+export function useCountdown(): CountdownState {
   const value = useSyncExternalStore(subscribe, snapshot, () => "date");
-  if (value === "hidden") return null;
-  if (value === "date") {
+  if (value === "hidden" || value === "date") return { kind: value };
+  const [, days, hours, minutes] = value.split(":");
+  return { kind: "live", days, hours, minutes };
+}
+
+export function Countdown() {
+  const state = useCountdown();
+  if (state.kind === "hidden") return null;
+  if (state.kind === "date") {
     return (
       <p className="mt-[1.15rem] font-display text-2xl leading-none font-extrabold max-[699px]:mt-3">
         {campaignConfig.eventDateLabel}
       </p>
     );
   }
-  const [, days, hours, minutes] = value.split(":");
   const boxes = [
-    [days, "Days"],
-    [hours, "Hours"],
-    [minutes, "Minutes"],
+    [state.days, "Days"],
+    [state.hours, "Hours"],
+    [state.minutes, "Minutes"],
   ] as const;
   return (
     <div className="mt-[1.15rem] flex gap-2 max-[699px]:mt-3">

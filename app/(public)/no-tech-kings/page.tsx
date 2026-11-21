@@ -18,16 +18,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: "/no-tech-kings/chassis-favicon-32.png",
-        sizes: "32x32",
-        type: "image/png",
-      },
-      {
-        url: "/no-tech-kings/chassis-favicon-64.png",
-        sizes: "64x64",
-        type: "image/png",
-      },
+      { url: "/no-tech-kings/three-point-crown.svg", type: "image/svg+xml" },
     ],
   },
 };

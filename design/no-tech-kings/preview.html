@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>No Tech Kings — preview</title>
+  <link rel="icon" type="image/svg+xml" href="../../public/no-tech-kings/three-point-crown.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <style>
+
+:root {
+  /* Shared hues use exact Sapiens First tokens (live CSS + app/globals.css). */
+  --rise: 0;
+  --bg: #070707;                 /* NTK stage — not an SF hue */
+  --ink: #fffdf5;                /* SF --color-paper */
+  --ink-dark: #18251f;           /* SF --color-ink (type on yellow) */
+  --muted: rgba(255, 253, 245, 0.64);
+  --faint: rgba(255, 253, 245, 0.16);
+  --gold: #ffc928;               /* SF --color-brand-yellow, anchor accent */
+  --soft: #fff3d6;               /* SF --color-soft */
+  --coral: #ff7870;              /* SF --color-coral */
+  --pink: #ed3b91;               /* SF --color-brand-pink */
+  --peach: #ffd5b5;              /* SF --color-brand-peach */
+  --purple: #8b4dff;             /* SF --color-brand-purple */
+  --blue: #1678ee;               /* SF --color-brand-blue */
+  --blue-light: #79b7ff;         /* SF --color-brand-blue-light */
+  --teal: #00a878;               /* SF --color-success */
+  --navy: #16344a;               /* SF --color-navy */
+  --accent: var(--gold);
+  --accent-ink: var(--ink-dark);
+  --rule: rgba(255, 253, 245, 0.14);
+  --input-border: rgba(255, 253, 245, 0.4);
+  --display: "Archivo Black", "Arial Black", sans-serif;
+  --sans: Inter, system-ui, sans-serif;
+  /* Type system: Archivo Black for headlines, Inter for everything else.
+     One label style (small, bold, tracked caps) for every eyebrow/link/meta line. */
+  --label-size: 0.78rem;
+  --label-track: 0.14em;
+  --gutter: clamp(1.25rem, 5vw, 3.75rem);
+  --wrap: 72rem;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 4.25rem; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); }
+body {
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.wrap { width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.grain {
+  pointer-events: none;
+  position: fixed; inset: 0; z-index: 40;
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+/* -------- atmosphere (the rising sun) -------- */
+/* Night to dawn. --rise goes 0 → 1 on scroll: at 0 the sky is near black
+   and the sun is below the horizon; by the Demand section it's a full dawn.
+   SF hexes as oklch anchors. */
+:root {
+  --sun-size: calc(6rem + var(--rise) * 7rem);
+  --sun-y: calc(-8rem + var(--rise) * 8rem);    /* sun centre, from viewport bottom: ends as a half-sun on the horizon */
+  --sky-top: color-mix(in oklch, #16344a calc(var(--rise) * 100%), #070707);
+}
+.sky {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none; overflow: hidden;
+  background: #070707;
+}
+.sky-base {
+  position: absolute; inset: 0;
+  background: linear-gradient(in oklch to bottom,
+    var(--sky-top) 0%,
+    color-mix(in oklch, color-mix(in oklch, #8b4dff 38%, #16344a) calc(var(--rise) * 100%), #070707) 42%,
+    color-mix(in oklch, color-mix(in oklch, #ed3b91 62%, #16344a) calc(var(--rise) * 100%), #070707) 68%,
+    color-mix(in oklch, color-mix(in oklch, #ff7870 85%, #ed3b91) calc(var(--rise) * 100%), #070707) 86%,
+    color-mix(in oklch, #ffc928 calc(var(--rise) * 100%), #0b0806) 100%);
+}
+.sky-zenith {
+  position: absolute; inset: -10%;
+  filter: blur(40px);
+  background:
+    radial-gradient(in oklch, ellipse 50% 44% at 0% 20%,
+      color-mix(in oklch, #1678ee calc(var(--rise) * 26%), transparent) 0%,
+      transparent 72%),
+    radial-gradient(in oklch, ellipse 50% 44% at 100% 20%,
+      color-mix(in oklch, #79b7ff calc(var(--rise) * 20%), transparent) 0%,
+      transparent 72%),
+    radial-gradient(in oklch, ellipse 40% 34% at 8% 82%,
+      color-mix(in oklch, #00a878 calc(var(--rise) * 14%), transparent) 0%,
+      transparent 70%),
+    radial-gradient(in oklch, ellipse 40% 34% at 92% 82%,
+      color-mix(in oklch, #8b4dff calc(var(--rise) * 22%), transparent) 0%,
+      transparent 70%);
+}
+.horizon {
+  /* a faint ember on the horizon even at night, so the page isn't dead black */
+  position: absolute; left: -8%; right: -8%; bottom: -8%;
+  height: calc(22% + var(--rise) * 50%);
+  filter: blur(32px);
+  background: linear-gradient(in oklch to top,
+    color-mix(in oklch, #ffc928 calc(10% + var(--rise) * 60%), transparent) 0%,
+    color-mix(in oklch, #ffd5b5 calc(6% + var(--rise) * 44%), transparent) 18%,
+    color-mix(in oklch, #ff7870 calc(5% + var(--rise) * 40%), transparent) 36%,
+    color-mix(in oklch, #ed3b91 calc(3% + var(--rise) * 30%), transparent) 56%,
+    transparent 100%);
+}
+.bloom {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--sun-y) - var(--sun-size) * 1.6);
+  width: calc(var(--sun-size) * 3.2);
+  height: calc(var(--sun-size) * 3.2);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  filter: blur(28px);
+  opacity: calc(var(--rise) * 0.95);
+  background: radial-gradient(in oklch,
+    color-mix(in oklch, #fff3d6 60%, transparent) 0%,
+    color-mix(in oklch, #ffc928 44%, transparent) 26%,
+    color-mix(in oklch, #ff7870 26%, transparent) 50%,
+    color-mix(in oklch, #ed3b91 12%, transparent) 70%,
+    transparent 80%);
+  animation: pulse 10s ease-in-out infinite;
+}
+.sun {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--sun-y) - var(--sun-size) / 2);
+  width: var(--sun-size);
+  height: var(--sun-size);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  filter: blur(1.5px);
+  opacity: calc(0.6 + var(--rise) * 0.4);
+  background: radial-gradient(in oklch at 50% 46%,
+    #fff3d6 0%,
+    #ffc928 34%,
+    #ffd5b5 52%,
+    #ff7870 70%,
+    color-mix(in oklch, #ff7870 40%, transparent) 82%,
+    transparent 90%);
+  box-shadow: 0 0 4rem color-mix(in oklch, #ffc928 calc(10% + var(--rise) * 40%), transparent);
+}
+/* Light shafts: a still fan above the sun. No spinning — each shaft
+   slowly brightens and dims on its own clock, and the fan grows with --rise. */
+.rays-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: var(--sun-y);
+  width: min(240vw, 130rem);
+  aspect-ratio: 2 / 1;
+  transform: translateX(-50%) scale(calc(0.5 + var(--rise) * 0.5));
+  transform-origin: 50% 100%;
+  opacity: calc(var(--rise) * var(--rise) * 0.5);
+  filter: blur(7px);
+  mix-blend-mode: screen;
+}
+.rays { width: 100%; height: 100%; color: #ffd98a; }
+.rays path {
+  animation: shimmer var(--dur, 9s) ease-in-out var(--delay, 0s) infinite;
+}
+.vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(in oklch, ellipse 68% 62% at 50% 40%,
+      transparent 18%,
+      rgba(7,7,7, calc(0.6 - var(--rise) * 0.3)) 100%),
+    linear-gradient(in oklch to bottom,
+      rgba(7,7,7, calc(0.55 - var(--rise) * 0.25)) 0%,
+      transparent 26%);
+}
+
+/* -------- chrome -------- */
+.bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem var(--gutter);
+  background: linear-gradient(to bottom,
+    color-mix(in oklch, var(--sky-top) 94%, transparent) 0%,
+    color-mix(in oklch, var(--sky-top) 82%, transparent) 55%,
+    transparent);
+}
+.logo {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-family: var(--display);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+}
+.logo-mark { width: 2.1rem; height: auto; flex: 0 0 auto; }
+.bar nav {
+  display: flex; gap: 1.25rem;
+  font-size: 0.8rem; font-weight: 600;
+}
+.bar nav a { text-decoration: none; color: var(--muted); }
+.bar nav a:hover { color: var(--ink); }
+@media (max-width: 699px) {
+  .bar nav { display: none; }
+  .scene { padding-top: 5.25rem; }
+  #signup h2.display { font-size: clamp(2.6rem, 13.5vw, 3.6rem); }
+  #signup .date { margin-bottom: 0.7rem; }
+  #signup .signup { margin-top: 1.4rem; }
+  #signup { justify-content: flex-start; padding-top: 5.75rem; padding-bottom: 22vh; }
+}
+
+/* -------- scenes -------- */
+.scene {
+  position: relative; z-index: 1;
+  min-height: 100svh;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center;
+  padding: 5.5rem var(--gutter) 4rem;
+}
+.scene-inner { width: min(82rem, 100%); }
+.kicker, .date, .quote figcaption, .action .go, .share, .tick span {
+  font-size: var(--label-size); font-weight: 700;
+  letter-spacing: var(--label-track); text-transform: uppercase;
+  line-height: 1.3;
+}
+.kicker, .date, .quote figcaption, .action .go, .share a { color: var(--gold); }
+.kicker { margin: 0 0 0.8rem; }
+.date { margin: 0 0 1.1rem; font-size: 1rem; }  /* the one bigger label */
+.emblem {
+  width: 9.5rem; height: auto;
+  margin: 0 auto 1.25rem;
+}
+h1, .display, .section-title {
+  text-shadow: 0 2px 28px rgba(7,7,7,0.45);
+}
+h1, .display {
+  margin: 0 auto;
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 0.84;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.nowrap { white-space: nowrap; }
+h1 {
+  font-size: clamp(3.85rem, 16.5vw, 6.75rem);
+}
+.br-mobile { display: none; }
+@media (max-width: 699px) {
+  .br-mobile { display: block; }
+  .br-desktop { display: none; }
+  h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
+}
+.lede {
+  margin: 1.4rem auto 0;
+  max-width: 34rem;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+.quote { margin: 1.6rem auto 0; max-width: 36rem; }
+.quote blockquote { margin: 0; }
+.quote p {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.45;
+  text-wrap: balance;
+  text-shadow: 0 1px 14px rgba(7,7,7,0.45);
+}
+.quote figcaption { margin-top: 0.85rem; }
+.quote figcaption::before { content: "— "; }
+
+.section-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.5rem, 6.6vw, 5.4rem);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+/* forms */
+.signup {
+  margin: 2.15rem auto 0;
+  display: flex; flex-wrap: wrap; gap: 0.55rem;
+  justify-content: center; align-items: stretch;
+  max-width: 34rem;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+.signup .field { flex: 1 1 16rem; }
+.signup input {
+  width: 100%; height: 3.5rem; padding: 0 1.05rem;
+  background: rgba(7,7,7,0.62);
+  border: 1.5px solid var(--input-border);
+  border-radius: 0; color: var(--ink);
+  font-size: 1rem; font-weight: 500;
+}
+.signup input::placeholder { color: var(--muted); }
+.signup button {
+  height: 3.5rem; padding: 0 1.75rem;
+  border: 0; border-radius: 0;
+  background: var(--gold); color: var(--accent-ink);
+  font-size: 0.92rem; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  cursor: pointer;
+}
+.signup button:hover { filter: brightness(1.06); }
+@media (max-width: 699px) {
+  .signup .field, .signup button { flex: 1 1 100%; }
+}
+.signup-ok {
+  margin: 2.15rem auto 0;
+  font-size: 1.15rem; font-weight: 500;
+}
+#signup .signup { max-width: 38rem; }
+#signup .signup input, #signup .signup button { height: 3.85rem; }
+#signup h2.display { font-size: clamp(3.4rem, 12vw, 7rem); }
+
+#signup { padding-bottom: 8rem; }
+footer {
+  position: relative; z-index: 1;
+  display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: center; gap: 1rem;
+  padding: 1.5rem var(--gutter);
+  border-top: 1px solid var(--rule);
+}
+footer .logo { font-size: 0.75rem; }
+footer nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+footer nav a { text-decoration: none; }
+
+/* motion */
+.rise { animation: rise 0.95s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--d, 0s); }
+.inview { opacity: 0; transform: translateY(22px); }
+.inview.is-in {
+  opacity: 1; transform: none;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulse {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.06; }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+
+/* countdown — same units as the live page: Days, Hours, Minutes */
+.countdown {
+  display: flex; justify-content: center; gap: 0.5rem;
+  margin: 0 auto 1.15rem;
+}
+.countdown[hidden] { display: none; }
+.tick {
+  min-width: 4.25rem;
+  padding: 0.55rem 0.7rem 0.5rem;
+  border: 1.5px solid var(--input-border);
+  text-align: center;
+  background: rgba(7,7,7,0.45);
+}
+.tick strong {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+.tick span {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.date-fallback { display: none; }
+.date-fallback.is-on { display: block; }
+
+/* two-up demand */
+.split {
+  margin-top: 2.4rem;
+  display: grid;
+  gap: 2rem 3rem;
+  text-align: left;
+}
+@media (min-width: 800px) { .split { grid-template-columns: 1fr 1fr; } }
+.split h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+.split p {
+  margin: 1rem 0 0; max-width: 26rem;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem); font-weight: 500; line-height: 1.4;
+}
+
+/* get involved: expandable cards (native <details>, works without JS) */
+.actions {
+  margin-top: 2.2rem; display: grid; gap: 0.85rem;
+  text-align: left; align-items: start;
+}
+@media (min-width: 800px) { .actions { grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; } }
+.action {
+  border: 1.5px solid var(--rule);
+  background: rgba(7,7,7,0.38);
+  transition: border-color 0.2s;
+}
+.action:hover, .action[open] { border-color: var(--gold); }
+.action summary {
+  display: grid; grid-template-columns: 1fr auto; gap: 0.35rem 1rem;
+  padding: 1.35rem 1.4rem;
+  cursor: pointer; list-style: none;
+}
+.action summary::-webkit-details-marker { display: none; }
+.action summary::after {
+  content: "+";
+  grid-column: 2; grid-row: 1;
+  font-family: var(--display); font-size: 1.5rem; line-height: 1;
+  color: var(--gold);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.action[open] summary::after { transform: rotate(45deg); }
+.action h3 {
+  margin: 0; grid-column: 1;
+  font-family: var(--display); font-weight: 400;
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+  letter-spacing: -0.02em; line-height: 1.05;
+  text-transform: uppercase;
+}
+.action .teaser { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 0.95rem; }
+.action .more { padding: 0 1.4rem 1.4rem; }
+.action .more p { margin: 0 0 1.1rem; font-size: 0.95rem; }
+.action .go { text-decoration: none; }
+.action .go:hover { text-decoration: underline; }
+.action[open] .more { animation: rise 0.45s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+.share { margin-top: 2rem; }
+.share a { text-decoration: none; text-shadow: 0 1px 14px rgba(7,7,7,0.55); }
+.share a:hover { text-decoration: underline; }
+
+.privacy {
+  margin: 0.85rem auto 0;
+  text-shadow: 0 1px 12px rgba(7,7,7,0.5);
+  font-size: 0.8rem;
+  color: var(--muted);
+  max-width: 28rem;
+}
+.privacy a { color: inherit; font-weight: 700; }
+
+footer {
+  position: relative; z-index: 1;
+  padding: 2.25rem var(--gutter) 1.75rem;
+  border-top: 1px solid var(--rule);
+}
+.foot-top {
+  display: flex; flex-wrap: wrap;
+  justify-content: space-between; align-items: flex-start;
+  gap: 1.25rem 2rem;
+}
+footer .tagline { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.9rem; max-width: 22rem; }
+footer .tagline a { color: var(--ink); font-weight: 700; text-decoration: none; }
+footer .tagline a:hover { color: var(--gold); }
+footer nav {
+  display: flex; flex-wrap: wrap;
+  gap: 0.35rem 1.15rem;
+  font-size: 0.8rem; font-weight: 600; color: var(--muted);
+}
+footer nav a { text-decoration: none; }
+footer nav a:hover { color: var(--ink); }
+.foot-social { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; font-weight: 600; }
+.foot-social a { color: var(--gold); text-decoration: none; }
+
+#involved, #demand {
+  align-items: flex-start;
+  text-align: left;
+  padding-top: 7rem;
+  padding-bottom: 26vh;
+}
+#involved .scene-inner, #demand .scene-inner { width: min(var(--wrap), 100%); }
+
+#hook .signup {
+  margin-top: 1.6rem;
+  flex-direction: column;
+  max-width: 26rem;
+  align-items: stretch;
+}
+#hook .signup .field, #hook .signup button { flex: 1 1 auto; width: 100%; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .rays path, .bloom, .inview, .inview.is-in {
+    animation: none !important;
+    transition: none !important;
+  }
+  .rise, .inview, .inview.is-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rays path { opacity: 0.7; }
+}
+
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="sky" aria-hidden="true">
+    <div class="sky-base"></div>
+    <div class="sky-zenith"></div>
+    <div class="horizon"></div>
+    <div class="bloom"></div>
+    <div class="rays-wrap">
+      <svg class="rays" viewBox="-600 -600 1200 600" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="rayfade" gradientUnits="userSpaceOnUse" cx="0" cy="0" r="600">
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0"/>
+            <stop offset="14%" stop-color="currentColor" stop-opacity="0.55"/>
+            <stop offset="45%" stop-color="currentColor" stop-opacity="0.22"/>
+            <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g fill="url(#rayfade)">
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(-74) scale(22 1)" style="--dur:11s;--delay:0s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(-60) scale(30 1)" style="--dur:8s;--delay:-3s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(-47) scale(18 1)" style="--dur:13s;--delay:-6s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(-35) scale(34 1)" style="--dur:10s;--delay:-2s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(-22) scale(20 1)" style="--dur:7s;--delay:-8s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(-9) scale(28 1)" style="--dur:12s;--delay:-4s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(4) scale(24 1)" style="--dur:9s;--delay:-1s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(17) scale(32 1)" style="--dur:11s;--delay:-7s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(30) scale(18 1)" style="--dur:8s;--delay:-5s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(43) scale(30 1)" style="--dur:13s;--delay:-2s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(57) scale(22 1)" style="--dur:10s;--delay:-9s"/>
+          <path d="M0 0 L-1 -600 L1 -600 Z" transform="rotate(70) scale(28 1)" style="--dur:12s;--delay:-4s"/>
+        </g>
+      </svg>
+    </div>
+    <div class="sun"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <header class="bar">
+    <a class="logo" href="#hook"><img class="logo-mark" src="../../public/no-tech-kings/three-point-crown.svg" alt="" width="1036" height="870" />No Tech Kings</a>
+    <nav aria-label="On this page">
+      <a href="#demand">Demand</a>
+      <a href="#involved">Get Involved</a>
+      <a href="#signup">Sign up</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="scene" id="hook">
+      <div class="scene-inner">
+        <img class="emblem rise" style="--d:.05s" src="../../public/no-tech-kings/three-point-crown.svg" alt="No Tech Kings: a three-point crown with circuit traces, crossed out" width="1036" height="870" />
+        <div class="countdown rise" style="--d:.14s" data-countdown hidden>
+          <div class="tick"><strong data-unit="days">0</strong><span>Days</span></div>
+          <div class="tick"><strong data-unit="hours">00</strong><span>Hours</span></div>
+          <div class="tick"><strong data-unit="minutes">00</strong><span>Minutes</span></div>
+        </div>
+        <p class="date date-fallback rise" style="--d:.14s" data-countdown-label>December 14, 2026</p>
+        <h1 class="rise" style="--d:.26s">No Tech<br class="br-mobile" /> Kings.<br /><span class="nowrap">Freeze AI.</span></h1>
+        <p class="lede rise" style="--d:.36s">We demand that Governor Newsom takes a stand on Big Tech.</p>
+          <div data-signup-wrap>
+          <form class="signup rise" style="--d:.52s" data-signup action="#" method="post">
+            <input type="hidden" name="interest" value="membership" />
+            <div class="field">
+              <label class="sr-only" for="email-hook">Email address</label>
+              <input id="email-hook" type="email" name="email" autocomplete="email" maxlength="254" required placeholder="Email address" />
+            </div>
+            <button type="submit">Sign up for the mass action</button>
+          </form>
+          <p class="signup-ok" data-signup-success hidden tabindex="-1">You’re signed up for the mass action. We’ll email you about ways to get involved.</p>
+          <p class="privacy">We’ll email you about ways to get involved. <a href="https://sapiensfirst.org/privacy">Privacy</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="demand">
+      <div class="scene-inner inview">
+        <p class="kicker">Demand</p>
+        <h2 class="section-title">We demand the California Governor:</h2>
+        <div class="split">
+          <article>
+            <h3>Tell the truth.</h3>
+            <p>Declare a State of Emergency on rogue AI.</p>
+          </article>
+          <article>
+            <h3>Act now.</h3>
+            <p>Freeze AI and put ordinary people back in control.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="involved">
+      <div class="scene-inner inview">
+        <p class="kicker">Get Involved</p>
+        <h2 class="section-title">Get Involved</h2>
+        <div class="actions">
+          <details class="action">
+            <summary>
+              <h3>Join the community</h3>
+              <p class="teaser">San Francisco organizers on Signal.</p>
+            </summary>
+            <div class="more">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <a class="go" href="https://signal.group/#CjQKIOrofW8j8QU_sAQ2AgrDwH78vUOq2WI2Xhh3t4R_qU87EhCerjEOUUL1NKbzetKqfd73" target="_blank" rel="noopener noreferrer">Open Signal ↗</a>
+            </div>
+          </details>
+          <details class="action">
+            <summary>
+              <h3>Calendar</h3>
+              <p class="teaser">Upcoming meetings, trainings, and actions.</p>
+            </summary>
+            <div class="more">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <a class="go" href="https://sapiensfirst.org/calendar">See dates ↗</a>
+            </div>
+          </details>
+          <details class="action">
+            <summary>
+              <h3>Host a Tea Party</h3>
+              <p class="teaser">Bring people together where you live.</p>
+            </summary>
+            <div class="more">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <a class="go" href="https://docs.google.com/forms/d/e/1FAIpQLSfQdMLDf8RlSK69MELH9Vq61YEHuzmzdovLWWkxDtjWyLiGWg/viewform" target="_blank" rel="noopener noreferrer">Open the form ↗</a>
+            </div>
+          </details>
+          <details class="action">
+            <summary>
+              <h3>Membership</h3>
+              <p class="teaser">Join Sapiens First and power the campaign.</p>
+            </summary>
+            <div class="more">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <a class="go" href="https://sapiensfirst.org/join">Join ↗</a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="signup">
+      <div class="scene-inner inview">
+        <p class="date">December 14, 2026</p>
+        <h2 class="display">History doesn’t<br class="br-desktop" /> make itself.</h2>
+        <figure class="quote">
+          <blockquote><p>“It always seems impossible until it is done.”</p></blockquote>
+          <figcaption>Nelson Mandela</figcaption>
+        </figure>
+          <div data-signup-wrap>
+          <form class="signup" data-signup action="#" method="post">
+            <input type="hidden" name="interest" value="membership" />
+            <div class="field">
+              <label class="sr-only" for="email-climax">Email address</label>
+              <input id="email-climax" type="email" name="email" autocomplete="email" maxlength="254" required placeholder="Email address" />
+            </div>
+            <button type="submit">Sign up for the mass action</button>
+          </form>
+          <p class="signup-ok" data-signup-success hidden tabindex="-1">You’re signed up for the mass action. We’ll email you about ways to get involved.</p>
+          <p class="privacy">We’ll email you about ways to get involved. <a href="https://sapiensfirst.org/privacy">Privacy</a></p>
+        </div>
+        <p class="share"><a href="https://sapiensfirst.org/no-tech-kings">Share this page</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot-top">
+      <div>
+        <a class="logo" href="#hook"><img class="logo-mark" src="../../public/no-tech-kings/three-point-crown.svg" alt="" width="1036" height="870" />No Tech Kings</a>
+        <p class="tagline">No Tech Kings is a campaign of <a href="https://sapiensfirst.org">Sapiens First</a>.</p>
+      </div>
+      <nav aria-label="Sapiens First">
+        <a href="https://sapiensfirst.org/about">Our Story</a>
+        <a href="https://sapiensfirst.org/careers">Careers</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfQdMLDf8RlSK69MELH9Vq61YEHuzmzdovLWWkxDtjWyLiGWg/viewform" target="_blank" rel="noopener noreferrer">Host a Tea Party</a>
+        <a href="https://sapiensfirst.org/join">Membership</a>
+        <a href="https://sapiensfirst.org/calendar">Calendar</a>
+        <a href="https://sapiensfirst.org/donate">Donate</a>
+        <a href="https://sapiensfirst.org/privacy">Privacy</a>
+        <a href="https://sapiensfirst.org/no-tech-kings">No Tech Kings</a>
+      </nav>
+    </div>
+    <div class="foot-social">
+      <a href="https://www.instagram.com/sapiensfirst.global/" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://www.linkedin.com/company/sapiens-first/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://signal.group/#CjQKIOrofW8j8QU_sAQ2AgrDwH78vUOq2WI2Xhh3t4R_qU87EhCerjEOUUL1NKbzetKqfd73" target="_blank" rel="noopener noreferrer">San Francisco · Signal</a>
+    </div>
+  </footer>
+
+  <script>
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Live mass-action signup fields: interest=membership, email.
+  // Production posts via the Next.js saveInterest server action (register_interest).
+  // This mockup stubs submit and shows the live success copy.
+  document.querySelectorAll("[data-signup]").forEach(function (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      form.hidden = true;
+      var wrap = form.closest("[data-signup-wrap]") || form.parentElement;
+      var ok = wrap && wrap.querySelector("[data-signup-success]");
+      var note = wrap && wrap.querySelector(".privacy");
+      if (note) note.hidden = true;
+      if (ok) { ok.hidden = false; ok.focus(); }
+    });
+  });
+
+  // Live countdown: Dec 14, 2026 00:00 America/Los_Angeles = 2026-12-14T08:00:00Z
+  // Hidden after Dec 15 local = 2026-12-16T08:00:00Z. Units match the live page: Days, Hours, Minutes.
+  var EVENT_START = Date.parse("2026-12-14T08:00:00Z");
+  var HIDE_AFTER = Date.parse("2026-12-16T08:00:00Z");
+  var countRoot = document.querySelector("[data-countdown]");
+  var countLabel = document.querySelector("[data-countdown-label]");
+  function pad(n) { return String(n).padStart(2, "0"); }
+  function tickCountdown() {
+    var now = Date.now();
+    if (now >= HIDE_AFTER) {
+      if (countRoot) countRoot.hidden = true;
+      if (countLabel) countLabel.classList.remove("is-on");
+      return;
+    }
+    if (now >= EVENT_START) {
+      if (countRoot) countRoot.hidden = true;
+      if (countLabel) countLabel.classList.add("is-on");
+      return;
+    }
+    var t = EVENT_START - now;
+    var days = Math.floor(t / 86400000);
+    var hours = Math.floor((t % 86400000) / 3600000);
+    var minutes = Math.floor((t % 3600000) / 60000);
+    if (countRoot) {
+      countRoot.hidden = false;
+      var d = countRoot.querySelector('[data-unit="days"]');
+      var h = countRoot.querySelector('[data-unit="hours"]');
+      var m = countRoot.querySelector('[data-unit="minutes"]');
+      if (d) d.textContent = String(days);
+      if (h) h.textContent = pad(hours);
+      if (m) m.textContent = pad(minutes);
+    }
+    if (countLabel) countLabel.classList.remove("is-on");
+  }
+  tickCountdown();
+  window.setInterval(tickCountdown, 30000);
+
+  // sunrise follows scroll: night on the opening screen, full dawn by the Demand section
+  var dawnBy = document.getElementById("demand");
+  var ticking = false;
+  function updateRise() {
+    ticking = false;
+    if (!dawnBy) return;
+    var end = Math.max(1, dawnBy.offsetTop - window.innerHeight * 0.15);
+    var t = Math.min(1, Math.max(0, window.scrollY / end));
+    var eased = t * t * (3 - 2 * t); // smoothstep: holds dark at the top, settles at dawn
+    document.documentElement.style.setProperty("--rise", eased.toFixed(4));
+  }
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateRise);
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", updateRise);
+  updateRise();
+
+  if (reduce || !("IntersectionObserver" in window)) {
+    document.querySelectorAll(".inview").forEach(function (el) { el.classList.add("is-in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-in");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".inview").forEach(function (el) { io.observe(el); });
+})();
+
+  </script>
+</body>
+</html>

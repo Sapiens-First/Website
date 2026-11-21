@@ -8,6 +8,7 @@ import { NtkShare } from "@/components/no-tech-kings/NtkShare";
 import { NtkSignup } from "@/components/no-tech-kings/NtkSignup";
 import { NtkSky } from "@/components/no-tech-kings/NtkSky";
 import { NtkStage } from "@/components/no-tech-kings/NtkStage";
+import { publicCalendar } from "@/lib/calendar";
 import { campaignConfig } from "@/lib/no-tech-kings/config";
 import { ntkCopy, redesignCopy } from "@/lib/no-tech-kings/copy";
 import { links } from "@/lib/no-tech-kings/links";
@@ -80,9 +81,11 @@ export function CampaignPage() {
           </div>
         </section>
 
-        <section className={`${styles.scene} ${styles.sceneLeft}`} id="demand">
+        <section
+          className={`${styles.scene} ${styles.sceneLeft} ${styles.demand}`}
+          id="demand"
+        >
           <div className={styles.inner} data-inview>
-            <p className={styles.kicker}>{ntkCopy.demandKicker}</p>
             <h2 className={styles.sectionTitle}>{ntkCopy.demandTitle}</h2>
             <div className={styles.split}>
               {ntkCopy.demands.map((demand) => (
@@ -109,21 +112,12 @@ export function CampaignPage() {
                 external
               />
               <LinkCard
-                title={ntkCopy.calendar.title}
-                teaser={ntkCopy.calendar.teaser}
-                href="/calendar"
-              />
-              <LinkCard
                 title={redesignCopy.hostTitle}
                 teaser={ntkCopy.hostTeaser}
                 href={campaignConfig.hostForm}
                 external
               />
-              <LinkCard
-                title={ntkCopy.membership.title}
-                teaser={ntkCopy.membership.teaser}
-                href="/join"
-              />
+              <CalendarCard />
             </div>
           </div>
           <div
@@ -131,13 +125,13 @@ export function CampaignPage() {
             id="signup"
             data-inview
           >
+            <NtkSignup />
             <figure className={styles.quote}>
               <blockquote>
                 <p>“{ntkCopy.quote}”</p>
               </blockquote>
               <figcaption>{ntkCopy.quoteBy}</figcaption>
             </figure>
-            <NtkSignup />
             <NtkShare />
           </div>
         </section>
@@ -145,6 +139,36 @@ export function CampaignPage() {
 
       <Footer />
     </NtkStage>
+  );
+}
+
+function CalendarCard() {
+  return (
+    <details className={`${styles.card} ${styles.calendarCard}`}>
+      <summary className={styles.cardHead}>
+        <h3 className={styles.cardTitle}>{ntkCopy.calendar.title}</h3>
+        <span className={styles.arrow} aria-hidden="true">
+          +
+        </span>
+        <p className={styles.teaser}>{ntkCopy.calendar.teaser}</p>
+      </summary>
+      <div className={styles.calendarBody}>
+        <div className={styles.calendarFrame}>
+          <iframe
+            src={publicCalendar.embedUrl}
+            title="Sapiens First public events calendar"
+            loading="lazy"
+          />
+        </div>
+        <p className={styles.calendarLinks}>
+          Times in Pacific.{" "}
+          <ExternalLink href={publicCalendar.googleUrl}>
+            Add to Google Calendar ↗
+          </ExternalLink>{" "}
+          <Link href="/calendar">Full calendar →</Link>
+        </p>
+      </div>
+    </details>
   );
 }
 
@@ -236,9 +260,9 @@ function Footer() {
         </span>
         <nav aria-label="Social media">
           {socialLinks.map((link) => (
-            <a key={link.href} href={link.href}>
+            <ExternalLink key={link.href} href={link.href}>
               {link.label}
-            </a>
+            </ExternalLink>
           ))}
           <ExternalLink href={firstGroup.href}>
             {firstGroup.city} · {firstGroup.platform}

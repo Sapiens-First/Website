@@ -3,46 +3,8 @@ import Link from "next/link";
 import flameLogo from "@/public/favicons/android-chrome-192x192.png";
 import { ExternalLink } from "@/components/redesign/ExternalLink";
 import { focusRing, wrap } from "@/components/redesign/styles";
-import { campaignConfig } from "@/lib/no-tech-kings/config";
+import { footerGroups } from "@/lib/site-nav";
 import { cn } from "@/lib/cn";
-
-const footerGroups = [
-  {
-    title: "About",
-    links: [
-      { label: "Our Story", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Human Charter", href: "/human-charter" },
-      { label: "Journey", href: "/journey" },
-      { label: "Atlas", href: "/atlas" },
-    ],
-  },
-  {
-    title: "Get Involved",
-    links: [
-      {
-        label: "Host a Tea Party ↗",
-        href: campaignConfig.hostForm,
-        external: true,
-      },
-      { label: "Membership", href: "/join" },
-      { label: "Calendar", href: "/calendar" },
-      { label: "Fellowship", href: "/fellowship" },
-      { label: "Start a Circle", href: "/circle" },
-      { label: "Donate", href: "/donate" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "No Tech Kings", href: "/no-tech-kings" },
-      { label: "Campaigns", href: "/campaigns" },
-      { label: "Learn", href: "/learn" },
-      { label: "Policy", href: "/policy" },
-      { label: "Privacy", href: "/privacy" },
-    ],
-  },
-] as const;
 
 const footerLink = cn(
   focusRing,
@@ -77,7 +39,7 @@ export default function SiteFooter() {
                   {group.title}
                 </h2>
                 {group.links.map((link) =>
-                  "external" in link && link.external ? (
+                  link.external ? (
                     <ExternalLink
                       key={link.href}
                       href={link.href}

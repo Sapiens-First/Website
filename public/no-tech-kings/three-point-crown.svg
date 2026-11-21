@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="250 80 1036 870" fill="none" role="img" aria-label="No Tech Kings: a three-point crown with circuit traces, crossed out">
+  <g class="crown" fill="#FED203">
+    <path d="M 436 918 V 878 L 474 868 L 352 257 L 589 502 L 766 150 L 940 502 L 1177 257 L 1049 868 L 1076 878 V 918 Z"/>
+    <circle cx="360" cy="256" r="43"/>
+    <circle cx="766" cy="138" r="45"/>
+    <circle cx="1170" cy="256" r="43"/>
+  </g>
+  <g class="traces" stroke="#0041EA" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 766 352 V 404 L 685 482 V 590"/>
+    <path d="M 818 490 L 770 536 V 626"/>
+    <path d="M 482 836 H 748"/>
+    <path d="M 886 808 H 922 M 886 834 H 922 M 886 860 H 922"/>
+  </g>
+  <g class="nodes" stroke="#0041EA" stroke-width="16" fill="#FB3578">
+    <circle cx="766" cy="318" r="28"/>
+    <circle cx="842" cy="468" r="28"/>
+    <circle cx="655" cy="836" r="28"/>
+  </g>
+  <rect class="chip" x="752" y="789" width="130" height="92" rx="5" fill="#00B79B" stroke="#001545" stroke-width="12"/>
+  <g class="strike" stroke="#FC424F" stroke-width="64">
+    <path d="M 282 400 L 1203 906"/>
+    <path d="M 1252 399 L 317 905"/>
+  </g>
+</svg>

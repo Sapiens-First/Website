@@ -34,8 +34,7 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <body>
         <SkipLink />
-        <CampaignChrome>
-          <SiteHeader />
+        <CampaignChrome header={<SiteHeader />} footer={<SiteFooter />}>
           <div
             id="main"
             tabIndex={-1}
@@ -43,7 +42,6 @@ export default function RootLayout({
           >
             {children}
           </div>
-          <SiteFooter />
         </CampaignChrome>
         <Analytics />
         <SpeedInsights />

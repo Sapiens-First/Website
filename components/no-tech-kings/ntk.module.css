@@ -295,6 +295,11 @@
 .sceneLeft .inner {
   width: min(var(--wrap), 100%);
 }
+/* Demand is short; let it size to its content so no dead band follows it. */
+.demand {
+  min-height: auto;
+  padding-bottom: clamp(4rem, 12vh, 7rem);
+}
 /* Get Involved and the signup share the closing section, stacked. */
 .involved {
   flex-direction: column;
@@ -675,6 +680,53 @@
 }
 .card:hover .arrow {
   transform: translate(2px, -2px);
+}
+
+/* Calendar card: full row, opens in place to show the embedded calendar. */
+.calendarCard {
+  grid-column: 1 / -1;
+}
+.calendarCard > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.calendarCard > summary::-webkit-details-marker {
+  display: none;
+}
+.calendarCard .arrow {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+.calendarCard:hover .arrow {
+  transform: none;
+}
+.calendarCard[open] .arrow {
+  transform: rotate(45deg);
+}
+.calendarBody {
+  padding: 0 1.4rem 1.4rem;
+}
+.calendarFrame {
+  overflow: hidden;
+  background: #fff;
+}
+.calendarFrame iframe {
+  display: block;
+  width: 100%;
+  height: clamp(24rem, 60vh, 34rem);
+  border: 0;
+}
+.calendarLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  margin: 0.9rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.calendarLinks a {
+  color: var(--gold);
+  font-weight: 600;
 }
 
 /* ---------- footer ---------- */

@@ -79,17 +79,15 @@ export const redesignCopy = {
 
 /** Copy for the sunrise page (/no-tech-kings). */
 export const ntkCopy = {
-  headline: ["No Tech Kings.", "Freeze AI."],
-  heroDate: "December 14 at 11 AM",
-  lede: "We demand that Governor Newsom takes a stand on Big Tech.",
+  heroDate: "December 14 at 11 AM PT",
+  lede: "We demand that Governor Newsom take a stand on Big Tech.",
   heroCta: "Join the community",
   heroNote: "Details coming soon.",
-  demandKicker: "Demand",
   demandTitle: "We demand the California Governor:",
   demands: [
     {
       title: "Tell the truth.",
-      body: "Convene a special session to rein in Big Tech.",
+      body: "Declare AI crisis and convene a special session.",
     },
     {
       title: "Act now.",
@@ -101,15 +99,8 @@ export const ntkCopy = {
   calendar: {
     title: "Calendar",
     teaser: "Upcoming meetings, trainings, and actions.",
-    cta: "See dates",
-  },
-  membership: {
-    title: "Membership",
-    teaser: "Become a member of Sapiens First.",
-    cta: "Join",
   },
   hostTeaser: "Bring people together where you live.",
-  closingTitle: "History doesn’t make itself.",
   quote: "It always seems impossible until it is done.",
   quoteBy: "Nelson Mandela",
   signupButton: "Stay in touch",

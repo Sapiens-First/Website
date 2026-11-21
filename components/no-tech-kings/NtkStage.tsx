@@ -34,10 +34,7 @@ export function NtkStage({
       if (!demand || !signup) return;
       const vh = window.innerHeight;
       const y = window.scrollY;
-      const maxScroll = Math.max(
-        1,
-        document.documentElement.scrollHeight - vh,
-      );
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - vh);
       const at = (el: HTMLElement) =>
         el.getBoundingClientRect().top + y - vh * 0.15;
       const sunUp = Math.max(1, Math.min(at(signup), maxScroll));

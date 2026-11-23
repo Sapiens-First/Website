@@ -19,7 +19,7 @@ export default function InterestForm({ interest }: { interest: Interest }) {
       {state.saved ? (
         <p role="status" className="font-bold">
           {membership
-            ? "Interest registered. We’ll email you about membership."
+            ? "You’re on the list. We’ll email you about ways to get involved."
             : "Interest registered. We’ll email you about next steps."}
         </p>
       ) : (
@@ -47,7 +47,11 @@ export default function InterestForm({ interest }: { interest: Interest }) {
               disabled={pending}
               className="h-12 shrink-0 px-2 text-xs sm:px-4 sm:text-sm"
             >
-              {pending ? "Saving…" : "Register interest →"}
+              {pending
+                ? "Saving…"
+                : membership
+                  ? "Join the email list →"
+                  : "Register interest →"}
             </Button>
           </div>
           <p className="text-sm">

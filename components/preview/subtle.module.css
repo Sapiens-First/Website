@@ -1,0 +1,493 @@
+/*
+ * Homepage polish layers. They sit on top of the real homepage markup
+ * (app/(public)/page.tsx) and change no colours, fonts or sizes.
+ *   .motion  — entrances, scroll reveals, softer hovers
+ *   .blend   — colour washes, glow in the ink band, softened ink rules
+ *   .living  — page-wide background that shifts gently with scroll (--p)
+ */
+
+.stage {
+  --p: 0;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* =================================================================
+ * 1. MOTION
+ * ================================================================= */
+
+/* Hero copy rises in on load, one line after another. */
+.motion main > section:first-child > div:first-child > :is(h1, p, a) {
+  animation: rise 1.1s var(--ease) both;
+}
+.motion main > section:first-child > div:first-child > h1 {
+  animation-delay: 0.08s;
+}
+.motion main > section:first-child > div:first-child > p {
+  animation-delay: 0.22s;
+}
+.motion main > section:first-child > div:first-child > a {
+  animation-delay: 0.34s;
+}
+.motion main > section:first-child > div:first-child > a + a {
+  animation-delay: 0.42s;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 18px;
+    filter: blur(6px);
+  }
+}
+
+/* Hero photo settles in, then the confetti drifts very slightly. */
+.motion main > section:first-child img {
+  animation: settle 2.8s var(--ease) both;
+}
+@keyframes settle {
+  from {
+    scale: 1.08;
+    opacity: 0.4;
+  }
+}
+.motion main > section:first-child svg {
+  animation: float 7s ease-in-out infinite alternate;
+}
+.motion main > section:first-child svg:nth-of-type(2n) {
+  animation-duration: 9s;
+  animation-delay: -3s;
+}
+@keyframes float {
+  to {
+    translate: 0 -6px;
+  }
+}
+
+/* Crisis stars twinkle. */
+.motion main > section:nth-child(2) i {
+  animation: twinkle 3.5s ease-in-out infinite alternate;
+}
+.motion main > section:nth-child(2) i:nth-child(3n) {
+  animation-delay: -1.2s;
+}
+.motion main > section:nth-child(2) i:nth-child(3n + 1) {
+  animation-delay: -2.4s;
+}
+@keyframes twinkle {
+  to {
+    opacity: 0.35;
+  }
+}
+
+/* Scroll reveal (elements tagged by PreviewStage). Backwards fill only, so
+   hover transforms keep working after the reveal ends. */
+.stage[data-reveal] [data-inview]:not([data-in]) {
+  opacity: 0;
+}
+.stage[data-reveal] [data-inview][data-in] {
+  animation: reveal 1s var(--ease) var(--d, 0s) backwards;
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+    filter: blur(4px);
+  }
+}
+
+/* Hand-drawn underlines draw themselves once their heading is in view. */
+.motion [data-in] :global(.ink-underline)::after {
+  animation: draw 0.9s var(--ease) calc(var(--d, 0s) + 0.45s) backwards;
+}
+@keyframes draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+/* Softer, slower hovers on every link and button. */
+.motion main :is(a, button) {
+  transition-property:
+    color, background-color, border-color, box-shadow, translate, transform;
+  transition-duration: 0.4s;
+  transition-timing-function: var(--ease);
+}
+.motion main :global(.inline-flex.border-2):hover {
+  box-shadow: 0 12px 28px -12px rgba(24, 37, 31, 0.45);
+}
+
+/* =================================================================
+ * 2. BLEND
+ * ================================================================= */
+
+/* Ink rules between sections become quiet hairlines (buttons and form
+   fields keep their ink borders). */
+.blend main :global(.border-ink):not(a, button, form, form *) {
+  border-color: color-mix(in oklch, var(--color-ink) 12%, transparent);
+}
+
+/* The hero photo feathers into the paper instead of meeting it at a line. */
+@media (min-width: 1024px) {
+  .blend main > section:first-child > div:nth-child(2) {
+    mask-image: linear-gradient(to right, transparent 0, black 9rem);
+  }
+}
+
+/* Slow colour washes on the paper sections. */
+.blend main > section:first-child > div:first-child,
+.blend #vision,
+.blend #strategy,
+.blend #involved > div:first-child {
+  isolation: isolate;
+}
+.blend main > section:first-child > div:first-child::after,
+.blend #vision::after,
+.blend #strategy::after,
+.blend #involved > div:first-child::after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(40px);
+  animation: drift 24s ease-in-out infinite alternate;
+}
+.blend main > section:first-child > div:first-child::after {
+  background:
+    radial-gradient(
+      ellipse 40% 35% at 20% 25%,
+      color-mix(in oklch, var(--color-brand-yellow) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 35% 30% at 80% 80%,
+      color-mix(in oklch, var(--color-coral) 10%, transparent),
+      transparent 70%
+    );
+}
+.blend #vision::after {
+  background:
+    radial-gradient(
+      ellipse 35% 40% at 85% 20%,
+      color-mix(in oklch, var(--color-brand-blue) 9%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 35% at 10% 75%,
+      color-mix(in oklch, var(--color-brand-yellow) 13%, transparent),
+      transparent 70%
+    );
+  animation-duration: 28s;
+}
+.blend #strategy::after {
+  background: radial-gradient(
+    ellipse 40% 40% at 15% 30%,
+    color-mix(in oklch, var(--color-coral) 10%, transparent),
+    transparent 70%
+  );
+  animation-delay: -8s;
+}
+.blend #involved > div:first-child::after {
+  background:
+    radial-gradient(
+      ellipse 40% 40% at 20% 20%,
+      color-mix(in oklch, var(--color-brand-purple) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 35% 35% at 80% 90%,
+      color-mix(in oklch, var(--color-coral) 10%, transparent),
+      transparent 70%
+    );
+  animation-delay: -14s;
+}
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(5%, 4%) scale(1.1);
+  }
+}
+
+/* A slow glow moves through the ink Crisis band. */
+.blend main > section:nth-child(2) > div {
+  isolation: isolate;
+}
+.blend main > section:nth-child(2) > div::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 30% 35% at 80% 25%,
+      color-mix(in oklch, var(--color-brand-blue) 26%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 30% 30% at 15% 70%,
+      color-mix(in oklch, var(--color-coral) 14%, transparent),
+      transparent 70%
+    );
+  filter: blur(50px);
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+/* =================================================================
+ * 3. LIVING
+ * ================================================================= */
+
+/* Paper and white sections let the shared background show through. */
+.living main :global(.bg-paper),
+.living main :global(.bg-white) {
+  background-color: transparent;
+}
+
+.backdrop {
+  display: none;
+}
+.living .backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--color-paper);
+}
+.living .backdrop i {
+  position: absolute;
+  inset: -20%;
+  filter: blur(60px);
+}
+/* warm cream in the middle of the page */
+.living .backdrop i:nth-child(1) {
+  opacity: calc(sin(var(--p) * 180deg) * 0.85);
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 50%,
+    var(--color-soft),
+    transparent 75%
+  );
+}
+/* soft coral early, drifting down as you go */
+.living .backdrop i:nth-child(2) {
+  opacity: calc(0.75 - var(--p) * 0.5);
+  translate: 0 calc(var(--p) * 25vh);
+  background: radial-gradient(
+    ellipse 40% 35% at 15% 20%,
+    var(--color-coral-soft),
+    transparent 75%
+  );
+  animation: drift 26s ease-in-out infinite alternate;
+}
+/* soft blue arriving toward the end */
+.living .backdrop i:nth-child(3) {
+  opacity: calc(var(--p) * 0.8);
+  translate: 0 calc(var(--p) * -20vh);
+  background: radial-gradient(
+    ellipse 45% 40% at 85% 80%,
+    var(--color-brand-blue-soft),
+    transparent 75%
+  );
+  animation: drift 30s ease-in-out -10s infinite alternate-reverse;
+}
+
+/* =================================================================
+ * 4a. CALM — about a fifth of .motion: a short hero entrance, section
+ *     headings ease in, softer button hovers. Nothing else moves.
+ * ================================================================= */
+.calm main > section:first-child > div:first-child > :is(h1, p, a) {
+  animation: calmRise 0.8s var(--ease) both;
+}
+.calm main > section:first-child > div:first-child > p {
+  animation-delay: 0.1s;
+}
+.calm main > section:first-child > div:first-child > a {
+  animation-delay: 0.18s;
+}
+@keyframes calmRise {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+.calm[data-reveal] [data-inview][data-in] {
+  animation-name: calmRise;
+  animation-duration: 0.7s;
+}
+.calm main :global(.inline-flex.border-2) {
+  transition-property: color, background-color, translate, transform;
+  transition-duration: 0.35s;
+  transition-timing-function: var(--ease);
+}
+
+/* =================================================================
+ * 4b. VIVID — more colour in the living background: six washes in the
+ *     brand hues, each peaking at a different point down the page.
+ * ================================================================= */
+.vivid .backdrop i {
+  inset: -25%;
+  filter: blur(70px);
+}
+/* coral, strongest at the top */
+.vivid .backdrop i:nth-child(1) {
+  opacity: calc(1 - var(--p) * 0.7);
+  translate: calc(var(--p) * 12vw) calc(var(--p) * 30vh);
+  background: radial-gradient(
+    ellipse 38% 30% at 18% 22%,
+    color-mix(in oklch, var(--color-coral) 30%, transparent),
+    transparent 72%
+  );
+  animation: drift 26s ease-in-out infinite alternate;
+}
+/* yellow, upper right, early */
+.vivid .backdrop i:nth-child(2) {
+  opacity: calc(0.35 + sin(var(--p) * 180deg + 40deg) * 0.65);
+  translate: calc(var(--p) * -10vw) calc(var(--p) * 18vh);
+  background: radial-gradient(
+    ellipse 34% 30% at 82% 18%,
+    color-mix(in oklch, var(--color-brand-yellow) 30%, transparent),
+    transparent 72%
+  );
+  animation: drift 30s ease-in-out -6s infinite alternate-reverse;
+}
+/* peach through the middle */
+.vivid .backdrop i:nth-child(3) {
+  opacity: sin(var(--p) * 180deg);
+  translate: 0 calc(var(--p) * -10vh);
+  background: radial-gradient(
+    ellipse 45% 35% at 40% 55%,
+    color-mix(in oklch, var(--color-brand-peach) 70%, transparent),
+    transparent 72%
+  );
+  animation: drift 34s ease-in-out -12s infinite alternate;
+}
+/* blue, right side, later */
+.vivid .backdrop i:nth-child(4) {
+  opacity: calc(var(--p) * 1.1);
+  translate: calc(var(--p) * -8vw) calc(var(--p) * -24vh);
+  background: radial-gradient(
+    ellipse 36% 34% at 88% 78%,
+    color-mix(in oklch, var(--color-brand-blue) 18%, transparent),
+    transparent 72%
+  );
+  animation: drift 28s ease-in-out -4s infinite alternate-reverse;
+}
+/* purple, lower left, toward the end */
+.vivid .backdrop i:nth-child(5) {
+  opacity: clamp(0, calc(var(--p) * 1.6 - 0.4), 1);
+  translate: 0 calc(var(--p) * -18vh);
+  background: radial-gradient(
+    ellipse 34% 30% at 12% 88%,
+    color-mix(in oklch, var(--color-brand-purple) 14%, transparent),
+    transparent 72%
+  );
+  animation: drift 32s ease-in-out -16s infinite alternate;
+}
+/* a pink thread that wanders across */
+.vivid .backdrop i:nth-child(6) {
+  opacity: 0.8;
+  translate: calc(-20vw + var(--p) * 45vw) 0;
+  background: radial-gradient(
+    ellipse 24% 20% at 50% 42%,
+    color-mix(in oklch, var(--color-brand-pink) 12%, transparent),
+    transparent 72%
+  );
+  animation: drift 22s ease-in-out -8s infinite alternate;
+}
+/* richer glow in the ink Crisis band */
+.vivid main > section:nth-child(2) > div::before {
+  background:
+    radial-gradient(
+      ellipse 32% 36% at 82% 22%,
+      color-mix(in oklch, var(--color-brand-blue) 34%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 30% 30% at 12% 72%,
+      color-mix(in oklch, var(--color-coral) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 26% 26% at 50% 100%,
+      color-mix(in oklch, var(--color-brand-purple) 22%, transparent),
+      transparent 70%
+    );
+}
+/* the bottom stat strip keeps its colours but lets light through */
+.vivid main > section:nth-child(2) [class*="grid-cols-3"] > div {
+  background-image: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.35),
+    transparent 60%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage *,
+  .stage *::before,
+  .stage *::after {
+    animation: none !important;
+  }
+}
+
+/* =================================================================
+ * Option switcher (preview only)
+ * ================================================================= */
+.switcher {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.25rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.3rem;
+  overflow-x: auto;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(24, 37, 31, 0.86);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.switcher a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  color: rgba(255, 253, 245, 0.75);
+}
+.switcher a:hover {
+  color: #fffdf5;
+}
+.switcher a[aria-current="page"] {
+  background: #fffdf5;
+  color: #18251f;
+}
+.switcher b {
+  display: inline-grid;
+  place-items: center;
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 0.7rem;
+}
+.switcher a[aria-current="page"] b {
+  background: #ffc928;
+}
+.switcher .current {
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0 999px 999px 0;
+}

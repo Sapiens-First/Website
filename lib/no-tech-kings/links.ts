@@ -27,6 +27,12 @@ export const links = {
     href: "https://sapiensfirst.org",
     external: true,
   },
+  /** Padlet map of local AI safety groups. embedUrl is padlet.com/embed/<board id>. */
+  groupsMap: {
+    href: "https://padlet.com/benaisafety/ai-safety-groups-s025maulwsvpdofp4are",
+    embedUrl: "https://padlet.com/embed/s025maulwsvpdofp4are",
+    external: true,
+  },
   communityGroups: [
     {
       city: "San Francisco",
@@ -38,5 +44,6 @@ export const links = {
 } as const satisfies {
   hostTeaParty: CampaignLink;
   sapiensFirst: CampaignLink;
+  groupsMap: CampaignLink & { embedUrl: string };
   communityGroups: readonly CommunityGroup[];
 };

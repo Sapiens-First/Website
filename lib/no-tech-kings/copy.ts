@@ -95,12 +95,32 @@ export const ntkCopy = {
     },
   ],
   involvedTitle: "Get Involved",
-  community: { title: "Join the community" },
-  calendar: {
-    title: "Calendar",
-    teaser: "Upcoming meetings, trainings, and actions.",
+  involvedTabs: {
+    groups: {
+      tab: "Start or join a local group",
+      title: "Find your people.",
+      body: "Find a group near you on the map and join it. No group in your city yet? Add one and start it.",
+      mapTitle: "Map of local AI safety groups",
+    },
+    host: {
+      tab: "Host a tea party",
+      title: "How to host a tea party.",
+      body: "Tea parties are how we build power: a chance to socialize, share concerns about AI, and plan what to do together.",
+      steps: [
+        "Choose a venue and lock it down.",
+        "Invite your friends! Or post in local group chats, Craigslist, or Nextdoor.",
+        "Create a presentation with lots of group discussion. We can help you with this!",
+        "Near the end of the session, invite people to join your community group.",
+        "Follow up one-on-one. Invite people to weekly socials, or ask them to throw their own tea party.",
+      ],
+      cta: "Get your tea party on the map",
+    },
+    calendar: {
+      tab: "Calendar",
+      title: "Upcoming events.",
+      body: "Meetings, trainings, and actions.",
+    },
   },
-  hostTeaser: "Bring people together where you live.",
   quote: "It always seems impossible until it is done.",
   quoteBy: "Nelson Mandela",
   signupButton: "Stay in touch",

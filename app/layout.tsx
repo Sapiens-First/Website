@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import SiteBackdrop from "@/components/SiteBackdrop";
 import { CampaignChrome } from "@/components/redesign/CampaignChrome";
 import { SkipLink } from "@/components/redesign/SkipLink";
 import { site } from "@/lib/site";
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" data-scroll-behavior="smooth">
       <body>
         <SkipLink />
+        <SiteBackdrop />
         <CampaignChrome header={<SiteHeader />} footer={<SiteFooter />}>
           <div
             id="main"

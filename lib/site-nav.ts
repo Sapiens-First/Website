@@ -1,4 +1,5 @@
 import { campaignConfig } from "@/lib/no-tech-kings/config";
+import { site } from "@/lib/site";
 
 export type NavLink = { label: string; href: string; external?: boolean };
 
@@ -13,27 +14,33 @@ export const footerGroups: readonly {
       { label: "Our Story", href: "/about" },
       { label: "Careers", href: "/careers" },
       { label: "Human Charter", href: "/human-charter" },
-      { label: "Atlas", href: "/atlas" },
+      { label: "No Tech Kings", href: "/no-tech-kings" },
     ],
   },
   {
     title: "Get Involved",
     links: [
       {
-        label: "Host a Tea Party ↗",
+        label: "Volunteer ↗",
         href: campaignConfig.hostForm,
         external: true,
       },
-      { label: "Membership", href: "/join" },
+      // Membership is hidden for now; see also the header "Join" button.
+      // { label: "Membership", href: "/join" },
       { label: "Calendar", href: "/calendar" },
+      { label: "Local Groups", href: "/groups" },
       { label: "Donate", href: "/donate" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "No Tech Kings", href: "/no-tech-kings" },
-      { label: "Learn", href: "/learn" },
+      {
+        label: "Learn ↗",
+        href: site.docsUrl,
+        external: true,
+      },
+      { label: "Atlas", href: "/atlas" },
       { label: "Policy", href: "/policy" },
       { label: "Privacy", href: "/privacy" },
     ],

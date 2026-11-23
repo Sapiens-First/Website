@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { Container } from "@/components/layout/Container";
-import { ActionLink, Button } from "@/components/ui/Action";
-import { Kicker } from "@/components/ui/Text";
+import { MemberWelcome } from "@/components/members/MemberWelcome";
 import { getMembershipAccess } from "@/lib/members/access";
 
 export const dynamic = "force-dynamic";
@@ -22,55 +20,23 @@ export default async function DashboardPage({
   const { profile } = await getMembershipAccess();
   const { error, updated, membership } = await searchParams;
   return (
-    <main className="py-16 sm:py-24">
-      <Container width="content">
-        <Kicker>Your account</Kicker>
-        <h1 className="mt-5 font-display text-5xl leading-none font-extrabold uppercase sm:text-7xl">
-          {profile.full_name
-            ? `Welcome, ${profile.full_name}.`
-            : "Welcome to Sapiens First."}
-        </h1>
-        {membership === "confirmed" && (
-          <p role="status" className="mt-6 border-l-4 border-ink p-3">
-            Your membership is confirmed. Welcome in.
-          </p>
-        )}
-        {updated === "profile" && (
-          <p role="status" className="mt-6 border-l-4 border-ink p-3">
-            Your profile has been saved.
-          </p>
-        )}
-        {error === "signout" && (
-          <p role="alert" className="mt-6">
-            We couldn&apos;t sign you out. Please try again.
-          </p>
-        )}
-        <div className="mt-8 flex flex-wrap gap-4">
-          <ActionLink href="/membership" variant="primary">
-            Manage membership
-          </ActionLink>
-          <ActionLink href="/dashboard/profile" variant="outline">
-            Edit your profile
-          </ActionLink>
-          <ActionLink href="/calendar" variant="primary">
-            Explore open events
-          </ActionLink>
-          <ActionLink href="/learn" variant="outline">
-            Explore learning resources
-          </ActionLink>
-        </div>
-        <Button
-          type="button"
-          disabled
-          className="mt-6 disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          Connect with Discord — Coming soon
-        </Button>
-        <p className="mt-6 text-lg">
-          Your membership is active. Open events and learning resources remain
-          available to everyone.
-        </p>
-      </Container>
-    </main>
+    <MemberWelcome
+      name={profile.full_name}
+      confirmed={membership === "confirmed"}
+      notice={
+        <>
+          {updated === "profile" && (
+            <p role="status" className="mt-6 border-l-4 border-ink p-3">
+              Your profile has been saved.
+            </p>
+          )}
+          {error === "signout" && (
+            <p role="alert" className="mt-6">
+              We couldn&apos;t sign you out. Please try again.
+            </p>
+          )}
+        </>
+      }
+    />
   );
 }

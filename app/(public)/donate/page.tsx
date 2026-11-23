@@ -235,9 +235,9 @@ export default function Page() {
               Email{" "}
               <a
                 className={copyLink + " wrap-anywhere"}
-                href="mailto:rohan@sapiensfirst.org"
+                href="mailto:ops@sapiensfirst.org"
               >
-                rohan@sapiensfirst.org
+                ops@sapiensfirst.org
               </a>{" "}
               to start a conversation.
             </p>

@@ -1,0 +1,238 @@
+/* Night sky for the homepage Crisis band (CrisisSky.tsx). */
+
+.sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sky > * {
+  position: absolute;
+}
+
+/* A very faint blue and purple haze so the black has some depth. */
+.nebula {
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 45% 55% at 82% 30%,
+      color-mix(in oklch, var(--color-brand-blue) 16%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 45% at 8% 85%,
+      color-mix(in oklch, var(--color-brand-purple) 12%, transparent),
+      transparent 70%
+    );
+}
+
+/* Atmosphere glow behind the earth outline (same box as the earth SVG in
+ * app/(public)/page.tsx). Breathes slowly. */
+.earthGlow {
+  top: 6.25rem;
+  right: 5%;
+  width: clamp(300px, 39vw, 560px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    color-mix(in oklch, var(--color-brand-blue) 34%, transparent) 55%,
+    color-mix(in oklch, var(--color-brand-blue-light) 22%, transparent) 82%,
+    transparent 100%
+  );
+  filter: blur(28px);
+  scale: 1.15;
+  animation: breathe 7s ease-in-out infinite alternate;
+}
+@keyframes breathe {
+  to {
+    opacity: 0.6;
+    scale: 1.22;
+  }
+}
+
+/* ---------- Starfield ---------- */
+.field {
+  inset: 0;
+}
+.field i {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 calc(var(--s) * 3) rgb(255 255 255 / 0.7);
+  animation: twinkle 4.2s ease-in-out var(--d) infinite;
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* The page's yellow stars: soft glow, and each one sparkles in turn. */
+.stars {
+  filter: drop-shadow(0 0 5px var(--color-brand-yellow))
+    drop-shadow(
+      0 0 14px color-mix(in oklch, var(--color-brand-yellow) 50%, transparent)
+    );
+}
+.stars > i {
+  animation: sparkle 3.6s ease-in-out infinite;
+}
+.stars > i:nth-child(3n + 1) {
+  animation-delay: -1.2s;
+}
+.stars > i:nth-child(3n + 2) {
+  animation-delay: -2.4s;
+}
+.stars > i:nth-child(4n) {
+  animation-duration: 4.4s;
+}
+@keyframes sparkle {
+  0%,
+  100% {
+    opacity: 1;
+    scale: 1;
+    rotate: 0deg;
+  }
+  45% {
+    opacity: 0.45;
+    scale: 0.6;
+  }
+  55% {
+    opacity: 1;
+    scale: 1.35;
+    rotate: 20deg;
+  }
+}
+
+/* ---------- Moon ---------- */
+.moon {
+  top: 3rem;
+  right: max(40px, 8vw);
+  width: 64px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 62% 38%, rgb(0 0 0 / 0.08) 0 9%, transparent 10%),
+    radial-gradient(
+      circle at 38% 62%,
+      rgb(0 0 0 / 0.07) 0 13%,
+      transparent 14%
+    ),
+    radial-gradient(circle at 70% 70%, rgb(0 0 0 / 0.06) 0 6%, transparent 7%),
+    radial-gradient(circle at 36% 32%, #fffdf3, #f6ecd2 55%, #ddcfae);
+  box-shadow:
+    0 0 18px rgb(255 246 220 / 0.75),
+    0 0 60px rgb(255 232 180 / 0.45),
+    0 0 140px rgb(255 214 150 / 0.25);
+  animation: moonglow 6s ease-in-out infinite alternate;
+}
+@keyframes moonglow {
+  to {
+    box-shadow:
+      0 0 22px rgb(255 246 220 / 0.85),
+      0 0 80px rgb(255 232 180 / 0.55),
+      0 0 180px rgb(255 214 150 / 0.3);
+  }
+}
+
+/* ---------- Asteroids ----------
+ * Small, dim and slow, as if far away: six rocks tumbling across the band
+ * at different depths. Size, height, speed and delay come from CrisisSky. */
+.asteroid {
+  left: 0;
+  top: var(--y);
+  width: var(--w);
+  opacity: var(--o);
+  fill: #6a625d;
+  stroke: #8f867f;
+  stroke-width: 1.2;
+  filter: blur(0.3px);
+  animation: cross var(--t) linear var(--delay) infinite;
+}
+.asteroid circle {
+  fill: #47403c;
+  stroke: none;
+}
+@keyframes cross {
+  from {
+    transform: translate(-40px, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(calc(100vw + 40px), 30px) rotate(300deg);
+  }
+}
+
+/* ---------- Meteor showers ----------
+ * Streaks falling from the upper left, in small bursts: a few close
+ * together, then quiet. Position, angle, length and timing come from
+ * CrisisSky. */
+.meteor {
+  top: var(--y);
+  left: var(--x);
+  width: var(--len);
+  height: 1.5px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--color-brand-blue-light) 50%, white) 70%,
+    #fff
+  );
+  filter: drop-shadow(0 0 3px #fff);
+  rotate: var(--angle);
+  opacity: 0;
+  animation: shoot var(--t) ease-in var(--delay) infinite;
+}
+@keyframes shoot {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  1.5% {
+    opacity: 1;
+  }
+  6%,
+  100% {
+    opacity: 0;
+    transform: translateX(240px);
+  }
+}
+
+/* Coral glow on "humanity." */
+.glow {
+  text-shadow:
+    0 0 18px color-mix(in oklch, var(--color-coral) 70%, transparent),
+    0 0 48px color-mix(in oklch, var(--color-coral) 35%, transparent);
+}
+
+@media (max-width: 639px) {
+  .moon {
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 38px;
+  }
+  .earthGlow {
+    top: 4.25rem;
+    right: -6.875rem;
+    width: 320px;
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sky *,
+  .stars > i {
+    animation: none !important;
+  }
+  .meteor {
+    display: none;
+  }
+}

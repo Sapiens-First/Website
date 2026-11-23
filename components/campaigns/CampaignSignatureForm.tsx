@@ -37,8 +37,8 @@ export default function CampaignSignatureForm({
           <h3 className="text-xl font-bold">Your support is recorded.</h3>
           <p className="mt-3 text-sm">
             For contact preferences or deletion requests, email{" "}
-            <a className="underline" href="mailto:rohan@sapiensfirst.org">
-              rohan@sapiensfirst.org
+            <a className="underline" href="mailto:ops@sapiensfirst.org">
+              ops@sapiensfirst.org
             </a>
             .
           </p>

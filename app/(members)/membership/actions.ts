@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import { requireAccountProfile } from "@/lib/members/access";
 import { isProfileComplete } from "@/lib/members/profile";
+import { hasAcceptedAgreement } from "@/lib/members/agreement";
 import { getAppUrl } from "@/lib/supabase/auth-server";
 import {
   getCheckoutClients,
@@ -30,8 +31,7 @@ export async function confirmCheckout(): Promise<{ error: string | null }> {
     if (error) throw error;
     if (!claim)
       return {
-        error:
-          "Confirmation was checked recently or no Checkout is pending. Please wait 30 seconds before retrying.",
+        error: "We just checked. Please wait 30 seconds and try again.",
       };
     const session = await stripe.checkout.sessions.retrieve(
       claim.checkout_session_id,
@@ -49,7 +49,7 @@ export async function confirmCheckout(): Promise<{ error: string | null }> {
     if (session.status !== "complete")
       return {
         error:
-          "Checkout has not completed yet. Please finish it before checking again.",
+          "Your payment isn’t finished yet. Please complete it, then check again.",
       };
     await reconcileMembership(
       claim.stripe_customer_id,
@@ -64,7 +64,7 @@ export async function confirmCheckout(): Promise<{ error: string | null }> {
     if (!access?.allowed)
       return {
         error:
-          "Payment or trial confirmation is still pending. Please try again in 30 seconds.",
+          "Your payment hasn’t come through yet. Please try again in 30 seconds.",
       };
   } catch (error) {
     console.error("Checkout confirmation failed", {
@@ -72,11 +72,20 @@ export async function confirmCheckout(): Promise<{ error: string | null }> {
     });
     return {
       error:
-        "We couldn’t check confirmation right now. Please try again in 30 seconds.",
+        "We couldn’t check your payment right now. Please try again in 30 seconds.",
     };
   }
   revalidatePath("/membership");
   redirect("/dashboard?membership=confirmed");
+}
+
+// A cheap access read for the return page to poll while Stripe's webhook lands.
+export async function checkMembershipAccess(): Promise<{ allowed: boolean }> {
+  const { supabase } = await requireAccountProfile("/membership");
+  const { data, error } = await supabase
+    .rpc("membership_access")
+    .maybeSingle<{ allowed: boolean }>();
+  return { allowed: !error && Boolean(data?.allowed) };
 }
 
 export async function manageBilling(): Promise<{ error: string | null }> {
@@ -103,7 +112,7 @@ export async function manageBilling(): Promise<{ error: string | null }> {
       error:
         error instanceof BillingError
           ? error.message
-          : "We couldn’t open billing management. Please try again.",
+          : "We couldn’t open your payment settings. Please try again.",
     };
   }
   redirect(destination);
@@ -115,6 +124,7 @@ export async function startCheckout(
 ): Promise<{ error: string | null }> {
   const { user, profile } = await requireAccountProfile("/membership");
   if (!isProfileComplete(profile)) redirect("/onboarding?next=%2Fmembership");
+  if (!hasAcceptedAgreement(profile)) redirect("/agreement?next=%2Fmembership");
   const amount = form.get("contribution");
   const payment = form.get("payment");
   if (
@@ -123,9 +133,9 @@ export async function startCheckout(
     form.getAll("payment").length !== 1 ||
     (payment !== "trial" && payment !== "pay")
   )
-    return { error: "Choose a monthly contribution and payment option." };
+    return { error: "Choose a monthly amount." };
   if (!user.email)
-    return { error: "Your account needs an email address to subscribe." };
+    return { error: "Your account needs an email address to join." };
 
   let destination: string;
   try {
@@ -143,7 +153,7 @@ export async function startCheckout(
     console.error("Membership Checkout failed", {
       type: error instanceof Error ? error.name : "unknown",
     });
-    return { error: "We couldn’t open checkout. Please try again." };
+    return { error: "We couldn’t open the payment page. Please try again." };
   }
   redirect(destination);
 }

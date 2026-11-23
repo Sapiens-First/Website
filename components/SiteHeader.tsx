@@ -122,9 +122,10 @@ export default function SiteHeader() {
               </div>
             ))}
           </nav>
+          {/* Membership is hidden for now.
           <Link href="/join" className={styles.join} onClick={close}>
             Join as a Member →
-          </Link>
+          </Link> */}
         </div>
       </div>
       <button

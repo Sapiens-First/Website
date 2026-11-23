@@ -1,0 +1,86 @@
+/* Daybreak behind the homepage Vision section (VisionDaybreak.tsx). */
+
+.daybreak {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  --rise: 0;
+}
+.daybreak > * {
+  position: absolute;
+  left: 50%;
+}
+
+/* The sun: a large soft glow centred low in the section, behind the
+ * No Tech Kings card. It rises and brightens on the way in. */
+.sun {
+  bottom: -12%;
+  width: min(1500px, 170vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    color-mix(in oklch, #ffe2a8 95%, transparent) 0%,
+    color-mix(in oklch, var(--color-brand-yellow) 55%, transparent) 30%,
+    color-mix(in oklch, var(--color-coral) 30%, transparent) 55%,
+    transparent 100%
+  );
+  translate: -50% 0;
+}
+
+/* Soft rays fanning up from the sun, turning very slowly. */
+.rays {
+  bottom: -12%;
+  width: min(1700px, 220vw);
+  aspect-ratio: 1;
+  translate: -50% 17%;
+  --ray: color-mix(in oklch, var(--color-brand-yellow) 45%, transparent);
+  background: repeating-conic-gradient(
+    from 0deg,
+    var(--ray) 0deg 2.5deg,
+    transparent 2.5deg 14deg
+  );
+  mask: radial-gradient(circle closest-side, #000 25%, transparent 75%);
+  filter: blur(5px);
+  animation: turn 200s linear infinite;
+}
+@keyframes turn {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* A warm band of dawn along the bottom of the section. */
+.horizon {
+  inset: auto 0 0;
+  left: 0;
+  height: 45%;
+  background: linear-gradient(
+    0deg,
+    color-mix(in oklch, var(--color-brand-peach) 55%, transparent),
+    transparent
+  );
+}
+
+/* Entrance: start low and dim, rise on scroll-in. */
+.daybreak[data-wait] > * {
+  transition:
+    transform 3.2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 3.2s ease-out;
+}
+.daybreak[data-wait]:not([data-in]) .sun,
+.daybreak[data-wait]:not([data-in]) .rays {
+  transform: translateY(22%);
+  opacity: 0.25;
+}
+.daybreak[data-wait]:not([data-in]) .horizon {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rays {
+    animation: none;
+  }
+}

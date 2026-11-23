@@ -158,7 +158,7 @@ export default function Page() {
                       We&apos;d like to develop policies in collaboration with
                       experts in social, economic, and tech policy. If
                       you&apos;d like to contribute, please reach out to
-                      rohan@sapiensfirst.org.
+                      ops@sapiensfirst.org.
                     </p>
                   </section>
                   {pillars.map((pillar, index) => (

@@ -7,9 +7,9 @@ export class BillingError extends Error {}
 
 export function getMembershipPrices() {
   return {
-    "1": process.env.STRIPE_PRICE_MONTHLY_1 ?? "",
-    "10": process.env.STRIPE_PRICE_MONTHLY_10 ?? "",
-    "20": process.env.STRIPE_PRICE_MONTHLY_20 ?? "",
+    "5": process.env.STRIPE_PRICE_MONTHLY_5 ?? "",
+    "15": process.env.STRIPE_PRICE_MONTHLY_15 ?? "",
+    "50": process.env.STRIPE_PRICE_MONTHLY_50 ?? "",
   };
 }
 
@@ -19,7 +19,9 @@ function createServerClients() {
   const secret = process.env.SUPABASE_SECRET_KEY;
   const prices = getMembershipPrices();
   if (!key || !url || !secret || Object.values(prices).some((price) => !price))
-    throw new BillingError("Membership billing is not configured yet.");
+    throw new BillingError(
+      "Membership payments aren’t available yet. Please try again later.",
+    );
   return {
     stripe: new StripeClient(key, { timeout: 20_000, maxNetworkRetries: 2 }),
     database: createClient(url, secret, {
@@ -45,7 +47,9 @@ export function getCheckoutClients() {
   const paymentMethodConfigurationId =
     process.env.STRIPE_PAYMENT_METHOD_CONFIGURATION_ID;
   if (!portalConfigurationId || !paymentMethodConfigurationId)
-    throw new BillingError("Membership checkout is not configured yet.");
+    throw new BillingError(
+      "Membership payments aren’t available yet. Please try again later.",
+    );
   return {
     ...getServerBillingClients(),
     portalConfigurationId,

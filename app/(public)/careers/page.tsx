@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { cn } from "@/lib/cn";
+// import { cn } from "@/lib/cn"; // restore with the builder listing below
 import { pageMetadata } from "@/lib/site";
-import Link from "next/link";
+// import Link from "next/link"; // restore with the builder listing below
 
 export const metadata: Metadata = pageMetadata({
   title: "Careers",
@@ -32,6 +32,10 @@ export default function Page() {
           >
             Open roles
           </h2>
+          <p className="border-t border-solid border-t-rule py-7 text-lg leading-relaxed text-ink/70">
+            No open roles right now.
+          </p>
+          {/* AI-Native Builder listing, hidden for now.
           <Link
             className={cn(
               "group",
@@ -51,6 +55,7 @@ export default function Page() {
               →
             </span>
           </Link>
+          */}
         </section>
       </main>
     </>

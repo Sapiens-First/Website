@@ -1,0 +1,96 @@
+/* Six brand-colour washes, each strongest at a different point down the page. */
+
+.backdrop {
+  --p: 0;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--color-paper);
+}
+.backdrop i {
+  position: absolute;
+  inset: -25%;
+  filter: blur(70px);
+  will-change: transform;
+}
+/* coral, strongest at the top */
+.backdrop i:nth-child(1) {
+  opacity: calc(1 - var(--p) * 0.7);
+  translate: calc(var(--p) * 12vw) calc(var(--p) * 30vh);
+  background: radial-gradient(
+    ellipse 38% 30% at 18% 22%,
+    color-mix(in oklch, var(--color-coral) 30%, transparent),
+    transparent 72%
+  );
+  animation: drift 26s ease-in-out infinite alternate;
+}
+/* yellow, upper right, early */
+.backdrop i:nth-child(2) {
+  opacity: calc(0.35 + sin(var(--p) * 180deg + 40deg) * 0.65);
+  translate: calc(var(--p) * -10vw) calc(var(--p) * 18vh);
+  background: radial-gradient(
+    ellipse 34% 30% at 82% 18%,
+    color-mix(in oklch, var(--color-brand-yellow) 30%, transparent),
+    transparent 72%
+  );
+  animation: drift 30s ease-in-out -6s infinite alternate-reverse;
+}
+/* peach through the middle */
+.backdrop i:nth-child(3) {
+  opacity: sin(var(--p) * 180deg);
+  translate: 0 calc(var(--p) * -10vh);
+  background: radial-gradient(
+    ellipse 45% 35% at 40% 55%,
+    color-mix(in oklch, var(--color-brand-peach) 70%, transparent),
+    transparent 72%
+  );
+  animation: drift 34s ease-in-out -12s infinite alternate;
+}
+/* blue, right side, later */
+.backdrop i:nth-child(4) {
+  opacity: calc(var(--p) * 1.1);
+  translate: calc(var(--p) * -8vw) calc(var(--p) * -24vh);
+  background: radial-gradient(
+    ellipse 36% 34% at 88% 78%,
+    color-mix(in oklch, var(--color-brand-blue) 18%, transparent),
+    transparent 72%
+  );
+  animation: drift 28s ease-in-out -4s infinite alternate-reverse;
+}
+/* purple, lower left, toward the end */
+.backdrop i:nth-child(5) {
+  opacity: clamp(0, calc(var(--p) * 1.6 - 0.4), 1);
+  translate: 0 calc(var(--p) * -18vh);
+  background: radial-gradient(
+    ellipse 34% 30% at 12% 88%,
+    color-mix(in oklch, var(--color-brand-purple) 14%, transparent),
+    transparent 72%
+  );
+  animation: drift 32s ease-in-out -16s infinite alternate;
+}
+/* a pink thread that wanders across */
+.backdrop i:nth-child(6) {
+  opacity: 0.8;
+  translate: calc(-20vw + var(--p) * 45vw) 0;
+  background: radial-gradient(
+    ellipse 24% 20% at 50% 42%,
+    color-mix(in oklch, var(--color-brand-pink) 12%, transparent),
+    transparent 72%
+  );
+  animation: drift 22s ease-in-out -8s infinite alternate;
+}
+@keyframes drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(5%, 4%) scale(1.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .backdrop i {
+    animation: none;
+  }
+}

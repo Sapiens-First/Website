@@ -1,0 +1,269 @@
+/* Site header: logo, Donate, and a hamburger menu at every width. */
+
+.header {
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4.5rem;
+  padding: 0 var(--gutter);
+  border-bottom: 1px solid transparent;
+  transition:
+    min-height 0.5s var(--ease),
+    background-color 0.5s var(--ease),
+    border-color 0.5s var(--ease),
+    backdrop-filter 0.5s var(--ease);
+}
+.header[data-scrolled] .bar {
+  min-height: 3.75rem;
+  border-color: color-mix(in oklch, var(--color-ink) 8%, transparent);
+  background: color-mix(in oklch, var(--color-paper) 72%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+}
+.header[data-open] .bar {
+  background: var(--color-paper);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  line-height: 1;
+  color: var(--color-ink);
+  white-space: nowrap;
+}
+.logo img {
+  width: 2rem;
+  height: 2rem;
+  transition: transform 0.6s var(--ease);
+}
+.logo:hover img {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.donate {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  margin-left: auto;
+  padding: 0.5rem 0.9rem;
+  border: 2px solid var(--color-ink);
+  background: var(--color-brand-yellow);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-ink);
+  transition:
+    background-color 0.35s var(--ease),
+    translate 0.35s var(--ease);
+}
+.donate:hover {
+  background: var(--color-paper);
+  translate: 0 -1px;
+}
+
+/* three lines that fold into an X */
+.burger {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 2px solid var(--color-ink);
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.35s var(--ease);
+}
+.burger:hover {
+  background: var(--color-soft);
+}
+.burger span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-ink);
+  translate: -50% -50%;
+  transition:
+    transform 0.5s var(--ease),
+    opacity 0.3s var(--ease);
+}
+.burger span:nth-child(1) {
+  transform: translateY(-6px);
+}
+.burger span:nth-child(3) {
+  transform: translateY(6px);
+}
+.header[data-open] .burger span:nth-child(1) {
+  transform: rotate(45deg);
+}
+.header[data-open] .burger span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+.header[data-open] .burger span:nth-child(3) {
+  transform: rotate(-45deg);
+}
+.burger:focus-visible,
+.donate:focus-visible,
+.logo:focus-visible,
+.panel a:focus-visible {
+  outline: 3px solid var(--color-brand-blue);
+  outline-offset: 3px;
+}
+
+/* drop-down panel: height eases open via grid rows */
+.panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: grid;
+  grid-template-rows: 0fr;
+  background: var(--color-paper);
+  border-bottom: 1px solid transparent;
+  box-shadow: 0 30px 60px -30px transparent;
+  transition:
+    grid-template-rows 0.6s var(--ease),
+    box-shadow 0.6s var(--ease),
+    border-color 0.6s var(--ease);
+}
+.header[data-open] .panel {
+  grid-template-rows: 1fr;
+  border-color: var(--color-rule);
+  box-shadow: 0 30px 60px -30px
+    color-mix(in oklch, var(--color-ink) 35%, transparent);
+}
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+.groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  width: min(72rem, calc(100% - 2 * var(--gutter)));
+  margin: 0 auto;
+  padding: 2.25rem 0 1.5rem;
+}
+.group {
+  opacity: 0;
+  translate: 0 10px;
+  transition:
+    opacity 0.45s var(--ease),
+    translate 0.45s var(--ease);
+}
+.header[data-open] .group {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: calc(0.12s + var(--i) * 0.06s);
+}
+.group h2 {
+  /* same as the footer's group headings */
+  margin-bottom: 0.9rem;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+.group ul {
+  display: grid;
+  gap: 0.2rem;
+  list-style: none;
+}
+.group a {
+  display: inline-block;
+  padding: 0.3rem 0;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  background: linear-gradient(var(--color-coral), var(--color-coral)) no-repeat
+    0 92% / 0% 3px;
+  transition:
+    background-size 0.45s var(--ease),
+    color 0.3s;
+}
+.group a:hover,
+.group a[aria-current="page"] {
+  background-size: 100% 3px;
+}
+.join {
+  display: flex;
+  justify-content: center;
+  width: min(72rem, calc(100% - 2 * var(--gutter)));
+  margin: 0.5rem auto 1.75rem;
+  padding: 0.95rem 1rem;
+  border: 2px solid var(--color-ink);
+  background: var(--color-brand-blue);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+  transition: background-color 0.35s var(--ease);
+}
+/* header Join: active blue with a white display label (docs/brand-colors.md) */
+.join:hover {
+  background: var(--color-brand-blue-dark);
+}
+
+/* dims the page behind the open menu */
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  border: 0;
+  background: color-mix(in oklch, var(--color-ink) 28%, transparent);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease);
+}
+.header[data-open] .scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 720px) {
+  .groups {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-height: calc(100svh - 12rem);
+    overflow-y: auto;
+  }
+  .group a {
+    font-size: 1.35rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header *,
+  .bar,
+  .panel {
+    transition: none !important;
+  }
+}

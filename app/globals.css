@@ -308,3 +308,16 @@
     );
   }
 }
+
+/*
+ * Site backdrop (components/SiteBackdrop). While it is on, large paper and
+ * white layout blocks go see-through so its colour washes show behind them.
+ * Cards, inputs and buttons keep their fills.
+ */
+html[data-site-bg]
+  :is(main section, main section > div, main > div, main > div > div):is(
+    .bg-paper,
+    .bg-white
+  ) {
+  background-color: transparent;
+}

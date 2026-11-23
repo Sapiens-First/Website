@@ -3,13 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import crown from "@/public/no-tech-kings/three-point-crown.svg";
 import { ExternalLink } from "@/components/redesign/ExternalLink";
+import { NtkInvolved } from "@/components/no-tech-kings/NtkInvolved";
 import { NtkCountdown } from "@/components/no-tech-kings/NtkCountdown";
 import { NtkShare } from "@/components/no-tech-kings/NtkShare";
 import { NtkSignup } from "@/components/no-tech-kings/NtkSignup";
 import { NtkSky } from "@/components/no-tech-kings/NtkSky";
 import { NtkStage } from "@/components/no-tech-kings/NtkStage";
-import { publicCalendar } from "@/lib/calendar";
-import { campaignConfig } from "@/lib/no-tech-kings/config";
 import { ntkCopy, redesignCopy } from "@/lib/no-tech-kings/copy";
 import { links } from "@/lib/no-tech-kings/links";
 import { footerGroups, socialLinks } from "@/lib/site-nav";
@@ -73,7 +72,7 @@ export function CampaignPage() {
               style={{ "--d": ".4s" } as React.CSSProperties}
             >
               <NtkCountdown className={styles.heroCountdown} caption={false} />
-              <ExternalLink href={firstGroup.href} className={styles.cta}>
+              <ExternalLink href={links.groupsMap.href} className={styles.cta}>
                 {ntkCopy.heroCta} ↗
               </ExternalLink>
               <p className={styles.heroNote}>{ntkCopy.heroNote}</p>
@@ -104,21 +103,7 @@ export function CampaignPage() {
         >
           <div className={styles.inner} data-inview>
             <h2 className={styles.sectionTitle}>{ntkCopy.involvedTitle}</h2>
-            <div className={styles.cards}>
-              <LinkCard
-                title={ntkCopy.community.title}
-                teaser={`${firstGroup.city} organizers on ${firstGroup.platform}.`}
-                href={firstGroup.href}
-                external
-              />
-              <LinkCard
-                title={redesignCopy.hostTitle}
-                teaser={ntkCopy.hostTeaser}
-                href={campaignConfig.hostForm}
-                external
-              />
-              <CalendarCard />
-            </div>
+            <NtkInvolved />
           </div>
           <div
             className={`${styles.inner} ${styles.closer}`}
@@ -139,68 +124,6 @@ export function CampaignPage() {
 
       <Footer />
     </NtkStage>
-  );
-}
-
-function CalendarCard() {
-  return (
-    <details className={`${styles.card} ${styles.calendarCard}`}>
-      <summary className={styles.cardHead}>
-        <h3 className={styles.cardTitle}>{ntkCopy.calendar.title}</h3>
-        <span className={styles.arrow} aria-hidden="true">
-          +
-        </span>
-        <p className={styles.teaser}>{ntkCopy.calendar.teaser}</p>
-      </summary>
-      <div className={styles.calendarBody}>
-        <div className={styles.calendarFrame}>
-          <iframe
-            src={publicCalendar.embedUrl}
-            title="Sapiens First public events calendar"
-            loading="lazy"
-          />
-        </div>
-        <p className={styles.calendarLinks}>
-          Times in Pacific.{" "}
-          <ExternalLink href={publicCalendar.googleUrl}>
-            Add to Google Calendar ↗
-          </ExternalLink>{" "}
-          <Link href="/calendar">Full calendar →</Link>
-        </p>
-      </div>
-    </details>
-  );
-}
-
-function LinkCard({
-  title,
-  teaser,
-  href,
-  external = false,
-}: {
-  title: string;
-  teaser: string;
-  href: string;
-  external?: boolean;
-}) {
-  const body = (
-    <div className={styles.cardHead}>
-      <h3 className={styles.cardTitle}>{title}</h3>
-      <span className={styles.arrow} aria-hidden="true">
-        {external ? "↗" : "→"}
-      </span>
-      <p className={styles.teaser}>{teaser}</p>
-    </div>
-  );
-  const className = `${styles.card} ${styles.linkCard}`;
-  return external ? (
-    <ExternalLink href={href} className={className}>
-      {body}
-    </ExternalLink>
-  ) : (
-    <Link href={href} className={className}>
-      {body}
-    </Link>
   );
 }
 

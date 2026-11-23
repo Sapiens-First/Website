@@ -11,8 +11,8 @@ import { Deck, Label } from "@/components/ui/Text";
 import { Doodle, FunLayer, Moon, starClip } from "@/components/ui/Doodles";
 import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
-import CampaignCarousel from "@/components/home/CampaignCarousel";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import NtkFeature from "@/components/home/NtkFeature";
+import { ActionLink } from "@/components/ui/Action";
 import InterestForm from "@/components/members/InterestForm";
 import { cn } from "@/lib/cn";
 
@@ -37,40 +37,12 @@ const steps = [
   { title: "Federal action", underline: "after:bg-brand-purple" },
 ];
 
-const campaigns = [
-  {
-    id: "freeze",
-    title: "Freeze AI.",
-    description:
-      "Call on the US to slow the development of frontier intelligence.",
-    href: "/campaigns/freeze-ai",
-  },
-  {
-    id: "surveillance",
-    title: "Stop 1984.",
-    description: "End AI-enabled mass surveillance.",
-    href: "/campaigns/stop-1984",
-  },
-  {
-    id: "robots",
-    title: "No Killer Robots.",
-    description: "Regulate deadly, autonomous weapons.",
-    href: "/campaigns/no-killer-robots",
-  },
-  {
-    id: "dividend",
-    title: "Citizens’ Dividend.",
-    description: "Give the public a stake in the wealth AI creates.",
-    href: "/campaigns/citizens-dividend",
-  },
-];
-
 const h2 = "mt-5 text-5xl lg:text-6xl xl:text-7xl";
 
 export const metadata: Metadata = pageMetadata({
-  title: { absolute: "Sapiens First — A Movement for AI Accountability" },
+  title: { absolute: "Sapiens First — Building the Pro-Human Movement" },
   description:
-    "Join Sapiens First to defend humanity from the threats of superintelligence. Explore our campaigns, fellowship, and local organizing groups.",
+    "Sapiens First is building the pro-human movement. Stand up to Big Tech, fight for democracy, and join our No Tech Kings campaign.",
   path: "/",
 });
 
@@ -86,28 +58,16 @@ export default function Page() {
             <Confetti className="top-5 right-7 h-22.5 w-40 -rotate-8 max-sm:top-0.5 max-sm:right-5 max-sm:h-11.25 max-sm:w-20 sm:max-lg:top-1 sm:max-lg:h-12 sm:max-lg:w-27.5" />
             <Confetti className="right-8 bottom-4.5 h-15 w-32.5 rotate-14 max-sm:right-5 max-sm:bottom-2.5 max-sm:h-10 max-sm:w-20" />
             <Confetti className="top-5.5 left-7 h-14 w-25 rotate-12 max-sm:top-1.5 max-sm:left-5 max-sm:h-10 max-sm:w-19 sm:max-lg:top-2 sm:max-lg:h-10 sm:max-lg:w-22.5" />
-            <h1 className="relative z-2 max-w-xs font-display text-7xl font-extrabold tracking-tight uppercase max-sm:text-6xl max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl xl:text-9xl">
-              Stand up to{" "}
+            <h1 className="relative z-2 font-display text-7xl font-extrabold tracking-tight uppercase max-sm:text-6xl max-sm:tracking-tighter lg:text-7xl 2xl:text-8xl">
+              Revolt for{" "}
               <span className="inline-block -rotate-2 bg-brand-yellow px-[0.08em] leading-none text-ink">
-                Big Tech.
+                our future.
               </span>
             </h1>
             <p className="relative z-2 mx-0 mt-8 mb-7 max-w-sm font-body text-lg leading-snug font-bold max-sm:my-6 max-sm:leading-normal xl:text-2xl">
-              Defend humanity from the threats of artificial intelligence.
+              Stand up to Big Tech and fight for democracy.
             </p>
-            <ActionLink
-              href="/join"
-              variant="primary"
-              className="relative z-2 w-max"
-            >
-              Join as a Member →
-            </ActionLink>
-            <TextLink
-              href="#involved"
-              className="relative z-2 mt-4 w-max"
-            >
-              Or register your interest ↓
-            </TextLink>
+            <InterestForm interest="membership" />
           </HeroCopy>
           <HeroArt className="bg-coral after:pointer-events-none after:absolute after:inset-0 after:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),transparent_38%),linear-gradient(0deg,color-mix(in_srgb,var(--color-coral)_18%,transparent),transparent_48%)] after:mix-blend-screen after:content-[''] max-lg:min-h-130 max-sm:min-h-97.5 sm:max-md:min-h-115">
             <Image
@@ -231,7 +191,7 @@ export default function Page() {
               </Deck>
             </div>
             <div className="mt-5 max-sm:mt-4">
-              <CampaignCarousel campaigns={campaigns} />
+              <NtkFeature />
             </div>
           </Container>
         </section>
@@ -306,7 +266,7 @@ export default function Page() {
             </Label>
             <h2 className={cn(h2, "relative z-2 leading-none tracking-tight")}>
               Dare to{" "}
-              <em className="relative isolate inline-block text-ink not-italic before:pointer-events-none before:absolute before:inset-[-5%_-0.1em_-7%] before:-z-1 before:-rotate-3 before:bg-coral-soft before:content-[''] before:[clip-path:polygon(0_12%,16%_5%,37%_9%,63%_0,84%_6%,100%_2%,97%_35%,100%_69%,97%_91%,76%_96%,53%_90%,28%_100%,3%_92%,5%_60%)]">
+              <em className="relative isolate inline-block text-ink not-italic before:pointer-events-none before:absolute before:inset-[-5%_-0.1em_-7%] before:-z-1 before:-rotate-3 before:bg-coral before:content-[''] before:[clip-path:polygon(0_12%,16%_5%,37%_9%,63%_0,84%_6%,100%_2%,97%_35%,100%_69%,97%_91%,76%_96%,53%_90%,28%_100%,3%_92%,5%_60%)]">
                 fight
               </em>{" "}
               for a brighter future.
@@ -314,7 +274,9 @@ export default function Page() {
             <Deck className="relative z-2 mx-0 mt-2 mb-5 leading-normal lg:text-xl xl:text-2xl">
               <strong>Connect to your chapter today.</strong>
             </Deck>
-            <InterestForm interest="membership" />
+            <ActionLink href="/join" variant="primary" className="w-max">
+              Join as a Member →
+            </ActionLink>
           </div>
           <div className="relative flex min-h-128 flex-col justify-end overflow-hidden border-ink bg-[linear-gradient(180deg,rgba(24,37,31,0.08)_15%,rgba(24,37,31,0.9)_100%),url(/assets/homepage-quote-texture.png)] bg-cover bg-position-[48%_center] bg-no-repeat px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-[color-mix(in_srgb,var(--color-coral)_92%,transparent)] before:content-['\201C'] before:text-shadow-[0_2px_0_var(--color-ink)] after:absolute after:right-8 after:bottom-9 after:h-2.5 after:w-24 after:-rotate-3 after:rounded-full after:bg-brand-yellow after:content-[''] max-lg:border-t-2 max-sm:min-h-72 max-sm:bg-position-[51%_center] max-sm:px-5 max-sm:py-10 max-sm:before:-top-12 max-sm:before:left-3 max-sm:after:right-5 max-sm:after:bottom-6 max-sm:after:h-1.5 max-sm:after:w-16 sm:max-md:min-h-120 lg:border-l-2">
             <blockquote className="relative z-2 m-0 border-l-8 border-coral bg-ink/76 p-6 font-quote text-3xl leading-none shadow-[14px_14px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] text-shadow-[0_2px_18px_rgba(0,0,0,0.75)] max-sm:border-l-6 max-sm:p-4 max-sm:text-3xl max-sm:shadow-[9px_9px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] lg:text-4xl xl:text-5xl">

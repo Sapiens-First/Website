@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
 import { isProfileComplete, type ProfileField } from "./profile";
 import { memberReturnPath } from "./interests";
+import { hasAcceptedAgreement } from "./agreement";
 
 class AccountAuthenticationError extends Error {}
 
@@ -66,13 +67,18 @@ async function readProfile(
 ) {
   const { data: profile, error } = await supabase
     .from("profiles")
-    .select("id,full_name,country_code,city,region,postal_code,phone,address")
+    .select(
+      "id,full_name,country_code,city,region,postal_code,phone,address,agreement_version",
+    )
     .eq("id", userId)
     .maybeSingle();
   if (error) throw new Error("Your account profile could not be loaded.");
   if (!profile)
     redirect(`/join?error=profile&next=${encodeURIComponent(next)}`);
-  return profile as { id: string } & Record<ProfileField, string | null>;
+  return profile as { id: string; agreement_version: string | null } & Record<
+    ProfileField,
+    string | null
+  >;
 }
 
 export type MembershipRow = {
@@ -97,6 +103,8 @@ export const getMembershipState = cache(async (returnTo = "/dashboard") => {
   ]);
   if (!isProfileComplete(profile))
     redirect(`/onboarding?next=${encodeURIComponent(next)}`);
+  if (!hasAcceptedAgreement(profile))
+    redirect(`/agreement?next=${encodeURIComponent(next)}`);
   if (error) throw new Error("Your membership access could not be verified.");
   return {
     account: { ...account, profile },

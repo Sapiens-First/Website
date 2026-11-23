@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
 import { pageMetadata } from "@/lib/site";
 import {
   HeroArt,
@@ -8,7 +7,15 @@ import {
 } from "@/components/sections/SplitSection";
 import { Container } from "@/components/layout/Container";
 import { Deck, Label } from "@/components/ui/Text";
-import { Doodle, FunLayer, Moon, starClip } from "@/components/ui/Doodles";
+import { starClip } from "@/components/ui/Doodles";
+import { CrisisSky, crisisSky } from "@/components/home/story/CrisisSky";
+import { HeroEmbers } from "@/components/home/story/HeroEmbers";
+import { VisionDaybreak } from "@/components/home/story/VisionDaybreak";
+import { StepNetwork } from "@/components/home/story/StepNetwork";
+import {
+  InvolvedFire,
+  involvedFire,
+} from "@/components/home/story/InvolvedFire";
 import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
 import NtkFeature from "@/components/home/NtkFeature";
@@ -53,18 +60,16 @@ export default function Page() {
         <SplitHero>
           <HeroCopy
             circle={false}
-            className="before:pointer-events-none before:absolute before:top-[16%] before:right-[-20%] before:z-0 before:aspect-1000/589 before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:right-[-26%] max-sm:before:w-[120%]"
+            className="isolate before:pointer-events-none before:absolute before:top-[16%] before:right-[-20%] before:z-0 before:aspect-1000/589 before:w-[112%] before:-rotate-9 before:content-[''] before:[background:radial-gradient(circle,color-mix(in_srgb,var(--color-coral)_25%,transparent)_1px,transparent_1.3px)_0_0/5px_5px,color-mix(in_srgb,var(--color-coral)_5.5%,transparent)] before:[mask:url(/assets/us.svg)_center/contain_no-repeat] max-sm:before:top-[13%] max-sm:before:right-[-26%] max-sm:before:w-[120%]"
           >
-            <Confetti className="top-5 right-7 h-22.5 w-40 -rotate-8 max-sm:top-0.5 max-sm:right-5 max-sm:h-11.25 max-sm:w-20 sm:max-lg:top-1 sm:max-lg:h-12 sm:max-lg:w-27.5" />
-            <Confetti className="right-8 bottom-4.5 h-15 w-32.5 rotate-14 max-sm:right-5 max-sm:bottom-2.5 max-sm:h-10 max-sm:w-20" />
-            <Confetti className="top-5.5 left-7 h-14 w-25 rotate-12 max-sm:top-1.5 max-sm:left-5 max-sm:h-10 max-sm:w-19 sm:max-lg:top-2 sm:max-lg:h-10 sm:max-lg:w-22.5" />
+            <HeroEmbers />
             <h1 className="relative z-2 font-display text-7xl font-extrabold tracking-tight uppercase max-sm:text-6xl max-sm:tracking-tighter lg:text-7xl 2xl:text-8xl">
               Revolt for{" "}
               <span className="inline-block -rotate-2 bg-brand-yellow px-[0.08em] leading-none text-ink">
                 our future.
               </span>
             </h1>
-            <p className="relative z-2 mx-0 mt-8 mb-7 max-w-sm font-body text-lg leading-snug font-bold max-sm:my-6 max-sm:leading-normal xl:text-2xl">
+            <p className="relative z-2 mx-0 mt-8 mb-7 max-w-md font-body text-xl leading-snug font-bold max-sm:my-6 max-sm:leading-normal lg:text-2xl xl:text-3xl">
               Stand up to Big Tech and fight for democracy.
             </p>
             <InterestForm interest="membership" />
@@ -78,13 +83,12 @@ export default function Page() {
               sizes="(max-width: 900px) 100vw, 46vw"
               preload
             />
-            <Confetti className="top-[7%] left-[7%] h-27.5 w-47.5 -rotate-12 max-sm:h-20 max-sm:w-35" />
-            <Confetti className="top-[34%] right-[5%] h-20 w-35 rotate-18 max-sm:h-15 max-sm:w-25" />
           </HeroArt>
         </SplitHero>
 
         <section className="border-b-2 border-ink bg-white">
-          <div className="relative overflow-hidden bg-ink px-7 py-20 font-display text-4xl leading-none tracking-tighter text-white max-sm:px-5 max-sm:py-11 max-sm:text-4xl sm:px-12 lg:px-20 lg:py-24 lg:text-5xl xl:text-6xl">
+          <div className="relative overflow-hidden bg-black px-7 py-20 font-display text-4xl leading-none tracking-tighter text-white max-sm:px-5 max-sm:py-11 max-sm:text-4xl sm:px-12 lg:px-20 lg:py-24 lg:text-5xl xl:text-6xl">
+            <CrisisSky />
             <svg
               className="pointer-events-none absolute top-25 right-[5%] z-0 h-auto w-[clamp(300px,39vw,560px)] -rotate-12 text-brand-blue opacity-42 max-sm:top-17 max-sm:-right-27.5 max-sm:w-[320px] max-sm:opacity-18"
               viewBox="0 0 400 400"
@@ -132,25 +136,23 @@ export default function Page() {
                 </g>
               </g>
             </svg>
-            <FunLayer className="inset-auto top-11 right-[max(28px,7vw)] h-24 w-36 max-sm:top-4 max-sm:right-5 max-sm:origin-top-right max-sm:scale-60">
-              <Doodle className="top-5 right-4 text-paper">
-                <Moon size={52} cutY={13} />
-              </Doodle>
-            </FunLayer>
             <div className="relative z-2">
               <Label className="relative z-2 mb-7 w-max" size="section">
                 Crisis
               </Label>
               <div className="relative z-2 max-w-xl font-extrabold uppercase">
                 Artificial intelligence is threatening the future of{" "}
-                <em className="text-coral not-italic">
+                <em className={cn("text-coral not-italic", crisisSky.glow)}>
                   <span className="relative inline-block after:absolute after:right-[-0.02em] after:bottom-[-0.07em] after:left-0 after:h-[0.12em] after:-rotate-2 after:bg-coral after:content-[''] after:[clip-path:polygon(0_25%,96%_0,100%_65%,4%_100%)]">
                     humanity.
                   </span>
                 </em>
               </div>
               <div
-                className="pointer-events-none absolute -top-20 right-[calc(clamp(300px,39vw,560px)*1.1+16px-2vw)] -bottom-16 left-0 z-1 max-sm:-top-11 max-sm:right-60 max-sm:-bottom-8"
+                className={cn(
+                  "pointer-events-none absolute -top-20 right-[calc(clamp(300px,39vw,560px)*1.1+16px-2vw)] -bottom-16 left-0 z-1 max-sm:-top-11 max-sm:right-60 max-sm:-bottom-8",
+                  crisisSky.stars,
+                )}
                 aria-hidden="true"
               >
                 {stars.map(([left, top, size]) => (
@@ -170,11 +172,8 @@ export default function Page() {
           className="relative overflow-hidden border-b-2 border-ink bg-paper px-0 py-28 max-sm:scroll-mt-20 max-sm:px-0 max-sm:py-14"
           id="vision"
         >
-          <SectionMark>
-            <circle cx="44" cy="28" r="13"></circle>
-            <path d="M44 3v5M44 48v5M19 28h5M64 28h5M26 10l4 4M58 42l4 4M26 46l4-4M58 14l4-4"></path>
-          </SectionMark>
-          <Container>
+          <VisionDaybreak />
+          <Container className="relative z-1">
             <div>
               <Label tone="yellow" size="section">
                 Vision
@@ -200,10 +199,6 @@ export default function Page() {
           className="relative overflow-hidden border-b-2 border-ink bg-white bg-[url(/assets/homepage-strategy-contours.svg)] bg-size-[1000px_600px] bg-position-[right_-100px_top_-160px] bg-no-repeat px-0 pt-20 pb-0 max-sm:scroll-mt-20 max-sm:bg-position-[right_-360px_top_-120px] max-sm:pt-12"
           id="strategy"
         >
-          <SectionMark>
-            <path d="M10 46h20V32h20V18h24M64 8l10 10-10 10"></path>
-            <circle cx="10" cy="46" r="3"></circle>
-          </SectionMark>
           <Container className="grid grid-cols-2 items-center gap-12 max-lg:grid-cols-1 max-lg:gap-8 max-sm:gap-5 max-sm:pb-8">
             <div>
               <Label tone="coral" size="section">
@@ -228,12 +223,13 @@ export default function Page() {
             {steps.map((step, index) => (
               <div
                 className={cn(
-                  "border-ink px-9 pt-11 pb-12 backdrop-saturate-[.78] max-lg:flex max-lg:items-start max-lg:gap-6 max-lg:pt-9 max-lg:pb-11 max-sm:gap-5 max-sm:px-6 max-sm:pt-8 max-sm:pb-9",
+                  "relative border-ink px-9 pt-11 pb-12 backdrop-saturate-[.78] max-lg:flex max-lg:items-start max-lg:gap-6 max-lg:pt-9 max-lg:pb-11 max-sm:gap-5 max-sm:px-6 max-sm:pt-8 max-sm:pb-9",
                   index < steps.length - 1 &&
                     "border-r-2 max-lg:border-r-0 max-lg:border-b-2",
                 )}
                 key={step.title}
               >
+                <StepNetwork step={index as 0 | 1 | 2} />
                 <small className="mb-7 block font-display text-5xl leading-none font-extrabold tracking-tighter text-coral-dark uppercase max-lg:mb-0 xl:text-6xl">
                   {String(index + 1).padStart(2, "0")}
                 </small>
@@ -255,12 +251,7 @@ export default function Page() {
           id="involved"
         >
           <div className="relative overflow-hidden bg-[url(/assets/homepage-involved-arcs.svg)] bg-size-[900px_900px] bg-position-[right_-460px_bottom_-470px] bg-no-repeat px-7 py-20 max-sm:bg-position-[right_-520px_bottom_-510px] max-sm:pt-14 max-sm:pr-5 max-sm:pb-11 max-sm:pl-5 sm:px-12 lg:px-20 lg:py-24">
-            <SectionMark className="text-ink">
-              <circle cx="44" cy="12" r="6"></circle>
-              <circle cx="22" cy="25" r="6"></circle>
-              <circle cx="66" cy="25" r="6"></circle>
-              <path d="M33 32v-3a11 11 0 0 1 22 0v3M10 48v-4a12 12 0 0 1 24 0v4M54 48v-4a12 12 0 0 1 24 0v4M34 48h20"></path>
-            </SectionMark>
+            <InvolvedFire />
             <Label className="relative z-2" tone="purple">
               Get involved
             </Label>
@@ -274,7 +265,11 @@ export default function Page() {
             <Deck className="relative z-2 mx-0 mt-2 mb-5 leading-normal lg:text-xl xl:text-2xl">
               <strong>Connect to your chapter today.</strong>
             </Deck>
-            <ActionLink href="/join" variant="primary" className="w-max">
+            <ActionLink
+              href="/join"
+              variant="primary"
+              className={cn("w-max", involvedFire.button)}
+            >
               Join as a Member →
             </ActionLink>
           </div>
@@ -289,51 +284,5 @@ export default function Page() {
         </section>
       </main>
     </>
-  );
-}
-
-function SectionMark({
-  className = "",
-  children,
-}: {
-  className?: string;
-  children: ReactNode;
-}) {
-  return (
-    <svg
-      className={cn(
-        "pointer-events-none absolute top-5 right-[max(28px,7vw)] z-2 h-14 w-20 -rotate-8 fill-none stroke-current stroke-3 text-coral [stroke-linecap:round] [stroke-linejoin:round] max-sm:top-2.5 max-sm:right-5 max-sm:h-9 max-sm:w-14",
-        className,
-      )}
-      viewBox="0 0 88 56"
-      aria-hidden="true"
-      focusable="false"
-    >
-      {children}
-    </svg>
-  );
-}
-
-function Confetti({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      className={cn("pointer-events-none absolute z-1 fill-none", className)}
-      viewBox="0 0 160 90"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path
-        className="fill-coral"
-        d="M8 35l6-3 8 17-6 3zM124 8l6 2-5 15-6-2z"
-      ></path>
-      <path
-        className="fill-brand-blue"
-        d="M58 4l7 1-2 17-7-1zM114 73l5-5 11 10-5 5z"
-      ></path>
-      <path
-        className="fill-brand-yellow"
-        d="M37 72l13-7 4 6-13 7zM148 40l7 3-4 8-7-3z"
-      ></path>
-    </svg>
   );
 }

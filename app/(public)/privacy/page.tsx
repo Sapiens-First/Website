@@ -28,51 +28,53 @@ export default function Page() {
                 Member accounts
               </h2>
               <p>
-                Google sign-in shares your basic account identity, including
-                your email and name, with our authentication provider, Supabase.
-                We store your account and private member profile in Supabase.
-                Signing in does not subscribe you to marketing emails or publish
-                your details in Atlas.
+                You can sign in with Google or with a link we email you. If you
+                use Google, it shares your name and email with us. Signing in
+                doesn&apos;t sign you up for marketing emails or make your
+                details public.
               </p>
               <p>
-                When you complete your profile, we collect your confirmed name,
-                country and locality for membership and local organizing.
-                Region, postal code, phone and street address are optional.
-                Providing a phone number does not opt you into calls or texts.
+                Your profile asks for your name, country and city so we can
+                connect you with people nearby. Everything else is optional.
+                Giving us your phone number doesn&apos;t mean we&apos;ll call or
+                text you.
               </p>
               <p>
-                We use authentication cookies to maintain your session. Signing
-                out ends your current website session. You can view and correct
-                your profile in the member dashboard. You can request access,
-                correction or deletion of your account using the contact below.
+                When you agree to the member agreement, we note which version
+                you agreed to and when.
+              </p>
+              <p>
+                We use cookies to keep you signed in. You can see and edit your
+                profile in your member dashboard, or email us to get a copy of
+                your data or have it deleted.
               </p>
             </div>
             <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
               <h2 className="font-display text-3xl font-extrabold uppercase">
-                Membership billing
+                Membership payments
               </h2>
               <p>
-                Membership costs $1, $10 or $20 USD per month, with the same
-                benefits at every amount. Eligible accounts can begin a 14-day
-                trial with a payment card. After the trial, the selected monthly
-                contribution is charged automatically unless you cancel renewal.
+                Membership is $5, $15 or $50 USD a month, and every amount gets
+                you the same membership. New members can try it free for 14 days
+                with a card on file. After that, your monthly amount is charged
+                automatically until you cancel.
               </p>
               <p>
-                Stripe processes membership payments. We share your account
-                email and name with Stripe and store billing identifiers,
-                membership status and billing dates in Supabase. We do not store
-                your full card number. Stripe handles payment details under its{" "}
+                Payments go through Stripe. We share your name and email with
+                Stripe, and we keep a record of your membership status and
+                payment dates. We never see or store your full card number.
+                Stripe looks after your card details under its{" "}
                 <a className="underline" href="https://stripe.com/privacy">
-                  Privacy Policy
+                  privacy policy
                 </a>
                 .
               </p>
               <p>
-                Cancel renewal anytime through billing management. Access
-                continues through your trial or paid period. We don’t offer
-                routine partial-month refunds, except where required by law.
-                Failed renewal payments end member access until payment
-                recovers.
+                You can cancel anytime from your membership page. You keep
+                access until the end of your free trial or the month you paid
+                for. We don&apos;t refund part-months unless the law requires
+                it. If a payment fails, membership is paused until it goes
+                through.
               </p>
             </div>
             <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
@@ -81,8 +83,8 @@ export default function Page() {
               </h2>
               <p>
                 Signing a campaign records your email address, any optional
-                contact details, the campaign, signing time and optional
-                campaign-email choice in Supabase.
+                contact details, the campaign, when you signed, and whether you
+                want campaign emails.
               </p>
               <p>
                 Your signature and contact details are private supporter
@@ -98,9 +100,8 @@ export default function Page() {
                 preferences.
               </p>
               <p>
-                Campaign signatures and interests are stored in Supabase and
-                processed by the services that host this website. Access is
-                restricted to authorized people and systems.
+                Signatures and interests are stored securely with the services
+                that run this website. Only authorized people can access them.
               </p>
               <p>
                 We retain supporter and consent records while they are needed
@@ -111,11 +112,8 @@ export default function Page() {
             </div>
             <p className="text-lg leading-relaxed text-ink">
               To opt out, change your preferences or request deletion, email{" "}
-              <a
-                className="text-coral-dark"
-                href="mailto:rohan@sapiensfirst.org"
-              >
-                rohan@sapiensfirst.org
+              <a className="text-coral-dark" href="mailto:ops@sapiensfirst.org">
+                ops@sapiensfirst.org
               </a>
               .
             </p>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 export const site = {
   url: "https://sapiensfirst.org",
+  docsUrl: "https://docs.sapiensfirst.org",
   donationUrl:
     "https://www.zeffy.com/en-US/donation-form/support-sapiens-first",
   guideDocId: "1dG4DL_Bak93Sah1LK5oSxtXQ3yQvWp15UMWFv-z9Nvs",

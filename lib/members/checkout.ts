@@ -94,7 +94,7 @@ export async function createMembershipCheckout(input: CheckoutInput) {
   const trial = input.requestTrial && trialStarted === null;
   if (input.requestTrial && !trial) {
     throw new BillingError(
-      "Your trial has already been used. Choose Pay monthly to continue.",
+      "You’ve already used your free trial. Refresh the page to start paying monthly.",
     );
   }
 
@@ -117,7 +117,7 @@ export async function createMembershipCheckout(input: CheckoutInput) {
       // Checkout may complete after subscriptions.list above.
       if (!previous.subscription)
         throw new BillingError(
-          "Your previous checkout is still being confirmed. Please try again shortly.",
+          "Your last payment is still going through. Please try again in a minute.",
         );
       const subscription =
         typeof previous.subscription === "string"
@@ -126,7 +126,7 @@ export async function createMembershipCheckout(input: CheckoutInput) {
       if (!isEndedSubscription(subscription.status)) return manageMembership();
       if (input.requestTrial && subscription.trial_start)
         throw new BillingError(
-          "Your trial has already been used. Choose Pay monthly to continue.",
+          "You’ve already used your free trial. Refresh the page to start paying monthly.",
         );
     }
   }
@@ -151,7 +151,7 @@ export async function createMembershipCheckout(input: CheckoutInput) {
     },
   );
   if (!session.url || session.status !== "open") {
-    throw new BillingError("This checkout has ended. Please try again.");
+    throw new BillingError("This payment page has expired. Please try again.");
   }
 
   // Across tabs/instances, only one session may replace the previously saved ID.
@@ -173,5 +173,7 @@ export async function createMembershipCheckout(input: CheckoutInput) {
   // Identical concurrent requests can receive the same Stripe session.
   if (winner.checkout_session_id === session.id) return session.url;
   await stripe.checkout.sessions.expire(session.id);
-  throw new BillingError("Checkout changed in another tab. Please try again.");
+  throw new BillingError(
+    "You started paying in another tab. Please try again.",
+  );
 }

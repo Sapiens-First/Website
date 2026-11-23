@@ -23,12 +23,17 @@ export default function ProfileForm({
   countries,
   submitLabel = "Save and continue",
   next = "/dashboard",
+  action = saveProfile,
   children,
 }: {
   initialValues: ProfileValues;
   countries: { code: string; name: string }[];
   submitLabel?: string;
   next?: string;
+  action?: (
+    previous: ProfileFormState,
+    form: FormData,
+  ) => Promise<ProfileFormState>;
   children?: ReactNode;
 }) {
   const formId = useId();
@@ -37,10 +42,7 @@ export default function ProfileForm({
     errors: {},
     message: "",
   };
-  const [state, formAction, pending] = useActionState(
-    saveProfile,
-    initialState,
-  );
+  const [state, formAction, pending] = useActionState(action, initialState);
   const [country, setCountry] = useState(initialValues.country_code || "");
   const summary = useRef<HTMLParagraphElement>(null);
   useEffect(() => {
@@ -119,8 +121,8 @@ export default function ProfileForm({
                   />
                 )}
                 {field === "phone" && (
-                  <p id="phone-help" className="mt-2 text-sm">
-                    Include your country code.
+                  <p id="phone-help" className="mt-2 text-sm text-muted">
+                    Include your country code, for example +1 555 123 4567.
                   </p>
                 )}
                 {error && (

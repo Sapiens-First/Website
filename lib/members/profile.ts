@@ -2,7 +2,7 @@ export const profileFields = {
   full_name: { label: "Full name", limit: 200, autoComplete: "name" },
   country_code: { label: "Country", limit: 2, autoComplete: "country" },
   city: {
-    label: "City, town or locality",
+    label: "City or town",
     limit: 120,
     autoComplete: "address-level2",
   },
@@ -58,7 +58,7 @@ export function validateProfile(input: ProfileInput): ProfileFormState {
     const text = typeof value === "string" ? value.trim() : "";
     values[field] = field === "country_code" ? text.toUpperCase() : text;
     if (value != null && typeof value !== "string") {
-      errors[field] = "Enter a text value.";
+      errors[field] = "Please fill this in.";
     } else if (requiredProfileFields.includes(field) && !text) {
       errors[field] = `${profileFields[field].label} is required.`;
     } else if (Array.from(text).length > profileFields[field].limit) {
@@ -74,8 +74,7 @@ export function validateProfile(input: ProfileInput): ProfileFormState {
     values.phone &&
     (!/^[+()0-9 .-]+$/.test(values.phone) || !/[0-9]/.test(values.phone))
   ) {
-    errors.phone =
-      "Use digits and optional +, spaces, brackets, dots or hyphens.";
+    errors.phone = "Use numbers only, plus +, spaces or dashes if you like.";
   }
   return {
     values,

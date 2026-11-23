@@ -1,0 +1,107 @@
+/* Spark: embers on the hero's US map (HeroEmbers.tsx). */
+
+/* Lightens the hero copy panel by half toward white. Sits under the US
+ * map (HeroCopy is isolated), so the map keeps its colour. */
+.wash {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in oklch, white 50%, transparent);
+  pointer-events: none;
+}
+
+/* Same box and tilt as the map in HeroCopy's ::before. */
+.map {
+  position: absolute;
+  top: 16%;
+  right: -20%;
+  z-index: 1;
+  width: 112%;
+  aspect-ratio: 1000 / 589;
+  rotate: -9deg;
+  pointer-events: none;
+}
+@media (max-width: 639px) {
+  .map {
+    top: 13%;
+    right: -26%;
+    width: 120%;
+  }
+}
+
+/* Each city: a small red-orange ember that pops up, glows, and fades out again,
+ * on its own cycle (--t) and offset (--d). */
+.city {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff2e0 0%, #ff6a2c 50%, #d8401f 100%);
+  box-shadow:
+    0 0 4px 1px rgb(255 106 44 / 0.8),
+    0 0 12px 3px rgb(224 72 30 / 0.45);
+  opacity: 0;
+  animation: pop var(--t) ease-out var(--d) infinite;
+}
+@keyframes pop {
+  0% {
+    opacity: 0;
+    scale: 0.2;
+  }
+  7% {
+    opacity: 1;
+    scale: 1.6;
+  }
+  14% {
+    scale: 1;
+  }
+  45% {
+    opacity: 0.9;
+    scale: 1;
+  }
+  62%,
+  100% {
+    opacity: 0;
+    scale: 0.6;
+  }
+}
+
+/* Every other city sends a spark up as it pops. */
+.city i {
+  position: absolute;
+  left: 1px;
+  top: 0;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #ff9a4a;
+  box-shadow: 0 0 4px #ff5a26;
+  opacity: 0;
+  animation: spark var(--t) ease-out var(--d) infinite;
+}
+@keyframes spark {
+  0%,
+  6% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  40%,
+  100% {
+    opacity: 0;
+    transform: translate(6px, -34px) scale(0.4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city,
+  .city i {
+    animation: none;
+  }
+  .city {
+    opacity: 0.8;
+  }
+}

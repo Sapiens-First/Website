@@ -27,7 +27,7 @@ export default async function ProfilePage() {
           Keep your details up to date. Your profile stays private.
         </p>
         <p className="mt-5 break-all">
-          Google account: <strong>{user.email}</strong>
+          Signed in as <strong>{user.email}</strong>
         </p>
         <ProfileForm
           initialValues={initialProfileValues(profile)}

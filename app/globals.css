@@ -321,3 +321,12 @@ html[data-site-bg]
   ) {
   background-color: transparent;
 }
+
+/* Day backdrop (components/day-backdrop): fade the footer fill by its level. */
+html[data-day-bg] footer.bg-soft {
+  background-color: color-mix(
+    in oklch,
+    var(--color-soft) calc((1 - var(--day-footer-clear, 0)) * 100%),
+    transparent
+  );
+}

@@ -1,0 +1,115 @@
+/* The North Star of the Human Charter (NorthStar.tsx). */
+
+/* In a layer so the page's position utilities (absolute) win. */
+@layer components {
+  .star {
+    position: relative;
+  }
+}
+.star {
+  pointer-events: none;
+  --stroke: var(--color-ink);
+}
+.star svg {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+.star[data-variant="beacon"] {
+  --stroke: var(--color-paper);
+}
+
+/* Soft light behind the star. */
+.glow {
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle closest-side,
+    color-mix(in oklch, var(--color-brand-yellow) 55%, transparent),
+    transparent
+  );
+  filter: blur(14px);
+  opacity: 0;
+}
+.star[data-variant="hero"] .glow {
+  opacity: 0.7;
+  animation: shine 5s ease-in-out 2.4s infinite alternate;
+}
+.star[data-variant="beacon"] .glow {
+  inset: -20%;
+  opacity: 0.9;
+  background: radial-gradient(
+    circle closest-side,
+    color-mix(in oklch, #fff3cc 60%, transparent),
+    color-mix(in oklch, var(--color-brand-yellow) 30%, transparent) 45%,
+    transparent
+  );
+  animation: shine 4s ease-in-out infinite alternate;
+}
+@keyframes shine {
+  from {
+    scale: 0.9;
+    opacity: 0.45;
+  }
+  to {
+    scale: 1.1;
+    opacity: 0.95;
+  }
+}
+
+.left,
+.right {
+  stroke: var(--stroke);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.ray .left {
+  fill: color-mix(in oklch, var(--c) 70%, white);
+}
+.ray .right {
+  fill: var(--c);
+}
+.ghost .left,
+.ghost .right {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 4;
+  opacity: 0.3;
+}
+.core {
+  fill: var(--color-paper);
+  stroke: var(--stroke);
+  stroke-width: 2;
+}
+
+/* The hero and the beacon turn very slowly once drawn. */
+.star[data-variant="hero"] svg,
+.star[data-variant="beacon"] svg {
+  animation: turn 120s linear infinite;
+}
+@keyframes turn {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Entrance: each lit ray grows out from the centre, one after another. */
+.star[data-wait] .ray {
+  transition:
+    scale 0.7s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.3s ease-out;
+  transition-delay: calc(0.25s + var(--i) * 0.16s);
+}
+.star[data-wait]:not([data-in]) .ray {
+  scale: 0.1;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glow,
+  .star svg {
+    animation: none !important;
+  }
+}

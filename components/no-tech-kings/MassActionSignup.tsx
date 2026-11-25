@@ -55,7 +55,7 @@ export function MassActionSignup() {
           >
             {pending ? "Saving…" : redesignCopy.signupButton}
           </button>
-          <p className="mt-2.5 text-sm leading-snug text-muted">
+          <p className="mt-2.5 text-sm leading-snug text-muted-foreground">
             {redesignCopy.signupPrivacy}{" "}
             <Link href="/privacy" className={textLink}>
               Privacy

@@ -4,7 +4,7 @@ import { Fragment, useState } from "react";
 import { CardText } from "@/components/ui/Card";
 import { AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
-import { TextLink } from "@/components/ui/Action";
+import { TextLink } from "@/components/ui/button";
 
 type Campaign = {
   id: string;

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import { ActionLink, TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
+import { MonthSparks } from "@/components/calendar/story/MonthSparks";
 import { publicCalendar } from "@/lib/calendar";
 import { pageMetadata } from "@/lib/site";
 
@@ -24,6 +25,7 @@ export default function CalendarPage() {
                 Upcoming events
               </h1>
             </div>
+            <MonthSparks className="mr-auto ml-6 max-md:hidden" />
             <TextLink href={publicCalendar.embedUrl}>
               Open calendar in a new page ↗
             </TextLink>

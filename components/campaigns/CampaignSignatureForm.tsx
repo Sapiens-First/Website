@@ -3,7 +3,9 @@ import { useActionState } from "react";
 import { saveCampaignSignature } from "@/app/(public)/campaigns/actions";
 import Link from "next/link";
 import type { CampaignId } from "@/lib/campaigns";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 
 export default function CampaignSignatureForm({
   campaignId,
@@ -49,51 +51,43 @@ export default function CampaignSignatureForm({
           <div className="mb-4 grid gap-4 sm:grid-cols-2">
             <label className="block">
               Email address *
-              <input
+              <Input
                 name="email"
                 type="email"
                 autoComplete="email"
                 maxLength={254}
                 required
-                className="block w-full border-2 border-ink p-2"
+                className="mt-1"
               />
             </label>
             {(
               [
-                ["name", "Name", 120],
-                ["zip", "ZIP / postal code", 20],
-                ["phone", "Phone", 30],
+                ["name", "Name", 120, "name"],
+                ["zip", "ZIP / postal code", 20, "postal-code"],
+                ["phone", "Phone", 30, "tel"],
               ] as const
-            ).map(([field, label, maxLength]) => (
+            ).map(([field, label, maxLength, autoComplete]) => (
               <label key={field} className="block">
                 {label}
-                <input
+                <Input
                   name={field}
                   type={field === "phone" ? "tel" : "text"}
                   maxLength={maxLength}
-                  className="block w-full border-2 border-ink p-2"
+                  autoComplete={autoComplete}
+                  className="mt-1"
                 />
               </label>
             ))}
           </div>
           <label className="flex min-h-11 items-start gap-3 text-sm leading-relaxed">
-            <input
-              className="mt-1 size-5 shrink-0 accent-ink"
-              type="checkbox"
-              name="agreed"
-              required
-            />
+            <Checkbox name="agreed" required />
             <span>
               I support the {title} call above and agree to have my signature
               recorded by Sapiens First. *
             </span>
           </label>
           <label className="mt-3 flex min-h-11 items-start gap-3 text-sm leading-relaxed">
-            <input
-              className="mt-1 size-5 shrink-0 accent-ink"
-              type="checkbox"
-              name="updates"
-            />
+            <Checkbox name="updates" />
             <span>
               Email me updates and ways to take action for this campaign.
               (Optional)

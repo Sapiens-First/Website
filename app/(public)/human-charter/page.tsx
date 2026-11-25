@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Label } from "@/components/ui/Text";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
 import { cn } from "@/lib/cn";
+import { NorthStar } from "@/components/charter/story/NorthStar";
+import {
+  StakesNight,
+  stakesNight,
+} from "@/components/charter/story/StakesNight";
+import { Rise } from "@/components/story/Rise";
 
 export const metadata: Metadata = pageMetadata({
   title: "The Human Charter",
@@ -104,6 +110,10 @@ export default function Page() {
       <main>
         <section className="border-b-2 border-ink bg-paper px-7 py-20 text-center max-sm:scroll-mt-20 max-sm:pt-14 max-sm:pr-0 max-sm:pb-12 max-sm:pl-0 sm:px-12 lg:px-20 lg:py-24">
           <Container>
+            <NorthStar
+              variant="hero"
+              className="mx-auto mb-7 w-28 sm:w-36 lg:w-40"
+            />
             <div className="mx-auto mt-0 mb-6 inline-block w-max bg-ink px-2.5 py-2 font-body text-xs font-black tracking-widest text-white uppercase">
               The Human Charter · V0.1
             </div>
@@ -136,14 +146,17 @@ export default function Page() {
             </div>
           </Container>
         </section>
-        <section className={"border-b-2 border-ink bg-ink max-sm:scroll-mt-20"}>
-          <div className="px-7 py-20 font-display text-4xl leading-none tracking-tight text-white sm:px-12 lg:px-20 lg:py-24 xl:text-5xl">
+        <section className="relative overflow-hidden border-b-2 border-ink bg-ink max-sm:scroll-mt-20">
+          <StakesNight />
+          <div className="relative z-1 px-7 py-20 font-display text-4xl leading-none tracking-tight text-white sm:px-12 lg:px-20 lg:py-24 xl:text-5xl">
             <Label className="mb-7 w-max" tone="yellow">
               The Stakes
             </Label>
             <div className="max-w-sm font-extrabold uppercase">
               A brighter future is not guaranteed. It has to be{" "}
-              <em className="text-coral not-italic">fought for.</em>
+              <em className={cn("text-coral not-italic", stakesNight.glow)}>
+                fought for.
+              </em>
             </div>
             <div className="-mx-7 mt-16 -mb-20 grid grid-cols-3 border-t-2 border-solid border-t-white/35 max-lg:grid-cols-1 sm:-mx-12 lg:-mx-20 lg:-mb-24">
               {stats.map((stat, index) => (
@@ -177,7 +190,12 @@ export default function Page() {
             )}
             id={index === 0 ? "principles" : undefined}
           >
-            <Container>
+            <Container className="sm:pr-48 lg:pr-64">
+              <NorthStar
+                variant="pillar"
+                pillar={index}
+                className="absolute -top-3 right-3 w-14 sm:top-0 sm:right-6 sm:w-36 lg:w-48"
+              />
               <Label tone={pillar.tone}>{pillar.numeral}</Label>
               <h2 className="mt-4 font-display text-5xl leading-none font-extrabold tracking-tight uppercase lg:text-6xl xl:text-7xl">
                 {pillar.title}{" "}
@@ -190,7 +208,7 @@ export default function Page() {
               </p>
             </Container>
             <Container>
-              <div
+              <Rise
                 className={cn(
                   "mt-14 grid border-t-2 border-solid border-t-ink max-lg:grid-cols-1",
                   pillar.principles.length === 2
@@ -221,7 +239,7 @@ export default function Page() {
                     </p>
                   </div>
                 ))}
-              </div>
+              </Rise>
             </Container>
           </section>
         ))}
@@ -238,11 +256,19 @@ export default function Page() {
             <p className="mx-0 mt-6 mb-7 max-w-sm font-body text-xl leading-snug text-ink lg:text-2xl xl:text-3xl">
               <strong>Join the movement fighting for these principles.</strong>
             </p>
-            <ActionLink href="/join" variant="primary" className="tracking-wide">
+            <ActionLink
+              href="/join"
+              variant="primary"
+              className="tracking-wide"
+            >
               Join →
             </ActionLink>
           </div>
           <div className="relative flex min-h-112 flex-col justify-end overflow-hidden border-l-2 border-solid border-l-ink bg-ink px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-coral before:content-['\201C'] max-lg:border-t-2 max-lg:border-l-0 max-lg:border-t-ink">
+            <NorthStar
+              variant="beacon"
+              className="absolute top-10 right-10 w-36 max-sm:top-6 max-sm:right-6 max-sm:w-24 lg:w-48"
+            />
             <blockquote className="relative z-2 m-0 font-quote text-3xl leading-none xl:text-4xl">
               We offer these as a North Star — a vision that empowers us to
               fight for our Rights for the decades ahead.

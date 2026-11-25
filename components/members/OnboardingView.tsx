@@ -32,7 +32,7 @@ export function OnboardingView({
           </Link>
           .
         </p>
-        <p className="mt-5 text-sm break-all text-muted">
+        <p className="mt-5 text-sm break-all text-muted-foreground">
           Signed in as <strong className="text-ink">{email}</strong>
         </p>
         <ProfileForm

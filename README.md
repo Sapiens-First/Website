@@ -24,6 +24,15 @@ Open `http://localhost:3000`. Run `npm run build` for a production build, `npm r
 
 Styling is written as Tailwind classes in each component. `app/globals.css` only holds the design tokens, a small base reset, the `.doc-body` typography for the Learn guide, and a few custom utilities (`ink-underline`, `marker`); `npm run format` sorts those classes through `prettier-plugin-tailwindcss`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
 
+## UI components (shadcn/ui)
+
+Shared primitives follow [shadcn/ui](https://ui.shadcn.com): the source lives in `components/ui/` and is ours to edit, configured by `components.json`. Lowercase files (`button`, `input`, `label`, `textarea`, `checkbox`, `native-select`) are shadcn components restyled to the brand: square corners, 2px ink borders, uppercase buttons. The PascalCase files (`Text`, `Card`, `Doodles`) are site-specific primitives.
+
+- Use `Button` / `ActionLink` / `TextLink` from `@/components/ui/button` for actions, and `Input`, `Label`, `Textarea`, `NativeSelect`, `Checkbox` for forms, rather than hand-styled elements.
+- `app/globals.css` maps shadcn's semantic tokens (`background`, `primary`, `muted-foreground`, `destructive`, `border`, `ring`, …) onto the brand palette. Use `text-muted-foreground` for secondary text and `text-destructive` / `border-destructive` for errors.
+- Add a component with `npx shadcn@latest add <name>`, then restyle it to match the files already here. Don't run `shadcn init`: it overwrites `globals.css` and the brand fonts. The CLI may misread the `@/lib/cn` alias, so check the new file imports `cn` from `@/lib/cn` and that `package.json` didn't gain a stray `cn` package.
+- No Tech Kings pages keep their own campaign look (CSS modules in `components/no-tech-kings/`).
+
 ## Brand colors
 
 Palette C and the logo/favicons share the [brand color guide](docs/brand-colors.md). Preview website changes on localhost for Rohan’s approval before batch publication.

@@ -1,0 +1,58 @@
+/* The flywheel: a spark lapping the About strategy cycle (CycleSpark.tsx). */
+
+.spark {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px var(--color-brand-yellow));
+}
+
+/* Nodes flare as the spark arrives: Act at the start of the lap, Recruit a
+ * third of the way round, Train two thirds. --lap matches lapSeconds. */
+.node {
+  --lap: 6s;
+}
+.node::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow:
+    0 0 0 0 color-mix(in oklch, var(--color-brand-yellow) 0%, transparent),
+    0 0 0 0 transparent;
+  animation: flare var(--lap) ease-out infinite;
+}
+.node:nth-of-type(2)::after {
+  animation-delay: calc(var(--lap) / -3 * 2);
+}
+.node:nth-of-type(3)::after {
+  animation-delay: calc(var(--lap) / -3);
+}
+@keyframes flare {
+  0% {
+    box-shadow:
+      0 0 0 0 color-mix(in oklch, var(--color-brand-yellow) 90%, transparent),
+      0 0 24px 4px
+        color-mix(in oklch, var(--color-brand-yellow) 70%, transparent);
+  }
+  22%,
+  100% {
+    box-shadow:
+      0 0 0 18px color-mix(in oklch, var(--color-brand-yellow) 0%, transparent),
+      0 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spark {
+    display: none;
+  }
+  .node::after {
+    animation: none;
+  }
+}

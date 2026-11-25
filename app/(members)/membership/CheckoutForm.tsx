@@ -8,7 +8,7 @@ import {
   startTransition,
 } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
 import {
   startCheckout,
   confirmCheckout,
@@ -156,7 +156,7 @@ export default function CheckoutForm({
         <legend className="font-display text-2xl font-extrabold uppercase">
           Your monthly contribution
         </legend>
-        <p className="mt-1 text-muted">
+        <p className="mt-1 text-muted-foreground">
           Every amount includes the same full membership.
         </p>
         <div className="mt-5 grid grid-cols-3 gap-3 sm:gap-4">
@@ -244,7 +244,7 @@ export default function CheckoutForm({
               : "Continue to payment →"}
         </Button>
         {state.error && <p role="alert">{state.error}</p>}
-        <p className="max-w-xl text-sm text-muted">
+        <p className="max-w-xl text-sm text-muted-foreground">
           Payments are processed securely by Stripe. We don’t refund part-months
           unless the law requires it. Questions about billing? Email{" "}
           <a href="mailto:ops@sapiensfirst.org" className="text-ink underline">

@@ -70,8 +70,11 @@ const confetti = [
 
 export function HeroCollage({
   posters,
+  children,
 }: {
   posters?: [React.ReactNode, React.ReactNode];
+  /** Extra decorative layers, drawn on top of the collage. */
+  children?: React.ReactNode;
 }) {
   const poster =
     "absolute -rotate-5 border-2 border-ink px-4 py-3.25 font-body text-[clamp(0.95rem,1.7vw,1.4rem)] leading-[0.95] font-[950] uppercase max-sm:px-2.75 max-sm:py-2.25 max-sm:text-[0.85rem]";
@@ -111,6 +114,7 @@ export function HeroCollage({
       <Doodle className="top-[16%] left-[20%] z-2 scale-70 rotate-4 text-ink">
         <Bird />
       </Doodle>
+      {children}
     </HeroArt>
   );
 }

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
 import CampaignActionHero from "@/components/campaigns/CampaignActionHero";

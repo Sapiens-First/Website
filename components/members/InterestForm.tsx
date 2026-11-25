@@ -1,7 +1,9 @@
 "use client";
 
-import { useActionState } from "react";
-import { Button } from "@/components/ui/Action";
+import { useActionState, useId } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { saveInterest } from "@/app/(public)/interest-actions";
 import type { Interest } from "@/lib/members/interests";
 
@@ -10,6 +12,7 @@ export default function InterestForm({ interest }: { interest: Interest }) {
     message: "",
   });
   const membership = interest === "membership";
+  const emailId = useId();
 
   return (
     <div
@@ -30,17 +33,18 @@ export default function InterestForm({ interest }: { interest: Interest }) {
         >
           <input type="hidden" name="interest" value={interest} />
           <div className="flex items-end gap-2 sm:gap-3">
-            <label className="min-w-0 flex-1">
-              Email address
-              <input
+            <div className="min-w-0 flex-1">
+              <Label htmlFor={emailId}>Email address</Label>
+              <Input
+                id={emailId}
                 name="email"
                 type="email"
                 autoComplete="email"
                 maxLength={254}
                 required
-                className="block h-12 w-full border-2 border-ink bg-white p-2 text-ink"
+                className="mt-1"
               />
-            </label>
+            </div>
             <Button
               type="submit"
               variant="primary"

@@ -8,7 +8,13 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@/components/ui/native-select";
 import { saveProfile } from "@/app/(members)/actions";
 import {
   profileFields,
@@ -48,8 +54,6 @@ export default function ProfileForm({
   useEffect(() => {
     if (state.message) summary.current?.focus();
   }, [state]);
-  const inputClass =
-    "mt-2 block w-full min-w-0 border-2 border-ink bg-white px-3 py-3 text-base text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink aria-invalid:border-red-700";
   return (
     <>
       <form
@@ -64,7 +68,7 @@ export default function ProfileForm({
             ref={summary}
             tabIndex={-1}
             role="alert"
-            className="mt-5 border-l-4 border-red-700 p-3"
+            className="mt-5 border-l-4 border-destructive p-3"
           >
             {state.message}
           </p>
@@ -84,51 +88,55 @@ export default function ProfileForm({
               "aria-describedby":
                 [error && `${field}-error`, help].filter(Boolean).join(" ") ||
                 undefined,
-              className: inputClass,
             };
             return (
               <div
                 key={field}
                 className={field === "address" ? "sm:col-span-2" : undefined}
               >
-                <label htmlFor={field} className="font-bold">
+                <Label htmlFor={field}>
                   {definition.label}
                   {!required && (
                     <span className="ml-2 text-sm font-normal">(optional)</span>
                   )}
-                </label>
+                </Label>
                 {field === "country_code" ? (
-                  <select
+                  <NativeSelect
                     {...props}
+                    wrapperClassName="mt-2"
                     value={country}
                     onChange={(event) => setCountry(event.target.value)}
                   >
-                    <option key="placeholder" value="" disabled>
+                    <NativeSelectOption key="placeholder" value="" disabled>
                       Choose your country
-                    </option>
+                    </NativeSelectOption>
                     {countries.map(({ code, name }) => (
-                      <option value={code} key={code}>
+                      <NativeSelectOption value={code} key={code}>
                         {name}
-                      </option>
+                      </NativeSelectOption>
                     ))}
-                  </select>
+                  </NativeSelect>
                 ) : (
-                  <input
+                  <Input
                     {...props}
+                    className="mt-2"
                     defaultValue={state.values[field]}
                     type={field === "phone" ? "tel" : "text"}
                     maxLength={definition.limit}
                   />
                 )}
                 {field === "phone" && (
-                  <p id="phone-help" className="mt-2 text-sm text-muted">
+                  <p
+                    id="phone-help"
+                    className="mt-2 text-sm text-muted-foreground"
+                  >
                     Include your country code, for example +1 555 123 4567.
                   </p>
                 )}
                 {error && (
                   <p
                     id={`${field}-error`}
-                    className="mt-2 text-sm text-red-800"
+                    className="mt-2 text-sm font-semibold text-destructive"
                   >
                     {error}
                   </p>

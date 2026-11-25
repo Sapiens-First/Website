@@ -15,6 +15,7 @@ const routes = [
   "/campaigns/stop-1984",
   "/campaigns/no-killer-robots",
   "/no-tech-kings",
+  "/no-tech-kings/act",
   "/join",
   "/calendar",
   "/groups",

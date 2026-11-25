@@ -10,7 +10,7 @@ import {
   FocusList,
 } from "@/components/sections/SplitSection";
 import InterestForm from "@/components/members/InterestForm";
-import { TextLink } from "@/components/ui/Action";
+import { TextLink } from "@/components/ui/button";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 import { Bird, Doodle, FunLayer, Moon, Star } from "@/components/ui/Doodles";
 import { cn } from "@/lib/cn";

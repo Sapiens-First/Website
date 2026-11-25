@@ -1,0 +1,138 @@
+/* Three into one: About Vision art (FocusConverge.tsx). */
+
+.art {
+  position: relative;
+  min-height: 25rem;
+  overflow: hidden;
+  border: 2px solid var(--color-ink);
+  background: var(--color-paper);
+}
+@media (max-width: 1023px) {
+  .art {
+    min-height: 20rem;
+  }
+}
+
+/* A dashed orbit the three travel in on, turning slowly. */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22rem;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border: 2px dashed var(--color-ink);
+  border-radius: 50%;
+  opacity: 0.18;
+  animation: turn 90s linear infinite;
+}
+@keyframes turn {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* The sun: three discs stacked with an offset, like the old coral disc with
+ * its two coloured shadows. Coral in front. */
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13.75rem;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+}
+.sun span {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--c);
+  /* resting offset, and where it flies in from */
+  --x: 0px;
+  --y: 0px;
+  --from-x: -9rem;
+  --from-y: -8rem;
+  translate: var(--x) var(--y);
+  animation: breathe 6s ease-in-out infinite alternate;
+}
+.sun span[data-area="0"] {
+  z-index: 2;
+}
+.sun span[data-area="1"] {
+  --x: 14px;
+  --y: -12px;
+  --from-x: 10rem;
+  --from-y: -6rem;
+  animation-delay: -2s;
+}
+.sun span[data-area="2"] {
+  --x: -14px;
+  --y: 14px;
+  --from-x: -8rem;
+  --from-y: 9rem;
+  animation-delay: -4s;
+}
+@keyframes breathe {
+  to {
+    translate: calc(var(--x) * 1.5) calc(var(--y) * 1.5);
+  }
+}
+
+/* Tags: pinned notes with a dot in their area's colour. */
+.tag {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--color-ink);
+  background: white;
+  padding: 0.625rem 0.8125rem;
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.tag::before {
+  content: "";
+  width: 0.625rem;
+  aspect-ratio: 1;
+  border: 1.5px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--c);
+}
+
+/* Entrance: tags drop on in turn; each colour then flies from its corner
+ * into the stack. */
+.art[data-wait] .tag {
+  transition:
+    opacity 0.4s ease-out,
+    translate 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--i) * 0.2s);
+}
+.art[data-wait]:not([data-in]) .tag {
+  opacity: 0;
+  translate: 0 -1.5rem;
+}
+.art[data-wait] .sun span {
+  transition:
+    transform 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s ease-out;
+  transition-delay: calc(0.5s + var(--i, 0) * 0.15s);
+}
+.art[data-wait] .sun span[data-area="1"] {
+  transition-delay: 0.7s;
+}
+.art[data-wait] .sun span[data-area="2"] {
+  transition-delay: 0.9s;
+}
+.art[data-wait]:not([data-in]) .sun span {
+  opacity: 0;
+  transform: translate(var(--from-x), var(--from-y)) scale(0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .sun span {
+    animation: none;
+  }
+}

@@ -62,7 +62,7 @@ export default function SiteFooter() {
           </div>
         </div>
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-4">
-          <span className="text-sm text-muted">
+          <span className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} Sapiens First. All rights reserved.
           </span>
           <nav aria-label="Social media" className="flex gap-2">

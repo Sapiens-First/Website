@@ -1,4 +1,4 @@
-import { InView } from "./InView";
+import { InView } from "@/components/story/InView";
 import styles from "./vision-daybreak.module.css";
 
 /**

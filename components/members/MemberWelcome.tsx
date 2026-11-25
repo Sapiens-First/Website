@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Container } from "@/components/layout/Container";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/Text";
 import { cn } from "@/lib/cn";
 
@@ -81,7 +81,7 @@ export function MemberWelcome({
                   step.tone,
                 )}
               >
-                <span className="font-display text-sm font-extrabold tracking-widest text-muted uppercase">
+                <span className="font-display text-sm font-extrabold tracking-widest text-muted-foreground uppercase">
                   Step {index + 1}
                 </span>
                 <h3 className="mt-1 font-display text-2xl font-extrabold uppercase">

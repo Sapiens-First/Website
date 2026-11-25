@@ -1,0 +1,52 @@
+/* One person to start: About founder photo (FounderStack.tsx). */
+
+.stack {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Cards behind the photo, fanned out to either side. */
+.card {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 2px solid var(--color-ink);
+}
+.card[data-card="0"] {
+  background: var(--color-brand-yellow);
+  rotate: -6deg;
+  translate: -14px 6px;
+}
+.card[data-card="1"] {
+  background: var(--color-coral);
+  rotate: 5deg;
+  translate: 12px 10px;
+}
+
+.photo {
+  height: 100%;
+}
+
+/* Entrance: the cards fan out, then the photo lands on top. */
+.stack[data-wait] .card,
+.stack[data-wait] .photo {
+  transition:
+    rotate 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+    translate 0.9s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.4s ease-out;
+}
+.stack[data-wait] .card[data-card="1"] {
+  transition-delay: 0.12s;
+}
+.stack[data-wait] .photo {
+  transition-delay: 0.3s;
+}
+.stack[data-wait]:not([data-in]) .card {
+  rotate: 0deg;
+  translate: 0 0;
+}
+.stack[data-wait]:not([data-in]) .photo {
+  opacity: 0;
+  rotate: -8deg;
+  translate: 0 -2rem;
+}

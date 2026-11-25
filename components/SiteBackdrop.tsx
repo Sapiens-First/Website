@@ -11,7 +11,10 @@ import styles from "./site-backdrop.module.css";
  */
 export default function SiteBackdrop() {
   const path = usePathname();
-  const skip = path === "/no-tech-kings" || path.startsWith("/preview");
+  const skip =
+    path === "/no-tech-kings" ||
+    path.startsWith("/no-tech-kings/") ||
+    path.startsWith("/preview");
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

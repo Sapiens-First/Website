@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Container } from "@/components/layout/Container";
-import { ActionLink, Button } from "@/components/ui/Action";
+import { ActionLink, Button } from "@/components/ui/button";
 import { Deck, Kicker } from "@/components/ui/Text";
 
 export default function ErrorPage({

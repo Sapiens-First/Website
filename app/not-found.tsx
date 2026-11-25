@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import { Deck, Kicker } from "@/components/ui/Text";
 
 export const metadata: Metadata = { title: "Page not found" };

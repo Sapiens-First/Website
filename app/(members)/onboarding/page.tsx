@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { signOut } from "@/app/auth/actions";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
 import { OnboardingView } from "@/components/members/OnboardingView";
 import { requireAccountProfile } from "@/lib/members/access";
 import {

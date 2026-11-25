@@ -2,7 +2,8 @@
 
 import { useActionState } from "react";
 import { acceptAgreement } from "@/app/(members)/agreement/actions";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   AGREEMENT_VERSION,
   commitments,
@@ -83,21 +84,24 @@ export function AgreementForm({
         .
       </p>
       <label className="mt-8 flex cursor-pointer items-start gap-4 border-2 border-ink bg-white p-4 has-checked:bg-brand-yellow sm:p-5">
-        <input
-          type="checkbox"
+        <Checkbox
           name="agree"
           value="yes"
           required
           disabled={pending}
           aria-describedby={state.error ? "agreement-error" : undefined}
-          className="mt-0.5 size-6 shrink-0 accent-ink"
+          className="mt-0.5 size-6"
         />
         <span className="leading-snug font-bold">
           I agree to the Sapiens First member agreement.
         </span>
       </label>
       {state.error && (
-        <p id="agreement-error" role="alert" className="mt-3 text-red-800">
+        <p
+          id="agreement-error"
+          role="alert"
+          className="mt-3 font-semibold text-destructive"
+        >
           {state.error}
         </p>
       )}

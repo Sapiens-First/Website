@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { campaigns, type CampaignId } from "@/lib/campaigns";
 import { pageMetadata } from "@/lib/site";
 import { Container } from "@/components/layout/Container";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import { ActionLink, TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
 

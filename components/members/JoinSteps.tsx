@@ -28,7 +28,7 @@ export function JoinSteps({
                 index > 0 && "border-l-2 border-ink",
                 state === "current" && "bg-coral",
                 state === "done" && "bg-ink text-paper sm:bg-soft sm:text-ink",
-                state === "next" && "text-muted",
+                state === "next" && "text-muted-foreground",
               )}
             >
               <span

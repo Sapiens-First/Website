@@ -64,7 +64,7 @@ export default async function MembershipPage({
               ? "Almost there."
               : "Choose your contribution."}
         </h1>
-        <p className="mt-6 text-sm break-all text-muted">
+        <p className="mt-6 text-sm break-all text-muted-foreground">
           {ongoing ? "Signed in as" : "Joining as"}{" "}
           <strong className="text-ink">{user.email}</strong>
         </p>

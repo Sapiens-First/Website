@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import { ActionLink, TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import { MonthSparks } from "@/components/calendar/story/MonthSparks";
 import { publicCalendar } from "@/lib/calendar";

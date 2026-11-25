@@ -6,7 +6,7 @@ import { FocusConverge } from "@/components/about/story/FocusConverge";
 import { PlanSteps } from "@/components/about/story/PlanSteps";
 import { CycleSpark } from "@/components/about/story/CycleSpark";
 import { FounderStack } from "@/components/about/story/FounderStack";
-import { TextLink } from "@/components/ui/Action";
+import { TextLink } from "@/components/ui/button";
 import {
   HeroCollage,
   HeroCopy,

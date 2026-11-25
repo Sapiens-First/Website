@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { signOut } from "@/app/auth/actions";
 import { Container } from "@/components/layout/Container";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (

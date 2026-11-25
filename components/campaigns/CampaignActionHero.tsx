@@ -1,5 +1,5 @@
 import { Container } from "@/components/layout/Container";
-import { ActionLink, TextLink } from "@/components/ui/Action";
+import { ActionLink, TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import { campaigns, type CampaignId } from "@/lib/campaigns";
 import CampaignSignatureForm from "./CampaignSignatureForm";

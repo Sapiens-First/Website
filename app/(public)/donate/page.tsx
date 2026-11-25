@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata, site } from "@/lib/site";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
 import Link from "next/link";
 import { DonateCircle } from "@/components/donate/story/DonateCircle";

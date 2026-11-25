@@ -72,7 +72,7 @@
   --color-brand-blue-light: #79b7ff;
   --color-coral-soft: #ffe8e3;
   --color-brand-peach: #ffd5b5;
-  --color-muted: #59665e;
+  --color-muted-foreground: #59665e;
   --color-success-dark: #006c4b;
   /* No Tech Kings campaign sheet. Brick is that page's primary action only. */
   --color-navy: #16344a;
@@ -81,6 +81,28 @@
   --color-brick-soft: #f8e8e4;
   --color-sage: #2f6a4f;
   --color-sage-soft: #e6f2ea;
+  /*
+   * shadcn/ui semantic tokens (components.json), mapped onto the brand
+   * palette above. components/ui reads these; pages may use either set.
+   * The radius scale is left at Tailwind's defaults on purpose.
+   */
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: #ffffff;
+  --color-card-foreground: var(--color-ink);
+  --color-popover: #ffffff;
+  --color-popover-foreground: var(--color-ink);
+  --color-primary: var(--color-coral);
+  --color-primary-foreground: var(--color-ink);
+  --color-secondary: var(--color-brand-yellow);
+  --color-secondary-foreground: var(--color-ink);
+  --color-muted: var(--color-soft);
+  --color-accent: var(--color-coral-soft);
+  --color-accent-foreground: var(--color-ink);
+  --color-destructive: var(--color-coral-dark);
+  --color-border: var(--color-ink);
+  --color-input: var(--color-ink);
+  --color-ring: var(--color-ink);
   --font-display: var(--font-barlow-condensed), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
   --font-colonial: var(--font-fraunces), Georgia, "Times New Roman", serif;

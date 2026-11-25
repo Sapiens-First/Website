@@ -19,7 +19,7 @@ import {
 import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
 import NtkFeature from "@/components/home/NtkFeature";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import InterestForm from "@/components/members/InterestForm";
 import { cn } from "@/lib/cn";
 

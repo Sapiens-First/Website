@@ -80,7 +80,7 @@
   accent-color: var(--color-coral-dark);
 }
 .row small {
-  color: var(--color-muted);
+  color: var(--color-muted-foreground);
   line-height: 1.35;
 }
 .actions {

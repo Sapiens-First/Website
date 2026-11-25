@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { TextLink } from "@/components/ui/Action";
+import { TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import { MapPins } from "@/components/groups/story/MapPins";
 import { links } from "@/lib/no-tech-kings/links";

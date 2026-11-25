@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { Label } from "@/components/ui/Text";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import { Container } from "@/components/layout/Container";
 import { cn } from "@/lib/cn";
 import { NorthStar } from "@/components/charter/story/NorthStar";

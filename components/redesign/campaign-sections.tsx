@@ -58,7 +58,7 @@ export function CampaignHero({
       >
         <div className={cn(!showPhoto && "max-w-[40rem]")}>
           <ChassisMark className="mb-2.5 block h-[3.25rem] w-[3.25rem] min-[700px]:mb-4 min-[700px]:h-[4.5rem] min-[700px]:w-[4.5rem]" />
-          <p className="mb-2.5 font-display text-[1.05rem] font-bold tracking-[0.08em] text-muted uppercase">
+          <p className="mb-2.5 font-display text-[1.05rem] font-bold tracking-[0.08em] text-muted-foreground uppercase">
             {pageCopy.eyebrow}
           </p>
           <h1 className="mb-3 font-display text-[clamp(2.75rem,7.2vw,5.75rem)] leading-[0.86] font-extrabold tracking-[-0.03em] text-balance uppercase max-[699px]:mb-2">
@@ -87,7 +87,7 @@ export function CampaignHero({
             </div>
           </div>
           {showCampaignLine ? (
-            <p className="mt-4 text-sm text-muted">
+            <p className="mt-4 text-sm text-muted-foreground">
               {redesignCopy.campaignBefore}
               {redesignCopy.campaignName}.
             </p>
@@ -256,7 +256,7 @@ export function HostSection() {
               />
             </figure>
           </div>
-          <p className="mt-3 text-sm leading-snug text-muted">
+          <p className="mt-3 text-sm leading-snug text-muted-foreground">
             {redesignCopy.parkCredit}
           </p>
         </div>
@@ -275,7 +275,7 @@ export function CommunityBand() {
         )}
       >
         <div>
-          <span className="mb-2 block font-display text-[0.95rem] font-bold tracking-[0.1em] text-muted uppercase">
+          <span className="mb-2 block font-display text-[0.95rem] font-bold tracking-[0.1em] text-muted-foreground uppercase">
             {redesignCopy.sanFrancisco}
           </span>
           <h2 id="community-title" className={displayTitle}>
@@ -352,7 +352,7 @@ export function Declaration() {
                 </Link>
               </p>
             </div>
-            <p className="relative mt-6 text-center text-sm leading-snug text-muted">
+            <p className="relative mt-6 text-center text-sm leading-snug text-muted-foreground">
               {redesignCopy.declarationCredit}
             </p>
           </div>
@@ -369,7 +369,7 @@ export function Parallel() {
       className={cn(sectionY, "border-b border-rule bg-soft")}
     >
       <div className={wrap}>
-        <span className="mb-2 block font-display text-[0.95rem] font-bold tracking-[0.1em] text-muted uppercase">
+        <span className="mb-2 block font-display text-[0.95rem] font-bold tracking-[0.1em] text-muted-foreground uppercase">
           {redesignCopy.parallelKicker}
         </span>
         <h2 id="parallel-title" className={displayTitle}>
@@ -385,7 +385,7 @@ export function Parallel() {
               sizes="(min-width: 800px) 36rem, 100vw"
               className="w-full border-2 border-ink"
             />
-            <figcaption className="mt-3 text-sm leading-snug text-muted">
+            <figcaption className="mt-3 text-sm leading-snug text-muted-foreground">
               {redesignCopy.currierCredit}
             </figcaption>
           </figure>

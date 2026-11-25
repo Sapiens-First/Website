@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHero, PageTitle } from "@/components/sections/SplitSection";
 import { pageMetadata } from "@/lib/site";
-import { TextLink } from "@/components/ui/Action";
+import { TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import { Container } from "@/components/layout/Container";
 import CampaignAccordion from "@/components/campaigns/CampaignAccordion";

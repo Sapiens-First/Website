@@ -60,7 +60,7 @@ export function Countdown() {
           <strong className="block font-display text-[1.75rem] leading-none font-extrabold">
             {amount}
           </strong>
-          <span className="mt-0.5 block text-sm font-bold tracking-wide text-muted uppercase">
+          <span className="mt-0.5 block text-sm font-bold tracking-wide text-muted-foreground uppercase">
             {unit}
           </span>
         </div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
-import { ActionLink } from "@/components/ui/Action";
+import { ActionLink } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import BuilderToc from "@/components/careers/BuilderToc";

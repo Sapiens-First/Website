@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import { signInWithGoogle } from "@/app/auth/actions";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/Text";
 import { cn } from "@/lib/cn";
 import {
@@ -89,7 +89,7 @@ export function JoinView({
                 <span className="font-display text-4xl font-extrabold">
                   ${amount}
                 </span>
-                <span className="block text-xs font-bold tracking-wider text-muted uppercase">
+                <span className="block text-xs font-bold tracking-wider text-muted-foreground uppercase">
                   per month
                 </span>
               </div>
@@ -114,7 +114,7 @@ export function JoinView({
             </Button>
           </form>
           <div
-            className="flex items-center gap-3 text-xs font-black tracking-widest text-muted uppercase"
+            className="flex items-center gap-3 text-xs font-black tracking-widest text-muted-foreground uppercase"
             aria-hidden="true"
           >
             <span className="h-0.5 flex-1 bg-rule" />
@@ -126,12 +126,12 @@ export function JoinView({
         {message && (
           <p
             role="alert"
-            className="mt-4 max-w-lg border-l-4 border-red-700 p-3"
+            className="mt-4 max-w-lg border-l-4 border-destructive p-3"
           >
             {message}
           </p>
         )}
-        <p className="mt-6 text-sm text-muted">
+        <p className="mt-6 text-sm text-muted-foreground">
           Takes about three minutes.{" "}
           <Link
             className="text-ink underline underline-offset-4"

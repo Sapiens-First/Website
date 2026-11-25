@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 import PolicyToc from "@/components/policy/PolicyToc";
 import { Accordion, AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
-import { TextLink } from "@/components/ui/Action";
+import { TextLink } from "@/components/ui/button";
 import { AgendaHouse } from "@/components/policy/story/AgendaHouse";
 
 export const metadata: Metadata = pageMetadata({

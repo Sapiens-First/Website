@@ -1,7 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
-import { Button } from "@/components/ui/Action";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   signInWithEmail,
   type EmailSignInState,
@@ -38,11 +40,9 @@ export function EmailSignIn({
   return (
     <form action={formAction} className="w-full">
       <input type="hidden" name="next" value={next} />
-      <label htmlFor="join-email" className="font-bold">
-        Email address
-      </label>
+      <Label htmlFor="join-email">Email address</Label>
       <div className="mt-2 flex flex-col gap-3 sm:flex-row">
-        <input
+        <Input
           id="join-email"
           name="email"
           type="email"
@@ -53,7 +53,7 @@ export function EmailSignIn({
           aria-invalid={state.error ? true : undefined}
           aria-describedby={state.error ? "join-email-error" : undefined}
           placeholder="you@example.com"
-          className="min-h-14 w-full min-w-0 border-2 border-ink bg-white px-4 text-base text-ink focus:outline-2 focus:outline-offset-2 focus:outline-ink aria-invalid:border-red-700"
+          className="h-14 px-4"
         />
         <Button
           type="submit"
@@ -67,7 +67,7 @@ export function EmailSignIn({
         <p
           id="join-email-error"
           role="alert"
-          className="mt-2 text-sm text-red-800"
+          className="mt-2 text-sm font-semibold text-destructive"
         >
           {state.error}
         </p>

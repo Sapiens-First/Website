@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { ActionLink } from "@/components/ui/button";
+import { join, joinLinkProps } from "@/lib/community";
 import { Deck, Kicker } from "@/components/ui/Text";
 
 export const metadata: Metadata = { title: "Page not found" };
@@ -18,7 +19,9 @@ export default function NotFound() {
           <ActionLink href="/" variant="primary">
             Back to home
           </ActionLink>
-          <ActionLink href="/join">Join the movement</ActionLink>
+          <ActionLink href={join.href} {...joinLinkProps}>
+            {join.label} ↗
+          </ActionLink>
         </div>
       </Container>
     </main>

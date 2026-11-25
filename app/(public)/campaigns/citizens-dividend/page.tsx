@@ -3,6 +3,7 @@ import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import { ActionLink } from "@/components/ui/button";
 import { links } from "@/lib/no-tech-kings/links";
+import { join, joinLinkProps } from "@/lib/community";
 import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
 import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
@@ -216,11 +217,15 @@ export default function Page() {
             Sapiens First or start a local group to organize with others.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <ActionLink href="/join" className="bg-paper">
-              Join the movement →
+            <ActionLink
+              href={join.href}
+              {...joinLinkProps}
+              className="bg-paper"
+            >
+              {join.label} ↗
             </ActionLink>
             <ActionLink
-              href={links.hostTeaParty.href}
+              href={links.getInvolvedForm.href}
               target="_blank"
               rel="noopener"
             >

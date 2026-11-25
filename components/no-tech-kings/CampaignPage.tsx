@@ -1,7 +1,11 @@
 import Image from "next/image";
 import crown from "@/public/no-tech-kings/three-point-crown.svg";
+import Link from "next/link";
+import { DiscordMark } from "@/components/DiscordMark";
 import { ExternalLink } from "@/components/redesign/ExternalLink";
+import { discord } from "@/lib/community";
 import { NtkFooter, NtkHeader } from "@/components/no-tech-kings/NtkChrome";
+import { NtkFaq } from "@/components/no-tech-kings/NtkFaq";
 import { NtkInvolved } from "@/components/no-tech-kings/NtkInvolved";
 import { NtkCountdown } from "@/components/no-tech-kings/NtkCountdown";
 import { NtkShare } from "@/components/no-tech-kings/NtkShare";
@@ -10,7 +14,6 @@ import { NtkSky } from "@/components/no-tech-kings/NtkSky";
 import { NtkStage } from "@/components/no-tech-kings/NtkStage";
 import { ntkFontVars } from "@/lib/no-tech-kings/fonts";
 import { ntkCopy } from "@/lib/no-tech-kings/copy";
-import { links } from "@/lib/no-tech-kings/links";
 import styles from "./ntk.module.css";
 
 const crownAlt =
@@ -23,9 +26,11 @@ export function CampaignPage() {
         logoHref="#top"
         nav={[
           { label: "Demand", href: "#demand" },
+          { label: "Get Involved", href: "#involved" },
           { label: "Email Newsom", href: "/no-tech-kings/act" },
+          { label: "FAQ", href: "#faq" },
         ]}
-        cta={{ label: "Get Involved", href: "#involved" }}
+        cta={{ label: discord.label, href: discord.href, external: true }}
       />
 
       <main>
@@ -64,10 +69,16 @@ export function CampaignPage() {
               style={{ "--d": ".4s" } as React.CSSProperties}
             >
               <NtkCountdown className={styles.heroCountdown} caption={false} />
-              <ExternalLink href={links.groupsMap.href} className={styles.cta}>
-                {ntkCopy.heroCta} ↗
+              <ExternalLink
+                href={discord.href}
+                className={`${styles.cta} ${styles.ctaDiscord}`}
+              >
+                <DiscordMark className={styles.ctaMark} />
+                {discord.label} ↗
               </ExternalLink>
-              <p className={styles.heroNote}>{ntkCopy.heroNote}</p>
+              <p className={styles.heroNote}>
+                {ntkCopy.heroNote} <a href="#involved">{ntkCopy.heroMore} ↓</a>
+              </p>
             </div>
           </div>
         </section>
@@ -77,7 +88,7 @@ export function CampaignPage() {
           id="demand"
         >
           <div className={styles.inner} data-inview>
-            <h2 className={styles.sectionTitle}>{ntkCopy.demandTitle}</h2>
+            <h2 className={styles.demandLead}>{ntkCopy.demandTitle}</h2>
             <div className={styles.split}>
               {ntkCopy.demands.map((demand) => (
                 <article key={demand.title}>
@@ -85,6 +96,11 @@ export function CampaignPage() {
                   <p>{demand.body}</p>
                 </article>
               ))}
+            </div>
+            <div className={styles.demandAction}>
+              <Link href="/no-tech-kings/act" className={styles.cta}>
+                {ntkCopy.demandCta} →
+              </Link>
             </div>
           </div>
         </section>
@@ -95,20 +111,26 @@ export function CampaignPage() {
         >
           <div className={styles.inner} data-inview>
             <h2 className={styles.sectionTitle}>{ntkCopy.involvedTitle}</h2>
+            <p className={styles.involvedLede}>{ntkCopy.involvedLede}</p>
             <NtkInvolved />
+          </div>
+          <div className={`${styles.inner} ${styles.faq}`} id="faq" data-inview>
+            <NtkFaq />
           </div>
           <div
             className={`${styles.inner} ${styles.closer}`}
             id="signup"
             data-inview
           >
-            <NtkSignup />
             <figure className={styles.quote}>
               <blockquote>
                 <p>“{ntkCopy.quote}”</p>
               </blockquote>
               <figcaption>{ntkCopy.quoteBy}</figcaption>
             </figure>
+            <h2 className={styles.stayTitle}>{ntkCopy.stayTitle}</h2>
+            <p className={styles.stayBody}>{ntkCopy.stayBody}</p>
+            <NtkSignup />
             <NtkShare />
           </div>
         </section>

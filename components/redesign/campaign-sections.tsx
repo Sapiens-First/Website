@@ -74,7 +74,7 @@ export function CampaignHero({
           <Countdown />
           <MassActionSignup />
           <div className="mt-4 flex flex-wrap items-center gap-x-[1.15rem] gap-y-3">
-            <ExternalLink href={campaignConfig.hostForm} className={btnOutline}>
+            <ExternalLink href={campaignConfig.volunteerForm} className={btnOutline}>
               {redesignCopy.hostTitle} ↗
             </ExternalLink>
             <div className="flex flex-col gap-1.5">
@@ -215,7 +215,7 @@ export function HostSection() {
           <p className="mt-4 max-w-[34rem] text-lg">{redesignCopy.hostBody}</p>
           <p className="mt-4 font-[650]">{hostCountLine()}</p>
           <div className="mt-5">
-            <ExternalLink href={campaignConfig.hostForm} className={btnCta}>
+            <ExternalLink href={campaignConfig.volunteerForm} className={btnCta}>
               {redesignCopy.hostTitle} ↗
             </ExternalLink>
           </div>

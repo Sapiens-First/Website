@@ -22,7 +22,7 @@ export const footerGroups: readonly {
     links: [
       {
         label: "Volunteer ↗",
-        href: campaignConfig.hostForm,
+        href: campaignConfig.volunteerForm,
         external: true,
       },
       // Membership is hidden for now; see also the header "Join" button.

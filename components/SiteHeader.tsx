@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import flameLogo from "@/public/favicons/android-chrome-192x192.png";
 import { ExternalLink } from "@/components/redesign/ExternalLink";
+import { DiscordMark } from "@/components/DiscordMark";
+import { join } from "@/lib/community";
 import { footerGroups } from "@/lib/site-nav";
 import styles from "./site-header.module.css";
 
@@ -14,7 +16,7 @@ function isCurrent(path: string, href: string) {
 }
 
 /**
- * Site header: logo, Donate, and a hamburger at every width that opens a
+ * Site header: logo, Join, Donate, and a hamburger at every width that opens a
  * panel with all site links (the same groups as the footer). The bar frosts
  * once the page scrolls.
  */
@@ -66,6 +68,13 @@ export default function SiteHeader() {
           <Image src={flameLogo} alt="" width={32} height={32} priority />
           Sapiens First
         </Link>
+        <ExternalLink href={join.href} className={styles.joinBar}>
+          <DiscordMark className={styles.joinMark} />
+          <span className={styles.joinLong}>{join.label}</span>
+          <span className={styles.joinShort} aria-hidden="true">
+            Join
+          </span>
+        </ExternalLink>
         <Link
           href="/donate"
           className={styles.donate}
@@ -122,10 +131,14 @@ export default function SiteHeader() {
               </div>
             ))}
           </nav>
-          {/* Membership is hidden for now.
-          <Link href="/join" className={styles.join} onClick={close}>
-            Join as a Member →
-          </Link> */}
+          <ExternalLink
+            href={join.href}
+            className={styles.join}
+            onClick={close}
+          >
+            <DiscordMark />
+            {join.label} ↗
+          </ExternalLink>
         </div>
       </div>
       <button

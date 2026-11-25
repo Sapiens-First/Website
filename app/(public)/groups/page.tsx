@@ -59,7 +59,7 @@ export default function GroupsPage() {
               </p>
             </div>
             <ActionLink
-              href={links.hostTeaParty.href}
+              href={links.getInvolvedForm.href}
               target="_blank"
               rel="noopener"
               className="bg-paper"

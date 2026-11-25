@@ -2,6 +2,7 @@
 
 import { actCampaignId, isZip } from "@/lib/no-tech-kings/act";
 import { createPublicSupabaseClient } from "@/lib/supabase/server";
+import { logDatabaseError, readEmail, readText } from "@/lib/validation";
 
 /**
  * Records that someone emailed the Governor (campaign_signatures, with their
@@ -14,17 +15,12 @@ export async function recordGovernorEmail(input: {
   zip: string;
   updates: boolean;
 }): Promise<{ ok: boolean }> {
-  const email = typeof input.email === "string" ? input.email.trim() : "";
-  const name = typeof input.name === "string" ? input.name.trim() : "";
-  const zip = typeof input.zip === "string" ? input.zip.trim() : "";
-  if (
-    email.length > 254 ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ||
-    !name ||
-    name.length > 120 ||
-    !isZip(zip)
-  )
-    return { ok: false };
+  // Server Actions are public endpoints: the argument can be anything.
+  if (typeof input !== "object" || input === null) return { ok: false };
+  const email = readEmail(input.email);
+  const name = readText(input.name, 120);
+  const zip = readText(input.zip, 10);
+  if (!email || !name || zip === null || !isZip(zip)) return { ok: false };
 
   const updates = input.updates === true;
   let supabase;
@@ -51,9 +47,7 @@ export async function recordGovernorEmail(input: {
         })
       : Promise.resolve({ error: null }),
   ]);
-  if (signed.error)
-    console.error("recordGovernorEmail: sign_campaign", signed.error);
-  if (listed.error)
-    console.error("recordGovernorEmail: register_interest", listed.error);
+  logDatabaseError("recordGovernorEmail: sign_campaign", signed.error);
+  logDatabaseError("recordGovernorEmail: register_interest", listed.error);
   return { ok: !signed.error && !listed.error };
 }

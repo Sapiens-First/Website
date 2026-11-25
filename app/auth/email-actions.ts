@@ -6,23 +6,20 @@ import {
   createAuthSupabaseClient,
   getAppUrl,
 } from "@/lib/supabase/auth-server";
+import { readEmail } from "@/lib/validation";
 
 export type EmailSignInState = {
   sent: string | null;
   error: string | null;
 };
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export async function signInWithEmail(
   _previous: EmailSignInState,
   formData: FormData,
 ): Promise<EmailSignInState> {
   const next = memberReturnPath(formData.get("next"));
-  const value = formData.get("email");
-  const email = typeof value === "string" ? value.trim() : "";
-  if (!emailPattern.test(email) || email.length > 254)
-    return { sent: null, error: "Enter a valid email address." };
+  const email = readEmail(formData.get("email"));
+  if (!email) return { sent: null, error: "Enter a valid email address." };
   (await cookies()).set("member-return", next, {
     httpOnly: true,
     sameSite: "lax",
@@ -38,6 +35,11 @@ export async function signInWithEmail(
       shouldCreateUser: true,
     },
   });
+  if (error && error.status !== 429)
+    console.error("signInWithOtp failed", {
+      status: error.status,
+      code: error.code,
+    });
   if (error)
     return {
       sent: null,

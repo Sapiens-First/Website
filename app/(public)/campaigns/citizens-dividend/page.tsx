@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { FaqItem, FaqList } from "@/components/sections/Faq";
 import { ActionLink } from "@/components/ui/button";
+import { links } from "@/lib/no-tech-kings/links";
+import { join, joinLinkProps } from "@/lib/community";
 import { Label } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
 import CampaignActionHero from "@/components/campaigns/CampaignActionHero";
@@ -212,13 +214,23 @@ export default function Page() {
           </h2>
           <p className={body}>
             Help build the movement for a public stake in the AI economy. Join
-            Sapiens First or start a local Circle to organize with others.
+            Sapiens First or start a local group to organize with others.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <ActionLink href="/join" className="bg-paper">
-              Join the movement →
+            <ActionLink
+              href={join.href}
+              {...joinLinkProps}
+              className="bg-paper"
+            >
+              {join.label} ↗
             </ActionLink>
-            <ActionLink href="/circle">Start a Circle →</ActionLink>
+            <ActionLink
+              href={links.getInvolvedForm.href}
+              target="_blank"
+              rel="noopener"
+            >
+              Start a Local Group ↗
+            </ActionLink>
           </div>
         </Container>
       </section>

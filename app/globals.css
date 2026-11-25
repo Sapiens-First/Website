@@ -106,7 +106,7 @@
   --font-display: var(--font-barlow-condensed), sans-serif;
   --font-body: var(--font-dm-sans), sans-serif;
   --font-colonial: var(--font-fraunces), Georgia, "Times New Roman", serif;
-  --font-quote: Georgia, "Times New Roman", serif;
+  --font-quote: var(--font-dm-sans), system-ui, sans-serif;
 }
 
 @layer base {

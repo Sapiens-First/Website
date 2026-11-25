@@ -1,15 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import crown from "@/public/no-tech-kings/three-point-crown.svg";
+import { DiscordMark } from "@/components/DiscordMark";
 import { ExternalLink } from "@/components/redesign/ExternalLink";
+import { NtkMenu } from "@/components/no-tech-kings/NtkMenu";
 import { redesignCopy } from "@/lib/no-tech-kings/copy";
-import { links } from "@/lib/no-tech-kings/links";
 import { footerGroups, socialLinks } from "@/lib/site-nav";
 import styles from "./ntk.module.css";
 
-const [firstGroup] = links.communityGroups;
-
 type BarLink = { label: string; href: string };
+type BarCta = BarLink & { external?: boolean };
 
 /** Sticky No Tech Kings bar: crown logo, page links, one yellow button. */
 export function NtkHeader({
@@ -19,7 +19,7 @@ export function NtkHeader({
 }: {
   logoHref: string;
   nav: readonly BarLink[];
-  cta: BarLink;
+  cta: BarCta;
 }) {
   return (
     <header className={styles.bar}>
@@ -34,9 +34,20 @@ export function NtkHeader({
           </a>
         ))}
       </nav>
-      <a href={cta.href} className={styles.barCta}>
-        {cta.label}
-      </a>
+      {cta.external ? (
+        <ExternalLink href={cta.href} className={styles.barCta}>
+          <DiscordMark className={styles.barCtaMark} />
+          <span className={styles.barCtaLong}>{cta.label}</span>
+          <span className={styles.barCtaShort} aria-hidden="true">
+            Join
+          </span>
+        </ExternalLink>
+      ) : (
+        <a href={cta.href} className={styles.barCta}>
+          {cta.label}
+        </a>
+      )}
+      <NtkMenu nav={nav} />
     </header>
   );
 }
@@ -84,9 +95,6 @@ export function NtkFooter({ logoHref }: { logoHref: string }) {
               {link.label}
             </ExternalLink>
           ))}
-          <ExternalLink href={firstGroup.href}>
-            {firstGroup.city} · {firstGroup.platform}
-          </ExternalLink>
         </nav>
       </div>
     </footer>

@@ -8,10 +8,12 @@ const failed = {
   message: "We couldn’t record your support. Please try again.",
 };
 
+type SignatureState = { message: string; signed?: boolean };
+
 export async function saveCampaignSignature(
-  _state: { message: string; signed?: boolean },
+  _state: SignatureState,
   formData: FormData,
-) {
+): Promise<SignatureState> {
   const campaign = formData.get("campaignId");
   if (
     typeof campaign !== "string" ||

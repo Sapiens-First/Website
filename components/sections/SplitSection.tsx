@@ -1,5 +1,6 @@
 import type { ComponentProps } from "react";
-import { Bird, Doodle, burstClip } from "@/components/ui/Doodles";
+import { Bird, Doodle } from "@/components/ui/Doodles";
+import { HeroHorizon } from "@/components/sections/HeroHorizon";
 import { cn } from "@/lib/cn";
 
 export function SplitHero({
@@ -61,53 +62,36 @@ export function HeroArt({ className = "", ...props }: ComponentProps<"div">) {
   );
 }
 
-const confetti = [
-  "top-[18%] left-[8%] rotate-24 bg-brand-yellow",
-  "top-[9%] left-[18%] -rotate-28 bg-brand-blue",
-  "top-[13%] right-[15%] rotate-42 bg-brand-purple",
-  "top-[26%] right-[7%] -rotate-18 bg-brand-pink",
-];
-
 export function HeroCollage({
   posters,
   children,
 }: {
   posters?: [React.ReactNode, React.ReactNode];
-  /** Extra decorative layers, drawn on top of the collage. */
+  /** Extra decorative layers, drawn on top of the scene. */
   children?: React.ReactNode;
 }) {
   const poster =
-    "absolute -rotate-5 border-2 border-ink px-4 py-3.25 font-body text-[clamp(0.95rem,1.7vw,1.4rem)] leading-[0.95] font-[950] uppercase max-sm:px-2.75 max-sm:py-2.25 max-sm:text-[0.85rem]";
+    "absolute z-2 -rotate-5 border-2 border-ink px-4 py-3.25 font-body text-[clamp(0.95rem,1.7vw,1.4rem)] leading-[0.95] font-[950] uppercase max-sm:px-2.75 max-sm:py-2.25 max-sm:text-[0.85rem]";
   return (
-    <HeroArt className="before:absolute before:-top-10.5 before:-right-10.5 before:z-2 before:size-37.5 before:rounded-full before:border-2 before:border-ink before:bg-brand-yellow before:mix-blend-multiply before:content-[''] max-sm:before:-top-7 max-sm:before:-right-8 max-sm:before:size-23.5">
-      <div className="absolute top-18 -right-25 size-97.5 rounded-full border-2 border-ink bg-brand-peach max-sm:top-10 max-sm:-right-17.5 max-sm:size-57.5" />
-      <div
-        className={cn(
-          "absolute top-[11%] left-[8%] size-47.5 bg-paper max-sm:size-30",
-          burstClip,
-        )}
-      />
-      <div className="absolute -bottom-15 left-[14%] h-102.5 w-70 -rotate-7 overflow-hidden rounded-[46%_46%_40%_40%/31%_31%_60%_60%] border-2 border-ink bg-ink after:absolute after:-inset-4.5 after:bg-[repeating-linear-gradient(126deg,transparent_0_13px,var(--color-paper)_13px_17px)] after:opacity-95 after:content-[''] max-sm:-bottom-14 max-sm:left-[10%] max-sm:h-70 max-sm:w-45" />
+    <HeroArt className="bg-brand-peach">
+      <HeroHorizon />
       {posters && (
         <>
           <div
-            className={cn(poster, "right-[6%] bottom-[12%] bg-ink text-white")}
+            className={cn(poster, "right-[6%] bottom-[8%] bg-ink text-white")}
           >
             {posters[0]}
           </div>
           <div
             className={cn(
               poster,
-              "bottom-[32%] left-[7%] rotate-4 bg-paper text-ink max-sm:left-[5%]",
+              "top-[34%] left-[7%] rotate-4 bg-paper text-ink max-sm:left-[5%]",
             )}
           >
             {posters[1]}
           </div>
         </>
       )}
-      {confetti.map((position) => (
-        <div className={cn("absolute h-6 w-2", position)} key={position} />
-      ))}
       <Doodle className="top-[8%] left-[10%] z-2 -rotate-6 text-ink">
         <Bird />
       </Doodle>

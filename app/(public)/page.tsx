@@ -20,6 +20,8 @@ import Image from "next/image";
 import StatGrid from "@/components/home/StatGrid";
 import NtkFeature from "@/components/home/NtkFeature";
 import { ActionLink } from "@/components/ui/button";
+import { DiscordMark } from "@/components/DiscordMark";
+import { join, joinLinkProps } from "@/lib/community";
 import InterestForm from "@/components/members/InterestForm";
 import { cn } from "@/lib/cn";
 
@@ -39,7 +41,7 @@ const stars = [
 ] as const;
 
 const steps = [
-  { title: "Seed cities", underline: "after:bg-coral" },
+  { title: "Local groups", underline: "after:bg-coral" },
   { title: "State campaigns", underline: "after:bg-brand-blue" },
   { title: "Federal action", underline: "after:bg-brand-purple" },
 ];
@@ -219,11 +221,11 @@ export default function Page() {
               </Deck>
             </div>
           </Container>
-          <div className="relative isolate mt-12 grid grid-cols-3 border-t-2 border-ink bg-[url(/assets/homepage-process-texture.png)] bg-cover bg-position-[center_48%] bg-no-repeat before:absolute before:inset-0 before:-z-1 before:bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-coral-soft)_91%,transparent),color-mix(in_srgb,var(--color-paper)_84%,transparent),rgba(255,255,255,0.68))] before:content-[''] after:absolute after:inset-0 after:-z-1 after:bg-[radial-gradient(var(--color-ink)_0.8px,transparent_0.8px)] after:bg-size-[5px_5px] after:opacity-15 after:content-[''] max-lg:grid-cols-1 max-sm:mt-0 max-sm:bg-position-[50%_center] max-sm:before:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-coral-soft)_90%,transparent),color-mix(in_srgb,var(--color-paper)_82%,transparent),rgba(255,255,255,0.7))]">
+          <div className="relative isolate mt-12 grid grid-cols-3 border-t-2 border-ink before:absolute before:inset-0 before:-z-1 before:bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-coral-soft)_91%,transparent),color-mix(in_srgb,var(--color-paper)_84%,transparent),rgba(255,255,255,0.68))] before:content-[''] after:absolute after:inset-0 after:-z-1 after:bg-[radial-gradient(var(--color-ink)_0.8px,transparent_0.8px)] after:bg-size-[5px_5px] after:opacity-15 after:content-[''] max-lg:grid-cols-1 max-sm:mt-0 max-sm:before:bg-[linear-gradient(180deg,color-mix(in_srgb,var(--color-coral-soft)_90%,transparent),color-mix(in_srgb,var(--color-paper)_82%,transparent),rgba(255,255,255,0.7))]">
             {steps.map((step, index) => (
               <div
                 className={cn(
-                  "relative border-ink px-9 pt-11 pb-12 backdrop-saturate-[.78] max-lg:flex max-lg:items-start max-lg:gap-6 max-lg:pt-9 max-lg:pb-11 max-sm:gap-5 max-sm:px-6 max-sm:pt-8 max-sm:pb-9",
+                  "relative border-ink px-9 pt-11 pb-12 max-lg:flex max-lg:items-start max-lg:gap-6 max-lg:pt-9 max-lg:pb-11 max-sm:gap-5 max-sm:px-6 max-sm:pt-8 max-sm:pb-9",
                   index < steps.length - 1 &&
                     "border-r-2 max-lg:border-r-0 max-lg:border-b-2",
                 )}
@@ -263,18 +265,23 @@ export default function Page() {
               for a brighter future.
             </h2>
             <Deck className="relative z-2 mx-0 mt-2 mb-5 leading-normal lg:text-xl xl:text-2xl">
-              <strong>Connect to your chapter today.</strong>
+              <strong>Connect to your local group today.</strong>
             </Deck>
             <ActionLink
-              href="/join"
+              href={join.href}
+              {...joinLinkProps}
               variant="primary"
-              className={cn("w-max", involvedFire.button)}
+              className={cn("w-max gap-2.5", involvedFire.button)}
             >
-              Join as a Member →
+              <DiscordMark />
+              {join.label} ↗
             </ActionLink>
+            <p className="relative z-2 mt-3 max-w-sm text-sm text-ink/75">
+              {join.note}
+            </p>
           </div>
           <div className="relative flex min-h-128 flex-col justify-end overflow-hidden border-ink bg-[linear-gradient(180deg,rgba(24,37,31,0.08)_15%,rgba(24,37,31,0.9)_100%),url(/assets/homepage-quote-texture.png)] bg-cover bg-position-[48%_center] bg-no-repeat px-14 py-16 text-white before:absolute before:-top-24 before:left-6 before:font-quote before:text-9xl before:leading-none before:text-[color-mix(in_srgb,var(--color-coral)_92%,transparent)] before:content-['\201C'] before:text-shadow-[0_2px_0_var(--color-ink)] after:absolute after:right-8 after:bottom-9 after:h-2.5 after:w-24 after:-rotate-3 after:rounded-full after:bg-brand-yellow after:content-[''] max-lg:border-t-2 max-sm:min-h-72 max-sm:bg-position-[51%_center] max-sm:px-5 max-sm:py-10 max-sm:before:-top-12 max-sm:before:left-3 max-sm:after:right-5 max-sm:after:bottom-6 max-sm:after:h-1.5 max-sm:after:w-16 sm:max-md:min-h-120 lg:border-l-2">
-            <blockquote className="relative z-2 m-0 border-l-8 border-coral bg-ink/76 p-6 font-quote text-3xl leading-none shadow-[14px_14px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] text-shadow-[0_2px_18px_rgba(0,0,0,0.75)] max-sm:border-l-6 max-sm:p-4 max-sm:text-3xl max-sm:shadow-[9px_9px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] lg:text-4xl xl:text-5xl">
+            <blockquote className="relative z-2 m-0 border-l-8 border-coral bg-ink/76 p-6 font-quote text-3xl leading-tight font-medium tracking-tight shadow-[14px_14px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] text-shadow-[0_2px_18px_rgba(0,0,0,0.75)] max-sm:border-l-6 max-sm:p-4 max-sm:text-3xl max-sm:shadow-[9px_9px_0_color-mix(in_srgb,var(--color-coral)_24%,transparent)] lg:text-4xl xl:text-5xl">
               “It always seems impossible until it is done.”
               <cite className="mt-6 block font-body text-base leading-normal font-bold tracking-wider text-white uppercase not-italic">
                 Nelson Mandela

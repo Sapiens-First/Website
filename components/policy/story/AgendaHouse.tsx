@@ -3,7 +3,7 @@ import { cn } from "@/lib/cn";
 import styles from "./agenda-house.module.css";
 
 const pillarColors = [
-  "var(--color-coral)",
+  "var(--color-brand-yellow)",
   "var(--color-brand-blue)",
   "var(--color-brand-purple)",
 ];

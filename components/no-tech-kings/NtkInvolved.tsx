@@ -1,149 +1,205 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useId, useRef, useState } from "react";
+import { DiscordMark } from "@/components/DiscordMark";
 import { ExternalLink } from "@/components/redesign/ExternalLink";
+import { discord } from "@/lib/community";
 import { publicCalendar } from "@/lib/calendar";
 import { campaignConfig } from "@/lib/no-tech-kings/config";
 import { ntkCopy } from "@/lib/no-tech-kings/copy";
 import { links } from "@/lib/no-tech-kings/links";
 import styles from "./ntk.module.css";
 
-const copy = ntkCopy.involvedTabs;
-const tabs = [
-  { key: "host", label: copy.host.tab },
-  { key: "groups", label: copy.groups.tab },
-  { key: "calendar", label: copy.calendar.tab },
-] as const;
+const copy = ntkCopy.involved;
+type View = "map" | "calendar" | "volunteer";
 
 /**
- * Get Involved: three tabs that slide side to side.
- * Inactive panels are `inert` so their links and iframes stay out of the tab order.
+ * Get Involved: Map, Calendar, Volunteer.
+ * Each card opens its embed in one framed window below the cards. The Padlet
+ * map loads only on request, so it never traps scrolling on phones or slows
+ * the page. Once loaded, each embed stays mounted (hidden) so switching back
+ * doesn't reload it, and a half-filled form keeps its answers.
  */
 export function NtkInvolved() {
-  const [active, setActive] = useState(0);
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const id = useId();
+  const [view, setView] = useState<View>("map");
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [seen, setSeen] = useState<ReadonlySet<View>>(() => new Set());
+  const windowRef = useRef<HTMLDivElement>(null);
+  const windowId = useId();
 
-  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
-    const step =
-      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
-    let next = active;
-    if (step) next = (active + step + tabs.length) % tabs.length;
-    else if (event.key === "Home") next = 0;
-    else if (event.key === "End") next = tabs.length - 1;
-    else return;
-    event.preventDefault();
-    setActive(next);
-    tabRefs.current[next]?.focus();
+  function show(next: View) {
+    setView(next);
+    setSeen((prev) => new Set(prev).add(next));
+    // On phones the window sits below all three cards; bring it into view.
+    const el = windowRef.current;
+    if (el && el.getBoundingClientRect().top > window.innerHeight * 0.75) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }
 
+  const cards = [
+    { key: "map", ...copy.map, index: "01" },
+    { key: "calendar", ...copy.calendar, index: "02" },
+    { key: "volunteer", ...copy.volunteer, index: "03" },
+  ] as const;
+  const windowTitle = copy[view].windowTitle;
+
   return (
-    <div className={styles.tabs}>
-      <div
-        className={styles.tabList}
-        role="tablist"
-        aria-label="Ways to get involved"
-        onKeyDown={onKeyDown}
-      >
-        {tabs.map((tab, i) => (
+    <div className={styles.involvedBody}>
+      <ExternalLink href={discord.href} className={styles.startHere}>
+        <DiscordMark className={styles.startMark} />
+        <span className={styles.startCopy}>
+          <span className={styles.wayLabel}>{ntkCopy.startHere.label}</span>
+          <span className={styles.startTitle}>{ntkCopy.startHere.title}</span>
+          <span className={styles.wayBody}>{ntkCopy.startHere.body}</span>
+        </span>
+        <span className={styles.startGo} aria-hidden="true">
+          {discord.label} ↗
+        </span>
+      </ExternalLink>
+      <div className={styles.ways}>
+        {cards.map((card) => (
           <button
-            key={tab.key}
-            ref={(el) => {
-              tabRefs.current[i] = el;
-            }}
+            key={card.key}
             type="button"
-            role="tab"
-            id={`${id}-tab-${tab.key}`}
-            aria-controls={`${id}-panel-${tab.key}`}
-            aria-selected={i === active}
-            tabIndex={i === active ? 0 : -1}
-            className={styles.tab}
-            onClick={() => setActive(i)}
+            className={
+              card.key === "volunteer"
+                ? `${styles.way} ${styles.wayVolunteer}`
+                : styles.way
+            }
+            aria-pressed={view === card.key}
+            aria-controls={windowId}
+            onClick={() => show(card.key)}
           >
-            {tab.label}
+            <span className={styles.wayLabel}>
+              {card.index} · {card.label}
+            </span>
+            <span className={styles.wayTitle}>{card.title}</span>
+            <span className={styles.wayBody}>{card.body}</span>
+            <span className={styles.wayGo} aria-hidden="true">
+              {view === card.key ? "Showing below" : "Show"} ↓
+            </span>
           </button>
         ))}
       </div>
 
-      <div className={styles.tabViewport}>
+      <div
+        ref={windowRef}
+        id={windowId}
+        className={styles.window}
+        role="region"
+        aria-label={windowTitle}
+      >
+        <div className={styles.windowBar}>
+          <span className={styles.windowDots} aria-hidden="true">
+            <i />
+            <i />
+            <i />
+          </span>
+          <span className={styles.windowTitle}>{windowTitle}</span>
+          <span className={styles.windowLinks}>
+            {view === "map" ? (
+              <ExternalLink href={links.groupsMap.href}>
+                {copy.map.open} ↗
+              </ExternalLink>
+            ) : view === "volunteer" ? (
+              <ExternalLink href={campaignConfig.volunteerForm}>
+                {copy.volunteer.open} ↗
+              </ExternalLink>
+            ) : (
+              <>
+                <span className={styles.windowNote}>{copy.calendar.note}</span>
+                <ExternalLink href={publicCalendar.googleUrl}>
+                  {copy.calendar.add} ↗
+                </ExternalLink>
+                <Link href="/calendar">{copy.calendar.full} →</Link>
+              </>
+            )}
+          </span>
+        </div>
+
+        <div className={styles.windowBody} hidden={view !== "map"}>
+          {mapLoaded ? (
+            <iframe
+              className={styles.mapEmbed}
+              src={links.groupsMap.embedUrl}
+              title={copy.map.iframeTitle}
+              allow="geolocation;clipboard-write"
+            />
+          ) : (
+            <MapPoster onLoad={() => setMapLoaded(true)} />
+          )}
+        </div>
+
         <div
-          className={styles.tabTrack}
-          style={{ "--tab": active } as React.CSSProperties}
+          className={`${styles.windowBody} ${styles.windowLight}`}
+          hidden={view !== "calendar"}
         >
-          {tabs.map((tab, i) => (
-            <section
-              key={tab.key}
-              role="tabpanel"
-              id={`${id}-panel-${tab.key}`}
-              aria-labelledby={`${id}-tab-${tab.key}`}
-              className={styles.tabPanel}
-              inert={i !== active}
-            >
-              {tab.key === "groups" && <GroupsPanel />}
-              {tab.key === "host" && <HostPanel />}
-              {tab.key === "calendar" && <CalendarPanel />}
-            </section>
-          ))}
+          {seen.has("calendar") ? (
+            <iframe
+              className={styles.calendarEmbed}
+              src={publicCalendar.embedUrl}
+              title={copy.calendar.iframeTitle}
+              loading="lazy"
+            />
+          ) : null}
+        </div>
+
+        <div
+          className={`${styles.windowBody} ${styles.windowForm}`}
+          hidden={view !== "volunteer"}
+        >
+          {seen.has("volunteer") ? (
+            <iframe
+              className={styles.formEmbed}
+              src={`${campaignConfig.volunteerForm}?embedded=true`}
+              title={copy.volunteer.iframeTitle}
+            />
+          ) : null}
         </div>
       </div>
     </div>
   );
 }
 
-function GroupsPanel() {
-  return (
-    <>
-      <h3 className={styles.cardTitle}>{copy.groups.title}</h3>
-      <p className={styles.panelBody}>{copy.groups.body}</p>
-      <div className={`${styles.embedFrame} ${styles.mapFrame}`}>
-        <iframe
-          src={links.groupsMap.embedUrl}
-          title={copy.groups.mapTitle}
-          loading="lazy"
-          allow="camera;microphone;geolocation;display-capture;clipboard-write"
-        />
-      </div>
-    </>
-  );
-}
+/** Pins scattered on a faint grid: a stand-in for the map until it loads. */
+const pins = [
+  [12, 34],
+  [17, 52],
+  [22, 26],
+  [28, 70],
+  [33, 22],
+  [38, 80],
+  [55, 18],
+  [63, 76],
+  [69, 24],
+  [74, 60],
+  [80, 30],
+  [86, 68],
+  [91, 44],
+  [8, 76],
+] as const;
 
-function HostPanel() {
+function MapPoster({ onLoad }: { onLoad: () => void }) {
   return (
-    <>
-      <h3 className={styles.cardTitle}>{copy.host.title}</h3>
-      <p className={styles.panelBody}>{copy.host.body}</p>
-      <ol className={styles.steps}>
-        {copy.host.steps.map((step) => (
-          <li key={step}>{step}</li>
-        ))}
-      </ol>
-      <ExternalLink href={campaignConfig.hostForm} className={styles.cta}>
-        {copy.host.cta} ↗
-      </ExternalLink>
-    </>
-  );
-}
-
-function CalendarPanel() {
-  return (
-    <>
-      <h3 className={styles.cardTitle}>{copy.calendar.title}</h3>
-      <p className={styles.panelBody}>{copy.calendar.body}</p>
-      <div className={styles.embedFrame}>
-        <iframe
-          src={publicCalendar.embedUrl}
-          title="Sapiens First public events calendar"
-          loading="lazy"
+    <div className={styles.mapPoster}>
+      {pins.map(([x, y], i) => (
+        <span
+          key={i}
+          className={styles.pin}
+          aria-hidden="true"
+          style={
+            { left: `${x}%`, top: `${y}%`, "--i": i } as React.CSSProperties
+          }
         />
+      ))}
+      <div className={styles.mapPosterCopy}>
+        <button type="button" className={styles.cta} onClick={onLoad}>
+          {copy.map.load}
+        </button>
+        <p className={styles.mapPosterNote}>{copy.map.loadNote}</p>
       </div>
-      <p className={styles.panelLinks}>
-        Times in Pacific.
-        <ExternalLink href={publicCalendar.googleUrl}>
-          Add to Google Calendar ↗
-        </ExternalLink>
-        <Link href="/calendar">Full calendar →</Link>
-      </p>
-    </>
+    </div>
   );
 }

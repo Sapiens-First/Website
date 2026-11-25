@@ -1,0 +1,90 @@
+/* The founding circle: Donate Founding Patron art (PatronCircle.tsx). */
+
+.art {
+  width: 100%;
+  max-width: 20rem;
+}
+.art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* The wider movement: a dashed ring of members, turning slowly. */
+.movement {
+  animation: turn 80s linear infinite;
+}
+@keyframes turn {
+  to {
+    rotate: 360deg;
+  }
+}
+.orbit {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 7;
+  opacity: 0.35;
+}
+.member {
+  fill: var(--color-coral);
+  stroke: var(--color-ink);
+  stroke-width: 1.2;
+}
+
+.ring {
+  fill: var(--color-paper);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+
+/* The flame the patrons keep lit. */
+.warmth {
+  fill: var(--color-brand-yellow);
+  opacity: 0.3;
+}
+.outerFlame {
+  fill: var(--color-coral);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.innerFlame {
+  fill: var(--color-brand-yellow);
+}
+.flame {
+  transform-origin: 0 28px;
+  animation: flicker 2.4s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  to {
+    scale: 0.94 1.06;
+  }
+}
+
+.patron {
+  fill: var(--c);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+[data-wait] .patron {
+  opacity: 0;
+  scale: 0.4;
+}
+[data-in] .patron {
+  opacity: 1;
+  scale: 1;
+  transition:
+    opacity 0.4s ease-out,
+    scale 0.6s cubic-bezier(0.34, 1.6, 0.64, 1);
+  transition-delay: calc(0.2s + var(--i) * 0.12s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .movement,
+  .flame {
+    animation: none;
+  }
+}

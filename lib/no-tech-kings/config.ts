@@ -2,7 +2,7 @@ import { links } from "@/lib/no-tech-kings/links";
 
 /**
  * One source for the tea-party meter, the countdown window, and the popup.
- * `hostForm` is the live Google host form (`links.hostTeaParty`), not a second URL.
+ * `volunteerForm` is the live Google get-involved form (`links.getInvolvedForm`), not a second URL.
  */
 export const campaignConfig = {
   /** Mass action starts Dec 14, 2026 at 11:00 AM Pacific (PST, UTC−8). */
@@ -15,7 +15,7 @@ export const campaignConfig = {
     autoOpenDelayMs: 8000,
     autoOpenMinWidth: 700,
   },
-  hostForm: links.hostTeaParty.href,
+  volunteerForm: links.getInvolvedForm.href,
   eventDateLabel: "December 14, 2026",
   eventTimeLabel: "11 AM PT",
 } as const;

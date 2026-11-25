@@ -19,7 +19,7 @@ export type CommunityGroup = {
 };
 
 export const links = {
-  hostTeaParty: {
+  getInvolvedForm: {
     href: "https://docs.google.com/forms/d/e/1FAIpQLSfQdMLDf8RlSK69MELH9Vq61YEHuzmzdovLWWkxDtjWyLiGWg/viewform",
     external: true,
   },
@@ -42,7 +42,7 @@ export const links = {
     },
   ],
 } as const satisfies {
-  hostTeaParty: CampaignLink;
+  getInvolvedForm: CampaignLink;
   sapiensFirst: CampaignLink;
   groupsMap: CampaignLink & { embedUrl: string };
   communityGroups: readonly CommunityGroup[];

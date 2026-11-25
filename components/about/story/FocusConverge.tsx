@@ -5,17 +5,17 @@ import styles from "./focus-converge.module.css";
 
 const areas = [
   {
-    title: "Democratic Renewal",
-    color: "var(--color-coral)",
+    title: "Protect Humanity",
+    color: "var(--color-brand-yellow)",
     tag: "top-[10%] left-[6%] -rotate-3",
   },
   {
-    title: "Common Prosperity",
+    title: "Strengthen Democracy",
     color: "var(--color-brand-blue)",
     tag: "top-[20%] right-[6%] rotate-3",
   },
   {
-    title: "A Secure Future",
+    title: "Build a Shared Future",
     color: "var(--color-brand-purple)",
     tag: "bottom-[12%] left-[10%] rotate-2",
   },
@@ -23,7 +23,7 @@ const areas = [
 
 /**
  * Three into one: the About Vision art. Each focus area's tag pins on, and
- * its colour flies in from that corner to stack into one sun (coral in front,
+ * its colour flies in from that corner to stack into one sun (yellow in front,
  * blue and purple behind), which then breathes. Same colours as the focus
  * area borders below it.
  */

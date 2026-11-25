@@ -5,7 +5,7 @@ import styles from "./plan-steps.module.css";
 
 const steps = [
   {
-    title: "Local chapters",
+    title: "Local groups",
     color: "bg-brand-yellow",
     icon: (
       <>
@@ -15,14 +15,14 @@ const steps = [
     ),
   },
   {
-    title: "City campaigns",
+    title: "State campaigns",
     color: "bg-brand-blue-soft",
     icon: (
       <path d="M5 14h8L29 7v22l-16-7H5zM11 22l3 10h6l-3-9M32 15h2M32 21h2"></path>
     ),
   },
   {
-    title: "Statewide movement",
+    title: "Federal action",
     color: "bg-coral",
     icon: (
       <path d="M3 13L18 4l15 9zM7 16v13M14 16v13M22 16v13M29 16v13M3 32h30"></path>
@@ -31,7 +31,7 @@ const steps = [
 ];
 
 /**
- * Growing: the About plan, chapter → city → state. Each step pops in after
+ * Growing: the About plan, local groups → state campaigns → federal action. Each step pops in after
  * the one before, the arrow carries on to the next, and each sends out more
  * ripples than the last (one, two, three): the same reach widening as the
  * homepage's strategy networks.

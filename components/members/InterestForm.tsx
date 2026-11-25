@@ -7,7 +7,14 @@ import { Label } from "@/components/ui/label";
 import { saveInterest } from "@/app/(public)/interest-actions";
 import type { Interest } from "@/lib/members/interests";
 
-export default function InterestForm({ interest }: { interest: Interest }) {
+export default function InterestForm({
+  interest,
+  submitLabel,
+}: {
+  interest: Interest;
+  /** Button text; defaults to one that suits the interest. */
+  submitLabel?: string;
+}) {
   const [state, action, pending] = useActionState(saveInterest, {
     message: "",
   });
@@ -53,9 +60,10 @@ export default function InterestForm({ interest }: { interest: Interest }) {
             >
               {pending
                 ? "Saving…"
-                : membership
-                  ? "Join the email list →"
-                  : "Register interest →"}
+                : (submitLabel ??
+                  (membership
+                    ? "Join the email list →"
+                    : "Register interest →"))}
             </Button>
           </div>
           <p className="text-sm">

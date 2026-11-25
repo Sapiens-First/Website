@@ -15,9 +15,9 @@ import InterestForm from "@/components/members/InterestForm";
 import { Deck, FactPill, Kicker, Label } from "@/components/ui/Text";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Start a Circle",
+  title: "Start a Local Group",
   description:
-    "Create a local home for action on Big Tech and democracy. Start a Circle with mentorship, shared leadership, and a three-month commitment.",
+    "Create a local home for action on Big Tech and democracy. Start a local group with mentorship, shared leadership, and a three-month commitment.",
   path: "/circle",
 });
 
@@ -31,7 +31,7 @@ const steps = [
   {
     title: "Register your interest",
     color: "text-coral-dark",
-    text: "Leave your email and we’ll follow up about starting a Circle and getting support from the team.",
+    text: "Leave your email and we’ll follow up about starting a local group and getting support from the team.",
   },
   {
     title: "Invite your friends",
@@ -52,11 +52,11 @@ const leadership = [
   },
   {
     title: "Build it together",
-    text: "Share the work as people find their feet. A Circle gets stronger when more people feel able to contribute and lead.",
+    text: "Share the work as people find their feet. A group gets stronger when more people feel able to contribute and lead.",
   },
   {
     title: "Pass it on",
-    text: "You can get a Circle going, help someone else grow into leading it, then hand it over. The community you helped build can keep going when you step back.",
+    text: "You can get a group going, help someone else grow into leading it, then hand it over. The community you helped build can keep going when you step back.",
   },
 ];
 
@@ -68,7 +68,7 @@ export default function Page() {
           <HeroCopy>
             <Kicker>Local people. Shared purpose.</Kicker>
             <h1 className="relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl">
-              Start a <span className="marker">Circle.</span>
+              Start a local <span className="marker">group.</span>
             </h1>
             <HeroLede>
               Create a home for action on Big Tech and democracy.
@@ -83,7 +83,7 @@ export default function Page() {
             <InterestForm interest="start-a-circle" />
             <p className="relative z-2 mx-0 mt-3.5 mb-0 max-w-lg text-sm font-medium text-ink italic">
               Start with a conversation. Expressing interest doesn’t commit you
-              to running a Circle.
+              to running a group.
             </p>
           </HeroCopy>
           <CircleHeroArt />
@@ -107,9 +107,9 @@ export default function Page() {
                 </span>
               </h2>
               <Deck size="compact" className="mx-0 mt-6 mb-0 max-w-xl">
-                A Circle is a small local group with a shared purpose. It’s a
-                place to turn concern about technology into connection,
-                learning, and action.
+                A local group is a small team of neighbors with a shared
+                purpose. It’s a place to turn concern about technology into
+                connection, learning, and action.
               </Deck>
             </div>
             <FocusList
@@ -120,7 +120,7 @@ export default function Page() {
                 },
                 {
                   title: "Mentorship and guidance",
-                  text: "Get support from the Sapiens First Global team and advice from other people starting Circles. You don’t have to figure it all out alone.",
+                  text: "Get support from the Sapiens First Global team and advice from other people starting local groups. You don’t have to figure it all out alone.",
                 },
                 {
                   title: "Leadership skills, built by doing",
@@ -168,7 +168,7 @@ export default function Page() {
             <div>
               <Label tone="yellow">Room for everyone to lead</Label>
               <h2 className={cn(h2)}>
-                Start a Circle.
+                Start a group.
                 <br />
                 Grow more leaders.
               </h2>
@@ -177,8 +177,8 @@ export default function Page() {
                 className="mx-0 mt-6 mb-0 max-w-lg text-white"
               >
                 We’re building a movement with abundant leadership. Starting a
-                Circle means helping others find their confidence, bring their
-                ideas, and take the lead alongside you.
+                local group means helping others find their confidence, bring
+                their ideas, and take the lead alongside you.
               </Deck>
             </div>
             <ul className="m-0 list-none border-t border-[#777] p-0">
@@ -219,7 +219,7 @@ export default function Page() {
                 open
               >
                 <p>
-                  Starting a Circle takes about{" "}
+                  Starting a local group takes about{" "}
                   <strong>3–5 hours a week</strong>, with an initial commitment
                   of <strong>three months</strong>. After that, you decide
                   whether to continue every six months.
@@ -235,15 +235,15 @@ export default function Page() {
               >
                 <p>
                   No. You can learn as you go, with mentorship and guidance from
-                  Sapiens First Global and other Circle organizers. Bringing two
-                  reliable friends is recommended, but you can start without
-                  them.
+                  Sapiens First Global and other local group organizers.
+                  Bringing two reliable friends is recommended, but you can
+                  start without them.
                 </p>
               </FaqItem>
               <FaqItem
                 number={3}
                 question={
-                  <>Does my Circle have to organize protests or advocacy?</>
+                  <>Does my group have to organize protests or advocacy?</>
                 }
               >
                 <p>
@@ -258,10 +258,10 @@ export default function Page() {
               </FaqItem>
               <FaqItem
                 number={4}
-                question={<>What might a Circle do week to week?</>}
+                question={<>What might a local group do week to week?</>}
               >
                 <p>
-                  For a Circle focused on advocacy, we suggest three simple
+                  For a group focused on advocacy, we suggest three simple
                   habits:
                 </p>
                 <ul>
@@ -300,27 +300,27 @@ export default function Page() {
               </FaqItem>
               <FaqItem
                 number={6}
-                question={<>Can I start a Circle and hand it over later?</>}
+                question={<>Can I start a group and hand it over later?</>}
               >
                 <p>
-                  Yes. You can start a Circle, help others gain confidence, and
+                  Yes. You can start a group, help others gain confidence, and
                   hand it over when someone is ready to take the lead. You might
                   stay involved as a member or step back.
                 </p>
                 <p>
                   Share opportunities to lead from the beginning. When you’re
-                  ready to move on, talk with your Circle and the Global team
+                  ready to move on, talk with your group and the Global team
                   about a handover. Helping someone else become a leader is a
                   lasting contribution to the movement.
                 </p>
               </FaqItem>
               <FaqItem
                 number={7}
-                question={<>Can a Circle grow into something bigger?</>}
+                question={<>Can a local group grow into something bigger?</>}
               >
                 <p>
-                  Yes. As membership grows, a Circle can develop into a Hub,
-                  Chapter, or Alliance:
+                  Yes. As membership grows, a local group can move through four
+                  sizes:
                 </p>
                 <ul>
                   <li>

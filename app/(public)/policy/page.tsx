@@ -17,8 +17,31 @@ export const metadata: Metadata = pageMetadata({
 
 const pillars = [
   {
-    id: "democratic-renewal",
-    title: "Democratic Renewal",
+    id: "protect-humanity",
+    title: "Protect Humanity",
+    lead: "Cutting-edge AI systems could create catastrophic risks if developed through an uncontrolled race among companies and nations. Governments need independent scientific capacity, enforceable transparency, and international agreements that keep advanced AI under meaningful human control.",
+    policies: [
+      {
+        id: "lead-a-treaty-with-china-to-stop-the-ai-arms-race",
+        title: "Lead a Treaty with China to Stop the AI Arms Race",
+      },
+      {
+        id: "mandate-that-all-frontier-ai-development-be-done-in-the-open",
+        title: "Mandate That All Frontier AI Development Be Done in the Open",
+      },
+      {
+        id: "institute-strict-liability-and-punitive-damages-for-ai-harms",
+        title: "Institute Strict Liability and Punitive Damages for AI Harms",
+      },
+      {
+        id: "build-a-powerful-and-independent-ai-safety-institute",
+        title: "Build a Powerful and Independent AI Safety Institute",
+      },
+    ],
+  },
+  {
+    id: "strengthen-democracy",
+    title: "Strengthen Democracy",
     lead: "AI could give governments and corporations unprecedented power to watch people, manipulate public debate, and shape policy behind closed doors. We should use this moment to strengthen democracy instead: defending civil liberties, breaking corporate control over policymaking, and giving ordinary people a direct role in decisions about our future.",
     policies: [
       {
@@ -40,8 +63,8 @@ const pillars = [
     ],
   },
   {
-    id: "common-prosperity",
-    title: "Common Prosperity",
+    id: "build-a-shared-future",
+    title: "Build a Shared Future",
     lead: "AI could create immense wealth while eliminating jobs, weakening workers' bargaining power, and concentrating ownership in a small number of companies. The gains should instead be shared broadly through dividends, public ownership, creator compensation, worker protections, and renewed investment in public institutions.",
     policies: [
       {
@@ -59,33 +82,10 @@ const pillars = [
       { id: "citizens-dividend", title: "Citizens’ Dividend" },
     ],
   },
-  {
-    id: "a-secure-future",
-    title: "A Secure Future",
-    lead: "Cutting-edge AI systems could create catastrophic risks if developed through an uncontrolled race among companies and nations. Governments need independent scientific capacity, enforceable transparency, and international agreements that keep advanced AI under meaningful human control.",
-    policies: [
-      {
-        id: "lead-a-treaty-with-china-to-stop-the-ai-arms-race",
-        title: "Lead a Treaty with China to Stop the AI Arms Race",
-      },
-      {
-        id: "mandate-that-all-frontier-ai-development-be-done-in-the-open",
-        title: "Mandate That All Frontier AI Development Be Done in the Open",
-      },
-      {
-        id: "institute-strict-liability-and-punitive-damages-for-ai-harms",
-        title: "Institute Strict Liability and Punitive Damages for AI Harms",
-      },
-      {
-        id: "build-a-powerful-and-independent-ai-safety-institute",
-        title: "Build a Powerful and Independent AI Safety Institute",
-      },
-    ],
-  },
 ];
 
 const pillarColors = [
-  "[--pillar-color:var(--color-coral)]",
+  "[--pillar-color:var(--color-brand-yellow)]",
   "[--pillar-color:var(--color-brand-blue)]",
   "[--pillar-color:var(--color-brand-purple)]",
 ];
@@ -137,8 +137,9 @@ export default function Page() {
                       <span className="text-ink">Overview</span>
                     </div>
                     <p className={bodyClass}>
-                      Broadly, Sapiens First advocates for democracy,
-                      prosperity, and a secure future in the age of AI.
+                      Broadly, Sapiens First advocates to protect humanity,
+                      strengthen democracy, and build a shared future in the age
+                      of AI.
                     </p>
                     <p className={bodyClass}>
                       Our approach to policy advocacy is:

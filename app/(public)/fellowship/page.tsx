@@ -50,7 +50,7 @@ const roles = [
       "Door-to-door conversations with people",
       "Creating curriculum and documentation for volunteers to train up",
     ],
-    note: "Community Fellows help grow and support Circles forming across the country.",
+    note: "Community Fellows help grow and support local groups forming across the country.",
   },
   {
     title: "Campaign Automations",

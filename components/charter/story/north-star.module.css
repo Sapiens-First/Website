@@ -71,13 +71,6 @@
 .ray .right {
   fill: var(--c);
 }
-.ghost .left,
-.ghost .right {
-  fill: none;
-  stroke-width: 1.4;
-  stroke-dasharray: 3 4;
-  opacity: 0.3;
-}
 .core {
   fill: var(--color-paper);
   stroke: var(--stroke);

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { TextLink } from "@/components/ui/button";
+import { ActionLink, TextLink } from "@/components/ui/button";
 import { Label } from "@/components/ui/Text";
 import { MapPins } from "@/components/groups/story/MapPins";
 import { links } from "@/lib/no-tech-kings/links";
@@ -48,6 +48,25 @@ export default function GroupsPage() {
             </a>
             .
           </p>
+          <div className="mt-10 flex flex-wrap items-center justify-between gap-5 border-2 border-ink bg-brand-yellow p-6 shadow-[4px_4px_0_var(--color-ink)] sm:p-8">
+            <div>
+              <h2 className="font-display text-3xl leading-none font-extrabold uppercase sm:text-4xl">
+                No group near you?
+              </h2>
+              <p className="mt-2 text-base sm:text-lg">
+                Start one. We&apos;ll help you find your first members and plan
+                your first gathering.
+              </p>
+            </div>
+            <ActionLink
+              href={links.hostTeaParty.href}
+              target="_blank"
+              rel="noopener"
+              className="bg-paper"
+            >
+              Start a local group ↗
+            </ActionLink>
+          </div>
         </Container>
       </section>
     </main>

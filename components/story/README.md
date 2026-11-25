@@ -16,33 +16,33 @@ Shared here:
 
 ## About: Gathering (`components/about/story/`)
 
-| Section  | Story                                                    | Component       |
-| -------- | -------------------------------------------------------- | --------------- |
-| Hero     | Birds fly in from all sides and form one flock           | `HeroFlock`     |
-| Vision   | Each focus area's colour flies in to stack into one sun  | `FocusConverge` |
-| Our Plan | Chapter → city → state, each with wider ripples          | `PlanSteps`     |
-| Strategy | A spark laps Act → Recruit → Train, and each node flares | `CycleSpark`    |
-| Founder  | The photo is dealt onto a fanned stack of cards          | `FounderStack`  |
+| Section  | Story                                                                                            | Component                  |
+| -------- | ------------------------------------------------------------------------------------------------ | -------------------------- |
+| Hero     | Birds form one flock over a flat poster sunrise; halos open and light shimmers toward the viewer | `HeroFlock`, `HeroHorizon` |
+| Vision   | Each focus area's colour flies in to stack into one sun                                          | `FocusConverge`            |
+| Our Plan | Local groups → state campaigns → federal action, wider ripples each step                         | `PlanSteps`                |
+| Strategy | A spark laps Act → Recruit → Train, and each node flares                                         | `CycleSpark`               |
+| Founder  | The photo is dealt onto a fanned stack of cards                                                  | `FounderStack`             |
 
 ## Human Charter: the North Star (`components/charter/story/`)
 
 One eight-pointed star, one ray per principle, coloured by pillar.
 
-| Section    | Story                                                            | Component                    |
-| ---------- | ---------------------------------------------------------------- | ---------------------------- |
-| Hero       | All eight rays draw in, in order                                 | `NorthStar variant="hero"`   |
-| The Stakes | Night, with one star brighter than the rest                      | `StakesNight`                |
-| Pillars    | Each pillar lights only its own rays (I: 1–2, II: 3–5, III: 6–8) | `NorthStar variant="pillar"` |
-| Sign       | The finished star shines on the dark panel                       | `NorthStar variant="beacon"` |
+| Section    | Story                                                                        | Component                    |
+| ---------- | ---------------------------------------------------------------------------- | ---------------------------- |
+| Hero       | All eight rays draw in, in order                                             | `NorthStar variant="hero"`   |
+| The Stakes | Night, with one star brighter than the rest                                  | `StakesNight`                |
+| Principles | One row per pillar of SDG-style flip cards, the North Star in the spare seat | `PrincipleGrid`              |
+| Sign       | The finished star shines on the dark panel                                   | `NorthStar variant="beacon"` |
 
 ## Donate: Fuel (`components/donate/story/`)
 
-| Section         | Story                                                      | Component         |
-| --------------- | ---------------------------------------------------------- | ----------------- |
-| Hero            | People bob, the links between them flow, the bubble speaks | `DonateCircle`    |
-| Seed cities     | Embers light down California's cities                      | `SeedCities`      |
-| Our story       | The numbers count up                                       | `CountUp`, `Rise` |
-| Founding patron | A low hearth glow with embers: keep the fire lit           | `PatronGlow`      |
+| Section         | Story                                                                 | Component         |
+| --------------- | --------------------------------------------------------------------- | ----------------- |
+| Hero            | People bob, the links between them flow, the bubble speaks            | `DonateCircle`    |
+| Local groups    | Embers light down California's cities                                 | `SeedCities`      |
+| Our story       | The numbers count up                                                  | `CountUp`, `Rise` |
+| Founding patron | A small ring of patrons around the flame, inside the turning movement | `PatronCircle`    |
 
 ## Get involved and policy
 

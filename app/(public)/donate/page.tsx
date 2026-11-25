@@ -5,14 +5,14 @@ import { Container } from "@/components/layout/Container";
 import Link from "next/link";
 import { DonateCircle } from "@/components/donate/story/DonateCircle";
 import { SeedCities } from "@/components/donate/story/SeedCities";
-import { PatronGlow } from "@/components/donate/story/PatronGlow";
+import { PatronCircle } from "@/components/donate/story/PatronCircle";
 import { CountUp } from "@/components/story/CountUp";
 import { Rise } from "@/components/story/Rise";
 
 export const metadata: Metadata = pageMetadata({
   title: "Donate",
   description:
-    "Help Sapiens First build political power for AI safety. Fund local chapters, organizer training, and campaigns for a future where AI serves humanity.",
+    "Help Sapiens First build political power for AI safety. Fund local groups, organizer training, and campaigns for a future where AI serves humanity.",
   path: "/donate",
 });
 
@@ -52,16 +52,19 @@ const progress = [
         <Link className={copyLink} href="/learn">
           organizer guide
         </Link>{" "}
-        for new chapter leaders.
+        for new local group leaders.
       </>
     ),
   },
 ];
 
 const giftTiers = [
-  { amount: "$1,000", text: "Funds one chapter event." },
-  { amount: "$5,000", text: "Recruits and trains a chapter's founding team." },
-  { amount: "$10,000", text: "Powers a chapter's first campaign." },
+  { amount: "$1,000", text: "Funds one local group event." },
+  {
+    amount: "$5,000",
+    text: "Recruits and trains a local group's founding team.",
+  },
+  { amount: "$10,000", text: "Powers a local group's first campaign." },
 ];
 
 export default function Page() {
@@ -83,8 +86,8 @@ export default function Page() {
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-xl leading-relaxed lg:text-2xl">
-              We bring people together to act on AI. Help us build local
-              chapters, train organizers, and win change.
+              We bring people together to act on AI. Help us build local groups,
+              train organizers, and win change.
             </p>
           </div>
           <div className="text-center">
@@ -110,7 +113,7 @@ export default function Page() {
             className="font-display text-3xl leading-tight font-extrabold uppercase sm:text-4xl"
             id="funding-heading"
           >
-            Support our seed cities.
+            Support our local groups.
           </h2>
           <div className="mt-8 grid items-center gap-8 sm:grid-cols-2 sm:gap-12">
             <SeedCities className="mx-auto w-32 -rotate-4 sm:w-48" />
@@ -173,14 +176,16 @@ export default function Page() {
         className="relative overflow-hidden border-b-2 border-ink bg-coral-soft py-12 sm:py-16"
         aria-labelledby="giving-heading"
       >
-        <PatronGlow />
         <Container className="grid gap-6 md:grid-cols-2 md:gap-12">
-          <h2
-            className="font-display text-4xl leading-none font-extrabold uppercase sm:text-5xl"
-            id="giving-heading"
-          >
-            Be a founding patron.
-          </h2>
+          <div>
+            <h2
+              className="font-display text-4xl leading-none font-extrabold uppercase sm:text-5xl"
+              id="giving-heading"
+            >
+              Be a founding patron.
+            </h2>
+            <PatronCircle className="mx-auto mt-8 w-64 sm:w-72 md:mx-0 md:mt-10" />
+          </div>
           <div className="space-y-5 text-lg leading-relaxed">
             <p>
               Founding Patrons are the small circle of donors giving $10,000 or

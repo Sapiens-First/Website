@@ -23,7 +23,7 @@
   content: "";
   position: absolute;
   inset: 4px 7px 0;
-  background: var(--color-brand-yellow);
+  background: var(--color-paper);
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
 }
 

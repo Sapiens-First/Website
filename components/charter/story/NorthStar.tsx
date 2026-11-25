@@ -17,17 +17,13 @@ const rayPillar = [0, 0, 1, 1, 1, 2, 2, 2];
  * Charter, numbered clockwise from the top and coloured by pillar.
  *
  * - `hero` draws all eight rays in order on load.
- * - `pillar` lights only that pillar's rays as it scrolls in; the rest wait
- *   as dashed outlines, so the star fills in down the page.
- * - `beacon` is the finished star, shining, for the dark Sign panel.
+ * - `beacon` is the finished star, shining, for the dark panels.
  */
 export function NorthStar({
   variant,
-  pillar,
   className,
 }: {
-  variant: "hero" | "pillar" | "beacon";
-  pillar?: number;
+  variant: "hero" | "beacon";
   className?: string;
 }) {
   return (
@@ -39,22 +35,18 @@ export function NorthStar({
       <div className={styles.glow} />
       <svg viewBox="-100 -100 200 200">
         {rayPillar.map((p, i) => {
-          const lit = variant !== "pillar" || p === pillar;
           const long = i % 2 === 0;
           const length = long ? 94 : 60;
           const width = long ? 13 : 10;
           const base = long ? 15 : 12;
-          // Order the lit rays play in: all eight on the hero, only this
-          // pillar's on a pillar.
-          const order = variant === "pillar" ? rayPillar.indexOf(p) - i : i;
           return (
             <g key={i} transform={`rotate(${i * 45})`}>
               <g
-                className={lit ? styles.ray : styles.ghost}
+                className={styles.ray}
                 style={
                   {
                     "--c": pillarColors[p],
-                    "--i": Math.abs(order),
+                    "--i": i,
                   } as CSSProperties
                 }
               >

@@ -12,7 +12,7 @@ export function SeedCities({ className }: { className?: string }) {
     <div
       className={cn(styles.map, className)}
       role="img"
-      aria-label="Map of California, where we're building our seed chapters."
+      aria-label="Map of California, where we're building our first local groups."
     >
       {cities.map(([x, y], i) => (
         <span

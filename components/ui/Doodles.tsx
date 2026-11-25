@@ -63,9 +63,6 @@ export function Moon({
 
 export const starClip =
   "[clip-path:polygon(50%_0,61%_35%,98%_35%,68%_56%,80%_94%,50%_71%,20%_94%,32%_56%,2%_35%,39%_35%)]";
-export const burstClip =
-  "[clip-path:polygon(50%_0,61%_29%,85%_15%,72%_40%,100%_50%,72%_60%,85%_85%,61%_71%,50%_100%,39%_71%,15%_85%,28%_60%,0_50%,28%_40%,15%_15%,39%_29%)]";
-
 function Shape({ size, clip }: { size: number; clip: string }) {
   return (
     <svg

@@ -1,0 +1,85 @@
+/* Daybreak: About and Fellowship hero art (HeroHorizon.tsx). */
+
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sky {
+  fill: var(--color-coral);
+}
+
+/* Halos open out from the sun, inner first, then breathe slowly. */
+.halo {
+  fill: var(--tone);
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation:
+    open 1.6s cubic-bezier(0.22, 1, 0.36, 1) calc(0.9s - var(--i) * 0.2s) both,
+    breathe 7s ease-in-out calc(2.6s + var(--i) * 0.8s) infinite alternate;
+}
+@keyframes open {
+  from {
+    scale: 0.6;
+    opacity: 0;
+  }
+}
+@keyframes breathe {
+  to {
+    scale: 1.03;
+  }
+}
+
+/* The sun climbs out from behind the horizon. */
+.sun {
+  fill: var(--color-brand-yellow);
+  stroke: var(--color-ink);
+  stroke-width: 2.5;
+  animation: rise 2.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+@keyframes rise {
+  from {
+    translate: 0 150px;
+  }
+}
+
+.ground {
+  fill: var(--color-paper);
+}
+.horizon {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 2.5;
+}
+
+/* The path of light: each bar draws out from the centre, then shimmers. */
+.light {
+  fill: var(--color-brand-yellow);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation:
+    draw 0.9s cubic-bezier(0.22, 1, 0.36, 1) calc(1.2s + var(--i) * 0.12s) both,
+    shimmer 3.2s ease-in-out calc(2.4s + var(--i) * -0.5s) infinite alternate;
+}
+@keyframes draw {
+  from {
+    scale: 0 1;
+  }
+}
+@keyframes shimmer {
+  to {
+    scale: 0.86 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo,
+  .sun,
+  .light {
+    animation: none;
+  }
+}

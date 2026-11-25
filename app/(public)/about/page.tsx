@@ -32,19 +32,19 @@ const aboutArt =
   "relative min-h-100 overflow-hidden border-2 border-ink bg-paper max-lg:min-h-80";
 const focusAreas = [
   {
-    title: "Democratic Renewal",
-    border: "border-coral",
+    title: "Protect Humanity",
+    border: "border-brand-yellow",
+    text: "Cutting-edge artificial intelligence has the potential to cause mass devastation if left unchecked. To combat this, major powers must cooperate to lead the development of safe superintelligence. Frontier AI must be developed transparently, and we should have the best scientists working to ensure AI remains under human control. Additionally, we must have civil society input on AI governance, so that the power of superintelligence benefits all of humanity.",
+  },
+  {
+    title: "Strengthen Democracy",
+    border: "border-brand-blue",
     text: "AI will have profound impacts on our democratic institutions. Done wrong, AI could empower authoritarians to violate our civil liberties; corrupt politicians through rampant wealth inequality; sully public discourse with deepfakes, addictive technology, and sensationalist media. We believe that instead, AI should enhance democratic institutions, and empower ordinary citizens to have greater participation in public life.",
   },
   {
-    title: "Common Prosperity",
-    border: "border-brand-blue",
-    text: "The gains from AI will be vast, and must be shared broadly across society. Currently, wealth gains from AI have concentrated in the hands of the rich few. We believe that it should be instead used to uplift all people in society through redistribution and a reinvestment in public institutions. We also believe that AI should reduce dysfunction in government, and should be used to accelerate advances in science and technology.",
-  },
-  {
-    title: "A Secure Future",
+    title: "Build a Shared Future",
     border: "border-brand-purple",
-    text: "Cutting-edge artificial intelligence has the potential to cause mass devastation if left unchecked. To combat this, major powers must cooperate to lead the development of safe superintelligence. Frontier AI must be developed transparently, and we should have the best scientists working to ensure AI remains under human control. Additionally, we must have civil society input on AI governance, so that the power of superintelligence benefits all of humanity.",
+    text: "The gains from AI will be vast, and must be shared broadly across society. Currently, wealth gains from AI have concentrated in the hands of the rich few. We believe that it should be instead used to uplift all people in society through redistribution and a reinvestment in public institutions. We also believe that AI should reduce dysfunction in government, and should be used to accelerate advances in science and technology.",
   },
 ];
 
@@ -69,10 +69,11 @@ export default function Page() {
           <HeroCopy>
             <Kicker>About Sapiens First</Kicker>
             <h1 className="relative z-2 max-w-xs font-display text-6xl font-extrabold tracking-tight uppercase max-sm:tracking-tighter sm:max-w-md lg:max-w-xl lg:text-8xl">
-              We are the human{" "}
-              <span className="ink-underline whitespace-nowrap ink-underline-brand-yellow">
-                movement.
-              </span>
+              Building the{" "}
+              <span className="inline-block -rotate-2 bg-brand-yellow px-[0.08em] leading-none whitespace-nowrap">
+                pro-human
+              </span>{" "}
+              movement.
             </h1>
             <HeroLede>
               We build political power to make sure artificial intelligence
@@ -163,8 +164,8 @@ export default function Page() {
               </span>
             </h2>
             <Deck size="compact" className="mt-6 max-w-3xl">
-              We build local chapters, press city councils to act on AI, and
-              bring that momentum together to win policy in California.
+              We start local groups in our cities and schools, win state
+              campaigns, and build toward federal action.
             </Deck>
             <PlanSteps />
           </Container>

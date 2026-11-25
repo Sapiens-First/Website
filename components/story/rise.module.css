@@ -1,0 +1,21 @@
+/* Rise: an InView whose direct children fade up one after another as it
+ * scrolls in (Rise.tsx). */
+
+.rise[data-wait] > * {
+  transition:
+    opacity 0.6s ease-out,
+    translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.rise[data-wait] > :nth-child(2) {
+  transition-delay: 0.12s;
+}
+.rise[data-wait] > :nth-child(3) {
+  transition-delay: 0.24s;
+}
+.rise[data-wait] > :nth-child(4) {
+  transition-delay: 0.36s;
+}
+.rise[data-wait]:not([data-in]) > * {
+  opacity: 0;
+  translate: 0 1.25rem;
+}

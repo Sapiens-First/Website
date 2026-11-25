@@ -16,9 +16,15 @@ const smooth = (t: number) => t * t * (3 - 2 * t);
 export function NtkStage({
   className,
   children,
+  firstLightId = "demand",
+  sunUpId = "involved",
 }: {
   className?: string;
   children: ReactNode;
+  /** Section whose arrival brings first light. */
+  firstLightId?: string;
+  /** Section where the sun is fully up. */
+  sunUpId?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -29,8 +35,8 @@ export function NtkStage({
     let frame = 0;
     const update = () => {
       frame = 0;
-      const demand = root.querySelector<HTMLElement>("#demand");
-      const signup = root.querySelector<HTMLElement>("#involved");
+      const demand = root.querySelector<HTMLElement>(`#${firstLightId}`);
+      const signup = root.querySelector<HTMLElement>(`#${sunUpId}`);
       if (!demand || !signup) return;
       const vh = window.innerHeight;
       const y = window.scrollY;
@@ -81,7 +87,7 @@ export function NtkStage({
       window.removeEventListener("resize", onScroll);
       io?.disconnect();
     };
-  }, []);
+  }, [firstLightId, sunUpId]);
 
   return (
     <div ref={ref} className={`${styles.page} ${className ?? ""}`}>

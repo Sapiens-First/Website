@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { TextLink } from "@/components/ui/Action";
 import { Label } from "@/components/ui/Text";
+import { MapPins } from "@/components/groups/story/MapPins";
 import { links } from "@/lib/no-tech-kings/links";
 import { pageMetadata } from "@/lib/site";
 
@@ -24,6 +25,7 @@ export default function GroupsPage() {
                 Join a local group
               </h1>
             </div>
+            <MapPins className="mr-auto ml-4 w-64 max-md:hidden lg:w-80" />
             <TextLink href={links.groupsMap.href}>
               Open map in a new page ↗
             </TextLink>

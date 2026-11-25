@@ -3,6 +3,11 @@ import { pageMetadata, site } from "@/lib/site";
 import { ActionLink } from "@/components/ui/Action";
 import { Container } from "@/components/layout/Container";
 import Link from "next/link";
+import { DonateCircle } from "@/components/donate/story/DonateCircle";
+import { SeedCities } from "@/components/donate/story/SeedCities";
+import { PatronGlow } from "@/components/donate/story/PatronGlow";
+import { CountUp } from "@/components/story/CountUp";
+import { Rise } from "@/components/story/Rise";
 
 export const metadata: Metadata = pageMetadata({
   title: "Donate",
@@ -83,50 +88,7 @@ export default function Page() {
             </p>
           </div>
           <div className="text-center">
-            <svg
-              className="mx-auto hidden h-auto w-full max-w-78 sm:block"
-              aria-hidden="true"
-              viewBox="0 0 280 270"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path
-                d="M68 70L210 82M68 70L135 206M210 82L135 206"
-                strokeDasharray="6 6"
-              ></path>
-              <circle
-                cx="68"
-                cy="70"
-                r="48"
-                fill="var(--color-brand-yellow)"
-              ></circle>
-              <circle
-                cx="210"
-                cy="82"
-                r="48"
-                className="fill-brand-blue-soft"
-              ></circle>
-              <circle
-                cx="135"
-                cy="206"
-                r="48"
-                fill="var(--color-coral)"
-              ></circle>
-              <g strokeLinecap="round">
-                <circle cx="68" cy="58" r="10"></circle>
-                <path d="M47 88C47 65 89 65 89 88"></path>
-                <circle cx="210" cy="70" r="10"></circle>
-                <path d="M189 100C189 77 231 77 231 100"></path>
-                <circle cx="135" cy="194" r="10"></circle>
-                <path d="M114 224C114 201 156 201 156 224"></path>
-              </g>
-              <path
-                d="M118 119L164 119L164 148L146 148L139 157L132 148L118 148Z"
-                fill="var(--color-paper)"
-              ></path>
-              <path d="M128 133H154"></path>
-            </svg>
+            <DonateCircle className="mx-auto hidden h-auto w-full max-w-78 sm:block" />
             <ActionLink
               variant="donation"
               className={donateButton + " sm:mt-6"}
@@ -151,11 +113,7 @@ export default function Page() {
             Support our seed cities.
           </h2>
           <div className="mt-8 grid items-center gap-8 sm:grid-cols-2 sm:gap-12">
-            <span
-              className="mx-auto block aspect-[85.42/143.5] w-32 -rotate-4 [background:radial-gradient(circle,rgba(24,37,31,0.55)_1px,transparent_1.3px)_0_0/6px_6px,rgba(24,37,31,0.1)] [mask:url(/assets/usa-ca.svg)_center/contain_no-repeat] sm:w-48"
-              role="img"
-              aria-label="Map of California, where we're building our seed chapters."
-            />
+            <SeedCities className="mx-auto w-32 -rotate-4 sm:w-48" />
             <div>
               <dl className="divide-y divide-ink/25">
                 {giftTiers.map((tier) => (
@@ -196,25 +154,26 @@ export default function Page() {
           >
             Building a Statewide Movement.
           </h2>
-          <div className="mt-8 grid gap-8 sm:grid-cols-3">
+          <Rise className="mt-8 grid gap-8 sm:grid-cols-3">
             {progress.map((item) => (
               <div
                 className={"border-t-3 pt-5 " + item.border}
                 key={item.number}
               >
                 <strong className="block font-display text-5xl leading-none font-extrabold lg:text-6xl">
-                  {item.number}
+                  <CountUp value={item.number} />
                 </strong>
                 <p className="mt-4 text-lg leading-relaxed">{item.text}</p>
               </div>
             ))}
-          </div>
+          </Rise>
         </Container>
       </section>
       <section
-        className="border-b-2 border-ink bg-coral-soft py-12 sm:py-16"
+        className="relative overflow-hidden border-b-2 border-ink bg-coral-soft py-12 sm:py-16"
         aria-labelledby="giving-heading"
       >
+        <PatronGlow />
         <Container className="grid gap-6 md:grid-cols-2 md:gap-12">
           <h2
             className="font-display text-4xl leading-none font-extrabold uppercase sm:text-5xl"

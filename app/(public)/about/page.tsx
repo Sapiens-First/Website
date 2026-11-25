@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import CycleNodes from "@/components/about/CycleNodes";
+import { HeroFlock } from "@/components/about/story/HeroFlock";
+import { FocusConverge } from "@/components/about/story/FocusConverge";
+import { PlanSteps } from "@/components/about/story/PlanSteps";
+import { CycleSpark } from "@/components/about/story/CycleSpark";
+import { FounderStack } from "@/components/about/story/FounderStack";
 import { TextLink } from "@/components/ui/Action";
 import {
   HeroCollage,
@@ -25,9 +30,6 @@ const aboutSection = "border-b-2 border-ink bg-white px-0 py-24 max-sm:py-14";
 const aboutGrid = "grid grid-cols-2 items-start gap-16 max-lg:grid-cols-1";
 const aboutArt =
   "relative min-h-100 overflow-hidden border-2 border-ink bg-paper max-lg:min-h-80";
-const artTag =
-  "absolute border-2 border-ink bg-white px-3.25 py-2.5 text-xs font-black uppercase";
-
 const focusAreas = [
   {
     title: "Democratic Renewal",
@@ -43,33 +45,6 @@ const focusAreas = [
     title: "A Secure Future",
     border: "border-brand-purple",
     text: "Cutting-edge artificial intelligence has the potential to cause mass devastation if left unchecked. To combat this, major powers must cooperate to lead the development of safe superintelligence. Frontier AI must be developed transparently, and we should have the best scientists working to ensure AI remains under human control. Additionally, we must have civil society input on AI governance, so that the power of superintelligence benefits all of humanity.",
-  },
-];
-
-const strategySteps = [
-  {
-    title: "Local chapters",
-    color: "bg-brand-yellow",
-    icon: (
-      <>
-        <circle cx="18" cy="9" r="4"></circle>
-        <path d="M10 26v-7c0-7 16-7 16 0v7M5 14v12M31 14v12M14 26v6M22 26v6"></path>
-      </>
-    ),
-  },
-  {
-    title: "City campaigns",
-    color: "bg-brand-blue-soft",
-    icon: (
-      <path d="M5 14h8L29 7v22l-16-7H5zM11 22l3 10h6l-3-9M32 15h2M32 21h2"></path>
-    ),
-  },
-  {
-    title: "Statewide movement",
-    color: "bg-coral",
-    icon: (
-      <path d="M3 13L18 4l15 9zM7 16v13M14 16v13M22 16v13M29 16v13M3 32h30"></path>
-    ),
   },
 ];
 
@@ -113,7 +88,9 @@ export default function Page() {
               Non-profit · Founded 2026 · Volunteer-powered
             </HeroLede>
           </HeroCopy>
-          <HeroCollage />
+          <HeroCollage>
+            <HeroFlock />
+          </HeroCollage>
         </SplitHero>
         <section
           className={cn(
@@ -140,18 +117,7 @@ export default function Page() {
                 Read our Recommendations →
               </TextLink>
             </div>
-            <div className={aboutArt}>
-              <div className="absolute top-1/2 left-1/2 size-55 -translate-1/2 rounded-full bg-coral shadow-[14px_-12px_0_var(--color-brand-yellow),-14px_14px_0_var(--color-brand-blue)]"></div>
-              <div className={cn(artTag, "top-[10%] left-[6%] -rotate-3")}>
-                Democratic Renewal
-              </div>
-              <div className={cn(artTag, "top-[20%] right-[6%] rotate-3")}>
-                Common Prosperity
-              </div>
-              <div className={cn(artTag, "bottom-[12%] left-[10%] rotate-2")}>
-                A Secure Future
-              </div>
-            </div>
+            <FocusConverge />
           </Container>
           <Container>
             <details
@@ -200,36 +166,7 @@ export default function Page() {
               We build local chapters, press city councils to act on AI, and
               bring that momentum together to win policy in California.
             </Deck>
-            <ol className="mt-14 grid list-none grid-cols-3 gap-12 p-0 max-sm:grid-cols-1 max-sm:gap-14">
-              {strategySteps.map((step, index) => (
-                <li
-                  className={cn(
-                    "relative text-center",
-                    index > 0 &&
-                      "before:absolute before:top-8 before:-left-10 before:text-3xl before:leading-none before:content-['→'] max-sm:before:-top-11 max-sm:before:left-1/2 max-sm:before:-translate-x-1/2 max-sm:before:content-['↓']",
-                  )}
-                  key={step.title}
-                >
-                  <span
-                    className={cn(
-                      "mx-auto mt-0 mb-6 grid size-25 place-items-center rounded-full border-2 border-ink shadow-[3px_3px_0_var(--color-ink)]",
-                      step.color,
-                    )}
-                    aria-hidden="true"
-                  >
-                    <svg
-                      className="size-13.5 fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]"
-                      viewBox="0 0 36 36"
-                    >
-                      {step.icon}
-                    </svg>
-                  </span>
-                  <h3 className="m-0 font-display text-3xl leading-tight font-extrabold text-balance uppercase">
-                    {step.title}
-                  </h3>
-                </li>
-              ))}
-            </ol>
+            <PlanSteps />
           </Container>
         </section>
         <section
@@ -289,6 +226,7 @@ export default function Page() {
                 <br />
                 power
               </div>
+              <CycleSpark />
               <CycleNodes />
             </div>
             <TextLink className="mt-8 ml-auto block w-max" href="/learn">
@@ -304,20 +242,17 @@ export default function Page() {
           id="founder"
         >
           <Container className={aboutGrid}>
-            <div
-              className={cn(
-                aboutArt,
-                "aspect-4/5 min-h-0 w-[min(100%,320px)] justify-self-center max-lg:min-h-0 max-sm:aspect-square",
-              )}
-            >
-              <Image
-                className="object-cover object-[50%_32%]"
-                src="/assets/rohan-prasad.jpg"
-                alt="Rohan Prasad, founder of Sapiens First"
-                fill
-                sizes="(max-width: 340px) calc(100vw - 24px), 320px"
-              />
-            </div>
+            <FounderStack className="aspect-4/5 w-[min(100%,320px)] justify-self-center max-sm:aspect-square">
+              <div className={cn(aboutArt, "h-full min-h-0 max-lg:min-h-0")}>
+                <Image
+                  className="object-cover object-[50%_32%]"
+                  src="/assets/rohan-prasad.jpg"
+                  alt="Rohan Prasad, founder of Sapiens First"
+                  fill
+                  sizes="(max-width: 340px) calc(100vw - 24px), 320px"
+                />
+              </div>
+            </FounderStack>
             <div>
               <Label tone="yellow">Founder</Label>
               <h2 className={cn(h2, "mt-5")}>

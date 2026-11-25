@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/cn";
+import { cycleSpark } from "@/components/about/story/CycleSpark";
 
 const steps = [
   {
@@ -34,6 +35,7 @@ export default function CycleNodes() {
       key={step.id}
       className={cn(
         "group",
+        cycleSpark.node,
         cn(
           "absolute z-2 box-border flex aspect-square w-[34%] cursor-pointer items-center justify-center rounded-full border-3 border-ink p-[6%] font-display text-[clamp(1.235rem,2.34vw,1.56rem)] font-extrabold text-ink uppercase shadow-[6px_6px_0_var(--color-ink)] transition-transform duration-160 focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-ink max-sm:text-xl",
           "motion-safe:hover:-translate-y-1.25 motion-safe:focus-visible:-translate-y-1.25 motion-safe:aria-pressed:-translate-y-1.25 motion-reduce:transition-none",

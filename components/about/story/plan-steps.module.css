@@ -1,0 +1,111 @@
+/* Growing: About plan steps (PlanSteps.tsx). */
+
+.steps {
+  margin-top: 3.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3rem;
+  list-style: none;
+}
+@media (max-width: 639px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+}
+
+.step {
+  position: relative;
+  text-align: center;
+  /* Steps play one after another. */
+  --start: calc(var(--i) * 0.7s);
+}
+
+.arrow {
+  position: absolute;
+  top: 2rem;
+  left: -2.5rem;
+  font-size: 1.875rem;
+  line-height: 1;
+}
+@media (max-width: 639px) {
+  .arrow {
+    top: -2.75rem;
+    left: 50%;
+    translate: -50% 0;
+  }
+}
+
+.badge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: max-content;
+  margin: 0 auto 1.5rem;
+}
+
+/* Ripples: rings spreading out from the badge, one more per step. */
+.ripple {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--color-ink);
+  border-radius: 50%;
+  opacity: 0;
+  animation: ripple 3.6s ease-out infinite;
+  animation-delay: calc(var(--start) + 1s + var(--r) * 0.45s);
+}
+@keyframes ripple {
+  0% {
+    opacity: 0.45;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: calc(1.6 + var(--i) * 0.35);
+  }
+}
+
+/* Entrance: badge pops, then the title rises, then the arrow to the next. */
+[data-wait] .badge,
+[data-wait] .step h3,
+[data-wait] .arrow {
+  transition:
+    opacity 0.5s ease-out,
+    scale 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+    translate 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-wait] .badge {
+  transition-delay: var(--start);
+}
+[data-wait] .step h3 {
+  transition-delay: calc(var(--start) + 0.15s);
+}
+[data-wait] .arrow {
+  transition-delay: calc(var(--start) - 0.25s);
+}
+[data-wait]:not([data-in]) .badge {
+  opacity: 0;
+  scale: 0.3;
+}
+[data-wait]:not([data-in]) .step h3 {
+  opacity: 0;
+  translate: 0 0.75rem;
+}
+[data-wait]:not([data-in]) .arrow {
+  opacity: 0;
+  translate: -0.75rem 0;
+}
+@media (max-width: 639px) {
+  [data-wait]:not([data-in]) .arrow {
+    translate: -50% -0.75rem;
+  }
+}
+[data-wait]:not([data-in]) .ripple {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple {
+    display: none;
+  }
+}

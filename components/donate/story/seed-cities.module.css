@@ -1,0 +1,67 @@
+/* Seed cities: embers on the Donate page's California (SeedCities.tsx). */
+
+/* In a layer so the page's sizing and rotation utilities win. */
+@layer components {
+  .map {
+    position: relative;
+  }
+}
+.map {
+  aspect-ratio: 85.42 / 143.5;
+}
+.map::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, rgb(24 37 31 / 0.55) 1px, transparent 1.3px) 0 0 /
+      6px 6px,
+    rgb(24 37 31 / 0.1);
+  mask: url(/assets/usa-ca.svg) center / contain no-repeat;
+}
+
+/* Each city lights in turn down the state, glows, and dims, on one shared
+ * 8 s loop, so the light runs north to south and starts again. */
+.city {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff2e0 0%, #ff6a2c 50%, #d8401f 100%);
+  box-shadow:
+    0 0 5px 1px rgb(255 106 44 / 0.85),
+    0 0 14px 4px rgb(224 72 30 / 0.45);
+  opacity: 0.2;
+  scale: 0.6;
+  animation: light 8.1s ease-out var(--d) infinite;
+}
+@keyframes light {
+  0% {
+    opacity: 0.2;
+    scale: 0.6;
+  }
+  6% {
+    opacity: 1;
+    scale: 1.7;
+  }
+  14% {
+    scale: 1;
+  }
+  70% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0.2;
+    scale: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city {
+    animation: none;
+    opacity: 1;
+    scale: 1;
+  }
+}

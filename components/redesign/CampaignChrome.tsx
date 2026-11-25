@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * Site chrome. The campaign page brings its own dark header and footer (same
+ * Site chrome. The No Tech Kings pages bring its own dark header and footer (same
  * links, from lib/site-nav), so the site header and footer are skipped there.
  */
 export function CampaignChrome({
@@ -16,7 +16,9 @@ export function CampaignChrome({
   footer: ReactNode;
   children: ReactNode;
 }) {
-  const campaignPage = usePathname() === "/no-tech-kings";
+  const path = usePathname();
+  const campaignPage =
+    path === "/no-tech-kings" || path.startsWith("/no-tech-kings/");
 
   return (
     <>

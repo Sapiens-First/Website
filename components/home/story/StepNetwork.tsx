@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { InView } from "./InView";
+import { InView } from "@/components/story/InView";
 import styles from "./step-network.module.css";
 
 type Point = readonly [number, number];

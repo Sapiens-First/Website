@@ -6,6 +6,7 @@ import PolicyToc from "@/components/policy/PolicyToc";
 import { Accordion, AccordionChevron } from "@/components/sections/Faq";
 import { cn } from "@/lib/cn";
 import { TextLink } from "@/components/ui/Action";
+import { AgendaHouse } from "@/components/policy/story/AgendaHouse";
 
 export const metadata: Metadata = pageMetadata({
   title: "Policy",
@@ -113,6 +114,7 @@ export default function Page() {
           <p className="mt-7 mr-0 mb-0 ml-0 text-xs font-bold tracking-wider uppercase">
             3 Pillars · 12 Policies · Updated July 2026
           </p>
+          <AgendaHouse className="absolute right-6 bottom-0 max-md:hidden lg:right-16 xl:right-24" />
         </Container>
       </div>
       <main>

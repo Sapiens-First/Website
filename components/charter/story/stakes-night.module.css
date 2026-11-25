@@ -1,0 +1,77 @@
+/* Night behind the Charter's Stakes band (StakesNight.tsx). */
+
+.night {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 50% 60% at 85% 20%,
+    color-mix(in oklch, var(--color-brand-blue) 14%, transparent),
+    transparent 70%
+  );
+}
+.night i {
+  position: absolute;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 calc(var(--s) * 3) rgb(255 255 255 / 0.7);
+  animation: twinkle 4.4s ease-in-out var(--d) infinite;
+}
+@keyframes twinkle {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+/* The one bright star: a small four-point glint that pulses. */
+.north {
+  position: absolute;
+  top: 22%;
+  right: 12%;
+  width: 26px;
+  aspect-ratio: 1;
+  background: #fff6dc;
+  clip-path: polygon(
+    50% 0,
+    58% 42%,
+    100% 50%,
+    58% 58%,
+    50% 100%,
+    42% 58%,
+    0 50%,
+    42% 42%
+  );
+  filter: drop-shadow(0 0 6px var(--color-brand-yellow));
+  animation: pulse 3.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    scale: 1.45;
+    rotate: 45deg;
+  }
+}
+
+.glow {
+  text-shadow:
+    0 0 18px color-mix(in oklch, var(--color-coral) 70%, transparent),
+    0 0 48px color-mix(in oklch, var(--color-coral) 35%, transparent);
+}
+
+@media (max-width: 639px) {
+  .north {
+    top: 8%;
+    right: 8%;
+    width: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .night i,
+  .north {
+    animation: none;
+  }
+}

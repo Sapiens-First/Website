@@ -17,8 +17,8 @@ function isCurrent(path: string, href: string) {
 
 /**
  * Site header: logo, Join, Donate, and a hamburger at every width that opens a
- * panel with all site links (the same groups as the footer). The bar frosts
- * once the page scrolls.
+ * panel with all site links (the same groups as the footer). The bar turns
+ * solid once the page scrolls.
  */
 export default function SiteHeader() {
   const path = usePathname();

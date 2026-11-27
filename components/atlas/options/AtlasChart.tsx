@@ -19,7 +19,11 @@ function Node({ node, selected }: { node: PackedNode; selected: string }) {
   const hub = circles.length > 0 && roles.length === 0;
   return (
     <li style={{ ["--g" as string]: leaves(node) }}>
-      <div className={hub ? "c-node hub" : "c-node"}>
+      <div
+        className={hub ? "c-node hub" : "c-node"}
+        data-opt-id={node.row.ID}
+        tabIndex={-1}
+      >
         <header>
           <a
             href={recordUrl(node.row.ID)}

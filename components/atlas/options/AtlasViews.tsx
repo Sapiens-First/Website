@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { circleLayout } from "@/lib/atlas/circles";
 import type { AtlasData } from "@/lib/atlas/model";
 import Circles from "@/components/atlas/Circles";
@@ -28,19 +28,40 @@ export default function AtlasViews({
     selected && model.nodes.get(selected)?.kind !== "outer"
       ? model.nodes.get(selected)
       : undefined;
-  const opener = useRef<HTMLElement | null>(null);
   const previous = useRef("");
-  const sheet = Boolean(node) && (mode === "chart" || !wide);
+  const [closedFor, setClosedFor] = useState("");
+  const quietClosed =
+    mode === "quiet" && Boolean(node) && closedFor === node?.row.ID;
+  const recordOpen = Boolean(node) && !quietClosed;
+  const sheet = recordOpen && (mode === "chart" || !wide);
+
+  const focusRow = useCallback(
+    (id: string) => {
+      const target =
+        mode === "quiet"
+          ? document.getElementById(`atlas-node-${id}`)
+          : document.querySelector<HTMLElement>(
+              `.c-node[data-opt-id="${CSS.escape(id)}"], #atlas-option a[data-opt-id="${CSS.escape(id)}"]`,
+            );
+      target?.focus({ preventScroll: true });
+    },
+    [mode],
+  );
+
+  const close = useCallback(() => {
+    if (!node) return;
+    if (mode === "quiet") {
+      setClosedFor(node.row.ID);
+      return;
+    }
+    window.location.hash = "#governance/chart";
+  }, [mode, node]);
 
   useEffect(() => {
-    if (node) {
-      const current = document.activeElement;
-      if (current instanceof HTMLElement && current.id !== "record-title") {
-        opener.current = current;
-      }
+    if (recordOpen && node) {
       document.getElementById("record-title")?.focus({ preventScroll: true });
       const row = document.querySelector<HTMLElement>(
-        `[data-opt-id="${CSS.escape(node.row.ID)}"], #atlas-node-${CSS.escape(node.row.ID)}`,
+        `#atlas-node-${CSS.escape(node.row.ID)}, [data-opt-id="${CSS.escape(node.row.ID)}"]`,
       );
       if (row) {
         const bounds = row.getBoundingClientRect();
@@ -54,22 +75,20 @@ export default function AtlasViews({
           });
         }
       }
-    } else if (previous.current) {
-      const back =
-        opener.current && document.contains(opener.current)
-          ? opener.current
-          : document.querySelector<HTMLElement>(
-              `[data-opt-id="${CSS.escape(previous.current)}"], #atlas-node-${CSS.escape(previous.current)}`,
-            );
-      back?.focus({ preventScroll: true });
-      opener.current = null;
+    } else if (!node && previous.current) {
+      focusRow(previous.current);
     }
     previous.current = node?.row.ID || "";
-  }, [node]);
+  }, [focusRow, mode, node, recordOpen]);
+
+  useEffect(() => {
+    if (!quietClosed || !node) return;
+    focusRow(node.row.ID);
+  }, [focusRow, node, quietClosed]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || !node) return;
+      if (event.key !== "Escape" || !recordOpen) return;
       const target = event.target;
       if (
         target instanceof HTMLInputElement &&
@@ -78,30 +97,27 @@ export default function AtlasViews({
       ) {
         return;
       }
-      const next = mode === "quiet" ? "#governance/quiet" : "#governance/chart";
-      window.location.hash = next;
+      close();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [mode, node]);
-
+  }, [close, recordOpen]);
   if (!root) return null;
-  const close = () => {
-    window.location.hash =
-      mode === "quiet" ? "#governance/quiet" : "#governance/chart";
-  };
   const base = mode === "quiet" ? "quiet" : "chart";
-  const detail = node ? (
-    <OptionDetail node={node} onClose={close} base={base} />
-  ) : (
-    <OptionOverview root={root} base={base} />
-  );
 
   return (
     <>
       <div
         id="atlas-option"
         className={mode === "quiet" ? "a-grid" : undefined}
+        onClick={(event) => {
+          const link = (event.target as HTMLElement).closest("a");
+          if (!link) return;
+          const id = link.id.startsWith("atlas-node-")
+            ? link.id.slice("atlas-node-".length)
+            : link.getAttribute("data-opt-id");
+          if (id && id === closedFor) setClosedFor("");
+        }}
       >
         {mode === "chart" ? (
           <AtlasChart root={root} selected={node?.row.ID || ""} />
@@ -110,12 +126,18 @@ export default function AtlasViews({
         )}
         {mode === "quiet" ? (
           <aside className="a-panel" aria-label="Details">
-            {wide ? detail : <OptionOverview root={root} base={base} />}
+            {wide && recordOpen && node ? (
+              <OptionDetail node={node} onClose={close} base={base} />
+            ) : (
+              <OptionOverview root={root} base={base} />
+            )}
           </aside>
         ) : null}
       </div>
       <OptionDrawer open={sheet} labelledBy="record-title" onClose={close}>
-        {node ? <OptionDetail node={node} onClose={close} base={base} /> : null}
+        {recordOpen && node ? (
+          <OptionDetail node={node} onClose={close} base={base} />
+        ) : null}
       </OptionDrawer>
     </>
   );

@@ -308,7 +308,16 @@ export default function Circles({
                 </span>
               )}
               {last ? (
-                <span className="font-bold text-ink" aria-current="page">
+                <span
+                  id={
+                    node === focus && node.depth > 0
+                      ? `atlas-node-${node.row.ID}`
+                      : undefined
+                  }
+                  tabIndex={node === focus && node.depth > 0 ? -1 : undefined}
+                  className="font-bold text-ink"
+                  aria-current="page"
+                >
                   {label}
                 </span>
               ) : (
@@ -361,7 +370,7 @@ export default function Circles({
           )}
         </div>
       )}
-      {focus.kind === "outer" && (
+      {focus.kind === "outer" && !narrow && (
         <p
           className="mt-2 text-[13px] font-semibold tracking-[0.08em] text-muted-foreground uppercase"
           aria-hidden="true"
@@ -381,7 +390,7 @@ export default function Circles({
             viewBox={`0 0 ${size} ${size}`}
             role="group"
             aria-label={`${root.row.Name}: nested governance circles`}
-            className="mx-auto block touch-manipulation"
+            className="mx-auto block max-w-full touch-manipulation"
             onClick={() => {
               if (zoomOut) window.location.hash = zoomOut;
             }}

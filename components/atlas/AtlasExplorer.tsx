@@ -444,7 +444,7 @@ export default function AtlasExplorer({
                       <span className="mt-0.5 ml-5 block text-xs font-medium tracking-wide text-ink uppercase">
                         {row.Type} · {row.ID}
                       </span>
-                      <details className="mt-2 text-xs font-normal [&_summary]:cursor-pointer [&_summary]:text-ink [&_summary]:underline [&_summary]:underline-offset-2 [&_summary:hover]:text-coral-dark">
+                      <details className="mt-2 text-xs font-normal [&_summary]:inline-flex [&_summary]:min-h-11 [&_summary]:cursor-pointer [&_summary]:items-center [&_summary]:text-ink [&_summary]:underline [&_summary]:underline-offset-2 [&_summary:hover]:text-coral-dark">
                         <summary
                           aria-label={`${group === "domains" ? "More details" : "Responsibilities"}: ${row.Name}`}
                         >
@@ -465,6 +465,7 @@ export default function AtlasExplorer({
                         <RecordLink
                           id={row[parentField(group)]}
                           format="table"
+                          className="inline-flex min-h-11 items-center"
                         />
                       ) : row.Status === "Needs definition" ? (
                         "Not documented"

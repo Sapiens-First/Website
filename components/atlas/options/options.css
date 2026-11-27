@@ -566,9 +566,12 @@
   background: #fff;
   box-shadow: 0 1px 2px rgb(24 37 31 / 0.06);
 }
+.atlas-opt .a-grid > * {
+  min-width: 0;
+}
 @media (max-width: 899px) {
   .atlas-opt .a-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .atlas-opt .a-panel {
     display: none;

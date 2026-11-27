@@ -105,8 +105,8 @@ using ((select auth.uid()) = profile_id);
 -- 3. Member check. Single place that defines who counts as a member.
 -- MEMBER DEFINITION: a signed-in user who currently holds a circle or role,
 -- i.e. has a role_assignments row that has started, has not ended, and is on
--- a row that is not Retired or Completed. Payment or membership status does
--- not count. Security definer so this read bypasses role_assignments RLS and
+-- a row that is not Retired or Completed.
+-- Security definer so this read bypasses role_assignments RLS and
 -- the members policy below does not recurse.
 grant usage on schema member_private to authenticated;
 

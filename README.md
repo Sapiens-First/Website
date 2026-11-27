@@ -11,18 +11,9 @@ npm run dev
 
 Open `http://localhost:3000`. Run `npm run build` for a production build, `npm run lint` for ESLint, `npm run typecheck` for TypeScript, and `npm run format` to format the source.
 
-## Where things live
+Copy `.env.example` to `.env.local` and set `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY` and `APP_URL` (the website origin, such as `http://localhost:3000`). Use the deployed origin for `APP_URL` in Vercel and allow its `/auth/callback` URL in Supabase Auth.
 
-- `app/layout.tsx`, `app/globals.css`: shared document, fonts, design tokens, and the only stylesheet. Design tokens live in the `@theme` block as `--color-*` and `--font-*` variables.
-- `app/<route>/page.tsx`: each page. The homepage is `app/page.tsx`; `app/not-found.tsx` and `app/error.tsx` are the site-wide 404 and error pages.
-- `components/`: shared navigation, footer, signup form, and interactive page behavior. The guide has a dedicated client component because it reads external data.
-- `lib/site.ts`: site URLs, current external integrations, and page metadata. Navigation and footer links live in `components/SiteHeader.tsx` and `components/SiteFooter.tsx`.
-- `lib/cn.ts`: `cn()` joins class names with `clsx` and resolves conflicting Tailwind utilities with `tailwind-merge`, so a `className` override always wins over a component default.
-- `public/assets/` and `public/favicons/`: original images, SVGs, and favicon files with unchanged names.
-- `app/sitemap.ts` and `app/robots.ts`: canonical public route discovery. The public route list lives in `app/sitemap.ts`.
-- `next.config.ts`: Atlas subdomain rewrite and permanent redirects from old Atlas URLs.
-
-Styling is written as Tailwind classes in each component. `app/globals.css` only holds the design tokens, a small base reset, the `.doc-body` typography for the Learn guide, and a few custom utilities (`ink-underline`, `marker`); `npm run format` sorts those classes through `prettier-plugin-tailwindcss`. Barlow Condensed and DM Sans are loaded through Next.js `next/font/google` and self-hosted with the app.
+Membership is currently free: sign in with Google or an email link, complete your profile, accept the member agreement, then open the dashboard. Name, country, city, postal code and phone are required. Account pages verify identity on the server and use the member's Supabase session and profile permissions. `/membership` redirects to `/dashboard`.
 
 ## UI components (shadcn/ui)
 

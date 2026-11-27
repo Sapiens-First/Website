@@ -10,11 +10,7 @@ export function isInterest(value: unknown): value is Interest {
 
 // An explicit allowlist prevents external redirects and auth loops.
 export function memberReturnPath(value: unknown) {
-  return value === "/membership" ||
-    value === "/dashboard/profile" ||
-    value === "/atlas/me" ||
-    value === "/circle?interest=confirm#signup" ||
-    value === "/fellowship?interest=confirm#signup"
+  return value === "/dashboard/profile" || value === "/atlas/me"
     ? value
     : "/dashboard";
 }

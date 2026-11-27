@@ -4,17 +4,11 @@ import type { ComponentProps } from "react";
 import { signInWithGoogle } from "@/app/auth/actions";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/Text";
-import { cn } from "@/lib/cn";
-import {
-  CONTRIBUTIONS,
-  DEFAULT_CONTRIBUTION,
-  TRIAL_DAYS,
-} from "@/lib/members/plans";
 import { EmailSignIn } from "./EmailSignIn";
 import { JoinSteps } from "./JoinSteps";
 
 const reasons = [
-  "Fund a movement that answers to people, not tech kings.",
+  "Build a movement that answers to people, not tech kings.",
   "Take part in gatherings, campaigns and training.",
   "Meet other members as our community space opens.",
 ];
@@ -67,39 +61,7 @@ export function JoinView({
           ))}
         </ul>
 
-        <section aria-labelledby="join-price" className="mt-8 max-w-lg">
-          <h2 id="join-price" className="sr-only">
-            Monthly contribution
-          </h2>
-          <div className="grid grid-cols-3 border-2 border-ink bg-white">
-            {CONTRIBUTIONS.map((amount, index) => (
-              <div
-                key={amount}
-                className={cn(
-                  "relative px-3 py-4 text-center",
-                  index > 0 && "border-l-2 border-ink",
-                  amount === DEFAULT_CONTRIBUTION && "bg-soft",
-                )}
-              >
-                {amount === DEFAULT_CONTRIBUTION && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-brand-yellow px-2 py-0.5 text-[0.65rem] font-black tracking-widest whitespace-nowrap uppercase">
-                    Suggested
-                  </span>
-                )}
-                <span className="font-display text-4xl font-extrabold">
-                  ${amount}
-                </span>
-                <span className="block text-xs font-bold tracking-wider text-muted-foreground uppercase">
-                  per month
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-3 text-sm leading-relaxed">
-            <strong>Free for your first {TRIAL_DAYS} days.</strong> Every amount
-            includes the same full membership. Cancel anytime.
-          </p>
-        </section>
+        <p className="mt-6 max-w-lg font-bold">Membership is currently free.</p>
 
         <div className="mt-8 max-w-lg space-y-5" id="signup">
           <form action={googleAction}>

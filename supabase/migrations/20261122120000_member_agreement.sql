@@ -1,4 +1,4 @@
--- Members agree to the member agreement before choosing a contribution.
+-- Members accept the member agreement before opening the dashboard.
 -- Members write only the version; the database stamps the acceptance time.
 alter table public.profiles
   add column agreement_version text check (char_length(agreement_version) <= 32),

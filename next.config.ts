@@ -29,7 +29,6 @@ const nextConfig: NextConfig = {
       "/auth/:path*",
       "/onboarding/:path*",
       "/agreement/:path*",
-      "/membership/:path*",
       "/dashboard/:path*",
     ].map((source) => ({
       source,

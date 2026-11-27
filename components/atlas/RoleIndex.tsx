@@ -22,7 +22,11 @@ function rows(node: PackedNode): ReactNode[] {
             key={child.row.ID}
             className="mt-2.5 text-xs font-bold tracking-[0.06em] text-muted-foreground uppercase"
           >
-            <a href={url(child.row.ID)} onClick={scrollToChart}>
+            <a
+              href={url(child.row.ID)}
+              onClick={scrollToChart}
+              className="inline-flex min-h-11 items-center"
+            >
               {child.row.Name}
             </a>
           </li>,
@@ -58,7 +62,7 @@ export default function RoleIndex({ data }: { data: AtlasData }) {
         Every circle and role
       </h2>
       <p className="mt-1 mb-6 text-sm text-muted-foreground">
-        The same map as a list. Current roles only.
+        The same map as a list, with current roles only.
       </p>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-7 lg:grid-cols-4">
         {model.branches.map((branch) => (
@@ -71,7 +75,7 @@ export default function RoleIndex({ data }: { data: AtlasData }) {
               <a
                 href={url(branch.row.ID)}
                 onClick={scrollToChart}
-                className="hover:text-coral-dark"
+                className="inline-flex min-h-11 items-center hover:text-coral-dark"
               >
                 {branch.row.Name}
               </a>

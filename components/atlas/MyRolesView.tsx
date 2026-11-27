@@ -34,20 +34,19 @@ function Duties({
         >
           ›
         </span>
-        {entries.length} accountabilities
+        {entries.length}{" "}
+        {entries.length === 1 ? "accountability" : "accountabilities"}
       </button>
-      {open && (
-        <ul id={listId} className="m-0 list-none p-0">
-          {entries.map((entry) => (
-            <li
-              key={entry}
-              className="relative mt-2 pl-4.5 text-[15px] leading-normal text-ink before:absolute before:top-[0.7em] before:left-0.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-ink/40"
-            >
-              {entry}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul id={listId} hidden={!open} className="m-0 list-none p-0">
+        {entries.map((entry) => (
+          <li
+            key={entry}
+            className="relative mt-2 pl-4.5 text-[15px] leading-normal text-ink before:absolute before:top-[0.7em] before:left-0.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-ink/40"
+          >
+            {entry}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

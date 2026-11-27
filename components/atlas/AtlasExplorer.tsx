@@ -25,7 +25,9 @@ import RecordDetails, {
   TypeIcon,
 } from "@/components/atlas/RecordDetails";
 import Circles from "@/components/atlas/Circles";
-import GovernancePanel from "@/components/atlas/GovernancePanel";
+import GovernancePanel, {
+  consumeReturnFocus,
+} from "@/components/atlas/GovernancePanel";
 import RoleIndex from "@/components/atlas/RoleIndex";
 import DomainOutline from "@/components/atlas/DomainOutline";
 import Alignment from "@/components/atlas/Alignment";
@@ -142,6 +144,11 @@ export default function AtlasExplorer({
     window.location.assign(hash);
   }
   useEffect(() => {
+    const returnId = consumeReturnFocus();
+    if (returnId) {
+      document.getElementById(`atlas-node-${returnId}`)?.focus();
+      return;
+    }
     if (!selected) return;
     document.getElementById("record-title")?.focus();
   }, [selected, view, format]);
@@ -183,9 +190,12 @@ export default function AtlasExplorer({
   return (
     <AtlasLookupsProvider value={lookups}>
       <section className="relative z-2 pb-8" aria-labelledby="view-title">
-        <div id="atlas-toolbar" className="sticky top-15 z-20 -mx-4 mb-6 flex h-[68px] flex-wrap items-center gap-3 border-y border-ink/14 bg-paper/94 px-4 backdrop-blur-md sm:-mx-6 sm:px-6 lg:flex-nowrap">
+        <div
+          id="atlas-toolbar"
+          className="sticky top-15 z-20 -mx-4 mb-6 flex min-h-[68px] flex-wrap items-center gap-3 border-y border-ink/14 bg-paper/94 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:h-[68px] lg:flex-nowrap lg:py-0"
+        >
           <div
-            className='inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] max-sm:w-full [&_button]:min-h-11 [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-0 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground max-sm:[&_button]:flex-1 [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]'
+            className='inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] [&_button]:min-h-11 [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-0 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]'
             role="group"
             aria-label="Atlas view"
           >
@@ -336,11 +346,11 @@ export default function AtlasExplorer({
           <>
             <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
               <div id="atlas-map">
-              <Circles
-                data={data}
-                selected={selected}
-                query={normalizedQuery}
-              />
+                <Circles
+                  data={data}
+                  selected={selected}
+                  query={normalizedQuery}
+                />
               </div>
               <GovernancePanel data={data} selected={selected} />
             </div>

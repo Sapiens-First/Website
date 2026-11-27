@@ -209,7 +209,8 @@ export default function Circles({
   const queryText = query.trim().toLowerCase();
   const searchHits = queryText
     ? nodes.filter(
-        (node) => node.kind !== "outer" && matchesQuery(node, queryText, holders),
+        (node) =>
+          node.kind !== "outer" && matchesQuery(node, queryText, holders),
       )
     : [];
   const showing = focus.depth > 0 ? focus.children : [];
@@ -273,7 +274,9 @@ export default function Circles({
           />
           Role
         </span>
-        <span>Select a circle to explore it, or a role to read its responsibilities.</span>
+        <span>
+          Select a circle to explore it, or a role to read its responsibilities.
+        </span>
         <a
           href="#idx-title"
           className="ml-auto inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-2"
@@ -398,7 +401,7 @@ export default function Circles({
                 !arcOk &&
                 point.r > 12 &&
                 (node.depth === 1 || node.parent === focus);
-              const sizes = narrow ? [13, 12, 11, 10] : [14, 13, 12, 11];
+              const sizes = narrow ? [13, 12, 11, 10, 9] : [14, 13, 12, 11];
               let lines: string[] | null = null;
               let labelSize = 0;
               if (role && focus.depth > 0 && point.r >= 22) {
@@ -406,7 +409,7 @@ export default function Circles({
                   const wrapped = wrap(
                     node.row.Name,
                     sizeOption,
-                    point.r * (sizeOption <= 10 ? 1.98 : 1.9),
+                    point.r * (sizeOption <= 10 ? 2 : 1.9),
                   );
                   if (
                     wrapped &&

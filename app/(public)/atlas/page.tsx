@@ -5,6 +5,8 @@ import { pageMetadata } from "@/lib/site";
 import { loadPublicAtlas } from "@/lib/atlas/data";
 import AtlasExplorer from "@/components/atlas/AtlasExplorer";
 import { AtlasRolesLink, HoldersProvider } from "@/components/atlas/Holders";
+import OptionSwitcher from "@/components/atlas/options/OptionSwitcher";
+import { atlasOption } from "@/lib/atlas/option";
 
 export const metadata: Metadata = pageMetadata({
   title: "Atlas",
@@ -15,7 +17,12 @@ export const metadata: Metadata = pageMetadata({
 
 export const revalidate = 60;
 
-export default async function Page() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ option?: string }>;
+}) {
+  const option = atlasOption((await searchParams).option);
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_PUBLISHABLE_KEY) {
     return (
       <main className="mx-auto w-full max-w-2xl px-3 pt-20 pb-16 sm:px-6">
@@ -34,6 +41,7 @@ export default async function Page() {
   return (
     <>
       <main className="mx-auto w-full max-w-[1200px] px-4 pb-8 **:focus-visible:outline-[3px] **:focus-visible:outline-offset-2 **:focus-visible:outline-coral-dark sm:px-6 [&_#record-title]:focus-visible:outline-none [&_a]:underline-offset-2">
+        <OptionSwitcher current={option} />
         <HoldersProvider>
           <section
             id="atlas-hero"
@@ -100,6 +108,7 @@ export default async function Page() {
           <AtlasExplorer
             data={data}
             today={new Date().toISOString().slice(0, 10)}
+            option={option}
           />
         </HoldersProvider>
       </main>

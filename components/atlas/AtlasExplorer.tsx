@@ -35,6 +35,9 @@ import { AtlasLookupsProvider } from "@/components/atlas/AtlasLookupsContext";
 import { useHolders } from "@/components/atlas/Holders";
 import { AtlasTable, AtlasBadge } from "@/components/atlas/AtlasUi";
 import { cn } from "@/lib/cn";
+import type { AtlasOption } from "@/lib/atlas/option";
+import AtlasOptionView from "@/components/atlas/options/AtlasOptionView";
+import OptionSearch from "@/components/atlas/options/OptionSearch";
 
 const getHash = () => window.location.hash;
 const getToday = () => new Date().toISOString().slice(0, 10);
@@ -47,14 +50,27 @@ const titles = {
   domains: "Our work",
   people: "People",
 };
+function formatName(value: Format, option: AtlasOption | null) {
+  if (value === "circles") {
+    if (option === "a") return "Outline";
+    if (option === "b") return "Columns";
+    if (option === "c") return "Chart";
+    return "Circles";
+  }
+  if (value === "outline") return "Explorer";
+  return value[0].toUpperCase() + value.slice(1);
+}
+
 export default function AtlasExplorer({
   data,
   today: initialToday,
   initialHash = "",
+  option = null,
 }: {
   data: AtlasData;
   today: string;
   initialHash?: string;
+  option?: AtlasOption | null;
 }) {
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState(
@@ -149,9 +165,10 @@ export default function AtlasExplorer({
       document.getElementById(`atlas-node-${returnId}`)?.focus();
       return;
     }
+    if (option && view === "governance" && format === "circles") return;
     if (!selected) return;
     document.getElementById("record-title")?.focus();
-  }, [selected, view, format]);
+  }, [selected, view, format, option]);
   const formats: Format[] =
     view === "domains"
       ? ["outline", "table", "alignment"]
@@ -189,13 +206,24 @@ export default function AtlasExplorer({
     ) : null;
   return (
     <AtlasLookupsProvider value={lookups}>
-      <section className="relative z-2 pb-8" aria-labelledby="view-title">
+      <section
+        className={cn("relative z-2 pb-8", option && "atlas-opt")}
+        aria-labelledby="view-title"
+      >
         <div
           id="atlas-toolbar"
-          className="sticky top-15 z-20 -mx-4 mb-6 flex min-h-[68px] flex-wrap items-center gap-3 border-y border-ink/14 bg-paper/94 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:h-[68px] lg:flex-nowrap lg:py-0"
+          className={cn(
+            "z-20 -mx-4 mb-6 flex flex-wrap items-center gap-3 px-4 sm:-mx-6 sm:px-6",
+            option
+              ? "min-h-0"
+              : "sticky top-15 min-h-[68px] border-y border-ink/14 bg-paper/94 py-3 backdrop-blur-md lg:h-[68px] lg:flex-nowrap lg:py-0",
+          )}
         >
           <div
-            className='inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] [&_button]:min-h-11 [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-0 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]'
+            className={cn(
+              'inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] [&_button]:min-h-11 [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-0 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]',
+              option && "opt-views",
+            )}
             role="group"
             aria-label="Atlas view"
           >
@@ -218,48 +246,59 @@ export default function AtlasExplorer({
                 </button>
               ))}
           </div>
-          <label className="relative flex h-11 max-w-[340px] min-w-0 flex-[1_1_200px] items-center max-sm:order-first max-sm:max-w-none max-sm:basis-full [&_input]:h-11 [&_input]:w-full [&_input]:rounded-[10px] [&_input]:border [&_input]:border-ink/22 [&_input]:bg-white [&_input]:pr-3 [&_input]:pl-8 [&_input]:text-sm [&_input]:text-ink [&_input]:outline-none [&_input]:placeholder:text-muted-foreground [&_input:focus]:border-coral-dark [&_input:focus]:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-coral)_22%,transparent)]">
-            <svg
-              className="pointer-events-none absolute left-2.75 text-muted-foreground"
-              width="15"
-              height="15"
-              viewBox="0 0 16 16"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle
-                cx="7"
-                cy="7"
-                r="5.25"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-              <path
-                d="M11 11L14.5 14.5"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-            <span className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
-              Search this view
-            </span>
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder={
-                view === "people"
-                  ? "Search people or roles…"
-                  : view === "domains"
-                    ? "Search our work…"
-                    : "Search roles and circles…"
-              }
+          {option && view === "governance" ? (
+            <OptionSearch
+              records={data.governance}
+              query={query}
+              setQuery={setQuery}
             />
-          </label>
+          ) : (
+            <label className="relative flex h-11 max-w-[340px] min-w-0 flex-[1_1_200px] items-center max-sm:order-first max-sm:max-w-none max-sm:basis-full [&_input]:h-11 [&_input]:w-full [&_input]:rounded-[10px] [&_input]:border [&_input]:border-ink/22 [&_input]:bg-white [&_input]:pr-3 [&_input]:pl-8 [&_input]:text-sm [&_input]:text-ink [&_input]:outline-none [&_input]:placeholder:text-muted-foreground [&_input:focus]:border-coral-dark [&_input:focus]:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-coral)_22%,transparent)]">
+              <svg
+                className="pointer-events-none absolute left-2.75 text-muted-foreground"
+                width="15"
+                height="15"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="7"
+                  cy="7"
+                  r="5.25"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                />
+                <path
+                  d="M11 11L14.5 14.5"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
+                Search this view
+              </span>
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder={
+                  view === "people"
+                    ? "Search people or roles…"
+                    : view === "domains"
+                      ? "Search our work…"
+                      : "Search roles and circles…"
+                }
+              />
+            </label>
+          )}
           {view !== "people" && (
             <div
-              className='ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] [&_button]:min-h-11 [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-0 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]'
+              className={cn(
+                'ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] [&_button]:min-h-11 [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-0 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]',
+                option && "opt-display",
+              )}
               role="group"
               aria-label="Display"
             >
@@ -270,9 +309,7 @@ export default function AtlasExplorer({
                   aria-pressed={format === value}
                   onClick={() => navigate(view, value, selected)}
                 >
-                  {value === "outline"
-                    ? "Explorer"
-                    : value[0].toUpperCase() + value.slice(1)}
+                  {formatName(value, option)}
                 </button>
               ))}
             </div>
@@ -342,6 +379,8 @@ export default function AtlasExplorer({
               level.
             </p>
           </>
+        ) : format === "circles" && option ? (
+          <AtlasOptionView option={option} data={data} selected={selected} />
         ) : format === "circles" ? (
           <>
             <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">

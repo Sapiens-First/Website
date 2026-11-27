@@ -51,8 +51,8 @@ function layout(node: PackedNode) {
   }
   node.children.forEach(layout);
   const gap = node.children.every((child) => child.row.Type === "Role")
-    ? 5
-    : 12;
+    ? 8
+    : 14;
   const disks = node.children.map((child) => ({
     r: child.r + gap / 2,
     x: 0,
@@ -145,7 +145,7 @@ export function circleLayout(records: AtlasRow[]): CircleModel {
 
   function depths(node: PackedNode, depth: number) {
     node.depth = depth;
-    node.band = depth === 0 ? 16 : depth === 1 ? 24 : 21;
+    node.band = depth === 0 ? 16 : depth === 1 ? 30 : 26;
     node.children.forEach((child) => depths(child, depth + 1));
   }
   if (root) depths(root, 0);
@@ -166,7 +166,10 @@ export function circleLayout(records: AtlasRow[]): CircleModel {
     branch.kind = "branch";
     paint(branch, HUES[index % HUES.length]);
   });
-  if (anchor) anchor.kind = "anchor";
+  if (anchor) {
+    anchor.kind = "anchor";
+    anchor.hue = "#FFC928";
+  }
   function kinds(node: PackedNode) {
     if (
       node.kind !== "outer" &&

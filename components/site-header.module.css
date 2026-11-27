@@ -20,15 +20,12 @@
   transition:
     min-height 0.5s var(--ease),
     background-color 0.5s var(--ease),
-    border-color 0.5s var(--ease),
-    backdrop-filter 0.5s var(--ease);
+    border-color 0.5s var(--ease);
 }
 .header[data-scrolled] .bar {
   min-height: 3.75rem;
-  border-color: color-mix(in oklch, var(--color-ink) 8%, transparent);
-  background: color-mix(in oklch, var(--color-paper) 72%, transparent);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-color: var(--color-rule);
+  background-color: var(--color-background);
 }
 .header[data-open] .bar {
   background: var(--color-paper);

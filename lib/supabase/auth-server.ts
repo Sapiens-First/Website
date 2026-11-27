@@ -29,7 +29,12 @@ export function getAuthConfig() {
     throw new Error(
       "Set SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY before using authentication.",
     );
-  return { url, key, secure: new URL(getAppUrl()).protocol === "https:" };
+  const appUrl = process.env.APP_URL;
+  return {
+    url,
+    key,
+    secure: appUrl ? new URL(getAppUrl()).protocol === "https:" : true,
+  };
 }
 
 export async function createAuthSupabaseClient(readOnly = false) {

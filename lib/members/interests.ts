@@ -2,7 +2,9 @@ export type Interest = "start-a-circle" | "fellowship" | "membership";
 
 export function isInterest(value: unknown): value is Interest {
   return (
-    value === "start-a-circle" || value === "fellowship" || value === "membership"
+    value === "start-a-circle" ||
+    value === "fellowship" ||
+    value === "membership"
   );
 }
 
@@ -10,6 +12,7 @@ export function isInterest(value: unknown): value is Interest {
 export function memberReturnPath(value: unknown) {
   return value === "/membership" ||
     value === "/dashboard/profile" ||
+    value === "/atlas/me" ||
     value === "/circle?interest=confirm#signup" ||
     value === "/fellowship?interest=confirm#signup"
     ? value

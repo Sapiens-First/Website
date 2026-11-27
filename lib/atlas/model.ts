@@ -1,3 +1,10 @@
+export const REDACTED_ASSIGNEE = "Redacted";
+
+export function assigneeName(row: AtlasRow): string {
+  if (row.Assignee === REDACTED_ASSIGNEE) return REDACTED_ASSIGNEE;
+  return row["Person name"] || "";
+}
+
 export type AtlasRow = Record<string, string> & {
   ID: string;
   Name: string;
@@ -97,7 +104,7 @@ function createOwnership(data: AtlasData, today: string) {
         return { circleId, reason: "policy", note: circle["Coverage policy"] };
       if (!circle["Parent Circle ID"] && !circle["Circle Lead policy"])
         return { circleId, reason: "anchor" };
-      const names = circle["Display initials"];
+      const names = assigneeName(circle);
       if (names) return { circleId, reason: "assigned", names };
       circleId = circle["Parent Circle ID"];
     }
@@ -116,7 +123,7 @@ function createOwnership(data: AtlasData, today: string) {
       const owner = governance.get(ids[0]);
       if (owner?.Type === "Circle")
         return { ids, kind: "circle", coverage: circleCoverage(owner.ID) };
-      if (owner && !owner["Display initials"])
+      if (owner && !assigneeName(owner))
         return {
           ids,
           kind: "unfilled",

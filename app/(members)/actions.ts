@@ -4,6 +4,7 @@ import { isAuthSessionMissingError } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import { createAuthSupabaseClient } from "@/lib/supabase/auth-server";
 import { memberReturnPath } from "@/lib/members/interests";
+import { hasAcceptedAgreement } from "@/lib/members/agreement";
 import {
   isProfileComplete,
   profileFields,
@@ -39,7 +40,7 @@ export async function saveProfile(
         "Sign-in is temporarily unavailable. Your details haven’t been saved. Please try again.",
     };
   }
-  if (authError || !identity.user)
+  if (authError || !identity.user || identity.user.is_anonymous)
     redirect(`/join?next=${encodeURIComponent(next)}`);
   if (Object.keys(state.errors).length) return state;
 
@@ -47,7 +48,9 @@ export async function saveProfile(
     .from("profiles")
     .update(profileUpdate(state.values))
     .eq("id", identity.user.id)
-    .select("full_name,country_code,city,region,postal_code,phone,address")
+    .select(
+      "full_name,country_code,city,region,postal_code,phone,address,agreement_version",
+    )
     .single();
   if (error || !saved || !isProfileComplete(saved)) {
     return {
@@ -56,5 +59,7 @@ export async function saveProfile(
         "We couldn’t save your profile. Your details are still here; please try again.",
     };
   }
+  if (!hasAcceptedAgreement(saved))
+    redirect(`/agreement?next=${encodeURIComponent(next)}`);
   redirect(next === "/dashboard" ? "/dashboard?updated=profile" : next);
 }

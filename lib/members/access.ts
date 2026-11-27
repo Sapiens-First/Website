@@ -54,31 +54,23 @@ export async function requireAccountProfile(returnTo: string = "/dashboard") {
   const next = memberReturnPath(returnTo);
   const account = await getCurrentAccount();
   if (!account) redirect(`/join?next=${encodeURIComponent(next)}`);
-  return {
-    ...account,
-    profile: await readProfile(account.supabase, account.user.id, next),
-  };
-}
-
-async function readProfile(
-  supabase: SupabaseClient,
-  userId: string,
-  next: string,
-) {
-  const { data: profile, error } = await supabase
+  const { data: profile, error } = await account.supabase
     .from("profiles")
     .select(
       "id,full_name,country_code,city,region,postal_code,phone,address,agreement_version",
     )
-    .eq("id", userId)
+    .eq("id", account.user.id)
     .maybeSingle();
   if (error) throw new Error("Your account profile could not be loaded.");
   if (!profile)
     redirect(`/join?error=profile&next=${encodeURIComponent(next)}`);
-  return profile as { id: string; agreement_version: string | null } & Record<
-    ProfileField,
-    string | null
-  >;
+  return {
+    ...account,
+    profile: profile as {
+      id: string;
+      agreement_version: string | null;
+    } & Record<ProfileField, string | null>,
+  };
 }
 
 export const getMembershipAccess = cache(async (returnTo = "/dashboard") => {

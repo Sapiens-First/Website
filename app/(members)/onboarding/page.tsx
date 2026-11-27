@@ -10,6 +10,7 @@ import {
   isProfileComplete,
 } from "@/lib/members/profile";
 import { memberReturnPath } from "@/lib/members/interests";
+import { hasAcceptedAgreement } from "@/lib/members/agreement";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
@@ -24,12 +25,16 @@ export default async function OnboardingPage({
 }) {
   const next = memberReturnPath((await searchParams).next);
   const { user, profile } = await requireAccountProfile(next);
-  if (isProfileComplete(profile)) redirect(next);
+  if (isProfileComplete(profile))
+    redirect(
+      hasAcceptedAgreement(profile)
+        ? next
+        : `/agreement?next=${encodeURIComponent(next)}`,
+    );
   const countries = getProfileCountries();
   return (
     <OnboardingView
       email={user.email}
-      joining={next === "/dashboard"}
       next={next}
       initialValues={initialProfileValues(
         profile,

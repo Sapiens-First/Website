@@ -10,10 +10,9 @@ Supabase is the source for all data in Sapiens First. Staff can maintain Atlas's
 | `atlas_governance`                           | Circles, roles, responsibilities, and who fills them. `parent_circle_id` points to a circle. `profile_id` links to a member profile. | Approved edits                                                                                       |
 | `atlas_relationships`                        | Ownership, support, and succession between Atlas records, with optional dates and notes.                                             | Approved edits                                                                                       |
 | `profiles` and `auth.users`                  | Profile and sign-in data. `profiles.id` is the Auth user UUID.                                                                       | Use only a verified profile UUID for an assignment. Account changes go through the account workflow. |
-| `memberships` and `stripe_webhook_events`    | Legacy records awaiting separate database cleanup. The application no longer reads or writes them.                                   | Leave untouched during Atlas edits                                                                   |
 | `campaign_signatures` and `member_interests` | Campaign signatures and interest in membership, Fellowship, or starting a Circle.                                                    | Intake workflows only                                                                                |
 
-Membership is currently free. Dashboard access requires a verified sign-in, a complete profile and acceptance of the current member agreement. The historical database migrations remain until the separate schema cleanup.
+Membership is currently free. Dashboard access requires a verified sign-in, a complete profile and acceptance of the current member agreement.
 
 The public Atlas page reads active rows only and does not select `profile_id`, `display_initials`, `engagement_level`, or `assignment_basis`. Signed-out visitors see Redacted in place of a person. Full holder names are loaded only for a signed-in role holder, from `role_holders()`, and are not part of the shared Atlas cache. A role holder is someone with a current assignment. Keep personal contact details, private notes, and secrets out of Atlas. The profile and Auth tables have separate access rules. Atlas roles and the `Staff` engagement label describe contributions and grant no database permissions.
 
@@ -28,5 +27,5 @@ The exact columns, allowed values, and checks live in the [Atlas migration](../s
 ## Staff and agent workflow
 
 1. Find the exact rows. Use the Atlas record IDs and check the current values. For assignments, get the verified profile UUID from authorized staff. If anything is ambiguous, ask before editing.
-2. Edit only Atlas. Use an approved connection. For routine changes, use INSERT or UPDATE on the three Atlas tables. Keep accounts, intake, legacy records, and schema changes out of Atlas edits.
+2. Edit only Atlas. Use an approved connection. For routine changes, use INSERT or UPDATE on the three Atlas tables. Keep accounts, intake, and schema changes out of Atlas edits.
 3. Apply and verify. Update only the requested fields. Put related edits in one transaction, then re-read the affected rows to confirm the changes.

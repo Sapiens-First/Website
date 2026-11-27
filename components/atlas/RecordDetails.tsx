@@ -3,12 +3,14 @@ import { Fragment } from "react";
 import {
   isCurrent,
   parentField,
+  assigneeName,
   recordHref,
   type AtlasData,
   type AtlasRow,
   type Format,
 } from "@/lib/atlas/model";
 import { useAtlasLookups } from "@/components/atlas/AtlasLookupsContext";
+import AssigneeChip from "@/components/atlas/AssigneeChip";
 
 export { TypeIcon } from "@/components/atlas/TypeIcon";
 import { TypeIcon } from "@/components/atlas/TypeIcon";
@@ -32,14 +34,7 @@ export function RecordLink({
   );
 }
 function Assignee({ row }: { row: AtlasRow }) {
-  return row["Display initials"] ? (
-    <>
-      {row["Display initials"]}
-      {row["Engagement level"] && ` · ${row["Engagement level"]}`}
-    </>
-  ) : (
-    <>Unassigned</>
-  );
+  return <AssigneeChip row={row} />;
 }
 export function LinkedRecords({
   ids,
@@ -69,7 +64,7 @@ export function Ownership({ row, format }: { row: AtlasRow; format?: Format }) {
       <LinkedRecords ids={result.ids} format={format} />
       {result.ids.map((id) => {
         const owner = rowsById.get(id);
-        return owner?.["Display initials"] ? (
+        return owner && assigneeName(owner) ? (
           <p key={id} className={"mt-2 text-xs leading-relaxed text-ink"}>
             Energized by <Assignee row={owner} />
           </p>
@@ -99,13 +94,18 @@ export function Ownership({ row, format }: { row: AtlasRow; format?: Format }) {
               Coverage through <RecordLink id={coverage.circleId} />:{" "}
             </>
           )}
-          {coverage.reason === "assigned"
-            ? `Circle Lead — ${coverage.names}`
-            : coverage.reason === "anchor"
-              ? "The anchor circle has no default Circle Lead; a policy must establish coverage."
-              : coverage.reason === "policy"
-                ? `Governance policy: ${coverage.note}`
-                : "Circle Lead assignment is not recorded."}
+          {coverage.reason === "assigned" && rowsById.get(coverage.circleId) ? (
+            <>
+              Circle Lead —{" "}
+              <AssigneeChip row={rowsById.get(coverage.circleId)!} />
+            </>
+          ) : coverage.reason === "anchor" ? (
+            "The anchor circle has no default Circle Lead; a policy must establish coverage."
+          ) : coverage.reason === "policy" ? (
+            `Governance policy: ${coverage.note}`
+          ) : (
+            "Circle Lead assignment is not recorded."
+          )}
         </p>
       )}
     </>
@@ -124,6 +124,8 @@ export function extraFields(row: AtlasRow) {
     "Engagement level",
     "Definition note",
     "Assignment basis",
+    "Person name",
+    "Assignee",
   ]);
   const fields = Object.entries(row).filter(
     ([key, value]) =>

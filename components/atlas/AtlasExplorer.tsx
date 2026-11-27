@@ -25,39 +25,36 @@ import RecordDetails, {
   TypeIcon,
 } from "@/components/atlas/RecordDetails";
 import Circles from "@/components/atlas/Circles";
+import GovernancePanel from "@/components/atlas/GovernancePanel";
+import RoleIndex from "@/components/atlas/RoleIndex";
 import DomainOutline from "@/components/atlas/DomainOutline";
 import Alignment from "@/components/atlas/Alignment";
 import { AtlasLookupsProvider } from "@/components/atlas/AtlasLookupsContext";
+import { useHolders } from "@/components/atlas/Holders";
 import { AtlasTable, AtlasBadge } from "@/components/atlas/AtlasUi";
 import { cn } from "@/lib/cn";
 
 const getHash = () => window.location.hash;
-const getServerHash = () => "";
 const getToday = () => new Date().toISOString().slice(0, 10);
 const subscribeDate = (notify: () => void) => {
   const id = setInterval(notify, 60_000);
   return () => clearInterval(id);
 };
 const titles = {
-  governance: "Roles & circles",
+  governance: "Roles and circles",
   domains: "Our work",
   people: "People",
-};
-const descriptions = {
-  governance: "Explore roles, responsibilities, and access.",
-  domains: "See how our work connects to the mission.",
-  people:
-    "See who fills each role. Contributors are listed by their public initials.",
 };
 export default function AtlasExplorer({
   data,
   today: initialToday,
+  initialHash = "",
 }: {
   data: AtlasData;
   today: string;
+  initialHash?: string;
 }) {
   const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState("active");
   const [expanded, setExpanded] = useState(
     () =>
       new Set(
@@ -76,13 +73,20 @@ export default function AtlasExplorer({
     window.addEventListener("hashchange", handler);
     return () => window.removeEventListener("hashchange", handler);
   }, []);
-  const hash = useSyncExternalStore(subscribeHash, getHash, getServerHash);
+  const holders = useHolders();
+  const canSeePeople = holders !== null;
+  const hash = useSyncExternalStore(subscribeHash, getHash, () => initialHash);
   const today = useSyncExternalStore(
     subscribeDate,
     getToday,
     () => initialToday,
   );
-  const { view, format, selected } = parseLocation(hash, data);
+  const parsed = parseLocation(hash, data);
+  const view =
+    !canSeePeople && parsed.view === "people" ? "governance" : parsed.view;
+  const format =
+    !canSeePeople && parsed.view === "people" ? "circles" : parsed.format;
+  const { selected } = parsed;
   const group = view === "domains" ? "domains" : "governance";
   const normalizedQuery = query.trim().toLowerCase();
   const lookups = useMemo(() => createAtlasLookups(data, today), [data, today]);
@@ -91,23 +95,34 @@ export default function AtlasExplorer({
       ? (lookups.responsibilityByDomain.get(id)?.ids ?? [])
       : (lookups.domainsByOwner.get(id) ?? []);
   const records = data[group];
-  const matches = records.filter(
-    (row) =>
-      !(
-        view === "domains" &&
-        format === "table" &&
-        filter === "active" &&
-        row.Status !== "Active"
-      ) &&
-      [
-        ...Object.values(row),
-        ...owners(row.ID).map((id) => lookups.rowsById.get(id)?.Name || ""),
-      ]
-        .join(" ")
-        .toLowerCase()
-        .includes(normalizedQuery),
+  const matches = records.filter((row) =>
+    [
+      ...Object.values(row),
+      ...owners(row.ID).map((id) => lookups.rowsById.get(id)?.Name || ""),
+    ]
+      .join(" ")
+      .toLowerCase()
+      .includes(normalizedQuery),
   );
-  const { people } = data;
+  const people = (() => {
+    if (!holders) return [];
+    const byName = new Map<string, (typeof data.governance)[number][]>();
+    for (const row of data.governance) {
+      for (const name of holders[row.ID] ?? []) {
+        const roles = byName.get(name) ?? [];
+        roles.push(row);
+        byName.set(name, roles);
+      }
+    }
+    return [...byName.entries()]
+      .map(([name, roles]) => ({
+        id: roles[0]?.ID ?? name,
+        name,
+        level: "",
+        roles,
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+  })();
   const matchingPeople = people.filter((person) =>
     [person.name, person.level, ...person.roles.map((role) => role.Name)]
       .join(" ")
@@ -144,12 +159,16 @@ export default function AtlasExplorer({
         : format === "outline"
           ? normalizedQuery
             ? `${matches.length} matching domain records.`
-            : "Expand a branch to explore our work."
+            : "Open a branch to explore our work."
           : format === "alignment"
             ? "See which goals each project or program supports."
             : matches.length
-              ? `${matches.length} of ${view === "domains" && format === "table" && filter === "active" ? records.filter((row) => row.Status === "Active").length : records.length} ${group === "domains" ? "areas of work" : "roles and circles"}. Select a name to explore its connections.`
-              : "No matches. Try another search or choose All statuses.";
+              ? `${matches.length} of ${records.length} ${
+                  group === "domains"
+                    ? "areas of work. Select a name to explore its connections."
+                    : "roles and circles. Select a name to see how it connects."
+                }`
+              : "No matches. Try another search.";
   const detail =
     selected && view !== "people" ? (
       <RecordDetails
@@ -163,38 +182,35 @@ export default function AtlasExplorer({
     ) : null;
   return (
     <AtlasLookupsProvider value={lookups}>
-      <section
-        className="relative z-2 mx-auto w-full max-w-7xl border-b-2 border-ink px-3 pb-16 max-sm:scroll-mt-20 sm:px-6"
-        aria-labelledby="view-title"
-      >
-        <div className="sticky top-15 z-20 mb-1 flex flex-wrap items-center gap-2.5 border-b border-solid border-b-line bg-paper/96 px-0 py-3.5 backdrop-blur-[6px] max-md:static max-md:backdrop-blur-none max-sm:flex-col max-sm:items-stretch">
+      <section className="relative z-2 pb-8" aria-labelledby="view-title">
+        <div className="sticky top-15 z-20 -mx-4 mb-6 flex flex-wrap items-center gap-3 border-y border-ink/14 bg-paper/94 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:h-15 lg:flex-nowrap lg:py-0">
           <div
-            className={
-              'inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:px-2.5 max-md:[&_button]:py-2 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,var(--color-ink)_6%,transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(24,37,31,0.12)]'
-            }
+            className='inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] max-sm:w-full [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-1.5 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground max-sm:[&_button]:flex-1 [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]'
             role="group"
             aria-label="Atlas view"
           >
-            {(["governance", "domains", "people"] as View[]).map((value) => (
-              <button
-                type="button"
-                key={value}
-                aria-pressed={view === value}
-                onClick={() => navigate(value)}
-              >
-                <span>
-                  {value === "governance"
-                    ? "Roles"
-                    : value === "domains"
-                      ? "Domains"
-                      : "People"}
-                </span>
-              </button>
-            ))}
+            {(["governance", "domains", "people"] as View[])
+              .filter((value) => canSeePeople || value !== "people")
+              .map((value) => (
+                <button
+                  type="button"
+                  key={value}
+                  aria-pressed={view === value}
+                  onClick={() => navigate(value)}
+                >
+                  <span>
+                    {value === "governance"
+                      ? "Roles"
+                      : value === "domains"
+                        ? "Domains"
+                        : "People"}
+                  </span>
+                </button>
+              ))}
           </div>
-          <label className="relative flex max-w-sm min-w-0 flex-[1_1_240px] items-center max-md:-order-1 max-md:flex-none max-sm:max-w-none [&_input]:w-full [&_input]:rounded-md [&_input]:border [&_input]:border-solid [&_input]:border-line [&_input]:bg-white [&_input]:pt-2 [&_input]:pr-3 [&_input]:pb-2 [&_input]:pl-8 [&_input]:font-body [&_input]:text-sm [&_input]:text-ink [&_input]:[font:inherit] [&_input::placeholder]:text-ink [&_input:focus]:border-coral-dark [&_input:focus]:[box-shadow:0_0_0_3px_color-mix(in_srgb,var(--color-coral)_22%,transparent)] [&_input:focus]:outline-none">
+          <label className="relative flex h-9.5 max-w-[340px] min-w-0 flex-[1_1_200px] items-center max-sm:order-first max-sm:max-w-none max-sm:basis-full [&_input]:h-9.5 [&_input]:w-full [&_input]:rounded-[10px] [&_input]:border [&_input]:border-ink/22 [&_input]:bg-white [&_input]:pr-3 [&_input]:pl-8 [&_input]:text-sm [&_input]:text-ink [&_input]:outline-none [&_input]:placeholder:text-muted-foreground [&_input:focus]:border-coral-dark [&_input:focus]:shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-coral)_22%,transparent)]">
             <svg
-              className="pointer-events-none absolute left-2.75 text-ink"
+              className="pointer-events-none absolute left-2.75 text-muted-foreground"
               width="15"
               height="15"
               viewBox="0 0 16 16"
@@ -226,30 +242,14 @@ export default function AtlasExplorer({
                 view === "people"
                   ? "Search people or roles…"
                   : view === "domains"
-                    ? "Search domains…"
-                    : "Search roles, people…"
+                    ? "Search our work…"
+                    : "Search roles and circles…"
               }
             />
           </label>
-          {view === "domains" && format === "table" && (
-            <label className="[&_select]:cursor-pointer [&_select]:rounded-md [&_select]:border [&_select]:border-solid [&_select]:border-line [&_select]:bg-white [&_select]:pt-2 [&_select]:pr-7 [&_select]:pb-2 [&_select]:pl-3 [&_select]:font-body [&_select]:text-xs [&_select]:font-semibold [&_select]:text-ink [&_select]:[font:inherit] [&_select:focus-visible]:[outline:3px_solid_var(--color-coral-dark)] [&_select:focus-visible]:outline-offset-2">
-              <span className="absolute h-px w-px overflow-hidden [clip-path:inset(50%)]">
-                Show
-              </span>
-              <select
-                value={filter}
-                onChange={(event) => setFilter(event.target.value)}
-              >
-                <option value="active">Active work</option>
-                <option value="all">All statuses</option>
-              </select>
-            </label>
-          )}
           {view !== "people" && (
             <div
-              className={
-                'ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-lg border border-solid border-line bg-surface p-0.5 max-md:justify-between max-sm:ml-0 [&_button]:cursor-pointer [&_button]:rounded-sm [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3 [&_button]:py-1.5 [&_button]:font-body [&_button]:text-xs [&_button]:font-semibold [&_button]:text-ink [&_button]:[font:inherit] [&_button]:[transition:background-color_0.15s_ease,color_0.15s_ease] max-md:[&_button]:flex-1 max-md:[&_button]:text-center [&_button:hover]:text-ink [&_button:hover]:[background:color-mix(in_srgb,var(--color-ink)_6%,transparent)] [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:font-bold [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:[box-shadow:0_1px_2px_rgba(24,37,31,0.12)]'
-              }
+              className='ml-auto inline-flex shrink-0 items-center gap-0.5 rounded-[10px] bg-ink/5 p-[3px] [&_button]:cursor-pointer [&_button]:rounded-[7px] [&_button]:border-0 [&_button]:bg-transparent [&_button]:px-3.5 [&_button]:py-1.5 [&_button]:text-sm [&_button]:font-semibold [&_button]:text-muted-foreground [&_button[aria-pressed="true"]]:bg-white [&_button[aria-pressed="true"]]:text-ink [&_button[aria-pressed="true"]]:shadow-[0_1px_2px_rgba(24,37,31,0.12)]'
               role="group"
               aria-label="Display"
             >
@@ -268,19 +268,8 @@ export default function AtlasExplorer({
             </div>
           )}
         </div>
-        <div className="flex flex-wrap items-baseline gap-3.5 pt-4 pr-0 pb-4 pl-0 max-sm:flex-col max-sm:items-start max-sm:gap-1">
-          <p
-            id="view-title"
-            className="font-body text-xs font-extrabold tracking-wider text-ink uppercase"
-          >
-            {titles[view]}
-          </p>
-          <p className="min-w-0 flex-[1_1_auto] text-xs leading-normal text-ink">
-            {descriptions[view]}
-          </p>
-        </div>
         {view !== "people" && format === "table" && detail}
-        <p role="status" aria-live="polite" className="mb-3 text-xs text-ink">
+        <p id="view-title" role="status" aria-live="polite" className="sr-only">
           {status}
         </p>
         {view === "people" ? (
@@ -290,7 +279,7 @@ export default function AtlasExplorer({
                 <p>
                   {people.length
                     ? "No people match this search."
-                    : "No contributors have been assigned yet."}
+                    : "No one has been assigned to a role yet."}
                 </p>
               )}
               {matchingPeople.map((person) => (
@@ -306,9 +295,11 @@ export default function AtlasExplorer({
                     <TypeIcon type="Person" />
                     {person.name}
                   </h3>
-                  <AtlasBadge className="ml-2 align-middle">
-                    {person.level}
-                  </AtlasBadge>
+                  {person.level ? (
+                    <AtlasBadge className="ml-2 align-middle">
+                      {person.level}
+                    </AtlasBadge>
+                  ) : null}
                   {people.filter((other) => other.name === person.name).length >
                     1 && (
                     <p className={"mt-1.5 text-xs leading-normal text-ink"}>
@@ -336,25 +327,23 @@ export default function AtlasExplorer({
               ))}
             </div>
             <p className={"mt-5 max-w-4xl text-xs leading-relaxed text-ink"}>
-              Fellows can become Stewards after three months and graduation. A
-              “Steward” role title is separate from this engagement level.
+              Fellows can become Stewards after three months and graduation. The
+              role title &quot;Steward&quot; is not the same as this engagement
+              level.
             </p>
           </>
         ) : format === "circles" ? (
-          <div
-            className={cn(
-              "grid grid-cols-1 items-start gap-5",
-              selected && "xl:grid-cols-3 xl:*:first:col-span-2",
-            )}
-          >
-            <Circles
-              data={data}
-              selected={selected}
-              matches={matches}
-              query={normalizedQuery}
-            />
-            <div className={"min-w-0"}>{detail}</div>
-          </div>
+          <>
+            <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-10">
+              <Circles
+                data={data}
+                selected={selected}
+                query={normalizedQuery}
+              />
+              <GovernancePanel data={data} selected={selected} />
+            </div>
+            <RoleIndex data={data} />
+          </>
         ) : format === "outline" ? (
           <div
             data-selected={!!selected}

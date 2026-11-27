@@ -1,397 +1,488 @@
 "use client";
 
-import { Fragment, useEffect, useMemo, useState, type ReactNode } from "react";
-import { circleLayout } from "@/lib/atlas/circles";
-import type { AtlasData, AtlasRow, HierarchyNode } from "@/lib/atlas/model";
-import { TypeIcon } from "@/components/atlas/TypeIcon";
-import { RecordLink } from "@/components/atlas/RecordDetails";
-import { cn } from "@/lib/cn";
+import {
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import {
+  circleFill,
+  circleLayout,
+  circleStroke,
+  type PackedNode,
+} from "@/lib/atlas/circles";
+import type { AtlasData } from "@/lib/atlas/model";
 
-const palette = [
-  "#ffd0e3",
-  "#ffd5b5",
-  "#dfeca6",
-  "#c3deff",
-  "#dec8ff",
-  "#ffe99a",
-  "#ade5d1",
-  "#ffc6bb",
-];
 const url = (id: string) => `#governance/circles/${id}`;
-function lighten(hex: string, amount: number) {
-  const n = parseInt(hex.slice(1), 16);
-  const mix = (c: number) => Math.round(c + (255 - c) * amount);
-  return `rgb(${mix((n >> 16) & 255)}, ${mix((n >> 8) & 255)}, ${mix(n & 255)})`;
+
+function measure(text: string, size: number, weight: number) {
+  if (typeof document === "undefined") return text.length * size * 0.56;
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  if (!context) return text.length * size * 0.56;
+  context.font = `${weight} ${size}px "DM Sans", sans-serif`;
+  return context.measureText(text).width;
 }
-function chainFor(
-  node: HierarchyNode | undefined,
-  nodes: Map<string, HierarchyNode>,
-) {
-  const chain: HierarchyNode[] = [],
-    seen = new Set<string>();
-  while (node && !seen.has(node.row.ID)) {
-    seen.add(node.row.ID);
-    chain.unshift(node);
-    node = nodes.get(node.row["Parent Circle ID"]);
-  }
-  return chain;
-}
-function CircleChart({
-  focus,
-  nodes,
-  roots,
-  selected,
-  matches,
-  query,
-  className = "",
-  decorative = false,
-}: {
-  focus: HierarchyNode;
-  nodes: Map<string, HierarchyNode>;
-  roots: HierarchyNode[];
-  selected: string;
-  matches: AtlasRow[];
-  query: string;
-  className?: string;
-  decorative?: boolean;
-}) {
-  const chain = chainFor(focus, nodes),
-    scale = 440 / focus.r;
-  const matched = new Set(matches.map((row) => row.ID));
-  const order = (roots[0]?.children || []).map((child) => child.row.ID);
-  function draw(
-    node: HierarchyNode,
-    x: number,
-    y: number,
-    depth: number,
-  ): ReactNode {
-    const r = node.r * scale,
-      role = node.row.Type === "Role";
-    const lineage = chainFor(node, nodes);
-    const topId = lineage[1]?.row.ID;
-    const color =
-      palette[Math.max(0, order.indexOf(topId || "")) % palette.length];
-    const fill = role
-      ? "#fffdf5"
-      : topId
-        ? lighten(color, Math.min(0.5, (lineage.length - 2) * 0.16))
-        : "#fff3d6";
-    const fontSize = depth === 0 ? 19 : Math.max(11, Math.min(17, r / 4.4));
-    const limit = Math.max(10, Math.floor((r * 1.55) / (fontSize * 0.58)));
-    const lines: string[] = [];
-    let line = "";
-    for (const word of node.row.Name.split(/\s+/)) {
-      if (line && (line + " " + word).length > limit) {
-        lines.push(line);
-        line = word;
-      } else line += (line ? " " : "") + word;
+
+function wrap(text: string, size: number, maxWidth: number) {
+  const words = text.split(/\s+/);
+  const lines: string[] = [];
+  let line = "";
+  for (const word of words) {
+    const next = line ? `${line} ${word}` : word;
+    if (measure(next, size, 600) <= maxWidth) line = next;
+    else {
+      if (!line) return null;
+      lines.push(line);
+      line = word;
     }
-    if (line) lines.push(line);
-    const labelY =
-      node.children.length && !(chain.length === 1 && depth === 1)
-        ? y - r + 18
-        : y - (lines.length - 1) * fontSize * 0.58;
-    const width =
-      Math.max(...lines.map((value) => value.length)) * fontSize * 0.6 + 16;
-    return (
-      <g key={node.row.ID}>
-        <a
-          href={decorative ? undefined : url(node.row.ID)}
-          tabIndex={decorative ? -1 : 0}
-          aria-label={`${node.row.Type}: ${node.row.Name}${role ? ", view responsibilities" : ", explore circle"}`}
-          className={cn(
-            "peer/node cursor-pointer focus:outline-none focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-coral-dark hover:[&>circle]:stroke-coral-dark hover:[&>circle]:stroke-[3.5] focus-visible:[&>circle]:stroke-coral-dark focus-visible:[&>circle]:stroke-[3.5] max-md:hover:[&>circle]:stroke-[4.5] max-md:focus-visible:[&>circle]:stroke-[4.5]",
-            role &&
-              "hover:[&>circle]:[stroke-dasharray:none] focus-visible:[&>circle]:[stroke-dasharray:none]",
-            ((query && matched.has(node.row.ID)) || selected === node.row.ID) &&
-              "[&>circle]:stroke-coral-dark [&>circle]:stroke-[3.5] max-md:[&>circle]:stroke-[4.5]",
-          )}
-        >
-          <title>{node.row.Name}</title>
-          <circle
-            cx={x}
-            cy={y}
-            r={r}
-            fill={fill}
-            strokeWidth={depth === 0 ? 2 : 1.5}
-            stroke={role ? (topId ? color : "var(--color-muted-foreground)") : "#18251f"}
-            strokeDasharray={role ? "5 4" : undefined}
-          />
-        </a>
-        {(chain.length > 1 || depth === 0) &&
-          node.children.map((child) =>
-            draw(child, x + child.x * scale, y + child.y * scale, depth + 1),
-          )}
-        {depth <= 1 ? (
-          <g aria-hidden="true" pointerEvents="none">
-            {!role && (
-              <rect
-                x={x - width / 2}
-                y={labelY - fontSize}
-                width={width}
-                height={lines.length * fontSize * 1.15 + 8}
-                rx={10}
-                className="fill-[color-mix(in_srgb,var(--color-ink)_88%,transparent)]"
-                fill="#18251f"
-              />
-            )}
-            <text
-              x={x}
-              y={labelY}
-              fontSize={fontSize}
-              textAnchor="middle"
-              pointerEvents="none"
-              fontWeight={role ? 500 : 700}
-              className={cn("font-body", role ? "fill-ink" : "fill-paper")}
-            >
-              {lines.map((value, i) => (
-                <tspan key={i} x={x} dy={i ? fontSize * 1.15 : 0}>
-                  {value}
-                </tspan>
-              ))}
-            </text>
-          </g>
-        ) : (
-          <text
-            x={x}
-            y={y - r - 6}
-            textAnchor="middle"
-            fontSize={11}
-            pointerEvents="none"
-            className="fill-ink stroke-paper stroke-3 font-body font-semibold opacity-0 transition-opacity duration-150 [paint-order:stroke] [stroke-linejoin:round] peer-hover/node:opacity-100 peer-focus-visible/node:opacity-100"
-          >
-            {node.row.Name}
-          </text>
-        )}
-      </g>
-    );
   }
-  const parent = focus.row["Parent Circle ID"];
-  return (
-    <svg
-      viewBox="-470 -470 940 940"
-      role="group"
-      aria-label={`${focus.row.Name}: nested governance circles`}
-      aria-hidden={decorative || undefined}
-      className={cn(
-        "mx-auto my-1.5 block max-h-195 w-full origin-center overflow-visible transition-[opacity,transform] duration-420 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] motion-reduce:transition-none",
-        parent && "cursor-zoom-out",
-        className,
-        "motion-reduce:scale-100 motion-reduce:opacity-100",
-        decorative && "motion-reduce:hidden",
-      )}
-      onClick={(event) => {
-        if (
-          !decorative &&
-          event.target === event.currentTarget &&
-          parent &&
-          nodes.has(parent)
-        )
-          window.location.hash = url(parent);
-      }}
-    >
-      {draw(focus, 0, 0, 0)}
-    </svg>
-  );
+  if (line) lines.push(line);
+  return lines.every((item) => measure(item, size, 600) <= maxWidth)
+    ? lines
+    : null;
 }
+
+function focusOf(root: PackedNode | null, selected: PackedNode | undefined) {
+  if (!root) return null;
+  if (!selected || selected === root) return root;
+  if (selected.row.Type === "Role") return selected.parent ?? root;
+  return selected;
+}
+
+function viewFor(node: PackedNode, size: number): [number, number, number] {
+  return [node.x, node.y, Math.max(node.r * 2 * 1.04, size / 2.2)];
+}
+
 export default function Circles({
   data,
   selected,
-  matches,
   query,
 }: {
   data: AtlasData;
   selected: string;
-  matches: AtlasRow[];
   query: string;
 }) {
-  const layout = useMemo(
-    () =>
-      circleLayout(data.governance.filter((row) => row.Status !== "Retired")),
-    [data],
+  const model = useMemo(() => circleLayout(data.governance), [data.governance]);
+  const { root } = model;
+  const selectedNode = model.nodes.get(selected);
+  const focus = focusOf(root, selectedNode);
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState(720);
+  const [view, setView] = useState<[number, number, number] | null>(null);
+  const [tip, setTip] = useState<{ x: number; y: number; text: string } | null>(
+    null,
   );
-  const picked = layout.nodes.get(selected);
-  const focus =
-    picked?.row.Type === "Circle"
-      ? picked
-      : layout.nodes.get(picked?.row["Parent Circle ID"] || "") ||
-        layout.roots[0];
-  const chain = chainFor(focus, layout.nodes);
-  const [transition, setTransition] = useState<{
-    focus: HierarchyNode | undefined;
-    previous?: HierarchyNode;
-    entering: boolean;
-    inward: boolean;
-  }>({ focus, entering: false, inward: true });
-  if (transition.focus !== focus)
-    setTransition({
-      focus,
-      previous: transition.focus,
-      entering: true,
-      inward: chain.length >= chainFor(transition.focus, layout.nodes).length,
-    });
+  const reactId = useId();
+  const narrow = useSyncExternalStore(
+    (notify) => {
+      const query = window.matchMedia("(max-width: 639px)");
+      query.addEventListener("change", notify);
+      return () => query.removeEventListener("change", notify);
+    },
+    () => window.matchMedia("(max-width: 639px)").matches,
+    () => false,
+  );
+  const viewRef = useRef<[number, number, number] | null>(null);
+
   useEffect(() => {
-    if (!transition.entering) return;
-    let frame2 = 0;
-    const frame1 = requestAnimationFrame(() => {
-      frame2 = requestAnimationFrame(() =>
-        setTransition((state) => ({ ...state, entering: false })),
+    const element = chartRef.current;
+    if (!element) return;
+    const update = () => {
+      const width = element.clientWidth;
+      const next = Math.round(
+        window.innerWidth >= 1024
+          ? Math.min(width, Math.max(420, window.innerHeight - 190))
+          : width,
       );
-    });
-    return () => {
-      cancelAnimationFrame(frame1);
-      cancelAnimationFrame(frame2);
+      setSize(next);
     };
-  }, [transition.focus, transition.entering]);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
-    if (!transition.previous || transition.entering) return;
-    const timer = setTimeout(
-      () => setTransition((state) => ({ ...state, previous: undefined })),
-      500,
+    if (!focus || !size) return;
+    const target = viewFor(focus, size);
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const from = viewRef.current;
+    if (!from || reduce) {
+      viewRef.current = target;
+      setView(target);
+      return;
+    }
+    let frame = 0;
+    let started = 0;
+    const step = (now: number) => {
+      if (!started) started = now;
+      const t = Math.min(1, (now - started) / 480);
+      const eased = 1 - (1 - t) ** 3;
+      const width = Math.exp(
+        Math.log(from[2]) + (Math.log(target[2]) - Math.log(from[2])) * eased,
+      );
+      const next: [number, number, number] = [
+        from[0] + (target[0] - from[0]) * eased,
+        from[1] + (target[1] - from[1]) * eased,
+        width,
+      ];
+      viewRef.current = next;
+      setView(next);
+      if (t < 1) frame = requestAnimationFrame(step);
+    };
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [focus, size]);
+
+  if (!root || !focus) {
+    return (
+      <p>No root circle is recorded yet. Use the table to review the roles.</p>
     );
-    return () => clearTimeout(timer);
-  }, [transition.previous, transition.entering]);
-  const links = (nodes: HierarchyNode[]) => (
-    <ul>
-      {nodes.map((node) => (
-        <li key={node.row.ID}>
-          <RecordLink id={node.row.ID} format="circles" />
-          <span> · {node.row.Type}</span>
-        </li>
-      ))}
-    </ul>
+  }
+
+  const current = view ?? viewFor(focus, size || 640);
+  const scale = size > 0 ? size / current[2] : 1;
+  const trail = (() => {
+    const chain: PackedNode[] = [];
+    let node: PackedNode | undefined = selectedNode ?? focus;
+    const seen = new Set<string>();
+    while (node && !seen.has(node.row.ID)) {
+      seen.add(node.row.ID);
+      chain.unshift(node);
+      node = node.parent;
+    }
+    return chain;
+  })();
+  const zoomOut = focus.parent
+    ? focus.parent.kind === "outer"
+      ? "#governance/circles"
+      : url(focus.parent.row.ID)
+    : "";
+
+  function screen(node: PackedNode) {
+    return {
+      x: (node.x - current[0]) * scale + size / 2,
+      y: (node.y - current[1]) * scale + size / 2,
+      r: node.r * scale,
+    };
+  }
+
+  const nodes = [...model.nodes.values()].sort(
+    (a, b) => a.depth - b.depth || b.r - a.r,
   );
+  const queryText = query.trim().toLowerCase();
+  const showing = focus.depth > 0 ? focus.children : [];
+
   return (
-    <div className="min-w-0 rounded-lg border border-solid border-line bg-white p-4 max-md:p-2.5">
+    <div>
       <nav
-        className="font-body text-xs leading-loose font-bold tracking-normal wrap-anywhere text-ink [&_a]:text-inherit [&_a]:underline [&_a]:underline-offset-2 [&_a:hover]:text-coral-dark"
+        className="flex min-h-6 flex-wrap items-center gap-1.5 text-[13px] font-semibold text-muted-foreground"
         aria-label="Circle hierarchy"
       >
-        <a href="#governance/circles">All circles</a>
-        {chain.map((node, i) => (
-          <Fragment key={node.row.ID}>
-            <span className={"mx-2 my-0 font-normal text-ink"}>›</span>
-            {i === chain.length - 1 ? (
-              <span className={"font-extrabold text-ink"} aria-current="page">
-                {node.row.Name}
-              </span>
-            ) : (
-              <RecordLink id={node.row.ID} format="circles" />
-            )}
-          </Fragment>
-        ))}
-      </nav>
-      {layout.roots.length > 1 && (
-        <nav
-          className={
-            'mt-2.5 mr-0 mb-1 ml-0 flex flex-wrap items-center gap-2 [&_a]:rounded-full [&_a]:border [&_a]:border-solid [&_a]:border-line [&_a]:bg-white [&_a]:px-3 [&_a]:py-1 [&_a]:text-xs [&_a]:font-bold [&_a]:text-ink [&_a]:no-underline [&_a:hover]:border-coral-dark [&_a:hover]:text-coral-dark [&_a[aria-current="page"]]:border-ink [&_a[aria-current="page"]]:bg-ink [&_a[aria-current="page"]]:text-paper'
-          }
-          aria-label="Root circles"
-        >
-          <span
-            className={"text-xs font-bold tracking-wider text-ink uppercase"}
-          >
-            Root circles:
-          </span>
-          {layout.roots.map((node) => (
-            <a
+        {trail.map((node, index) => {
+          const label = node.depth === 0 ? "All circles" : node.row.Name;
+          const last = index === trail.length - 1;
+          return (
+            <span
               key={node.row.ID}
-              href={url(node.row.ID)}
-              aria-current={chain[0] === node ? "page" : undefined}
+              className="inline-flex items-center gap-1.5"
             >
-              <TypeIcon type="Circle" />
-              {node.row.Name}
-            </a>
-          ))}
-        </nav>
-      )}
-      {data.governance.some(
-        (row) => row.ID === selected && row.Status === "Retired",
-      ) && (
-        <p className={"mt-3 mr-0 mb-4 ml-0 text-xs leading-relaxed text-ink"}>
-          This record is retired. The map shows current roles and circles.
-        </p>
-      )}
-      {query && (
-        <div className="mt-3.5 rounded-lg bg-soft p-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_ul]:list-none [&_ul]:pl-0">
-          <p>
-            {matches.length} search{" "}
-            {matches.length === 1 ? "result" : "results"}
+              {index > 0 && (
+                <span aria-hidden="true" className="opacity-50">
+                  ›
+                </span>
+              )}
+              {last ? (
+                <span className="font-bold text-ink" aria-current="page">
+                  {label}
+                </span>
+              ) : (
+                <a
+                  href={
+                    node.depth === 0 ? "#governance/circles" : url(node.row.ID)
+                  }
+                  className="text-muted-foreground underline decoration-ink/22 underline-offset-[3px] hover:text-coral-dark"
+                >
+                  {label}
+                </a>
+              )}
+            </span>
+          );
+        })}
+      </nav>
+      <div
+        ref={chartRef}
+        id="atlas-chart"
+        className="relative mt-2 overflow-hidden"
+      >
+        {size > 0 && (
+          <svg
+            width={size}
+            height={size}
+            viewBox={`0 0 ${size} ${size}`}
+            role="group"
+            aria-label={`${root.row.Name}: nested governance circles`}
+            className="mx-auto block touch-manipulation"
+            onClick={() => {
+              if (zoomOut) window.location.hash = zoomOut;
+            }}
+          >
+            <defs>
+              {nodes
+                .filter((node) => node.kind !== "role")
+                .map((node) => {
+                  const point = screen(node);
+                  const band = node.band * scale;
+                  const fontSize = band >= 26 ? 12 : 11;
+                  const arcRadius =
+                    point.r - Math.min(band, 30) / 2 - fontSize * 0.35;
+                  const arcWidth =
+                    measure(node.row.Name.toUpperCase(), fontSize, 700) * 1.12;
+                  const arcOk =
+                    band >= 12 &&
+                    arcWidth < Math.PI * Math.max(arcRadius, 0) * 0.72 &&
+                    point.r > 20;
+                  const flat =
+                    !arcOk &&
+                    (node.depth === 0 ||
+                      (point.r > 12 &&
+                        (node.depth === 1 || node.parent === focus)));
+                  if (!arcOk && !flat) return null;
+                  return (
+                    <path
+                      key={node.row.ID}
+                      id={`${reactId}-arc-${node.row.ID}`}
+                      d={
+                        flat
+                          ? `M ${point.x - 200} ${point.y - point.r - 7} L ${point.x + 200} ${point.y - point.r - 7}`
+                          : `M ${point.x - arcRadius} ${point.y} A ${arcRadius} ${arcRadius} 0 0 1 ${point.x + arcRadius} ${point.y}`
+                      }
+                      fill="none"
+                    />
+                  );
+                })}
+            </defs>
+            {nodes.map((node) => {
+              const point = screen(node);
+              if (point.r < 1) return null;
+              const role = node.kind === "role";
+              const band = node.band * scale;
+              const fontSize = band >= 26 ? 12 : 11;
+              const arcRadius =
+                point.r - Math.min(band, 30) / 2 - fontSize * 0.35;
+              const arcWidth =
+                measure(node.row.Name.toUpperCase(), fontSize, 700) * 1.12;
+              const arcOk =
+                !role &&
+                band >= 12 &&
+                arcWidth < Math.PI * arcRadius * 0.72 &&
+                point.r > 20;
+              const flat =
+                !role &&
+                !arcOk &&
+                (node.depth === 0 ||
+                  (point.r > 12 &&
+                    (node.depth === 1 || node.parent === focus)));
+              const sizes = narrow ? [13, 12, 11, 10] : [14, 13, 12, 11];
+              let lines: string[] | null = null;
+              let labelSize = 0;
+              if (role && focus.depth > 0 && point.r >= 22) {
+                for (const sizeOption of sizes) {
+                  const wrapped = wrap(
+                    node.row.Name,
+                    sizeOption,
+                    point.r * (sizeOption <= 10 ? 1.98 : 1.9),
+                  );
+                  if (
+                    wrapped &&
+                    wrapped.length * sizeOption * 1.15 <= point.r * 1.55
+                  ) {
+                    lines = wrapped;
+                    labelSize = sizeOption;
+                    break;
+                  }
+                }
+              }
+              const dim =
+                role &&
+                queryText &&
+                ![node.row.Name, node.row.Purpose, node.row.Accountabilities]
+                  .join(" ")
+                  .toLowerCase()
+                  .includes(queryText);
+              const showRing = selectedNode === node && node !== focus;
+              const labelHidden = role ? !lines : !(arcOk || flat);
+              return (
+                <g
+                  key={node.row.ID}
+                  className={dim ? "opacity-28" : undefined}
+                  onClick={(event) => {
+                    if (node.depth === 0) return;
+                    event.stopPropagation();
+                  }}
+                >
+                  {node.depth > 0 ? (
+                    <a
+                      href={url(node.row.ID)}
+                      role="button"
+                      aria-label={`${node.row.Type}: ${node.row.Name}${role ? ", view responsibilities" : ", explore circle"}`}
+                      aria-pressed={selectedNode === node}
+                      className="cursor-pointer focus:outline-none focus-visible:[&_.ring]:opacity-100"
+                      onMouseEnter={(event) => {
+                        if (!labelHidden) return;
+                        const bounds =
+                          chartRef.current?.getBoundingClientRect();
+                        if (!bounds) return;
+                        setTip({
+                          x: event.clientX - bounds.left,
+                          y: event.clientY - bounds.top - point.r - 8,
+                          text: node.row.Name,
+                        });
+                      }}
+                      onMouseLeave={() => setTip(null)}
+                      onFocus={() => {
+                        if (!labelHidden) return;
+                        setTip({
+                          x: point.x,
+                          y: point.y - point.r - 8,
+                          text: node.row.Name,
+                        });
+                      }}
+                      onBlur={() => setTip(null)}
+                    >
+                      <circle
+                        cx={point.x}
+                        cy={point.y}
+                        r={point.r}
+                        fill={circleFill(node)}
+                        stroke={circleStroke(node)}
+                        strokeWidth={1.25}
+                        className="hover:stroke-ink"
+                      />
+                      <circle
+                        cx={point.x}
+                        cy={point.y}
+                        r={point.r + 4}
+                        fill="none"
+                        stroke="var(--color-coral-dark)"
+                        strokeWidth={2.5}
+                        strokeDasharray={showRing ? undefined : "4 3"}
+                        opacity={showRing ? 1 : 0}
+                        className="pointer-events-none ring"
+                      />
+                    </a>
+                  ) : (
+                    <circle
+                      cx={point.x}
+                      cy={point.y}
+                      r={point.r}
+                      fill={circleFill(node)}
+                      stroke={circleStroke(node)}
+                      strokeWidth={1.25}
+                    />
+                  )}
+                  {role && lines && (
+                    <text
+                      className="pointer-events-none fill-ink font-body font-semibold"
+                      fontSize={labelSize}
+                      textAnchor="middle"
+                    >
+                      {lines.map((line, index) => (
+                        <tspan
+                          key={line}
+                          x={point.x}
+                          y={
+                            point.y +
+                            (index - (lines.length - 1) / 2) * labelSize * 1.15
+                          }
+                        >
+                          {line}
+                        </tspan>
+                      ))}
+                    </text>
+                  )}
+                  {!role && (arcOk || flat) && (
+                    <text
+                      className={
+                        flat
+                          ? "pointer-events-none fill-ink stroke-paper stroke-4 font-body font-bold uppercase [paint-order:stroke]"
+                          : "pointer-events-none fill-ink font-body font-bold tracking-[0.08em] uppercase"
+                      }
+                      fontSize={fontSize}
+                      fill={
+                        node.depth === 0
+                          ? "var(--color-muted-foreground)"
+                          : "var(--color-ink)"
+                      }
+                    >
+                      <textPath
+                        href={`#${reactId}-arc-${node.row.ID}`}
+                        startOffset="50%"
+                        textAnchor="middle"
+                      >
+                        {node.row.Name}
+                      </textPath>
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+          </svg>
+        )}
+        {tip && (
+          <div
+            className="pointer-events-none absolute rounded-md bg-ink px-2 py-1 text-xs font-semibold text-paper"
+            style={{
+              left: tip.x,
+              top: tip.y,
+              transform: "translate(-50%, -100%)",
+            }}
+          >
+            {tip.text}
+          </div>
+        )}
+      </div>
+      {showing.length > 0 && (
+        <div className="mt-3.5">
+          <p className="mb-2 text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
+            Inside {focus.row.Name} ({showing.length})
           </p>
-          <ul>
-            {matches.map((row) => (
-              <li key={row.ID}>
-                <RecordLink id={row.ID} format="circles" />
-              </li>
+          <div className="flex flex-wrap gap-1.5">
+            {showing.map((child) => (
+              <a
+                key={child.row.ID}
+                href={url(child.row.ID)}
+                aria-current={selectedNode === child ? "true" : undefined}
+                className={
+                  selectedNode === child
+                    ? "rounded-full border border-coral-dark px-3 py-1.5 text-[13px] font-semibold text-coral-dark ring-1 ring-coral-dark"
+                    : "rounded-full border border-ink/22 bg-white px-3 py-1.5 text-[13px] font-semibold text-ink hover:border-ink"
+                }
+                style={
+                  child.row.Type === "Circle"
+                    ? {
+                        background: `color-mix(in srgb, ${child.hue} 10%, white)`,
+                        borderColor: `color-mix(in srgb, ${child.hue} 45%, transparent)`,
+                      }
+                    : undefined
+                }
+              >
+                {child.row.Name}
+              </a>
             ))}
-          </ul>
+          </div>
         </div>
       )}
-      {focus ? (
-        <>
-          <div className={"relative overflow-clip"}>
-            <CircleChart
-              {...layout}
-              focus={focus}
-              selected={selected}
-              matches={matches}
-              query={query}
-              className={
-                transition.entering
-                  ? transition.inward
-                    ? "scale-82 opacity-0"
-                    : "scale-120 opacity-0"
-                  : ""
-              }
-            />
-            {transition.previous && (
-              <CircleChart
-                {...layout}
-                focus={transition.previous}
-                selected=""
-                matches={[]}
-                query=""
-                decorative
-                className={cn(
-                  "pointer-events-none absolute inset-0",
-                  !transition.entering &&
-                    (transition.inward
-                      ? "scale-132 opacity-0"
-                      : "scale-72 opacity-0"),
-                )}
-              />
-            )}
-          </div>
-          <p className={"mt-3 mr-0 mb-4 ml-0 text-xs leading-relaxed text-ink"}>
-            {focus.children.length
-              ? "Select a circle to explore it, or a role to read its responsibilities. Sizes show containment, not importance."
-              : "No roles or subcircles are recorded inside this circle yet."}
-          </p>
-          <details className="border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0">
-            <summary>
-              Inside {focus.row.Name} ({focus.children.length})
-            </summary>
-            {links(focus.children)}
-          </details>
-        </>
-      ) : (
-        <p>
-          No root circle is recorded yet. Use the table to review the governance
-          records.
-        </p>
-      )}
-      {layout.unplaced.length > 0 && (
-        <details className="border-t border-solid border-t-rule px-0 py-3.5 [&_a]:flex [&_a]:items-center [&_a]:gap-2 [&_a]:rounded-md [&_a]:px-1.5 [&_a]:py-1.5 [&_a:hover]:bg-surface [&_a:hover]:text-coral-dark [&_li]:mt-0.5 [&_li]:text-sm [&_p]:mt-2.5 [&_p]:text-xs [&_p]:leading-relaxed [&_p]:text-ink [&_summary]:flex [&_summary]:items-center [&_summary_>_span:first-child]:text-xs [&_summary_>_span:first-child]:font-bold [&_summary_>_span:first-child]:no-underline [&_ul]:list-none [&_ul]:pl-0">
-          <summary>
-            <span>Circle not assigned</span>{" "}
-            <span className="inline-block rounded-full border border-solid border-line bg-soft px-2 py-1 text-xs leading-none font-bold text-ink">
-              {layout.unplaced.length}
-            </span>
-          </summary>
-          <p>These roles have no assigned circle.</p>
-          {links(layout.unplaced)}
-        </details>
-      )}
+      <p className="mt-2.5 text-[13px] text-muted-foreground">
+        Select a circle to open it, or a role to read its responsibilities. Size
+        shows nesting, not importance.
+      </p>
     </div>
   );
 }

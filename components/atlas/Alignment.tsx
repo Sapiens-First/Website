@@ -46,9 +46,12 @@ export default function Alignment({
         <div
           className={"max-w-2xl px-2 py-8 [&_p]:text-sm [&_p]:leading-relaxed"}
         >
-          <p>No cross-cutting relationships are recorded yet.</p>
+          <p>
+            No links between projects or programs and the goals they support
+            have been recorded yet.
+          </p>
           <p className={"mt-2.5 text-xs text-ink"}>
-            This view connects projects and programs to the goals they support.
+            This view shows those links.
           </p>
         </div>
       ) : (
@@ -134,7 +137,7 @@ export default function Alignment({
           </div>
           <p className={"mt-3 text-xs leading-relaxed text-ink"}>
             Select a name to read its details. Select a column to highlight
-            everything supporting that priority.
+            everything that supports that priority.
           </p>
         </>
       )}

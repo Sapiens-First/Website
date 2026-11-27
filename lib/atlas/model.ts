@@ -22,7 +22,8 @@ export type Relationship = Record<string, string> & {
 };
 type Group = "domains" | "governance";
 export type View = Group | "people";
-export type Format = "circles" | "outline" | "table" | "alignment";
+export type Format =
+  "circles" | "outline" | "table" | "alignment" | "chart" | "quiet";
 export interface AtlasData {
   domains: AtlasRow[];
   governance: AtlasRow[];
@@ -35,7 +36,7 @@ interface Location {
   selected: string;
 }
 export const defaultFormat = (view: View): Format =>
-  view === "domains" ? "outline" : "circles";
+  view === "domains" ? "outline" : "chart";
 export const parentField = (group: Group) =>
   group === "domains" ? "Parent ID" : "Parent Circle ID";
 export function parseLocation(hash: string, data: AtlasData): Location {
@@ -47,9 +48,14 @@ export function parseLocation(hash: string, data: AtlasData): Location {
         ? "domains"
         : "governance";
   const marker = parts[1] === "tree" ? "outline" : parts[1];
-  const hasFormat = ["circles", "outline", "table", "alignment"].includes(
-    marker,
-  );
+  const hasFormat = [
+    "circles",
+    "outline",
+    "table",
+    "alignment",
+    "chart",
+    "quiet",
+  ].includes(marker);
   const selected =
     view === "people" ? "" : (hasFormat ? parts[2] : parts[1]) || "";
   if (view !== "people") {
@@ -59,7 +65,7 @@ export function parseLocation(hash: string, data: AtlasData): Location {
   const allowed =
     view === "domains"
       ? ["outline", "table", "alignment"]
-      : ["circles", "table"];
+      : ["chart", "circles", "quiet", "table"];
   const format = allowed.includes(marker)
     ? (marker as Format)
     : defaultFormat(view);

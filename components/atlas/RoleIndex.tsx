@@ -33,7 +33,7 @@ function rows(node: PackedNode): ReactNode[] {
             <a
               href={url(child.row.ID)}
               onClick={scrollToChart}
-              className="inline-block py-1 text-[15px] text-ink hover:text-coral-dark hover:underline hover:underline-offset-[3px]"
+              className="flex min-h-11 items-center text-base text-ink underline decoration-ink/22 underline-offset-4 hover:text-coral-dark"
             >
               {child.row.Name}
             </a>
@@ -47,6 +47,7 @@ export default function RoleIndex({ data }: { data: AtlasData }) {
   if (!model.branches.length && !model.unplaced.length) return null;
   return (
     <section
+      id="atlas-index"
       className="border-t border-ink/14 pt-8 pb-8"
       aria-labelledby="idx-title"
     >
@@ -94,7 +95,7 @@ export default function RoleIndex({ data }: { data: AtlasData }) {
                   <a
                     href={url(node.row.ID)}
                     onClick={scrollToChart}
-                    className="inline-block py-1 text-[15px]"
+                    className="flex min-h-11 items-center text-base underline decoration-ink/22 underline-offset-4"
                   >
                     {node.row.Name}
                   </a>

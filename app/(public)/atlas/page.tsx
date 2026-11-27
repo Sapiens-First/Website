@@ -4,7 +4,7 @@ import { Kicker } from "@/components/ui/Text";
 import { pageMetadata } from "@/lib/site";
 import { loadPublicAtlas } from "@/lib/atlas/data";
 import AtlasExplorer from "@/components/atlas/AtlasExplorer";
-import { HoldersProvider } from "@/components/atlas/Holders";
+import { AtlasRolesLink, HoldersProvider } from "@/components/atlas/Holders";
 
 export const metadata: Metadata = pageMetadata({
   title: "Atlas",
@@ -34,7 +34,8 @@ export default async function Page() {
   return (
     <>
       <main className="mx-auto w-full max-w-[1200px] px-4 pb-8 **:focus-visible:outline-[3px] **:focus-visible:outline-offset-2 **:focus-visible:outline-coral-dark sm:px-6 [&_#record-title]:focus-visible:outline-none [&_a]:underline-offset-2">
-        <section className="pt-10 pb-6" aria-labelledby="atlas-title">
+        <HoldersProvider>
+        <section id="atlas-hero" className="pt-10 pb-6" aria-labelledby="atlas-title">
           <Kicker className="mb-3.5">Atlas</Kicker>
           <h1
             id="atlas-title"
@@ -43,7 +44,8 @@ export default async function Page() {
             How the movement works.
           </h1>
           <p className="max-w-[56ch] text-lg text-ink">
-            Goals, circles, roles, projects and the people behind them.
+            Our circles and roles, and what each one is for. Signed-in members
+            can also see who fills each role.
             {mission ? (
               <span className="mt-1.5 block text-sm text-muted-foreground">
                 Our mission: {mission}
@@ -84,16 +86,10 @@ export default async function Page() {
                 formal Holacracy authority or system access.
               </p>
             </details>
-            <a
-              href="/atlas/me"
-              className="text-sm font-semibold text-ink underline underline-offset-2"
-            >
-              Sign in to see your roles →
-            </a>
+            <AtlasRolesLink />
           </div>
         </section>
 
-        <HoldersProvider>
           <AtlasExplorer
             data={data}
             today={new Date().toISOString().slice(0, 10)}

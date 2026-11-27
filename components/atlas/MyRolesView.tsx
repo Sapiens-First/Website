@@ -1,13 +1,55 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { signOut } from "@/app/auth/actions";
 import { Kicker } from "@/components/ui/Text";
 import type { MyRole } from "@/lib/atlas/me";
 
-function countItems(value: string) {
-  return value
+function Duties({
+  id,
+  accountabilities,
+}: {
+  id: string;
+  accountabilities: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const entries = accountabilities
     .split(/\n|;\s*/)
     .map((item) => item.trim())
-    .filter(Boolean).length;
+    .filter(Boolean);
+  const listId = `duties-${id}`;
+  return (
+    <div>
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={listId}
+        className="inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-ink"
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span
+          className={open ? "inline-block rotate-90" : "inline-block"}
+          aria-hidden="true"
+        >
+          ›
+        </span>
+        {entries.length} accountabilities
+      </button>
+      {open && (
+        <ul id={listId} className="m-0 list-none p-0">
+          {entries.map((entry) => (
+            <li
+              key={entry}
+              className="relative mt-2 pl-4.5 text-[15px] leading-normal text-ink before:absolute before:top-[0.7em] before:left-0.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-ink/40"
+            >
+              {entry}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
 
 export default function MyRolesView({
@@ -56,6 +98,10 @@ export default function MyRolesView({
             Your roles{" "}
             <span className="text-muted-foreground">({roles.length})</span>
           </h1>
+          <p className="mt-2 text-lg text-ink">
+            These are the roles you fill. Select one to read its purpose and
+            responsibilities.
+          </p>
           <p className="mt-2 text-lg text-ink">Hi {first}.</p>
         </div>
         <div className="flex items-center gap-3">
@@ -69,7 +115,7 @@ export default function MyRolesView({
               <form action={signOut} className="inline">
                 <button
                   type="submit"
-                  className="cursor-pointer font-semibold underline underline-offset-2"
+                  className="inline-flex min-h-11 cursor-pointer items-center font-semibold underline underline-offset-2"
                 >
                   Sign out
                 </button>
@@ -116,15 +162,15 @@ export default function MyRolesView({
       ) : (
         <>
           {!single && (
-            <div className="flex min-h-15 items-center gap-3 overflow-x-auto border-y border-ink/14 py-3">
-              <div className="flex min-w-0 flex-1 gap-2">
+            <div className="flex min-h-15 flex-wrap items-center gap-2 border-y border-ink/14 py-3">
+              <div className="flex min-w-0 flex-1 flex-wrap gap-2">
                 {ordered.map((group) => {
                   const circle = group[0];
                   return (
                     <a
                       key={circle.circleId || circle.governanceId}
                       href={`#circle-${circle.circleId || circle.governanceId}`}
-                      className="inline-flex shrink-0 items-center gap-2 rounded-full border border-ink/22 bg-white px-3 py-1.5 text-[13px] font-semibold no-underline"
+                      className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-full border border-ink/22 bg-white px-4 text-sm font-semibold no-underline"
                     >
                       <span
                         className="h-2.5 w-2.5 rounded-full"
@@ -153,20 +199,20 @@ export default function MyRolesView({
               return (
                 <section key={groupId} id={`circle-${groupId}`}>
                   {!single && (
-                    <div className="mb-3 flex items-baseline justify-between gap-3">
+                    <div className="mb-3 grid grid-cols-[1fr_auto] items-baseline gap-x-3 gap-y-1">
                       <h2 className="m-0 flex items-center gap-2 text-[13px] font-bold tracking-[0.1em] uppercase">
                         <span
                           className="h-2.5 w-2.5 rounded-full"
                           style={{ background: circle.hue }}
                         />
                         {circle.circleName || "Circle"}
-                        {circle.parentName && (
-                          <span className="font-semibold tracking-normal text-muted-foreground normal-case">
-                            in {circle.parentName}
-                          </span>
-                        )}
                       </h2>
-                      <p className="m-0 text-[13px] text-muted-foreground">
+                      {circle.parentName && (
+                        <p className="col-span-2 m-0 font-semibold text-muted-foreground normal-case">
+                          in {circle.parentName}
+                        </p>
+                      )}
+                      <p className="col-start-2 row-start-1 m-0 text-[13px] text-muted-foreground">
                         {group.length} {group.length === 1 ? "role" : "roles"}
                       </p>
                     </div>
@@ -201,16 +247,16 @@ export default function MyRolesView({
                         <p className="m-0 text-[15px] leading-normal">
                           {role.purpose || "Purpose not documented."}
                         </p>
-                        <div className="mt-1 flex flex-wrap items-center justify-between gap-3 border-t border-ink/14 pt-3 text-[13px] text-muted-foreground">
-                          <p className="m-0">
-                            {countItems(role.accountabilities)} accountabilities
-                            {" · "}
-                            {countItems(role.privileges)} privileges
-                          </p>
-                          <p className="relative z-1 m-0 flex gap-3 font-semibold">
+                        <div className="relative z-1 mt-1 flex w-full flex-col gap-2 border-t border-ink/14 pt-3 text-[13px] text-muted-foreground max-sm:justify-between sm:flex-row sm:items-center">
+                          <Duties
+                            id={role.governanceId}
+                            accountabilities={role.accountabilities}
+                          />
+                          <p className="m-0 flex w-full items-center justify-between gap-3 font-semibold sm:w-auto">
                             <Link
                               href={`/atlas#governance/circles/${role.governanceId}`}
-                              className="text-ink underline underline-offset-2"
+                              aria-label={`Show ${role.name} on the map`}
+                              className="inline-flex min-h-11 items-center text-ink underline underline-offset-2"
                             >
                               Show on map
                             </Link>
@@ -219,7 +265,8 @@ export default function MyRolesView({
                                 href={role.clickupUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-ink underline underline-offset-2"
+                                aria-label={`Full details for ${role.name} in ClickUp (opens in a new tab)`}
+                                className="inline-flex min-h-11 items-center text-ink underline underline-offset-2"
                               >
                                 Full details in ClickUp ↗
                               </a>

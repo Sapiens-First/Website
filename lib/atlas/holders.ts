@@ -7,14 +7,15 @@ import { getPublicAccount } from "@/lib/members/access";
  * Calls role_holders() with the user's session. Until that function exists,
  * this returns null and the map stays Redacted. Never returns emails or ids.
  */
-export async function loadHolderNames(): Promise<Record<
-  string,
-  string[]
-> | null> {
-  const { account } = await getPublicAccount();
-  if (!account) return null;
+export async function loadHolderNames(): Promise<{
+  signedIn: boolean;
+  names: Record<string, string[]> | null;
+}> {
+  const { account, unavailable } = await getPublicAccount();
+  if (unavailable || !account) return { signedIn: false, names: null };
   const { data, error } = await account.supabase.rpc("role_holders");
-  if (error || !Array.isArray(data) || data.length === 0) return null;
+  if (error || !Array.isArray(data) || data.length === 0)
+    return { signedIn: true, names: null };
 
   const names: Record<string, string[]> = {};
   for (const row of data) {
@@ -29,5 +30,8 @@ export async function loadHolderNames(): Promise<Record<
     if (!list.includes(cleaned)) list.push(cleaned);
     names[id] = list;
   }
-  return Object.keys(names).length ? names : null;
+  return {
+    signedIn: true,
+    names: Object.keys(names).length ? names : null,
+  };
 }

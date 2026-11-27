@@ -14,6 +14,7 @@ import {
   circleStroke,
   type PackedNode,
 } from "@/lib/atlas/circles";
+import { useHolders } from "@/components/atlas/Holders";
 import type { AtlasData } from "@/lib/atlas/model";
 
 const url = (id: string) => `#governance/circles/${id}`;
@@ -46,6 +47,26 @@ function wrap(text: string, size: number, maxWidth: number) {
     : null;
 }
 
+function pathFor(node: PackedNode) {
+  const names: string[] = [];
+  let current = node.parent;
+  while (current && current.kind !== "outer") {
+    names.unshift(current.row.Name);
+    current = current.parent;
+  }
+  return names.join(" › ");
+}
+
+function matchesQuery(
+  node: PackedNode,
+  queryText: string,
+  holders: Record<string, string[]> | null,
+) {
+  const fields = [node.row.Name, node.row.Purpose, node.row.Accountabilities];
+  if (holders) fields.push(...(holders[node.row.ID] ?? []));
+  return fields.join(" ").toLowerCase().includes(queryText);
+}
+
 function focusOf(root: PackedNode | null, selected: PackedNode | undefined) {
   if (!root) return null;
   if (!selected || selected === root) return root;
@@ -66,6 +87,7 @@ export default function Circles({
   selected: string;
   query: string;
 }) {
+  const holders = useHolders();
   const model = useMemo(() => circleLayout(data.governance), [data.governance]);
   const { root } = model;
   const selectedNode = model.nodes.get(selected);
@@ -140,6 +162,14 @@ export default function Circles({
     return () => cancelAnimationFrame(frame);
   }, [focus, size]);
 
+  const statusText = !focus
+    ? ""
+    : selectedNode?.kind === "role"
+      ? `${selectedNode.row.Name} selected, in ${selectedNode.parent?.kind === "outer" ? "Sapiens First Movement" : (selectedNode.parent?.row.Name ?? "Sapiens First Movement")}`
+      : focus.kind === "outer"
+        ? "Showing all circles"
+        : `Showing ${focus.row.Name}: ${focus.children.filter((child) => child.row.Type === "Circle").length} circles, ${focus.children.filter((child) => child.row.Type === "Role").length} roles`;
+
   if (!root || !focus) {
     return (
       <p>No root circle is recorded yet. Use the table to review the roles.</p>
@@ -177,6 +207,11 @@ export default function Circles({
     (a, b) => a.depth - b.depth || b.r - a.r,
   );
   const queryText = query.trim().toLowerCase();
+  const searchHits = queryText
+    ? nodes.filter(
+        (node) => node.kind !== "outer" && matchesQuery(node, queryText, holders),
+      )
+    : [];
   const showing = focus.depth > 0 ? focus.children : [];
 
   return (
@@ -207,7 +242,7 @@ export default function Circles({
                   href={
                     node.depth === 0 ? "#governance/circles" : url(node.row.ID)
                   }
-                  className="text-muted-foreground underline decoration-ink/22 underline-offset-[3px] hover:text-coral-dark"
+                  className="inline-flex min-h-11 items-center text-sm text-muted-foreground underline decoration-ink/22 underline-offset-[3px] hover:text-coral-dark"
                 >
                   {label}
                 </a>
@@ -216,6 +251,80 @@ export default function Circles({
           );
         })}
       </nav>
+      <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm leading-5 text-muted-foreground">
+        <span className="inline-flex items-center gap-2 font-semibold text-ink">
+          <span
+            className="h-3.5 w-3.5 rounded-full border"
+            style={{
+              background: "color-mix(in srgb, #ED3B91 9%, var(--color-paper))",
+              borderColor: "color-mix(in srgb, #ED3B91 90%, var(--color-ink))",
+            }}
+            aria-hidden="true"
+          />
+          Circle
+        </span>
+        <span className="inline-flex items-center gap-2 font-semibold text-ink">
+          <span
+            className="h-3.5 w-3.5 rounded-full border-[1.5px] bg-white"
+            style={{
+              borderColor: "color-mix(in srgb, #ED3B91 90%, var(--color-ink))",
+            }}
+            aria-hidden="true"
+          />
+          Role
+        </span>
+        <span>Select a circle to explore it, or a role to read its responsibilities.</span>
+        <a
+          href="#idx-title"
+          className="ml-auto inline-flex min-h-11 items-center font-semibold text-ink underline underline-offset-2"
+        >
+          View as a list ↓
+        </a>
+      </div>
+      {queryText && (
+        <div className="mt-3 rounded-xl border border-ink/14 bg-white px-4 py-3">
+          {searchHits.length > 0 ? (
+            <>
+              <p className="m-0 text-sm font-semibold text-ink">
+                {searchHits.length}{" "}
+                {searchHits.length === 1 ? "match" : "matches"}
+              </p>
+              <ul className="m-0 mt-2 list-none p-0">
+                {searchHits.slice(0, 12).map((node) => (
+                  <li key={node.row.ID}>
+                    <a
+                      href={url(node.row.ID)}
+                      className="flex min-h-11 items-center gap-2 text-base text-ink no-underline"
+                    >
+                      <span
+                        className="h-2.5 w-2.5 shrink-0 rounded-full"
+                        style={{ background: node.hue }}
+                      />
+                      <span>{node.row.Name}</span>
+                      <span className="text-[13px] text-muted-foreground">
+                        {pathFor(node)}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p className="m-0 text-sm text-ink">
+              No circles or roles match &quot;{query}&quot;. Try another word,
+              or use the list below.
+            </p>
+          )}
+        </div>
+      )}
+      {focus.kind === "outer" && (
+        <p
+          className="mt-2 text-[13px] font-semibold tracking-[0.08em] text-muted-foreground uppercase"
+          aria-hidden="true"
+        >
+          Sapiens First Movement
+        </p>
+      )}
       <div
         ref={chartRef}
         id="atlas-chart"
@@ -249,10 +358,10 @@ export default function Circles({
                     arcWidth < Math.PI * Math.max(arcRadius, 0) * 0.72 &&
                     point.r > 20;
                   const flat =
+                    node.kind !== "outer" &&
                     !arcOk &&
-                    (node.depth === 0 ||
-                      (point.r > 12 &&
-                        (node.depth === 1 || node.parent === focus)));
+                    point.r > 12 &&
+                    (node.depth === 1 || node.parent === focus);
                   if (!arcOk && !flat) return null;
                   return (
                     <path
@@ -285,10 +394,10 @@ export default function Circles({
                 point.r > 20;
               const flat =
                 !role &&
+                node.kind !== "outer" &&
                 !arcOk &&
-                (node.depth === 0 ||
-                  (point.r > 12 &&
-                    (node.depth === 1 || node.parent === focus)));
+                point.r > 12 &&
+                (node.depth === 1 || node.parent === focus);
               const sizes = narrow ? [13, 12, 11, 10] : [14, 13, 12, 11];
               let lines: string[] | null = null;
               let labelSize = 0;
@@ -317,7 +426,8 @@ export default function Circles({
                   .toLowerCase()
                   .includes(queryText);
               const showRing = selectedNode === node && node !== focus;
-              const labelHidden = role ? !lines : !(arcOk || flat);
+              const labelHidden =
+                node.kind === "outer" || (role ? !lines : !(arcOk || flat));
               return (
                 <g
                   key={node.row.ID}
@@ -329,9 +439,11 @@ export default function Circles({
                 >
                   {node.depth > 0 ? (
                     <a
+                      id={`atlas-node-${node.row.ID}`}
                       href={url(node.row.ID)}
                       role="button"
-                      aria-label={`${node.row.Type}: ${node.row.Name}${role ? ", view responsibilities" : ", explore circle"}`}
+                      tabIndex={node.parent === focus ? 0 : -1}
+                      aria-label={`${role ? "Role" : "Circle"}: ${node.row.Name}, in ${node.parent?.kind === "outer" ? "Sapiens First Movement" : (node.parent?.row.Name ?? "Sapiens First Movement")}, ${role ? "view responsibilities" : "explore circle"}`}
                       aria-pressed={selectedNode === node}
                       className="cursor-pointer focus:outline-none focus-visible:[&_.ring]:opacity-100"
                       onMouseEnter={(event) => {
@@ -362,7 +474,7 @@ export default function Circles({
                         r={point.r}
                         fill={circleFill(node)}
                         stroke={circleStroke(node)}
-                        strokeWidth={1.25}
+                        strokeWidth={role ? 1.5 : 1}
                         className="hover:stroke-ink"
                       />
                       <circle
@@ -407,7 +519,7 @@ export default function Circles({
                       ))}
                     </text>
                   )}
-                  {!role && (arcOk || flat) && (
+                  {!role && node.kind !== "outer" && (arcOk || flat) && (
                     <text
                       className={
                         flat
@@ -453,7 +565,7 @@ export default function Circles({
           <p className="mb-2 text-xs font-bold tracking-[0.1em] text-muted-foreground uppercase">
             Inside {focus.row.Name} ({showing.length})
           </p>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {showing.map((child) => (
               <a
                 key={child.row.ID}
@@ -461,8 +573,8 @@ export default function Circles({
                 aria-current={selectedNode === child ? "true" : undefined}
                 className={
                   selectedNode === child
-                    ? "rounded-full border border-coral-dark px-3 py-1.5 text-[13px] font-semibold text-coral-dark ring-1 ring-coral-dark"
-                    : "rounded-full border border-ink/22 bg-white px-3 py-1.5 text-[13px] font-semibold text-ink hover:border-ink"
+                    ? "inline-flex min-h-11 items-center rounded-full border border-coral-dark px-4 text-sm font-semibold text-coral-dark ring-1 ring-coral-dark"
+                    : "inline-flex min-h-11 items-center rounded-full border border-ink/22 bg-white px-4 text-sm font-semibold text-ink hover:border-ink"
                 }
                 style={
                   child.row.Type === "Circle"
@@ -479,9 +591,12 @@ export default function Circles({
           </div>
         </div>
       )}
+      <p className="sr-only" role="status" aria-live="polite">
+        {statusText}
+        {queryText ? ` ${searchHits.length} matches.` : ""}
+      </p>
       <p className="mt-2.5 text-[13px] text-muted-foreground">
-        Select a circle to open it, or a role to read its responsibilities. Size
-        shows nesting, not importance.
+        Sizes show containment, not importance.
       </p>
     </div>
   );

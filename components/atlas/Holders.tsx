@@ -9,30 +9,50 @@ import {
 } from "react";
 import { loadHolderNames } from "@/lib/atlas/holders";
 
-const HoldersContext = createContext<Record<string, string[]> | null>(null);
+type HolderSession = {
+  signedIn: boolean;
+  names: Record<string, string[]> | null;
+};
+
+const empty: HolderSession = { signedIn: false, names: null };
+const HoldersContext = createContext<HolderSession>(empty);
 
 export function HoldersProvider({ children }: { children: ReactNode }) {
-  const [holders, setHolders] = useState<Record<string, string[]> | null>(null);
+  const [session, setSession] = useState<HolderSession>(empty);
   useEffect(() => {
     let current = true;
     loadHolderNames()
-      .then((names) => {
-        if (current) setHolders(names);
+      .then((next) => {
+        if (current) setSession(next);
       })
       .catch(() => {
-        if (current) setHolders(null);
+        if (current) setSession(empty);
       });
     return () => {
       current = false;
     };
   }, []);
   return (
-    <HoldersContext.Provider value={holders}>
-      {children}
-    </HoldersContext.Provider>
+    <HoldersContext.Provider value={session}>{children}</HoldersContext.Provider>
   );
 }
 
-export function useHolders() {
+export function useHolderSession() {
   return useContext(HoldersContext);
+}
+
+export function useHolders() {
+  return useContext(HoldersContext).names;
+}
+
+export function AtlasRolesLink() {
+  const { signedIn } = useHolderSession();
+  return (
+    <a
+      href="/atlas/me"
+      className="inline-flex min-h-11 items-center text-sm font-semibold text-ink underline underline-offset-2"
+    >
+      {signedIn ? "My roles" : "Sign in to see your roles"} →
+    </a>
+  );
 }

@@ -102,9 +102,11 @@ export function circleFill(node: PackedNode) {
 export function circleStroke(node: PackedNode) {
   if (node.kind === "outer")
     return "color-mix(in srgb, var(--color-ink) 22%, transparent)";
-  if (node.kind === "role") return `color-mix(in srgb, ${node.hue} 55%, white)`;
-  if (node.kind === "anchor") return "color-mix(in srgb, #C99A00 45%, white)";
-  return `color-mix(in srgb, ${node.hue} 40%, white)`;
+  if (node.kind === "role" || node.kind === "branch" || node.kind === "nested")
+    return `color-mix(in srgb, ${node.hue} 90%, var(--color-ink))`;
+  if (node.kind === "anchor")
+    return "color-mix(in srgb, #C99A00 80%, var(--color-ink))";
+  return `color-mix(in srgb, ${node.hue} 90%, var(--color-ink))`;
 }
 
 export function circleLayout(records: AtlasRow[]): CircleModel {
@@ -143,7 +145,7 @@ export function circleLayout(records: AtlasRow[]): CircleModel {
 
   function depths(node: PackedNode, depth: number) {
     node.depth = depth;
-    node.band = depth === 0 ? 30 : depth === 1 ? 24 : 21;
+    node.band = depth === 0 ? 16 : depth === 1 ? 24 : 21;
     node.children.forEach((child) => depths(child, depth + 1));
   }
   if (root) depths(root, 0);

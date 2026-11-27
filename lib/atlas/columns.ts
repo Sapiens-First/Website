@@ -31,7 +31,6 @@ export const domainColumns = {
   "Key Features": "key_features",
   User: "target_user",
   "Value Proposition": "value_proposition",
-  "SOP Notes": "sop_notes",
 } as const;
 
 export const relationshipColumns = {

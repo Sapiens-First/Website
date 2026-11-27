@@ -126,6 +126,7 @@ export function extraFields(row: AtlasRow) {
     "Assignment basis",
     "Person name",
     "Assignee",
+    "SOP Notes",
   ]);
   const fields = Object.entries(row).filter(
     ([key, value]) =>

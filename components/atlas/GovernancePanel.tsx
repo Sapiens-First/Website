@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import AssigneeChip from "@/components/atlas/AssigneeChip";
 import {
   ATLAS_ORGANIZATION_NAME,
@@ -30,7 +30,7 @@ function BulletList({ entries, hue }: { entries: string[]; hue: string }) {
         return (
           <li
             key={entry}
-            className="relative mt-2 pl-4.5 text-[15px] leading-normal before:absolute before:top-[0.62em] before:left-0.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-(--hue) first:mt-0"
+            className="relative mt-2 pl-4.5 text-base leading-6 before:absolute before:top-[0.7em] before:left-0.5 before:h-1.5 before:w-1.5 before:rounded-full before:bg-ink/40 first:mt-0"
           >
             {labeled ? (
               <>
@@ -90,14 +90,46 @@ export default function GovernancePanel({
     document.getElementById("record-title")?.focus({ preventScroll: true });
   }, [selectedNode]);
 
+  const desktop = useSyncExternalStore(
+    (notify) => {
+      const query = window.matchMedia("(min-width: 1024px)");
+      query.addEventListener("change", notify);
+      return () => query.removeEventListener("change", notify);
+    },
+    () => window.matchMedia("(min-width: 1024px)").matches,
+    () => true,
+  );
+  const [dismissedId, setDismissedId] = useState("");
+  const sheetOpen =
+    !desktop && Boolean(selectedNode) && dismissedId !== selected;
+  function dismissSheet() {
+    setDismissedId(selected);
+    document.getElementById(`atlas-node-${selected}`)?.focus();
+  }
+  useEffect(() => {
+    if (!sheetOpen) return;
+    const inert = [
+      document.querySelector("header"),
+      document.querySelector("footer"),
+      document.getElementById("atlas-hero"),
+      document.getElementById("atlas-toolbar"),
+      document.getElementById("atlas-map"),
+      document.getElementById("atlas-index"),
+    ].filter((node): node is HTMLElement => node instanceof HTMLElement);
+    inert.forEach((node) => node.setAttribute("inert", ""));
+    return () => inert.forEach((node) => node.removeAttribute("inert"));
+  }, [sheetOpen]);
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== "Escape") return;
-      closeTo(selectedNode);
+      if (!desktop && selectedNode) {
+        setDismissedId(selected);
+        document.getElementById(`atlas-node-${selected}`)?.focus();
+      } else closeTo(selectedNode);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [selectedNode]);
+  }, [desktop, selected, selectedNode]);
 
   const row = selectedNode?.row;
   const parentName =
@@ -108,14 +140,26 @@ export default function GovernancePanel({
   const privileges = items(row?.Privileges || "");
 
   return (
+    <>
+    {sheetOpen && (
+      <button
+        type="button"
+        className="fixed inset-0 z-45 bg-ink/18"
+        aria-label="Close details"
+        onClick={dismissSheet}
+      />
+    )}
     <aside
       className={cn(
         "border-ink/14 bg-white",
         "lg:sticky lg:top-21 lg:block lg:max-h-[calc(100vh-108px)] lg:overflow-auto lg:rounded-2xl lg:border lg:p-6",
-        "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:max-h-[62vh] max-lg:overflow-auto max-lg:rounded-t-[20px] max-lg:px-5 max-lg:pt-3 max-lg:pb-7 max-lg:shadow-[0_-12px_40px_rgba(24,37,31,0.18)] max-lg:transition-transform max-lg:duration-300 max-lg:ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:max-lg:transition-none",
-        selectedNode ? "max-lg:translate-y-0" : "max-lg:hidden",
+        "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:max-h-[62vh] max-lg:max-h-[62dvh] max-lg:overflow-auto max-lg:rounded-t-[20px] max-lg:px-5 max-lg:pt-3 max-lg:pb-[calc(28px+env(safe-area-inset-bottom))] max-lg:shadow-[0_-12px_40px_rgba(24,37,31,0.18)]",
+        sheetOpen ? "max-lg:translate-y-0" : "max-lg:hidden",
       )}
-      aria-label="Details"
+      role={sheetOpen ? "dialog" : undefined}
+      aria-modal={sheetOpen ? true : undefined}
+      aria-labelledby={sheetOpen ? "record-title" : undefined}
+      aria-label={sheetOpen ? undefined : "Details"}
     >
       {selectedNode && row ? (
         <>
@@ -125,9 +169,9 @@ export default function GovernancePanel({
           />
           <button
             type="button"
-            className="absolute top-4.5 right-3.5 grid h-8 w-8 cursor-pointer place-items-center rounded-full border border-ink/14 bg-white text-muted-foreground hover:text-ink lg:top-3.5"
+            className="absolute top-2.5 right-2.5 grid h-11 w-11 cursor-pointer place-items-center rounded-full border border-ink/14 bg-white text-muted-foreground hover:text-ink"
             aria-label="Close details"
-            onClick={() => closeTo(selectedNode)}
+            onClick={() => (desktop ? closeTo(selectedNode) : dismissSheet())}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
               <path
@@ -197,7 +241,7 @@ export default function GovernancePanel({
                   <a
                     key={child.row.ID}
                     href={url(child.row.ID)}
-                    className="rounded-full border px-3 py-1.5 text-[13px] font-semibold"
+                    className="inline-flex min-h-11 items-center rounded-full border px-4 text-sm font-semibold"
                     style={
                       child.row.Type === "Circle"
                         ? {
@@ -253,10 +297,13 @@ export default function GovernancePanel({
             </p>
             <ul className="m-0 grid list-none gap-2.5 p-0">
               {legend.map((node) => (
-                <li key={node.row.ID}>
+                <li
+                  key={node.row.ID}
+                  className={node.parent?.kind === "anchor" ? "pl-4" : undefined}
+                >
                   <a
                     href={url(node.row.ID)}
-                    className="flex items-center gap-2.5 text-sm hover:text-coral-dark"
+                    className="flex min-h-11 items-center gap-2.5 text-sm hover:text-coral-dark"
                   >
                     <span
                       className="h-4 w-4 shrink-0 rounded-full border-[1.5px]"
@@ -267,7 +314,9 @@ export default function GovernancePanel({
                     />
                     {node.row.Name}
                     <span className="ml-auto text-[13px] text-muted-foreground">
-                      {roleCount(node)} roles
+                      {node.kind === "anchor"
+                        ? `${roleCount(node)} in total`
+                        : `${roleCount(node)} roles`}
                     </span>
                   </a>
                 </li>
@@ -304,5 +353,6 @@ export default function GovernancePanel({
         </>
       )}
     </aside>
+    </>
   );
 }

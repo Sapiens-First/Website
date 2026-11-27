@@ -42,7 +42,6 @@ export const config = {
     "/auth/:path*",
     "/onboarding/:path*",
     "/agreement/:path*",
-    "/membership/:path*",
     "/dashboard/:path*",
   ],
 };

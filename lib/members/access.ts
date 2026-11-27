@@ -81,40 +81,13 @@ async function readProfile(
   >;
 }
 
-export type MembershipRow = {
-  allowed: boolean;
-  status: string;
-  stripe_customer_id: string | null;
-  stripe_price_id: string | null;
-  trial_started_at: string | null;
-  trial_end: string | null;
-  current_period_end: string | null;
-  cancel_at_period_end: boolean;
-};
-
-// One read returns both the database-clock access decision and display fields.
-export const getMembershipState = cache(async (returnTo = "/dashboard") => {
+export const getMembershipAccess = cache(async (returnTo = "/dashboard") => {
   const next = memberReturnPath(returnTo);
-  const account = await getCurrentAccount();
-  if (!account) redirect(`/join?next=${encodeURIComponent(next)}`);
-  const [profile, { data, error }] = await Promise.all([
-    readProfile(account.supabase, account.user.id, next),
-    account.supabase.rpc("membership_access").maybeSingle<MembershipRow>(),
-  ]);
+  const account = await requireAccountProfile(next);
+  const { profile } = account;
   if (!isProfileComplete(profile))
     redirect(`/onboarding?next=${encodeURIComponent(next)}`);
   if (!hasAcceptedAgreement(profile))
     redirect(`/agreement?next=${encodeURIComponent(next)}`);
-  if (error) throw new Error("Your membership access could not be verified.");
-  return {
-    account: { ...account, profile },
-    allowed: Boolean(data?.allowed),
-    membership: data,
-  };
-});
-
-export const getMembershipAccess = cache(async () => {
-  const { account, allowed } = await getMembershipState();
-  if (!allowed) redirect("/membership");
   return account;
 });

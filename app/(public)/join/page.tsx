@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/site";
 import { JoinView } from "@/components/members/JoinView";
-import { getPublicAccount, getMembershipState } from "@/lib/members/access";
+import { getPublicAccount, getMembershipAccess } from "@/lib/members/access";
 import { redirect } from "next/navigation";
 import { memberReturnPath } from "@/lib/members/interests";
-import { TRIAL_DAYS } from "@/lib/members/plans";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = pageMetadata({
   title: "Join",
-  description: `Join the pro-human movement. Start free for ${TRIAL_DAYS} days, then contribute $5, $15 or $50 a month for the same full membership.`,
+  description:
+    "Join the pro-human movement. Create your free Sapiens First membership and connect with people nearby.",
   path: "/join",
 });
 
@@ -35,11 +35,8 @@ export default async function Page({
     message =
       "Something went wrong checking if you’re signed in. Please try again.";
   if (!message && account) {
-    // Onboarding returns to `next` immediately when the profile is complete.
-    if (next !== "/dashboard" && next !== "/membership")
-      redirect(`/onboarding?next=${encodeURIComponent(next)}`);
-    const { allowed } = await getMembershipState();
-    redirect(allowed ? "/dashboard" : "/membership");
+    await getMembershipAccess(next);
+    redirect(next);
   }
   return <JoinView next={next} message={message} />;
 }

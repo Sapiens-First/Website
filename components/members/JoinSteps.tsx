@@ -1,12 +1,12 @@
 import { cn } from "@/lib/cn";
 
-const steps = ["Sign in", "About you", "Agree", "Contribute"] as const;
+const steps = ["Sign in", "About you", "Agree"] as const;
 
 export function JoinSteps({
   current,
   className,
 }: {
-  current: 1 | 2 | 3 | 4;
+  current: 1 | 2 | 3;
   className?: string;
 }) {
   return (
@@ -14,7 +14,7 @@ export function JoinSteps({
       <p className="mb-2 font-body text-xs font-black tracking-widest uppercase sm:hidden">
         Step {current} of {steps.length} · {steps[current - 1]}
       </p>
-      <ol className="grid grid-cols-4 border-2 border-ink bg-white">
+      <ol className="grid grid-cols-3 border-2 border-ink bg-white">
         {steps.map((label, index) => {
           const number = index + 1;
           const state =

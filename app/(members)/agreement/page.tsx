@@ -17,7 +17,7 @@ export default async function AgreementPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const next = memberReturnPath((await searchParams).next ?? "/membership");
+  const next = memberReturnPath((await searchParams).next);
   const { profile } = await requireAccountProfile(next);
   if (!isProfileComplete(profile))
     redirect(`/onboarding?next=${encodeURIComponent(next)}`);

@@ -14,15 +14,13 @@ export default async function DashboardPage({
   searchParams: Promise<{
     error?: string;
     updated?: string;
-    membership?: string;
   }>;
 }) {
   const { profile } = await getMembershipAccess();
-  const { error, updated, membership } = await searchParams;
+  const { error, updated } = await searchParams;
   return (
     <MemberWelcome
       name={profile.full_name}
-      confirmed={membership === "confirmed"}
       notice={
         <>
           {updated === "profile" && (

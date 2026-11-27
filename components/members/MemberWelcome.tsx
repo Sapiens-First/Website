@@ -31,38 +31,19 @@ const nextSteps = [
 
 export function MemberWelcome({
   name,
-  confirmed,
   notice,
 }: {
   name: string | null;
-  confirmed: boolean;
   notice?: ReactNode;
 }) {
   return (
     <main className="py-12 sm:py-20">
       <Container width="content">
-        <Kicker>{confirmed ? "You’re a member" : "Your account"}</Kicker>
+        <Kicker>You’re a member</Kicker>
         <h1 className="font-display text-5xl leading-none font-extrabold uppercase sm:text-7xl">
-          {confirmed ? (
-            <>
-              Welcome in
-              {name ? `, ${name.split(/\s+/)[0]}` : ""}
-              <span className="text-coral">.</span>
-            </>
-          ) : name ? (
-            `Welcome, ${name}.`
-          ) : (
-            "Welcome to Sapiens First."
-          )}
+          {name ? `Welcome, ${name}.` : "Welcome to Sapiens First."}
         </h1>
-        {confirmed && (
-          <p
-            role="status"
-            className="mt-6 max-w-2xl border-2 border-ink bg-brand-yellow p-4 font-bold"
-          >
-            Your membership is confirmed. Thank you for standing with us.
-          </p>
-        )}
+        <p className="mt-6 text-lg">Your membership is free. Welcome in.</p>
         {notice}
 
         <section aria-labelledby="next-steps" className="mt-12">
@@ -70,7 +51,7 @@ export function MemberWelcome({
             id="next-steps"
             className="font-display text-3xl font-extrabold uppercase"
           >
-            {confirmed ? "Start here" : "Your next steps"}
+            Your next steps
           </h2>
           <ol className="mt-5 grid gap-4 md:grid-cols-3">
             {nextSteps.map((step, index) => (
@@ -116,9 +97,6 @@ export function MemberWelcome({
             Your account
           </h2>
           <div className="mt-5 flex flex-wrap gap-4">
-            <ActionLink href="/membership" variant="outline">
-              Manage membership
-            </ActionLink>
             <ActionLink href="/dashboard/profile" variant="outline">
               Edit your profile
             </ActionLink>

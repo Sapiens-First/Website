@@ -5,7 +5,7 @@ import { Container } from "@/components/layout/Container";
 export const metadata: Metadata = pageMetadata({
   title: "Privacy",
   description:
-    "How Sapiens First handles signups, campaign signatures, optional contact details and communication preferences.",
+    "How Sapiens First handles member profiles, campaign signatures and communication preferences.",
   path: "/privacy",
 });
 
@@ -34,47 +34,19 @@ export default function Page() {
                 details public.
               </p>
               <p>
-                Your profile asks for your name, country and city so we can
-                connect you with people nearby. Everything else is optional.
-                Giving us your phone number doesn&apos;t mean we&apos;ll call or
-                text you.
+                Your profile requires your name, country, city, postal code and
+                phone number so we can connect you with people nearby. Your
+                state or region and street address are optional. Giving us your
+                phone number doesn&apos;t mean we&apos;ll call or text you.
               </p>
               <p>
                 When you agree to the member agreement, we note which version
-                you agreed to and when.
+                you agreed to and when. Membership is currently free.
               </p>
               <p>
                 We use cookies to keep you signed in. You can see and edit your
                 profile in your member dashboard, or email us to get a copy of
                 your data or have it deleted.
-              </p>
-            </div>
-            <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">
-              <h2 className="font-display text-3xl font-extrabold uppercase">
-                Membership payments
-              </h2>
-              <p>
-                Membership is $5, $15 or $50 USD a month, and every amount gets
-                you the same membership. New members can try it free for 14 days
-                with a card on file. After that, your monthly amount is charged
-                automatically until you cancel.
-              </p>
-              <p>
-                Payments go through Stripe. We share your name and email with
-                Stripe, and we keep a record of your membership status and
-                payment dates. We never see or store your full card number.
-                Stripe looks after your card details under its{" "}
-                <a className="underline" href="https://stripe.com/privacy">
-                  privacy policy
-                </a>
-                .
-              </p>
-              <p>
-                You can cancel anytime from your membership page. You keep
-                access until the end of your free trial or the month you paid
-                for. We don&apos;t refund part-months unless the law requires
-                it. If a payment fails, membership is paused until it goes
-                through.
               </p>
             </div>
             <div className="flex flex-col gap-4 text-lg leading-relaxed text-ink">

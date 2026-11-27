@@ -22,14 +22,14 @@ export default async function OnboardingPage({
 }: {
   searchParams: Promise<{ next?: string }>;
 }) {
-  const next = memberReturnPath((await searchParams).next ?? "/membership");
+  const next = memberReturnPath((await searchParams).next);
   const { user, profile } = await requireAccountProfile(next);
   if (isProfileComplete(profile)) redirect(next);
   const countries = getProfileCountries();
   return (
     <OnboardingView
       email={user.email}
-      joining={next === "/membership" || next === "/dashboard"}
+      joining={next === "/dashboard"}
       next={next}
       initialValues={initialProfileValues(
         profile,
